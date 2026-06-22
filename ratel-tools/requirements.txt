@@ -1,0 +1,11 @@
+# RATEL build pipeline (Python) — pinned for CI reproducibility
+jsonschema>=4.20
+referencing>=0.30
+pytest>=8.0
+# pinned reference tokenizers for the 12-axis gate (P0-7)
+jieba==0.42.1
+fugashi==1.5.2
+unidic-lite==1.0.8
+regex==2026.5.9
+# Thai is "ICU/dictionary" and not in the EN·ES·TA·JA pilot — PyICU is optional:
+# PyICU>=2.12  # enable when onboarding TH (needs libicu or a manylinux wheel)

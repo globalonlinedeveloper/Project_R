@@ -11,6 +11,7 @@ from .gate import DEFAULT_THRESHOLD, decide  # noqa: E402
 from .generate import Generator, StubGenerator  # noqa: E402
 from .jury import Jury, StubJury  # noqa: E402
 from .types import Decision  # noqa: E402
+from .axis_gate import gate_batch  # noqa: E402
 from .validate import run_validators  # noqa: E402
 
 FIXED_NOW = "2026-06-23T00:00:00Z"
@@ -80,11 +81,15 @@ def main(argv=None) -> int:
             if errs:
                 print(f"FATAL: published {table} row {i} invalid: {errs}", file=sys.stderr)
                 return 2
+    report = gate_batch(batch["tables"])
+    if not report.passed:
+        print(f"FATAL: 12-axis gate failed: {[r.name for r in report.failures()]}", file=sys.stderr)
+        return 3
     if args.out:
         pathlib.Path(args.out).write_text(json.dumps(batch, ensure_ascii=False, indent=2), encoding="utf-8")
-        print(f"wrote {args.out}: {summary}")
+        print(f"wrote {args.out}: {summary} | axes={report.summary()}")
     else:
-        print("DRY-RUN", json.dumps(summary), "published:", {k: len(v) for k, v in batch["tables"].items()})
+        print("DRY-RUN", json.dumps(summary), "published:", {k: len(v) for k, v in batch["tables"].items()}, "| axes:", report.summary())
     return 0
 
 
