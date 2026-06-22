@@ -4,6 +4,7 @@
 ## Header
 - **Repo:** https://github.com/globalonlinedeveloper/Project_R (default `main`)
 - **★ STAGE 1 COMPLETE** — Phases 0–3 ✓ (Ckpt A schema · B model+loader · C pipeline+gate · **D schema lock**). **Next: Stage 2 — Modern UI/UX** (local, NO DB). **Autonomy:** L1.
+- **STAGE 2 — Modern UI/UX IN PROGRESS (S13, auto/L2):** S2-Inc1 (design system) + S2-Inc2 (component/motion/celebration kit) shipped; core-loop screens on the loader next.
 - **Invariants:** local-only · **NO DB** · **subscription-only generation (NO metered API)** · Supabase untouched · `Apps/RATEL_REQUIREMENTS.md` frozen at **161** · `schema/schema.json` FROZEN (Ckpt A) — generate from it, zero schema change.
 - **Stack:** Flutter 3.44.1 / Dart 3.12.1 · freezed 4.0.0-dev.3 + json_serializable 6.14 · Python 3 · JSON-Schema 2020-12 · Riverpod · go_router · Drift (Stage 2+).
 - **Planning (mounted, canonical):** `Apps/tasks/SPEC.md` · `plan.md` · `todo.md` · `idea-cheap-phone-champion.md` · `Apps/RATEL_REQUIREMENTS.md` (WHAT) · `Apps/RATEL_PROJECT_STATE.md` (master).
@@ -18,6 +19,11 @@
 - **Gate:** CI = `flutter-gate` (build_runner→analyze→test→build web) + `python-schema-gate` (pytest: schema+pipeline+validators+tokenizers+axis+schema-lock · model-drift). "Done"=CI green. Poll `/commits/<sha>/check-runs?cb=<ts>`.
 - **Run pipeline:** `cd ratel-tools && python3 -m pipeline.run --locale en --type mcq --count 3` · **Re-author seeds:** `python3 ratel-tools/author_seeds.py`.
 
+## Stage 2 increment log (newest first) — SESSION 13 (Modern UI/UX - local - NO DB - schema frozen)
+- **S2-Inc2 done (`1d903ae`)** - component + motion + celebration kit. RatelButton (token-styled over Material -> rest/hover/focus/pressed/disabled +loading, R-L17; 48dp, R-K8), RatelCard, RatelScreen (centered maxContentWidth for cheap phones); motion kit R-L16 (CountUp - ProgressRing ring-fill - FadeThrough); RatelCelebration R-L19 (GPU particles; flourish/lessonComplete/levelUp escalation). All MotionTier-aware (static -> still, R-N7). 41 Dart tests green; analyze clean.
+- **S2-Inc1 done (`6ba8922`)** - design-system foundation `lib/core/design_system/`: color/spacing/type/motion tokens (R-L16) + RatelTheme light+dark (ThemeExtension); MotionTier resolver (R-N7 - OS reduce-motion hard floor over perf/low-power); WCAG contrast util + AA contrast tests over every token pair (R-K8); token-lint test guarding lib/features vs raw Color/Duration/Curve (R-N6); main.dart routed through RatelTheme (boot-marker smoke intact). 32 Dart tests green.
+- **CI note (S13):** web_fetch GitHub check-runs polling returned empty/stale-cached this session, so CI green is NOT API-confirmed. The local gate (build_runner -> analyze -> test = the exact CI commands) is green for both increments and `lib/` is web-safe. **Confirm flutter-gate on the Actions tab for 6ba8922 + 1d903ae.**
+
 ## Increment log (newest first) — SESSION 12, all CI-green
 - **T3 ✓ (★ Ckpt D — SCHEMA LOCK · `1896cd2`)** — pilot seeds `assets/content/{en,es,ta,ja,_pilot}/seed.batch.json` (JA tokens fugashi-aligned, TA graphemes UAX-29; via `author_seeds.py`). `tests/test_schema_lock.py` + `test/content/seed_load_test.dart`: every seed schema-valid at **zero schema change**, passes the 12-axis gate, loads via the fail-closed loader; union exercises all 12 axes. `docs/SCHEMA_LOCK.md` = signed checklist (R-O1 checks 1–3). **★ STAGE 1 COMPLETE.**
 - **T2.3 ✓ (★ Ckpt C · `f05be1f`)** — 12-axis gate + pinned tokenizers (fugashi+unidic-lite JA · jieba ZH · regex UAX-29 · ICU optional); `boundary_f1`; wired into `run.main`.
@@ -29,6 +35,9 @@
 - **T0.1 ✓ (genesis · `5beff8a`)** — Flutter scaffold + CI gate (bundle `com.learnwithratel.ratel`).
 
 ## Gotchas
+- **Secrets:** `source Apps/.cowork-private/secrets.env` with `2>/dev/null` - a non-bash line (~17) errors under `set -e`; `GITHUB_PAT` still loads from an earlier line. Never `set -e` across the source.
+- **CI status polling (S13):** web_fetch on `api.github.com/.../check-runs` returns empty and plain repo metadata serves a STALE cached body - unreliable for live CI here. Trust the local gate; confirm via the Actions tab or a future interactive session.
+- **Flutter SDK path:** install to `/tmp/flutter` (root `/` is NOT writable; `/flutter` -> Permission denied). `PUB_CACHE=/tmp/.pub-cache`. `-b 3.44.1` carried the tag (no 0.0.0 trap).
 - Subscription-only: never add a metered-API call in `generate`/`jury`; keep pipeline tests offline.
 - Loader/pipeline web-safe (no `dart:io` in `lib/`; gate builds web). json_serializable: `explicit_to_json` + `disallow_unrecognized_keys` + `checked` in `build.yaml`.
 - `flutter analyze` (CI) fails on lint infos. freezed 4.x = `@freezed abstract class X with _$X`; `freezed_annotation` re-exports `json_annotation`.
