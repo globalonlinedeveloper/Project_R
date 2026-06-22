@@ -3,12 +3,13 @@ import 'package:go_router/go_router.dart';
 import '../core/design_system/tokens/ratel_motion.dart';
 import '../features/adventures/adventures_screen.dart';
 import '../features/home/home_screen.dart';
+import '../features/onboarding/onboarding_flow.dart';
 import '../features/practice/practice_screen.dart';
 import '../features/profile/profile_screen.dart';
+import 'app_flags.dart';
 import 'shell.dart';
 
-/// Defined page transition (R-L17: primary navigation never hard-cuts), timed
-/// from motion tokens (R-L16) so the build's token-lint stays satisfied.
+/// Defined page transition (R-L17), timed from motion tokens (R-L16).
 CustomTransitionPage<void> _fadePage(Widget child) {
   return CustomTransitionPage<void>(
     child: child,
@@ -19,11 +20,24 @@ CustomTransitionPage<void> _fadePage(Widget child) {
   );
 }
 
-/// Tab-shell IA (R-L10): Learn / Practice / Adventures / Profile, each an
-/// independently-stateful branch.
+/// First-run gate: route to /onboarding until it completes.
+String? _redirect(BuildContext context, GoRouterState state) {
+  final atOnboarding = state.matchedLocation == '/onboarding';
+  if (!onboardingComplete.value && !atOnboarding) return '/onboarding';
+  if (onboardingComplete.value && atOnboarding) return '/learn';
+  return null;
+}
+
+/// Tab-shell IA (R-L10): Learn / Practice / Adventures / Profile.
 final GoRouter ratelRouter = GoRouter(
   initialLocation: '/learn',
+  refreshListenable: onboardingComplete,
+  redirect: _redirect,
   routes: [
+    GoRoute(
+      path: '/onboarding',
+      pageBuilder: (c, s) => _fadePage(const OnboardingFlow()),
+    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
           RatelShell(navigationShell: navigationShell),
