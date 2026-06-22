@@ -46,7 +46,7 @@ jobs:
           python-version: '3.12'
       - name: Install schema tooling
         run: pip install "jsonschema>=4.20" "referencing>=0.30" pytest
-      - name: Schema lint + conformance fixtures (T0.2)
+      - name: pytest — schema + pipeline (T0.2 · T2.1)
         run: python -m pytest ratel-tools/tests -q
       - name: Model drift — regenerate Dart from schema, assert no diff (schema is the SoT)
         run: |
