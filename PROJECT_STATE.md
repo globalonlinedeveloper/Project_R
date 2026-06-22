@@ -19,7 +19,7 @@
 - **Gate:** `.github/workflows/ci.yml` (analyze + test + build web). "Done" = CI green.
 
 ## Increment log (newest first)
-- **2026-06-23 · SESSION 12 · T0.1 ✓ (genesis)** — provisioned Flutter 3.44.1/Dart 3.12.1 in the VM; `flutter create` scaffold (project `ratel`, bundle `com.learnwithratel.ratel`, platforms android/web/linux); replaced the counter demo with a minimal boot shell (`boot-marker`) + smoke test; **local `flutter analyze` clean + `flutter test` green**; added CI gate, hardened `.gitignore`, README, this tracker. [CI green = pending first push]
+- **2026-06-23 · SESSION 12 · T0.1 ✓ (genesis)** — provisioned Flutter 3.44.1/Dart 3.12.1 in the VM; `flutter create` scaffold (project `ratel`, bundle `com.learnwithratel.ratel`, platforms android/web/linux); replaced the counter demo with a minimal boot shell (`boot-marker`) + smoke test; **local `flutter analyze` clean + `flutter test` green**; added CI gate, hardened `.gitignore`, README, this tracker. **CI GREEN** (run on 5beff8a)
 
 ## Gotchas
 - `flutter analyze` (what CI runs) FAILS on lint **infos**; `dart analyze` exits 0 on them — always gate with `flutter analyze`.
@@ -35,7 +35,8 @@
 4. **T3.1–3.5** pilot seeds EN·ES·TA·JA+B1 (zero schema change) → **★ Ckpt D schema lock**.
 
 ## SCORE / RETRO
-- (set at session end)
+- **SCORE (S12):** 1 increment shipped (T0.1) · 0 CI failures · 0 avoidable retries · clean handoff.
+- **RETRO:** Flutter VM install (2 legs under the 45s cap) was the main setup cost — resumable recipe captured in the resume playbook. Gotcha: jsonschema preinstalled at 3.2.0 (Draft-7 only) -> T0.2 must force-upgrade to >=4.x for JSON-Schema-2020-12.
 
 ## Kickoff line (next session)
 "Read Project_R/PROJECT_STATE.md + Apps/RATEL_PROJECT_STATE.md (SESSION 12), then proceed with T0.2 (schema.json) in auto mode — TDD, CI-green before done."
