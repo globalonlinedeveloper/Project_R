@@ -1,0 +1,159 @@
+{
+  "batch_id": "batch_es_seed_0001",
+  "schema_version": "2020-12-1",
+  "locale": "es",
+  "tables": {
+    "locale": [
+      {
+        "code": "es",
+        "name": "Español",
+        "direction": "ltr",
+        "plural_categories": [
+          "one",
+          "many",
+          "other"
+        ],
+        "script_meta": {
+          "script": "Latn",
+          "uses_spaces": true
+        },
+        "tts_tier": "hd",
+        "pron_tier": "asr",
+        "pron_method": "asr"
+      }
+    ],
+    "vocab_entry": [
+      {
+        "vocab_id": "vocab_comer_es",
+        "locale": "es",
+        "lemma": "comer",
+        "pos": "verb",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "sense": [
+      {
+        "sense_id": "sense_comer_eat",
+        "vocab_id": "vocab_comer_es",
+        "pos": "verb",
+        "provenance": {
+          "batch_id": "batch_es_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "sentence": [
+      {
+        "sentence_id": "sentence_es_1",
+        "locale": "es",
+        "target_text": "Yo como pan.",
+        "tokens": [
+          {
+            "surface": "Yo"
+          },
+          {
+            "surface": "como",
+            "lemma_ref": "vocab_comer_es"
+          },
+          {
+            "surface": "pan"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "item": [
+      {
+        "item_id": "item_es_translate_1",
+        "locale": "es",
+        "exercise_type": "translate",
+        "enum_version": 1,
+        "prompt_ref": "prompt_es_translate_1",
+        "answer_spec": {
+          "accepted": [
+            "yo como pan",
+            "como pan"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "strip_diacritics": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_present"
+        ],
+        "cefr_level": "A1",
+        "source_locale": "en",
+        "contrast_type": "translate_from_l1",
+        "direction": "l1_to_l2",
+        "provenance": {
+          "batch_id": "batch_es_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "gloss": [
+      {
+        "content_id": "sense_comer_eat",
+        "content_kind": "sense",
+        "ui_locale": "ta",
+        "text": "சாப்பிடு",
+        "provenance": {
+          "batch_id": "batch_es_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "sense_comer_eat",
+        "content_kind": "sense",
+        "ui_locale": "en",
+        "text": "to eat",
+        "provenance": {
+          "batch_id": "batch_es_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ]
+  }
+}

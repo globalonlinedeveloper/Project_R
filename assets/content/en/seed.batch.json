@@ -1,0 +1,221 @@
+{
+  "batch_id": "batch_en_seed_0001",
+  "schema_version": "2020-12-1",
+  "locale": "en",
+  "tables": {
+    "locale": [
+      {
+        "code": "en",
+        "name": "English",
+        "direction": "ltr",
+        "plural_categories": [
+          "one",
+          "other"
+        ],
+        "script_meta": {
+          "script": "Latn",
+          "uses_spaces": true
+        },
+        "tts_tier": "hd",
+        "pron_tier": "asr",
+        "pron_method": "asr",
+        "cefr_ceiling": "C2"
+      }
+    ],
+    "vocab_entry": [
+      {
+        "vocab_id": "vocab_eat_en",
+        "locale": "en",
+        "lemma": "eat",
+        "pos": "verb",
+        "frequency_rank": 120,
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "sense": [
+      {
+        "sense_id": "sense_eat_consume",
+        "vocab_id": "vocab_eat_en",
+        "pos": "verb",
+        "provenance": {
+          "batch_id": "batch_en_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "sentence": [
+      {
+        "sentence_id": "sentence_en_1",
+        "locale": "en",
+        "target_text": "I eat bread.",
+        "tokens": [
+          {
+            "surface": "I"
+          },
+          {
+            "surface": "eat",
+            "lemma_ref": "vocab_eat_en",
+            "features": {
+              "tense": "pres"
+            }
+          },
+          {
+            "surface": "bread"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_2",
+        "locale": "en",
+        "target_text": "She reads a book.",
+        "tokens": [
+          {
+            "surface": "She"
+          },
+          {
+            "surface": "reads",
+            "lemma_ref": "vocab_read_en",
+            "features": {
+              "tense": "pres",
+              "person": "3"
+            }
+          },
+          {
+            "surface": "a"
+          },
+          {
+            "surface": "book"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_en_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "item": [
+      {
+        "item_id": "item_en_mcq_1",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "enum_version": 1,
+        "prompt_ref": "prompt_en_mcq_1",
+        "answer_spec": {
+          "accepted": [
+            "eat"
+          ],
+          "normalization_flags": {
+            "fold_case": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_present_simple"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "provenance": {
+          "batch_id": "batch_en_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_cloze_1",
+        "locale": "en",
+        "exercise_type": "cloze",
+        "enum_version": 1,
+        "prompt_ref": "prompt_en_cloze_1",
+        "answer_spec": {
+          "accepted": [
+            "eat"
+          ]
+        },
+        "skill_ids": [
+          "skill_en_present_simple"
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "gloss": [
+      {
+        "content_id": "sense_eat_consume",
+        "content_kind": "sense",
+        "ui_locale": "en",
+        "text": "to eat",
+        "provenance": {
+          "batch_id": "batch_en_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "sense_eat_consume",
+        "content_kind": "sense",
+        "ui_locale": "es",
+        "text": "comer",
+        "provenance": {
+          "batch_id": "batch_en_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ]
+  }
+}

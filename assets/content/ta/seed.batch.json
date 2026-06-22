@@ -1,0 +1,104 @@
+{
+  "batch_id": "batch_ta_seed_0001",
+  "schema_version": "2020-12-1",
+  "locale": "ta",
+  "tables": {
+    "locale": [
+      {
+        "code": "ta",
+        "name": "தமிழ்",
+        "direction": "ltr",
+        "plural_categories": [
+          "one",
+          "other"
+        ],
+        "script_meta": {
+          "script": "Taml",
+          "uses_spaces": true,
+          "has_grapheme_clusters": true
+        },
+        "tts_tier": "basic",
+        "pron_tier": "shadowing",
+        "pron_method": "shadowing"
+      }
+    ],
+    "vocab_entry": [
+      {
+        "vocab_id": "vocab_naai_ta",
+        "locale": "ta",
+        "lemma": "நாய்",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_ta_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "sense": [
+      {
+        "sense_id": "sense_naai_dog",
+        "vocab_id": "vocab_naai_ta",
+        "pos": "noun",
+        "provenance": {
+          "batch_id": "batch_ta_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "sentence": [
+      {
+        "sentence_id": "sentence_ta_1",
+        "locale": "ta",
+        "target_text": "நாய்",
+        "tokens": [
+          {
+            "surface": "நாய்",
+            "lemma_ref": "vocab_naai_ta"
+          }
+        ],
+        "graphemes": [
+          "நா",
+          "ய்"
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_ta_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "gloss": [
+      {
+        "content_id": "sense_naai_dog",
+        "content_kind": "sense",
+        "ui_locale": "en",
+        "text": "dog",
+        "provenance": {
+          "batch_id": "batch_ta_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ]
+  }
+}

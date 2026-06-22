@@ -1,0 +1,144 @@
+{
+  "batch_id": "batch_ja_seed_0001",
+  "schema_version": "2020-12-1",
+  "locale": "ja",
+  "tables": {
+    "locale": [
+      {
+        "code": "ja",
+        "name": "日本語",
+        "direction": "ltr",
+        "plural_categories": [
+          "other"
+        ],
+        "script_meta": {
+          "script": "Jpan",
+          "uses_spaces": false
+        },
+        "tts_tier": "hd",
+        "pron_tier": "asr",
+        "pron_method": "asr",
+        "cefr_ceiling": "B2"
+      }
+    ],
+    "vocab_entry": [
+      {
+        "vocab_id": "vocab_nomu_ja",
+        "locale": "ja",
+        "lemma": "飲む",
+        "pos": "verb",
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_ja_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "sense": [
+      {
+        "sense_id": "sense_nomu_drink",
+        "vocab_id": "vocab_nomu_ja",
+        "pos": "verb",
+        "provenance": {
+          "batch_id": "batch_ja_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "sentence": [
+      {
+        "sentence_id": "sentence_ja_1",
+        "locale": "ja",
+        "target_text": "水を飲みました",
+        "tokens": [
+          {
+            "surface": "水"
+          },
+          {
+            "surface": "を"
+          },
+          {
+            "surface": "飲み"
+          },
+          {
+            "surface": "まし"
+          },
+          {
+            "surface": "た"
+          }
+        ],
+        "prosody": {
+          "pitch_accent": "LHHHL"
+        },
+        "ipa": "mizu o nomimaɕita",
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_ja_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "item": [
+      {
+        "item_id": "item_ja_cloze_1",
+        "locale": "ja",
+        "exercise_type": "cloze",
+        "enum_version": 1,
+        "prompt_ref": "prompt_ja_cloze_1",
+        "answer_spec": {
+          "accepted": [
+            "飲み"
+          ],
+          "normalization_flags": {
+            "accept_kana_for_kanji": true
+          }
+        },
+        "skill_ids": [
+          "skill_ja_past_polite"
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_ja_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "gloss": [
+      {
+        "content_id": "sense_nomu_drink",
+        "content_kind": "sense",
+        "ui_locale": "en",
+        "text": "to drink",
+        "provenance": {
+          "batch_id": "batch_ja_seed_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "batch_id": "batch_b1_divergence_0001",
+  "schema_version": "2020-12-1",
+  "locale": "es",
+  "tables": {
+    "item": [
+      {
+        "item_id": "item_es_ff_b1",
+        "locale": "es",
+        "exercise_type": "translate",
+        "enum_version": 1,
+        "prompt_ref": "prompt_es_ff_b1",
+        "answer_spec": {
+          "accepted": [
+            "embarazada"
+          ],
+          "normalization_flags": {
+            "fold_case": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_false_friends"
+        ],
+        "cefr_level": "B1",
+        "source_locale": "en",
+        "contrast_type": "false_friend",
+        "direction": "l1_to_l2",
+        "provenance": {
+          "batch_id": "batch_b1_divergence_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_ja_l1i_b1",
+        "locale": "ja",
+        "exercise_type": "translate",
+        "enum_version": 1,
+        "prompt_ref": "prompt_ja_l1i_b1",
+        "answer_spec": {
+          "accepted": [
+            "わたしはがくせいです",
+            "私は学生です"
+          ],
+          "normalization_flags": {
+            "accept_kana_for_kanji": true
+          }
+        },
+        "skill_ids": [
+          "skill_ja_topic_particle"
+        ],
+        "cefr_level": "B1",
+        "source_locale": "en",
+        "contrast_type": "l1_interference",
+        "direction": "l1_to_l2",
+        "provenance": {
+          "batch_id": "batch_b1_divergence_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ]
+  }
+}
