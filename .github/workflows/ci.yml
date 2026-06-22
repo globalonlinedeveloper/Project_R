@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   flutter-gate:
-    name: Flutter gate (analyze · test · build web)
+    name: Flutter gate (codegen · analyze · test · build web)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,6 +20,8 @@ jobs:
           cache: true
       - run: flutter --version
       - run: flutter pub get
+      - name: Codegen (freezed/json_serializable parts are gitignored)
+        run: dart run build_runner build
       - name: Analyze (fails on infos too)
         run: flutter analyze
       - name: Test
@@ -35,7 +37,7 @@ jobs:
           name: web-build
           path: build/web
   python-schema-gate:
-    name: Python gate (schema lint + conformance fixtures)
+    name: Python gate (schema lint · fixtures · model drift)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -46,3 +48,8 @@ jobs:
         run: pip install "jsonschema>=4.20" "referencing>=0.30" pytest
       - name: Schema lint + conformance fixtures (T0.2)
         run: python -m pytest ratel-tools/tests -q
+      - name: Model drift — regenerate Dart from schema, assert no diff (schema is the SoT)
+        run: |
+          python ratel-tools/codegen_dart.py
+          git diff --exit-code lib/content/models/enums.dart lib/content/models/payloads.dart lib/content/models/tables.dart lib/content/models/models.dart \
+            || { echo "::error::lib/content/models is stale vs schema/ — run: python3 ratel-tools/codegen_dart.py && dart run build_runner build, then commit"; exit 1; }
