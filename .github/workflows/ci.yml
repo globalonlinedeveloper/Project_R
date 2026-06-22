@@ -1,0 +1,36 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  flutter-gate:
+    name: Flutter gate (analyze · test · build web)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.1'
+          channel: stable
+          cache: true
+      - run: flutter --version
+      - run: flutter pub get
+      - name: Analyze (fails on infos too)
+        run: flutter analyze
+      - name: Test
+        run: flutter test
+      - name: Build web (no service worker; stale-cache guard)
+        run: flutter build web --pwa-strategy=none
+      - name: Write build marker
+        run: |
+          echo "ratel ${{ github.sha }} | flutter 3.44.1 | built $(date -u +%FT%TZ)" > build/web/build-info.txt
+          cat build/web/build-info.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: build/web
