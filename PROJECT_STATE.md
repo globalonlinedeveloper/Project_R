@@ -4,7 +4,7 @@
 ## Header
 - **Repo:** https://github.com/globalonlinedeveloper/Project_R (default `main`)
 - **★ STAGE 1 COMPLETE** — Phases 0–3 ✓ (Ckpt A schema · B model+loader · C pipeline+gate · **D schema lock**). **Next: Stage 2 — Modern UI/UX** (local, NO DB). **Autonomy:** L1.
-- **STAGE 2 — Modern UI/UX IN PROGRESS (S13, auto/L2):** S2-Inc1 (design system) + S2-Inc2 (component/motion/celebration kit) shipped; core-loop screens on the loader next.
+- **STAGE 2 — Modern UI/UX IN PROGRESS (S13, auto/L2):** S2-Inc1..Inc4 shipped (design system -> components -> app shell/go_router IA -> onboarding-on-loader). Next: lesson core loop -> home/streak -> Adventures + Rive -> R-O1 6-check gate.
 - **Invariants:** local-only · **NO DB** · **subscription-only generation (NO metered API)** · Supabase untouched · `Apps/RATEL_REQUIREMENTS.md` frozen at **161** · `schema/schema.json` FROZEN (Ckpt A) — generate from it, zero schema change.
 - **Stack:** Flutter 3.44.1 / Dart 3.12.1 · freezed 4.0.0-dev.3 + json_serializable 6.14 · Python 3 · JSON-Schema 2020-12 · Riverpod · go_router · Drift (Stage 2+).
 - **Planning (mounted, canonical):** `Apps/tasks/SPEC.md` · `plan.md` · `todo.md` · `idea-cheap-phone-champion.md` · `Apps/RATEL_REQUIREMENTS.md` (WHAT) · `Apps/RATEL_PROJECT_STATE.md` (master).
@@ -20,6 +20,8 @@
 - **Run pipeline:** `cd ratel-tools && python3 -m pipeline.run --locale en --type mcq --count 3` · **Re-author seeds:** `python3 ratel-tools/author_seeds.py`.
 
 ## Stage 2 increment log (newest first) — SESSION 13 (Modern UI/UX - local - NO DB - schema frozen)
+- **S2-Inc4 done (`0720e83`)** - guest-first onboarding (R-L2) renders a real first win OFF THE LOADER. ContentRepository + Riverpod `seedBatchProvider` load the bundled EN seed via the fail-closed ContentLoader (NO DB; assets declared). Flow: language -> motivation -> goal -> first win (<=7 steps; step dots; token cross-fades). First win builds a real MCQ from the ContentBatch (prompt blanked from a seed sentence; options from batch tokens) -> correct -> R-L19 celebration + XP count-up. First-run router redirect to /onboarding (in-memory flag; learner-state stays stubs per R-O1). 45 Dart tests green (onboarding test drives the real seed asset).
+- **S2-Inc3 done (`ada9d86`)** - app shell + go_router tab IA (R-L10): Learn/Practice/Adventures/Profile StatefulShellRoute; RatelShell bottom NavigationBar (token-themed; 48dp + a11y labels); token-driven page transitions (R-L17); flutter_riverpod ProviderScope at root; placeholder tokenized+keyed feature screens. Added go_router 17.3.0 + flutter_riverpod 2.6.1 (D4/D5, pre-decided in SPEC). Nav + no-overflow@360 tests.
 - **S2-Inc2 done (`1d903ae`)** - component + motion + celebration kit. RatelButton (token-styled over Material -> rest/hover/focus/pressed/disabled +loading, R-L17; 48dp, R-K8), RatelCard, RatelScreen (centered maxContentWidth for cheap phones); motion kit R-L16 (CountUp - ProgressRing ring-fill - FadeThrough); RatelCelebration R-L19 (GPU particles; flourish/lessonComplete/levelUp escalation). All MotionTier-aware (static -> still, R-N7). 41 Dart tests green; analyze clean.
 - **S2-Inc1 done (`6ba8922`)** - design-system foundation `lib/core/design_system/`: color/spacing/type/motion tokens (R-L16) + RatelTheme light+dark (ThemeExtension); MotionTier resolver (R-N7 - OS reduce-motion hard floor over perf/low-power); WCAG contrast util + AA contrast tests over every token pair (R-K8); token-lint test guarding lib/features vs raw Color/Duration/Curve (R-N6); main.dart routed through RatelTheme (boot-marker smoke intact). 32 Dart tests green.
 - **CI note (S13):** web_fetch GitHub check-runs polling returned empty/stale-cached this session, so CI green is NOT API-confirmed. The local gate (build_runner -> analyze -> test = the exact CI commands) is green for both increments and `lib/` is web-safe. **Confirm flutter-gate on the Actions tab for 6ba8922 + 1d903ae.**
@@ -46,14 +48,27 @@
 - iOS/macOS/Windows platforms not scaffolded (need mac/win runners). ruff/mypy not yet in CI.
 
 ## Next-queue (Stage 2 — Modern UI/UX · local · NO DB)
+
+**S13 status:** design system + components + app shell/IA + onboarding-on-loader = DONE (S2-Inc1..Inc4). **Remaining (auto mode):**
+1. **Lesson core loop on the loader (R-L3)** - ordered on-device-graded queue, immediate feedback + pre-gen why-card, complete screen + R-L19 celebration, gentle-energy (charge 1 on complete only; NEVER gate reviews / first daily lesson - R-N6 guardrail tests). Render off ContentBatch.
+2. **Home/streak + review entry (R-L4/L8)** - replace placeholder Home with a real lesson list off the loader + account-streak (device-local midnight); 'Practice your mistakes' review entry. Layer-F learner-state = interfaces/stubs.
+3. **Adventures system (R-L4a)** - themed-districts map + scene-player over scripted-roleplay rails; ~1-2 zones; placeholder/programmatic art.
+4. **Rive mascot integration (R-L18)** - single shared-rig manager (dispose offscreen, R-N8/B8) + MotionTier-aware controller (animate->paused pose->none, no bitmap) + asset-build-time .riv validator (reject embedded rasters / over-budget, C24). Ship a PLACEHOLDER rig.
+5. **R-O1 6-check exit gate (checks 4-6)** - (4) all core screens off the loader [onboarding done; lesson/home pending], (5) Rive+Adventures working (paused-frame + reduced-motion tested), (6) reference-device perf bench (cold-start/frame + animation-stress + mascot memory, R-N1/N8) in CI.
+
+**OWNER ACTIONS (real-world, not buildable here):** (a) author the Duolingo-grade vector Rive mascot `.riv` rig (State Machine + visemes) - Inc 8 ships integration + a placeholder; (b) Adventures map + scene illustration art; (c) glance at the GitHub **Actions tab** to confirm `flutter-gate` green for the S13 commits (web_fetch CI polling was unreliable this session).
+
+_(Original 4-line queue below is superseded by the above.)_
 1. **Design system** `lib/core/design_system/` — tokens + components (theme · motion-tier R-N7 · WCAG a11y harness R-K8), built fresh ("beat Duolingo"); old 82-screen shell = reference only.
 2. **Core-loop screens on the loader** — onboarding → lesson → review → streak, offline-first + instant start, beachhead-first (cheap-phone champion); render from `ContentBatch`.
 3. **Adventures slice + Rive mascot rig** (pure-vector `.riv`, reduce-motion → paused-frame) within the **R-N1** perf budgets.
 4. **→ R-O1 6-check Phase-exit gate** (adds checks 4–6: UI on loader · Adventures+Rive · perf budgets) → ★ Stage-4 architecture sign-off → Stage 3 (backend/runtime/payments, owner + money-gated). Content fan-out beyond the pilot is now unlocked (rows-only).
 
 ## SCORE / RETRO
-- **SCORE (S12):** **8 increments shipped — T0.1·T0.2·T1.1·T1.2·T2.1·T2.2·T2.3·T3 — ★ STAGE 1 COMPLETE (Ckpt A·B·C·D)** · 0 CI failures · 1 local red→green (explicit_to_json) · 0 avoidable retries.
+
+- **SCORE (S13):** 4 increments shipped - S2-Inc1.Inc2.Inc3.Inc4 (design system -> components -> app shell/IA -> onboarding-on-loader) - 0 local-gate failures - 1 trivial fix (unnecessary_import after barrel export) - ~45 Dart tests green. CI green NOT API-confirmed (web_fetch unreliable; local gate = exact CI commands).
+- **RETRO (S13):** token-styled wrappers over Material gave accessible R-L17 states ~free; MotionTier threaded into every animated widget made reduced-motion test-enforced; onboarding driving the REAL seed asset through the loader proved the content->UI seam with no DB. Token waste: web_fetch CI-status polling (cached/empty) - skip it next session, confirm via Actions tab.- **SCORE (S12):** **8 increments shipped — T0.1·T0.2·T1.1·T1.2·T2.1·T2.2·T2.3·T3 — ★ STAGE 1 COMPLETE (Ckpt A·B·C·D)** · 0 CI failures · 1 local red→green (explicit_to_json) · 0 avoidable retries.
 - **RETRO:** one frozen `schema.json` threaded through generator + validator + Dart models + loader + 12-axis gate kept everything honest end-to-end; seam-first design (Protocols/stubs) made subscription-only + offline tests enforceable; wheels (fugashi/unidic-lite/jieba) dodged native-install pain; authoring seeds *from* the tokenizers made the gate pass by construction.
 
 ## Kickoff line (next session)
-"Read `Project_R/PROJECT_STATE.md` + `Apps/RATEL_PROJECT_STATE.md` (SESSION 12), then begin **Stage 2 — Modern UI/UX**: design system → core-loop screens on the loader → Adventures + Rive → the R-O1 6-check gate, in auto mode — local, NO DB, schema frozen." (VM wipes: re-install Flutter + `pip install -r ratel-tools/requirements.txt`, re-clone, pub get + build_runner.)
+"Read `Project_R/PROJECT_STATE.md` + `Apps/RATEL_PROJECT_STATE.md` (SESSION 13), then continue **Stage 2 - Modern UI/UX** from the **lesson core loop (R-L3)** -> home/streak -> Adventures + Rive -> the R-O1 6-check gate, in auto mode - local, NO DB, schema frozen." (VM wipes: re-install Flutter to **/tmp/flutter** + `pip install --break-system-packages -r ratel-tools/requirements.txt`, re-clone, `flutter pub get` + `dart run build_runner build`.)
