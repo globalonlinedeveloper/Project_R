@@ -72,3 +72,10 @@ _(Original 4-line queue below is superseded by the above.)_
 
 ## Kickoff line (next session)
 "Read `Project_R/PROJECT_STATE.md` + `Apps/RATEL_PROJECT_STATE.md` (SESSION 13), then continue **Stage 2 - Modern UI/UX** from the **lesson core loop (R-L3)** -> home/streak -> Adventures + Rive -> the R-O1 6-check gate, in auto mode - local, NO DB, schema frozen." (VM wipes: re-install Flutter to **/tmp/flutter** + `pip install --break-system-packages -r ratel-tools/requirements.txt`, re-clone, `flutter pub get` + `dart run build_runner build`.)
+
+## Live preview (Cloudflare Pages) — added S13
+Workflow `.github/workflows/deploy-web.yml` builds Flutter web + deploys to Cloudflare Pages (spec host R-M6). It SKIPS gracefully (green no-op) until two repo secrets exist — static-only (no DB/backend), Stage-3-safe. **OWNER one-time setup:**
+1. Cloudflare → My Profile → API Tokens → Create Token with **Account · Cloudflare Pages · Edit** → copy it.
+2. Cloudflare → Workers & Pages → copy your **Account ID**.
+3. GitHub `globalonlinedeveloper/Project_R` → Settings → Secrets and variables → Actions → add `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID`.
+4. Actions tab → **deploy-web** → Run workflow (or push any commit). Live URL = `https://ratel-preview.pages.dev` (printed in the run log).
