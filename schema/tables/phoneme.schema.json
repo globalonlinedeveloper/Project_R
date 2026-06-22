@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/phoneme.json",
+  "title": "Phoneme (R-C5) — per-language IPA inventory (reference data only; no scoring role)",
+  "type": "object",
+  "required": ["phoneme_id", "locale", "ipa_symbol", "provenance"],
+  "properties": {
+    "phoneme_id": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "locale": { "$ref": "https://ratel.dev/schema/common.json#/$defs/bcp47" },
+    "ipa_symbol": { "type": "string", "minLength": 1 },
+    "examples": { "type": "array", "items": { "type": "string" } },
+    "features": { "$ref": "https://ratel.dev/schema/common.json#/$defs/features" },
+    "provenance": { "$ref": "https://ratel.dev/schema/common.json#/$defs/provenance" }
+  },
+  "additionalProperties": false
+}

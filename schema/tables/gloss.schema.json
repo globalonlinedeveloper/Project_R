@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/gloss.json",
+  "title": "Gloss (R-C9) — localized strings keyed (content_id, content_kind, ui_locale)",
+  "type": "object",
+  "required": ["content_id", "content_kind", "ui_locale", "text", "provenance"],
+  "properties": {
+    "content_id": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "content_kind": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/content_kind" },
+    "ui_locale": { "$ref": "https://ratel.dev/schema/common.json#/$defs/bcp47" },
+    "text": { "type": "string" },
+    "audio_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "provenance": { "$ref": "https://ratel.dev/schema/common.json#/$defs/provenance" }
+  },
+  "additionalProperties": false
+}

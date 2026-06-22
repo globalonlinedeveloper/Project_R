@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/sense.json",
+  "title": "Sense (R-C3) — a distinct meaning; immortal sense_id; glosses key on it",
+  "type": "object",
+  "required": ["sense_id", "vocab_id", "provenance"],
+  "properties": {
+    "sense_id": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "vocab_id": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "pos": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/pos" },
+    "definition_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "register": { "type": "string" },
+    "examples": { "type": "array", "items": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" } },
+    "synset_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "provenance": { "$ref": "https://ratel.dev/schema/common.json#/$defs/provenance" }
+  },
+  "additionalProperties": false
+}

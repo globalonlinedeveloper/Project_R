@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/schema.json",
+  "title": "RATEL content data model — single source of truth (P0-6, R-C1)",
+  "description": "JSON-Schema 2020-12. ONE canonical language-independent schema for all 52 target + 52 UI languages (R-C1). Invariants are typed columns from shared enums (R-C12); language-variant data lives in the four open-container KINDS (array, map/jsonb, flag/enum, reference). Adding a language must be rows-only (R-FND-2): every table sets additionalProperties:false, so an unknown column is a hard reject (the operational test of rows-only, enforced by the R-C14 gate). This root references each per-table schema via $ref.",
+  "type": "object",
+  "$defs": {
+    "sentence": { "$ref": "https://ratel.dev/schema/tables/sentence.json" },
+    "vocab_entry": { "$ref": "https://ratel.dev/schema/tables/vocab_entry.json" },
+    "sense": { "$ref": "https://ratel.dev/schema/tables/sense.json" },
+    "grammar_point": { "$ref": "https://ratel.dev/schema/tables/grammar_point.json" },
+    "phoneme": { "$ref": "https://ratel.dev/schema/tables/phoneme.json" },
+    "item": { "$ref": "https://ratel.dev/schema/tables/item.json" },
+    "locale": { "$ref": "https://ratel.dev/schema/tables/locale.json" },
+    "media_asset": { "$ref": "https://ratel.dev/schema/tables/media_asset.json" },
+    "gloss": { "$ref": "https://ratel.dev/schema/tables/gloss.json" }
+  }
+}

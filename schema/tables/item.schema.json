@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/item.json",
+  "title": "Item (R-C6) — atomic gradable exercise; answer_spec is data, not code",
+  "type": "object",
+  "required": ["item_id", "locale", "exercise_type", "prompt_ref", "skill_ids", "cefr_level", "provenance"],
+  "properties": {
+    "item_id": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "locale": { "$ref": "https://ratel.dev/schema/common.json#/$defs/bcp47" },
+    "exercise_type": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/exercise_type" },
+    "enum_version": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/enum_version" },
+    "prompt_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "answer_spec": { "$ref": "https://ratel.dev/schema/common.json#/$defs/answer_spec" },
+    "skill_ids": { "type": "array", "items": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" } },
+    "cefr_level": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/cefr_level" },
+    "difficulty_band": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/difficulty_band" },
+    "irt_a": { "type": "number" },
+    "irt_b": { "type": "number" },
+    "irt_c": { "type": "number" },
+    "difficulty_est": { "type": "number" },
+    "source_locale": { "oneOf": [ { "$ref": "https://ratel.dev/schema/common.json#/$defs/bcp47" }, { "type": "null" } ] },
+    "contrast_type": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/contrast_type" },
+    "direction": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/item_direction" },
+    "provenance": { "$ref": "https://ratel.dev/schema/common.json#/$defs/provenance" }
+  },
+  "additionalProperties": false
+}

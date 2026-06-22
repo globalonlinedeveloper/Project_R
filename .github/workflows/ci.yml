@@ -34,3 +34,15 @@ jobs:
         with:
           name: web-build
           path: build/web
+  python-schema-gate:
+    name: Python gate (schema lint + conformance fixtures)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install schema tooling
+        run: pip install "jsonschema>=4.20" "referencing>=0.30" pytest
+      - name: Schema lint + conformance fixtures (T0.2)
+        run: python -m pytest ratel-tools/tests -q

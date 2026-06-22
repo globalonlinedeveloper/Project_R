@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/media_asset.json",
+  "title": "MediaAsset (R-C8) — one regenerate-in-place record for audio/image/video",
+  "type": "object",
+  "required": ["asset_id", "type", "uri", "provenance"],
+  "properties": {
+    "asset_id": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "type": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/media_type" },
+    "uri": { "type": "string", "minLength": 1 },
+    "locale": { "$ref": "https://ratel.dev/schema/common.json#/$defs/bcp47" },
+    "voice_id": { "type": "string" },
+    "ssml": { "type": "string" },
+    "tts_tier": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/tts_tier" },
+    "duration_ms": { "type": "integer", "minimum": 0 },
+    "provenance": { "$ref": "https://ratel.dev/schema/common.json#/$defs/provenance" }
+  },
+  "additionalProperties": false
+}

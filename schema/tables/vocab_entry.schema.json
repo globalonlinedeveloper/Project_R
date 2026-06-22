@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/vocab_entry.json",
+  "title": "VocabEntry (R-C3) — headword / lemma; senses are child rows",
+  "type": "object",
+  "required": ["vocab_id", "locale", "lemma", "pos", "provenance"],
+  "properties": {
+    "vocab_id": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "locale": { "$ref": "https://ratel.dev/schema/common.json#/$defs/bcp47" },
+    "lemma": { "type": "string", "minLength": 1 },
+    "pos": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/pos" },
+    "frequency_rank": { "type": "integer", "minimum": 1 },
+    "ipa": { "type": "string" },
+    "audio_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "cefr_level": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/cefr_level" },
+    "provenance": { "$ref": "https://ratel.dev/schema/common.json#/$defs/provenance" }
+  },
+  "additionalProperties": false
+}

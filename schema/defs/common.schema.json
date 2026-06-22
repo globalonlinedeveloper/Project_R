@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/common.json",
+  "title": "RATEL shared payload shapes — the four open-container KINDS + provenance (R-C1, R-C10)",
+  "description": "R-C1 open containers: array (tokens[], accepted[], graphemes[]), map/jsonb (features{}, prosody{}, normalization_flags{}, script_meta{}), flag/enum (in enums.json), reference (lemma_ref, audio_ref, *_ref content ids). Provenance (R-C10) is identical on every content row.",
+  "$defs": {
+    "bcp47": { "type": "string", "pattern": "^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*$" },
+    "content_id": { "type": "string", "pattern": "^[a-z][a-z0-9]*_[A-Za-z0-9_-]+$" },
+    "provenance": {
+      "type": "object",
+      "description": "R-C10 bookkeeping block, identical on every content row.",
+      "required": ["batch_id", "provenance", "review_status", "content_version", "created_at", "updated_at"],
+      "properties": {
+        "batch_id": { "type": "string", "minLength": 1 },
+        "provenance": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/provenance_kind" },
+        "model_version": { "type": "string" },
+        "review_status": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/review_status" },
+        "content_version": { "type": "integer", "minimum": 1 },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" },
+        "source_attribution": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "features": { "type": "object", "description": "open map/jsonb (case, tense, number, gender, politeness, place, manner, voicing, tone, length...)" },
+    "prosody": { "type": "object", "description": "open map: tone / pitch-accent / stress" },
+    "script_meta": {
+      "type": "object",
+      "required": ["script"],
+      "properties": {
+        "script": { "type": "string" },
+        "uses_spaces": { "type": "boolean" },
+        "has_grapheme_clusters": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+    "normalization_flags": {
+      "type": "object",
+      "properties": {
+        "strip_diacritics": { "type": "boolean" },
+        "fold_case": { "type": "boolean" },
+        "accept_kana_for_kanji": { "type": "boolean" },
+        "ignore_tone_marks": { "type": "boolean" },
+        "collapse_whitespace": { "type": "boolean" },
+        "unicode_norm": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/unicode_norm" }
+      },
+      "additionalProperties": false
+    },
+    "answer_spec": {
+      "type": "object",
+      "description": "R-C6: grading as data. accepted[] surface answers + normalization switches.",
+      "required": ["accepted"],
+      "properties": {
+        "accepted": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "normalization_flags": { "$ref": "https://ratel.dev/schema/common.json#/$defs/normalization_flags" }
+      },
+      "additionalProperties": false
+    },
+    "token": {
+      "type": "object",
+      "description": "R-C2 ordered token; index is immortal (cloze/word-order/dictation reference it).",
+      "required": ["surface"],
+      "properties": {
+        "surface": { "type": "string" },
+        "lemma_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+        "reading": { "type": "string" },
+        "features": { "$ref": "https://ratel.dev/schema/common.json#/$defs/features" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

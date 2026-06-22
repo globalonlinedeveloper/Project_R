@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/locale.json",
+  "title": "Locale (R-C7) — per-language difference absorber (direction, plurals, script, tiers)",
+  "type": "object",
+  "required": ["code", "name", "direction", "plural_categories", "script_meta", "tts_tier", "pron_tier"],
+  "properties": {
+    "code": { "$ref": "https://ratel.dev/schema/common.json#/$defs/bcp47" },
+    "name": { "type": "string", "minLength": 1 },
+    "direction": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/text_direction" },
+    "plural_categories": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/plural_category" } },
+    "script_meta": { "$ref": "https://ratel.dev/schema/common.json#/$defs/script_meta" },
+    "tts_tier": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/tts_tier" },
+    "pron_tier": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/pron_capability" },
+    "pron_method": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/pron_capability" },
+    "cefr_ceiling": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/cefr_ceiling" }
+  },
+  "additionalProperties": false
+}

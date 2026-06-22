@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/enums.json",
+  "title": "RATEL shared controlled vocabularies (R-C12)",
+  "description": "Closed enums used identically across all 52 languages. Adding a value is a global, versioned catalog event (R-C12) — never a per-language addition. A language lacking a phenomenon uses zero rows, not a new enum value.",
+  "$defs": {
+    "cefr_level": { "type": "string", "enum": ["A1", "A2", "B1", "B2", "C1", "C2"] },
+    "cefr_ceiling": { "type": "string", "enum": ["A2", "B1", "B2", "C2"] },
+    "exercise_type": { "type": "string", "enum": ["mcq", "cloze", "translate", "listen", "word_order", "match", "dictation", "speak", "scripted_roleplay", "write", "live_roleplay"] },
+    "enum_version": { "type": "integer", "minimum": 1 },
+    "pos": { "type": "string", "enum": ["noun", "verb", "adj", "adv", "pron", "det", "adp", "num", "conj", "cconj", "sconj", "part", "intj", "propn", "aux", "sym", "punct", "x"] },
+    "difficulty_band": { "type": "string", "enum": ["intro", "core", "stretch"] },
+    "provenance_kind": { "type": "string", "enum": ["authored", "ai_generated"] },
+    "review_status": { "type": "string", "enum": ["draft", "auto_certified", "needs_review", "human_reviewed", "retired"] },
+    "tts_tier": { "type": "string", "enum": ["hd", "basic", "none"] },
+    "pron_capability": { "type": "string", "enum": ["asr", "shadowing"] },
+    "text_direction": { "type": "string", "enum": ["ltr", "rtl"] },
+    "item_direction": { "type": "string", "enum": ["l1_to_l2", "l2_to_l1"] },
+    "contrast_type": { "type": "string", "enum": ["translate_from_l1", "false_friend", "transliteration", "l1_interference"] },
+    "media_type": { "type": "string", "enum": ["audio", "image", "video"] },
+    "content_kind": { "type": "string", "enum": ["sense", "prompt", "hint", "grammar_rule", "instruction"] },
+    "plural_category": { "type": "string", "enum": ["zero", "one", "two", "few", "many", "other"] },
+    "unicode_norm": { "type": "string", "enum": ["NFC", "NFKC"] }
+  }
+}

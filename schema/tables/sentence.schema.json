@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/sentence.json",
+  "title": "Sentence (R-C2) — language-neutral content row; ordered tokens[], never whitespace-split",
+  "type": "object",
+  "required": ["sentence_id", "locale", "target_text", "tokens", "cefr_level", "provenance"],
+  "properties": {
+    "sentence_id": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "locale": { "$ref": "https://ratel.dev/schema/common.json#/$defs/bcp47" },
+    "target_text": { "type": "string", "minLength": 1 },
+    "tokens": { "type": "array", "minItems": 1, "items": { "$ref": "https://ratel.dev/schema/common.json#/$defs/token" } },
+    "tokens_alt": { "type": "array", "items": { "type": "array", "items": { "$ref": "https://ratel.dev/schema/common.json#/$defs/token" } } },
+    "ipa": { "type": "string" },
+    "prosody": { "$ref": "https://ratel.dev/schema/common.json#/$defs/prosody" },
+    "graphemes": { "type": "array", "items": { "type": "string" } },
+    "audio_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "difficulty": { "type": "number" },
+    "cefr_level": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/cefr_level" },
+    "provenance": { "$ref": "https://ratel.dev/schema/common.json#/$defs/provenance" }
+  },
+  "additionalProperties": false
+}
