@@ -11,7 +11,7 @@ from .gate import DEFAULT_THRESHOLD, decide  # noqa: E402
 from .generate import Generator, StubGenerator  # noqa: E402
 from .jury import Jury, StubJury  # noqa: E402
 from .types import Decision  # noqa: E402
-from .validate import schema_errors  # noqa: E402
+from .validate import run_validators  # noqa: E402
 
 FIXED_NOW = "2026-06-23T00:00:00Z"
 
@@ -48,7 +48,7 @@ def run_pipeline(
     for cand in generator.generate(locale, exercise_type, count):
         verdict = jury.assess(cand)
         # structural validation needs a complete row -> stamp a draft provenance
-        errors = schema_errors(cand.table, {**cand.row, "provenance": _prov(batch_id, "draft", now)})
+        errors = run_validators(cand.table, {**cand.row, "provenance": _prov(batch_id, "draft", now)})
         res = decide(cand, verdict, errors, threshold)
         results.append(res)
         if res.decision is Decision.auto_certified:
@@ -76,7 +76,7 @@ def main(argv=None) -> int:
     # post-emit guard: every published row must validate against the frozen schema
     for table, rows in batch["tables"].items():
         for i, row in enumerate(rows):
-            errs = schema_errors(table, row)
+            errs = run_validators(table, row)
             if errs:
                 print(f"FATAL: published {table} row {i} invalid: {errs}", file=sys.stderr)
                 return 2
