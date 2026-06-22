@@ -79,3 +79,5 @@ Workflow `.github/workflows/deploy-web.yml` builds Flutter web + deploys to Clou
 2. Cloudflare → Workers & Pages → copy your **Account ID**.
 3. GitHub `globalonlinedeveloper/Project_R` → Settings → Secrets and variables → Actions → add `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID`.
 4. Actions tab → **deploy-web** → Run workflow (or push any commit). Live URL = `https://ratel-preview.pages.dev` (printed in the run log).
+
+**STATUS: LIVE (2026-06-23, S13)** — `deploy-web #3` (commit `0e0c404`, 2m6s, GREEN) built Flutter web, created the Cloudflare Pages project `ratel-preview`, and deployed. **Live URL = https://ratel-preview.pages.dev** (verified rendering the onboarding flow; auto-deploys on every push to main). This is also the session's deploy marker / verification endpoint (§25). **Next: attach `learnwithratel.com` custom domain via the Cloudflare Pages dashboard** (no Pages/DNS MCP tool available — dashboard-driven).
