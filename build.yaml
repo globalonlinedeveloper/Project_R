@@ -3,7 +3,11 @@ targets:
     builders:
       json_serializable:
         options:
-          # nested freezed objects must call their own toJson() (else they leak as objects)
+          # nested freezed objects must serialize via their own toJson()
           explicit_to_json: true
           create_to_json: true
           create_factory: true
+          # client-side fail-closed: reject malformed rows (mirrors schema additionalProperties:false)
+          checked: true
+          disallow_unrecognized_keys: true
+          field_rename: none
