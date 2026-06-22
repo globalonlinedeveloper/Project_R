@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'core/design_system/design_system.dart';
 
-/// RATEL — app entrypoint (Stage-1 genesis shell).
-/// The modern design system + real screens are built fresh in Stage 2;
-/// this is the minimal bootable shell that the CI gate validates.
+/// RATEL — app entrypoint. Routed through the Stage-2 design system; the real
+/// core-loop shell replaces [BootScreen] in a later increment.
 void main() => runApp(const RatelApp());
 
 class RatelApp extends StatelessWidget {
@@ -13,10 +13,8 @@ class RatelApp extends StatelessWidget {
     return MaterialApp(
       title: 'Ratel',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: const Color(0xFF2E7D32),
-      ),
+      theme: RatelTheme.light(),
+      darkTheme: RatelTheme.dark(),
       home: const BootScreen(),
     );
   }
