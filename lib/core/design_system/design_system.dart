@@ -1,4 +1,4 @@
-/// Ratel design system — tokens + motion + a11y + theme (Stage 2).
+/// Ratel design system — tokens + motion + a11y + theme + widget kit (Stage 2).
 ///
 /// Built fresh ("beat Duolingo"): the old 82-screen shell is reference only.
 /// Screens import this barrel and consume tokens; raw color/motion literals in
@@ -13,3 +13,10 @@ export 'tokens/ratel_color_tokens.dart';
 export 'tokens/ratel_motion.dart';
 export 'tokens/ratel_spacing.dart';
 export 'tokens/ratel_typography.dart';
+export 'widgets/ratel_button.dart';
+export 'widgets/ratel_card.dart';
+export 'widgets/ratel_celebration.dart';
+export 'widgets/ratel_count_up.dart';
+export 'widgets/ratel_fade_through.dart';
+export 'widgets/ratel_progress_ring.dart';
+export 'widgets/ratel_screen.dart';

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ratel/core/design_system/design_system.dart';
-import 'package:ratel/core/design_system/widgets/ratel_button.dart';
-import 'package:ratel/core/design_system/widgets/ratel_count_up.dart';
-import 'package:ratel/core/design_system/widgets/ratel_celebration.dart';
-import 'package:ratel/core/design_system/widgets/ratel_progress_ring.dart';
 
 Widget _host(Widget child, {bool reduceMotion = false}) {
   return MaterialApp(
