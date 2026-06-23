@@ -1,6 +1,6 @@
 # Ratel — Vendor decisions & swap map (FREE-FIRST)
 
-> Every external capability sits behind a **portable adapter (interface)** — no vendor is hard-wired. **Rule: free-first** — each capability defaults to a FREE provider; swapping is a one-adapter change, no feature/UI/test changes. Paid options are listed only as "later, if needed."
+> Every external capability sits behind a **portable adapter (interface)** — no vendor is hard-wired. **Rule: free-first** — each capability defaults to a FREE provider; swapping is a one-adapter change, no feature/UI/test changes. **Every capability has a free default AND a free fallback.** Paid options are listed only as "later, if needed."
 
 ## ★ Owner-LOCKED decision — Content safety / moderation
 The moderation adapter (`ModerationProvider`, built in Part-2 item M2) may use **ONLY these three free providers**:
@@ -19,9 +19,9 @@ The moderation adapter (`ModerationProvider`, built in Part-2 item M2) may use *
 | **Content safety** | `ModerationProvider` | **OpenAI Moderation** | Perspective API · Gemini safety | — (Azure/AWS/Hive = out of scope) |
 | AI tutor | `AiRelay` | **Gemini** (free tier) | Gemini-safety reuse | OpenAI / Anthropic |
 | Web hosting | — | **Cloudflare Pages** (live) | — | — |
-| Media storage + signed URLs | `UrlSigner` | **Cloudflare R2** (10 GB free, zero egress) | — | S3 / Bunny |
-| Bot protection | `TurnstileVerifier` | **Cloudflare Turnstile** (free, enable LAST) | hCaptcha (free tier) | reCAPTCHA Enterprise |
-| Database + auth + security | `ContentRepository` / `LearnerStateStore` / `Identity` | **Supabase** free tier (Postgres + Auth + RLS) | — | Supabase Pro ~$25/mo at scale |
+| Media storage + signed URLs | `UrlSigner` | **Cloudflare R2** (10 GB free, zero egress) | **Backblaze B2** (10 GB free + free egress via Cloudflare) | S3 / Bunny (both PAID) |
+| Bot protection | `TurnstileVerifier` | **Cloudflare Turnstile** (UNLIMITED free, enable LAST) | hCaptcha / reCAPTCHA (free only ≤10k/mo — worse than Turnstile) | hCaptcha Pro / reCAPTCHA Ent |
+| Database + auth + security | `ContentRepository` / `LearnerStateStore` / `Identity` | **Supabase** free tier (Postgres + Auth + RLS) | **Neon** (free Postgres — keeps RLS, no rewrite) · D1 / Turso (free but SQLite = security rewrite) | Supabase Pro ~$25/mo at scale |
 | Edge functions | — | **Cloudflare Workers** free / Supabase Edge free | — | — |
 | Caching / config | — | **Cloudflare KV** (free) | — | — |
 | Payments — web | `billing` + `verifyWebhook` | **Razorpay** (India: UPI, GST) | Stripe (international) | Paddle / Dodo (MoR) |
