@@ -1,6 +1,6 @@
 # Stage-3 PART 2 — "BUILD-AHEAD" LOCAL backlog (no money · no live accounts · no deploy · no real keys · reversible via git)
 
-`RUN_STATUS: running · NEXT: M2 · GATE = pytest (+ Dart in CI) green · PUSH each item`
+`RUN_STATUS: running · NEXT: M3 · GATE = pytest (+ Dart in CI) green · PUSH each item`
 
 > **What this is.** Part 1 (L0–L7) is DONE on `main` (user tables + DDL + `pg_dump diff=0` + entitlement/credit RLS + per-table isolation + L7 client guards; `04f4c47`). This backlog is the **server/business LOGIC for Part 2 written + TESTED locally, for FREE, before any go-live** — so production is mostly **wiring credentials**, not writing logic. Closes draft threats **TS-5/6/9/10**, **TP-7**, findings **P0-6 / P0-7a / P0-7b / P1-1 / P1-6**, plus **R-H7 / R-M8**.
 >
@@ -11,7 +11,7 @@
 ## Chain-state / execution header (autonomous-safe)
 ```
 RUN_STATUS: running
-NEXT:       M2
+NEXT:       M3
 ORDER:      M1 → M2 → M3 → M4 → M5 → M6 → M7 → M8   (lowest-risk / most self-contained first)
 GATE:       python -m pytest ratel-tools/tests -q   (green locally, pgserver present)
             + Dart items: flutter-gate green in CI
