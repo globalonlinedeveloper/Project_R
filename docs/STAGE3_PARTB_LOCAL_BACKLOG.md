@@ -1,6 +1,6 @@
 # Stage-3 PART 2 — "BUILD-AHEAD" LOCAL backlog (no money · no live accounts · no deploy · no real keys · reversible via git)
 
-`RUN_STATUS: running · NEXT: M6 · GATE = pytest (+ Dart in CI) green · PUSH each item`
+`RUN_STATUS: idle · NEXT: — · ★ PART 2 BUILD-AHEAD COMPLETE (M1–M8 landed) · GATE = pytest (+ Dart in CI) green`
 
 > **What this is.** Part 1 (L0–L7) is DONE on `main` (user tables + DDL + `pg_dump diff=0` + entitlement/credit RLS + per-table isolation + L7 client guards; `04f4c47`). This backlog is the **server/business LOGIC for Part 2 written + TESTED locally, for FREE, before any go-live** — so production is mostly **wiring credentials**, not writing logic. Closes draft threats **TS-5/6/9/10**, **TP-7**, findings **P0-6 / P0-7a / P0-7b / P1-1 / P1-6**, plus **R-H7 / R-M8**.
 >
@@ -10,15 +10,17 @@
 
 ## Chain-state / execution header (autonomous-safe)
 ```
-RUN_STATUS: running
-NEXT:       M6
+RUN_STATUS: idle
+NEXT:       — (PART 2 BUILD-AHEAD COMPLETE — M1–M8 all landed)
 ORDER:      M1 → M2 → M3 → M4 → M5 → M6 → M7 → M8   (lowest-risk / most self-contained first)
 GATE:       python -m pytest ratel-tools/tests -q   (green locally, pgserver present)
             + Dart items: flutter-gate green in CI
 PUSH:       commit + push after EACH item lands gate-green; one item per commit
 STOP-LINE:  every item has a "GO-LIVE STOP" block — that part waits for the owner gate.
 TOUCHES-LIVE: NONE. All SQL → disposable pgserver. No network. No real keys.
-LAST:       M1 5285daa · M2 7be01d8 · M3 a75c296 · M4 cabfa03 · M5 4e2cd21 (SQL entitlement fn + processed_payment_event dedupe — pgserver db-rls-gate, +12) + 928fb96 (pure-Dart HMAC webhook verify + event parse — flutter-gate, +18); SQL half + Dart logic locally green (dart analyze --fatal-infos clean under flutter_lints 6.0.0; HMAC byte-identical to python); CI pending — check-runs API empty again, owner glance Actions tab
+LAST:       M1 5285daa · M2 7be01d8 · M3 a75c296 · M4 cabfa03 · M5 4e2cd21+928fb96 · M6 b2ad97a (media authz — Pro-only-audio gate + GET-only/single-object/short-TTL signed-URL policy, pure Dart, +19) · M7 84f1a72 (service-role read-from-env contract + CI secret-scan guard, +5 py) · M8 e5e3d1e (anti-abuse grant guard: velocity + self-referral + fail-closed attestation/Turnstile + audit, +16 Dart; +go-live wiring map)
+            ★ PART 2 BUILD-AHEAD COMPLETE — M1–M8 all landed. Local gates GREEN this run: flutter analyze clean (Flutter 3.44.1/Dart 3.12.1), test/services = 115 Dart green, full pytest ratel-tools/tests = 100 green (incl. pg_dump parity + 0002/P0-3 RLS re-asserted + secret-scan). CI pending — GitHub check-runs API empty again (long-standing flake S13+); owner glance the Actions tab for b2ad97a/84f1a72/e5e3d1e.
+REMAINING:  go-live only (owner-gated): real accounts/money (Supabase/Stripe/Play/Gemini/OpenAI/Cloudflare + Play Integrity/App Attest), the thin Deno Edge hosts, M7 key rotation against the real project, and the human dual senior-architect Part-E sign-off (R-O1). See docs/STAGE3_PARTB_WIRING_MAP.md.
 ```
 Ordering: M1–M3 pure-Dart behind seams (cost math, moderation state machine, Gemini adapter shape) — `flutter test` only. M4–M6 SQL functions on the existing `credit_ledger`/`user` tables + the existing pgserver harness (ledger, payments, R2 authz). M7 secret-scan CI guard. M8 anti-abuse velocity + wiring map.
 
