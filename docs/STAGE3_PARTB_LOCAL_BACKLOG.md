@@ -1,6 +1,6 @@
 # Stage-3 PART 2 — "BUILD-AHEAD" LOCAL backlog (no money · no live accounts · no deploy · no real keys · reversible via git)
 
-`RUN_STATUS: running · NEXT: M5 · GATE = pytest (+ Dart in CI) green · PUSH each item`
+`RUN_STATUS: idle · NEXT: M5 · GATE = pytest (+ Dart in CI) green · PUSH each item`
 
 > **What this is.** Part 1 (L0–L7) is DONE on `main` (user tables + DDL + `pg_dump diff=0` + entitlement/credit RLS + per-table isolation + L7 client guards; `04f4c47`). This backlog is the **server/business LOGIC for Part 2 written + TESTED locally, for FREE, before any go-live** — so production is mostly **wiring credentials**, not writing logic. Closes draft threats **TS-5/6/9/10**, **TP-7**, findings **P0-6 / P0-7a / P0-7b / P1-1 / P1-6**, plus **R-H7 / R-M8**.
 >
@@ -10,7 +10,7 @@
 
 ## Chain-state / execution header (autonomous-safe)
 ```
-RUN_STATUS: running
+RUN_STATUS: idle
 NEXT:       M5
 ORDER:      M1 → M2 → M3 → M4 → M5 → M6 → M7 → M8   (lowest-risk / most self-contained first)
 GATE:       python -m pytest ratel-tools/tests -q   (green locally, pgserver present)
@@ -18,7 +18,7 @@ GATE:       python -m pytest ratel-tools/tests -q   (green locally, pgserver pre
 PUSH:       commit + push after EACH item lands gate-green; one item per commit
 STOP-LINE:  every item has a "GO-LIVE STOP" block — that part waits for the owner gate.
 TOUCHES-LIVE: NONE. All SQL → disposable pgserver. No network. No real keys.
-LAST:       M1 5285daa · M2 7be01d8 · M3 a75c296 (pure-Dart flutter-gate; local analyze clean + 63 services tests green; CI pending — check-runs API flaky, owner glance Actions tab)
+LAST:       M1 5285daa · M2 7be01d8 · M3 a75c296 (pure-Dart flutter-gate) · M4 cabfa03 (SQL ledger fn — pgserver db-rls-gate; full pytest 83 green incl. pg_dump parity); CI pending — check-runs API flaky, owner glance Actions tab
 ```
 Ordering: M1–M3 pure-Dart behind seams (cost math, moderation state machine, Gemini adapter shape) — `flutter test` only. M4–M6 SQL functions on the existing `credit_ledger`/`user` tables + the existing pgserver harness (ledger, payments, R2 authz). M7 secret-scan CI guard. M8 anti-abuse velocity + wiring map.
 
