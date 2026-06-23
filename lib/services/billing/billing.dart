@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+export 'payments_verify.dart';
+
 /// Portability seam (R-J7a): payments / entitlement. IAP + web checkout sit behind
 /// one adapter; entitlement is computed server-side at Stage 3, never
 /// client-asserted. This local default is read-only and always free tier.
