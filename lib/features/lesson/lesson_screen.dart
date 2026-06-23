@@ -5,6 +5,7 @@ import '../../content/models/models.dart' show ExerciseType;
 import '../../core/design_system/design_system.dart';
 import 'engine/exercise.dart';
 import 'lesson_controller.dart';
+import '../energy/energy_controller.dart';
 
 /// Immersive lesson runner (R-L3 / R-L17). Loads exercises off the local seed,
 /// runs the engine via [lessonControllerProvider], and renders question ->
@@ -73,6 +74,7 @@ class _LessonRun extends ConsumerStatefulWidget {
 
 class _LessonRunState extends ConsumerState<_LessonRun> {
   String? _selected;
+  bool _committed = false;
 
   Future<void> _confirmQuit() async {
     final t = context.tokens;
@@ -98,10 +100,43 @@ class _LessonRunState extends ConsumerState<_LessonRun> {
     if (quit == true) widget.onClose();
   }
 
+  void _showInterstitial() {
+    final t = context.tokens;
+    showDialog<void>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: t.surface,
+        title: Text('Quick break', style: RatelType.title),
+        content: Text(
+          'A short ad would play here on the free tier. Mistakes never cost energy.',
+          style: RatelType.body,
+        ),
+        actions: [
+          RatelButton(
+              label: 'Continue', onPressed: () => Navigator.of(ctx).pop()),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(lessonControllerProvider);
     final controller = ref.read(lessonControllerProvider.notifier);
+    final isPro = ref.watch(energyControllerProvider).isPro;
+
+    // Charge energy exactly once when the lesson reaches complete (R-J*); a quit
+    // never reaches here, so quitting commits nothing.
+    ref.listen<LessonState>(lessonControllerProvider, (prev, next) {
+      if (!_committed && next.phase == LessonPhase.complete) {
+        _committed = true;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted) return;
+          final outcome = ref.read(energyControllerProvider.notifier).commit();
+          if (outcome.showInterstitial) _showInterstitial();
+        });
+      }
+    });
 
     if (state.phase == LessonPhase.complete) {
       return _LessonScaffold(
@@ -122,6 +157,7 @@ class _LessonRunState extends ConsumerState<_LessonRun> {
               child: state.phase == LessonPhase.feedback
                   ? _FeedbackPanel(
                       feedback: state.feedback!,
+                      proLocked: !isPro,
                       onContinue: () {
                         setState(() => _selected = null);
                         controller.proceed();
@@ -229,8 +265,13 @@ class _QuestionPanel extends StatelessWidget {
 }
 
 class _FeedbackPanel extends StatelessWidget {
-  const _FeedbackPanel({required this.feedback, required this.onContinue});
+  const _FeedbackPanel({
+    required this.feedback,
+    required this.proLocked,
+    required this.onContinue,
+  });
   final LessonFeedback feedback;
+  final bool proLocked;
   final VoidCallback onContinue;
 
   @override
@@ -279,6 +320,10 @@ class _FeedbackPanel extends StatelessWidget {
                     ],
                   ),
                 ),
+                if (proLocked) ...[
+                  const SizedBox(height: RatelSpacing.sm),
+                  const _ProExplainLock(),
+                ],
               ],
             ),
           ),
@@ -330,6 +375,47 @@ class _CompletePanel extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+/// Pre-tap Pro lock for the deeper "Explain my answer" (R-J6 / §H honesty): the
+/// free tier sees it is a Pro feature BEFORE tapping; the why-card above is free.
+class _ProExplainLock extends StatelessWidget {
+  const _ProExplainLock();
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    return Semantics(
+      button: true,
+      label: 'Explain my answer, Pro feature',
+      child: Container(
+        padding: const EdgeInsets.all(RatelSpacing.md),
+        decoration: BoxDecoration(
+          color: t.surfaceVariant,
+          borderRadius: BorderRadius.circular(RatelSpacing.radiusMd),
+          border: Border.all(color: t.outline.withValues(alpha: 0.3)),
+        ),
+        child: Row(
+          children: [
+            Icon(Icons.lock_outline, size: 18, color: t.onSurfaceVariant),
+            const SizedBox(width: RatelSpacing.sm),
+            Expanded(
+              child: Text('Explain my answer', style: RatelType.label),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: RatelSpacing.sm, vertical: RatelSpacing.xs),
+              decoration: BoxDecoration(
+                color: t.accent,
+                borderRadius: BorderRadius.circular(RatelSpacing.radiusPill),
+              ),
+              child: Text('PRO', style: RatelType.caption.copyWith(color: t.onAccent)),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

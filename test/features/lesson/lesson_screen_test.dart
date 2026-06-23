@@ -74,6 +74,9 @@ void main() {
 
     expect(find.text('Not quite'), findsOneWidget);
     expect(find.textContaining('consume food'), findsOneWidget); // why-card
+    // free tier sees the Pro 'Explain my answer' lock pre-tap (R-J6 honesty)
+    expect(find.text('Explain my answer'), findsOneWidget);
+    expect(find.text('PRO'), findsOneWidget);
     await tester.tap(find.text('Continue'));
     await tester.pump();
 
