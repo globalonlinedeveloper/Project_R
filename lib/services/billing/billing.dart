@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 export 'payments_verify.dart';
+export 'media_authz.dart';
 
 /// Portability seam (R-J7a): payments / entitlement. IAP + web checkout sit behind
 /// one adapter; entitlement is computed server-side at Stage 3, never
