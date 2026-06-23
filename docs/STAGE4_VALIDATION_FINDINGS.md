@@ -16,6 +16,15 @@ Both reviewers agree the draft's **direction is sound** and the 13 findings are 
 
 ---
 
+## S18 disposition (what Session 18 did with each finding)
+
+- **BUILT in code (gate-green, pushed):** **P0-5** analytics allow-list + CI PII guard (`e5bc809`), **P1-5** abstract `ContentRepository` data-access seam (`9c88b54`). *(P0-1 seams were built S17.)*
+- **AUTHORED:** **P1-9** — the enumerated 1–23 register (`docs/STAGE4_ONEWAY_DOORS.md`), checklist Part B wired. Closed **P2-4** (the CI guard from P0-5).
+- **DESIGN written into the threat model (`docs/STAGE4_THREATMODEL_DRAFT.md`) — NOT implemented, Stage-3 work:** **P0-3** (TS-8 entitlement RLS client-read-only), **P0-4** (TP-8 DSAR export/delete cascade), **P0-6** (TS-5 service-role key → P0 + rotation), **P0-7** (TS-9 credit-minting, TS-10 AI-moderation-bypass), **P1-1** (TS-6 payments hardening), **P1-4** (TS-11 anon→auth migration), plus the doc-fixes **P1-2** (TP-4 cross-border), **P1-3** (TP-7 sub-processors), **P1-6** (TS-12 Edge perimeter), **P1-7** (TS-13 untrusted output), **P1-8** (TP-3 derive-voiceprint + CSAE/NCMEC exception; TP-6 retention-vs-erasure), **P2-2** (TS-7 audit-vs-analytics split), **P2-3** (TP-5 consent order + EU AI Act/C2PA).
+- **OWNER-GATED — no action taken (await explicit go-ahead):** **P0-2** (author Stage-3 user tables into the FROZEN `schema.json`), **P2-1** (enum hard-reject vs graceful-degrade), and anything that STARTS Stage 3 (Supabase / payments / AI relay / ads — money-gated).
+
+> The disposition above does NOT change the gate. "Built/authored" = the Stage-1/2 client + planning artifacts; the **design-only** and **owner-gated** items still need the architects + the owner. Supabase untouched; no money spent; no sign-off performed.
+
 ## P0 — resolve before any Stage-3 code or before sign-off
 
 - **P0-1 · ✅ ADDRESSED (S17, commit `fd7621a`, CI #29 green).** The 5 seam interface stubs + Riverpod providers now exist under `lib/services/{ai_relay,analytics,billing,data_access,identity}/` (R-H7/R-M1/R-J7a/R-M3/R-K6) with safe local defaults (fails-closed AI, no-op analytics, free-tier, in-memory store, anonymous identity); analyze-clean + 5 tests. **Still open:** wire existing features through the seams + supply the Stage-3 concrete impls. *(both agents)*
