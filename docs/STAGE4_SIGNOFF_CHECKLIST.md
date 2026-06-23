@@ -29,7 +29,7 @@ Per **SPEC §9**, delivery is three build stages with a **Stage-4 architecture s
 
 ## Part A — The 5 portability seams (built day one, never retrofitted)
 
-Abstraction boundaries that keep vendor/runtime choices swappable. They exist in code today as **interfaces/stubs** under `lib/services/` and `lib/core/` (SPEC §3). Architects confirm each is a real boundary Stage 3 plugs into — not bypassed.
+Abstraction boundaries that keep vendor/runtime choices swappable. ⚠ **CORRECTION (S17 validation):** these seams are **specified but NOT yet present in code** — `lib/services/` does not exist and no `ai_relay`/`analytics`/`billing`/`data_access` interface is in `lib/` (only a concrete content loader covers the R-M3 read path). So "built day one, never retrofitted" (SPEC §3) is **not yet satisfied** — building them is a P0 prerequisite (see `docs/STAGE4_VALIDATION_FINDINGS.md` P0-1). The `(stub)` labels below mark the *intended* location, not current state. Architects confirm each becomes a real boundary Stage 3 plugs into — not bypassed.
 
 | # | Seam | Req | Where it lives (code) | Sign-off question |
 |---|------|-----|------------------------|-------------------|
