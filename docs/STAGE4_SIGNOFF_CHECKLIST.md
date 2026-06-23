@@ -142,6 +142,15 @@ Goal: prove the intended Stage-3 schema matches the frozen contract with **zero 
 - **Result:** `37 passed` locally (`python -m pytest ratel-tools/tests -q`); schema dump = 11,277 bytes; round-trip parity exact (0 drift).
 - **Scope caveat (R-O1):** LOCAL parity on a disposable DB only. The human dual architect sign-off (Part E) and live provisioning remain required; CI runs the same tests and *skips* the pgserver-backed one cleanly where pgserver is absent (gate stays green).
 
+### Automated LOCAL evidence — Session 21 (L7 boundary; CI-wired; reversible via git)
+
+Re-verified after L5–L7 landed, with the entitlement + per-table RLS migrations now part of the applied schema:
+
+- **Schema at L7:** `schema/sql/0001_schema.sql` (9 `CREATE TABLE` = 7 user tables + 2 monthly `review_log` partitions; 4 `CREATE TYPE` = `cefr_level, fsrs_state, grant_source, ledger_entry_type`; 2 explicit `CREATE INDEX` — `user_item_state (user_id, due)` + `review_log (user_id, reviewed_at)` — plus the `credit_ledger UNIQUE (client_event_id)` idempotency index and PK indexes) + `0002_rls_entitlement.sql` (client-read-only) + `0003_rls_all_tables.sql` (deny-by-default per table).
+- **`pg_dump diff = 0` reproven:** `python -m pytest ratel-tools/tests/test_pg_dump_parity.py …test_rls_entitlement.py …test_rls_isolation.py -q` → **31 passed** on root-free `pgserver` **PostgreSQL 16.2**; full suite **73 passed**. Round-trip parity (apply DDL → dump A → apply A → dump B → normalized A == B) is exact (0 drift); the live Supabase project was **never connected to** (local unix socket only).
+- **Now executed in CI, not just locally:** `ci.yml` gains a dedicated **`db-rls-gate`** job that installs the dev harness (`requirements-dev.txt`) and runs the Part-D parity + the entitlement/credit + per-table isolation RLS tests on a disposable `pgserver`. It falls back to base tooling so the `pytest.importorskip("pgserver")` guard yields a clean skip (never a red gate) if the harness can't be provisioned.
+- **Scope caveat (R-O1):** LOCAL/CI parity on a disposable DB only — the human dual architect sign-off (Part E) and live backend provisioning remain required and are NOT satisfied by this evidence.
+
 ---
 
 ## Part E — Dual senior-architect sign-off

@@ -53,3 +53,15 @@ jobs:
           python ratel-tools/codegen_dart.py
           git diff --exit-code lib/content/models/enums.dart lib/content/models/payloads.dart lib/content/models/tables.dart lib/content/models/models.dart \
             || { echo "::error::lib/content/models is stale vs schema/ — run: python3 ratel-tools/codegen_dart.py && dart run build_runner build, then commit"; exit 1; }
+  db-rls-gate:
+    name: DB gate (Part D pg_dump diff=0 · RLS isolation — disposable pgserver, live Supabase untouched)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Stage-3 DB harness (pgserver+pg8000); fall back to base tooling so DB tests skip-clean if the harness is unavailable
+        run: pip install -r ratel-tools/requirements-dev.txt || pip install -r ratel-tools/requirements.txt
+      - name: pytest — Part D pg_dump diff=0 + entitlement/credit + per-table RLS isolation (importorskip if pgserver absent)
+        run: python -m pytest ratel-tools/tests/test_pg_dump_parity.py ratel-tools/tests/test_rls_entitlement.py ratel-tools/tests/test_rls_isolation.py -q
