@@ -80,19 +80,16 @@ jobs:
           # tester.pump, so mascot/celebration frames still rasterise.
           emulator-options: -no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
+          # NB: android-emulator-runner runs each script line as its own shell, so
+          # backslash line-continuations are NOT joined. A multi-line "flutter drive \"
+          # previously ran alone and failed (Target file not found). Keep every
+          # command on ONE physical line. Pin -d emulator-5554 because the runner
+          # also exposes linux + chrome devices (drive needs an unambiguous target).
           script: |
             flutter --version
             flutter devices
-            flutter drive \
-              --driver=test_driver/perf_driver.dart \
-              --target=integration_test/perf_bench_test.dart \
-              --profile
-            if [ -f build/integration_response_data.json ]; then
-              echo "=== perf bench captured ==="
-              cat build/integration_response_data.json
-            else
-              echo "::warning::perf bench produced no build/integration_response_data.json"
-            fi
+            flutter drive -d emulator-5554 --driver=test_driver/perf_driver.dart --target=integration_test/perf_bench_test.dart --profile
+            if [ -f build/integration_response_data.json ]; then echo "=== perf bench captured ==="; cat build/integration_response_data.json; else echo "::warning::perf bench produced no build/integration_response_data.json"; fi
 
       - name: Upload perf bench data
         if: steps.guard.outputs.ready == 'true'
