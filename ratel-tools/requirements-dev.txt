@@ -1,0 +1,6 @@
+# RATEL Stage-3 LOCAL build/test harness (dev-only — NOT shipped, NOT a runtime dep).
+# A root-free PostgreSQL + pure-python driver so Part D (pg_dump diff=0) and the RLS
+# isolation tests run on a DISPOSABLE local DB. The live Supabase project is never touched.
+-r requirements.txt
+pgserver==0.1.4   # bundles a relocatable PostgreSQL + pg_dump; boots without root
+pg8000==1.31.5    # pure-python PG driver (no libpq build needed)

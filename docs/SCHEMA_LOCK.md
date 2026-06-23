@@ -35,3 +35,28 @@ Checks 4–6 (modern UI on the loader · Adventures + Rive · perf budgets) = **
 
 ## Owner sign-off
 The automated lock is MET. Final human sign-off (owner) confirms the pilot is representative before large-scale fan-out — recorded here when given.
+
+---
+
+## ▶ 2026-06-23 (Session 19) — Stage-3 extension: content schema stays LOCKED; user tables UN-FROZEN (scoped · reversible)
+
+**Authorization.** Per the Session-18 owner directive ("push to full automation") and the agent-reviewed
+`docs/STAGE3_LOCAL_BUILD_BACKLOG.md` (item **L0**), the Ckpt-D freeze is lifted for **one scoped, additive purpose only**:
+authoring the Stage-3 **user/runtime tables** (finding **P0-2**) into the single source of truth so that
+Part-D `pg_dump diff = 0` and the entitlement/credit + per-table RLS become locally provable.
+
+**Scope of the unfreeze (precise).**
+- **STILL FROZEN — the 9 content tables** (`sentence, vocab_entry, sense, grammar_point, phoneme, item, locale, media_asset, gloss`).
+  The Ckpt-D lock condition above (12 axes pass at zero content-schema change) remains MET and is unaffected; the
+  content seeds keep validating `additionalProperties:false` against the unchanged content schemas.
+- **NOW EDITABLE — additive only — the 7 user tables** (`user, user_course, user_item_state, user_phoneme_state,
+  placement_session, review_log, credit_ledger`, per R-G6/R-J3/R-J7/R-M). These are **NEW** `additionalProperties:false`
+  table schemas; no existing content table is modified.
+
+**Guardrails.** LOCAL only · no live Supabase · every change reversible via `git revert` · **requirements stay frozen at 161**
+(the user tables are Stage-3 **schema additions**, NOT new product requirements) · subscription-only.
+
+**Tooling pin.** `ratel-tools/requirements-dev.txt` adds the dev-only local DB harness (`pgserver`, `pg8000`) used by the
+Part-D / RLS tests. It is not a runtime dependency and is never deployed.
+
+**Reversal.** `git revert` the L1–L7 commits (and this note) restores the fully-frozen Ckpt-D state.
