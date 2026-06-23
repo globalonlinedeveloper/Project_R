@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/user.json",
+  "title": "User (R-G6/R-J3) — the learner account; FSRS-7 weights + Pro entitlement. NOT content (no provenance).",
+  "type": "object",
+  "required": [
+    "user_id",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "user_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/user_id"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "pro_until": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "R-J7/P0-3 Pro entitlement expiry; null = free. Client READ-ONLY (service_role writes only)."
+    },
+    "fsrs_weights": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "description": "Per-user FSRS-7 parameter vector (R-G6)."
+    },
+    "ui_locale": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/bcp47"
+    },
+    "timezone": {
+      "type": "string",
+      "description": "IANA tz for device-local-midnight streak (R-L8)."
+    },
+    "daily_goal_xp": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": false
+}

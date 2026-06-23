@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/user_course.json",
+  "title": "UserCourse (R-J7) — a learner's enrollment in one target language + per-skill ability (theta).",
+  "type": "object",
+  "required": [
+    "user_course_id",
+    "user_id",
+    "target_locale",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "user_course_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/uuid"
+    },
+    "user_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/user_id"
+    },
+    "target_locale": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/bcp47"
+    },
+    "ui_locale": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/bcp47"
+    },
+    "theta_per_skill": {
+      "type": "object",
+      "description": "open map skill_id -> IRT theta (R-J7a placement)."
+    },
+    "cefr_target": {
+      "$ref": "https://ratel.dev/schema/enums.json#/$defs/cefr_level"
+    },
+    "xp_total": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

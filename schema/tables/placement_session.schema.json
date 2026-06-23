@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/placement_session.json",
+  "title": "PlacementSession (R-J7a) — adaptive placement run that estimates initial theta / CEFR.",
+  "type": "object",
+  "required": [
+    "placement_session_id",
+    "user_id",
+    "target_locale",
+    "started_at"
+  ],
+  "properties": {
+    "placement_session_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/uuid"
+    },
+    "user_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/user_id"
+    },
+    "target_locale": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/bcp47"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "theta_estimate": {
+      "type": "number"
+    },
+    "se_estimate": {
+      "type": "number",
+      "minimum": 0
+    },
+    "items_administered": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "result_cefr": {
+      "$ref": "https://ratel.dev/schema/enums.json#/$defs/cefr_level"
+    },
+    "responses": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "open per-item response log."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

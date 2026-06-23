@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/credit_ledger.json",
+  "title": "CreditLedger (R-J6/P0-7a) — double-entry credit ledger (grant/spend/refund) with client_event_id idempotency.",
+  "type": "object",
+  "required": [
+    "credit_ledger_id",
+    "user_id",
+    "entry_type",
+    "amount",
+    "client_event_id",
+    "created_at"
+  ],
+  "properties": {
+    "credit_ledger_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/uuid"
+    },
+    "user_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/user_id"
+    },
+    "entry_type": {
+      "$ref": "https://ratel.dev/schema/enums.json#/$defs/ledger_entry_type"
+    },
+    "amount": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "credit magnitude; direction implied by entry_type."
+    },
+    "balance_after": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "grant_source": {
+      "oneOf": [
+        {
+          "$ref": "https://ratel.dev/schema/enums.json#/$defs/grant_source"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "set when entry_type=grant."
+    },
+    "client_event_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/uuid"
+    },
+    "related_ledger_id": {
+      "oneOf": [
+        {
+          "$ref": "https://ratel.dev/schema/common.json#/$defs/uuid"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "refund -> original spend pairing (double-entry)."
+    },
+    "reason": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

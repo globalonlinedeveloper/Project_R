@@ -20,6 +20,9 @@
     "media_type": { "type": "string", "enum": ["audio", "image", "video"] },
     "content_kind": { "type": "string", "enum": ["sense", "prompt", "hint", "grammar_rule", "instruction"] },
     "plural_category": { "type": "string", "enum": ["zero", "one", "two", "few", "many", "other"] },
-    "unicode_norm": { "type": "string", "enum": ["NFC", "NFKC"] }
+    "unicode_norm": { "type": "string", "enum": ["NFC", "NFKC"] },
+    "fsrs_state": { "type": "string", "enum": ["new", "learning", "review", "relearning"] },
+    "ledger_entry_type": { "type": "string", "enum": ["grant", "spend", "refund"] },
+    "grant_source": { "type": "string", "enum": ["daily_free", "review_free", "ad_reward", "purchase", "subscription", "promo", "refund_reversal"] }
   }
 }

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/review_log.json",
+  "title": "ReviewLog (R-M) — append-only grading event log; born pg_partman monthly-partitioned on reviewed_at, kept forever.",
+  "type": "object",
+  "required": [
+    "review_log_id",
+    "user_id",
+    "item_id",
+    "reviewed_at",
+    "rating"
+  ],
+  "properties": {
+    "review_log_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/uuid"
+    },
+    "user_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/user_id"
+    },
+    "item_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id"
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "rating": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4,
+      "description": "FSRS grade: 1 again / 2 hard / 3 good / 4 easy."
+    },
+    "state": {
+      "$ref": "https://ratel.dev/schema/enums.json#/$defs/fsrs_state"
+    },
+    "elapsed_days": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "scheduled_days": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "stability_after": {
+      "type": "number",
+      "minimum": 0
+    },
+    "difficulty_after": {
+      "type": "number"
+    },
+    "duration_ms": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": false
+}

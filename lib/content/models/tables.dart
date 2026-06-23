@@ -155,3 +155,124 @@ abstract class Gloss with _$Gloss {
   }) = _Gloss;
   factory Gloss.fromJson(Map<String, dynamic> json) => _$GlossFromJson(json);
 }
+
+@freezed
+abstract class User with _$User {
+  const factory User({
+    @JsonKey(name: 'user_id') required String userId,
+    @JsonKey(name: 'created_at') required String createdAt,
+    @JsonKey(name: 'updated_at') required String updatedAt,
+    @JsonKey(name: 'pro_until') String? proUntil,
+    @JsonKey(name: 'fsrs_weights') List<double>? fsrsWeights,
+    @JsonKey(name: 'ui_locale') String? uiLocale,
+    String? timezone,
+    @JsonKey(name: 'daily_goal_xp') int? dailyGoalXp,
+  }) = _User;
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+}
+
+@freezed
+abstract class UserCourse with _$UserCourse {
+  const factory UserCourse({
+    @JsonKey(name: 'user_course_id') required String userCourseId,
+    @JsonKey(name: 'user_id') required String userId,
+    @JsonKey(name: 'target_locale') required String targetLocale,
+    @JsonKey(name: 'ui_locale') String? uiLocale,
+    @JsonKey(name: 'theta_per_skill') Map<String, Object?>? thetaPerSkill,
+    @JsonKey(name: 'cefr_target') CefrLevel? cefrTarget,
+    @JsonKey(name: 'xp_total') int? xpTotal,
+    @JsonKey(name: 'created_at') required String createdAt,
+    @JsonKey(name: 'updated_at') required String updatedAt,
+  }) = _UserCourse;
+  factory UserCourse.fromJson(Map<String, dynamic> json) => _$UserCourseFromJson(json);
+}
+
+@freezed
+abstract class UserItemState with _$UserItemState {
+  const factory UserItemState({
+    @JsonKey(name: 'user_item_state_id') required String userItemStateId,
+    @JsonKey(name: 'user_id') required String userId,
+    @JsonKey(name: 'item_id') required String itemId,
+    double? stability,
+    double? difficulty,
+    required String due,
+    @JsonKey(name: 'last_review') String? lastReview,
+    int? reps,
+    int? lapses,
+    @JsonKey(name: 'scheduled_days') int? scheduledDays,
+    required FsrsState state,
+    @JsonKey(name: 'created_at') required String createdAt,
+    @JsonKey(name: 'updated_at') required String updatedAt,
+  }) = _UserItemState;
+  factory UserItemState.fromJson(Map<String, dynamic> json) => _$UserItemStateFromJson(json);
+}
+
+@freezed
+abstract class UserPhonemeState with _$UserPhonemeState {
+  const factory UserPhonemeState({
+    @JsonKey(name: 'user_phoneme_state_id') required String userPhonemeStateId,
+    @JsonKey(name: 'user_id') required String userId,
+    @JsonKey(name: 'phoneme_id') required String phonemeId,
+    String? locale,
+    double? mastery,
+    int? attempts,
+    @JsonKey(name: 'last_score') double? lastScore,
+    String? due,
+    @JsonKey(name: 'created_at') required String createdAt,
+    @JsonKey(name: 'updated_at') required String updatedAt,
+  }) = _UserPhonemeState;
+  factory UserPhonemeState.fromJson(Map<String, dynamic> json) => _$UserPhonemeStateFromJson(json);
+}
+
+@freezed
+abstract class PlacementSession with _$PlacementSession {
+  const factory PlacementSession({
+    @JsonKey(name: 'placement_session_id') required String placementSessionId,
+    @JsonKey(name: 'user_id') required String userId,
+    @JsonKey(name: 'target_locale') required String targetLocale,
+    @JsonKey(name: 'started_at') required String startedAt,
+    @JsonKey(name: 'completed_at') String? completedAt,
+    @JsonKey(name: 'theta_estimate') double? thetaEstimate,
+    @JsonKey(name: 'se_estimate') double? seEstimate,
+    @JsonKey(name: 'items_administered') int? itemsAdministered,
+    @JsonKey(name: 'result_cefr') CefrLevel? resultCefr,
+    List<Map<String, Object?>>? responses,
+    @JsonKey(name: 'created_at') String? createdAt,
+  }) = _PlacementSession;
+  factory PlacementSession.fromJson(Map<String, dynamic> json) => _$PlacementSessionFromJson(json);
+}
+
+@freezed
+abstract class ReviewLog with _$ReviewLog {
+  const factory ReviewLog({
+    @JsonKey(name: 'review_log_id') required String reviewLogId,
+    @JsonKey(name: 'user_id') required String userId,
+    @JsonKey(name: 'item_id') required String itemId,
+    @JsonKey(name: 'reviewed_at') required String reviewedAt,
+    required int rating,
+    FsrsState? state,
+    @JsonKey(name: 'elapsed_days') int? elapsedDays,
+    @JsonKey(name: 'scheduled_days') int? scheduledDays,
+    @JsonKey(name: 'stability_after') double? stabilityAfter,
+    @JsonKey(name: 'difficulty_after') double? difficultyAfter,
+    @JsonKey(name: 'duration_ms') int? durationMs,
+  }) = _ReviewLog;
+  factory ReviewLog.fromJson(Map<String, dynamic> json) => _$ReviewLogFromJson(json);
+}
+
+@freezed
+abstract class CreditLedger with _$CreditLedger {
+  const factory CreditLedger({
+    @JsonKey(name: 'credit_ledger_id') required String creditLedgerId,
+    @JsonKey(name: 'user_id') required String userId,
+    @JsonKey(name: 'entry_type') required LedgerEntryType entryType,
+    required int amount,
+    @JsonKey(name: 'balance_after') int? balanceAfter,
+    @JsonKey(name: 'grant_source') GrantSource? grantSource,
+    @JsonKey(name: 'client_event_id') required String clientEventId,
+    @JsonKey(name: 'related_ledger_id') String? relatedLedgerId,
+    String? reason,
+    @JsonKey(name: 'created_at') required String createdAt,
+  }) = _CreditLedger;
+  factory CreditLedger.fromJson(Map<String, dynamic> json) => _$CreditLedgerFromJson(json);
+}

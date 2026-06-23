@@ -39,6 +39,13 @@ VALID = {
                     "duration_ms": 1840, "provenance": PROV},
     "gloss": {"content_id": "sense_dog_es", "content_kind": "sense", "ui_locale": "ta",
               "text": "நாய்", "provenance": PROV},
+    "user": {"user_id": "11111111-1111-1111-1111-111111111111", "created_at": "2026-06-23T00:00:00Z", "updated_at": "2026-06-23T00:00:00Z", "pro_until": "2026-12-31T00:00:00Z", "fsrs_weights": [0.4, 0.6, 2.4, 5.8], "ui_locale": "en", "timezone": "Asia/Kolkata", "daily_goal_xp": 30},
+    "user_course": {"user_course_id": "22222222-2222-2222-2222-222222222222", "user_id": "11111111-1111-1111-1111-111111111111", "target_locale": "es", "ui_locale": "en", "theta_per_skill": {"skill_es_articles": 0.5}, "cefr_target": "A1", "xp_total": 120, "created_at": "2026-06-23T00:00:00Z", "updated_at": "2026-06-23T00:00:00Z"},
+    "user_item_state": {"user_item_state_id": "33333333-3333-3333-3333-333333333333", "user_id": "11111111-1111-1111-1111-111111111111", "item_id": "item_es_0001", "stability": 12.5, "difficulty": 5.0, "due": "2026-06-30T00:00:00Z", "last_review": "2026-06-23T00:00:00Z", "reps": 3, "lapses": 0, "scheduled_days": 7, "state": "review", "created_at": "2026-06-23T00:00:00Z", "updated_at": "2026-06-23T00:00:00Z"},
+    "user_phoneme_state": {"user_phoneme_state_id": "44444444-4444-4444-4444-444444444444", "user_id": "11111111-1111-1111-1111-111111111111", "phoneme_id": "ph_th_05", "locale": "th", "mastery": 0.8, "attempts": 5, "last_score": 0.9, "due": "2026-06-30T00:00:00Z", "created_at": "2026-06-23T00:00:00Z", "updated_at": "2026-06-23T00:00:00Z"},
+    "placement_session": {"placement_session_id": "55555555-5555-5555-5555-555555555555", "user_id": "11111111-1111-1111-1111-111111111111", "target_locale": "es", "started_at": "2026-06-23T00:00:00Z", "completed_at": "2026-06-23T00:10:00Z", "theta_estimate": 0.3, "se_estimate": 0.4, "items_administered": 12, "result_cefr": "A2", "responses": [{"item_id": "item_es_0001", "correct": True}], "created_at": "2026-06-23T00:00:00Z"},
+    "review_log": {"review_log_id": "66666666-6666-6666-6666-666666666666", "user_id": "11111111-1111-1111-1111-111111111111", "item_id": "item_es_0001", "reviewed_at": "2026-06-23T00:00:00Z", "rating": 3, "state": "review", "elapsed_days": 5, "scheduled_days": 7, "stability_after": 15.0, "difficulty_after": 5.1, "duration_ms": 3400},
+    "credit_ledger": {"credit_ledger_id": "77777777-7777-7777-7777-777777777777", "user_id": "11111111-1111-1111-1111-111111111111", "entry_type": "grant", "amount": 5, "balance_after": 5, "grant_source": "daily_free", "client_event_id": "88888888-8888-8888-8888-888888888888", "reason": "first daily free", "created_at": "2026-06-23T00:00:00Z"},
 }
 
 # Each invalid case must produce >= 1 validation error.
@@ -53,6 +60,16 @@ INVALID = [
     ("gloss", {**VALID["gloss"], "content_kind": "footnote"}, "bad content_kind"),
     ("sentence", {**VALID["sentence"], "provenance": {**PROV, "review_status": "approved"}}, "review_status must be the canonical 5-state"),
     ("item", {k: v for k, v in VALID["item"].items() if k != "exercise_type"}, "missing required exercise_type"),
+    ("user", {**VALID["user"], "is_admin": True}, "rows-only: unknown column on user"),
+    ("user_course", {**VALID["user_course"], "secret": 1}, "rows-only: unknown column on user_course"),
+    ("user_item_state", {**VALID["user_item_state"], "foo": 1}, "rows-only: unknown column on user_item_state"),
+    ("user_phoneme_state", {**VALID["user_phoneme_state"], "foo": 1}, "rows-only: unknown column on user_phoneme_state"),
+    ("placement_session", {**VALID["placement_session"], "foo": 1}, "rows-only: unknown column on placement_session"),
+    ("review_log", {**VALID["review_log"], "foo": 1}, "rows-only: unknown column on review_log"),
+    ("credit_ledger", {**VALID["credit_ledger"], "foo": 1}, "rows-only: unknown column on credit_ledger"),
+    ("user_item_state", {**VALID["user_item_state"], "state": "mastered"}, "bad fsrs_state enum"),
+    ("review_log", {**VALID["review_log"], "rating": 9}, "rating out of 1..4 range"),
+    ("credit_ledger", {**VALID["credit_ledger"], "entry_type": "chargeback"}, "bad ledger_entry_type enum"),
 ]
 
 

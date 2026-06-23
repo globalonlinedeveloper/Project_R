@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/user_item_state.json",
+  "title": "UserItemState (R-G6) — FSRS scheduler state per (user, item). (user_id, due) is the review-queue index.",
+  "type": "object",
+  "required": [
+    "user_item_state_id",
+    "user_id",
+    "item_id",
+    "due",
+    "state",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "user_item_state_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/uuid"
+    },
+    "user_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/user_id"
+    },
+    "item_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id"
+    },
+    "stability": {
+      "type": "number",
+      "minimum": 0
+    },
+    "difficulty": {
+      "type": "number"
+    },
+    "due": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_review": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "reps": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "lapses": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "scheduled_days": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "state": {
+      "$ref": "https://ratel.dev/schema/enums.json#/$defs/fsrs_state"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

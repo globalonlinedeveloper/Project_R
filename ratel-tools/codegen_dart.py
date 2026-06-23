@@ -16,7 +16,10 @@ SCHEMA = ROOT / "schema"
 OUT = ROOT / "lib" / "content" / "models"
 
 TABLES = ["sentence", "vocab_entry", "sense", "grammar_point", "phoneme",
-          "item", "locale", "media_asset", "gloss"]
+          "item", "locale", "media_asset", "gloss",
+          # Stage-3 user/runtime tables (P0-2, L1)
+          "user", "user_course", "user_item_state", "user_phoneme_state",
+          "placement_session", "review_log", "credit_ledger"]
 PAYLOADS = ["normalization_flags", "answer_spec", "token", "script_meta", "provenance"]
 
 DART_AVOID = {
@@ -56,7 +59,7 @@ def enum_member(v: str) -> str:
     return ident
 
 
-PRIMITIVE = {"content_id": "String", "bcp47": "String"}
+PRIMITIVE = {"content_id": "String", "bcp47": "String", "uuid": "String", "user_id": "String"}
 OPENMAP = {"features": "Map<String, Object?>", "prosody": "Map<String, Object?>"}
 PAYLOAD = {"provenance": "Provenance", "token": "Token", "answer_spec": "AnswerSpec",
            "normalization_flags": "NormalizationFlags", "script_meta": "ScriptMeta"}

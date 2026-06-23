@@ -144,3 +144,29 @@ enum UnicodeNorm {
   @JsonValue('NFC') nfc,
   @JsonValue('NFKC') nfkc;
 }
+
+@JsonEnum()
+enum FsrsState {
+  @JsonValue('new') new_,
+  @JsonValue('learning') learning,
+  @JsonValue('review') review,
+  @JsonValue('relearning') relearning;
+}
+
+@JsonEnum()
+enum LedgerEntryType {
+  @JsonValue('grant') grant,
+  @JsonValue('spend') spend,
+  @JsonValue('refund') refund;
+}
+
+@JsonEnum()
+enum GrantSource {
+  @JsonValue('daily_free') dailyFree,
+  @JsonValue('review_free') reviewFree,
+  @JsonValue('ad_reward') adReward,
+  @JsonValue('purchase') purchase,
+  @JsonValue('subscription') subscription,
+  @JsonValue('promo') promo,
+  @JsonValue('refund_reversal') refundReversal;
+}
