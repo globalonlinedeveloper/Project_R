@@ -48,6 +48,8 @@ jobs:
         run: pip install -r ratel-tools/requirements.txt
       - name: pytest — schema + pipeline (T0.2 · T2.1)
         run: python -m pytest ratel-tools/tests -q
+      - name: Secret scan (M7 P0-6 · no committed service-role/Stripe/Google/PEM keys)
+        run: python -m pytest ratel-tools/tests/test_secret_scan.py -q
       - name: Model drift — regenerate Dart from schema, assert no diff (schema is the SoT)
         run: |
           python ratel-tools/codegen_dart.py

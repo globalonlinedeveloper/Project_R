@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'anonymous_claim.dart';
 
 export 'anonymous_claim.dart';
+export 'service_role_contract.dart';
 
 /// Portability seam (R-K6): identity. `auth.uid()` is the ONLY user primary key —
 /// no parallel user identifier is ever introduced. Stage 3 supplies a
