@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/design_system/design_system.dart';
 import 'adventure_model.dart';
 import 'scene_player.dart';
+import '../mascot/mascot_view.dart';
 
 /// Immersive scripted-roleplay player (R-L4a). NPC line -> learner choice ->
 /// NPC reply -> next, ending in a small celebration. All token-driven; runs on
@@ -183,6 +184,8 @@ class _SceneComplete extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const Center(child: MascotView(size: 96, mood: MascotMood.cheer)),
+            const SizedBox(height: RatelSpacing.lg),
             Text('Scene complete!',
                 style: RatelType.display, textAlign: TextAlign.center),
             const SizedBox(height: RatelSpacing.sm),

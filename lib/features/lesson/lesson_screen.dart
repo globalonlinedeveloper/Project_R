@@ -7,6 +7,7 @@ import 'engine/exercise.dart';
 import 'lesson_controller.dart';
 import '../energy/energy_controller.dart';
 import '../streak/streak_controller.dart';
+import '../mascot/mascot_view.dart';
 
 /// Immersive lesson runner (R-L3 / R-L17). Loads exercises off the local seed,
 /// runs the engine via [lessonControllerProvider], and renders question ->
@@ -362,6 +363,8 @@ class _CompletePanel extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              const Center(child: MascotView(size: 96, mood: MascotMood.cheer)),
+              const SizedBox(height: RatelSpacing.lg),
               Text('Lesson complete!',
                   style: RatelType.display, textAlign: TextAlign.center),
               const SizedBox(height: RatelSpacing.xl),
