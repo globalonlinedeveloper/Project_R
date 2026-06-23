@@ -1,11 +1,11 @@
 {
-    "name": "ratel",
-    "short_name": "ratel",
+    "name": "Ratel — Learn a language",
+    "short_name": "Ratel",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Ratel is a language-learning app with short daily lessons, streaks, and guided practice — designed to reward effort, not punish mistakes.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
