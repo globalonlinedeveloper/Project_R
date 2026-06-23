@@ -6,16 +6,20 @@ import '../../core/design_system/design_system.dart';
 import 'engine/exercise.dart';
 import 'lesson_controller.dart';
 import '../energy/energy_controller.dart';
+import '../streak/streak_controller.dart';
 
 /// Immersive lesson runner (R-L3 / R-L17). Loads exercises off the local seed,
 /// runs the engine via [lessonControllerProvider], and renders question ->
 /// feedback (free why-card) -> celebratory complete. Quitting confirms and
 /// discards (no commit / no energy). All colour + motion via design tokens.
 class LessonScreen extends ConsumerWidget {
-  const LessonScreen({super.key, this.onClose});
+  const LessonScreen({super.key, this.onClose, this.isReview = false});
 
   /// Injected so tests drive exit without a real router; defaults to a pop.
   final VoidCallback? onClose;
+
+  /// Reviews are always free (no energy) — R-J*/R-L8.
+  final bool isReview;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,7 +37,10 @@ class LessonScreen extends ConsumerWidget {
             child: Center(child: Text('No lesson available yet', style: RatelType.body)),
           );
         }
-        return _LessonRun(onClose: onClose ?? () => _defaultClose(context));
+        return _LessonRun(
+          onClose: onClose ?? () => _defaultClose(context),
+          isReview: isReview,
+        );
       },
     );
   }
@@ -65,8 +72,9 @@ class _LessonScaffold extends StatelessWidget {
 }
 
 class _LessonRun extends ConsumerStatefulWidget {
-  const _LessonRun({required this.onClose});
+  const _LessonRun({required this.onClose, this.isReview = false});
   final VoidCallback onClose;
+  final bool isReview;
 
   @override
   ConsumerState<_LessonRun> createState() => _LessonRunState();
@@ -132,7 +140,10 @@ class _LessonRunState extends ConsumerState<_LessonRun> {
         _committed = true;
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (!mounted) return;
-          final outcome = ref.read(energyControllerProvider.notifier).commit();
+          final outcome = ref
+              .read(energyControllerProvider.notifier)
+              .commit(isReview: widget.isReview);
+          ref.read(streakControllerProvider.notifier).recordActivity();
           if (outcome.showInterstitial) _showInterstitial();
         });
       }

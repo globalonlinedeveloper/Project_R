@@ -41,7 +41,8 @@ final GoRouter ratelRouter = GoRouter(
     ),
     GoRoute(
       path: '/lesson',
-      pageBuilder: (c, s) => _fadePage(const LessonScreen()),
+      pageBuilder: (c, s) => _fadePage(
+          LessonScreen(isReview: s.uri.queryParameters['review'] == '1')),
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>

@@ -4,16 +4,18 @@ import 'package:go_router/go_router.dart';
 import '../../core/design_system/design_system.dart';
 import '../energy/energy_controller.dart';
 import '../energy/energy_state.dart';
+import '../streak/streak_controller.dart';
 
-/// Learn tab home. The richer streak/continue surface lands next (R-L4/L8);
-/// this slice gives a real entry into the lesson runner (R-L3) behind the
-/// gentle-energy start gate, plus the energy HUD.
+/// Learn tab home (R-L4/L8): streak banner, the daily lesson entry behind the
+/// gentle-energy gate, and an always-free "Practice your mistakes" review entry.
+/// Energy HUD lives in the app bar. Learner state stays in-memory stubs (R-O1).
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final energy = ref.watch(energyControllerProvider);
+    final streak = ref.watch(streakControllerProvider);
     return RatelScreen(
       title: 'Learn',
       actions: [_EnergyHud(state: energy)],
@@ -21,6 +23,8 @@ class HomeScreen extends ConsumerWidget {
         key: const Key('home-screen'),
         children: [
           const SizedBox(height: RatelSpacing.sm),
+          _StreakBanner(current: streak.current, longest: streak.longest),
+          const SizedBox(height: RatelSpacing.xl),
           Text('Your lessons', style: RatelType.headline),
           const SizedBox(height: RatelSpacing.lg),
           RatelCard(
@@ -38,7 +42,34 @@ class HomeScreen extends ConsumerWidget {
                   label: 'Start lesson',
                   icon: Icons.play_arrow_rounded,
                   expand: true,
-                  onPressed: () => _startLesson(context, ref),
+                  onPressed: () => _start(context, ref, review: false),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: RatelSpacing.lg),
+          RatelCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(child: Text('Practice your mistakes', style: RatelType.title)),
+                    _FreeTag(),
+                  ],
+                ),
+                const SizedBox(height: RatelSpacing.xs),
+                Text(
+                  'Reviews are always free — they never cost energy.',
+                  style: RatelType.body,
+                ),
+                const SizedBox(height: RatelSpacing.lg),
+                RatelButton(
+                  label: 'Review mistakes',
+                  icon: Icons.refresh_rounded,
+                  kind: RatelButtonKind.secondary,
+                  expand: true,
+                  onPressed: () => _start(context, ref, review: true),
                 ),
               ],
             ),
@@ -48,9 +79,9 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  void _startLesson(BuildContext context, WidgetRef ref) {
-    if (ref.read(energyControllerProvider.notifier).canStart()) {
-      context.push('/lesson');
+  void _start(BuildContext context, WidgetRef ref, {required bool review}) {
+    if (ref.read(energyControllerProvider.notifier).canStart(isReview: review)) {
+      context.push(review ? '/lesson?review=1' : '/lesson');
     } else {
       showModalBottomSheet<void>(
         context: context,
@@ -68,6 +99,60 @@ class HomeScreen extends ConsumerWidget {
         ),
       );
     }
+  }
+}
+
+class _StreakBanner extends StatelessWidget {
+  const _StreakBanner({required this.current, required this.longest});
+  final int current;
+  final int longest;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final started = current > 0;
+    return RatelCard(
+      child: Row(
+        children: [
+          Icon(Icons.local_fire_department,
+              color: started ? t.accent : t.outline, size: 32),
+          const SizedBox(width: RatelSpacing.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  started ? '$current day streak' : 'Start your streak',
+                  style: RatelType.title,
+                ),
+                const SizedBox(height: RatelSpacing.xs),
+                Text(
+                  started ? 'Best: $longest days' : 'Finish a lesson today to begin',
+                  style: RatelType.caption.copyWith(color: t.onSurfaceVariant),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FreeTag extends StatelessWidget {
+  const _FreeTag();
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    return Container(
+      padding: const EdgeInsets.symmetric(
+          horizontal: RatelSpacing.sm, vertical: RatelSpacing.xs),
+      decoration: BoxDecoration(
+        color: t.success,
+        borderRadius: BorderRadius.circular(RatelSpacing.radiusPill),
+      ),
+      child: Text('FREE', style: RatelType.caption.copyWith(color: t.onSuccess)),
+    );
   }
 }
 
@@ -89,8 +174,9 @@ class _EnergyHud extends StatelessWidget {
           Text(
             label,
             style: RatelType.bodyStrong,
-            semanticsLabel:
-                state.isUnlimited ? 'Unlimited energy' : '${state.energy} energy',
+            semanticsLabel: state.isUnlimited
+                ? 'Unlimited energy'
+                : '${state.energy} energy',
           ),
         ],
       ),
@@ -98,8 +184,8 @@ class _EnergyHud extends StatelessWidget {
   }
 }
 
-/// Out-of-energy upsell (R-J6). Scroll-safe (S14 overflow gotcha): mistakes
-/// never cost energy, so this only appears for a normal empty-tank lesson.
+/// Out-of-energy upsell (R-J6). Scroll-safe; only appears for a normal
+/// empty-tank lesson (mistakes + reviews never cost energy).
 class OutOfEnergySheet extends StatelessWidget {
   const OutOfEnergySheet({
     super.key,
