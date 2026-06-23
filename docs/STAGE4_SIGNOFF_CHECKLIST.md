@@ -48,7 +48,7 @@ Abstraction boundaries that keep vendor/runtime choices swappable. ✅ **UPDATE 
 
 ## Part B — The 23 one-way doors (irreversible decisions, locked)
 
-"One-way doors" = decisions costly/impossible to reverse once the backend ships. The **authoritative register is `RATEL_REQUIREMENTS.md` (§M.1)** — architects verify each of the 23 is still locked **and consistent with the built Stage-1/2 code** before the backend is built on top of it.
+"One-way doors" = decisions costly/impossible to reverse once the backend ships. **The enumerated 1–23 register now exists at [`docs/STAGE4_ONEWAY_DOORS.md`](STAGE4_ONEWAY_DOORS.md) (validation finding P1-9 — addressed).** ⚠ Important correction: **`§M.1` is NOT actually an enumerated section** — the requirements tag one-way doors in-place across individual `R-` entries and the "23/23" tally is a roll-up *asserted*, never listed. The new register is the first explicit synthesis and is **advisory until the architects ratify it** (accept the 23-row partition, or adjust splits/merges, then write it back into a real §M.1). Architects verify each door is still locked **and consistent with the built Stage-1/2 code** before the backend is built on top of it.
 
 Session-9 history (`RATEL_PROJECT_STATE.md`): the **5 genuinely-open** doors were closed; the remaining ~18 were already locked in the spec. The 5 formerly-open doors and their resolved values:
 
@@ -77,7 +77,8 @@ Key spec-locked doors to re-confirm (subset — the full 23 are in §M.1):
 | Platform target | All 6 platforms (Android/iOS/web/Linux/macOS/Windows) | R-A2a |
 | Requirement count | Frozen at **161** | — |
 
-- [ ] All 23 doors in §M.1 confirmed locked (use this table as a starting cross-check; §M.1 is canonical).
+- [ ] **Ratify the enumerated 1–23 register** (`docs/STAGE4_ONEWAY_DOORS.md`, P1-9): accept the 23-row partition or adjust splits/merges to a deliberate 23, then write it back into a real §M.1 so the count stops being virtual.
+- [ ] All 23 doors confirmed locked (cross-check the register against the in-place `R-` tags).
 - [ ] Each door is consistent with what Stage 1–2 actually built (no spec↔code drift).
 - [ ] Any door that must change is raised **now** (pre-backend) — never after brand/data equity exists.
 
