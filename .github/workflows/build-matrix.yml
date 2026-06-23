@@ -7,6 +7,9 @@ name: build-matrix
 # a PUBLIC repo, so Linux/macOS/Windows runners are all free. Build-only (+ artifact)
 # — the Android on-device run is covered by perf-bench.yml. Runs on push to main +
 # manual dispatch (not PRs, to keep PR feedback fast). Local · NO DB · schema frozen · 161.
+#
+# Job names show the TARGET (e.g. "Android (APK)", "iOS"); the host runner each build
+# needs is `matrix.os` (ubuntu = apk/web/linux, macOS = ios/macos, windows = windows).
 on:
   push:
     branches: [ main ]
@@ -18,19 +21,19 @@ concurrency:
 
 jobs:
   build:
-    name: ${{ matrix.target }} (${{ matrix.os }})
+    name: ${{ matrix.label }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
         include:
-          - { os: ubuntu-latest,  target: apk,     cmd: "flutter build apk --debug",                 artifact: "build/app/outputs/flutter-apk/app-debug.apk" }
-          - { os: ubuntu-latest,  target: web,     cmd: "flutter build web --pwa-strategy=none",      artifact: "build/web" }
-          - { os: ubuntu-latest,  target: linux,   cmd: "flutter build linux --debug",                artifact: "build/linux/x64/debug/bundle" }
-          - { os: macos-latest,   target: ios,     cmd: "flutter build ios --debug --no-codesign",    artifact: "build/ios/iphoneos" }
-          - { os: macos-latest,   target: macos,   cmd: "flutter build macos --debug",                artifact: "build/macos/Build/Products/Debug" }
-          - { os: windows-latest, target: windows, cmd: "flutter build windows --debug",              artifact: "build/windows/x64/runner/Debug" }
+          - { label: "Android (APK)", os: ubuntu-latest,  target: apk,     cmd: "flutter build apk --debug",              artifact: "build/app/outputs/flutter-apk/app-debug.apk" }
+          - { label: "Web",           os: ubuntu-latest,  target: web,     cmd: "flutter build web --pwa-strategy=none",  artifact: "build/web" }
+          - { label: "Linux",         os: ubuntu-latest,  target: linux,   cmd: "flutter build linux --debug",            artifact: "build/linux/x64/debug/bundle" }
+          - { label: "iOS",           os: macos-latest,   target: ios,     cmd: "flutter build ios --debug --no-codesign", artifact: "build/ios/iphoneos" }
+          - { label: "macOS",         os: macos-latest,   target: macos,   cmd: "flutter build macos --debug",            artifact: "build/macos/Build/Products/Debug" }
+          - { label: "Windows",       os: windows-latest, target: windows, cmd: "flutter build windows --debug",          artifact: "build/windows/x64/runner/Debug" }
     steps:
       - uses: actions/checkout@v4
 
