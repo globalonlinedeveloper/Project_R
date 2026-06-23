@@ -1,0 +1,103 @@
+name: perf-bench
+
+# On-device performance bench — the R-O1 check-6 follow-up (docs/STAGE2_EXIT.md).
+# Boots an Android emulator and runs integration_test/perf_bench_test.dart under
+# a PROFILE build via `flutter drive`, capturing cold-start + frame build/raster
+# timings + mascot memory into build/integration_response_data.json (artifact).
+#
+# Like deploy-web.yml this is a SEPARATE, non-required workflow so it never
+# blocks the red-blocking `flutter-gate` in ci.yml. It is additionally GATED to
+# skip-GREEN when the runner can't run an emulator (no /dev/kvm), so a runner
+# without nested virtualisation is a green no-op rather than a red wall.
+#
+# Runs on push to main (one bench per release) + manual dispatch — not on PRs,
+# to keep PR feedback fast. Local · NO DB · schema frozen · still 161 reqs.
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+concurrency:
+  group: perf-bench-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  device-perf-bench:
+    name: On-device perf bench (Android emulator, profile)
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check KVM / nested virtualisation (graceful skip if absent)
+        id: guard
+        run: |
+          if [ -e /dev/kvm ]; then
+            echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
+              | sudo tee /etc/udev/rules.d/99-kvm4all.rules >/dev/null
+            sudo udevadm control --reload-rules
+            sudo udevadm trigger --name-match=kvm
+            echo "::notice::/dev/kvm present — running the on-device perf bench."
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::/dev/kvm absent — no emulator acceleration; skipping perf bench (green no-op)."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-java@v4
+        if: steps.guard.outputs.ready == 'true'
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: subosito/flutter-action@v2
+        if: steps.guard.outputs.ready == 'true'
+        with:
+          flutter-version: '3.44.1'
+          channel: stable
+          cache: true
+
+      - name: flutter pub get
+        if: steps.guard.outputs.ready == 'true'
+        run: flutter pub get
+
+      - name: Codegen (freezed/json_serializable parts are gitignored)
+        if: steps.guard.outputs.ready == 'true'
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Run perf bench on Android emulator (profile)
+        if: steps.guard.outputs.ready == 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          cores: 2
+          ram-size: 4096M
+          # Software GL on the GPU-less runner — timings are for trend tracking,
+          # not absolute device budgets. The bench drives Flutter's own clock via
+          # tester.pump, so mascot/celebration frames still rasterise.
+          emulator-options: -no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: |
+            flutter --version
+            flutter devices
+            flutter drive \
+              --driver=test_driver/perf_driver.dart \
+              --target=integration_test/perf_bench_test.dart \
+              --profile
+            if [ -f build/integration_response_data.json ]; then
+              echo "=== perf bench captured ==="
+              cat build/integration_response_data.json
+            else
+              echo "::warning::perf bench produced no build/integration_response_data.json"
+            fi
+
+      - name: Upload perf bench data
+        if: steps.guard.outputs.ready == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: device-perf-bench
+          path: build/integration_response_data.json
+          if-no-files-found: warn

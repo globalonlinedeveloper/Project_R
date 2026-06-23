@@ -43,17 +43,21 @@ All core surfaces build from the bundled `ContentBatch` (fail-closed
   and **disposes cleanly** on unmount (R-N8, no leaked controllers/timers).
 - Evidence: `test/perf/perf_gauntlet_test.dart`.
 
-**PASS (headless).** ⚠ **Remaining CI-infra follow-up (not headlessly automatable):**
-an on-device **frame-timing / cold-start bench** (profile build on an emulator or
-reference device, e.g. `integration_test` + `flutter drive --profile` capturing
-raster/build timelines + mascot memory). The headless gauntlet proves *structural*
-perf (layout + animation correctness + dispose); the device bench proves *timing*
-budgets. Recommend adding an emulator job to CI in Stage 3 setup.
+**PASS (headless).** The headless gauntlet proves *structural* perf (layout +
+animation correctness + dispose); the on-device **frame-timing / cold-start
+bench** proves *timing* budgets. That bench is now implemented (SESSION 16):
+`integration_test/perf_bench_test.dart` (cold-start boot→first frame, FrameTiming
+build+raster summaries for the app shell and the heaviest mascot-loop + levelUp
+combo, and mascot process RSS) is run under a PROFILE build on an Android
+emulator by `.github/workflows/perf-bench.yml` via `flutter drive`, writing
+`build/integration_response_data.json` as a CI artifact. That workflow is a
+separate, non-required job (it never blocks `flutter-gate`) and is **gated to
+skip-GREEN** when the runner lacks KVM, so it degrades cleanly.
 
 ## Verdict
 **Checks 4–6 PASS** → with checks 1–3 (schema lock), the **R-O1 6-check exit gate
-for Stage 2 is satisfied** (check 6's device-timing bench noted as a CI-infra
-follow-up). Stage 2 modern-UI rebuild is feature-complete on the loader:
+for Stage 2 is satisfied** (check 6's device-timing bench now
+implemented as the gated `perf-bench.yml` emulator job). Stage 2 modern-UI rebuild is feature-complete on the loader:
 **96 Dart tests green · `flutter analyze` clean · token-lint (R-N6) clean**.
 Next per the build plan: ★ Stage-4 architecture sign-off (owner + engineers),
 then Stage 3 (backend/runtime/payments, money-gated).
