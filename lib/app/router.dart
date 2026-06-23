@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../core/design_system/tokens/ratel_motion.dart';
 import '../features/adventures/adventures_screen.dart';
 import '../features/home/home_screen.dart';
+import '../features/lesson/lesson_screen.dart';
 import '../features/onboarding/onboarding_flow.dart';
 import '../features/practice/practice_screen.dart';
 import '../features/profile/profile_screen.dart';
@@ -37,6 +38,10 @@ final GoRouter ratelRouter = GoRouter(
     GoRoute(
       path: '/onboarding',
       pageBuilder: (c, s) => _fadePage(const OnboardingFlow()),
+    ),
+    GoRoute(
+      path: '/lesson',
+      pageBuilder: (c, s) => _fadePage(const LessonScreen()),
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>

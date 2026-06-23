@@ -31,9 +31,9 @@ class Exercise {
   String get canonicalAnswer => accepted.first;
 }
 
-/// Feedback returned by `LessonEngine.submit`.
-class Feedback {
-  const Feedback({
+/// LessonFeedback returned by `LessonEngine.submit`.
+class LessonFeedback {
+  const LessonFeedback({
     required this.correct,
     required this.whyCard,
     required this.correctAnswer,

@@ -17,7 +17,7 @@ class LessonState {
 
   final LessonPhase phase;
   final Exercise? current; // null only when complete
-  final Feedback? feedback; // set in the feedback phase
+  final LessonFeedback? feedback; // set in the feedback phase
   final int resolved;
   final int total;
   final LessonResult? result; // non-null once complete

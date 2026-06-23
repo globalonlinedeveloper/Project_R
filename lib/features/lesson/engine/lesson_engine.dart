@@ -25,11 +25,11 @@ class LessonEngine {
   final Map<String, _Progress> _progress = {};
   int _cursor = 0;
   late LessonPhase _phase;
-  Feedback? _lastFeedback;
+  LessonFeedback? _lastFeedback;
 
   LessonPhase get phase => _phase;
   bool get isComplete => _phase == LessonPhase.complete;
-  Feedback? get lastFeedback => _lastFeedback;
+  LessonFeedback? get lastFeedback => _lastFeedback;
 
   Exercise get current => _all[_order[_cursor]];
 
@@ -37,7 +37,7 @@ class LessonEngine {
   int get resolvedCount => _progress.values.where((p) => p.resolved).length;
 
   /// Grade [answer] for the current exercise. Valid only in the question phase.
-  Feedback submit(String answer) {
+  LessonFeedback submit(String answer) {
     assert(_phase == LessonPhase.question, 'submit() only valid in question phase');
     final ex = current;
     final p = _progress[ex.itemId]!;
@@ -45,7 +45,7 @@ class LessonEngine {
     if (correct) {
       if (p.firstAttempt) p.firstTryCorrect = true;
       p.resolved = true;
-      _lastFeedback = Feedback(
+      _lastFeedback = LessonFeedback(
         correct: true,
         whyCard: ex.whyCard,
         correctAnswer: ex.canonicalAnswer,
@@ -56,7 +56,7 @@ class LessonEngine {
       if (p.misses >= missCap) {
         p.autoRevealed = true;
         p.resolved = true;
-        _lastFeedback = Feedback(
+        _lastFeedback = LessonFeedback(
           correct: false,
           whyCard: ex.whyCard,
           correctAnswer: ex.canonicalAnswer,
@@ -64,7 +64,7 @@ class LessonEngine {
         );
       } else {
         _order.add(_order[_cursor]); // re-ask at lesson end
-        _lastFeedback = Feedback(
+        _lastFeedback = LessonFeedback(
           correct: false,
           whyCard: ex.whyCard,
           correctAnswer: ex.canonicalAnswer,
