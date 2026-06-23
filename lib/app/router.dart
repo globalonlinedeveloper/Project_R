@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import '../core/design_system/tokens/ratel_motion.dart';
 import '../features/adventures/adventures_screen.dart';
+import '../features/adventures/scene_screen.dart';
 import '../features/home/home_screen.dart';
 import '../features/lesson/lesson_screen.dart';
 import '../features/onboarding/onboarding_flow.dart';
@@ -43,6 +44,11 @@ final GoRouter ratelRouter = GoRouter(
       path: '/lesson',
       pageBuilder: (c, s) => _fadePage(
           LessonScreen(isReview: s.uri.queryParameters['review'] == '1')),
+    ),
+    GoRoute(
+      path: '/scene/:id',
+      pageBuilder: (c, s) =>
+          _fadePage(SceneScreen(sceneId: s.pathParameters['id']!)),
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
