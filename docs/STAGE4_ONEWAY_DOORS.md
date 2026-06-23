@@ -57,3 +57,30 @@ There is **no heading to quote** — §M.1 is a label applied to one-way decisio
 - `docs/STAGE4_VALIDATION_FINDINGS.md` P1-9: *"Neither the requirements nor §M.1 has an enumerated 1–23 list; '23/23 PASS' is asserted, not checkable."*
 
 *Synthesized Session 18 from `RATEL_REQUIREMENTS.md`, the SPEC, the checklist, and the built `lib/`. Advisory until architect-ratified; no decision changed; no sign-off performed; Supabase untouched. Canonical copy: repo `docs/`; owner mirror: `Apps/RATEL_STAGE4_ONEWAY_DOORS.md`.*
+
+---
+
+## Door #18 addendum — enum forward-compatibility policy (P2-1; Session 20 / L6)
+
+Door #18 (schema single-source-of-truth) governs the closed `enums.schema.json` controlled
+vocabularies (R-C12: *"Adding a value is a global, versioned catalog event — never a per-language
+addition"*). The Stage-3 client must decide, **per enum**, what happens when it receives a wire value
+it does not recognize (the server is on a newer catalog version than the installed client):
+
+- **HARD_REJECT (fail-closed) — the default; applied to all 19 string enums today.** The generated
+  Dart emits **no `unknown` sentinel**, so `json_serializable`'s decoder raises on an unrecognized
+  value. Rationale: every current enum is a finite scale (`cefr_level`), safety-critical scheduler
+  state (`fsrs_state`), or financial semantics (`ledger_entry_type`, `grant_source`) — a client older
+  than the catalog must fail **loudly** rather than silently coerce versioned meaning. Consistent with
+  the R-C12 closed/versioned contract and the fail-closed posture used elsewhere (analytics allow-list,
+  AI-relay moderation).
+- **GRACEFUL_DEGRADE — reserved, none today.** Appends a single `unknown` sentinel (no `@JsonValue`)
+  so a read-only/display-only enum can render a forward value as "unknown" instead of crashing an
+  older client. Opting an enum in is itself a reviewable change (a field site must add
+  `@JsonKey(unknownEnumValue: <Enum>.unknown)`).
+
+Encoded in `ratel-tools/codegen_dart.py` (`ENUM_FORWARD_COMPAT` registry + `gen_enum(policy=…)`);
+**every string enum must be classified or codegen aborts** (the door guard), so a new enum can never
+ship without an explicit reject-vs-degrade decision. Proven by
+`ratel-tools/tests/test_enum_forward_compat.py`; hard-reject output is byte-identical to the
+pre-policy generator (no Dart churn). Advisory until architect-ratified; no live system touched.
