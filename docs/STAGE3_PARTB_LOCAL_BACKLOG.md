@@ -10,7 +10,7 @@
 
 ## Chain-state / execution header (autonomous-safe)
 ```
-RUN_STATUS: idle
+RUN_STATUS: running
 NEXT:       M5
 ORDER:      M1 → M2 → M3 → M4 → M5 → M6 → M7 → M8   (lowest-risk / most self-contained first)
 GATE:       python -m pytest ratel-tools/tests -q   (green locally, pgserver present)
