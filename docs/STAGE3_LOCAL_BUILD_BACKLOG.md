@@ -2,7 +2,7 @@
 
 > Produced by the agent-driven Stage-4 security review (Session 18) and verified against the real repo. **Part 1 is fully buildable + testable locally for FREE** — the keystone (`pgserver`, a root-free PostgreSQL with a working `pg_dump`) was booted end-to-end in the sandbox (created the FSRS tables, dumped the schema, exit 0). Part 2 needs the owner to create accounts / spend. Nothing here touches the live Supabase project; every step is `git revert`-able.
 >
-> **Chain-state header (for autonomous / multi-session execution):** RUN_STATUS: running (S19 @ 2026-06-23T11:53:16Z) · NEXT: L0 · GATE = python `pytest ratel-tools/tests` green locally + (Dart items) flutter-gate green in CI · PUSH after every item.
+> **Chain-state header (for autonomous / multi-session execution):** RUN_STATUS: idle · NEXT: L5 · LAST: L0-L4 landed S19 (tip `00ce9bb`; local 41 pytest green; CI pending — check-runs API flaky, owner spot-check Actions) · GATE = python `pytest ratel-tools/tests` green locally + (Dart items) flutter-gate green in CI · PUSH after every item.
 
 ## What was proven this session
 - `pip install --user --break-system-packages pgserver pg8000` works; bundled `pg_dump` at `…/site-packages/pgserver/pginstall/bin/pg_dump`; boot → DDL → `pg_dump --schema-only` exit 0. This is the disposable DB the checklist Part D requires.
