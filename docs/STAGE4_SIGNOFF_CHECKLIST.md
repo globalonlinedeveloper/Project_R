@@ -111,12 +111,12 @@ A facilitated session over the Stage-3 architecture **before** any backend is pr
 | **U**nawareness | consent, transparency, general-audience store listing (R-K1) |
 | **N**on-compliance | GDPR/COPPA posture, data-residency `ap-south-1`, retention |
 
-**Workshop outputs (attach when done):**
+**Workshop outputs — DONE via a two-agent independent review (Session 26, 2026-06-23). These INFORM the gate; they do NOT replace the human Part-E sign-off.** Consolidated results: [`STAGE4_SIGNOFF_WORKSHOP_RESULTS.md`](STAGE4_SIGNOFF_WORKSHOP_RESULTS.md).
 
-- [ ] Data-flow diagram across the 4 tiers + 5 seams.
-- [ ] STRIDE findings table (threat → mitigation → owner → status).
-- [ ] LINDDUN findings table (threat → mitigation → owner → status).
-- [ ] All P0/P1 threats have a named mitigation **before** Stage 3 code begins.
+- [x] Data-flow diagram + threat model — prior draft (`STAGE4_THREATMODEL_DRAFT.md`) + the two reviews below.
+- [x] STRIDE findings — [`STAGE4_REVIEW_AGENT1_SECURITY.md`](STAGE4_REVIEW_AGENT1_SECURITY.md) (28 findings; 7 P0 / 11 P1 / ~10 P2; verdict CONDITIONAL PASS — 5 of 7 P0 already mitigated + proven).
+- [x] LINDDUN findings — [`STAGE4_REVIEW_AGENT2_PRIVACY_ARCH.md`](STAGE4_REVIEW_AGENT2_PRIVACY_ARCH.md) (3 P0 / 5 P1 / 5 P2; sound architecture, not clean).
+- [⚠] All P0/P1 have a **named** mitigation — YES (consolidated punch list, §8 of the results doc) — **but several remain OPEN go-live-gating conditions** (DSAR auth→public anchor, ReviewLog retention-vs-erasure, voiceprint non-derivation, Razorpay/Play verifier, Deno-host hardening, JWT issuance). Dispositioned, not yet resolved.
 
 ---
 
@@ -155,37 +155,16 @@ Re-verified after L5–L7 landed, with the entitlement + per-table RLS migration
 
 ## Part E — Dual senior-architect sign-off
 
-Two qualified, **owner-assigned** senior architects independently review Parts A–D and sign. (This automation cannot and does not sign.)
+The R-O1 standard is two qualified, **owner-assigned, independent, human** senior architects reviewing Parts A–D and signing. (This automation cannot and does not sign.) **As of Session 26 that standard is NOT met** — the owner has elected to **self-attest as a solo founder** in lieu of a second human reviewer. Recorded honestly below as a deviation; the agent review (§ Part C) is informational, not a signature.
 
-| Reviewer | Scope reviewed | Findings resolved? | Name | Date | Signature |
-|----------|----------------|--------------------|------|------|-----------|
-| Architect 1 | A · B · C · D | ☐ | | | |
-| Architect 2 | A · B · C · D | ☐ | | | |
+| Seat | Required | Status |
+|------|----------|--------|
+| Architect 1 (human, independent) | qualified senior architect | **UNFILLED — not satisfied** |
+| Architect 2 (human, independent) | qualified senior architect | **UNFILLED — not satisfied** |
+| Independent review (informational only) | — | ✅ two AI agents (security + privacy/arch), 2026-06-23 — see `STAGE4_SIGNOFF_WORKSHOP_RESULTS.md` |
 
-**Sign-off criteria (all must hold):**
+**Owner self-attestation (R-O1 DEVIATION):**
 
-- [ ] Part A — 5 seams verified as real boundaries.
-- [ ] Part B — 23 one-way doors confirmed locked & consistent with built code.
-- [ ] Part C — STRIDE + LINDDUN done; no unmitigated P0/P1.
-- [ ] Part D — `pg_dump` diff = 0 recorded; live DB untouched.
-- [ ] Both architects signed.
-
----
-
-## Exit → what sign-off authorizes
-
-On dual sign-off, **and only then**, Stage 3 may begin (still owner + money-gated, per SPEC §9 / §8 "Ask first: entering Stage 3"):
-
-Supabase schema/auth/RLS · FSRS scheduling · AI relay + credit wallet · IAP + web checkout · AdMob · runtime cost guardrails (R-M8). Definition of done carries to R-O5 (zero open decisions) and the free tier ≈ $0/user.
-
-Until every box above is checked and both signatures are present, the project stays as-is: **local-only, no backend DB, Supabase untouched.**
-
----
-
-### Appendix — references
-
-- `Apps/tasks/SPEC.md` — §3 (tiers + 5 seams), §8 (boundaries), §9 (3 stages + Stage-4 gate), §10 (definition of done).
-- `Apps/RATEL_REQUIREMENTS.md` — the 161 requirements; **§M.1** = canonical one-way-door register; R-H7/R-M1/R-J7a/R-M3/R-K6 (seams); R-K1 (audience/trademark); R-M8 (cost guardrails).
-- `docs/SCHEMA_LOCK.md` — R-O1 checks 1–3 (signed). `docs/STAGE2_EXIT.md` — R-O1 checks 4–6 (signed).
-
-*Prepared as a planning aid (Session 17). No decisions changed; no sign-off performed. Canonical copy lives in the repo; an owner-facing mirror is in `Apps/RATEL_STAGE4_SIGNOFF_CHECKLIST.md`.*
+- Owner: **Rajasekar Selvam** (rajasekarjavaee@gmail.com) · Date: **2026-06-23**
+- I acknowledge R-O1 requires **two independent human senior architects** and that **this is not that**; I self-attest as a solo founder.
+- I have read the two-agent review + the consolidated punch list and **acc
