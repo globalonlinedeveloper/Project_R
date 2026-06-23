@@ -124,13 +124,23 @@ A facilitated session over the Stage-3 architecture **before** any backend is pr
 
 Goal: prove the intended Stage-3 schema matches the frozen contract with **zero drift** — the database is built from `schema.json`, not hand-edited.
 
-- [ ] Generate the canonical DDL from `schema/schema.json` (the `ratel-tools` schema/DDL path).
-- [ ] `pg_dump --schema-only` a throwaway/branch DB built from that DDL — **never** the live project.
-- [ ] Normalize both (ordering, whitespace) and `diff` → **must be empty (= 0)**.
-- [ ] Record the command, both artifacts, and the empty diff here.
-- [ ] Confirm the live Supabase project is still **untouched** (read-only checks only).
+- [x] Generate the canonical DDL from the schema SoT — `python3 ratel-tools/codegen_ddl.py` → `schema/sql/0001_schema.sql` (the user/runtime tables, P0-2). *(LOCAL automated evidence, Session 19.)*
+- [x] `pg_dump --schema-only` a throwaway DB built from that DDL — a disposable root-free `pgserver` **PostgreSQL 16.2**; the live Supabase project was **never connected to**.
+- [x] Normalize both (drop comments/blank lines) and `diff` → **empty (= 0)** via round-trip parity (apply DDL → dump A; apply dump A → dump B; normalized A == B).
+- [x] Command + artifacts + empty-diff recorded below.
+- [x] Live Supabase project **untouched** — the harness only ever opens a local `pgserver` unix socket; no Supabase/network client is constructed.
 
 > This is a *parity check on the intended schema*, run against a disposable DB. Provisioning the real backend is **Stage 3**, after sign-off.
+
+### Automated LOCAL evidence — Session 19 (reversible via git; informs, does NOT replace, the human Part-E sign-off)
+
+- **Generator:** `ratel-tools/codegen_ddl.py` — JSON-Schema SoT → PostgreSQL DDL; fail-loud on unrepresentable constructs; deterministic ordering.
+- **Artifact:** `schema/sql/0001_schema.sql` — **9 `CREATE TABLE`** (7 user tables + 2 monthly `review_log` partitions), **4 `CREATE TYPE`** (`cefr_level, fsrs_state, grant_source, ledger_entry_type`), **4 `CREATE INDEX`** (incl. the `user_item_state (user_id, due)` review-queue index).
+- **Harness:** `ratel-tools/tests/test_pg_dump_parity.py` on `pgserver` 16.2 (root-free, disposable):
+  - `test_generated_ddl_matches_committed_artifact` — committed `.sql` == generator output (no stale artifact).
+  - `test_pg_dump_diff_is_zero` — `psql -f 0001_schema.sql` → `pg_dump --schema-only` (DB-A) → apply verbatim to a fresh DB-B → `pg_dump` again → **normalized diff = 0**.
+- **Result:** `37 passed` locally (`python -m pytest ratel-tools/tests -q`); schema dump = 11,277 bytes; round-trip parity exact (0 drift).
+- **Scope caveat (R-O1):** LOCAL parity on a disposable DB only. The human dual architect sign-off (Part E) and live provisioning remain required; CI runs the same tests and *skips* the pgserver-backed one cleanly where pgserver is absent (gate stays green).
 
 ---
 
