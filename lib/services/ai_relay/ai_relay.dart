@@ -6,6 +6,7 @@ export 'relay_text.dart';
 export 'cost_guard.dart';
 export 'moderation.dart';
 export 'gemini_relay.dart';
+export 'relay_pipeline.dart';
 
 /// Portability seam (R-H7): AI-vendor adapter. ALL runtime AI calls route through
 /// this; Stage 3 supplies a concrete (e.g. Gemini) implementation behind it, with

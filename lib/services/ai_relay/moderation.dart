@@ -13,9 +13,11 @@
 // [RelayText] (TS-13). Every classification is logged to a [ModerationAuditSink]
 // (TS-7; no-op locally, durable store at go-live).
 //
-// Composition at go-live: BudgetedAiRelay(ModeratedAiRelay(GeminiAiRelay(...))).
-// Because the budget decorator records spend only AFTER inner.complete returns,
-// a moderation deny (which throws out of inner.complete) prevents the charge.
+// Cost-safe composition (COST-1, R-M8): the budget/meter layer wraps the MODEL
+// DIRECTLY, INSIDE this moderation layer — ModeratedAiRelay(BudgetedAiRelay(model)) —
+// so an OUTPUT block (thrown at step 4, after the model ran) still counts against the
+// spend cap, while an INPUT block (step 2) short-circuits before any charge. Build it
+// with buildModeratedBudgetedRelay (relay_pipeline.dart).
 import 'ai_relay.dart';
 
 /// Provider verdict. Anything other than [allowed] stops the round-trip.

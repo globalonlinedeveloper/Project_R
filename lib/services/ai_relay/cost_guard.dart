@@ -119,7 +119,10 @@ typedef SpendReader = Future<int?> Function();
 typedef SpendRecorder = Future<void> Function(int credits);
 
 /// [AiRelay] decorator enforcing [CostGuard] BEFORE delegating to [inner].
-/// Composition order at go-live: `BudgetedAiRelay(ModeratedAiRelay(GeminiAiRelay(...)))`.
+/// COST-SAFE composition (COST-1, R-M8): the meter must wrap the MODEL DIRECTLY, INSIDE
+/// moderation — `ModeratedAiRelay(BudgetedAiRelay(model))` — so an OUTPUT-moderation block
+/// (thrown after the model already ran) cannot bypass the charge. Build it with
+/// `buildModeratedBudgetedRelay` (relay_pipeline.dart); the OUTER order would under-charge.
 class BudgetedAiRelay implements AiRelay {
   const BudgetedAiRelay(
     this.inner, {
