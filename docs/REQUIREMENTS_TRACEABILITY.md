@@ -14,12 +14,12 @@
 
 | Priority | Built | Build-ahead | Partial | Pending | Deferred | Removed | Spec/cross | Total |
 |---|---|---|---|---|---|---|---|---|
-| **Must** | 78 | 7 | 6 | 25 | 2 | 0 | 13 | 131 |
+| **Must** | 78 | 9 | 5 | 24 | 2 | 0 | 13 | 131 |
 | **Should** | 12 | 0 | 0 | 3 | 1 | 0 | 0 | 16 |
 | **Could** | 0 | 0 | 0 | 1 | 7 | 0 | 0 | 8 |
 | **Won't** | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 1 |
 | **Process** | 1 | 0 | 0 | 1 | 1 | 0 | 2 | 5 |
-| **All** | 91 | 7 | 6 | 30 | 11 | 1 | 15 | 161 |
+| **All** | 91 | 9 | 5 | 29 | 11 | 1 | 15 | 161 |
 
 _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not live) · Pending=Stage-3 not started · Deferred=post-launch wave · Removed=cut · Spec/cross=policy/cross-cutting._
 
@@ -188,10 +188,10 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-K1 | Age-gating + COPPA / minors path | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `taxonomy.dart` |
 | R-K1a | OS age-range assurance has narrow real coverage | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-K2 | Consent - GDPR/UMP + iOS ATT + non-personalized-ads path | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-K3 | Data minimization & retention (no raw-speech retention) | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `0006_review_log_partitions.sql`, `0007_dsar_delete_anchor.sql` |
-| R-K4 | Regional privacy rights - export + delete (GDPR/DPDP/CCPA) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `test_dsar_delete_anchor.py`, `0007_dsar_delete_anchor.sql` |
+| R-K3 | Data minimization & retention (no raw-speech retention) | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `0006_review_log_partitions.sql`, `0007_dsar_delete_anchor.sql`, `0008_audit_log.sql` |
+| R-K4 | Regional privacy rights - export + delete (GDPR/DPDP/CCPA) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `test_dsar_delete_anchor.py`, `0007_dsar_delete_anchor.sql`, `0008_audit_log.sql` |
 | R-K5 | Generated-content safety (AI-content; profanity; bias) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-K6 | Security - server-side keys, Supabase RLS, auth, PII | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `taxonomy.dart`, `data_access.dart`, `identity.dart`, `services.dart` +2 |
+| R-K6 | Security - server-side keys, Supabase RLS, auth, PII | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `taxonomy.dart`, `data_access.dart`, `identity.dart`, `services.dart` +4 |
 | R-K7 | Terms of Service + Privacy Policy - final copy & ownership | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-K8 | Accessibility - WCAG 2.2 AA conformance (test-enforced) | Must | Stage2 | Built ✅ | — | `shell.dart`, `wcag.dart`, `ratel_motion_tier.dart`, `ratel_color_tokens.dart` +5 |
 
@@ -227,15 +227,15 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-M1 | Analytics event taxonomy & core KPIs | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `analytics.dart`, `taxonomy.dart`, `services.dart` |
+| R-M1 | Analytics event taxonomy & core KPIs | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `analytics.dart`, `taxonomy.dart`, `services.dart`, `0008_audit_log.sql` |
 | R-M2 | Experimentation & feature flags (dark-launch, A/B, wave gating) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-M3 | Backend infrastructure (Supabase: Postgres, RLS, Edge, Storage/CDN) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `content_providers.dart`, `content_repository.dart`, `data_access.dart`, `services.dart` +2 |
 | R-M4 | Content build/upload ops (batch tooling, staging-prod) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-M5 | Observability (logging & error tracking) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
+| R-M5 | Observability (logging & error tracking) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `test_audit_log.py`, `0008_audit_log.sql` |
 | R-M6 | CI/CD & store-release process | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-M6a | Linux distribution channel + desktop auto-update | Could | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
 | R-M7 | Backup / DR & data export | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-M8 | Runtime cost guardrails & monitoring | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `ai_relay.dart`, `cost_guard.dart`, `ai_cost_guard_test.dart` |
+| R-M8 | Runtime cost guardrails & monitoring | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `ai_relay.dart`, `cost_guard.dart`, `test_audit_log.py`, `0008_audit_log.sql` +1 |
 
 ## Part M — Automation (R-AUT)
 
