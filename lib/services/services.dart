@@ -10,3 +10,4 @@ export 'analytics/analytics.dart';
 export 'billing/billing.dart';
 export 'data_access/data_access.dart';
 export 'identity/identity.dart';
+export 'observability/observability.dart';

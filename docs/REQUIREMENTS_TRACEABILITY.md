@@ -191,7 +191,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-K3 | Data minimization & retention (no raw-speech retention) | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `0006_review_log_partitions.sql`, `0007_dsar_delete_anchor.sql`, `0008_audit_log.sql` |
 | R-K4 | Regional privacy rights - export + delete (GDPR/DPDP/CCPA) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `test_dsar_delete_anchor.py`, `0007_dsar_delete_anchor.sql`, `0008_audit_log.sql` |
 | R-K5 | Generated-content safety (AI-content; profanity; bias) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-K6 | Security - server-side keys, Supabase RLS, auth, PII | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `taxonomy.dart`, `data_access.dart`, `identity.dart`, `services.dart` +4 |
+| R-K6 | Security - server-side keys, Supabase RLS, auth, PII | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `taxonomy.dart`, `data_access.dart`, `identity.dart`, `audit_sink.dart` +6 |
 | R-K7 | Terms of Service + Privacy Policy - final copy & ownership | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-K8 | Accessibility - WCAG 2.2 AA conformance (test-enforced) | Must | Stage2 | Built ✅ | — | `shell.dart`, `wcag.dart`, `ratel_motion_tier.dart`, `ratel_color_tokens.dart` +5 |
 
@@ -227,15 +227,15 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-M1 | Analytics event taxonomy & core KPIs | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `analytics.dart`, `taxonomy.dart`, `services.dart`, `0008_audit_log.sql` |
+| R-M1 | Analytics event taxonomy & core KPIs | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `analytics.dart`, `taxonomy.dart`, `audit_sink.dart`, `services.dart` +1 |
 | R-M2 | Experimentation & feature flags (dark-launch, A/B, wave gating) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-M3 | Backend infrastructure (Supabase: Postgres, RLS, Edge, Storage/CDN) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `content_providers.dart`, `content_repository.dart`, `data_access.dart`, `services.dart` +2 |
 | R-M4 | Content build/upload ops (batch tooling, staging-prod) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-M5 | Observability (logging & error tracking) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `test_audit_log.py`, `0008_audit_log.sql` |
+| R-M5 | Observability (logging & error tracking) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `audit_sink.dart`, `observability.dart`, `test_audit_log.py`, `0008_audit_log.sql` +1 |
 | R-M6 | CI/CD & store-release process | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-M6a | Linux distribution channel + desktop auto-update | Could | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
 | R-M7 | Backup / DR & data export | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-M8 | Runtime cost guardrails & monitoring | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `ai_relay.dart`, `cost_guard.dart`, `test_audit_log.py`, `0008_audit_log.sql` +1 |
+| R-M8 | Runtime cost guardrails & monitoring | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `ai_relay.dart`, `cost_guard.dart`, `audit_sink.dart`, `test_audit_log.py` +3 |
 
 ## Part M — Automation (R-AUT)
 
