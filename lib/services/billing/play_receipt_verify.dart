@@ -92,7 +92,9 @@ class PlayReceiptVerifier {
 
   /// S2S validate a subscription purchase token via purchases.subscriptionsv2.get, then
   /// normalise the result to a [PaymentEvent]. [eventId] (the provider-opaque id used for
-  /// 0005 dedupe) defaults to the purchase token.
+  /// 0005 dedupe) defaults to the response's `latestOrderId`, which CHANGES per renewal so
+  /// each renewal is a distinct entitlement event — the purchaseToken is stable across
+  /// renewals and would wrongly dedupe them.
   Future<PlayReceipt> verifySubscription({
     required String purchaseToken,
     String? eventId,
@@ -112,7 +114,7 @@ class PlayReceiptVerifier {
       // Never include the body (avoid leaking upstream error detail).
       return PlayReceipt.fail('non-2xx status ${resp.statusCode}');
     }
-    return parseSubscription(resp.body, eventId: eventId ?? purchaseToken);
+    return parseSubscription(resp.body, eventId: eventId);
   }
 
   /// Builds the subscriptionsv2 GET request (visible for shape assertions).
