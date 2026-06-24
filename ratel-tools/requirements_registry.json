@@ -385,7 +385,7 @@
     "R-G2": {
       "moscow": "Must",
       "phase": "Stage3",
-      "status": "Pending 🔒"
+      "status": "Build-ahead 🟦"
     },
     "R-G3": {
       "moscow": "Must",
