@@ -27,9 +27,10 @@
 // the server-side ledger-backed spend readers / recorder; then override `aiRelayProvider`
 // with this stack.
 
+// ai_relay.dart re-exports cost_guard.dart + moderation.dart, so this single barrel import
+// provides AiRelay, BudgetedAiRelay/CostGuard/SpendReader/SpendRecorder, and
+// ModeratedAiRelay/ModerationProvider/ModerationAuditSink (avoids the unnecessary_import lint).
 import 'ai_relay.dart';
-import 'cost_guard.dart';
-import 'moderation.dart';
 
 /// Builds the runtime relay stack in the COST-SAFE order (innermost -> outermost):
 ///
