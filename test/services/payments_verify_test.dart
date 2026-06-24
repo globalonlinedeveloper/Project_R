@@ -232,4 +232,149 @@ void main() {
       expect(e.until, DateTime.utc(2027, 6, 1));
     });
   });
+
+  group('razorpay (R-J7a web-checkout verifier)', () {
+    // Reference vector: rzpSig = python
+    //   hmac.new(b"<secret>", b"<rzpBody>", sha256).hexdigest()   (body-only, NO timestamp)
+    const rzpSecret = 'rzp_test_whsec_build_ahead';
+    const rzpBody =
+        '{"entity":"event","event":"subscription.charged",'
+        '"contains":["subscription","payment"],'
+        '"payload":{"subscription":{"entity":{"id":"sub_PAY1build",'
+        '"current_end":1781536000,'
+        '"notes":{"user_id":"11111111-1111-1111-1111-111111111111"}}},'
+        '"payment":{"entity":{"id":"pay_PAY1build"}}}}';
+    const rzpSig =
+        'f323a8e9f1d0e67703763155e70622a112eb9ac3d88240816dda770bec20f0cb';
+
+    // payload helper: wrap an entity under payload.<key>.entity for an event.
+    String body(String event, String key, String entityJson) =>
+        '{"event":"$event","payload":{"$key":{"entity":$entityJson}}}';
+
+    test('valid signature verifies (inline HMAC == python ref, no timestamp)', () {
+      expect(
+        PaymentsVerifier.verifyRazorpayWebhook(
+            rawBody: rzpBody, signature: rzpSig, secret: rzpSecret),
+        WebhookVerdict.verified,
+      );
+    });
+
+    test('uppercased signature still verifies (compared lowercased)', () {
+      expect(
+        PaymentsVerifier.verifyRazorpayWebhook(
+            rawBody: rzpBody, signature: rzpSig.toUpperCase(), secret: rzpSecret),
+        WebhookVerdict.verified,
+      );
+    });
+
+    test('tampered body -> signatureMismatch', () {
+      expect(
+        PaymentsVerifier.verifyRazorpayWebhook(
+            rawBody: '$rzpBody ', signature: rzpSig, secret: rzpSecret),
+        WebhookVerdict.signatureMismatch,
+      );
+    });
+
+    test('wrong secret -> signatureMismatch', () {
+      expect(
+        PaymentsVerifier.verifyRazorpayWebhook(
+            rawBody: rzpBody, signature: rzpSig, secret: 'rzp_wrong'),
+        WebhookVerdict.signatureMismatch,
+      );
+    });
+
+    test('empty secret -> missingSecret', () {
+      expect(
+        PaymentsVerifier.verifyRazorpayWebhook(
+            rawBody: rzpBody, signature: rzpSig, secret: ''),
+        WebhookVerdict.missingSecret,
+      );
+    });
+
+    test('blank signature -> missingSignature', () {
+      expect(
+        PaymentsVerifier.verifyRazorpayWebhook(
+            rawBody: rzpBody, signature: '   ', secret: rzpSecret),
+        WebhookVerdict.missingSignature,
+      );
+    });
+
+    test('subscription.charged -> grant w/ user + until from current_end', () {
+      final e = PaymentsVerifier.parseRazorpayEvent(rzpBody);
+      expect(e, isNotNull);
+      expect(e!.kind, PaymentEventKind.grant);
+      expect(e.eventId, 'sub_PAY1build');
+      expect(e.userId, '11111111-1111-1111-1111-111111111111');
+      expect(e.until,
+          DateTime.fromMillisecondsSinceEpoch(1781536000 * 1000, isUtc: true));
+    });
+
+    test('passed-in X-Razorpay-Event-Id wins over entity id', () {
+      final e =
+          PaymentsVerifier.parseRazorpayEvent(rzpBody, eventId: 'evt_hdr_1');
+      expect(e!.eventId, 'evt_hdr_1');
+    });
+
+    test('every mapped event name -> correct kind', () {
+      const n = '"notes":{"user_id":"u1"}';
+      PaymentEventKind? k(String ev, String key, String id) =>
+          PaymentsVerifier.parseRazorpayEvent(body(ev, key, '{"id":"$id",$n}'))
+              ?.kind;
+      expect(k('order.paid', 'order', 'o1'), PaymentEventKind.grant);
+      expect(k('payment.captured', 'payment', 'p1'), PaymentEventKind.grant);
+      expect(k('subscription.activated', 'subscription', 's1'),
+          PaymentEventKind.grant);
+      expect(k('refund.created', 'refund', 'r1'), PaymentEventKind.refund);
+      expect(k('refund.processed', 'refund', 'r2'), PaymentEventKind.refund);
+      expect(k('payment.dispute.created', 'payment', 'p2'),
+          PaymentEventKind.chargeback);
+      expect(k('subscription.cancelled', 'subscription', 's2'),
+          PaymentEventKind.lapse);
+      expect(k('subscription.halted', 'subscription', 's3'),
+          PaymentEventKind.lapse);
+      expect(k('subscription.completed', 'subscription', 's4'),
+          PaymentEventKind.lapse);
+    });
+
+    test('unknown event -> null (never throws)', () {
+      expect(
+        PaymentsVerifier.parseRazorpayEvent(body(
+            'payment.failed', 'payment', '{"id":"p1","notes":{"user_id":"u1"}}')),
+        isNull,
+      );
+    });
+
+    test('clawback (refund) carries no until', () {
+      final e = PaymentsVerifier.parseRazorpayEvent(body(
+          'refund.created', 'refund', '{"id":"r1","notes":{"user_id":"u1"}}'));
+      expect(e!.kind, PaymentEventKind.refund);
+      expect(e.until, isNull);
+    });
+
+    test('grant via order.paid (one-time) has null until', () {
+      final e = PaymentsVerifier.parseRazorpayEvent(body(
+          'order.paid', 'order', '{"id":"o1","notes":{"user_id":"u1"}}'));
+      expect(e!.kind, PaymentEventKind.grant);
+      expect(e.until, isNull);
+    });
+
+    test('userId falls back to notes.client_reference_id', () {
+      final e = PaymentsVerifier.parseRazorpayEvent(body('order.paid', 'order',
+          '{"id":"o1","notes":{"client_reference_id":"u9"}}'));
+      expect(e!.userId, 'u9');
+    });
+
+    test('missing notes user id -> null (cannot attribute entitlement)', () {
+      expect(
+        PaymentsVerifier.parseRazorpayEvent(
+            body('order.paid', 'order', '{"id":"o1","notes":{"foo":"bar"}}')),
+        isNull,
+      );
+    });
+
+    test('non-JSON / non-object Razorpay body -> null', () {
+      expect(PaymentsVerifier.parseRazorpayEvent('not json {'), isNull);
+      expect(PaymentsVerifier.parseRazorpayEvent('[1,2,3]'), isNull);
+    });
+  });
 }

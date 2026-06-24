@@ -171,6 +171,137 @@ class PaymentsVerifier {
     return null;
   }
 
+  // ── Razorpay (R-J7a · web-checkout fallback, no native store) ──────────────
+  // Razorpay's webhook scheme differs from Stripe: there is NO timestamp. The
+  // signature is hex(HMAC_SHA256(webhook_secret, rawBody)) compared to the
+  // `X-Razorpay-Signature` header. Replay is handled downstream by schema/sql/0005's
+  // `processed_payment_event` dedupe (exactly-once), so no tolerance window is needed.
+  // The signing secret is the injected seam — the go-live Deno webhook host wires the
+  // live Razorpay webhook secret in at deploy time (owner-gated). India web checkout
+  // (UPI/cards) is the owner-locked R-J7a vendor; the adapter stays swappable.
+
+  /// Razorpay `event` name → normalised [PaymentEventKind]. An event absent from this
+  /// map is deliberately IGNORED (returns null from [parseRazorpayEvent]) — never guessed.
+  static const Map<String, PaymentEventKind> _razorpayEventMap =
+      <String, PaymentEventKind>{
+    'order.paid': PaymentEventKind.grant,
+    'payment.captured': PaymentEventKind.grant,
+    'subscription.charged': PaymentEventKind.grant,
+    'subscription.activated': PaymentEventKind.grant,
+    'refund.created': PaymentEventKind.refund,
+    'refund.processed': PaymentEventKind.refund,
+    'payment.dispute.created': PaymentEventKind.chargeback,
+    'subscription.cancelled': PaymentEventKind.lapse,
+    'subscription.halted': PaymentEventKind.lapse,
+    'subscription.completed': PaymentEventKind.lapse,
+  };
+
+  /// Verify a Razorpay webhook signature: `expected = hex(HMAC_SHA256(secret, rawBody))`
+  /// compared CONSTANT-TIME against the lowercased `X-Razorpay-Signature` header. There
+  /// is NO timestamp in Razorpay's scheme (replay handled by the 0005 dedupe table), so
+  /// this is body-only. Returns [WebhookVerdict.verified] on match, else a typed reason.
+  static WebhookVerdict verifyRazorpayWebhook({
+    required String rawBody,
+    required String signature,
+    required String secret,
+  }) {
+    if (secret.isEmpty) return WebhookVerdict.missingSecret;
+    if (signature.trim().isEmpty) return WebhookVerdict.missingSignature;
+    final expected =
+        _hex(_hmacSha256(utf8.encode(secret), utf8.encode(rawBody)));
+    if (!_constantTimeEquals(expected, signature.toLowerCase())) {
+      return WebhookVerdict.signatureMismatch;
+    }
+    return WebhookVerdict.verified;
+  }
+
+  /// Normalise an already-VERIFIED Razorpay webhook body into a [PaymentEvent], or null
+  /// if the body is not a JSON object, carries an unmapped `event`, or has no resolvable
+  /// event id / user id. Never throws — a malformed/unknown payload is ignored, not
+  /// crashed on.
+  ///
+  /// Razorpay body shape: `{event:"<name>", payload:{<entity>:{entity:{…}}}}`. The primary
+  /// entity is taken from the event-name prefix (order/payment/subscription/refund). The
+  /// user id comes from that entity's `notes.user_id` (?? `notes.client_reference_id`),
+  /// falling back to any payload entity's notes; a grant's expiry comes from the
+  /// subscription entity's `current_end` (?? `end_at`, unix seconds). [eventId] is the
+  /// `X-Razorpay-Event-Id` header (passed in) and WINS over the entity id.
+  ///
+  /// FLAG (go-live): confirm these exact Razorpay payload field paths against live webhook
+  /// samples before enabling — entity wrapping and `notes` keys are merchant-config
+  /// dependent and must be pinned from real captures, not assumed.
+  static PaymentEvent? parseRazorpayEvent(String rawBody, {String? eventId}) {
+    Object? decoded;
+    try {
+      decoded = jsonDecode(rawBody);
+    } on FormatException {
+      return null;
+    }
+    if (decoded is! Map) return null;
+
+    final event = decoded['event'];
+    if (event is! String) return null;
+    final kind = _razorpayEventMap[event];
+    if (kind == null) return null; // unmapped event -> ignored, no crash
+
+    final payload = decoded['payload'];
+    final entityKey = event.split('.').first;
+    final Map? entity =
+        payload is Map ? _razorpayEntity(payload, entityKey) : null;
+
+    // event id: passed-in header wins, else the primary entity's id.
+    String? resolvedId;
+    if (eventId != null && eventId.isNotEmpty) {
+      resolvedId = eventId;
+    } else {
+      final entId = entity?['id'];
+      if (entId is String && entId.isNotEmpty) resolvedId = entId;
+    }
+    if (resolvedId == null) return null;
+
+    // user id from notes; fall back to scanning every payload entity's notes.
+    String? userId = _razorpayUserId(entity);
+    if (userId == null && payload is Map) {
+      for (final wrap in payload.values) {
+        final e = wrap is Map ? wrap['entity'] : null;
+        final u = _razorpayUserId(e is Map ? e : null);
+        if (u != null) {
+          userId = u;
+          break;
+        }
+      }
+    }
+    if (userId == null) return null;
+
+    DateTime? until;
+    if (kind == PaymentEventKind.grant) {
+      until = _parseUntil(entity?['current_end'] ?? entity?['end_at']);
+    }
+    return PaymentEvent(
+        eventId: resolvedId, kind: kind, userId: userId, until: until);
+  }
+
+  /// `payload.<key>.entity` as a Map, or null if the shape is unexpected.
+  static Map? _razorpayEntity(Map payload, String key) {
+    final wrap = payload[key];
+    if (wrap is Map) {
+      final entity = wrap['entity'];
+      if (entity is Map) return entity;
+    }
+    return null;
+  }
+
+  /// `entity.notes.user_id` ?? `entity.notes.client_reference_id`, or null.
+  static String? _razorpayUserId(Map? entity) {
+    if (entity == null) return null;
+    final notes = entity['notes'];
+    if (notes is Map) {
+      final u = notes['user_id'] ?? notes['client_reference_id'];
+      if (u is String && u.isNotEmpty) return u;
+    }
+    return null;
+  }
+
   // ── constant-time compare ──────────────────────────────────────────────────
   static bool _constantTimeEquals(String a, String b) {
     final ab = utf8.encode(a);
