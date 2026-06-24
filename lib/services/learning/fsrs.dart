@@ -128,13 +128,13 @@ class FsrsParams {
   const FsrsParams({
     this.weights = fsrs6DefaultWeights,
     this.desiredRetention = 0.85,
-  })  : assert(weights.length == 21, 'FSRS-6 requires exactly 21 weights'),
-        assert(
+  }) : assert(
           desiredRetention > 0 && desiredRetention < 1,
           'desiredRetention must be in (0, 1)',
         );
 
-  /// The 21 FSRS-6 model weights (index 0..20).
+  /// The 21 FSRS-6 model weights (index 0..20). FSRS-6 requires exactly 21
+  /// (a wrong-length vector throws on first use — the published default is 21).
   final List<double> weights;
 
   /// Target probability of recall at the moment a card next comes due.
