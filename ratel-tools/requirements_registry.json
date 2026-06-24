@@ -540,7 +540,7 @@
     "R-J7": {
       "moscow": "Must",
       "phase": "Stage3",
-      "status": "Partial 🟨"
+      "status": "Build-ahead 🟦"
     },
     "R-J7a": {
       "moscow": "Must",
