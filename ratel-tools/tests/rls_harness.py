@@ -38,7 +38,7 @@ def _bin(pgserver, name):
 
 
 class Harness:
-    def __init__(self, pgserver, datadir, rls_files):
+    def __init__(self, pgserver, datadir, rls_files, extra_preamble=""):
         import pg8000.dbapi as pg8000
         self._pg8000 = pg8000
         self.Error = pg8000.DatabaseError
@@ -54,6 +54,8 @@ class Harness:
         self._psql = _bin(pgserver, "psql")
         self._apply_sql((SQL / "0001_schema.sql").read_text(encoding="utf-8"))
         self._apply_sql(HARNESS_PREAMBLE)
+        if extra_preamble:
+            self._apply_sql(extra_preamble)
         for f in rls_files:
             self._apply_sql((SQL / f).read_text(encoding="utf-8"))
 

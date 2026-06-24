@@ -68,4 +68,4 @@ jobs:
       - name: Install Stage-3 DB harness (pgserver+pg8000); fall back to base tooling so DB tests skip-clean if the harness is unavailable
         run: pip install -r ratel-tools/requirements-dev.txt || pip install -r ratel-tools/requirements.txt
       - name: pytest — Part D pg_dump diff=0 + entitlement/credit + per-table RLS isolation (importorskip if pgserver absent)
-        run: python -m pytest ratel-tools/tests/test_pg_dump_parity.py ratel-tools/tests/test_rls_entitlement.py ratel-tools/tests/test_rls_isolation.py ratel-tools/tests/test_credit_ledger.py ratel-tools/tests/test_entitlement_events.py ratel-tools/tests/test_review_log_partitions.py -q
+        run: python -m pytest ratel-tools/tests/test_pg_dump_parity.py ratel-tools/tests/test_rls_entitlement.py ratel-tools/tests/test_rls_isolation.py ratel-tools/tests/test_credit_ledger.py ratel-tools/tests/test_entitlement_events.py ratel-tools/tests/test_review_log_partitions.py ratel-tools/tests/test_dsar_delete_anchor.py -q

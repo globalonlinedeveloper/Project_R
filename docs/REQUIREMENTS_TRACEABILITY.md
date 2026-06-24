@@ -14,12 +14,12 @@
 
 | Priority | Built | Build-ahead | Partial | Pending | Deferred | Removed | Spec/cross | Total |
 |---|---|---|---|---|---|---|---|---|
-| **Must** | 78 | 6 | 6 | 26 | 2 | 0 | 13 | 131 |
+| **Must** | 78 | 7 | 6 | 25 | 2 | 0 | 13 | 131 |
 | **Should** | 12 | 0 | 0 | 3 | 1 | 0 | 0 | 16 |
 | **Could** | 0 | 0 | 0 | 1 | 7 | 0 | 0 | 8 |
 | **Won't** | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 1 |
 | **Process** | 1 | 0 | 0 | 1 | 1 | 0 | 2 | 5 |
-| **All** | 91 | 6 | 6 | 31 | 11 | 1 | 15 | 161 |
+| **All** | 91 | 7 | 6 | 30 | 11 | 1 | 15 | 161 |
 
 _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not live) · Pending=Stage-3 not started · Deferred=post-launch wave · Removed=cut · Spec/cross=policy/cross-cutting._
 
@@ -188,10 +188,10 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-K1 | Age-gating + COPPA / minors path | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `taxonomy.dart` |
 | R-K1a | OS age-range assurance has narrow real coverage | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-K2 | Consent - GDPR/UMP + iOS ATT + non-personalized-ads path | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-K3 | Data minimization & retention (no raw-speech retention) | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `0006_review_log_partitions.sql` |
-| R-K4 | Regional privacy rights - export + delete (GDPR/DPDP/CCPA) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
+| R-K3 | Data minimization & retention (no raw-speech retention) | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `0006_review_log_partitions.sql`, `0007_dsar_delete_anchor.sql` |
+| R-K4 | Regional privacy rights - export + delete (GDPR/DPDP/CCPA) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `test_dsar_delete_anchor.py`, `0007_dsar_delete_anchor.sql` |
 | R-K5 | Generated-content safety (AI-content; profanity; bias) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-K6 | Security - server-side keys, Supabase RLS, auth, PII | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `taxonomy.dart`, `data_access.dart`, `identity.dart`, `services.dart` +1 |
+| R-K6 | Security - server-side keys, Supabase RLS, auth, PII | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `taxonomy.dart`, `data_access.dart`, `identity.dart`, `services.dart` +2 |
 | R-K7 | Terms of Service + Privacy Policy - final copy & ownership | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-K8 | Accessibility - WCAG 2.2 AA conformance (test-enforced) | Must | Stage2 | Built ✅ | — | `shell.dart`, `wcag.dart`, `ratel_motion_tier.dart`, `ratel_color_tokens.dart` +5 |
 
