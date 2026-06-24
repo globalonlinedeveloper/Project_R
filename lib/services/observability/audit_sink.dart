@@ -120,7 +120,7 @@ class AuditEventWriter {
         userId: userId,
         detail: detail,
       );
-      final resp = await transport(request).timeout(timeout);
+      final HttpLikeResponse resp = await transport(request).timeout(timeout);
       if (resp.statusCode < 200 || resp.statusCode >= 300) {
         onError?.call('non-2xx status ${resp.statusCode}');
         return false;
