@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'taxonomy.dart';
 
 export 'taxonomy.dart';
+export 'analytics_identity.dart';
 
 /// Portability seam (R-M1): analytics. Anonymous-first — NO PII, no raw speech;
 /// events key only on a pseudonymous id, never `auth.uid()`. Stage 3 swaps in a
