@@ -1,0 +1,841 @@
+{
+  "_doc": "Edit 'overrides' to correct any moscow/phase/status_override/notes; rerun the generator.",
+  "overrides": {
+    "R-H1": {
+      "moscow": "Must"
+    },
+    "R-H2": {
+      "moscow": "Must"
+    },
+    "R-H5": {
+      "moscow": "Must",
+      "notes": "Owner S28: Must priority; spec schedules the LLM-grading engine in R-O3 Wave C (later)."
+    },
+    "R-H6": {
+      "moscow": "Must",
+      "notes": "Owner S28: Must priority; spec schedules open-roleplay engine in R-O3 Wave C (later)."
+    },
+    "R-L11": {
+      "moscow": "Must"
+    },
+    "R-L13": {
+      "moscow": "Must"
+    },
+    "R-M2": {
+      "moscow": "Must"
+    },
+    "R-M5": {
+      "moscow": "Must"
+    },
+    "R-M7": {
+      "moscow": "Must"
+    }
+  },
+  "derived": {
+    "R-FND-1": {
+      "moscow": "Must",
+      "phase": "Foundation",
+      "status": "Built ✅"
+    },
+    "R-FND-2": {
+      "moscow": "Must",
+      "phase": "Foundation",
+      "status": "Built ✅"
+    },
+    "R-A1": {
+      "moscow": "Must",
+      "phase": "Spec",
+      "status": "Spec/cross ▫"
+    },
+    "R-A2": {
+      "moscow": "Must",
+      "phase": "Spec",
+      "status": "Spec/cross ▫"
+    },
+    "R-A2a": {
+      "moscow": "Must",
+      "phase": "Spec",
+      "status": "Spec/cross ▫"
+    },
+    "R-A3": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-A4": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-A5": {
+      "moscow": "Must",
+      "phase": "Spec",
+      "status": "Spec/cross ▫"
+    },
+    "R-A6": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-A7": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-A8": {
+      "moscow": "Must",
+      "phase": "Spec",
+      "status": "Spec/cross ▫"
+    },
+    "R-B1": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-B2": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-B3": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-B4": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-B5": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-B6": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-B7": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-B8": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-C1": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-C2": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-C3": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-C4": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-C5": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-C6": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-C7": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-C8": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-C9": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-C10": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-C11": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-C12": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-C13": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-C14": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-D1": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-D2": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-D3": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-D4": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-D5": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-D6": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-D7": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-D8": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-D9": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-D9a": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-D10": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-D11": {
+      "moscow": "Should",
+      "phase": "Wave",
+      "status": "Deferred ⏭"
+    },
+    "R-D12": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-D13": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-D14": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-E1": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-E2": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-E3": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-E4": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-E5": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-E6": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-E7": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-E8": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-E9": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-E10": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-E11": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-E12": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-E13": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-E14": {
+      "moscow": "Must",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-F1": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-F2": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-F3": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-F4": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-F5": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-F6": {
+      "moscow": "Could",
+      "phase": "Wave",
+      "status": "Deferred ⏭"
+    },
+    "R-F7": {
+      "moscow": "Could",
+      "phase": "Wave",
+      "status": "Deferred ⏭"
+    },
+    "R-G1": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-G2": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-G3": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-G4": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-G5": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-G6": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Partial 🟨"
+    },
+    "R-G7": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-G8": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-G9": {
+      "moscow": "Should",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-H1": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-H2": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-H3": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-H4": {
+      "moscow": "Won't",
+      "phase": "Cut",
+      "status": "Removed ✖"
+    },
+    "R-H5": {
+      "moscow": "Must",
+      "phase": "Wave",
+      "status": "Deferred ⏭"
+    },
+    "R-H6": {
+      "moscow": "Must",
+      "phase": "Wave",
+      "status": "Deferred ⏭"
+    },
+    "R-H7": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Build-ahead 🟦"
+    },
+    "R-H8": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-I1": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-I2": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-I3": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-I4": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-I5": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-I6": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-I7": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-I8": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-I9": {
+      "moscow": "Should",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-J1": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-J2": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-J3": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Partial 🟨"
+    },
+    "R-J4": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-J5": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-J6": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Build-ahead 🟦"
+    },
+    "R-J7": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Partial 🟨"
+    },
+    "R-J7a": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Partial 🟨"
+    },
+    "R-K1": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Partial 🟨"
+    },
+    "R-K1a": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-K2": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-K3": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-K4": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-K5": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-K6": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Partial 🟨"
+    },
+    "R-K7": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-K8": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L1": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L2": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L3": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L4": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L4a": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L5": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L6": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L7": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L8": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L9": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L10": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L11": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-L11a": {
+      "moscow": "Could",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-L11b": {
+      "moscow": "Should",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-L12": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L13": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L13a": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L14": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L15": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L16": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L17": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L18": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-L19": {
+      "moscow": "Must",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-M1": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Partial 🟨"
+    },
+    "R-M2": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-M3": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Partial 🟨"
+    },
+    "R-M4": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-M5": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-M6": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-M6a": {
+      "moscow": "Could",
+      "phase": "Wave",
+      "status": "Deferred ⏭"
+    },
+    "R-M7": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-M8": {
+      "moscow": "Must",
+      "phase": "Stage3",
+      "status": "Build-ahead 🟦"
+    },
+    "R-AUT-1": {
+      "moscow": "Could",
+      "phase": "Wave",
+      "status": "Deferred ⏭"
+    },
+    "R-AUT-2": {
+      "moscow": "Could",
+      "phase": "Wave",
+      "status": "Deferred ⏭"
+    },
+    "R-AUT-3": {
+      "moscow": "Could",
+      "phase": "Wave",
+      "status": "Deferred ⏭"
+    },
+    "R-AUT-4": {
+      "moscow": "Could",
+      "phase": "Wave",
+      "status": "Deferred ⏭"
+    },
+    "R-N1": {
+      "moscow": "Must",
+      "phase": "Cross",
+      "status": "Spec/cross ▫"
+    },
+    "R-N2": {
+      "moscow": "Must",
+      "phase": "Cross",
+      "status": "Spec/cross ▫"
+    },
+    "R-N3": {
+      "moscow": "Must",
+      "phase": "Cross",
+      "status": "Spec/cross ▫"
+    },
+    "R-N4": {
+      "moscow": "Must",
+      "phase": "Cross",
+      "status": "Spec/cross ▫"
+    },
+    "R-N5": {
+      "moscow": "Must",
+      "phase": "Cross",
+      "status": "Spec/cross ▫"
+    },
+    "R-N6": {
+      "moscow": "Must",
+      "phase": "Cross",
+      "status": "Spec/cross ▫"
+    },
+    "R-N7": {
+      "moscow": "Must",
+      "phase": "Cross",
+      "status": "Spec/cross ▫"
+    },
+    "R-N8": {
+      "moscow": "Must",
+      "phase": "Cross",
+      "status": "Spec/cross ▫"
+    },
+    "R-O1": {
+      "moscow": "Process",
+      "phase": "Stage1",
+      "status": "Built ✅"
+    },
+    "R-O2": {
+      "moscow": "Process",
+      "phase": "Stage3",
+      "status": "Pending 🔒"
+    },
+    "R-O3": {
+      "moscow": "Process",
+      "phase": "Wave",
+      "status": "Deferred ⏭"
+    },
+    "R-O4": {
+      "moscow": "Process",
+      "phase": "Program",
+      "status": "Spec/cross ▫"
+    },
+    "R-O5": {
+      "moscow": "Process",
+      "phase": "Program",
+      "status": "Spec/cross ▫"
+    }
+  }
+}

@@ -50,6 +50,8 @@ jobs:
         run: python -m pytest ratel-tools/tests -q
       - name: Secret scan (M7 P0-6 · no committed service-role/Stripe/Google/PEM keys)
         run: python -m pytest ratel-tools/tests/test_secret_scan.py -q
+      - name: RTM drift — regenerate traceability matrix, assert it is up to date
+        run: python -m pytest ratel-tools/tests/test_traceability.py -q
       - name: Model drift — regenerate Dart from schema, assert no diff (schema is the SoT)
         run: |
           python ratel-tools/codegen_dart.py
