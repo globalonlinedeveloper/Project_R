@@ -715,7 +715,7 @@
     "R-M2": {
       "moscow": "Must",
       "phase": "Stage3",
-      "status": "Pending 🔒"
+      "status": "Build-ahead 🟦"
     },
     "R-M3": {
       "moscow": "Must",

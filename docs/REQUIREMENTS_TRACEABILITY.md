@@ -14,12 +14,12 @@
 
 | Priority | Built | Build-ahead | Partial | Pending | Deferred | Removed | Spec/cross | Total |
 |---|---|---|---|---|---|---|---|---|
-| **Must** | 78 | 19 | 1 | 18 | 2 | 0 | 13 | 131 |
+| **Must** | 78 | 20 | 1 | 17 | 2 | 0 | 13 | 131 |
 | **Should** | 12 | 1 | 0 | 2 | 1 | 0 | 0 | 16 |
 | **Could** | 0 | 0 | 0 | 1 | 7 | 0 | 0 | 8 |
 | **Won't** | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 1 |
 | **Process** | 1 | 0 | 0 | 1 | 1 | 0 | 2 | 5 |
-| **All** | 91 | 20 | 1 | 22 | 11 | 1 | 15 | 161 |
+| **All** | 91 | 21 | 1 | 21 | 11 | 1 | 15 | 161 |
 
 _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not live) · Pending=Stage-3 not started · Deferred=post-launch wave · Removed=cut · Spec/cross=policy/cross-cutting._
 
@@ -228,7 +228,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
 | R-M1 | Analytics event taxonomy & core KPIs | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `analytics.dart`, `analytics_identity.dart`, `taxonomy.dart`, `audit_sink.dart` +3 |
-| R-M2 | Experimentation & feature flags (dark-launch, A/B, wave gating) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
+| R-M2 | Experimentation & feature flags (dark-launch, A/B, wave gating) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `feature_flags.dart`, `feature_flags_test.dart` |
 | R-M3 | Backend infrastructure (Supabase: Postgres, RLS, Edge, Storage/CDN) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `content_providers.dart`, `content_repository.dart`, `data_access.dart`, `services.dart` +2 |
 | R-M4 | Content build/upload ops (batch tooling, staging-prod) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-M5 | Observability (logging & error tracking) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `audit_sink.dart`, `crash_telemetry.dart`, `observability.dart`, `test_audit_log.py` +3 |
