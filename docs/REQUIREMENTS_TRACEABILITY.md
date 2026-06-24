@@ -14,12 +14,12 @@
 
 | Priority | Built | Build-ahead | Partial | Pending | Deferred | Removed | Spec/cross | Total |
 |---|---|---|---|---|---|---|---|---|
-| **Must** | 78 | 4 | 7 | 27 | 2 | 0 | 13 | 131 |
+| **Must** | 78 | 5 | 7 | 26 | 2 | 0 | 13 | 131 |
 | **Should** | 12 | 0 | 0 | 3 | 1 | 0 | 0 | 16 |
 | **Could** | 0 | 0 | 0 | 1 | 7 | 0 | 0 | 8 |
 | **Won't** | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 1 |
 | **Process** | 1 | 0 | 0 | 1 | 1 | 0 | 2 | 5 |
-| **All** | 91 | 4 | 7 | 32 | 11 | 1 | 15 | 161 |
+| **All** | 91 | 5 | 7 | 31 | 11 | 1 | 15 | 161 |
 
 _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not live) · Pending=Stage-3 not started · Deferred=post-launch wave · Removed=cut · Spec/cross=policy/cross-cutting._
 
@@ -188,7 +188,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-K1 | Age-gating + COPPA / minors path | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `taxonomy.dart` |
 | R-K1a | OS age-range assurance has narrow real coverage | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-K2 | Consent - GDPR/UMP + iOS ATT + non-personalized-ads path | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-K3 | Data minimization & retention (no raw-speech retention) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
+| R-K3 | Data minimization & retention (no raw-speech retention) | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `0006_review_log_partitions.sql` |
 | R-K4 | Regional privacy rights - export + delete (GDPR/DPDP/CCPA) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-K5 | Generated-content safety (AI-content; profanity; bias) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-K6 | Security - server-side keys, Supabase RLS, auth, PII | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `taxonomy.dart`, `data_access.dart`, `identity.dart`, `services.dart` +1 |
@@ -229,7 +229,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 |----|-------------|--------|-------|--------|------|----------|
 | R-M1 | Analytics event taxonomy & core KPIs | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `analytics.dart`, `taxonomy.dart`, `services.dart` |
 | R-M2 | Experimentation & feature flags (dark-launch, A/B, wave gating) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-M3 | Backend infrastructure (Supabase: Postgres, RLS, Edge, Storage/CDN) | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `content_providers.dart`, `content_repository.dart`, `data_access.dart`, `services.dart` |
+| R-M3 | Backend infrastructure (Supabase: Postgres, RLS, Edge, Storage/CDN) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `content_providers.dart`, `content_repository.dart`, `data_access.dart`, `services.dart` +2 |
 | R-M4 | Content build/upload ops (batch tooling, staging-prod) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-M5 | Observability (logging & error tracking) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-M6 | CI/CD & store-release process | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
@@ -243,7 +243,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 |----|-------------|--------|-------|--------|------|----------|
 | R-AUT-1 | Store-listing & ASO generation pipeline | Could | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
 | R-AUT-2 | Analytics-to-generation wave orchestrator | Could | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
-| R-AUT-3 | Scheduled recalibration & threshold-refresh job | Could | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
+| R-AUT-3 | Scheduled recalibration & threshold-refresh job | Could | Wave | Deferred ⏭ | 🔒 owner/$$ | `0006_review_log_partitions.sql` |
 | R-AUT-4 | Alert-to-incident response automation | Could | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
 
 ## Part N — Non-functional quality bars

@@ -565,7 +565,7 @@
     "R-K3": {
       "moscow": "Must",
       "phase": "Stage3",
-      "status": "Pending 🔒"
+      "status": "Partial 🟨"
     },
     "R-K4": {
       "moscow": "Must",
@@ -720,7 +720,7 @@
     "R-M3": {
       "moscow": "Must",
       "phase": "Stage3",
-      "status": "Partial 🟨"
+      "status": "Build-ahead 🟦"
     },
     "R-M4": {
       "moscow": "Must",
