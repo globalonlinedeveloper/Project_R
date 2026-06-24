@@ -263,7 +263,7 @@ class Experiment {
     this.variants, {
     this.essential = false,
     this.salt,
-  }) : assert(variants.isNotEmpty);
+  });
 
   /// Stable experiment key (also the kill-switch key).
   final String key;
