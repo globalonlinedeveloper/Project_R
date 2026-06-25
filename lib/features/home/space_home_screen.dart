@@ -6,6 +6,9 @@ import '../energy/energy_controller.dart';
 import '../energy/energy_gate.dart';
 import '../energy/energy_state.dart';
 import '../settings/settings_controller.dart';
+import '../../content/models/enums.dart';
+import '../../services/learning/cold_start.dart';
+import '../placement/placement_controller.dart';
 import '../streak/streak_controller.dart';
 import 'lesson_preview_sheet.dart';
 
@@ -30,6 +33,11 @@ class SpaceHomeScreen extends ConsumerWidget {
     final layout = ref.watch(galaxyLayoutProvider);
 
     final active = energy.lessonsCompleted.clamp(0, layout.count - 1);
+    final theta = ref.watch(placementControllerProvider).thetaGlobal;
+    final band = const ColdStartModel().bandFor(theta) ?? CefrLevel.a1;
+    final levelLabel = 'Lv ${band.name.toUpperCase()}';
+    final isNewUser =
+        active == 0 && streak.current == 0 && energy.lessonsCompleted == 0;
     final tier = effectiveMotionTier(
       osReduceMotion: MediaQuery.maybeOf(context)?.disableAnimations ?? false,
       perfTier: PerfTier.high,
@@ -88,11 +96,19 @@ class SpaceHomeScreen extends ConsumerWidget {
               child: _SpaceHud(streak: streak.current, energy: energy),
             ),
           ),
+          if (isNewUser)
+            const Positioned(
+              left: 0,
+              right: 0,
+              bottom: 118,
+              child: IgnorePointer(child: Center(child: _Coach())),
+            ),
           Positioned(
             left: 0,
             right: 0,
             bottom: 0,
             child: _SpaceBottomBar(
+              level: levelLabel,
               done: active,
               total: layout.count,
               lessons: energy.lessonsCompleted,
@@ -193,11 +209,13 @@ class _HudChip extends StatelessWidget {
 
 class _SpaceBottomBar extends StatelessWidget {
   const _SpaceBottomBar({
+    required this.level,
     required this.done,
     required this.total,
     required this.lessons,
     required this.onReview,
   });
+  final String level;
   final int done;
   final int total;
   final int lessons;
@@ -227,13 +245,22 @@ class _SpaceBottomBar extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Text('${(pct * 100).round()}% · galaxy',
-                      style: RatelType.caption
-                          .copyWith(color: SpacePalette.tealText)),
-                  const Spacer(),
-                  Text('$lessons lessons',
-                      style: RatelType.caption
-                          .copyWith(color: SpacePalette.hudMuted)),
+                  _LvChip(level),
+                  const SizedBox(width: RatelSpacing.sm),
+                  Expanded(
+                    child: Text('${(pct * 100).round()}% · galaxy',
+                        overflow: TextOverflow.ellipsis,
+                        style: RatelType.caption
+                            .copyWith(color: SpacePalette.tealText)),
+                  ),
+                  const SizedBox(width: RatelSpacing.sm),
+                  Flexible(
+                    child: Text('$lessons lessons',
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.right,
+                        style: RatelType.caption
+                            .copyWith(color: SpacePalette.hudMuted)),
+                  ),
                 ],
               ),
               const SizedBox(height: RatelSpacing.xs),
@@ -263,4 +290,45 @@ class _SpaceBottomBar extends StatelessWidget {
     );
   }
 }
+
+class _LvChip extends StatelessWidget {
+  const _LvChip(this.label);
+  final String label;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+          horizontal: RatelSpacing.sm, vertical: RatelSpacing.xs),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+            colors: [SpacePalette.teal, SpacePalette.tealDeep]),
+        borderRadius: BorderRadius.circular(RatelSpacing.radiusPill),
+      ),
+      child: Text(label,
+          style: RatelType.caption.copyWith(
+              color: SpacePalette.tealInk, fontWeight: FontWeight.w800)),
+    );
+  }
+}
+
+class _Coach extends StatelessWidget {
+  const _Coach();
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: RatelSpacing.xl),
+      padding: const EdgeInsets.symmetric(
+          horizontal: RatelSpacing.lg, vertical: RatelSpacing.md),
+      decoration: BoxDecoration(
+        color: SpacePalette.tealDarker.withValues(alpha: 0.92),
+        borderRadius: BorderRadius.circular(RatelSpacing.radiusLg),
+        border: Border.all(color: SpacePalette.teal.withValues(alpha: 0.6)),
+      ),
+      child: Text('Tap the glowing planet to begin ✦',
+          textAlign: TextAlign.center,
+          style: RatelType.bodyStrong.copyWith(color: SpacePalette.hudText)),
+    );
+  }
+}
+
 // Traceability: R-WT4
