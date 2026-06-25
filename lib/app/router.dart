@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../core/design_system/tokens/ratel_motion.dart';
 import '../features/adventures/adventures_screen.dart';
 import '../features/adventures/scene_screen.dart';
+import '../features/auth/welcome_screen.dart';
 import '../features/home/home_screen.dart';
 import '../features/lesson/lesson_screen.dart';
 import '../features/onboarding/onboarding_flow.dart';
@@ -22,9 +23,15 @@ CustomTransitionPage<void> _fadePage(Widget child) {
   );
 }
 
-/// First-run gate: route to /onboarding until it completes.
+/// First-run gate. Behind [authEnabled] (R-L1) a guest-first Welcome screen is
+/// shown once before onboarding; with the flag off this is a no-op and the
+/// original onboarding-first behaviour on `main` is unchanged.
 String? _redirect(BuildContext context, GoRouterState state) {
-  final atOnboarding = state.matchedLocation == '/onboarding';
+  final loc = state.matchedLocation;
+  if (authEnabled && !welcomeSeen.value) {
+    return loc == '/welcome' ? null : '/welcome';
+  }
+  final atOnboarding = loc == '/onboarding';
   if (!onboardingComplete.value && !atOnboarding) return '/onboarding';
   if (onboardingComplete.value && atOnboarding) return '/learn';
   return null;
@@ -33,9 +40,20 @@ String? _redirect(BuildContext context, GoRouterState state) {
 /// Tab-shell IA (R-L10): Learn / Practice / Adventures / Profile.
 final GoRouter ratelRouter = GoRouter(
   initialLocation: '/learn',
-  refreshListenable: onboardingComplete,
+  refreshListenable: Listenable.merge([onboardingComplete, welcomeSeen]),
   redirect: _redirect,
   routes: [
+    GoRoute(
+      path: '/welcome',
+      pageBuilder: (c, s) => _fadePage(WelcomeScreen(
+        onContinueAsGuest: () {
+          welcomeSeen.value = true;
+          c.go('/onboarding');
+        },
+        // onSignIn is wired when the Login flow lands (queue #4); until then the
+        // Welcome screen is guest-only by design.
+      )),
+    ),
     GoRoute(
       path: '/onboarding',
       pageBuilder: (c, s) => _fadePage(const OnboardingFlow()),
