@@ -40,21 +40,14 @@ class _OnboardingFlowState extends ConsumerState<OnboardingFlow> {
     if (mounted) context.go('/learn');
   }
 
-  /// Persist the placement θ to the #7 store under auth.uid() (R-G2/R-M3). A
-  /// guest (no uid) keeps placement local — there is nothing to persist.
-  Future<void> _persistPlacement() async {
-    final uid = ref.read(identityProvider).uid;
-    if (uid == null) return;
-    final store = ref.read(learnerStateStoreProvider);
-    final row = ref
-        .read(placementControllerProvider.notifier)
-        .courseRow(_targetLocale());
-    try {
-      await persistPlacement(store, uid, row);
-    } catch (_) {
-      // Best-effort: onboarding completes regardless of a persistence hiccup.
-    }
-  }
+  /// Persist the placement θ to the #7 store under auth.uid() (R-G2/R-M3),
+  /// delegating to the testable [persistOnboardingPlacement].
+  Future<void> _persistPlacement() => persistOnboardingPlacement(
+        ref.read(identityProvider),
+        ref.read(learnerStateStoreProvider),
+        ref.read(placementControllerProvider.notifier),
+        _targetLocale(),
+      );
 
   /// Map the chosen learning language to its course target-locale code.
   String _targetLocale() => switch (_language) {
@@ -350,5 +343,25 @@ class _WinPanel extends StatelessWidget {
         RatelButton(label: 'Continue', expand: true, onPressed: onContinue),
       ],
     );
+  }
+}
+
+/// Persist the onboarding placement θ to live `user_course` under auth.uid()
+/// (R-G2/R-M3). A guest (no uid) keeps placement local — there is nothing to
+/// persist. Best-effort: a persistence hiccup never blocks finishing onboarding.
+/// Extracted from the onboarding state so the wiring is unit-testable without
+/// driving the asset-backed first-win UI.
+Future<void> persistOnboardingPlacement(
+  Identity identity,
+  LearnerStateStore store,
+  PlacementController placement,
+  String targetLocale,
+) async {
+  final uid = identity.uid;
+  if (uid == null) return;
+  try {
+    await persistPlacement(store, uid, placement.courseRow(targetLocale));
+  } catch (_) {
+    // Best-effort: onboarding completes regardless of a persistence hiccup.
   }
 }
