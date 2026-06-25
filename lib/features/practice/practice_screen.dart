@@ -21,7 +21,7 @@ class PracticeScreen extends ConsumerWidget {
         key: const Key('practice-screen'),
         child: seed.when(
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (_, __) =>
+          error: (_, _) =>
               Center(child: Text('Could not load reviews', style: RatelType.body)),
           data: (_) {
             final PracticeState state = ref.watch(practiceControllerProvider);

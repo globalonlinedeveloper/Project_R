@@ -70,11 +70,10 @@ class PracticeState {
 /// seen again before the session ends. Pure in-memory for the local-now slice;
 /// the live cross-device due-queue binds through the #7 store once authEnabled.
 class PracticeController extends StateNotifier<PracticeState> {
-  PracticeController(List<ReviewCard> initial, {Fsrs fsrs = const Fsrs()})
-      : _fsrs = fsrs,
-        super(PracticeState(queue: List<ReviewCard>.unmodifiable(initial)));
+  PracticeController(List<ReviewCard> initial)
+      : super(PracticeState(queue: List<ReviewCard>.unmodifiable(initial)));
 
-  final Fsrs _fsrs;
+  final Fsrs _fsrs = const Fsrs();
 
   /// Flip the current card to show its answer.
   void reveal() {
