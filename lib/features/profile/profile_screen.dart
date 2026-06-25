@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../app/app_flags.dart';
 import '../../core/design_system/design_system.dart';
 import '../auth/auth_service.dart';
+import '../saved_words/saved_words_controller.dart';
 
 /// Profile / "You" tab. Stats and settings will live here in a later wave;
 /// this increment adds the **Account** section that hosts sign-in / log-out
@@ -16,6 +17,7 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
+    final int saved = ref.watch(savedWordsControllerProvider).count;
     return RatelScreen(
       title: 'You',
       child: ListView(
@@ -26,6 +28,16 @@ class ProfileScreen extends ConsumerWidget {
           const SizedBox(height: RatelSpacing.xs),
           Text('Stats and settings live here.',
               style: RatelType.body.copyWith(color: t.onSurfaceVariant)),
+          const SizedBox(height: RatelSpacing.lg),
+          RatelCard(
+            child: Row(
+              children: [
+                Text('Saved words', style: RatelType.body),
+                const Spacer(),
+                Text('$saved', style: RatelType.title),
+              ],
+            ),
+          ),
           if (authEnabled) ...[
             const SizedBox(height: RatelSpacing.xl),
             const _AccountSection(),
