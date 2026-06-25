@@ -30,6 +30,7 @@ Future<void> main() async {
   if (authEnabled &&
       _supabaseUrl.isNotEmpty &&
       _supabasePublishableKey.isNotEmpty) {
+    try {
     WidgetsFlutterBinding.ensureInitialized();
     await Supabase.initialize(
       url: _supabaseUrl,
@@ -92,6 +93,12 @@ Future<void> main() async {
       learnerStateStoreProvider
           .overrideWithValue(SupabaseLearnerStateStore.fromClient(client)),
     );
+    } catch (e) {
+      // If the live backend fails to initialise (e.g. a web auth-init crash),
+      // degrade to guest-only instead of white-screening the whole app.
+      debugPrint('Supabase init failed; running guest-only: $e');
+      overrides.clear();
+    }
   }
   runApp(ProviderScope(overrides: overrides, child: const RatelApp()));
 }
