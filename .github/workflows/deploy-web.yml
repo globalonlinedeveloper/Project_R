@@ -53,7 +53,7 @@ jobs:
         # To turn the auth flow ON in production, append: --dart-define=RATEL_AUTH=true
         # (HELD OFF: the web auth-init crashes at runtime — see main.dart guard /
         # the auth-init bug; re-enable only once that is fixed and verified in a browser).
-        run: flutter build web --release --base-href "/" --pwa-strategy=none --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} --dart-define=SUPABASE_PUBLISHABLE_KEY=${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
+        run: flutter build web --release --base-href "/" --pwa-strategy=none --dart-define=RATEL_AUTH=true --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} --dart-define=SUPABASE_PUBLISHABLE_KEY=${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
 
       - name: Deploy to Cloudflare Pages
         if: steps.cfg.outputs.ready == 'true'
