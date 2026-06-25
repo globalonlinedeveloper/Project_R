@@ -6,6 +6,8 @@ import 'app/app_flags.dart';
 import 'app/ratel_app.dart';
 import 'features/auth/auth_service.dart';
 import 'features/auth/supabase_auth_service.dart';
+import 'services/data_access/data_access.dart';
+import 'services/data_access/supabase_learner_state_store.dart';
 import 'services/identity/identity.dart';
 import 'services/identity/supabase_identity.dart';
 
@@ -20,9 +22,9 @@ const String _supabasePublishableKey =
 /// RATEL entrypoint — Riverpod scope + the design-system app shell.
 ///
 /// With [authEnabled] on AND Supabase keys present, the live client backs
-/// identity + auth and the launch session is restored into [signedIn];
-/// otherwise the app runs exactly as before (guest, in-memory), so `main` is
-/// unchanged while the flag is off (R-L1).
+/// identity + auth + learner-state persistence and the launch session is
+/// restored into [signedIn]; otherwise the app runs exactly as before (guest,
+/// in-memory), so `main` is unchanged while the flag is off (R-L1).
 Future<void> main() async {
   final overrides = <Override>[];
   if (authEnabled &&
@@ -44,6 +46,10 @@ Future<void> main() async {
     );
     overrides.add(
       identityProvider.overrideWithValue(SupabaseIdentity.fromClient(client)),
+    );
+    overrides.add(
+      learnerStateStoreProvider
+          .overrideWithValue(SupabaseLearnerStateStore.fromClient(client)),
     );
   }
   runApp(ProviderScope(overrides: overrides, child: const RatelApp()));

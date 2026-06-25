@@ -136,7 +136,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-G3 | IRT calibration (how hard each item is) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `irt.dart`, `irt_test.dart` |
 | R-G4 | CAT placement test | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `cat.dart`, `cat_test.dart` |
 | R-G5 | FSRS spaced-repetition scheduling | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `fsrs.dart`, `fsrs_test.dart` |
-| R-G6 | Learner-state entities (what gets stored) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `learner_state.dart`, `user.schema.json`, `user_item_state.schema.json`, `learner_state_test.dart` |
+| R-G6 | Learner-state entities (what gets stored) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `supabase_learner_state_store.dart`, `learner_state.dart`, `user.schema.json`, `user_item_state.schema.json` +1 |
 | R-G7 | Cold-start strategy (works from day one) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `cold_start.dart`, `cold_start_test.dart` |
 | R-G8 | Launch path-serving (how lessons are sequenced) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `path_serving.dart`, `path_serving_test.dart` |
 | R-G9 | Saved words - flashcards - graded review | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `saved_words.dart`, `saved_words_test.dart` |
@@ -191,7 +191,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-K3 | Data minimization & retention (no raw-speech retention) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `test_voice_no_audio_persist.py`, `0006_review_log_partitions.sql`, `0007_dsar_delete_anchor.sql`, `0008_audit_log.sql` |
 | R-K4 | Regional privacy rights - export + delete (GDPR/DPDP/CCPA) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `test_dsar_delete_anchor.py`, `0007_dsar_delete_anchor.sql`, `0008_audit_log.sql` |
 | R-K5 | Generated-content safety (AI-content; profanity; bias) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-K6 | Security - server-side keys, Supabase RLS, auth, PII | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `auth_service.dart`, `supabase_auth_service.dart`, `taxonomy.dart`, `data_access.dart` +9 |
+| R-K6 | Security - server-side keys, Supabase RLS, auth, PII | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `auth_service.dart`, `supabase_auth_service.dart`, `taxonomy.dart`, `data_access.dart` +10 |
 | R-K7 | Terms of Service + Privacy Policy - final copy & ownership | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-K8 | Accessibility - WCAG 2.2 AA conformance (test-enforced) | Must | Stage2 | Built ✅ | — | `shell.dart`, `wcag.dart`, `ratel_motion_tier.dart`, `ratel_color_tokens.dart` +5 |
 
@@ -229,7 +229,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 |----|-------------|--------|-------|--------|------|----------|
 | R-M1 | Analytics event taxonomy & core KPIs | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `analytics.dart`, `analytics_identity.dart`, `taxonomy.dart`, `audit_sink.dart` +3 |
 | R-M2 | Experimentation & feature flags (dark-launch, A/B, wave gating) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `feature_flags.dart`, `feature_flags_test.dart` |
-| R-M3 | Backend infrastructure (Supabase: Postgres, RLS, Edge, Storage/CDN) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `content_providers.dart`, `content_repository.dart`, `data_access.dart`, `services.dart` +2 |
+| R-M3 | Backend infrastructure (Supabase: Postgres, RLS, Edge, Storage/CDN) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `content_providers.dart`, `content_repository.dart`, `data_access.dart`, `supabase_learner_state_store.dart` +3 |
 | R-M4 | Content build/upload ops (batch tooling, staging-prod) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-M5 | Observability (logging & error tracking) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `audit_sink.dart`, `crash_telemetry.dart`, `observability.dart`, `test_audit_log.py` +3 |
 | R-M6 | CI/CD & store-release process | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
