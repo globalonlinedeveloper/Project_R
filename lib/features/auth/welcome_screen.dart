@@ -5,20 +5,25 @@ import '../../core/design_system/design_system.dart';
 ///
 /// Shown only when `authEnabled` is on (see app_flags / router). The primary,
 /// fully-wired path is "Continue as guest", which enters the existing
-/// guest-first onboarding flow. Account entry points (Sign up / Log in) are a
-/// deliberate seam: pass [onSignIn] once the Login screen (queue #4) exists and
-/// the secondary affordance appears automatically — no layout change needed.
+/// guest-first onboarding flow. Account entry points are deliberate seams:
+/// [onCreateAccount] reveals the Sign-up affordance (queue #3) and [onSignIn]
+/// the Log-in affordance (queue #4) — each appears automatically once wired, no
+/// layout change needed.
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({
     super.key,
     required this.onContinueAsGuest,
+    this.onCreateAccount,
     this.onSignIn,
   });
 
   /// Guest-first primary action — enter the app without an account.
   final VoidCallback onContinueAsGuest;
 
-  /// Optional account path, wired when the Login flow lands (queue #4).
+  /// Optional account-creation path, wired when the Sign-up screen lands (#3).
+  final VoidCallback? onCreateAccount;
+
+  /// Optional existing-account path, wired when the Login flow lands (#4).
   final VoidCallback? onSignIn;
 
   @override
@@ -46,6 +51,15 @@ class WelcomeScreen extends StatelessWidget {
             expand: true,
             onPressed: onContinueAsGuest,
           ),
+          if (onCreateAccount != null) ...[
+            const SizedBox(height: RatelSpacing.sm),
+            RatelButton(
+              label: 'Create an account',
+              kind: RatelButtonKind.secondary,
+              expand: true,
+              onPressed: onCreateAccount,
+            ),
+          ],
           if (onSignIn != null) ...[
             const SizedBox(height: RatelSpacing.sm),
             RatelButton(

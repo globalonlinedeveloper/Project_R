@@ -19,7 +19,8 @@ void main() {
     expect(find.byKey(const Key('welcome')), findsOneWidget);
     expect(find.text('Welcome to Ratel'), findsOneWidget);
     expect(find.text('Continue as guest'), findsOneWidget);
-    // Account path is a seam: hidden until onSignIn is provided (queue #4).
+    // Account paths are seams: hidden until their callbacks are provided.
+    expect(find.text('Create an account'), findsNothing);
     expect(find.text('I already have an account'), findsNothing);
   });
 
@@ -30,6 +31,14 @@ void main() {
     await tester.pump();
     await tester.tap(find.text('Continue as guest'));
     expect(tapped, isTrue);
+  });
+
+  testWidgets('create-account affordance appears once onCreateAccount is wired',
+      (tester) async {
+    await tester.pumpWidget(_host(
+        WelcomeScreen(onContinueAsGuest: () {}, onCreateAccount: () {})));
+    await tester.pump();
+    expect(find.text('Create an account'), findsOneWidget);
   });
 
   testWidgets('account affordance appears once onSignIn is wired', (tester) async {
