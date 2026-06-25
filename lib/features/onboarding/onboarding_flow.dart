@@ -6,6 +6,9 @@ import '../../content/loader/content_loader.dart';
 import '../../content/models/models.dart';
 import '../../content/repository/content_providers.dart';
 import '../../core/design_system/design_system.dart';
+import '../../services/data_access/data_access.dart';
+import '../../services/identity/identity.dart';
+import '../placement/placement_controller.dart';
 
 /// Guest-first onboarding (R-L2): language -> motivation -> goal -> first win.
 /// The first win renders a real item off the local ContentBatch (no stubs) and
@@ -28,8 +31,37 @@ class _OnboardingFlowState extends ConsumerState<OnboardingFlow> {
 
   void _finish() {
     onboardingComplete.value = true;
+    // R-G2/G3/G4: persist the onboarding placement (CEFR cold-start anchor θ)
+    // to live user_course once signed in. Behind authEnabled + a real uid so
+    // the guest / flag-off flow is byte-identical. Fire-and-forget.
+    if (authEnabled) {
+      _persistPlacement();
+    }
     if (mounted) context.go('/learn');
   }
+
+  /// Persist the placement θ to the #7 store under auth.uid() (R-G2/R-M3). A
+  /// guest (no uid) keeps placement local — there is nothing to persist.
+  Future<void> _persistPlacement() async {
+    final uid = ref.read(identityProvider).uid;
+    if (uid == null) return;
+    final store = ref.read(learnerStateStoreProvider);
+    final row = ref
+        .read(placementControllerProvider.notifier)
+        .courseRow(_targetLocale());
+    try {
+      await persistPlacement(store, uid, row);
+    } catch (_) {
+      // Best-effort: onboarding completes regardless of a persistence hiccup.
+    }
+  }
+
+  /// Map the chosen learning language to its course target-locale code.
+  String _targetLocale() => switch (_language) {
+        'Spanish' => 'es',
+        'Tamil' => 'ta',
+        _ => 'en',
+      };
 
   @override
   Widget build(BuildContext context) {
@@ -195,10 +227,21 @@ class _FirstWinStepState extends ConsumerState<_FirstWinStep> {
   bool _won = false;
 
   void _pick(String option, String answer) {
+    final correct = option.toLowerCase() == answer.toLowerCase();
     setState(() {
       _picked = option;
-      if (option.toLowerCase() == answer.toLowerCase()) _won = true;
+      if (correct) _won = true;
     });
+    // R-G2/G3: the first win is the cold-start placement anchor — record the
+    // graded item so θ refines off the declared CEFR prior. Behind authEnabled
+    // so the flag-off onboarding flow is byte-identical.
+    if (authEnabled && correct) {
+      ref.read(placementControllerProvider.notifier).answer(
+            skill: 'vocab',
+            itemDifficulty: 0.0,
+            correct: true,
+          );
+    }
   }
 
   @override
