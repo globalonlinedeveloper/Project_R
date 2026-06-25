@@ -45,18 +45,41 @@ class _SpaceHomeScreenState extends ConsumerState<SpaceHomeScreen> {
     super.dispose();
   }
 
-  /// Recenter the galaxy on the active planet (spec §13 — locate FAB).
-  void _locateActive(GalaxyLayout layout, int active, MotionTier tier) {
-    if (!_scrollController.hasClients || layout.count == 0) return;
-    final a = layout.planets[active.clamp(0, layout.count - 1)];
-    final target =
-        (a.y - 230).clamp(0.0, _scrollController.position.maxScrollExtent);
+  /// Smooth-scroll (or jump, under a static motion tier) the galaxy to a content
+  /// Y, clamped to the scroll extent. Shared by the locate FAB + course map.
+  void _scrollToY(double y, MotionTier tier) {
+    if (!_scrollController.hasClients) return;
+    final target = y.clamp(0.0, _scrollController.position.maxScrollExtent);
     if (tier.isStatic) {
       _scrollController.jumpTo(target);
     } else {
       _scrollController.animateTo(target,
           duration: RatelMotion.slow, curve: RatelMotion.standard);
     }
+  }
+
+  /// Recenter the galaxy on the active planet (spec §13 — locate FAB).
+  void _locateActive(GalaxyLayout layout, int active, MotionTier tier) {
+    if (layout.count == 0) return;
+    final a = layout.planets[active.clamp(0, layout.count - 1)];
+    _scrollToY(a.y - 230, tier);
+  }
+
+  /// Course-map sheet (spec §7) — tap a section row to jump to its band.
+  void _showCourseMap(GalaxyLayout layout, int active, MotionTier tier) {
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: SpacePalette.phoneBg.withValues(alpha: 0),
+      isScrollControlled: true,
+      builder: (ctx) => _CourseMapSheet(
+        layout: layout,
+        active: active,
+        onJump: (s) {
+          Navigator.of(ctx).pop();
+          _scrollToY(layout.bands[s].y - 40, tier);
+        },
+      ),
+    );
   }
 
   @override
@@ -70,6 +93,11 @@ class _SpaceHomeScreenState extends ConsumerState<SpaceHomeScreen> {
     final theta = ref.watch(placementControllerProvider).thetaGlobal;
     final band = const ColdStartModel().bandFor(theta) ?? CefrLevel.a1;
     final levelLabel = 'Lv ${band.name.toUpperCase()}';
+    final sections = layout.bands.length;
+    final activeSection =
+        layout.count == 0 ? 0 : layout.planets[active].section;
+    final coursePct =
+        layout.count == 0 ? 0 : (active / layout.count * 100).round();
     final isNewUser =
         active == 0 && streak.current == 0 && energy.lessonsCompleted == 0;
     final tier = effectiveMotionTier(
@@ -138,6 +166,13 @@ class _SpaceHomeScreenState extends ConsumerState<SpaceHomeScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     _SpaceHud(streak: streak.current, energy: energy),
+                    const SizedBox(height: RatelSpacing.sm),
+                    _CourseBar(
+                      section: activeSection,
+                      sections: sections,
+                      pct: coursePct,
+                      onTap: () => _showCourseMap(layout, active, tier),
+                    ),
                     const SizedBox(height: RatelSpacing.sm),
                     const _DailyStrip(),
                   ],
@@ -828,6 +863,168 @@ class _EnergySheet extends ConsumerWidget {
             primary: false,
             onPressed: () => Navigator.of(context).pop()),
       ],
+    );
+  }
+}
+
+// ===== Course-progress bar + section map (spec §7) =====
+
+class _CourseBar extends StatelessWidget {
+  const _CourseBar(
+      {required this.section,
+      required this.sections,
+      required this.pct,
+      required this.onTap});
+  final int section;
+  final int sections;
+  final int pct;
+  final VoidCallback onTap;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      key: const Key('course-bar'),
+      behavior: HitTestBehavior.opaque,
+      onTap: onTap,
+      child: Row(
+        children: [
+          Text('SECTION ${section + 1} / $sections',
+              style: RatelType.caption.copyWith(
+                  color: SpacePalette.hudMuted,
+                  letterSpacing: 0.5,
+                  fontWeight: FontWeight.w800)),
+          const SizedBox(width: RatelSpacing.sm),
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(RatelSpacing.radiusPill),
+              child: SizedBox(
+                height: 5,
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: ColoredBox(
+                          color: SpacePalette.hudText.withValues(alpha: 0.13)),
+                    ),
+                    FractionallySizedBox(
+                      alignment: Alignment.centerLeft,
+                      widthFactor: (pct / 100).clamp(0.0, 1.0),
+                      child: const DecoratedBox(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              colors: [SpacePalette.tealDeep, SpacePalette.teal]),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: RatelSpacing.sm),
+          Text('$pct%',
+              style: RatelType.caption.copyWith(
+                  color: SpacePalette.tealText, fontWeight: FontWeight.w800)),
+        ],
+      ),
+    );
+  }
+}
+
+class _CourseMapSheet extends StatelessWidget {
+  const _CourseMapSheet(
+      {required this.layout, required this.active, required this.onJump});
+  final GalaxyLayout layout;
+  final int active;
+  final void Function(int section) onJump;
+  @override
+  Widget build(BuildContext context) {
+    final rows = <Widget>[];
+    for (var s = 0; s < layout.bands.length; s++) {
+      final idxs = <int>[
+        for (var i = 0; i < layout.planets.length; i++)
+          if (layout.planets[i].section == s) i
+      ];
+      if (idxs.isEmpty) continue;
+      final first = idxs.first;
+      final last = idxs.last;
+      final total = idxs.length;
+      final done = idxs.where((i) => i < active).length;
+      final status =
+          active < first ? 'Locked' : (active > last ? 'Done' : 'In progress');
+      rows.add(_MapRow(
+        title: 'Section ${s + 1} · ${layout.bands[s].name}',
+        sub: '$done/$total lessons · $status',
+        locked: status == 'Locked',
+        onTap: () => onJump(s),
+      ));
+    }
+    return _SheetShell(
+      children: [
+        _sheetEyebrow('YOUR JOURNEY'),
+        const SizedBox(height: RatelSpacing.xs),
+        Text('Course map',
+            style: RatelType.headline.copyWith(color: SpacePalette.hudText)),
+        const SizedBox(height: RatelSpacing.xs),
+        Text('${layout.bands.length} sections · tap to jump.',
+            style: RatelType.body.copyWith(color: SpacePalette.hudMuted)),
+        const SizedBox(height: RatelSpacing.lg),
+        ...rows,
+      ],
+    );
+  }
+}
+
+class _MapRow extends StatelessWidget {
+  const _MapRow(
+      {required this.title,
+      required this.sub,
+      required this.locked,
+      required this.onTap});
+  final String title;
+  final String sub;
+  final bool locked;
+  final VoidCallback onTap;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: RatelSpacing.sm),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        child: Opacity(
+          opacity: locked ? 0.5 : 1,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+                horizontal: RatelSpacing.lg, vertical: RatelSpacing.md),
+            decoration: BoxDecoration(
+              color: SpacePalette.hudText.withValues(alpha: 0.04),
+              borderRadius: BorderRadius.circular(RatelSpacing.radiusMd),
+              border:
+                  Border.all(color: SpacePalette.hudText.withValues(alpha: 0.12)),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(title,
+                          style: RatelType.label.copyWith(
+                              color: SpacePalette.hudText,
+                              fontWeight: FontWeight.w800)),
+                      const SizedBox(height: 2),
+                      Text(sub,
+                          style: RatelType.caption
+                              .copyWith(color: SpacePalette.hudMuted)),
+                    ],
+                  ),
+                ),
+                Icon(locked ? Icons.lock : Icons.chevron_right,
+                    size: 18, color: SpacePalette.hudMuted),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
