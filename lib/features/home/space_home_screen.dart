@@ -165,7 +165,13 @@ class _SpaceHomeScreenState extends ConsumerState<SpaceHomeScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _SpaceHud(streak: streak.current, energy: energy),
+                    SpaceHud(
+                      streak: streak.current,
+                      energyLabel:
+                          energy.isUnlimited ? '∞' : '${energy.energy}',
+                      flameHue: goldenHue(activeSection),
+                      tier: tier,
+                    ),
                     const SizedBox(height: RatelSpacing.sm),
                     _CourseBar(
                       section: activeSection,
@@ -264,72 +270,6 @@ class _TopScrim extends StatelessWidget {
           ],
           stops: const [0.55, 1],
         ),
-      ),
-    );
-  }
-}
-
-class _SpaceHud extends StatelessWidget {
-  const _SpaceHud({required this.streak, required this.energy});
-  final int streak;
-  final EnergyState energy;
-
-  @override
-  Widget build(BuildContext context) {
-    final energyLabel = energy.isUnlimited ? '∞' : '${energy.energy}';
-    return Row(
-      children: [
-        const _HudChip(icon: Icons.public, label: 'EN', tint: SpacePalette.teal),
-        const Spacer(),
-        _HudChip(
-            icon: Icons.local_fire_department,
-            label: '$streak',
-            tint: SpacePalette.checkpoint),
-        const SizedBox(width: RatelSpacing.sm),
-        _HudChip(
-            icon: Icons.bolt, label: energyLabel, tint: SpacePalette.energyGlow),
-        const SizedBox(width: RatelSpacing.sm),
-        const _HudChip(
-            icon: Icons.diamond_outlined,
-            label: 'soon',
-            tint: SpacePalette.gemB,
-            muted: true),
-        const SizedBox(width: RatelSpacing.sm),
-        const _HudChip(icon: Icons.notifications_none, tint: SpacePalette.langText),
-      ],
-    );
-  }
-}
-
-class _HudChip extends StatelessWidget {
-  const _HudChip(
-      {required this.icon, this.label, required this.tint, this.muted = false});
-  final IconData icon;
-  final String? label;
-  final Color tint;
-  final bool muted;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-          horizontal: RatelSpacing.sm, vertical: RatelSpacing.xs),
-      decoration: BoxDecoration(
-        color: SpacePalette.hudText.withValues(alpha: 0.06),
-        borderRadius: BorderRadius.circular(RatelSpacing.radiusPill),
-        border: Border.all(color: SpacePalette.hudText.withValues(alpha: 0.12)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 16, color: tint),
-          if (label != null) ...[
-            const SizedBox(width: RatelSpacing.xs),
-            Text(label!,
-                style: RatelType.caption.copyWith(
-                    color: muted ? SpacePalette.hudMuted : SpacePalette.hudText)),
-          ],
-        ],
       ),
     );
   }

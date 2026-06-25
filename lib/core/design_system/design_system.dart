@@ -28,3 +28,4 @@ export 'world/world_theme.dart';
 export 'world/galaxy_model.dart';
 export 'world/galaxy_painter.dart';
 export 'world/galaxy_view.dart';
+export 'world/space_hud.dart';

@@ -47,7 +47,8 @@ void main() {
     await tester.pumpWidget(_app(store: store));
     await tester.pump();
     await tester.tap(find.byKey(const Key('goal-chip')));
-    await tester.pumpAndSettle(); // full tank default -> no timer, settles
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400)); // full tank default -> no timer, settles
     expect(find.text('DAILY GOAL'), findsOneWidget);
     await tester.tap(find.text('Serious'));
     await tester.pump();

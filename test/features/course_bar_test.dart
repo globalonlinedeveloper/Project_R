@@ -35,7 +35,8 @@ void main() {
     await tester.pumpWidget(_app());
     await tester.pump();
     await tester.tap(find.byKey(const Key('course-bar')));
-    await tester.pumpAndSettle();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
     expect(find.text('Course map'), findsOneWidget);
     expect(find.text('3 sections · tap to jump.'), findsOneWidget);
   });
@@ -45,7 +46,8 @@ void main() {
     await tester.pumpWidget(_app());
     await tester.pump();
     await tester.tap(find.byKey(const Key('course-bar')));
-    await tester.pumpAndSettle();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
     await tester.tap(find.text('Section 3 · AURORA EXPANSE')); // map row (title-case)
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
@@ -58,7 +60,8 @@ void main() {
     await tester.pumpWidget(_app());
     await tester.pump();
     await tester.tap(find.byKey(const Key('course-bar')));
-    await tester.pumpAndSettle();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
     expect(find.textContaining('In progress'), findsOneWidget);
     expect(find.textContaining('Locked'), findsWidgets);
   });
@@ -68,7 +71,8 @@ void main() {
         .pumpWidget(_app(energy: const EnergyState(lessonsCompleted: 999)));
     await tester.pump();
     await tester.tap(find.byKey(const Key('course-bar')));
-    await tester.pumpAndSettle();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
     expect(find.textContaining('Done'), findsWidgets);
   });
 }
