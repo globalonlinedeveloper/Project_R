@@ -19,6 +19,7 @@ class SpacePalette {
   static const Color skeleton = Color(0xFF070A18);
   static const Color scrim = Color(0x8C04050C); // rgba(4,5,12,.55)
   static const Color fabBg = Color(0xD90A1022); // rgba(10,16,34,.85) locate FAB
+  static const Color dchipBg = Color(0xC70A0E20); // rgba(10,14,32,.78) daily chip
 
   // ---- Teal pod / HUD accent family ----
   static const Color teal = Color(0xFF8FF0D6); // primary mint

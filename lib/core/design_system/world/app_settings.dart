@@ -12,6 +12,7 @@ class AppSettings {
     this.highContrast = false,
     this.sound = true,
     this.haptics = true,
+    this.dailyGoal = 20,
   });
 
   /// Light/Classic is the DEFAULT — the app boots in it; Space is opt-in.
@@ -21,12 +22,16 @@ class AppSettings {
   final bool sound;
   final bool haptics;
 
+  /// Daily XP goal (Casual 10 / Regular 20 / Serious 30) — drives the goal ring.
+  final int dailyGoal;
+
   AppSettings copyWith({
     WorldThemeId? world,
     MotionPreference? motion,
     bool? highContrast,
     bool? sound,
     bool? haptics,
+    int? dailyGoal,
   }) =>
       AppSettings(
         world: world ?? this.world,
@@ -34,6 +39,7 @@ class AppSettings {
         highContrast: highContrast ?? this.highContrast,
         sound: sound ?? this.sound,
         haptics: haptics ?? this.haptics,
+        dailyGoal: dailyGoal ?? this.dailyGoal,
       );
 
   Map<String, Object> toMap() => <String, Object>{
@@ -42,6 +48,7 @@ class AppSettings {
         'highContrast': highContrast,
         'sound': sound,
         'haptics': haptics,
+        'dailyGoal': dailyGoal,
       };
 
   static AppSettings fromMap(Map<String, Object?> m) => AppSettings(
@@ -52,6 +59,7 @@ class AppSettings {
         highContrast: m['highContrast'] as bool? ?? false,
         sound: m['sound'] as bool? ?? true,
         haptics: m['haptics'] as bool? ?? true,
+        dailyGoal: (m['dailyGoal'] as int?) ?? 20,
       );
 
   @override
@@ -61,10 +69,12 @@ class AppSettings {
       other.motion == motion &&
       other.highContrast == highContrast &&
       other.sound == sound &&
-      other.haptics == haptics;
+      other.haptics == haptics &&
+      other.dailyGoal == dailyGoal;
 
   @override
-  int get hashCode => Object.hash(world, motion, highContrast, sound, haptics);
+  int get hashCode =>
+      Object.hash(world, motion, highContrast, sound, haptics, dailyGoal);
 }
 
 T _enumByName<T extends Enum>(List<T> values, Object? raw, T fallback) {

@@ -35,6 +35,9 @@ class SettingsController extends StateNotifier<AppSettings> {
   void setSound(bool on) => _commit(state.copyWith(sound: on));
 
   void setHaptics(bool on) => _commit(state.copyWith(haptics: on));
+
+  /// Daily XP goal picker (Casual 10 / Regular 20 / Serious 30).
+  void setDailyGoal(int goal) => _commit(state.copyWith(dailyGoal: goal));
 }
 
 final settingsControllerProvider =

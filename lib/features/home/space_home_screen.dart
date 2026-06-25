@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,6 +11,7 @@ import '../settings/settings_controller.dart';
 import '../../content/models/enums.dart';
 import '../../services/learning/cold_start.dart';
 import '../placement/placement_controller.dart';
+import '../practice/practice_controller.dart';
 import '../streak/streak_controller.dart';
 import 'lesson_preview_sheet.dart';
 
@@ -120,8 +123,8 @@ class _SpaceHomeScreenState extends ConsumerState<SpaceHomeScreen> {
             height: 150,
             child: IgnorePointer(child: _TopScrim()),
           ),
-          // Header HUD — a fixed top overlay (spec §6/§17), positioned so the
-          // body Stack fills the viewport (no non-positioned child to shrink to).
+          // Header HUD + daily strip — fixed top overlay (spec §6/§8/§17),
+          // positioned so the body Stack fills the viewport.
           Positioned(
             top: 0,
             left: 0,
@@ -131,7 +134,14 @@ class _SpaceHomeScreenState extends ConsumerState<SpaceHomeScreen> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(
                     RatelSpacing.lg, RatelSpacing.sm, RatelSpacing.lg, 0),
-                child: _SpaceHud(streak: streak.current, energy: energy),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _SpaceHud(streak: streak.current, energy: energy),
+                    const SizedBox(height: RatelSpacing.sm),
+                    const _DailyStrip(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -410,6 +420,414 @@ class _Coach extends StatelessWidget {
       child: Text('Tap the glowing planet to begin ✦',
           textAlign: TextAlign.center,
           style: RatelType.bodyStrong.copyWith(color: SpacePalette.hudText)),
+    );
+  }
+}
+
+// ===== Daily strip (spec §8): goal ring · energy refill · due reviews =====
+
+class _DailyStrip extends StatelessWidget {
+  const _DailyStrip();
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      children: [
+        Expanded(child: _GoalRingChip()),
+        SizedBox(width: RatelSpacing.xs),
+        Expanded(child: _EnergyRefillChip()),
+        SizedBox(width: RatelSpacing.xs),
+        Expanded(child: _DueChip()),
+      ],
+    );
+  }
+}
+
+Widget _dailyChip(
+    {Key? key, required Widget child, required VoidCallback onTap}) {
+  return GestureDetector(
+    key: key,
+    behavior: HitTestBehavior.opaque,
+    onTap: onTap,
+    child: Container(
+      padding:
+          const EdgeInsets.symmetric(horizontal: RatelSpacing.sm, vertical: 6),
+      decoration: BoxDecoration(
+        color: SpacePalette.dchipBg,
+        borderRadius: BorderRadius.circular(RatelSpacing.radiusMd),
+        border: Border.all(color: SpacePalette.hudText.withValues(alpha: 0.13)),
+      ),
+      child: child,
+    ),
+  );
+}
+
+Widget _chipLabels(String main, String sub) {
+  return Flexible(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(main,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: RatelType.caption.copyWith(
+                color: SpacePalette.hudText, fontWeight: FontWeight.w800)),
+        Text(sub,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: RatelType.caption
+                .copyWith(color: SpacePalette.hudMuted, fontSize: 9)),
+      ],
+    ),
+  );
+}
+
+String _fmtClock(int secs) {
+  final m = secs ~/ 60;
+  final s = (secs % 60).toString().padLeft(2, '0');
+  return '$m:$s';
+}
+
+class _GoalRingChip extends ConsumerWidget {
+  const _GoalRingChip();
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final goal = ref.watch(settingsControllerProvider.select((s) => s.dailyGoal));
+    final xp = ref.watch(energyControllerProvider.select((e) => e.xpToday));
+    final progress = goal == 0 ? 0.0 : (xp / goal).clamp(0.0, 1.0);
+    return _dailyChip(
+      key: const Key('goal-chip'),
+      onTap: () => _showGoalSheet(context),
+      child: Row(
+        children: [
+          RatelProgressRing(progress: progress, size: 26, stroke: 4),
+          const SizedBox(width: RatelSpacing.xs),
+          _chipLabels('$xp/$goal', 'XP today'),
+        ],
+      ),
+    );
+  }
+}
+
+class _EnergyRefillChip extends ConsumerStatefulWidget {
+  const _EnergyRefillChip();
+  @override
+  ConsumerState<_EnergyRefillChip> createState() => _EnergyRefillChipState();
+}
+
+class _EnergyRefillChipState extends ConsumerState<_EnergyRefillChip> {
+  Timer? _timer;
+
+  /// Run a 1s tick ONLY while the tank is below full (so a full-tank home stays
+  /// pumpAndSettle-safe). Each tick credits any real-time regen + refreshes the
+  /// countdown read from the wall clock — never a faked decrement.
+  void _sync(EnergyState e) {
+    final need = !e.isUnlimited && e.energy < e.config.maxEnergy;
+    if (need && _timer == null) {
+      _timer = Timer.periodic(RatelMotion.secondTick, (_) {
+        ref.read(energyControllerProvider.notifier).applyRegen();
+        if (mounted) setState(() {});
+      });
+    } else if (!need && _timer != null) {
+      _timer!.cancel();
+      _timer = null;
+    }
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final e = ref.watch(energyControllerProvider);
+    _sync(e);
+    final max = e.config.maxEnergy;
+    final full = e.isUnlimited || e.energy >= max;
+    final secs = full
+        ? 0
+        : e.remainingRefillSeconds(DateTime.now().millisecondsSinceEpoch);
+    final main = e.isUnlimited ? '∞' : '${e.energy}/$max';
+    final sub = full ? 'Full' : '+1 in ${_fmtClock(secs)}';
+    return _dailyChip(
+      key: const Key('energy-chip'),
+      onTap: () => _showEnergySheet(context),
+      child: Row(
+        children: [
+          const Icon(Icons.bolt, size: 16, color: SpacePalette.energyGlow),
+          const SizedBox(width: RatelSpacing.xs),
+          _chipLabels(main, sub),
+        ],
+      ),
+    );
+  }
+}
+
+class _DueChip extends ConsumerWidget {
+  const _DueChip();
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final due = ref.watch(practiceControllerProvider.select((p) => p.dueCount));
+    final has = due > 0;
+    return _dailyChip(
+      key: const Key('due-chip'),
+      onTap: () => maybeStartLesson(context, ref, review: true),
+      child: Row(
+        children: [
+          const Icon(Icons.menu_book_rounded,
+              size: 16, color: SpacePalette.tealText),
+          const SizedBox(width: RatelSpacing.xs),
+          _chipLabels(
+              has ? '$due due' : 'All clear', has ? 'Practice now' : 'Nothing due'),
+        ],
+      ),
+    );
+  }
+}
+
+void _showGoalSheet(BuildContext context) {
+  showModalBottomSheet<void>(
+    context: context,
+    backgroundColor: SpacePalette.phoneBg.withValues(alpha: 0),
+    isScrollControlled: true,
+    builder: (ctx) => const _GoalPickerSheet(),
+  );
+}
+
+void _showEnergySheet(BuildContext context) {
+  showModalBottomSheet<void>(
+    context: context,
+    backgroundColor: SpacePalette.phoneBg.withValues(alpha: 0),
+    isScrollControlled: true,
+    builder: (ctx) => const _EnergySheet(),
+  );
+}
+
+class _SheetShell extends StatelessWidget {
+  const _SheetShell({required this.children});
+  final List<Widget> children;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [SpacePalette.sheetTop, SpacePalette.sheetBottom],
+        ),
+        borderRadius:
+            BorderRadius.vertical(top: Radius.circular(RatelSpacing.radiusLg)),
+      ),
+      child: SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(RatelSpacing.xl, RatelSpacing.md,
+              RatelSpacing.xl, RatelSpacing.xl),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 36,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: SpacePalette.hudText.withValues(alpha: 0.25),
+                    borderRadius: BorderRadius.circular(RatelSpacing.radiusPill),
+                  ),
+                ),
+              ),
+              const SizedBox(height: RatelSpacing.lg),
+              ...children,
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Widget _sheetEyebrow(String t) => Text(t,
+    style: RatelType.caption.copyWith(
+        color: SpacePalette.hudMuted,
+        letterSpacing: 1.2,
+        fontWeight: FontWeight.w800));
+
+class _SheetButton extends StatelessWidget {
+  const _SheetButton(
+      {required this.label, required this.onPressed, this.primary = true});
+  final String label;
+  final VoidCallback? onPressed;
+  final bool primary;
+  @override
+  Widget build(BuildContext context) {
+    final enabled = onPressed != null;
+    return SizedBox(
+      width: double.infinity,
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          onTap: onPressed,
+          borderRadius: BorderRadius.circular(RatelSpacing.radiusMd),
+          child: Ink(
+            decoration: BoxDecoration(
+              gradient: enabled && primary
+                  ? const LinearGradient(
+                      colors: [SpacePalette.teal, SpacePalette.tealDeep])
+                  : null,
+              color: enabled && primary
+                  ? null
+                  : SpacePalette.hudText.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(RatelSpacing.radiusMd),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: RatelSpacing.md),
+            child: Center(
+              child: Text(label,
+                  style: RatelType.label.copyWith(
+                      color: enabled && primary
+                          ? SpacePalette.tealInk
+                          : SpacePalette.tealText,
+                      fontWeight: FontWeight.w800)),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _GoalPickerSheet extends ConsumerWidget {
+  const _GoalPickerSheet();
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final goal = ref.watch(settingsControllerProvider.select((s) => s.dailyGoal));
+    final xp = ref.watch(energyControllerProvider.select((e) => e.xpToday));
+    final left = ((goal - xp) / 20).ceil();
+    final sub = xp >= goal
+        ? 'Goal smashed — nice!'
+        : '${left < 1 ? 1 : left} more lesson(s) to hit it';
+    const options = <(String, int)>[
+      ('Casual', 10),
+      ('Regular', 20),
+      ('Serious', 30),
+    ];
+    return _SheetShell(
+      children: [
+        _sheetEyebrow('DAILY GOAL'),
+        const SizedBox(height: RatelSpacing.xs),
+        Text('$xp / $goal XP today',
+            style: RatelType.headline.copyWith(color: SpacePalette.hudText)),
+        const SizedBox(height: RatelSpacing.xs),
+        Text(sub, style: RatelType.body.copyWith(color: SpacePalette.hudMuted)),
+        const SizedBox(height: RatelSpacing.lg),
+        for (final o in options)
+          _GoalOption(
+            label: o.$1,
+            xp: o.$2,
+            selected: goal == o.$2,
+            onTap: () =>
+                ref.read(settingsControllerProvider.notifier).setDailyGoal(o.$2),
+          ),
+        const SizedBox(height: RatelSpacing.sm),
+        _SheetButton(
+            label: 'Done',
+            primary: false,
+            onPressed: () => Navigator.of(context).pop()),
+      ],
+    );
+  }
+}
+
+class _GoalOption extends StatelessWidget {
+  const _GoalOption(
+      {required this.label,
+      required this.xp,
+      required this.selected,
+      required this.onTap});
+  final String label;
+  final int xp;
+  final bool selected;
+  final VoidCallback onTap;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: RatelSpacing.sm),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: RatelSpacing.lg, vertical: RatelSpacing.md),
+          decoration: BoxDecoration(
+            color: SpacePalette.hudText.withValues(alpha: selected ? 0.10 : 0.04),
+            borderRadius: BorderRadius.circular(RatelSpacing.radiusMd),
+            border: Border.all(
+                color: selected
+                    ? SpacePalette.teal
+                    : SpacePalette.hudText.withValues(alpha: 0.12),
+                width: selected ? 2 : 1),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(label,
+                    style: RatelType.label.copyWith(
+                        color: SpacePalette.hudText,
+                        fontWeight: FontWeight.w800)),
+              ),
+              Text('$xp XP / day',
+                  style: RatelType.caption
+                      .copyWith(color: SpacePalette.hudMuted)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _EnergySheet extends ConsumerWidget {
+  const _EnergySheet();
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final e = ref.watch(energyControllerProvider);
+    final max = e.config.maxEnergy;
+    final full = e.isUnlimited || e.energy >= max;
+    final secs = full
+        ? 0
+        : e.remainingRefillSeconds(DateTime.now().millisecondsSinceEpoch);
+    final sub = e.isUnlimited
+        ? 'Unlimited energy with Pro.'
+        : (full
+            ? 'Your tank is full — go learn!'
+            : 'Next +1 in ${_fmtClock(secs)} · refills 1 every 25 min.');
+    return _SheetShell(
+      children: [
+        _sheetEyebrow('ENERGY'),
+        const SizedBox(height: RatelSpacing.xs),
+        Text(e.isUnlimited ? '∞ energy' : '${e.energy} / $max energy',
+            style: RatelType.headline.copyWith(color: SpacePalette.hudText)),
+        const SizedBox(height: RatelSpacing.xs),
+        Text(sub, style: RatelType.body.copyWith(color: SpacePalette.hudMuted)),
+        const SizedBox(height: RatelSpacing.lg),
+        if (!e.isUnlimited)
+          _SheetButton(
+            label: 'Watch ad +1',
+            onPressed: full
+                ? null
+                : () {
+                    ref.read(energyControllerProvider.notifier).refill(1);
+                    Navigator.of(context).pop();
+                  },
+          ),
+        const SizedBox(height: RatelSpacing.sm),
+        _SheetButton(
+            label: 'Done',
+            primary: false,
+            onPressed: () => Navigator.of(context).pop()),
+      ],
     );
   }
 }

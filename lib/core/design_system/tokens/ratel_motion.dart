@@ -14,6 +14,10 @@ class RatelMotion {
   static const Duration slow = Duration(milliseconds: 360);
   static const Duration celebrate = Duration(milliseconds: 700);
 
+  /// Real-time clock tick (energy countdown refresh) — sourced here so screen
+  /// code never writes a raw Duration literal (R-N6 token-lint).
+  static const Duration secondTick = Duration(seconds: 1);
+
   static const Curve standard = Cubic(0.2, 0.0, 0.0, 1.0);
   static const Curve emphasized = Cubic(0.2, 0.0, 0.0, 1.0);
   static const Curve enter = Curves.easeOutCubic;
