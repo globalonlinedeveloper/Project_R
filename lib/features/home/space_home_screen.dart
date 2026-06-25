@@ -20,13 +20,44 @@ final galaxyLayoutProvider = Provider<GalaxyLayout>((ref) => generateGalaxy());
 /// review bottom bar. `activeIdx` is REAL (lessons completed); the energy gate +
 /// free reviews are preserved. Whole-app dark-space re-skin follows the selected
 /// world theme; galaxy chrome reads named [SpacePalette] colours (no raw
-/// literals — R-N6). The full daily strip, lesson-preview sheet, Lv/XP bar,
-/// locate FAB and tier-gated FX land in the following galaxy increments.
-class SpaceHomeScreen extends ConsumerWidget {
+/// literals — R-N6).
+///
+/// Owns the galaxy [ScrollController] so the bottom-right locate FAB can
+/// recenter the viewport on the active planet (`y - 230`, matching the auto-
+/// scroll target). Recenter honors motion: it `jumpTo`s under a static tier
+/// (OS reduce-motion floor / motion-off) and `animateTo`s otherwise.
+class SpaceHomeScreen extends ConsumerStatefulWidget {
   const SpaceHomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SpaceHomeScreen> createState() => _SpaceHomeScreenState();
+}
+
+class _SpaceHomeScreenState extends ConsumerState<SpaceHomeScreen> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  /// Recenter the galaxy on the active planet (spec §13 — locate FAB).
+  void _locateActive(GalaxyLayout layout, int active, MotionTier tier) {
+    if (!_scrollController.hasClients || layout.count == 0) return;
+    final a = layout.planets[active.clamp(0, layout.count - 1)];
+    final target =
+        (a.y - 230).clamp(0.0, _scrollController.position.maxScrollExtent);
+    if (tier.isStatic) {
+      _scrollController.jumpTo(target);
+    } else {
+      _scrollController.animateTo(target,
+          duration: RatelMotion.slow, curve: RatelMotion.standard);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final energy = ref.watch(energyControllerProvider);
     final streak = ref.watch(streakControllerProvider);
     final settings = ref.watch(settingsControllerProvider);
@@ -74,6 +105,7 @@ class SpaceHomeScreen extends ConsumerWidget {
         children: [
           Positioned.fill(
             child: GalaxyView(
+              controller: _scrollController,
               layout: layout,
               activeIdx: active,
               tier: tier,
@@ -88,12 +120,19 @@ class SpaceHomeScreen extends ConsumerWidget {
             height: 150,
             child: IgnorePointer(child: _TopScrim()),
           ),
-          SafeArea(
-            bottom: false,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(
-                  RatelSpacing.lg, RatelSpacing.sm, RatelSpacing.lg, 0),
-              child: _SpaceHud(streak: streak.current, energy: energy),
+          // Header HUD — a fixed top overlay (spec §6/§17), positioned so the
+          // body Stack fills the viewport (no non-positioned child to shrink to).
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: SafeArea(
+              bottom: false,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(
+                    RatelSpacing.lg, RatelSpacing.sm, RatelSpacing.lg, 0),
+                child: _SpaceHud(streak: streak.current, energy: energy),
+              ),
             ),
           ),
           if (isNewUser)
@@ -115,7 +154,51 @@ class SpaceHomeScreen extends ConsumerWidget {
               onReview: () => maybeStartLesson(context, ref, review: true),
             ),
           ),
+          // Bottom-right locate FAB — recenters on the active planet (spec §13).
+          Positioned(
+            right: 14,
+            bottom: 130,
+            child: _LocateFab(
+              key: const Key('locate-fab'),
+              onTap: () => _locateActive(layout, active, tier),
+            ),
+          ),
         ],
+      ),
+    );
+  }
+}
+
+/// 44px circular "locate" control — taps recenter the galaxy on the current
+/// planet. A non-directional `my_location` crosshair (always available), per the
+/// owner's C3 spec (supersedes the prototype's off-screen-only directional arrow).
+class _LocateFab extends StatelessWidget {
+  const _LocateFab({super.key, required this.onTap});
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      label: 'Locate current lesson',
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        child: Container(
+          width: 44,
+          height: 44,
+          decoration: BoxDecoration(
+            color: SpacePalette.fabBg,
+            shape: BoxShape.circle,
+            border: Border.all(color: SpacePalette.teal.withValues(alpha: 0.5)),
+            boxShadow: [
+              BoxShadow(
+                  color: SpacePalette.teal.withValues(alpha: 0.35),
+                  blurRadius: 12),
+            ],
+          ),
+          child: const Icon(Icons.my_location, size: 22, color: SpacePalette.teal),
+        ),
       ),
     );
   }
