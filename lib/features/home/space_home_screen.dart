@@ -7,6 +7,7 @@ import '../energy/energy_gate.dart';
 import '../energy/energy_state.dart';
 import '../settings/settings_controller.dart';
 import '../streak/streak_controller.dart';
+import 'lesson_preview_sheet.dart';
 
 /// The galaxy layout is deterministic, so build it once and share it.
 final galaxyLayoutProvider = Provider<GalaxyLayout>((ref) => generateGalaxy());
@@ -36,17 +37,26 @@ class SpaceHomeScreen extends ConsumerWidget {
     );
 
     void onPlanetTap(GalaxyPlanet planet, int index) {
-      if (index > active) {
-        ScaffoldMessenger.of(context)
-          ..clearSnackBars()
-          ..showSnackBar(SnackBar(
-            content: Text('Finish the earlier lessons first',
-                style: RatelType.body.copyWith(color: SpacePalette.hudText)),
-            backgroundColor: SpacePalette.sheetTop,
-          ));
-        return;
-      }
-      maybeStartLesson(context, ref, review: index < active);
+      final state = index < active
+          ? PlanetState.done
+          : (index == active ? PlanetState.active : PlanetState.locked);
+      showModalBottomSheet<void>(
+        context: context,
+        backgroundColor: SpacePalette.phoneBg.withValues(alpha: 0),
+        isScrollControlled: true,
+        builder: (sheetCtx) => LessonPreviewSheet(
+          planet: planet,
+          state: state,
+          onStart: () {
+            Navigator.of(sheetCtx).pop();
+            maybeStartLesson(context, ref, review: false);
+          },
+          onReview: () {
+            Navigator.of(sheetCtx).pop();
+            maybeStartLesson(context, ref, review: true);
+          },
+        ),
+      );
     }
 
     return Scaffold(
