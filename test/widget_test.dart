@@ -5,8 +5,14 @@ import 'package:ratel/app/app_flags.dart';
 import 'package:ratel/app/ratel_app.dart';
 
 void main() {
-  setUp(() => onboardingComplete.value = true);
-  tearDown(() => onboardingComplete.value = false);
+  setUp(() {
+    welcomeSeen.value = true; // flag-robust: skip the auth Welcome gate
+    onboardingComplete.value = true;
+  });
+  tearDown(() {
+    welcomeSeen.value = false;
+    onboardingComplete.value = false;
+  });
 
   testWidgets('app boots into the Learn tab shell', (tester) async {
     await tester.pumpWidget(const ProviderScope(child: RatelApp()));

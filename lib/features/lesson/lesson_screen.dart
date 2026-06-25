@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../app/app_flags.dart';
 import '../../content/models/models.dart' show ExerciseType;
 import '../../core/design_system/design_system.dart';
+import '../saved_words/saved_words_controller.dart';
 import 'engine/exercise.dart';
 import 'lesson_controller.dart';
 import '../energy/energy_controller.dart';
 import '../streak/streak_controller.dart';
 import '../mascot/mascot_view.dart';
+
+/// Course namespace for words saved from the lesson flow — the beachhead EN
+/// course (dedup is per-course, R-G9).
+const String _lessonCourseId = 'en';
 
 /// Immersive lesson runner (R-L3 / R-L17). Loads exercises off the local seed,
 /// runs the engine via [lessonControllerProvider], and renders question ->
@@ -84,6 +90,7 @@ class _LessonRun extends ConsumerStatefulWidget {
 class _LessonRunState extends ConsumerState<_LessonRun> {
   String? _selected;
   bool _committed = false;
+  bool _savedThisItem = false;
 
   Future<void> _confirmQuit() async {
     final t = context.tokens;
@@ -126,6 +133,13 @@ class _LessonRunState extends ConsumerState<_LessonRun> {
         ],
       ),
     );
+  }
+
+  /// Save the feedback's target word to the saved-words list (R-G9). In-memory
+  /// now (the #7 store binds it at authEnabled); surfaced as the Profile stat.
+  void _saveWord(String word) {
+    ref.read(savedWordsControllerProvider.notifier).save(_lessonCourseId, word);
+    setState(() => _savedThisItem = true);
   }
 
   @override
@@ -171,9 +185,16 @@ class _LessonRunState extends ConsumerState<_LessonRun> {
                       feedback: state.feedback!,
                       proLocked: !isPro,
                       onContinue: () {
-                        setState(() => _selected = null);
+                        setState(() {
+                          _selected = null;
+                          _savedThisItem = false;
+                        });
                         controller.proceed();
                       },
+                      onSaveWord: authEnabled
+                          ? () => _saveWord(state.feedback!.correctAnswer)
+                          : null,
+                      saved: _savedThisItem,
                     )
                   : _QuestionPanel(
                       exercise: exercise,
@@ -281,10 +302,19 @@ class _FeedbackPanel extends StatelessWidget {
     required this.feedback,
     required this.proLocked,
     required this.onContinue,
+    this.onSaveWord,
+    this.saved = false,
   });
   final LessonFeedback feedback;
   final bool proLocked;
   final VoidCallback onContinue;
+
+  /// Save the target word to the saved-words list (R-G9). Null hides the
+  /// affordance — it is wired only behind `authEnabled`.
+  final VoidCallback? onSaveWord;
+
+  /// Whether this item's word was already saved in this feedback view.
+  final bool saved;
 
   @override
   Widget build(BuildContext context) {
@@ -335,6 +365,16 @@ class _FeedbackPanel extends StatelessWidget {
                 if (proLocked) ...[
                   const SizedBox(height: RatelSpacing.sm),
                   const _ProExplainLock(),
+                ],
+                if (onSaveWord != null) ...[
+                  const SizedBox(height: RatelSpacing.sm),
+                  RatelButton(
+                    key: const Key('lesson-save-word'),
+                    label: saved ? 'Saved' : 'Save word',
+                    kind: RatelButtonKind.secondary,
+                    expand: true,
+                    onPressed: saved ? null : onSaveWord,
+                  ),
                 ],
               ],
             ),

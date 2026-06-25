@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ratel/app/app_flags.dart';
 import 'package:ratel/content/models/models.dart' show ExerciseType;
 import 'package:ratel/core/design_system/design_system.dart';
+import 'package:ratel/features/saved_words/saved_words_controller.dart';
 import 'package:ratel/features/lesson/engine/exercise.dart';
 import 'package:ratel/features/lesson/lesson_controller.dart';
 import 'package:ratel/features/lesson/lesson_screen.dart';
@@ -97,5 +99,43 @@ void main() {
     await tester.tap(find.text('Quit'));
     await tester.pumpAndSettle();
     expect(closed, isTrue);
+  });
+
+  // Save-word wiring (#10): only meaningful behind authEnabled. Trivially passes
+  // in the default CI run (RATEL_AUTH unset); exercised with RATEL_AUTH=true.
+  testWidgets('authEnabled: Save word in feedback saves to the controller',
+      (tester) async {
+    if (!authEnabled) return;
+    await tester.pumpWidget(_harness([_exEat]));
+    await tester.pump();
+    final container = ProviderScope.containerOf(
+        tester.element(find.byType(LessonScreen)),
+        listen: false);
+    expect(container.read(savedWordsControllerProvider).count, 0);
+
+    await tester.tap(find.text('eat'));
+    await tester.pump();
+    await tester.tap(find.text('Check'));
+    await tester.pump();
+
+    expect(find.byKey(const Key('lesson-save-word')), findsOneWidget);
+    await tester.tap(find.byKey(const Key('lesson-save-word')));
+    await tester.pump();
+
+    expect(container.read(savedWordsControllerProvider).count, 1);
+    expect(find.text('Saved'), findsOneWidget);
+  });
+
+  testWidgets('flag-off: no Save word affordance in feedback (byte-identical)',
+      (tester) async {
+    if (authEnabled) return;
+    await tester.pumpWidget(_harness([_exEat]));
+    await tester.pump();
+    await tester.tap(find.text('eat'));
+    await tester.pump();
+    await tester.tap(find.text('Check'));
+    await tester.pump();
+    expect(find.text('Correct!'), findsOneWidget);
+    expect(find.byKey(const Key('lesson-save-word')), findsNothing);
   });
 }
