@@ -255,7 +255,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-N3 | Reliability / availability targets | Must | Cross | Spec/cross ▫ | — | — |
 | R-N4 | Localization completeness & quality bars per tier | Must | Cross | Spec/cross ▫ | — | — |
 | R-N5 | Low-connectivity / low-end-device resilience + data budget | Must | Cross | Spec/cross ▫ | — | `ratel_typography.dart` |
-| R-N6 | Maintainability / charter conformance | Must | Cross | Spec/cross ▫ | — | `design_system.dart`, `ratel_color_tokens.dart`, `ratel_motion.dart`, `token_lint_test.dart` |
+| R-N6 | Maintainability / charter conformance | Must | Cross | Spec/cross ▫ | — | `design_system.dart`, `ratel_color_tokens.dart`, `ratel_motion.dart`, `profile_screen.dart` +1 |
 | R-N7 | Unified motion-tier signal (accessibility precedence) | Must | Cross | Spec/cross ▫ | — | `context_ext.dart`, `ratel_motion_tier.dart`, `ratel_motion.dart`, `mascot_view.dart` +2 |
 | R-N8 | Animation performance & power budget | Must | Cross | Spec/cross ▫ | — | `perf_bench_test.dart`, `mascot_view.dart`, `riv_contract.dart`, `perf_gauntlet_test.dart` |
 
@@ -263,7 +263,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-O1 | Phase-2 deliverables (local content model - NO DB) | Process | Stage1 | Built ✅ | — | `perf_bench_test.dart`, `app_flags.dart`, `energy_state.dart`, `home_screen.dart` +4 |
+| R-O1 | Phase-2 deliverables (local content model - NO DB) | Process | Stage1 | Built ✅ | — | `perf_bench_test.dart`, `app_flags.dart`, `energy_state.dart`, `home_screen.dart` +5 |
 | R-O2 | Phase-3 deliverables (DB + runtime + payments - gated, MONEY) | Process | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-O3 | Post-launch waves (tier climb, write/live-roleplay, RTL re-add) | Process | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
 | R-O4 | Risk register & mitigations | Process | Program | Spec/cross ▫ | — | — |
