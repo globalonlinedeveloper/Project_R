@@ -45,7 +45,22 @@ Future<void> main() async {
           .overrideWithValue(SupabaseAuthService.fromClient(client)),
     );
     overrides.add(
-      identityProvider.overrideWithValue(SupabaseIdentity.fromClient(client)),
+      identityProvider.overrideWithValue(
+        SupabaseIdentity.fromClient(
+          client,
+          // Flip the TS-11 claim relay on: forward a server-minted claim token
+          // to the deployed claim-anonymous-state edge function (queue #6).
+          onClaim: (token) async {
+            final res = await client.functions.invoke(
+              'claim-anonymous-state',
+              body: <String, dynamic>{'action': 'claim', 'token': token.value},
+            );
+            if (res.status != 200) {
+              throw StateError('claim failed (${res.status})');
+            }
+          },
+        ),
+      ),
     );
     overrides.add(
       learnerStateStoreProvider
