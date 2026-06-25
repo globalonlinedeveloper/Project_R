@@ -29,6 +29,43 @@
     },
     "R-M7": {
       "moscow": "Must"
+    },
+    "R-WT1": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "notes": "S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)."
+    },
+    "R-WT2": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "notes": "S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)."
+    },
+    "R-WT3": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "notes": "S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)."
+    },
+    "R-WT4": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status_override": "Partial 🟨",
+      "notes": "S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page). Still-form (pod+backdrop) done; full planet-path/HUD/states in progress."
+    },
+    "R-WT5": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "notes": "S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)."
+    },
+    "R-WT6": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "notes": "S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)."
+    },
+    "R-WT7": {
+      "moscow": "Could",
+      "phase": "Stage2",
+      "status_override": "Pending 🔒",
+      "notes": "S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page). Tier-gated FX + pod auto-defense not yet built (later galaxy increment)."
     }
   },
   "derived": {
@@ -836,6 +873,41 @@
       "moscow": "Process",
       "phase": "Program",
       "status": "Spec/cross ▫"
+    },
+    "R-WT1": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-WT2": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-WT3": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-WT4": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status": "Partial 🟨"
+    },
+    "R-WT5": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-WT6": {
+      "moscow": "Should",
+      "phase": "Stage2",
+      "status": "Built ✅"
+    },
+    "R-WT7": {
+      "moscow": "Could",
+      "phase": "Stage2",
+      "status": "Pending 🔒"
     }
   }
 }

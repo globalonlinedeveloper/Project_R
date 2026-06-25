@@ -7,15 +7,14 @@ import '../../core/design_system/design_system.dart';
 import '../auth/auth_service.dart';
 import '../energy/energy_controller.dart';
 import '../saved_words/saved_words_controller.dart';
+import '../settings/settings_controller.dart';
 import '../streak/streak_controller.dart';
 
 /// Profile / "You" tab. Surfaces the learner's live progress (streak, lessons,
-/// saved words) as a stat grid, then hosts the **Account** section (sign-in /
-/// log-out, R-L1). The stats read already-tracked in-memory controllers — the
-/// same sources Home and Lesson use — so they need no new backend; durable
-/// cross-device persistence arrives with the Stage-3 store (R-O1). The Account
-/// section shows only when `authEnabled` is on, so `main` behaviour is
-/// unchanged with the flag off.
+/// saved words) as a stat grid, hosts **Settings** (world/theme + motion + a11y),
+/// then the **Account** section (sign-in / log-out, R-L1). Stats read the same
+/// in-memory controllers Home and Lesson use — real data, no new backend; the
+/// Account section shows only when `authEnabled` is on.
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
@@ -42,6 +41,8 @@ class ProfileScreen extends ConsumerWidget {
             lessons: lessons,
             saved: saved,
           ),
+          const SizedBox(height: RatelSpacing.xl),
+          const _SettingsSection(),
           if (authEnabled) ...[
             const SizedBox(height: RatelSpacing.xl),
             const _AccountSection(),
@@ -128,8 +129,6 @@ class _StatsGrid extends StatelessWidget {
   }
 }
 
-/// A single stat: icon, big value, caption. Tokens only (R-N6). [color] is a
-/// semantic token supplied by the caller, never a raw literal.
 class _StatTile extends StatelessWidget {
   const _StatTile({
     super.key,
@@ -158,6 +157,112 @@ class _StatTile extends StatelessWidget {
           const SizedBox(height: RatelSpacing.xs),
           Text(label,
               style: RatelType.caption.copyWith(color: t.onSurfaceVariant)),
+        ],
+      ),
+    );
+  }
+}
+
+/// App settings: the world/theme switch (Classic ⇄ Space, re-skins app-wide and
+/// persists) plus motion + a11y toggles. Lives on Profile per the design (the
+/// galaxy HUD has no settings of its own). Tokens only (R-N6).
+class _SettingsSection extends ConsumerWidget {
+  const _SettingsSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final s = ref.watch(settingsControllerProvider);
+    final ctrl = ref.read(settingsControllerProvider.notifier);
+    return RatelCard(
+      child: Column(
+        key: const Key('profile-settings'),
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('Settings', style: RatelType.title),
+          const SizedBox(height: RatelSpacing.xs),
+          _ToggleRow(
+            key: const Key('settings-space-theme'),
+            icon: Icons.rocket_launch_outlined,
+            label: 'Galaxy (Space) theme',
+            subtitle: 'Fly the Ratel pod through a galaxy — re-skins the whole app.',
+            value: s.world == WorldThemeId.space,
+            onChanged: (_) => ctrl.toggleSpace(),
+          ),
+          _ToggleRow(
+            key: const Key('settings-reduce-motion'),
+            icon: Icons.motion_photos_paused_outlined,
+            label: 'Reduce motion',
+            subtitle: 'Calmer, mostly-still animations.',
+            value: s.motion == MotionPreference.off,
+            onChanged: (on) =>
+                ctrl.setMotion(on ? MotionPreference.off : MotionPreference.high),
+          ),
+          _ToggleRow(
+            key: const Key('settings-high-contrast'),
+            icon: Icons.contrast,
+            label: 'High contrast',
+            value: s.highContrast,
+            onChanged: ctrl.setHighContrast,
+          ),
+          _ToggleRow(
+            key: const Key('settings-sound'),
+            icon: Icons.volume_up_outlined,
+            label: 'Sound effects',
+            value: s.sound,
+            onChanged: ctrl.setSound,
+          ),
+          _ToggleRow(
+            key: const Key('settings-haptics'),
+            icon: Icons.vibration,
+            label: 'Haptics',
+            value: s.haptics,
+            onChanged: ctrl.setHaptics,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ToggleRow extends StatelessWidget {
+  const _ToggleRow({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.value,
+    required this.onChanged,
+    this.subtitle,
+  });
+
+  final IconData icon;
+  final String label;
+  final String? subtitle;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: RatelSpacing.xs),
+      child: Row(
+        children: [
+          Icon(icon, color: t.primary, size: 22),
+          const SizedBox(width: RatelSpacing.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(label, style: RatelType.bodyStrong),
+                if (subtitle != null)
+                  Text(subtitle!,
+                      style: RatelType.caption
+                          .copyWith(color: t.onSurfaceVariant)),
+              ],
+            ),
+          ),
+          Switch(value: value, onChanged: onChanged),
         ],
       ),
     );
@@ -222,10 +327,6 @@ class _AccountSection extends ConsumerWidget {
     );
   }
 
-  /// Double-confirm (R-L1): a destructive action gets an explicit dialog. On
-  /// confirm we drop the local session even if the network sign-out fails, so
-  /// the user is never trapped; the router (listening to [signedIn]) returns to
-  /// Welcome automatically.
   Future<void> _confirmLogout(BuildContext context, WidgetRef ref) async {
     final t = context.tokens;
     final confirmed = await showDialog<bool>(
@@ -246,8 +347,8 @@ class _AccountSection extends ConsumerWidget {
           TextButton(
             key: const Key('profile-logout-confirm'),
             onPressed: () => Navigator.of(dialogCtx).pop(true),
-            child:
-                Text('Log out', style: RatelType.label.copyWith(color: t.danger)),
+            child: Text('Log out',
+                style: RatelType.label.copyWith(color: t.danger)),
           ),
         ],
       ),
@@ -263,3 +364,4 @@ class _AccountSection extends ConsumerWidget {
     signedIn.value = false;
   }
 }
+// Traceability: R-WT6

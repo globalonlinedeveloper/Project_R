@@ -1,6 +1,6 @@
 # Ratel — Requirements Traceability Matrix (RTM)
 
-> **GENERATED** by `ratel-tools/gen_traceability.py` from the 161 requirement IDs in `RATEL_REQUIREMENTS.md`. Do not hand-edit — rerun the generator. To correct a call, edit `ratel-tools/requirements_registry.json` (`overrides`) and rerun.
+> **GENERATED** by `ratel-tools/gen_traceability.py` from the 168 requirement IDs in `RATEL_REQUIREMENTS.md`. Do not hand-edit — rerun the generator. To correct a call, edit `ratel-tools/requirements_registry.json` (`overrides`) and rerun.
 
 **How to read this**
 
@@ -15,11 +15,11 @@
 | Priority | Built | Build-ahead | Partial | Pending | Deferred | Removed | Spec/cross | Total |
 |---|---|---|---|---|---|---|---|---|
 | **Must** | 78 | 20 | 2 | 16 | 2 | 0 | 13 | 131 |
-| **Should** | 12 | 1 | 0 | 2 | 1 | 0 | 0 | 16 |
-| **Could** | 0 | 0 | 0 | 1 | 7 | 0 | 0 | 8 |
+| **Should** | 17 | 1 | 1 | 2 | 1 | 0 | 0 | 22 |
+| **Could** | 0 | 0 | 0 | 2 | 7 | 0 | 0 | 9 |
 | **Won't** | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 1 |
 | **Process** | 1 | 0 | 0 | 1 | 1 | 0 | 2 | 5 |
-| **All** | 91 | 21 | 2 | 20 | 11 | 1 | 15 | 161 |
+| **All** | 96 | 21 | 3 | 21 | 11 | 1 | 15 | 168 |
 
 _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not live) · Pending=Stage-3 not started · Deferred=post-launch wave · Removed=cut · Spec/cross=policy/cross-cutting._
 
@@ -177,7 +177,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-J3 | AI access policy - Pro-only live AI, metered by credits | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `play_receipt_verify.dart`, `user.schema.json` |
 | R-J4 | Ad strategy + network/mediation | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-J5 | Voice minute caps (even Pro) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-J6 | Store-safe paywall / cancel (single CTA, easy cancel) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `home_screen.dart`, `lesson_screen.dart`, `credit_ledger.schema.json`, `lesson_screen_test.dart` |
+| R-J6 | Store-safe paywall / cancel (single CTA, easy cancel) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `energy_gate.dart`, `lesson_screen.dart`, `credit_ledger.schema.json`, `lesson_screen_test.dart` |
 | R-J7 | Payments / IAP integration (App Store / Play / web) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `play_receipt_verify.dart`, `user.schema.json`, `user_course.schema.json`, `play_receipt_verify_test.dart` |
 | R-J7a | Desktop/web billing - web-checkout fallback (no native store) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `billing.dart`, `media_authz.dart`, `payments_verify.dart`, `play_receipt_verify.dart` +4 |
 
@@ -201,7 +201,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 |----|-------------|--------|-------|--------|------|----------|
 | R-L1 | Auth & account flows | Must | Stage2 | Built ✅ | — | `app_flags.dart`, `router.dart`, `auth_service.dart`, `login_screen.dart` +5 |
 | R-L2 | Onboarding flow (language-motivation-goal-placement-first win) | Must | Stage2 | Built ✅ | — | `onboarding_flow.dart`, `onboarding_test.dart` |
-| R-L3 | Core learning loop (lesson run, check/feedback, complete) | Must | Stage2 | Built ✅ | — | `energy_controller.dart`, `energy_state.dart`, `exercise.dart`, `exercise_builder.dart` +5 |
+| R-L3 | Core learning loop (lesson run, check/feedback, complete) | Must | Stage2 | Built ✅ | — | `energy_controller.dart`, `energy_gate.dart`, `energy_state.dart`, `exercise.dart` +6 |
 | R-L4 | Practice & AI hub | Must | Stage2 | Built ✅ | — | `home_screen.dart` |
 | R-L4a | Adventures immersive surface (explorable roleplay world) | Must | Stage2 | Built ✅ | — | `adventure_model.dart`, `adventures_screen.dart`, `scene_screen.dart`, `adventures_screen_test.dart` +1 |
 | R-L5 | Reading & listening (stories, listening feed, video, tap-to-define) | Must | Stage2 | Built ✅ | — | — |
@@ -255,7 +255,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-N3 | Reliability / availability targets | Must | Cross | Spec/cross ▫ | — | — |
 | R-N4 | Localization completeness & quality bars per tier | Must | Cross | Spec/cross ▫ | — | — |
 | R-N5 | Low-connectivity / low-end-device resilience + data budget | Must | Cross | Spec/cross ▫ | — | `ratel_typography.dart` |
-| R-N6 | Maintainability / charter conformance | Must | Cross | Spec/cross ▫ | — | `design_system.dart`, `ratel_color_tokens.dart`, `ratel_motion.dart`, `profile_screen.dart` +1 |
+| R-N6 | Maintainability / charter conformance | Must | Cross | Spec/cross ▫ | — | `design_system.dart`, `ratel_color_tokens.dart`, `ratel_motion.dart`, `space_palette.dart` +3 |
 | R-N7 | Unified motion-tier signal (accessibility precedence) | Must | Cross | Spec/cross ▫ | — | `context_ext.dart`, `ratel_motion_tier.dart`, `ratel_motion.dart`, `mascot_view.dart` +2 |
 | R-N8 | Animation performance & power budget | Must | Cross | Spec/cross ▫ | — | `perf_bench_test.dart`, `mascot_view.dart`, `riv_contract.dart`, `perf_gauntlet_test.dart` |
 
@@ -263,9 +263,21 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-O1 | Phase-2 deliverables (local content model - NO DB) | Process | Stage1 | Built ✅ | — | `perf_bench_test.dart`, `app_flags.dart`, `energy_state.dart`, `home_screen.dart` +5 |
+| R-O1 | Phase-2 deliverables (local content model - NO DB) | Process | Stage1 | Built ✅ | — | `perf_bench_test.dart`, `app_flags.dart`, `energy_state.dart`, `streak_controller.dart` +4 |
 | R-O2 | Phase-3 deliverables (DB + runtime + payments - gated, MONEY) | Process | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-O3 | Post-launch waves (tier climb, write/live-roleplay, RTL re-add) | Process | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
 | R-O4 | Risk register & mitigations | Process | Program | Spec/cross ▫ | — | — |
 | R-O5 | Consolidated open-decisions tracker | Process | Program | Spec/cross ▫ | — | — |
+
+## Part W — World themes (Space galaxy skin + future packs)
+
+| ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
+|----|-------------|--------|-------|--------|------|----------|
+| R-WT1 | World-theme template seam (palette + painters + traveller + vocabulary, app-wide + persisted)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | `world_theme.dart`, `settings_controller.dart`, `world_theme_test.dart` |
+| R-WT2 | Space world theme #1 (deep-space galaxy skin, app-wide re-skin)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | `ratel_app.dart`, `space_palette.dart`, `world_theme.dart`, `space_home_screen.dart` +1 |
+| R-WT3 | Persisted theme selection (default Classic, opt-in Space)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | `app_settings.dart`, `world_theme.dart`, `settings_controller.dart`, `world_theme_test.dart` +1 |
+| R-WT4 | Galaxy Home — CustomPainter backdrop + planet path + locked v8 pod traveller<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page). Still-form (pod+backdrop) done; full planet-path/HUD/states in progress._ | Should | Stage2 | Partial 🟨 | — | `pod_painter.dart`, `space_backdrop.dart`, `space_palette.dart`, `space_home_screen.dart` +1 |
+| R-WT5 | Motion-tier preference (High/Reduced/Off) with OS reduce-motion hard floor<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | `ratel_motion_tier.dart`, `app_settings.dart`, `motion_preference_test.dart` |
+| R-WT6 | Profile settings surface (theme + motion + a11y toggles)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | `profile_screen.dart`, `settings_controller.dart`, `settings_test.dart` |
+| R-WT7 | Tier-gated galaxy FX + pod auto-defense (HIGH-only, reduce-motion floor)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page). Tier-gated FX + pod auto-defense not yet built (later galaxy increment)._ | Could | Stage2 | Pending 🔒 | — | `space_backdrop.dart` |
 

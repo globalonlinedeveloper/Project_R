@@ -20,3 +20,8 @@ export 'widgets/ratel_count_up.dart';
 export 'widgets/ratel_fade_through.dart';
 export 'widgets/ratel_progress_ring.dart';
 export 'widgets/ratel_screen.dart';
+export 'world/app_settings.dart';
+export 'world/pod_painter.dart';
+export 'world/space_backdrop.dart';
+export 'world/space_palette.dart';
+export 'world/world_theme.dart';

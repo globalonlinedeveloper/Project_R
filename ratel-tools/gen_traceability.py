@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Requirements Traceability Matrix (RTM) generator for Project_R.
 
-Single source of truth for the 161 functional requirement IDs is RATEL_REQUIREMENTS.md
+Single source of truth for the 168 functional requirement IDs is RATEL_REQUIREMENTS.md
 (owner planning folder, not in-repo). That ID+title list is mirrored here so the generator
 runs hermetically in CI. For each requirement it records:
 
@@ -190,6 +190,13 @@ R-O2|Phase-3 deliverables (DB + runtime + payments - gated, MONEY)
 R-O3|Post-launch waves (tier climb, write/live-roleplay, RTL re-add)
 R-O4|Risk register & mitigations
 R-O5|Consolidated open-decisions tracker
+R-WT1|World-theme template seam (palette + painters + traveller + vocabulary, app-wide + persisted)
+R-WT2|Space world theme #1 (deep-space galaxy skin, app-wide re-skin)
+R-WT3|Persisted theme selection (default Classic, opt-in Space)
+R-WT4|Galaxy Home — CustomPainter backdrop + planet path + locked v8 pod traveller
+R-WT5|Motion-tier preference (High/Reduced/Off) with OS reduce-motion hard floor
+R-WT6|Profile settings surface (theme + motion + a11y toggles)
+R-WT7|Tier-gated galaxy FX + pod auto-defense (HIGH-only, reduce-motion floor)
 """
 
 # --- part-level derived defaults: (moscow, phase) -------------------------------------
@@ -199,7 +206,7 @@ PART_DEFAULT = {
     "F": ("Should", "Stage2"), "G": ("Must", "Stage3"), "H": ("Should", "Stage3"),
     "I": ("Should", "Stage2"), "J": ("Must", "Stage3"), "K": ("Must", "Stage3"),
     "L": ("Must", "Stage2"), "M": ("Should", "Stage3"), "AUT": ("Could", "Wave"),
-    "N": ("Must", "Cross"), "O": ("Process", "Program"),
+    "N": ("Must", "Cross"), "O": ("Process", "Program"), "WT": ("Should", "Stage2"),
 }
 # --- per-id overrides grounded in R-A1 / R-A8 / Part O --------------------------------
 OVERRIDE = {
@@ -232,8 +239,9 @@ PART_NAMES = {
     "K": "K — Compliance, privacy & safety", "L": "L — App screens & UX",
     "M": "M — Analytics, ops & infrastructure", "AUT": "M — Automation (R-AUT)",
     "N": "N — Non-functional quality bars", "O": "O — Program, phasing & risks",
+    "WT": "W — World themes (Space galaxy skin + future packs)",
 }
-PART_ORDER = ["0","A","B","C","D","E","F","G","H","I","J","K","L","M","AUT","N","O"]
+PART_ORDER = ["0","A","B","C","D","E","F","G","H","I","J","K","L","M","AUT","N","O","WT"]
 
 
 def part_of(rid):
@@ -241,6 +249,8 @@ def part_of(rid):
         return "0"
     if rid.startswith("R-AUT"):
         return "AUT"
+    if rid.startswith("R-WT"):
+        return "WT"
     m = re.match(r"R-([A-O])", rid)
     return m.group(1) if m else "?"
 
@@ -336,7 +346,7 @@ def render(rows):
     L = []
     L.append("# Ratel — Requirements Traceability Matrix (RTM)")
     L.append("")
-    L.append("> **GENERATED** by `ratel-tools/gen_traceability.py` from the 161 requirement IDs in "
+    L.append("> **GENERATED** by `ratel-tools/gen_traceability.py` from the 168 requirement IDs in "
              "`RATEL_REQUIREMENTS.md`. Do not hand-edit — rerun the generator. To correct a call, edit "
              "`ratel-tools/requirements_registry.json` (`overrides`) and rerun.")
     L.append("")
@@ -406,7 +416,7 @@ def main():
     for mo in ["Must", "Should", "Could", "Won't", "Process"]:
         if by_mo_status.get(mo):
             print(" ", mo, dict(by_mo_status[mo]))
-    return 0 if len(rows) == 161 else 1
+    return 0 if len(rows) == 168 else 1
 
 
 if __name__ == "__main__":

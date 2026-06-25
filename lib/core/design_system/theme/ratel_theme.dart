@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import '../tokens/ratel_color_tokens.dart';
 import '../tokens/ratel_typography.dart';
+import '../world/space_palette.dart';
 
 /// Builds Material [ThemeData] from the Ratel tokens and attaches the semantic
 /// [RatelColorTokens] extension so screens read one consistent token source.
 class RatelTheme {
   const RatelTheme._();
 
-  static ThemeData light() => _build(RatelColorTokens.light);
-  static ThemeData dark() => _build(RatelColorTokens.dark);
+  static ThemeData light() => fromTokens(RatelColorTokens.light);
+  static ThemeData dark() => fromTokens(RatelColorTokens.dark);
 
-  static ThemeData _build(RatelColorTokens t) {
+  /// The Space world's app-wide ThemeData (deep-space dark surfaces + mint
+  /// primary). Selecting Space re-skins EVERY screen through this.
+  static ThemeData space() => fromTokens(SpacePalette.tokens);
+
+  static ThemeData fromTokens(RatelColorTokens t) {
     final scheme = ColorScheme(
       brightness: t.brightness,
       primary: t.primary,
