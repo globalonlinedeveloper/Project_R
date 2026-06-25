@@ -50,9 +50,10 @@ jobs:
 
       - name: Build web (root base-href for *.pages.dev; no service worker)
         if: steps.cfg.outputs.ready == 'true'
-        # To turn the auth flow ON in production, append: --dart-define=RATEL_AUTH=true
-        # (requires the SUPABASE_URL + SUPABASE_PUBLISHABLE_KEY repo secrets below to be set).
-        run: flutter build web --release --base-href "/" --pwa-strategy=none --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} --dart-define=SUPABASE_PUBLISHABLE_KEY=${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
+        # Auth flow is ON in production (--dart-define=RATEL_AUTH=true). REQUIRES the
+        # SUPABASE_URL + SUPABASE_PUBLISHABLE_KEY repo secrets to be set FIRST, or the
+        # auth screens render but submit throws (keyless degrades to guest-only).
+        run: flutter build web --release --base-href "/" --pwa-strategy=none --dart-define=RATEL_AUTH=true --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} --dart-define=SUPABASE_PUBLISHABLE_KEY=${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
 
       - name: Deploy to Cloudflare Pages
         if: steps.cfg.outputs.ready == 'true'
