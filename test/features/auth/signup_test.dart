@@ -7,38 +7,7 @@ import 'package:ratel/core/design_system/design_system.dart';
 import 'package:ratel/features/auth/auth_service.dart';
 import 'package:ratel/features/auth/signup_screen.dart';
 
-/// In-memory [AuthService] so the screen is exercised with no live client
-/// (mirrors the SupabaseIdentity unit-test seam).
-class _FakeAuth implements AuthService {
-  _FakeAuth({this.outcome = AuthOutcome.emailSent, this.error});
-
-  final AuthOutcome outcome;
-  final Object? error;
-  int signUpCalls = 0;
-  int magicCalls = 0;
-  String? lastEmail;
-  String? lastPassword;
-
-  @override
-  Future<AuthOutcome> signUpWithPassword({
-    required String email,
-    required String password,
-  }) async {
-    signUpCalls++;
-    lastEmail = email;
-    lastPassword = password;
-    if (error != null) throw error!;
-    return outcome;
-  }
-
-  @override
-  Future<AuthOutcome> sendMagicLink({required String email}) async {
-    magicCalls++;
-    lastEmail = email;
-    if (error != null) throw error!;
-    return outcome;
-  }
-}
+import 'fake_auth.dart';
 
 Widget _host(Widget child, AuthService auth) => ProviderScope(
       overrides: [authServiceProvider.overrideWithValue(auth)],
@@ -47,7 +16,7 @@ Widget _host(Widget child, AuthService auth) => ProviderScope(
 
 void main() {
   testWidgets('renders the password sign-up form by default', (tester) async {
-    await tester.pumpWidget(_host(const SignupScreen(), _FakeAuth()));
+    await tester.pumpWidget(_host(const SignupScreen(), FakeAuth()));
     await tester.pump();
     expect(find.byKey(const Key('signup')), findsOneWidget);
     expect(find.byKey(const Key('signup-email')), findsOneWidget);
@@ -57,7 +26,7 @@ void main() {
 
   testWidgets('empty email blocks submit with a validation message',
       (tester) async {
-    final auth = _FakeAuth();
+    final auth = FakeAuth();
     await tester.pumpWidget(_host(const SignupScreen(), auth));
     await tester.pump();
     await tester.tap(find.byKey(const Key('signup-submit')));
@@ -68,7 +37,7 @@ void main() {
 
   testWidgets('invalid email is rejected before any service call',
       (tester) async {
-    final auth = _FakeAuth();
+    final auth = FakeAuth();
     await tester.pumpWidget(_host(const SignupScreen(), auth));
     await tester.enterText(find.byKey(const Key('signup-email')), 'not-an-email');
     await tester.enterText(find.byKey(const Key('signup-password')), 'longenough');
@@ -79,7 +48,7 @@ void main() {
   });
 
   testWidgets('short password is rejected', (tester) async {
-    final auth = _FakeAuth();
+    final auth = FakeAuth();
     await tester.pumpWidget(_host(const SignupScreen(), auth));
     await tester.enterText(find.byKey(const Key('signup-email')), 'a@b.co');
     await tester.enterText(find.byKey(const Key('signup-password')), 'short');
@@ -91,7 +60,7 @@ void main() {
 
   testWidgets('valid password sign-up with a live session fires onAuthenticated',
       (tester) async {
-    final auth = _FakeAuth(outcome: AuthOutcome.session);
+    final auth = FakeAuth(outcome: AuthOutcome.session);
     var authed = false;
     await tester.pumpWidget(
         _host(SignupScreen(onAuthenticated: () => authed = true), auth));
@@ -108,7 +77,7 @@ void main() {
 
   testWidgets('password sign-up needing confirmation shows the inbox notice',
       (tester) async {
-    final auth = _FakeAuth(outcome: AuthOutcome.emailSent);
+    final auth = FakeAuth(outcome: AuthOutcome.emailSent);
     await tester.pumpWidget(_host(const SignupScreen(), auth));
     await tester.enterText(find.byKey(const Key('signup-email')), 'sam@ratel.app');
     await tester.enterText(find.byKey(const Key('signup-password')), 'supersecret');
@@ -121,7 +90,7 @@ void main() {
 
   testWidgets('magic-link mode hides the password field and sends a link',
       (tester) async {
-    final auth = _FakeAuth(outcome: AuthOutcome.emailSent);
+    final auth = FakeAuth(outcome: AuthOutcome.emailSent);
     await tester.pumpWidget(_host(const SignupScreen(), auth));
     await tester.tap(find.byKey(const Key('signup-mode-toggle')));
     await tester.pump();
@@ -137,7 +106,7 @@ void main() {
   });
 
   testWidgets('a rejected sign-up surfaces the failure message', (tester) async {
-    final auth = _FakeAuth(error: const AuthFailure('Email already registered'));
+    final auth = FakeAuth(error: const AuthFailure('Email already registered'));
     await tester.pumpWidget(_host(const SignupScreen(), auth));
     await tester.enterText(find.byKey(const Key('signup-email')), 'sam@ratel.app');
     await tester.enterText(find.byKey(const Key('signup-password')), 'supersecret');
@@ -149,7 +118,7 @@ void main() {
   });
 
   testWidgets('an unexpected error shows a generic message', (tester) async {
-    final auth = _FakeAuth(error: Exception('network down'));
+    final auth = FakeAuth(error: Exception('network down'));
     await tester.pumpWidget(_host(const SignupScreen(), auth));
     await tester.enterText(find.byKey(const Key('signup-email')), 'sam@ratel.app');
     await tester.enterText(find.byKey(const Key('signup-password')), 'supersecret');
@@ -164,7 +133,7 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    await tester.pumpWidget(_host(const SignupScreen(), _FakeAuth()));
+    await tester.pumpWidget(_host(const SignupScreen(), FakeAuth()));
     await tester.pump();
     expect(tester.takeException(), isNull);
   });
@@ -181,7 +150,7 @@ void main() {
       onboardingComplete.value = false;
     });
     await tester.pumpWidget(ProviderScope(
-      overrides: [authServiceProvider.overrideWithValue(_FakeAuth())],
+      overrides: [authServiceProvider.overrideWithValue(FakeAuth())],
       child: const RatelApp(),
     ));
     await tester.pumpAndSettle();

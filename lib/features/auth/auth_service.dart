@@ -3,12 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /// Outcome of an account-entry attempt, surfaced to the UI WITHOUT leaking any
 /// GoTrue / Supabase types into the widget layer (portability seam, R-K6).
 enum AuthOutcome {
-  /// A session is live immediately (e.g. password sign-up when email
-  /// confirmation is off, or a confirmed returning user).
+  /// A session is live immediately (e.g. password sign-in/up with a confirmed
+  /// account).
   session,
 
-  /// No session yet — an email was dispatched (a confirmation link for a
-  /// password sign-up, or a magic link). The UI shows a "check your inbox" state.
+  /// No session yet — an email was dispatched (a confirmation link, a magic
+  /// link, or a password-reset link). The UI shows a "check your inbox" state.
   emailSent,
 }
 
@@ -24,7 +24,7 @@ class AuthFailure implements Exception {
 /// Account entry/exit seam (R-L1). Stage-3 supplies a Supabase-backed impl
 /// ([SupabaseAuthService]); screens depend only on this interface and tests
 /// inject a fake. Grows across the auth increments: sign-up + magic link (#3),
-/// then sign-in + password reset (#4), then sign-out (#5).
+/// sign-in + password reset (#4), then sign-out (#5).
 abstract interface class AuthService {
   /// Create an account with email + password. Resolves to [AuthOutcome.session]
   /// when a session is established, or [AuthOutcome.emailSent] when a
@@ -34,9 +34,20 @@ abstract interface class AuthService {
     required String password,
   });
 
+  /// Sign in with email + password. Resolves to [AuthOutcome.session] on
+  /// success; throws [AuthFailure] on bad credentials / unconfirmed account.
+  Future<AuthOutcome> signInWithPassword({
+    required String email,
+    required String password,
+  });
+
   /// Email a passwordless magic link (creates the account if absent). Resolves
   /// to [AuthOutcome.emailSent] on success; throws [AuthFailure] otherwise.
   Future<AuthOutcome> sendMagicLink({required String email});
+
+  /// Email a password-reset link. Resolves once the request is accepted; throws
+  /// [AuthFailure] otherwise.
+  Future<void> sendPasswordReset({required String email});
 }
 
 /// Injection point for the [AuthService]. Deliberately unimplemented by default:

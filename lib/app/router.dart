@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../core/design_system/tokens/ratel_motion.dart';
 import '../features/adventures/adventures_screen.dart';
 import '../features/adventures/scene_screen.dart';
+import '../features/auth/login_screen.dart';
 import '../features/auth/signup_screen.dart';
 import '../features/auth/welcome_screen.dart';
 import '../features/home/home_screen.dart';
@@ -24,15 +25,15 @@ CustomTransitionPage<void> _fadePage(Widget child) {
   );
 }
 
-/// Pre-welcome auth surfaces reachable before the guest gate is passed. Adding a
-/// route here lets the Welcome screen hand off to it without the first-run
-/// redirect bouncing back to `/welcome`. (`/login` joins this in queue #4.)
-const Set<String> _authRoutes = {'/welcome', '/signup'};
+/// Pre-welcome auth surfaces reachable before the guest gate is passed. Listing
+/// a route here lets the Welcome screen hand off to it without the first-run
+/// redirect bouncing back to `/welcome`.
+const Set<String> _authRoutes = {'/welcome', '/signup', '/login'};
 
 /// First-run gate. Behind [authEnabled] (R-L1) a guest-first Welcome screen is
-/// shown once before onboarding (with the Sign-up screen reachable from it);
-/// with the flag off this is a no-op and the original onboarding-first behaviour
-/// on `main` is unchanged.
+/// shown once before onboarding (with the Sign-up / Log-in screens reachable
+/// from it); with the flag off this is a no-op and the original onboarding-first
+/// behaviour on `main` is unchanged.
 String? _redirect(BuildContext context, GoRouterState state) {
   final loc = state.matchedLocation;
   if (authEnabled && !welcomeSeen.value) {
@@ -42,6 +43,14 @@ String? _redirect(BuildContext context, GoRouterState state) {
   if (!onboardingComplete.value && !atOnboarding) return '/onboarding';
   if (onboardingComplete.value && atOnboarding) return '/learn';
   return null;
+}
+
+/// Enter the app after an account action. A brand-new account has no progress
+/// yet, so it joins the same guest-first onboarding flow; learner-state merge +
+/// a hardened authed route guard land in later increments (#5/#6).
+void _enterAfterAuth(BuildContext c) {
+  welcomeSeen.value = true;
+  c.go('/onboarding');
 }
 
 /// Tab-shell IA (R-L10): Learn / Practice / Adventures / Profile.
@@ -58,20 +67,21 @@ final GoRouter ratelRouter = GoRouter(
           c.go('/onboarding');
         },
         onCreateAccount: () => c.go('/signup'),
-        // onSignIn is wired when the Login flow lands (queue #4).
+        onSignIn: () => c.go('/login'),
       )),
     ),
     GoRoute(
       path: '/signup',
       pageBuilder: (c, s) => _fadePage(SignupScreen(
-        onAuthenticated: () {
-          // A brand-new account has no progress yet, so it enters the same
-          // guest-first onboarding flow; learner-state merge + a hardened authed
-          // route guard land in later increments (#5/#6).
-          welcomeSeen.value = true;
-          c.go('/onboarding');
-        },
-        // onSignInInstead is wired when the Login screen lands (queue #4).
+        onAuthenticated: () => _enterAfterAuth(c),
+        onSignInInstead: () => c.go('/login'),
+      )),
+    ),
+    GoRoute(
+      path: '/login',
+      pageBuilder: (c, s) => _fadePage(LoginScreen(
+        onAuthenticated: () => _enterAfterAuth(c),
+        onSignUpInstead: () => c.go('/signup'),
       )),
     ),
     GoRoute(
