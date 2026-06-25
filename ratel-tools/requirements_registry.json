@@ -48,8 +48,8 @@
     "R-WT4": {
       "moscow": "Should",
       "phase": "Stage2",
-      "status_override": "Partial 🟨",
-      "notes": "S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page). Still-form (pod+backdrop) done; full planet-path/HUD/states in progress."
+      "status_override": "Built ✅",
+      "notes": "S33-S34: galaxy Home built page-by-page to completion — scrollable seeded planet-path + v8 pod + ion trail, lesson-preview sheet, real θ→CEFR level + coach, locate FAB, daily strip (goal-ring picker + persisted dailyGoal + real energy regen + due reviews), course bar + section map, animated tier-gated header HUD."
     },
     "R-WT5": {
       "moscow": "Should",
@@ -64,8 +64,8 @@
     "R-WT7": {
       "moscow": "Could",
       "phase": "Stage2",
-      "status_override": "Pending 🔒",
-      "notes": "S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page). Tier-gated FX + pod auto-defense not yet built (later galaxy increment)."
+      "status_override": "Built ✅",
+      "notes": "S34: tier-gated WOW FX built — animation-loop FX (shooting stars/comet/pulsar/black-hole/galaxy), HIGH-only supernova + pod auto-defense (2 homing missiles → 18 sparkle dust, capped), palette-driven colours; reduce-motion HARD floor (minimal/none clear the canvas). Deterministic seeded model unit-tested."
     }
   },
   "derived": {
@@ -892,7 +892,7 @@
     "R-WT4": {
       "moscow": "Should",
       "phase": "Stage2",
-      "status": "Partial 🟨"
+      "status": "Built ✅"
     },
     "R-WT5": {
       "moscow": "Should",
@@ -907,7 +907,7 @@
     "R-WT7": {
       "moscow": "Could",
       "phase": "Stage2",
-      "status": "Pending 🔒"
+      "status": "Built ✅"
     }
   }
 }

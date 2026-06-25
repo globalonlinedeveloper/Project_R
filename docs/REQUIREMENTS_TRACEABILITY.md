@@ -15,11 +15,11 @@
 | Priority | Built | Build-ahead | Partial | Pending | Deferred | Removed | Spec/cross | Total |
 |---|---|---|---|---|---|---|---|---|
 | **Must** | 78 | 20 | 2 | 16 | 2 | 0 | 13 | 131 |
-| **Should** | 17 | 1 | 1 | 2 | 1 | 0 | 0 | 22 |
-| **Could** | 0 | 0 | 0 | 2 | 7 | 0 | 0 | 9 |
+| **Should** | 18 | 1 | 0 | 2 | 1 | 0 | 0 | 22 |
+| **Could** | 1 | 0 | 0 | 1 | 7 | 0 | 0 | 9 |
 | **Won't** | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 1 |
 | **Process** | 1 | 0 | 0 | 1 | 1 | 0 | 2 | 5 |
-| **All** | 96 | 21 | 3 | 21 | 11 | 1 | 15 | 168 |
+| **All** | 98 | 21 | 2 | 20 | 11 | 1 | 15 | 168 |
 
 _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not live) · Pending=Stage-3 not started · Deferred=post-launch wave · Removed=cut · Spec/cross=policy/cross-cutting._
 
@@ -256,7 +256,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-N4 | Localization completeness & quality bars per tier | Must | Cross | Spec/cross ▫ | — | — |
 | R-N5 | Low-connectivity / low-end-device resilience + data budget | Must | Cross | Spec/cross ▫ | — | `ratel_typography.dart` |
 | R-N6 | Maintainability / charter conformance | Must | Cross | Spec/cross ▫ | — | `design_system.dart`, `ratel_color_tokens.dart`, `ratel_motion.dart`, `space_hud.dart` +5 |
-| R-N7 | Unified motion-tier signal (accessibility precedence) | Must | Cross | Spec/cross ▫ | — | `context_ext.dart`, `ratel_motion_tier.dart`, `ratel_motion.dart`, `space_hud.dart` +3 |
+| R-N7 | Unified motion-tier signal (accessibility precedence) | Must | Cross | Spec/cross ▫ | — | `context_ext.dart`, `ratel_motion_tier.dart`, `ratel_motion.dart`, `galaxy_fx.dart` +4 |
 | R-N8 | Animation performance & power budget | Must | Cross | Spec/cross ▫ | — | `perf_bench_test.dart`, `mascot_view.dart`, `riv_contract.dart`, `perf_gauntlet_test.dart` |
 
 ## Part O — Program, phasing & risks
@@ -276,8 +276,8 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-WT1 | World-theme template seam (palette + painters + traveller + vocabulary, app-wide + persisted)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | `world_theme.dart`, `settings_controller.dart`, `world_theme_test.dart` |
 | R-WT2 | Space world theme #1 (deep-space galaxy skin, app-wide re-skin)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | `ratel_app.dart`, `space_palette.dart`, `world_theme.dart`, `world_theme_test.dart` |
 | R-WT3 | Persisted theme selection (default Classic, opt-in Space)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | `app_settings.dart`, `world_theme.dart`, `settings_controller.dart`, `world_theme_test.dart` +1 |
-| R-WT4 | Galaxy Home — CustomPainter backdrop + planet path + locked v8 pod traveller<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page). Still-form (pod+backdrop) done; full planet-path/HUD/states in progress._ | Should | Stage2 | Partial 🟨 | — | `galaxy_model.dart`, `pod_painter.dart`, `space_backdrop.dart`, `space_palette.dart` +5 |
+| R-WT4 | Galaxy Home — CustomPainter backdrop + planet path + locked v8 pod traveller<br>_S33-S34: galaxy Home built page-by-page to completion — scrollable seeded planet-path + v8 pod + ion trail, lesson-preview sheet, real θ→CEFR level + coach, locate FAB, daily strip (goal-ring picker + persisted dailyGoal + real energy regen + due reviews), course bar + section map, animated tier-gated header HUD._ | Should | Stage2 | Built ✅ | — | `galaxy_model.dart`, `pod_painter.dart`, `space_backdrop.dart`, `space_palette.dart` +5 |
 | R-WT5 | Motion-tier preference (High/Reduced/Off) with OS reduce-motion hard floor<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | `ratel_motion_tier.dart`, `app_settings.dart`, `motion_preference_test.dart` |
 | R-WT6 | Profile settings surface (theme + motion + a11y toggles)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | `profile_screen.dart`, `settings_controller.dart`, `settings_test.dart` |
-| R-WT7 | Tier-gated galaxy FX + pod auto-defense (HIGH-only, reduce-motion floor)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page). Tier-gated FX + pod auto-defense not yet built (later galaxy increment)._ | Could | Stage2 | Pending 🔒 | — | `space_backdrop.dart` |
+| R-WT7 | Tier-gated galaxy FX + pod auto-defense (HIGH-only, reduce-motion floor)<br>_S34: tier-gated WOW FX built — animation-loop FX (shooting stars/comet/pulsar/black-hole/galaxy), HIGH-only supernova + pod auto-defense (2 homing missiles → 18 sparkle dust, capped), palette-driven colours; reduce-motion HARD floor (minimal/none clear the canvas). Deterministic seeded model unit-tested._ | Could | Stage2 | Built ✅ | — | `galaxy_fx.dart`, `space_backdrop.dart` |
 

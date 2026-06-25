@@ -4,6 +4,7 @@ import '../motion/ratel_motion_tier.dart';
 import '../tokens/ratel_typography.dart';
 import 'galaxy_model.dart';
 import 'galaxy_painter.dart';
+import 'galaxy_fx.dart';
 import 'pod_painter.dart';
 import 'space_palette.dart';
 
@@ -89,6 +90,17 @@ class _GalaxyViewState extends State<GalaxyView> {
                     total: widget.layout.total,
                   ),
                 ),
+              ),
+            ),
+            Positioned.fill(
+              child: GalaxyFxLayer(
+                controller: _sc,
+                size: Size(
+                    w, constraints.maxHeight.isFinite ? constraints.maxHeight : 716),
+                activePlanet:
+                    active == null ? null : Offset(active.x + dx, active.y),
+                bands: widget.layout.bands,
+                tier: widget.tier,
               ),
             ),
             Positioned.fill(
