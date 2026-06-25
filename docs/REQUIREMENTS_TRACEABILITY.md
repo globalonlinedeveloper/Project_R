@@ -14,12 +14,12 @@
 
 | Priority | Built | Build-ahead | Partial | Pending | Deferred | Removed | Spec/cross | Total |
 |---|---|---|---|---|---|---|---|---|
-| **Must** | 78 | 20 | 1 | 17 | 2 | 0 | 13 | 131 |
+| **Must** | 78 | 20 | 2 | 16 | 2 | 0 | 13 | 131 |
 | **Should** | 12 | 1 | 0 | 2 | 1 | 0 | 0 | 16 |
 | **Could** | 0 | 0 | 0 | 1 | 7 | 0 | 0 | 8 |
 | **Won't** | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 1 |
 | **Process** | 1 | 0 | 0 | 1 | 1 | 0 | 2 | 5 |
-| **All** | 91 | 21 | 1 | 21 | 11 | 1 | 15 | 161 |
+| **All** | 91 | 21 | 2 | 20 | 11 | 1 | 15 | 161 |
 
 _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not live) · Pending=Stage-3 not started · Deferred=post-launch wave · Removed=cut · Spec/cross=policy/cross-cutting._
 
@@ -131,7 +131,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-G1 | One identity, many courses | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
+| R-G1 | One identity, many courses | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `supabase_identity.dart` |
 | R-G2 | theta ability model (global + per-skill) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `ability.dart`, `ability_test.dart` |
 | R-G3 | IRT calibration (how hard each item is) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `irt.dart`, `irt_test.dart` |
 | R-G4 | CAT placement test | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `cat.dart`, `cat_test.dart` |
@@ -191,7 +191,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-K3 | Data minimization & retention (no raw-speech retention) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `test_voice_no_audio_persist.py`, `0006_review_log_partitions.sql`, `0007_dsar_delete_anchor.sql`, `0008_audit_log.sql` |
 | R-K4 | Regional privacy rights - export + delete (GDPR/DPDP/CCPA) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `test_dsar_delete_anchor.py`, `0007_dsar_delete_anchor.sql`, `0008_audit_log.sql` |
 | R-K5 | Generated-content safety (AI-content; profanity; bias) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-K6 | Security - server-side keys, Supabase RLS, auth, PII | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `taxonomy.dart`, `data_access.dart`, `identity.dart`, `audit_sink.dart` +6 |
+| R-K6 | Security - server-side keys, Supabase RLS, auth, PII | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `auth_service.dart`, `supabase_auth_service.dart`, `taxonomy.dart`, `data_access.dart` +9 |
 | R-K7 | Terms of Service + Privacy Policy - final copy & ownership | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-K8 | Accessibility - WCAG 2.2 AA conformance (test-enforced) | Must | Stage2 | Built ✅ | — | `shell.dart`, `wcag.dart`, `ratel_motion_tier.dart`, `ratel_color_tokens.dart` +5 |
 
@@ -199,7 +199,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-L1 | Auth & account flows | Must | Stage2 | Built ✅ | — | — |
+| R-L1 | Auth & account flows | Must | Stage2 | Built ✅ | — | `app_flags.dart`, `router.dart`, `auth_service.dart`, `login_screen.dart` +3 |
 | R-L2 | Onboarding flow (language-motivation-goal-placement-first win) | Must | Stage2 | Built ✅ | — | `onboarding_flow.dart`, `onboarding_test.dart` |
 | R-L3 | Core learning loop (lesson run, check/feedback, complete) | Must | Stage2 | Built ✅ | — | `energy_controller.dart`, `energy_state.dart`, `exercise.dart`, `exercise_builder.dart` +5 |
 | R-L4 | Practice & AI hub | Must | Stage2 | Built ✅ | — | `home_screen.dart` |
