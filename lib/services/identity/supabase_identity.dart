@@ -10,16 +10,19 @@ class SupabaseIdentity implements Identity {
   SupabaseIdentity({
     required this.currentUserId,
     this.onClaim,
+    this.onMint,
   });
 
   /// Wire to a live Supabase client: the uid is the GoTrue session user id.
   factory SupabaseIdentity.fromClient(
     SupabaseClient client, {
     Future<void> Function(AnonymousClaimToken token)? onClaim,
+    Future<String?> Function()? onMint,
   }) {
     return SupabaseIdentity(
       currentUserId: () => client.auth.currentUser?.id,
       onClaim: onClaim,
+      onMint: onMint,
     );
   }
 
@@ -28,6 +31,11 @@ class SupabaseIdentity implements Identity {
 
   /// Stage-3 relay performing the server-authorised anonymous-state claim.
   final Future<void> Function(AnonymousClaimToken token)? onClaim;
+
+  /// Stage-3 relay that mints a server-issued claim token for the current
+  /// anonymous session (returns the raw `srv_` token, or null when minting is
+  /// unavailable — e.g. there is no anonymous session). [mintClaimToken] wraps it.
+  final Future<String?> Function()? onMint;
 
   @override
   String? get uid => currentUserId();
@@ -45,5 +53,19 @@ class SupabaseIdentity implements Identity {
       );
     }
     await claim(token);
+  }
+
+  @override
+  Future<AnonymousClaimToken?> mintClaimToken() async {
+    final mint = onMint;
+    if (mint == null) return null;
+    try {
+      final raw = await mint();
+      if (raw == null || raw.isEmpty) return null;
+      return AnonymousClaimToken.fromServer(raw);
+    } catch (_) {
+      // Best-effort: a mint failure must never block sign-in (just no claim).
+      return null;
+    }
   }
 }

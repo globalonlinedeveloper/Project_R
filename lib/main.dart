@@ -36,10 +36,25 @@ Future<void> main() async {
       publishableKey: _supabasePublishableKey,
     );
     final client = Supabase.instance.client;
-    signedIn.value = client.auth.currentSession != null; // restore on launch
+    // A live session counts as *signed in* only when it is an account — never
+    // the anonymous guest session (TS-11): anonymous guests still flow through
+    // Welcome / onboarding, so they must not be treated as signed-in.
+    bool isAccount(Session? s) => s != null && s.user.isAnonymous != true;
+    signedIn.value = isAccount(client.auth.currentSession); // restore on launch
     client.auth.onAuthStateChange.listen(
-      (state) => signedIn.value = state.session != null,
+      (state) => signedIn.value = isAccount(state.session),
     );
+    // Guest-first (TS-11): with no session, sign in anonymously so on-device
+    // progress is owned by a real auth.uid() that can be claimed into an account
+    // on sign-in. Best-effort — a keyless/offline/anon-disabled guest stays a
+    // local guest.
+    if (client.auth.currentSession == null) {
+      try {
+        await client.auth.signInAnonymously();
+      } catch (_) {
+        // offline or anonymous sign-ins disabled — remain a local guest.
+      }
+    }
     overrides.add(
       authServiceProvider
           .overrideWithValue(SupabaseAuthService.fromClient(client)),
@@ -58,6 +73,17 @@ Future<void> main() async {
             if (res.status != 200) {
               throw StateError('claim failed (${res.status})');
             }
+          },
+          // Mint (authed as the anonymous guest A) a single-use server token
+          // capturing A's state, to be redeemed by onClaim after sign-in (B).
+          onMint: () async {
+            final res = await client.functions.invoke(
+              'claim-anonymous-state',
+              body: <String, dynamic>{'action': 'mint'},
+            );
+            if (res.status != 200) return null;
+            final data = res.data;
+            return data is Map ? data['token'] as String? : null;
           },
         ),
       ),

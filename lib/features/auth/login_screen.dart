@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/design_system/design_system.dart';
+import '../../services/identity/identity.dart';
 import 'auth_service.dart';
 
 /// Account sign-in (R-L1): email + password, a passwordless magic link, or a
@@ -72,10 +73,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     try {
       switch (_mode) {
         case _Mode.password:
+          // TS-11: mint a claim token while still the anonymous guest, then
+          // merge the on-device state into the account once a session exists.
+          final identity = ref.read(identityProvider);
+          final claimToken = await identity.mintClaimToken();
           final outcome = await auth.signInWithPassword(
               email: email, password: _passwordCtrl.text);
           if (!mounted) return;
           if (outcome == AuthOutcome.session) {
+            await _claimAnonymousState(identity, claimToken);
             widget.onAuthenticated?.call();
           } else {
             setState(() => _error = 'Could not sign you in. Please try again.');
@@ -97,6 +103,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       }
     } finally {
       if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  /// Best-effort guest→account merge (TS-11): never blocks sign-in — a failed
+  /// merge leaves the account valid and the server token simply expires.
+  Future<void> _claimAnonymousState(
+      Identity identity, AnonymousClaimToken? token) async {
+    if (token == null) return;
+    try {
+      await identity.claimAnonymousState(token);
+    } catch (_) {
+      // Non-fatal: the user is signed in; the merge can be retried later.
     }
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/design_system/design_system.dart';
+import '../../services/identity/identity.dart';
 import 'auth_service.dart';
 
 /// Account creation (R-L1): email + password, or a passwordless magic link.
@@ -69,14 +70,21 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     if (form == null || !form.validate()) return;
     final email = _emailCtrl.text.trim();
     final auth = ref.read(authServiceProvider);
+    final identity = ref.read(identityProvider);
     setState(() => _busy = true);
     try {
+      // TS-11: creating an account with a password yields an immediate session,
+      // so mint a claim token while still the anonymous guest to merge the
+      // on-device state in once signed in (magic-link defers to email, no mint).
+      final claimToken =
+          _mode == _Mode.password ? await identity.mintClaimToken() : null;
       final AuthOutcome outcome = _mode == _Mode.password
           ? await auth.signUpWithPassword(
               email: email, password: _passwordCtrl.text)
           : await auth.sendMagicLink(email: email);
       if (!mounted) return;
       if (outcome == AuthOutcome.session) {
+        await _claimAnonymousState(identity, claimToken);
         widget.onAuthenticated?.call();
       } else {
         setState(() => _sent =
@@ -90,6 +98,18 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
       }
     } finally {
       if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  /// Best-effort guest→account merge (TS-11): never blocks sign-up — a failed
+  /// merge leaves the account valid and the server token simply expires.
+  Future<void> _claimAnonymousState(
+      Identity identity, AnonymousClaimToken? token) async {
+    if (token == null) return;
+    try {
+      await identity.claimAnonymousState(token);
+    } catch (_) {
+      // Non-fatal: the user is signed in; the merge can be retried later.
     }
   }
 

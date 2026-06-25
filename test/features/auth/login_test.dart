@@ -7,10 +7,21 @@ import 'package:ratel/core/design_system/design_system.dart';
 import 'package:ratel/features/auth/auth_service.dart';
 import 'package:ratel/features/auth/login_screen.dart';
 
+import 'package:ratel/services/identity/identity.dart';
+
 import 'fake_auth.dart';
+import 'fake_identity.dart';
 
 Widget _host(Widget child, AuthService auth) => ProviderScope(
       overrides: [authServiceProvider.overrideWithValue(auth)],
+      child: MaterialApp(theme: RatelTheme.light(), home: child),
+    );
+
+Widget _hostId(Widget child, AuthService auth, Identity id) => ProviderScope(
+      overrides: [
+        authServiceProvider.overrideWithValue(auth),
+        identityProvider.overrideWithValue(id),
+      ],
       child: MaterialApp(theme: RatelTheme.light(), home: child),
     );
 
@@ -114,6 +125,36 @@ void main() {
     await tester.pumpWidget(_host(const LoginScreen(), FakeAuth()));
     await tester.pump();
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('password login with a session mints + claims anon state (TS-11)',
+      (tester) async {
+    final auth = FakeAuth(outcome: AuthOutcome.session);
+    final id = FakeIdentity(mintToken: 'srv_login_merge');
+    await tester
+        .pumpWidget(_hostId(LoginScreen(onAuthenticated: () {}), auth, id));
+    await tester.enterText(find.byKey(const Key('login-email')), 'sam@ratel.app');
+    await tester.enterText(find.byKey(const Key('login-password')), 'pw-correct');
+    await tester.tap(find.byKey(const Key('login-submit')));
+    await tester.pump();
+    await tester.pump();
+    expect(id.mintCalls, 1);
+    expect(id.claimed, isNotNull);
+    expect(id.claimed!.value, 'srv_login_merge');
+  });
+
+  testWidgets('magic-link login does not mint a claim token', (tester) async {
+    final auth = FakeAuth();
+    final id = FakeIdentity(mintToken: 'srv_x');
+    await tester.pumpWidget(_hostId(const LoginScreen(), auth, id));
+    await tester.tap(find.byKey(const Key('login-mode-toggle')));
+    await tester.pump();
+    await tester.enterText(find.byKey(const Key('login-email')), 'sam@ratel.app');
+    await tester.tap(find.byKey(const Key('login-submit')));
+    await tester.pump();
+    await tester.pump();
+    expect(id.mintCalls, 0);
+    expect(auth.magicCalls, 1);
   });
 
   // Router wiring: only meaningful behind authEnabled. Passes trivially in the

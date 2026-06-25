@@ -17,6 +17,12 @@ abstract interface class Identity {
   /// account. Authorized ONLY by a SERVER-issued [AnonymousClaimToken] — never a
   /// client-chosen anon id (the token type makes the unsafe call unrepresentable).
   Future<void> claimAnonymousState(AnonymousClaimToken token);
+
+  /// TS-11: mint a SERVER-issued [AnonymousClaimToken] capturing the CURRENT
+  /// anonymous session, so its on-device learner-state can be claimed into the
+  /// account after sign-in. Returns null when there is nothing to claim (a guest
+  /// with no server session, or no relay wired) — the caller then skips the claim.
+  Future<AnonymousClaimToken?> mintClaimToken();
 }
 
 /// Default (local / Stage 1–2): no account yet — guest.
@@ -36,6 +42,11 @@ class AnonymousIdentity implements Identity {
       throw UnsupportedError(
           'claimAnonymousState requires a Stage-3 server-issued token; '
           'no backend in Stage 1–2.');
+
+  /// No backend in Stage 1–2: a local guest has no server session to mint a
+  /// claim token from, so there is nothing to claim (returns null, never throws).
+  @override
+  Future<AnonymousClaimToken?> mintClaimToken() async => null;
 }
 
 /// Inject the identity seam. Stage 3 overrides this with a real auth-backed impl.
