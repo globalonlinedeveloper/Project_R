@@ -26,8 +26,10 @@ jobs:
         run: flutter analyze
       - name: Test
         run: flutter test
+      - name: Test (auth flow behind RATEL_AUTH=true)
+        run: flutter test --dart-define=RATEL_AUTH=true
       - name: Build web (no service worker; stale-cache guard)
-        run: flutter build web --pwa-strategy=none
+        run: flutter build web --pwa-strategy=none --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} --dart-define=SUPABASE_PUBLISHABLE_KEY=${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
       - name: Write build marker
         run: |
           echo "ratel ${{ github.sha }} | flutter 3.44.1 | built $(date -u +%FT%TZ)" > build/web/build-info.txt

@@ -5,8 +5,14 @@ import 'package:ratel/app/app_flags.dart';
 import 'package:ratel/app/ratel_app.dart';
 
 void main() {
-  setUp(() => onboardingComplete.value = false);
-  tearDown(() => onboardingComplete.value = false);
+  setUp(() {
+    welcomeSeen.value = true; // flag-robust: skip the auth Welcome gate
+    onboardingComplete.value = false;
+  });
+  tearDown(() {
+    welcomeSeen.value = false;
+    onboardingComplete.value = false;
+  });
 
   testWidgets('first launch redirects to onboarding (R-L2)', (tester) async {
     await tester.pumpWidget(const ProviderScope(child: RatelApp()));
