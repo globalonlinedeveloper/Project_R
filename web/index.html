@@ -53,6 +53,10 @@
     For more details:
     * https://docs.flutter.dev/platform-integration/web/initialization
   -->
+  <!-- passkeys_web (transitive gotrue/supabase dep) calls PasskeyAuthenticator.init()
+       in its web plugin registrant at startup; this SDK must be loaded first or the
+       whole app crashes with "reading 'init'". Vendored from corbado release 2.4.0. -->
+  <script src="passkeys_bundle.js" type="application/javascript"></script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
