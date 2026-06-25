@@ -36,7 +36,7 @@ const Set<String> _authRoutes = {'/welcome', '/signup', '/login'};
 /// behaviour on `main` is unchanged.
 String? _redirect(BuildContext context, GoRouterState state) {
   final loc = state.matchedLocation;
-  if (authEnabled && !welcomeSeen.value) {
+  if (authEnabled && !welcomeSeen.value && !signedIn.value) {
     return _authRoutes.contains(loc) ? null : '/welcome';
   }
   final atOnboarding = loc == '/onboarding';
@@ -50,13 +50,14 @@ String? _redirect(BuildContext context, GoRouterState state) {
 /// a hardened authed route guard land in later increments (#5/#6).
 void _enterAfterAuth(BuildContext c) {
   welcomeSeen.value = true;
+  signedIn.value = true;
   c.go('/onboarding');
 }
 
 /// Tab-shell IA (R-L10): Learn / Practice / Adventures / Profile.
 final GoRouter ratelRouter = GoRouter(
   initialLocation: '/learn',
-  refreshListenable: Listenable.merge([onboardingComplete, welcomeSeen]),
+  refreshListenable: Listenable.merge([onboardingComplete, welcomeSeen, signedIn]),
   redirect: _redirect,
   routes: [
     GoRoute(

@@ -16,3 +16,9 @@ final ValueNotifier<bool> welcomeSeen = ValueNotifier<bool>(false);
 /// while the Supabase identity + Login/guest flow are built behind it; flip with
 /// `--dart-define=RATEL_AUTH=true` once the flow is CI-green.
 const bool authEnabled = bool.fromEnvironment('RATEL_AUTH');
+
+/// Live auth-session state for routing (R-L1). Set from the restored Supabase
+/// session on launch and toggled by login / logout; the router observes it so a
+/// returning authed user skips Welcome and a logout returns to it. In-memory
+/// like the other first-run gates — the durable source is the Supabase session.
+final ValueNotifier<bool> signedIn = ValueNotifier<bool>(false);

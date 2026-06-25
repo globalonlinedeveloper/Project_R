@@ -16,6 +16,7 @@ class FakeAuth implements AuthService {
   int signInCalls = 0;
   int magicCalls = 0;
   int resetCalls = 0;
+  int signOutCalls = 0;
   String? lastEmail;
   String? lastPassword;
 
@@ -55,6 +56,12 @@ class FakeAuth implements AuthService {
   Future<void> sendPasswordReset({required String email}) async {
     resetCalls++;
     lastEmail = email;
+    if (error != null) throw error!;
+  }
+
+  @override
+  Future<void> signOut() async {
+    signOutCalls++;
     if (error != null) throw error!;
   }
 }

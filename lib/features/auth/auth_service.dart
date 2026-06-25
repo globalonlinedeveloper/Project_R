@@ -48,6 +48,10 @@ abstract interface class AuthService {
   /// Email a password-reset link. Resolves once the request is accepted; throws
   /// [AuthFailure] otherwise.
   Future<void> sendPasswordReset({required String email});
+
+  /// Sign out the current session (returns to guest). Throws [AuthFailure] if
+  /// the sign-out call itself fails.
+  Future<void> signOut();
 }
 
 /// Injection point for the [AuthService]. Deliberately unimplemented by default:

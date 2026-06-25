@@ -139,4 +139,24 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('signup')), findsOneWidget);
   });
+
+  testWidgets('authEnabled: a restored session skips Welcome (route guard)',
+      (tester) async {
+    if (!authEnabled) return;
+    onboardingComplete.value = false;
+    welcomeSeen.value = false;
+    signedIn.value = true; // a session restored at launch
+    addTearDown(() {
+      signedIn.value = false;
+      welcomeSeen.value = false;
+      onboardingComplete.value = false;
+    });
+    await tester.pumpWidget(ProviderScope(
+      overrides: [authServiceProvider.overrideWithValue(FakeAuth())],
+      child: const RatelApp(),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('welcome')), findsNothing);
+    expect(find.byKey(const Key('onboarding')), findsOneWidget);
+  });
 }

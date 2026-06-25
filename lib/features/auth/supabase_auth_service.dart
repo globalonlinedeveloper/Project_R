@@ -73,4 +73,13 @@ class SupabaseAuthService implements AuthService {
       throw AuthFailure(e.message);
     }
   }
+
+  @override
+  Future<void> signOut() async {
+    try {
+      await _auth.signOut();
+    } on AuthException catch (e) {
+      throw AuthFailure(e.message);
+    }
+  }
 }

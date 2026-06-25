@@ -199,7 +199,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-L1 | Auth & account flows | Must | Stage2 | Built ✅ | — | `app_flags.dart`, `router.dart`, `auth_service.dart`, `login_screen.dart` +3 |
+| R-L1 | Auth & account flows | Must | Stage2 | Built ✅ | — | `app_flags.dart`, `router.dart`, `auth_service.dart`, `login_screen.dart` +5 |
 | R-L2 | Onboarding flow (language-motivation-goal-placement-first win) | Must | Stage2 | Built ✅ | — | `onboarding_flow.dart`, `onboarding_test.dart` |
 | R-L3 | Core learning loop (lesson run, check/feedback, complete) | Must | Stage2 | Built ✅ | — | `energy_controller.dart`, `energy_state.dart`, `exercise.dart`, `exercise_builder.dart` +5 |
 | R-L4 | Practice & AI hub | Must | Stage2 | Built ✅ | — | `home_screen.dart` |
