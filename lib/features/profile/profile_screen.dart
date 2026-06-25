@@ -5,18 +5,25 @@ import 'package:go_router/go_router.dart';
 import '../../app/app_flags.dart';
 import '../../core/design_system/design_system.dart';
 import '../auth/auth_service.dart';
+import '../energy/energy_controller.dart';
 import '../saved_words/saved_words_controller.dart';
+import '../streak/streak_controller.dart';
 
-/// Profile / "You" tab. Stats and settings will live here in a later wave;
-/// this increment adds the **Account** section that hosts sign-in / log-out
-/// (R-L1), shown only when `authEnabled` is on so `main` behaviour is unchanged
-/// with the flag off.
+/// Profile / "You" tab. Surfaces the learner's live progress (streak, lessons,
+/// saved words) as a stat grid, then hosts the **Account** section (sign-in /
+/// log-out, R-L1). The stats read already-tracked in-memory controllers — the
+/// same sources Home and Lesson use — so they need no new backend; durable
+/// cross-device persistence arrives with the Stage-3 store (R-O1). The Account
+/// section shows only when `authEnabled` is on, so `main` behaviour is
+/// unchanged with the flag off.
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
+    final streak = ref.watch(streakControllerProvider);
+    final int lessons = ref.watch(energyControllerProvider).lessonsCompleted;
     final int saved = ref.watch(savedWordsControllerProvider).count;
     return RatelScreen(
       title: 'You',
@@ -26,22 +33,131 @@ class ProfileScreen extends ConsumerWidget {
           const SizedBox(height: RatelSpacing.sm),
           Text('Your profile', style: RatelType.headline),
           const SizedBox(height: RatelSpacing.xs),
-          Text('Stats and settings live here.',
+          Text('Your progress so far.',
               style: RatelType.body.copyWith(color: t.onSurfaceVariant)),
           const SizedBox(height: RatelSpacing.lg),
-          RatelCard(
-            child: Row(
-              children: [
-                Text('Saved words', style: RatelType.body),
-                const Spacer(),
-                Text('$saved', style: RatelType.title),
-              ],
-            ),
+          _StatsGrid(
+            current: streak.current,
+            longest: streak.longest,
+            lessons: lessons,
+            saved: saved,
           ),
           if (authEnabled) ...[
             const SizedBox(height: RatelSpacing.xl),
             const _AccountSection(),
           ],
+        ],
+      ),
+    );
+  }
+}
+
+/// A 2x2 grid of the learner's live stats. Each value comes from an existing
+/// in-memory controller (streak / energy / saved-words) — the same sources Home
+/// and Lesson read — so this is real data with no new dependencies.
+class _StatsGrid extends StatelessWidget {
+  const _StatsGrid({
+    required this.current,
+    required this.longest,
+    required this.lessons,
+    required this.saved,
+  });
+
+  final int current;
+  final int longest;
+  final int lessons;
+  final int saved;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    return Column(
+      key: const Key('profile-stats'),
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: _StatTile(
+                key: const Key('stat-streak'),
+                icon: Icons.local_fire_department,
+                value: '$current',
+                label: 'Day streak',
+                color: t.primary,
+              ),
+            ),
+            const SizedBox(width: RatelSpacing.sm),
+            Expanded(
+              child: _StatTile(
+                key: const Key('stat-best-streak'),
+                icon: Icons.emoji_events,
+                value: '$longest',
+                label: 'Best streak',
+                color: t.accent,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: RatelSpacing.sm),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: _StatTile(
+                key: const Key('stat-lessons'),
+                icon: Icons.school,
+                value: '$lessons',
+                label: 'Lessons',
+                color: t.success,
+              ),
+            ),
+            const SizedBox(width: RatelSpacing.sm),
+            Expanded(
+              child: _StatTile(
+                key: const Key('stat-saved'),
+                icon: Icons.bookmark,
+                value: '$saved',
+                label: 'Saved words',
+                color: t.primary,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+/// A single stat: icon, big value, caption. Tokens only (R-N6). [color] is a
+/// semantic token supplied by the caller, never a raw literal.
+class _StatTile extends StatelessWidget {
+  const _StatTile({
+    super.key,
+    required this.icon,
+    required this.value,
+    required this.label,
+    required this.color,
+  });
+
+  final IconData icon;
+  final String value;
+  final String label;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    return RatelCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: color, size: 28),
+          const SizedBox(height: RatelSpacing.sm),
+          Text(value, style: RatelType.display),
+          const SizedBox(height: RatelSpacing.xs),
+          Text(label,
+              style: RatelType.caption.copyWith(color: t.onSurfaceVariant)),
         ],
       ),
     );
