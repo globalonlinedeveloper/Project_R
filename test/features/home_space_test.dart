@@ -35,19 +35,22 @@ void main() {
     expect(find.byKey(const Key('space-home')), findsNothing);
   });
 
-  testWidgets('Space world renders the galaxy home with the Ratel pod',
+  testWidgets('Space world renders the scrollable galaxy with the Ratel pod',
       (tester) async {
     await tester.pumpWidget(_app(WorldThemeId.space));
     await tester.pump();
     expect(find.byKey(const Key('space-home')), findsOneWidget);
+    expect(find.byType(GalaxyView), findsOneWidget);
     expect(find.byType(RatelPod), findsOneWidget);
-    expect(find.text('Start lesson'), findsOneWidget); // gated CTA still present
+    // free-review entry contract is preserved on the galaxy home
+    expect(find.text('Review mistakes · free'), findsOneWidget);
   });
 
-  testWidgets('Space home is safe under OS reduce-motion (hard floor)',
+  testWidgets('Space home is safe under OS reduce-motion (static, no hang)',
       (tester) async {
     await tester.pumpWidget(_app(WorldThemeId.space, reduceMotion: true));
     await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
     expect(find.byKey(const Key('space-home')), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
@@ -60,7 +63,6 @@ void main() {
     await tester.pumpWidget(_app(WorldThemeId.space));
     await tester.pump();
     expect(tester.takeException(), isNull);
-    expect(find.byKey(const Key('space-home')), findsOneWidget);
+    expect(find.byType(GalaxyView), findsOneWidget);
   });
 }
-// Traceability: R-WT4

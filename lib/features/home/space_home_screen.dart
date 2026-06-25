@@ -5,14 +5,19 @@ import '../../core/design_system/design_system.dart';
 import '../energy/energy_controller.dart';
 import '../energy/energy_gate.dart';
 import '../energy/energy_state.dart';
+import '../settings/settings_controller.dart';
 import '../streak/streak_controller.dart';
 
-/// Space "galaxy" Home — the Ratel-in-the-pod traveller over a deep-space
-/// backdrop. This is the still foundation (Increment A): the dynamic planet
-/// path, full HUD, daily strip, states and tier-gated FX land in the following
-/// galaxy increments. Whole-app dark-space re-skin already follows the selected
-/// world theme, so this screen reads `context.tokens` (Space tokens) + the
-/// named [SpacePalette] for galaxy-specific chrome — no raw literals (R-N6).
+/// The galaxy layout is deterministic, so build it once and share it.
+final galaxyLayoutProvider = Provider<GalaxyLayout>((ref) => generateGalaxy());
+
+/// Space "galaxy" Home: the scrollable planet path with the Ratel pod on the
+/// current lesson, an animated-ready HUD overlay, and a course-progress / free-
+/// review bottom bar. `activeIdx` is REAL (lessons completed); the energy gate +
+/// free reviews are preserved. Whole-app dark-space re-skin follows the selected
+/// world theme; galaxy chrome reads named [SpacePalette] colours (no raw
+/// literals — R-N6). The full daily strip, lesson-preview sheet, Lv/XP bar,
+/// locate FAB and tier-gated FX land in the following galaxy increments.
 class SpaceHomeScreen extends ConsumerWidget {
   const SpaceHomeScreen({super.key});
 
@@ -20,54 +25,91 @@ class SpaceHomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final energy = ref.watch(energyControllerProvider);
     final streak = ref.watch(streakControllerProvider);
+    final settings = ref.watch(settingsControllerProvider);
+    final layout = ref.watch(galaxyLayoutProvider);
+
+    final active = energy.lessonsCompleted.clamp(0, layout.count - 1);
+    final tier = effectiveMotionTier(
+      osReduceMotion: MediaQuery.maybeOf(context)?.disableAnimations ?? false,
+      perfTier: PerfTier.high,
+      motionPreference: settings.motion,
+    );
+
+    void onPlanetTap(GalaxyPlanet planet, int index) {
+      if (index > active) {
+        ScaffoldMessenger.of(context)
+          ..clearSnackBars()
+          ..showSnackBar(SnackBar(
+            content: Text('Finish the earlier lessons first',
+                style: RatelType.body.copyWith(color: SpacePalette.hudText)),
+            backgroundColor: SpacePalette.sheetTop,
+          ));
+        return;
+      }
+      maybeStartLesson(context, ref, review: index < active);
+    }
+
     return Scaffold(
       backgroundColor: SpacePalette.phoneBg,
       body: Stack(
         key: const Key('space-home'),
         children: [
-          const SpaceBackdrop(seed: 7),
+          Positioned.fill(
+            child: GalaxyView(
+              layout: layout,
+              activeIdx: active,
+              tier: tier,
+              onPlanetTap: onPlanetTap,
+            ),
+          ),
+          // top scrim so planets fade under the header (matches the prototype)
+          const Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 150,
+            child: IgnorePointer(child: _TopScrim()),
+          ),
           SafeArea(
+            bottom: false,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: RatelSpacing.lg),
-              child: Column(
-                children: [
-                  const SizedBox(height: RatelSpacing.sm),
-                  _SpaceHud(streak: streak.current, energy: energy),
-                  const Spacer(),
-                  const _Traveller(),
-                  const SizedBox(height: RatelSpacing.xl),
-                  Text('Your galaxy',
-                      style: RatelType.headline
-                          .copyWith(color: SpacePalette.hudText),
-                      textAlign: TextAlign.center),
-                  const SizedBox(height: RatelSpacing.xs),
-                  Text('Fly the Ratel pod to your next lesson.',
-                      style: RatelType.body
-                          .copyWith(color: SpacePalette.hudMuted),
-                      textAlign: TextAlign.center),
-                  const Spacer(),
-                  RatelButton(
-                    label: 'Start lesson',
-                    icon: Icons.play_arrow_rounded,
-                    expand: true,
-                    onPressed: () =>
-                        maybeStartLesson(context, ref, review: false),
-                  ),
-                  const SizedBox(height: RatelSpacing.sm),
-                  RatelButton(
-                    label: 'Review mistakes',
-                    icon: Icons.refresh_rounded,
-                    kind: RatelButtonKind.secondary,
-                    expand: true,
-                    onPressed: () =>
-                        maybeStartLesson(context, ref, review: true),
-                  ),
-                  const SizedBox(height: RatelSpacing.lg),
-                ],
-              ),
+              padding: const EdgeInsets.fromLTRB(
+                  RatelSpacing.lg, RatelSpacing.sm, RatelSpacing.lg, 0),
+              child: _SpaceHud(streak: streak.current, energy: energy),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: _SpaceBottomBar(
+              done: active,
+              total: layout.count,
+              lessons: energy.lessonsCompleted,
+              onReview: () => maybeStartLesson(context, ref, review: true),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _TopScrim extends StatelessWidget {
+  const _TopScrim();
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            SpacePalette.phoneBg,
+            SpacePalette.phoneBg.withValues(alpha: 0),
+          ],
+          stops: const [0.55, 1],
+        ),
       ),
     );
   }
@@ -139,45 +181,76 @@ class _HudChip extends StatelessWidget {
   }
 }
 
-class _Traveller extends StatelessWidget {
-  const _Traveller();
+class _SpaceBottomBar extends StatelessWidget {
+  const _SpaceBottomBar({
+    required this.done,
+    required this.total,
+    required this.lessons,
+    required this.onReview,
+  });
+  final int done;
+  final int total;
+  final int lessons;
+  final VoidCallback onReview;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: RatelSpacing.md, vertical: RatelSpacing.xs),
-          decoration: BoxDecoration(
-            color: SpacePalette.teal,
-            borderRadius: BorderRadius.circular(RatelSpacing.radiusPill),
-            boxShadow: [
-              BoxShadow(
-                  color: SpacePalette.teal.withValues(alpha: 0.6),
-                  blurRadius: 10,
-                  spreadRadius: 1),
+    final pct = total == 0 ? 0.0 : (done / total).clamp(0.0, 1.0);
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+          colors: [
+            SpacePalette.phoneBg,
+            SpacePalette.phoneBg.withValues(alpha: 0),
+          ],
+        ),
+      ),
+      child: SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(RatelSpacing.lg, RatelSpacing.md,
+              RatelSpacing.lg, RatelSpacing.sm),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  Text('${(pct * 100).round()}% · galaxy',
+                      style: RatelType.caption
+                          .copyWith(color: SpacePalette.tealText)),
+                  const Spacer(),
+                  Text('$lessons lessons',
+                      style: RatelType.caption
+                          .copyWith(color: SpacePalette.hudMuted)),
+                ],
+              ),
+              const SizedBox(height: RatelSpacing.xs),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(RatelSpacing.radiusPill),
+                child: LinearProgressIndicator(
+                  value: pct,
+                  minHeight: 6,
+                  backgroundColor: SpacePalette.hudText.withValues(alpha: 0.12),
+                  valueColor:
+                      const AlwaysStoppedAnimation<Color>(SpacePalette.teal),
+                ),
+              ),
+              const SizedBox(height: RatelSpacing.sm),
+              TextButton.icon(
+                onPressed: onReview,
+                icon: const Icon(Icons.refresh_rounded,
+                    size: 18, color: SpacePalette.tealText),
+                label: Text('Review mistakes · free',
+                    style: RatelType.label
+                        .copyWith(color: SpacePalette.tealText)),
+              ),
             ],
           ),
-          child: Text('START',
-              style: RatelType.label.copyWith(color: SpacePalette.tealInk)),
         ),
-        const SizedBox(height: RatelSpacing.sm),
-        DecoratedBox(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                  color: SpacePalette.teal.withValues(alpha: 0.5),
-                  blurRadius: 24,
-                  spreadRadius: 2),
-            ],
-          ),
-          child: const RatelPod(size: Size(120, 82)),
-        ),
-      ],
+      ),
     );
   }
 }
-// Traceability: R-WT2 R-WT4
+// Traceability: R-WT4

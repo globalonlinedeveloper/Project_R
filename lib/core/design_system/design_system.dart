@@ -25,3 +25,6 @@ export 'world/pod_painter.dart';
 export 'world/space_backdrop.dart';
 export 'world/space_palette.dart';
 export 'world/world_theme.dart';
+export 'world/galaxy_model.dart';
+export 'world/galaxy_painter.dart';
+export 'world/galaxy_view.dart';
