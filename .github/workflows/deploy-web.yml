@@ -55,6 +55,12 @@ jobs:
         # the auth-init bug; re-enable only once that is fixed and verified in a browser).
         run: flutter build web --release --base-href "/" --pwa-strategy=none --dart-define=RATEL_AUTH=true --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} --dart-define=SUPABASE_PUBLISHABLE_KEY=${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
 
+      - name: Stamp deploy marker (ground-truth verification endpoint, §25)
+        if: steps.cfg.outputs.ready == 'true'
+        run: |
+          echo "ratel ${{ github.sha }} | flutter 3.44.1 | web | deployed $(date -u +%FT%TZ)" > build/web/build-info.txt
+          cat build/web/build-info.txt
+
       - name: Deploy to Cloudflare Pages
         if: steps.cfg.outputs.ready == 'true'
         run: |
