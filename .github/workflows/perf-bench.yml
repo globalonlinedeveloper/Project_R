@@ -7,8 +7,10 @@ name: perf-bench
 #
 # Like deploy-web.yml this is a SEPARATE, non-required workflow so it never
 # blocks the red-blocking `flutter-gate` in ci.yml. It is additionally GATED to
-# skip-GREEN when the runner can't run an emulator (no /dev/kvm), so a runner
-# without nested virtualisation is a green no-op rather than a red wall.
+# skip-GREEN when the runner can't run an emulator (no /dev/kvm) OR when the
+# perf-bench target is absent (e.g. during the S35 UI reset — the bench drives
+# the front end, which is being rebuilt), so it is a green no-op rather than a
+# red wall and self-heals once integration_test/perf_bench_test.dart returns.
 #
 # Runs on push to main (one bench per release) + manual dispatch — not on PRs,
 # to keep PR feedback fast. Local · NO DB · schema frozen · still 161 reqs.
@@ -29,10 +31,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check KVM / nested virtualisation (graceful skip if absent)
+      - name: Check perf-bench target + KVM (graceful skip if absent)
         id: guard
         run: |
-          if [ -e /dev/kvm ]; then
+          if [ ! -f integration_test/perf_bench_test.dart ] || [ ! -f test_driver/perf_driver.dart ]; then
+            echo "::notice::perf-bench target absent (UI reset in progress) — skipping perf bench (green no-op)."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          elif [ -e /dev/kvm ]; then
             echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
               | sudo tee /etc/udev/rules.d/99-kvm4all.rules >/dev/null
             sudo udevadm control --reload-rules
