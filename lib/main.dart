@@ -1,125 +1,79 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'app/app_flags.dart';
-import 'app/ratel_app.dart';
-import 'features/auth/auth_service.dart';
-import 'features/auth/supabase_auth_service.dart';
-import 'features/settings/settings_controller.dart';
-import 'services/data_access/data_access.dart';
-import 'services/data_access/supabase_learner_state_store.dart';
-import 'services/identity/identity.dart';
-import 'services/identity/supabase_identity.dart';
-import 'services/preferences/prefs_settings_store.dart';
-
-/// Supabase connection, injected at build time via `--dart-define` (never
-/// committed). Empty when not provided — auth then stays inert even if
-/// [authEnabled] is on, so a keyless build degrades to guest-only instead of
-/// crashing. (`SUPABASE_PUBLISHABLE_KEY` is safe to ship in a client.)
-const String _supabaseUrl = String.fromEnvironment('SUPABASE_URL');
-const String _supabasePublishableKey =
-    String.fromEnvironment('SUPABASE_PUBLISHABLE_KEY');
-
-/// RATEL entrypoint — Riverpod scope + the design-system app shell.
+/// RATEL entrypoint — minimal boot during the Session 35 UI reset.
 ///
-/// With [authEnabled] on AND Supabase keys present, the live client backs
-/// identity + auth + learner-state persistence and the launch session is
-/// restored into [signedIn]; otherwise the app runs exactly as before (guest,
-/// in-memory), so `main` is unchanged while the flag is off (R-L1).
-Future<void> main() async {
-  final overrides = <Override>[];
+/// The full front end (design system + every screen + the auth/settings/Supabase
+/// wiring) was removed in the S35 teardown so each screen can be rebuilt from
+/// the owner's Claude designs. The backend engines survive untouched in
+/// `lib/services/**` and `lib/content/**` (and in git history) and will be wired
+/// back in as the new screens land. The live site shows the placeholder below
+/// while that rebuild is in progress.
+void main() {
+  runApp(const ProviderScope(child: RatelApp()));
+}
 
-  // Persisted UI settings (world/theme, motion, a11y) — best-effort so the
-  // chosen world (e.g. Space) comes back on relaunch. Degrades to the in-memory
-  // default (Classic) if the platform store is unavailable; never blocks boot.
-  try {
-    WidgetsFlutterBinding.ensureInitialized();
-    final prefs = await SharedPreferences.getInstance();
-    overrides.add(
-      settingsStoreProvider.overrideWithValue(PrefsSettingsStore(prefs)),
+/// Placeholder app shell shown while the UI is rebuilt. A bare Material app with
+/// a single "rebuilding" scaffold — no routing, no design system, no backend
+/// wiring yet (intentionally minimal so `main` always boots and deploys).
+class RatelApp extends StatelessWidget {
+  const RatelApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Ratel',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: const Color(0xFFEF9F27),
+        brightness: Brightness.light,
+      ),
+      home: const _RebuildingScaffold(),
     );
-  } catch (e) {
-    debugPrint('Settings store unavailable; using in-memory defaults: $e');
   }
+}
 
-  // Overrides added so far (settings) survive a Supabase init failure.
-  final keepOnAuthFailure = overrides.length;
+class _RebuildingScaffold extends StatelessWidget {
+  const _RebuildingScaffold();
 
-  if (authEnabled &&
-      _supabaseUrl.isNotEmpty &&
-      _supabasePublishableKey.isNotEmpty) {
-    try {
-      WidgetsFlutterBinding.ensureInitialized();
-      await Supabase.initialize(
-        url: _supabaseUrl,
-        publishableKey: _supabasePublishableKey,
-      );
-      final client = Supabase.instance.client;
-      // A live session counts as *signed in* only when it is an account — never
-      // the anonymous guest session (TS-11): anonymous guests still flow through
-      // Welcome / onboarding, so they must not be treated as signed-in.
-      bool isAccount(Session? s) => s != null && s.user.isAnonymous != true;
-      signedIn.value = isAccount(client.auth.currentSession); // restore on launch
-      client.auth.onAuthStateChange.listen(
-        (state) => signedIn.value = isAccount(state.session),
-      );
-      // Guest-first (TS-11): with no session, sign in anonymously so on-device
-      // progress is owned by a real auth.uid() that can be claimed into an
-      // account on sign-in. Best-effort — a keyless/offline/anon-disabled guest
-      // stays a local guest.
-      if (client.auth.currentSession == null) {
-        try {
-          await client.auth.signInAnonymously();
-        } catch (_) {
-          // offline or anonymous sign-ins disabled — remain a local guest.
-        }
-      }
-      overrides.add(
-        authServiceProvider
-            .overrideWithValue(SupabaseAuthService.fromClient(client)),
-      );
-      overrides.add(
-        identityProvider.overrideWithValue(
-          SupabaseIdentity.fromClient(
-            client,
-            // Flip the TS-11 claim relay on: forward a server-minted claim token
-            // to the deployed claim-anonymous-state edge function (queue #6).
-            onClaim: (token) async {
-              final res = await client.functions.invoke(
-                'claim-anonymous-state',
-                body: <String, dynamic>{'action': 'claim', 'token': token.value},
-              );
-              if (res.status != 200) {
-                throw StateError('claim failed (${res.status})');
-              }
-            },
-            // Mint (authed as the anonymous guest A) a single-use server token
-            // capturing A's state, to be redeemed by onClaim after sign-in (B).
-            onMint: () async {
-              final res = await client.functions.invoke(
-                'claim-anonymous-state',
-                body: <String, dynamic>{'action': 'mint'},
-              );
-              if (res.status != 200) return null;
-              final data = res.data;
-              return data is Map ? data['token'] as String? : null;
-            },
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  'Ratel',
+                  style: theme.textTheme.displaySmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: theme.colorScheme.primary,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  "We're rebuilding the experience.",
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.titleMedium,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'Check back soon.',
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-      );
-      overrides.add(
-        learnerStateStoreProvider
-            .overrideWithValue(SupabaseLearnerStateStore.fromClient(client)),
-      );
-    } catch (e) {
-      // If the live backend fails to initialise (e.g. a web auth-init crash),
-      // degrade to guest-only instead of white-screening — but keep the
-      // settings-store override added before this block.
-      debugPrint('Supabase init failed; running guest-only: $e');
-      overrides.length = keepOnAuthFailure;
-    }
+      ),
+    );
   }
-  runApp(ProviderScope(overrides: overrides, child: const RatelApp()));
 }

@@ -2,12 +2,12 @@
 
 Two cheap, hermetic checks (pure stdlib — no DB harness):
 
-  (a) the canonical DATA list parses to exactly 161 UNIQUE, well-formed requirement IDs;
+  (a) the canonical DATA list parses to exactly 168 UNIQUE, well-formed requirement IDs;
   (b) the committed docs/REQUIREMENTS_TRACEABILITY.md is UP TO DATE — re-running the
       generator must reproduce it byte-for-byte. A stale matrix (someone edited code/
       registry without regenerating) fails the build.
 
-The generator is hermetic (the 161 ID+title pairs are mirrored in DATA) and idempotent
+The generator is hermetic (the 168 ID+title pairs are mirrored in DATA) and idempotent
 (its own override registry is excluded from the evidence scan), so this is deterministic
 in CI.
 """
@@ -31,11 +31,11 @@ def _load_gen():
     return mod
 
 
-def test_data_parses_to_161_unique_ids():
+def test_data_parses_to_168_unique_ids():
     mod = _load_gen()
     ids = [ln.split("|", 1)[0] for ln in mod.DATA.strip().splitlines()]
-    assert len(ids) == 161, f"expected 161 requirement IDs, got {len(ids)}"
-    assert len(set(ids)) == 161, "duplicate requirement IDs in DATA"
+    assert len(ids) == 168, f"expected 168 requirement IDs, got {len(ids)}"
+    assert len(set(ids)) == 168, "duplicate requirement IDs in DATA"
     bad = [i for i in ids if not re.match(r"R-[A-Za-z0-9-]+$", i)]
     assert not bad, f"malformed requirement IDs: {bad}"
 

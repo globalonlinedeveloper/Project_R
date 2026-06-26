@@ -14,12 +14,12 @@
 
 | Priority | Built | Build-ahead | Partial | Pending | Deferred | Removed | Spec/cross | Total |
 |---|---|---|---|---|---|---|---|---|
-| **Must** | 78 | 20 | 2 | 16 | 2 | 0 | 13 | 131 |
+| **Must** | 78 | 19 | 3 | 16 | 2 | 0 | 13 | 131 |
 | **Should** | 18 | 1 | 0 | 2 | 1 | 0 | 0 | 22 |
 | **Could** | 1 | 0 | 0 | 1 | 7 | 0 | 0 | 9 |
 | **Won't** | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 1 |
 | **Process** | 1 | 0 | 0 | 1 | 1 | 0 | 2 | 5 |
-| **All** | 98 | 21 | 2 | 20 | 11 | 1 | 15 | 168 |
+| **All** | 98 | 20 | 3 | 20 | 11 | 1 | 15 | 168 |
 
 _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not live) · Pending=Stage-3 not started · Deferred=post-launch wave · Removed=cut · Spec/cross=policy/cross-cutting._
 
@@ -132,14 +132,14 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
 | R-G1 | One identity, many courses | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `supabase_identity.dart` |
-| R-G2 | theta ability model (global + per-skill) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `onboarding_flow.dart`, `placement_controller.dart`, `ability.dart`, `ability_test.dart` |
-| R-G3 | IRT calibration (how hard each item is) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `placement_controller.dart`, `irt.dart`, `irt_test.dart` |
-| R-G4 | CAT placement test | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `placement_controller.dart`, `cat.dart`, `cat_test.dart` |
-| R-G5 | FSRS spaced-repetition scheduling | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `practice_controller.dart`, `practice_screen.dart`, `fsrs.dart`, `fsrs_test.dart` |
+| R-G2 | theta ability model (global + per-skill) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `ability.dart`, `ability_test.dart` |
+| R-G3 | IRT calibration (how hard each item is) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `irt.dart`, `irt_test.dart` |
+| R-G4 | CAT placement test | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `cat.dart`, `cat_test.dart` |
+| R-G5 | FSRS spaced-repetition scheduling | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `fsrs.dart`, `fsrs_test.dart` |
 | R-G6 | Learner-state entities (what gets stored) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `supabase_learner_state_store.dart`, `learner_state.dart`, `user.schema.json`, `user_item_state.schema.json` +1 |
-| R-G7 | Cold-start strategy (works from day one) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `practice_controller.dart`, `practice_screen.dart`, `cold_start.dart`, `cold_start_test.dart` |
-| R-G8 | Launch path-serving (how lessons are sequenced) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `saved_words_controller.dart`, `path_serving.dart`, `path_serving_test.dart` |
-| R-G9 | Saved words - flashcards - graded review | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `lesson_screen.dart`, `saved_words_controller.dart`, `saved_words.dart`, `saved_words_test.dart` |
+| R-G7 | Cold-start strategy (works from day one) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `cold_start.dart`, `cold_start_test.dart` |
+| R-G8 | Launch path-serving (how lessons are sequenced) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `path_serving.dart`, `path_serving_test.dart` |
+| R-G9 | Saved words - flashcards - graded review | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `saved_words.dart`, `saved_words_test.dart` |
 
 ## Part H — AI, tutor & conversation
 
@@ -177,7 +177,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-J3 | AI access policy - Pro-only live AI, metered by credits | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `play_receipt_verify.dart`, `user.schema.json` |
 | R-J4 | Ad strategy + network/mediation | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-J5 | Voice minute caps (even Pro) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-J6 | Store-safe paywall / cancel (single CTA, easy cancel) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `energy_gate.dart`, `lesson_screen.dart`, `credit_ledger.schema.json`, `lesson_screen_test.dart` |
+| R-J6 | Store-safe paywall / cancel (single CTA, easy cancel) | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `credit_ledger.schema.json` |
 | R-J7 | Payments / IAP integration (App Store / Play / web) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `play_receipt_verify.dart`, `user.schema.json`, `user_course.schema.json`, `play_receipt_verify_test.dart` |
 | R-J7a | Desktop/web billing - web-checkout fallback (no native store) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `billing.dart`, `media_authz.dart`, `payments_verify.dart`, `play_receipt_verify.dart` +4 |
 
@@ -191,25 +191,25 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-K3 | Data minimization & retention (no raw-speech retention) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `test_voice_no_audio_persist.py`, `0006_review_log_partitions.sql`, `0007_dsar_delete_anchor.sql`, `0008_audit_log.sql` |
 | R-K4 | Regional privacy rights - export + delete (GDPR/DPDP/CCPA) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `test_dsar_delete_anchor.py`, `0007_dsar_delete_anchor.sql`, `0008_audit_log.sql` |
 | R-K5 | Generated-content safety (AI-content; profanity; bias) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-K6 | Security - server-side keys, Supabase RLS, auth, PII | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `auth_service.dart`, `supabase_auth_service.dart`, `taxonomy.dart`, `data_access.dart` +10 |
+| R-K6 | Security - server-side keys, Supabase RLS, auth, PII | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `taxonomy.dart`, `data_access.dart`, `supabase_learner_state_store.dart`, `identity.dart` +8 |
 | R-K7 | Terms of Service + Privacy Policy - final copy & ownership | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-K8 | Accessibility - WCAG 2.2 AA conformance (test-enforced) | Must | Stage2 | Built ✅ | — | `shell.dart`, `wcag.dart`, `ratel_motion_tier.dart`, `ratel_color_tokens.dart` +5 |
+| R-K8 | Accessibility - WCAG 2.2 AA conformance (test-enforced) | Must | Stage2 | Built ✅ | — | — |
 
 ## Part L — App screens & UX
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-L1 | Auth & account flows | Must | Stage2 | Built ✅ | — | `app_flags.dart`, `router.dart`, `auth_service.dart`, `login_screen.dart` +5 |
-| R-L2 | Onboarding flow (language-motivation-goal-placement-first win) | Must | Stage2 | Built ✅ | — | `onboarding_flow.dart`, `onboarding_test.dart` |
-| R-L3 | Core learning loop (lesson run, check/feedback, complete) | Must | Stage2 | Built ✅ | — | `energy_controller.dart`, `energy_gate.dart`, `energy_state.dart`, `exercise.dart` +6 |
-| R-L4 | Practice & AI hub | Must | Stage2 | Built ✅ | — | `home_screen.dart` |
-| R-L4a | Adventures immersive surface (explorable roleplay world) | Must | Stage2 | Built ✅ | — | `adventure_model.dart`, `adventures_screen.dart`, `scene_screen.dart`, `adventures_screen_test.dart` +1 |
+| R-L1 | Auth & account flows | Must | Stage2 | Built ✅ | — | — |
+| R-L2 | Onboarding flow (language-motivation-goal-placement-first win) | Must | Stage2 | Built ✅ | — | — |
+| R-L3 | Core learning loop (lesson run, check/feedback, complete) | Must | Stage2 | Built ✅ | — | — |
+| R-L4 | Practice & AI hub | Must | Stage2 | Built ✅ | — | — |
+| R-L4a | Adventures immersive surface (explorable roleplay world) | Must | Stage2 | Built ✅ | — | — |
 | R-L5 | Reading & listening (stories, listening feed, video, tap-to-define) | Must | Stage2 | Built ✅ | — | — |
 | R-L6 | Profile & settings hub | Must | Stage2 | Built ✅ | — | — |
 | R-L7 | Monetization screens | Must | Stage2 | Built ✅ | — | — |
-| R-L8 | Gamification & social screens | Must | Stage2 | Built ✅ | — | `lesson_screen.dart`, `streak_controller.dart`, `user.schema.json`, `home_test.dart` +1 |
+| R-L8 | Gamification & social screens | Must | Stage2 | Built ✅ | — | `user.schema.json` |
 | R-L9 | Multi-course, course-switch, flip-UI & immersion | Must | Stage2 | Built ✅ | — | — |
-| R-L10 | Navigation / information architecture (tab shell, deep links) | Must | Stage2 | Built ✅ | — | `router.dart`, `shell.dart` |
+| R-L10 | Navigation / information architecture (tab shell, deep links) | Must | Stage2 | Built ✅ | — | — |
 | R-L11 | Notifications (push categories, opt-in, inbox) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-L11a | Widgets are mobile-only; desktop/web get in-app/tray equivalent | Could | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-L11b | Notifications: per-platform delivery profile | Should | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
@@ -218,10 +218,10 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-L13a | Background sync is foreground-reconcile on iOS-PWA + desktop | Should | Stage2 | Built ✅ | — | — |
 | R-L14 | Cross-cutting UI states (loading/empty/error/skeleton) | Must | Stage2 | Built ✅ | — | — |
 | R-L15 | Brand character & motion/delight (the Ratel honey badger) | Must | Stage2 | Built ✅ | — | — |
-| R-L16 | Motion & interaction design-system | Must | Stage2 | Built ✅ | — | `router.dart`, `ratel_color_tokens.dart`, `ratel_motion.dart`, `ratel_count_up.dart` +1 |
-| R-L17 | Animated & interactive acceptance bar | Must | Stage2 | Built ✅ | — | `router.dart`, `ratel_button.dart`, `ratel_fade_through.dart`, `lesson_screen.dart` +1 |
-| R-L18 | Mascot animation tech & rig contract | Must | Stage2 | Built ✅ | — | `perf_bench_test.dart`, `mascot_view.dart`, `riv_contract.dart`, `riv_contract_test.dart` |
-| R-L19 | Celebration & lesson-feedback kit | Must | Stage2 | Built ✅ | — | `perf_bench_test.dart`, `ratel_celebration.dart`, `onboarding_flow.dart` |
+| R-L16 | Motion & interaction design-system | Must | Stage2 | Built ✅ | — | — |
+| R-L17 | Animated & interactive acceptance bar | Must | Stage2 | Built ✅ | — | — |
+| R-L18 | Mascot animation tech & rig contract | Must | Stage2 | Built ✅ | — | — |
+| R-L19 | Celebration & lesson-feedback kit | Must | Stage2 | Built ✅ | — | — |
 
 ## Part M — Analytics, ops & infrastructure
 
@@ -229,7 +229,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 |----|-------------|--------|-------|--------|------|----------|
 | R-M1 | Analytics event taxonomy & core KPIs | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `analytics.dart`, `analytics_identity.dart`, `taxonomy.dart`, `audit_sink.dart` +3 |
 | R-M2 | Experimentation & feature flags (dark-launch, A/B, wave gating) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `feature_flags.dart`, `feature_flags_test.dart` |
-| R-M3 | Backend infrastructure (Supabase: Postgres, RLS, Edge, Storage/CDN) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `content_providers.dart`, `content_repository.dart`, `onboarding_flow.dart`, `data_access.dart` +4 |
+| R-M3 | Backend infrastructure (Supabase: Postgres, RLS, Edge, Storage/CDN) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `content_providers.dart`, `content_repository.dart`, `data_access.dart`, `supabase_learner_state_store.dart` +3 |
 | R-M4 | Content build/upload ops (batch tooling, staging-prod) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-M5 | Observability (logging & error tracking) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `audit_sink.dart`, `crash_telemetry.dart`, `observability.dart`, `test_audit_log.py` +3 |
 | R-M6 | CI/CD & store-release process | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
@@ -250,20 +250,20 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-N1 | Performance budgets (cold start, lesson load, audio latency) | Must | Cross | Spec/cross ▫ | — | `perf_bench_test.dart`, `ratel_motion_tier.dart`, `ratel_typography.dart`, `riv_contract.dart` +1 |
+| R-N1 | Performance budgets (cold start, lesson load, audio latency) | Must | Cross | Spec/cross ▫ | — | — |
 | R-N2 | Scalability (content volume, concurrent users) | Must | Cross | Spec/cross ▫ | — | — |
 | R-N3 | Reliability / availability targets | Must | Cross | Spec/cross ▫ | — | — |
 | R-N4 | Localization completeness & quality bars per tier | Must | Cross | Spec/cross ▫ | — | — |
-| R-N5 | Low-connectivity / low-end-device resilience + data budget | Must | Cross | Spec/cross ▫ | — | `ratel_typography.dart` |
-| R-N6 | Maintainability / charter conformance | Must | Cross | Spec/cross ▫ | — | `design_system.dart`, `ratel_color_tokens.dart`, `ratel_motion.dart`, `space_hud.dart` +5 |
-| R-N7 | Unified motion-tier signal (accessibility precedence) | Must | Cross | Spec/cross ▫ | — | `context_ext.dart`, `ratel_motion_tier.dart`, `ratel_motion.dart`, `galaxy_fx.dart` +4 |
-| R-N8 | Animation performance & power budget | Must | Cross | Spec/cross ▫ | — | `perf_bench_test.dart`, `mascot_view.dart`, `riv_contract.dart`, `perf_gauntlet_test.dart` |
+| R-N5 | Low-connectivity / low-end-device resilience + data budget | Must | Cross | Spec/cross ▫ | — | — |
+| R-N6 | Maintainability / charter conformance | Must | Cross | Spec/cross ▫ | — | — |
+| R-N7 | Unified motion-tier signal (accessibility precedence) | Must | Cross | Spec/cross ▫ | — | — |
+| R-N8 | Animation performance & power budget | Must | Cross | Spec/cross ▫ | — | — |
 
 ## Part O — Program, phasing & risks
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-O1 | Phase-2 deliverables (local content model - NO DB) | Process | Stage1 | Built ✅ | — | `perf_bench_test.dart`, `app_flags.dart`, `energy_state.dart`, `streak_controller.dart` +4 |
+| R-O1 | Phase-2 deliverables (local content model - NO DB) | Process | Stage1 | Built ✅ | — | `data_access.dart`, `settings_store.dart`, `services.dart` |
 | R-O2 | Phase-3 deliverables (DB + runtime + payments - gated, MONEY) | Process | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-O3 | Post-launch waves (tier climb, write/live-roleplay, RTL re-add) | Process | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
 | R-O4 | Risk register & mitigations | Process | Program | Spec/cross ▫ | — | — |
@@ -273,11 +273,11 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-WT1 | World-theme template seam (palette + painters + traveller + vocabulary, app-wide + persisted)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | `world_theme.dart`, `settings_controller.dart`, `world_theme_test.dart` |
-| R-WT2 | Space world theme #1 (deep-space galaxy skin, app-wide re-skin)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | `ratel_app.dart`, `space_palette.dart`, `world_theme.dart`, `world_theme_test.dart` |
-| R-WT3 | Persisted theme selection (default Classic, opt-in Space)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | `app_settings.dart`, `world_theme.dart`, `settings_controller.dart`, `world_theme_test.dart` +1 |
-| R-WT4 | Galaxy Home — CustomPainter backdrop + planet path + locked v8 pod traveller<br>_S33-S34: galaxy Home built page-by-page to completion — scrollable seeded planet-path + v8 pod + ion trail, lesson-preview sheet, real θ→CEFR level + coach, locate FAB, daily strip (goal-ring picker + persisted dailyGoal + real energy regen + due reviews), course bar + section map, animated tier-gated header HUD._ | Should | Stage2 | Built ✅ | — | `galaxy_model.dart`, `pod_painter.dart`, `space_backdrop.dart`, `space_palette.dart` +5 |
-| R-WT5 | Motion-tier preference (High/Reduced/Off) with OS reduce-motion hard floor<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | `ratel_motion_tier.dart`, `app_settings.dart`, `motion_preference_test.dart` |
-| R-WT6 | Profile settings surface (theme + motion + a11y toggles)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | `profile_screen.dart`, `settings_controller.dart`, `settings_test.dart` |
-| R-WT7 | Tier-gated galaxy FX + pod auto-defense (HIGH-only, reduce-motion floor)<br>_S34: tier-gated WOW FX built — animation-loop FX (shooting stars/comet/pulsar/black-hole/galaxy), HIGH-only supernova + pod auto-defense (2 homing missiles → 18 sparkle dust, capped), palette-driven colours; reduce-motion HARD floor (minimal/none clear the canvas). Deterministic seeded model unit-tested._ | Could | Stage2 | Built ✅ | — | `galaxy_fx.dart`, `space_backdrop.dart` |
+| R-WT1 | World-theme template seam (palette + painters + traveller + vocabulary, app-wide + persisted)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | — |
+| R-WT2 | Space world theme #1 (deep-space galaxy skin, app-wide re-skin)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | — |
+| R-WT3 | Persisted theme selection (default Classic, opt-in Space)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | — |
+| R-WT4 | Galaxy Home — CustomPainter backdrop + planet path + locked v8 pod traveller<br>_S33-S34: galaxy Home built page-by-page to completion — scrollable seeded planet-path + v8 pod + ion trail, lesson-preview sheet, real θ→CEFR level + coach, locate FAB, daily strip (goal-ring picker + persisted dailyGoal + real energy regen + due reviews), course bar + section map, animated tier-gated header HUD._ | Should | Stage2 | Built ✅ | — | — |
+| R-WT5 | Motion-tier preference (High/Reduced/Off) with OS reduce-motion hard floor<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | — |
+| R-WT6 | Profile settings surface (theme + motion + a11y toggles)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | — |
+| R-WT7 | Tier-gated galaxy FX + pod auto-defense (HIGH-only, reduce-motion floor)<br>_S34: tier-gated WOW FX built — animation-loop FX (shooting stars/comet/pulsar/black-hole/galaxy), HIGH-only supernova + pod auto-defense (2 homing missiles → 18 sparkle dust, capped), palette-driven colours; reduce-motion HARD floor (minimal/none clear the canvas). Deterministic seeded model unit-tested._ | Could | Stage2 | Built ✅ | — | — |
 

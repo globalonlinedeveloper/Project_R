@@ -1,6 +1,6 @@
-import '../../core/design_system/world/app_settings.dart';
+import 'app_settings.dart';
 
-/// Persistence seam for [AppSettings] (theme/world choice, motion, a11y).
+/// Persistence seam for [AppSettings] (a11y + daily goal). The world/motion
 /// Synchronous [load] keeps controller construction simple + test-friendly; the
 /// real [PrefsSettingsStore] loads the underlying store once at boot.
 abstract class SettingsStore {

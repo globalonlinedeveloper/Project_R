@@ -1,23 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ratel/app/app_flags.dart';
-import 'package:ratel/app/ratel_app.dart';
+import 'package:ratel/main.dart';
 
+/// Boot smoke — the minimal S35 placeholder app builds and shows its shell.
+/// Replaces the old design-system widget tests removed in the UI reset.
 void main() {
-  setUp(() {
-    welcomeSeen.value = true; // flag-robust: skip the auth Welcome gate
-    onboardingComplete.value = true;
-  });
-  tearDown(() {
-    welcomeSeen.value = false;
-    onboardingComplete.value = false;
-  });
-
-  testWidgets('app boots into the Learn tab shell', (tester) async {
-    await tester.pumpWidget(const ProviderScope(child: RatelApp()));
-    await tester.pumpAndSettle();
-    expect(find.byKey(const Key('home-screen')), findsOneWidget);
-    expect(find.byType(NavigationBar), findsOneWidget);
+  testWidgets('app boots to the rebuilding placeholder', (tester) async {
+    await tester.pumpWidget(const RatelApp());
+    expect(find.text('Ratel'), findsOneWidget);
+    expect(find.text("We're rebuilding the experience."), findsOneWidget);
   });
 }
