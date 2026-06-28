@@ -9,6 +9,7 @@ import 'package:ratel/features/leagues/leagues_screen.dart';
 import 'package:ratel/features/library/library_screen.dart';
 import 'package:ratel/features/profile/profile_screen.dart';
 import 'package:ratel/features/quests/quests_screen.dart';
+import 'package:ratel/features/settings/settings_screen.dart';
 
 /// A not-yet-built destination rendered as an honest [ComingSoonScreen].
 /// Settings / Progress / Onboarding / daily-quiz are REAL screens landing in
@@ -22,13 +23,6 @@ typedef ComingSoonRoute = ({
 });
 
 const List<ComingSoonRoute> kComingSoonRoutes = <ComingSoonRoute>[
-  (
-    path: '/settings',
-    title: 'Settings',
-    emoji: '⚙️',
-    blurb: 'Settings are coming next — daily goal, sound, reduce motion and '
-        'high contrast are already real under the hood.'
-  ),
   (
     path: '/progress',
     title: 'Progress',
@@ -148,6 +142,11 @@ GoRouter buildRouter() {
 
       // Sub-screens (pushed full-screen over the shell). Honest stubs until the
       // real screen lands — see [kComingSoonRoutes].
+      GoRoute(
+        path: '/settings',
+        builder: (BuildContext context, GoRouterState state) =>
+            const SettingsScreen(),
+      ),
       for (final ComingSoonRoute r in kComingSoonRoutes)
         GoRoute(
           path: r.path,
