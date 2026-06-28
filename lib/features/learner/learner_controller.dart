@@ -63,15 +63,19 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   final ColdStartModel _cold = const ColdStartModel();
   final List<ReviewLogEntry> _log = <ReviewLogEntry>[];
 
+  /// Placement θ once a CAT placement test completes (null ⇒ cold-start A1).
+  double? _placementTheta;
+
   int _lessons = 0;
   int _xpTotal = 0;
   int _xpToday = 0;
   int _streak = 0;
 
-  /// Cold-start ability prior for a brand-new learner with no placement: the
-  /// A1 CEFR anchor (design spec §4.11 — placement seeds a higher prior later).
-  AbilityState get _coldStart =>
-      AbilityState.coldStart(_cold.priorThetaForBand(CefrLevel.a1));
+  /// Ability prior for the learner: the placement θ once a CAT placement test
+  /// has run ([seedFromPlacement]), else the A1 CEFR anchor for a brand-new
+  /// learner (design spec §4.11).
+  AbilityState get _coldStart => AbilityState.coldStart(
+      _placementTheta ?? _cold.priorThetaForBand(CefrLevel.a1));
 
   @override
   LearnerSnapshot build() => _derive();
@@ -112,9 +116,21 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     state = _derive();
   }
 
+  /// Seed ability from a completed CAT placement (design spec §4.11 — the
+  /// "Take a placement test" branch). Replaces the cold-start prior with the
+  /// placement θ estimate (same IRT logit scale), clears any prior answer log
+  /// so the placement defines the starting point, and re-derives the CEFR
+  /// level. [R-G4 · R-G7]
+  void seedFromPlacement(double theta) {
+    _placementTheta = theta;
+    _log.clear();
+    state = _derive();
+  }
+
   /// Reset to the cold-start state (sign-out / testing).
   void reset() {
     _log.clear();
+    _placementTheta = null;
     _lessons = _xpTotal = _xpToday = _streak = 0;
     state = _derive();
   }

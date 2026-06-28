@@ -8,6 +8,7 @@ import 'package:ratel/features/home/home_screen.dart';
 import 'package:ratel/features/leagues/leagues_screen.dart';
 import 'package:ratel/features/library/library_screen.dart';
 import 'package:ratel/features/onboarding/onboarding_screen.dart';
+import 'package:ratel/features/onboarding/placement_quiz_screen.dart';
 import 'package:ratel/features/profile/profile_screen.dart';
 import 'package:ratel/features/quests/quests_screen.dart';
 import 'package:ratel/features/settings/settings_screen.dart';
@@ -30,13 +31,6 @@ const List<ComingSoonRoute> kComingSoonRoutes = <ComingSoonRoute>[
     emoji: '📊',
     blurb: 'The progress dashboard is coming next, built entirely from your '
         'real learner stats — nothing here is invented.'
-  ),
-  (
-    path: '/placement',
-    title: 'Placement test',
-    emoji: '🧭',
-    blurb: 'The adaptive placement test is coming next — a short CAT quiz '
-        'scored through the real IRT / EAP engine to seed your starting level.'
   ),
   (
     path: '/login',
@@ -166,6 +160,11 @@ GoRouter buildRouter() {
         path: '/onboarding',
         builder: (BuildContext context, GoRouterState state) =>
             const OnboardingScreen(),
+      ),
+      GoRoute(
+        path: '/placement',
+        builder: (BuildContext context, GoRouterState state) =>
+            const PlacementQuizScreen(),
       ),
       for (final ComingSoonRoute r in kComingSoonRoutes)
         GoRoute(
