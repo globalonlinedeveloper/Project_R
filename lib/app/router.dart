@@ -80,6 +80,20 @@ const List<ComingSoonRoute> kComingSoonRoutes = <ComingSoonRoute>[
     blurb: 'The AI Tutor (Talk / Chat / Roleplay) is coming next, wired to the '
         'cost-guarded, moderated ai_relay engine behind a PRO gate.'
   ),
+  (
+    path: '/adventures',
+    title: 'Adventures',
+    emoji: '🗺️',
+    blurb: 'Adventures (free roleplay scenes) are coming next, wired to the '
+        'moderated ai_relay engine — every scene a real conversation.'
+  ),
+  (
+    path: '/search',
+    title: 'Search',
+    emoji: '🔍',
+    blurb: 'Library search is coming next — it will query the real content '
+        'catalogue (lessons, saved words, stories).'
+  ),
 ];
 
 /// The app router — a [StatefulShellRoute] with one branch per bottom-nav tab
