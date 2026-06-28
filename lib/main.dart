@@ -4,22 +4,31 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:ratel/services/preferences/prefs_settings_store.dart';
 
+import 'app/backend_wiring.dart';
 import 'app/ratel_app.dart';
 import 'features/settings/settings_controller.dart';
 
-/// RATEL entrypoint — boots the design-system theme + the go_router 5-tab shell
-/// (P1 foundation). On-device settings persistence is best-effort: if the
-/// platform store is unavailable the app falls back to the in-memory default.
+/// RATEL entrypoint — boots the design-system theme + the go_router 5-tab shell.
+/// Two best-effort wirings, each failing safe to a local default so the app
+/// ALWAYS boots: (1) the Supabase-backed data-access + identity seams when the
+/// build carries the publishable config (else in-memory / guest), and (2)
+/// on-device settings persistence (else in-memory settings).
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  List<Override> overrides = const <Override>[];
+  final List<Override> overrides = <Override>[];
+
+  // (1) Backend seams: live Supabase when configured, else local defaults.
+  overrides.addAll(await initBackendOverrides());
+
+  // (2) On-device settings persistence (best-effort).
   try {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    overrides = <Override>[
+    overrides.add(
       settingsStoreProvider.overrideWithValue(PrefsSettingsStore(prefs)),
-    ];
+    );
   } catch (_) {
-    overrides = const <Override>[]; // keep the in-memory settings default
+    // keep the in-memory settings default
   }
+
   runApp(ProviderScope(overrides: overrides, child: const RatelApp()));
 }
