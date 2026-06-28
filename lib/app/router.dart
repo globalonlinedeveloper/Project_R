@@ -10,6 +10,7 @@ import 'package:ratel/features/library/library_screen.dart';
 import 'package:ratel/features/onboarding/onboarding_screen.dart';
 import 'package:ratel/features/onboarding/placement_quiz_screen.dart';
 import 'package:ratel/features/profile/profile_screen.dart';
+import 'package:ratel/features/progress/progress_screen.dart';
 import 'package:ratel/features/quests/quests_screen.dart';
 import 'package:ratel/features/settings/settings_screen.dart';
 
@@ -25,13 +26,6 @@ typedef ComingSoonRoute = ({
 });
 
 const List<ComingSoonRoute> kComingSoonRoutes = <ComingSoonRoute>[
-  (
-    path: '/progress',
-    title: 'Progress',
-    emoji: '📊',
-    blurb: 'The progress dashboard is coming next, built entirely from your '
-        'real learner stats — nothing here is invented.'
-  ),
   (
     path: '/login',
     title: 'Log in',
@@ -165,6 +159,11 @@ GoRouter buildRouter() {
         path: '/placement',
         builder: (BuildContext context, GoRouterState state) =>
             const PlacementQuizScreen(),
+      ),
+      GoRoute(
+        path: '/progress',
+        builder: (BuildContext context, GoRouterState state) =>
+            const ProgressScreen(),
       ),
       for (final ComingSoonRoute r in kComingSoonRoutes)
         GoRoute(
