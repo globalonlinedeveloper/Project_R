@@ -73,6 +73,13 @@ const List<ComingSoonRoute> kComingSoonRoutes = <ComingSoonRoute>[
     blurb: 'Friends & social (followers, friend activity, "passed you") have '
         'no engine yet — an owner decision.'
   ),
+  (
+    path: '/tutor',
+    title: 'AI Tutor',
+    emoji: '🦡',
+    blurb: 'The AI Tutor (Talk / Chat / Roleplay) is coming next, wired to the '
+        'cost-guarded, moderated ai_relay engine behind a PRO gate.'
+  ),
 ];
 
 /// The app router — a [StatefulShellRoute] with one branch per bottom-nav tab
