@@ -14,12 +14,12 @@
 
 | Priority | Built | Build-ahead | Partial | Pending | Deferred | Removed | Spec/cross | Total |
 |---|---|---|---|---|---|---|---|---|
-| **Must** | 78 | 19 | 3 | 16 | 2 | 0 | 13 | 131 |
+| **Must** | 78 | 19 | 6 | 13 | 2 | 0 | 13 | 131 |
 | **Should** | 18 | 1 | 0 | 2 | 1 | 0 | 0 | 22 |
 | **Could** | 1 | 0 | 0 | 1 | 7 | 0 | 0 | 9 |
 | **Won't** | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 1 |
 | **Process** | 1 | 0 | 0 | 1 | 1 | 0 | 2 | 5 |
-| **All** | 98 | 20 | 3 | 20 | 11 | 1 | 15 | 168 |
+| **All** | 98 | 20 | 6 | 17 | 11 | 1 | 15 | 168 |
 
 _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not live) · Pending=Stage-3 not started · Deferred=post-launch wave · Removed=cut · Spec/cross=policy/cross-cutting._
 
@@ -90,7 +90,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-D8 | dictation (type exactly what you hear) | Must | Stage2 | Built ✅ | — | — |
 | R-D9 | speak (on-device ASR intelligibility + shadowing, free) | Must | Stage2 | Built ✅ | — | — |
 | R-D9a | Web/desktop on-device ASR is cloud - force shadowing | Must | Stage2 | Built ✅ | — | — |
-| R-D10 | scripted_roleplay (a branching scripted conversation) | Must | Stage2 | Built ✅ | — | — |
+| R-D10 | scripted_roleplay (a branching scripted conversation) | Must | Stage2 | Built ✅ | — | `adventures_screen.dart` |
 | R-D11 | Phase-3 scaffolds: write + live_roleplay (scaffolded now) | Should | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
 | R-D12 | tap-to-define reading feature + comprehension-item policy | Must | Stage2 | Built ✅ | — | — |
 | R-D13 | Autoscoring & answer-equivalence rules | Must | Stage2 | Built ✅ | — | — |
@@ -145,13 +145,13 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-H1 | AI tutor chat | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-H2 | Realtime voice conversations | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
+| R-H1 | AI tutor chat | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `ai_tutor_screen.dart` |
+| R-H2 | Realtime voice conversations | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `ai_tutor_screen.dart` |
 | R-H3 | Launch pronunciation UX (shadowing, free) | Must | Stage2 | Built ✅ | — | — |
 | R-H4 | Advanced pronunciation scoring - REMOVED | Won't | Cut | Removed ✖ | — | — |
 | R-H5 | Grading written answers (later)<br>_Owner S28: Must priority; spec schedules the LLM-grading engine in R-O3 Wave C (later)._ | Must | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
-| R-H6 | Open-ended roleplay conversations (later)<br>_Owner S28: Must priority; spec schedules open-roleplay engine in R-O3 Wave C (later)._ | Must | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
-| R-H7 | Runtime key mgmt, relay, rate-limit & abuse | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `ai_relay.dart`, `cost_guard.dart`, `gemini_relay.dart`, `relay_pipeline.dart` +8 |
+| R-H6 | Open-ended roleplay conversations (later)<br>_Owner S28: Must priority; spec schedules open-roleplay engine in R-O3 Wave C (later)._ | Must | Wave | Deferred ⏭ | 🔒 owner/$$ | `adventures_screen.dart`, `ai_tutor_screen.dart` |
+| R-H7 | Runtime key mgmt, relay, rate-limit & abuse | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `adventures_screen.dart`, `ai_tutor_screen.dart`, `ai_relay.dart`, `cost_guard.dart` +10 |
 | R-H8 | Reusable scaffolds (Scenario + GradingRubric) | Should | Stage2 | Built ✅ | — | — |
 
 ## Part I — Gamification, economy & social
@@ -172,9 +172,9 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-J1 | Free vs Pro feature split (exact) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
+| R-J1 | Free vs Pro feature split (exact) | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `adventures_screen.dart`, `ai_tutor_screen.dart` |
 | R-J2 | Pro price point(s) + billing (regional/PPP, trial) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-J3 | AI access policy - Pro-only live AI, metered by credits | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `play_receipt_verify.dart`, `user.schema.json` |
+| R-J3 | AI access policy - Pro-only live AI, metered by credits | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `ai_tutor_screen.dart`, `play_receipt_verify.dart`, `user.schema.json` |
 | R-J4 | Ad strategy + network/mediation | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-J5 | Voice minute caps (even Pro) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-J6 | Store-safe paywall / cancel (single CTA, easy cancel) | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `credit_ledger.schema.json` |

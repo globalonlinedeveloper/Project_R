@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ratel/core/core.dart';
+import 'package:ratel/features/adventures/adventures_screen.dart';
 import 'package:ratel/features/common/coming_soon_screen.dart';
 import 'package:ratel/features/home/home_screen.dart';
 import 'package:ratel/features/leagues/leagues_screen.dart';
@@ -13,6 +14,7 @@ import 'package:ratel/features/profile/profile_screen.dart';
 import 'package:ratel/features/progress/progress_screen.dart';
 import 'package:ratel/features/quests/quests_screen.dart';
 import 'package:ratel/features/settings/settings_screen.dart';
+import 'package:ratel/features/tutor/ai_tutor_screen.dart';
 
 /// A not-yet-built destination rendered as an honest [ComingSoonScreen].
 /// Settings / Progress / Onboarding / daily-quiz are REAL screens landing in
@@ -69,20 +71,6 @@ const List<ComingSoonRoute> kComingSoonRoutes = <ComingSoonRoute>[
     emoji: '👥',
     blurb: 'Friends & social (followers, friend activity, "passed you") have '
         'no engine yet — an owner decision.'
-  ),
-  (
-    path: '/tutor',
-    title: 'AI Tutor',
-    emoji: '🦡',
-    blurb: 'The AI Tutor (Talk / Chat / Roleplay) is coming next, wired to the '
-        'cost-guarded, moderated ai_relay engine behind a PRO gate.'
-  ),
-  (
-    path: '/adventures',
-    title: 'Adventures',
-    emoji: '🗺️',
-    blurb: 'Adventures (free roleplay scenes) are coming next, wired to the '
-        'moderated ai_relay engine — every scene a real conversation.'
   ),
   (
     path: '/search',
@@ -164,6 +152,16 @@ GoRouter buildRouter() {
         path: '/progress',
         builder: (BuildContext context, GoRouterState state) =>
             const ProgressScreen(),
+      ),
+      GoRoute(
+        path: '/tutor',
+        builder: (BuildContext context, GoRouterState state) =>
+            const AiTutorScreen(),
+      ),
+      GoRoute(
+        path: '/adventures',
+        builder: (BuildContext context, GoRouterState state) =>
+            const AdventuresScreen(),
       ),
       for (final ComingSoonRoute r in kComingSoonRoutes)
         GoRoute(
