@@ -10,12 +10,76 @@ import 'package:ratel/features/library/library_screen.dart';
 import 'package:ratel/features/profile/profile_screen.dart';
 import 'package:ratel/features/quests/quests_screen.dart';
 
+/// A not-yet-built destination rendered as an honest [ComingSoonScreen].
+/// Settings / Progress / Onboarding / daily-quiz are REAL screens landing in
+/// later increments; Shop / Notifications / Friends are §6 owner-decisions (no
+/// engine). Adding/▶swapping a route is a one-line edit to this list.
+typedef ComingSoonRoute = ({
+  String path,
+  String title,
+  String emoji,
+  String blurb,
+});
+
+const List<ComingSoonRoute> kComingSoonRoutes = <ComingSoonRoute>[
+  (
+    path: '/settings',
+    title: 'Settings',
+    emoji: '⚙️',
+    blurb: 'Settings are coming next — daily goal, sound, reduce motion and '
+        'high contrast are already real under the hood.'
+  ),
+  (
+    path: '/progress',
+    title: 'Progress',
+    emoji: '📊',
+    blurb: 'The progress dashboard is coming next, built entirely from your '
+        'real learner stats — nothing here is invented.'
+  ),
+  (
+    path: '/onboarding',
+    title: 'Onboarding',
+    emoji: '🦡',
+    blurb: 'The onboarding flow (Welcome → Language → Reason → Goal → '
+        'Placement) is coming next, wired to the real placement engine.'
+  ),
+  (
+    path: '/daily-quiz',
+    title: 'Daily refresh',
+    emoji: '🎯',
+    blurb: 'The lesson / quiz runner is coming next — it will serve a real '
+        '5-item mix from your review queue and score it through the '
+        'CAT / IRT / FSRS engines.'
+  ),
+  (
+    path: '/shop',
+    title: 'Shop',
+    emoji: '💎',
+    blurb: 'The diamond economy and consumables have no backend engine yet — '
+        'an owner decision (build a wallet/ledger, or leave it out of v1). '
+        'Nothing here is faked.'
+  ),
+  (
+    path: '/notifications',
+    title: 'Notifications',
+    emoji: '🔔',
+    blurb: 'There is no notification engine yet — an owner decision (local '
+        'reminders vs push vs an in-app inbox).'
+  ),
+  (
+    path: '/friends',
+    title: 'Friends',
+    emoji: '👥',
+    blurb: 'Friends & social (followers, friend activity, "passed you") have '
+        'no engine yet — an owner decision.'
+  ),
+];
+
 /// The app router — a [StatefulShellRoute] with one branch per bottom-nav tab
 /// (Home / Library / Leagues / Quests / Profile, design spec §3). Each branch
 /// keeps its own navigation state in an IndexedStack so tab switches preserve
-/// scroll position. Sub-screens (Settings, Shop, …) are TOP-LEVEL routes pushed
-/// over the shell (full-screen, own back arrow). Provided per-scope (below) so
-/// each app instance / test gets a fresh router.
+/// scroll position. Sub-screens are TOP-LEVEL routes pushed over the shell
+/// (full-screen, own back arrow). Provided per-scope (below) for test isolation.
 GoRouter buildRouter() {
   return GoRouter(
     initialLocation: '/home',
@@ -30,107 +94,45 @@ GoRouter buildRouter() {
         branches: <StatefulShellBranch>[
           StatefulShellBranch(routes: <RouteBase>[
             GoRoute(
-              path: '/home',
-              builder: (BuildContext context, GoRouterState state) =>
-                  const HomeScreen(),
-            ),
+                path: '/home',
+                builder: (BuildContext context, GoRouterState state) =>
+                    const HomeScreen()),
           ]),
           StatefulShellBranch(routes: <RouteBase>[
             GoRoute(
-              path: '/library',
-              builder: (BuildContext context, GoRouterState state) =>
-                  const LibraryScreen(),
-            ),
+                path: '/library',
+                builder: (BuildContext context, GoRouterState state) =>
+                    const LibraryScreen()),
           ]),
           StatefulShellBranch(routes: <RouteBase>[
             GoRoute(
-              path: '/leagues',
-              builder: (BuildContext context, GoRouterState state) =>
-                  const LeaguesScreen(),
-            ),
+                path: '/leagues',
+                builder: (BuildContext context, GoRouterState state) =>
+                    const LeaguesScreen()),
           ]),
           StatefulShellBranch(routes: <RouteBase>[
             GoRoute(
-              path: '/quests',
-              builder: (BuildContext context, GoRouterState state) =>
-                  const QuestsScreen(),
-            ),
+                path: '/quests',
+                builder: (BuildContext context, GoRouterState state) =>
+                    const QuestsScreen()),
           ]),
           StatefulShellBranch(routes: <RouteBase>[
             GoRoute(
-              path: '/profile',
-              builder: (BuildContext context, GoRouterState state) =>
-                  const ProfileScreen(),
-            ),
+                path: '/profile',
+                builder: (BuildContext context, GoRouterState state) =>
+                    const ProfileScreen()),
           ]),
         ],
       ),
 
-      // ── Sub-screens (pushed full-screen over the shell) ──────────────────
-      // Real screens (Settings / Progress / Onboarding) land in later
-      // increments — until then an honest "coming next" stub; the §6 no-engine
-      // destinations (Shop / Notifications / Friends) state the owner decision.
-      GoRoute(
-        path: '/settings',
-        builder: (BuildContext context, GoRouterState state) =>
-            const ComingSoonScreen(
-          title: 'Settings',
-          emoji: '⚙️',
-          blurb: 'Settings are coming next — daily goal, sound, reduce motion '
-              'and high contrast are already real under the hood.',
+      // Sub-screens (pushed full-screen over the shell). Honest stubs until the
+      // real screen lands — see [kComingSoonRoutes].
+      for (final ComingSoonRoute r in kComingSoonRoutes)
+        GoRoute(
+          path: r.path,
+          builder: (BuildContext context, GoRouterState state) =>
+              ComingSoonScreen(title: r.title, emoji: r.emoji, blurb: r.blurb),
         ),
-      ),
-      GoRoute(
-        path: '/progress',
-        builder: (BuildContext context, GoRouterState state) =>
-            const ComingSoonScreen(
-          title: 'Progress',
-          emoji: '📊',
-          blurb: 'The progress dashboard is coming next, built entirely from '
-              'your real learner stats — nothing here is invented.',
-        ),
-      ),
-      GoRoute(
-        path: '/onboarding',
-        builder: (BuildContext context, GoRouterState state) =>
-            const ComingSoonScreen(
-          title: 'Onboarding',
-          emoji: '🦡',
-          blurb: 'The onboarding flow (Welcome → Language → Reason → Goal → '
-              'Placement) is coming next, wired to the real placement engine.',
-        ),
-      ),
-      GoRoute(
-        path: '/shop',
-        builder: (BuildContext context, GoRouterState state) =>
-            const ComingSoonScreen(
-          title: 'Shop',
-          emoji: '💎',
-          blurb: 'The diamond economy and consumables have no backend engine '
-              'yet — an owner decision (build a wallet/ledger, or leave it out '
-              'of v1). Nothing here is faked.',
-        ),
-      ),
-      GoRoute(
-        path: '/notifications',
-        builder: (BuildContext context, GoRouterState state) =>
-            const ComingSoonScreen(
-          title: 'Notifications',
-          emoji: '🔔',
-          blurb: 'There is no notification engine yet — an owner decision '
-              '(local reminders vs push vs an in-app inbox).',
-        ),
-      ),
-      GoRoute(
-        path: '/friends',
-        builder: (BuildContext context, GoRouterState state) =>
-            const ComingSoonScreen(
-          title: 'Friends',
-          emoji: '👥',
-          blurb: 'Friends & social (followers, friend activity, "passed you") '
-              'have no engine yet — an owner decision.',
-        ),
-      ),
     ],
   );
 }
