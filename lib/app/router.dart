@@ -7,6 +7,7 @@ import 'package:ratel/features/common/coming_soon_screen.dart';
 import 'package:ratel/features/home/home_screen.dart';
 import 'package:ratel/features/leagues/leagues_screen.dart';
 import 'package:ratel/features/library/library_screen.dart';
+import 'package:ratel/features/onboarding/onboarding_screen.dart';
 import 'package:ratel/features/profile/profile_screen.dart';
 import 'package:ratel/features/quests/quests_screen.dart';
 import 'package:ratel/features/settings/settings_screen.dart';
@@ -31,11 +32,25 @@ const List<ComingSoonRoute> kComingSoonRoutes = <ComingSoonRoute>[
         'real learner stats — nothing here is invented.'
   ),
   (
-    path: '/onboarding',
-    title: 'Onboarding',
-    emoji: '🦡',
-    blurb: 'The onboarding flow (Welcome → Language → Reason → Goal → '
-        'Placement) is coming next, wired to the real placement engine.'
+    path: '/placement',
+    title: 'Placement test',
+    emoji: '🧭',
+    blurb: 'The adaptive placement test is coming next — a short CAT quiz '
+        'scored through the real IRT / EAP engine to seed your starting level.'
+  ),
+  (
+    path: '/login',
+    title: 'Log in',
+    emoji: '🔑',
+    blurb: 'Account login is coming next, wired to the real identity / '
+        'anonymous-claim engine.'
+  ),
+  (
+    path: '/signup',
+    title: 'Sign up',
+    emoji: '✉️',
+    blurb: 'Account sign-up is coming next, wired to the real identity / '
+        'anonymous-claim engine.'
   ),
   (
     path: '/daily-quiz',
@@ -146,6 +161,11 @@ GoRouter buildRouter() {
         path: '/settings',
         builder: (BuildContext context, GoRouterState state) =>
             const SettingsScreen(),
+      ),
+      GoRoute(
+        path: '/onboarding',
+        builder: (BuildContext context, GoRouterState state) =>
+            const OnboardingScreen(),
       ),
       for (final ComingSoonRoute r in kComingSoonRoutes)
         GoRoute(
