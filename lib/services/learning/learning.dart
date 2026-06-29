@@ -20,3 +20,4 @@ export 'irt.dart';
 export 'learner_state.dart';
 export 'path_serving.dart';
 export 'saved_words.dart';
+export 'streak.dart';

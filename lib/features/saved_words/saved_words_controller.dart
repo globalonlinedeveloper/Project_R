@@ -5,12 +5,6 @@ import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/learning/fsrs.dart';
 import 'package:ratel/services/learning/saved_words.dart';
 
-/// Injectable wall-clock seam. The learning ENGINES are deliberately clockless
-/// (FSRS / saved-words take elapsed / now IN), so the scheduling LAYER owns the
-/// clock here: a fresh review is timestamped against real time, and tests pin
-/// it via an override. Defaults to the real [DateTime.now].
-final clockProvider = Provider<DateTime Function()>((ref) => DateTime.now);
-
 /// One saved-word flashcard: its dedup [key], the display [word], an optional
 /// authored picture [glyph] (the lesson's correct-answer emoji, the meaning we
 /// can honestly reveal), plus its REAL FSRS memory state and scheduled [dueAt].

@@ -27,3 +27,10 @@ final learnerStateStoreProvider =
 /// state. Tests override it to [Duration.zero] for a deterministic flush.
 final persistDebounceProvider =
     Provider<Duration>((ref) => const Duration(milliseconds: 400));
+
+/// Injectable wall-clock seam (R-M3). The learning ENGINES are deliberately
+/// clockless (FSRS / saved-words / streak take elapsed-or-now IN), so the
+/// scheduling LAYER owns the clock here: a fresh review is timestamped against
+/// real time, the streak is gated on the calendar day, and tests pin it via an
+/// override. Defaults to the real [DateTime.now].
+final clockProvider = Provider<DateTime Function()>((ref) => DateTime.now);

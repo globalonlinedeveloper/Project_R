@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ratel/content/models/enums.dart' show CefrLevel;
+import 'package:ratel/features/settings/settings_controller.dart';
 import 'package:ratel/services/data_access/data_access.dart';
 import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/learning/learning.dart';
@@ -13,9 +14,15 @@ import 'package:ratel/services/learning/learning.dart';
 /// honest progress (R-O1): ZERO on a freshly-wiped backend, then — once a real
 /// `auth.uid()` session exists — REHYDRATED from + WRITTEN THROUGH to the
 /// Supabase `user_course` row so they survive a relaunch. A pure guest
-/// (`uid == null`) keeps the byte-identical in-memory behaviour. [xpToday] is a
-/// daily counter with no column, so it resets on relaunch (real day-boundary +
-/// streak-freeze logic still needs a clock — design spec §6 flag).
+/// (`uid == null`) keeps the byte-identical in-memory behaviour.
+///
+/// [xpToday] resets at the local day boundary (the injected `clockProvider`);
+/// it has no durable column, so it also starts at zero on each relaunch.
+/// [streakDays] is GOAL-GATED (R-I2): it advances only when [xpToday] reaches
+/// the persisted daily goal, counts CONSECUTIVE days, and lapses to zero after a
+/// missed day. The last goal-met day persists as `streak_last_active`, so the
+/// run survives a relaunch. (Streak-FREEZE / the energy economy stay design-spec
+/// §6 — no engine, honestly not faked.)
 class LearnerSnapshot {
   const LearnerSnapshot({
     required this.theta,
@@ -52,17 +59,18 @@ class LearnerSnapshot {
       theta, level, lessonsCompleted, xpTotal, xpToday, streakDays);
 }
 
-/// Bridges the learning engines (`learner_state` + `cold_start`) to the UI and
-/// to the durable store seam (R-G6 / R-M3 / R-O1).
+/// Bridges the learning engines (`learner_state` + `cold_start` + `streak`) to
+/// the UI and to the durable store seam (R-G6 / R-M3 / R-O1).
 ///
 /// Owns the in-memory append-only [ReviewLogEntry] log and re-derives ability /
 /// level from it on every change via the pure [LearnerStateModel]. A brand-new
 /// learner cold-starts at the A1 anchor (honest — not the mockup's A2). When a
 /// real `auth.uid()` session exists, on first build it REHYDRATES xp / lessons /
-/// streak / θ from the learner's `user_course` row, and every mutation is
-/// WRITTEN THROUGH (debounced) to that row. With no session (guest) — or no
-/// Supabase config — the store/identity defaults make load + save no-ops, so the
-/// flag-off behaviour is byte-identical to the in-memory build.
+/// streak (+ the last goal-met day) / θ from the learner's `user_course` row,
+/// and every mutation is WRITTEN THROUGH (debounced) to that row. With no
+/// session (guest) — or no Supabase config — the store/identity defaults make
+/// load + save no-ops, so the flag-off behaviour is byte-identical to the
+/// in-memory build.
 class LearnerController extends Notifier<LearnerSnapshot> {
   /// The active course (single-course foundation; multi-course lands with the
   /// course picker). Matches the Supabase `user_course` key shape.
@@ -79,6 +87,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
 
   final LearnerStateModel _engine = const LearnerStateModel();
   final ColdStartModel _cold = const ColdStartModel();
+  final StreakModel _streakModel = const StreakModel();
   final List<ReviewLogEntry> _log = <ReviewLogEntry>[];
 
   /// Placement θ once a CAT placement test completes (null ⇒ cold-start A1).
@@ -93,6 +102,12 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   int _xpTotal = 0;
   int _xpToday = 0;
   int _streak = 0;
+
+  /// Calendar day [_xpToday] currently belongs to (day-boundary reset), and the
+  /// day the streak last advanced (persisted as `streak_last_active`). Both are
+  /// date-only (local midnight) or null when never set.
+  DateTime? _xpTodayDate;
+  DateTime? _lastGoalMetDate;
 
   bool _hydrated = false;
   bool _disposed = false;
@@ -111,6 +126,12 @@ class LearnerController extends Notifier<LearnerSnapshot> {
             : _restoredPerSkill,
       );
 
+  /// Today's calendar date (date-only), from the injected wall clock.
+  DateTime _today() {
+    final DateTime now = ref.read(clockProvider)();
+    return DateTime(now.year, now.month, now.day);
+  }
+
   @override
   LearnerSnapshot build() {
     ref.onDispose(() => _disposed = true);
@@ -122,13 +143,19 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     final UserCourse course =
         _engine.deriveCourse(courseId, _log, initial: _coldStart);
     final CefrLevel level = _cold.bandFor(course.thetaGlobal) ?? CefrLevel.a1;
+    final DateTime today = _today();
+    // Honest day-boundary display: today's XP is zero once the day has rolled
+    // over since it was last earned, and the streak lapses after a missed day.
+    final int xpToday =
+        (_xpTodayDate != null && _xpTodayDate != today) ? 0 : _xpToday;
     return LearnerSnapshot(
       theta: course.thetaGlobal,
       level: level,
       lessonsCompleted: _lessons,
       xpTotal: _xpTotal,
-      xpToday: _xpToday,
-      streakDays: _streak,
+      xpToday: xpToday,
+      streakDays: _streakModel.current(
+          streak: _streak, lastMet: _lastGoalMetDate, today: today),
     );
   }
 
@@ -140,22 +167,39 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _persist();
   }
 
-  /// Record a completed lesson (R-O1 XP/lessons), then write through.
+  /// Record a completed lesson (R-O1 XP/lessons). Rolls today's XP over the day
+  /// boundary first, adds the lesson XP, then advances the goal-gated streak if
+  /// today's XP just reached the daily goal — and writes the lot through.
   void recordLessonComplete({int xp = 20}) {
+    final DateTime today = _today();
+    _rollDay(today);
     _lessons += 1;
     _xpTotal += xp;
     _xpToday += xp;
+    _maybeAdvanceStreak(today);
     state = _derive();
     _persist();
   }
 
-  /// Mark today active. Simplistic in-memory streak — real day-boundary +
-  /// streak-freeze logic needs a clock + `streak_last_active` (design spec §6
-  /// flag); the raw counter is persisted so it survives a relaunch.
-  void noteDailyActive() {
-    _streak += 1;
-    state = _derive();
-    _persist();
+  /// Reset today's XP when the calendar day has rolled over since it was last
+  /// touched. [xpToday] has no durable column, so this only bites within a live
+  /// session that crosses local midnight (a relaunch already starts it at zero).
+  void _rollDay(DateTime today) {
+    if (_xpTodayDate != null && _xpTodayDate != today) _xpToday = 0;
+    _xpTodayDate = today;
+  }
+
+  /// Advance the streak the FIRST time today's XP reaches the daily goal
+  /// (goal-gated, idempotent within a day). The goal is read at completion time
+  /// from the persisted setting (floored at 1, matching `dailyGoalProvider`).
+  void _maybeAdvanceStreak(DateTime today) {
+    final int rawGoal = ref.read(appSettingsControllerProvider).dailyGoal;
+    final int goal = rawGoal <= 0 ? 1 : rawGoal;
+    if (_xpToday < goal) return; // goal not reached yet today
+    if (_lastGoalMetDate == today) return; // already advanced today
+    _streak = _streakModel.afterGoalMet(
+        streak: _streak, lastMet: _lastGoalMetDate, today: today);
+    _lastGoalMetDate = today;
   }
 
   /// Seed ability from a completed CAT placement (design spec §4.11 — the
@@ -178,14 +222,17 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _restoredTheta = null;
     _restoredPerSkill = const <String, double>{};
     _lessons = _xpTotal = _xpToday = _streak = 0;
+    _xpTodayDate = null;
+    _lastGoalMetDate = null;
     state = _derive();
   }
 
   // ── Durable persistence (R-O1 / R-M3) ────────────────────────────────────
 
-  /// Rehydrate xp / lessons / streak / θ from the learner's `user_course` row.
-  /// No-op for a guest (`uid == null`) or when already hydrated, so the
-  /// flag-off path is byte-identical and a load failure never breaks boot.
+  /// Rehydrate xp / lessons / streak (+ last goal-met day) / θ from the
+  /// learner's `user_course` row. No-op for a guest (`uid == null`) or when
+  /// already hydrated, so the flag-off path is byte-identical and a load
+  /// failure never breaks boot.
   Future<void> _hydrate() async {
     if (_hydrated) return;
     final String? uid = ref.read(identityProvider).uid;
@@ -217,6 +264,8 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     if (lessons is num) _lessons = lessons.toInt();
     final Object? streak = row['streak_days'];
     if (streak is num) _streak = streak.toInt();
+    final Object? lastActive = row['streak_last_active'];
+    if (lastActive is String) _lastGoalMetDate = _parseDate(lastActive);
     final Object? theta = row['theta_per_skill'];
     if (theta is Map) {
       final Map<String, double> perSkill = <String, double>{};
@@ -250,8 +299,23 @@ class LearnerController extends Notifier<LearnerSnapshot> {
       'xp_total': _xpTotal,
       'lessons_completed': _lessons,
       'streak_days': _streak,
+      'streak_last_active': _fmtDate(_lastGoalMetDate),
       'theta_per_skill': theta,
     };
+  }
+
+  /// `YYYY-MM-DD` for a date-only value (the PG `date` column shape), or null.
+  static String? _fmtDate(DateTime? d) => d == null
+      ? null
+      : '${d.year.toString().padLeft(4, '0')}-'
+          '${d.month.toString().padLeft(2, '0')}-'
+          '${d.day.toString().padLeft(2, '0')}';
+
+  /// Parse a stored `streak_last_active` value to a date-only [DateTime].
+  static DateTime? _parseDate(Object? v) {
+    if (v is! String || v.isEmpty) return null;
+    final DateTime? d = DateTime.tryParse(v);
+    return d == null ? null : DateTime(d.year, d.month, d.day);
   }
 
   /// Mark state dirty and (debounced) write it through. No-op for a guest.
