@@ -23,8 +23,9 @@ import 'package:ratel/services/learning/learning.dart';
 /// [streakDays] is GOAL-GATED (R-I2): it advances only when [xpToday] reaches
 /// the persisted daily goal, counts CONSECUTIVE days, and lapses to zero after a
 /// missed day. The last goal-met day persists as `streak_last_active`, so the
-/// run survives a relaunch. (Streak-FREEZE / the energy economy stay design-spec
-/// §6 — no engine, honestly not faked.)
+/// run survives a relaunch. A held streak-FREEZE (R-I2, bought with 💎) is spent
+/// automatically to cover a missed day so the run survives; the energy economy
+/// stays design-spec §6 — no engine, honestly not faked.
 class LearnerSnapshot {
   const LearnerSnapshot({
     required this.theta,
@@ -34,6 +35,7 @@ class LearnerSnapshot {
     this.xpToday = 0,
     this.streakDays = 0,
     this.diamonds = 0,
+    this.streakFreezes = 0,
   });
 
   /// Global ability on the IRT logit scale (REAL — from the ability fold).
@@ -52,6 +54,11 @@ class LearnerSnapshot {
   /// `user_course.diamonds`.
   final int diamonds;
 
+  /// 💪 streak-freezes owned (REAL — R-I2 spend sink, bought via the 💎 wallet
+  /// R-I4). Durable: rehydrated from + written through to
+  /// `user_course.streak_freezes`.
+  final int streakFreezes;
+
   @override
   bool operator ==(Object other) =>
       other is LearnerSnapshot &&
@@ -61,11 +68,12 @@ class LearnerSnapshot {
       other.xpTotal == xpTotal &&
       other.xpToday == xpToday &&
       other.streakDays == streakDays &&
-      other.diamonds == diamonds;
+      other.diamonds == diamonds &&
+      other.streakFreezes == streakFreezes;
 
   @override
-  int get hashCode => Object.hash(
-      theta, level, lessonsCompleted, xpTotal, xpToday, streakDays, diamonds);
+  int get hashCode => Object.hash(theta, level, lessonsCompleted, xpTotal,
+      xpToday, streakDays, diamonds, streakFreezes);
 }
 
 /// Bridges the learning engines (`learner_state` + `cold_start` + `streak`) to
@@ -99,6 +107,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   final ColdStartModel _cold = const ColdStartModel();
   final StreakModel _streakModel = const StreakModel();
   final DiamondsModel _diamondsModel = const DiamondsModel();
+  final StreakFreezeModel _freezeModel = const StreakFreezeModel();
   final List<ReviewLogEntry> _log = <ReviewLogEntry>[];
 
   /// Placement θ once a CAT placement test completes (null ⇒ cold-start A1).
@@ -116,6 +125,9 @@ class LearnerController extends Notifier<LearnerSnapshot> {
 
   /// 💎 earned diamonds balance (R-I4 earn side; durable via `user_course`).
   int _diamonds = 0;
+
+  /// 💪 streak-freezes owned (R-I2 spend sink; durable via `user_course`).
+  int _streakFreezes = 0;
 
   /// Calendar day [_xpToday] currently belongs to (day-boundary reset), and the
   /// day the streak last advanced (persisted as `streak_last_active`). Both are
@@ -171,6 +183,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
       streakDays: _streakModel.current(
           streak: _streak, lastMet: _lastGoalMetDate, today: today),
       diamonds: _diamonds,
+      streakFreezes: _streakFreezes,
     );
   }
 
@@ -190,6 +203,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   void recordLessonComplete({int xp = 20}) {
     final DateTime today = _today();
     _rollDay(today);
+    _coverMissedDays(today);
     _lessons += 1;
     _xpTotal += xp;
     _xpToday += xp;
@@ -225,6 +239,44 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _lastGoalMetDate = today;
   }
 
+  /// Spend one held streak-freeze per missed day to keep a lapsing run alive
+  /// (R-I2). Idempotent within a day: once the gap is covered the stored
+  /// last-goal-met day reads as "yesterday", so a repeat call is a no-op.
+  /// Returns whether any freeze was consumed (so the caller can persist).
+  bool _coverMissedDays(DateTime today) {
+    final ({DateTime? lastMet, int freezesConsumed}) r = _streakModel
+        .applyFreezes(
+            lastMet: _lastGoalMetDate, today: today, freezes: _streakFreezes);
+    if (r.freezesConsumed <= 0) return false;
+    _streakFreezes -= r.freezesConsumed;
+    _lastGoalMetDate = r.lastMet;
+    return true;
+  }
+
+  /// 💎 price of one streak-freeze (surfaced to the Shop).
+  int get streakFreezeCost => StreakFreezeModel.cost;
+
+  /// The most streak-freezes a learner may hold (surfaced to the Shop).
+  int get maxStreakFreezes => StreakFreezeModel.maxHeld;
+
+  /// Whether a streak-freeze can be bought right now (inventory room + funds).
+  bool get canBuyStreakFreeze =>
+      _freezeModel.canBuy(diamonds: _diamonds, held: _streakFreezes);
+
+  /// Buy one streak-freeze (R-I2 streak-freeze · R-I4 gems spend side) — the
+  /// first real diamond SPEND sink. Debits [streakFreezeCost] 💎 and adds one to
+  /// inventory, capped at [maxStreakFreezes]; a no-op when unaffordable or at the
+  /// cap (the UI disables the control then). Writes through durably.
+  void buyStreakFreeze() {
+    final ({int diamonds, int held}) r =
+        _freezeModel.buy(diamonds: _diamonds, held: _streakFreezes);
+    if (r.held == _streakFreezes) return; // no-op: at cap / unaffordable
+    _diamonds = r.diamonds;
+    _streakFreezes = r.held;
+    state = _derive();
+    _persist();
+  }
+
   /// Seed ability from a completed CAT placement (design spec §4.11 — the
   /// "Take a placement test" branch). Replaces the cold-start prior with the
   /// placement θ estimate (same IRT logit scale), clears any prior answer log
@@ -244,7 +296,9 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   /// the app shell calls this on resume to refresh them across a day boundary
   /// even when the learner has done nothing yet.
   void refreshDay() {
+    final bool spent = _coverMissedDays(_today());
     state = _derive();
+    if (spent) _persist();
   }
 
   /// Reset to the cold-start state (sign-out / testing). Clears in-memory state
@@ -254,7 +308,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _placementTheta = null;
     _restoredTheta = null;
     _restoredPerSkill = const <String, double>{};
-    _lessons = _xpTotal = _xpToday = _streak = _diamonds = 0;
+    _lessons = _xpTotal = _xpToday = _streak = _diamonds = _streakFreezes = 0;
     _xpTodayDate = null;
     _lastGoalMetDate = null;
     state = _derive();
@@ -284,7 +338,9 @@ class LearnerController extends Notifier<LearnerSnapshot> {
           }
         }
       }
+      final bool spent = _coverMissedDays(_today());
       state = _derive();
+      if (spent) _persist();
     } catch (_) {
       // never break boot on a load failure — keep the honest cold-start
     }
@@ -301,6 +357,8 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     if (lastActive is String) _lastGoalMetDate = _parseDate(lastActive);
     final Object? diamonds = row['diamonds'];
     if (diamonds is num) _diamonds = diamonds.toInt();
+    final Object? freezes = row['streak_freezes'];
+    if (freezes is num) _streakFreezes = freezes.toInt();
     final Object? theta = row['theta_per_skill'];
     if (theta is Map) {
       final Map<String, double> perSkill = <String, double>{};
@@ -336,6 +394,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
       'streak_days': _streak,
       'streak_last_active': _fmtDate(_lastGoalMetDate),
       'diamonds': _diamonds,
+      'streak_freezes': _streakFreezes,
       'theta_per_skill': theta,
     };
   }

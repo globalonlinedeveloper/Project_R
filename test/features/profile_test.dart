@@ -27,14 +27,29 @@ void main() {
   testWidgets('a no-engine destination opens an honest "coming soon" stub',
       (WidgetTester tester) async {
     await _toProfile(tester);
-    // The Shop row is below the fold in a lazy ListView — scroll it into view
-    // before tapping (the finder cannot see unbuilt children).
+    // Notifications is still a §6 no-engine destination → an honest stub. It is
+    // below the fold in a lazy ListView, so scroll it into view before tapping
+    // (the finder cannot see unbuilt children).
+    final Finder dest = find.text('Notifications');
+    await tester.scrollUntilVisible(dest, 150,
+        scrollable: find.byType(Scrollable).first);
+    await tester.tap(dest);
+    await tester.pumpAndSettle();
+    expect(find.text('Coming soon'), findsOneWidget);
+  });
+
+  testWidgets('the Shop row opens the REAL streak-freeze spend sink',
+      (WidgetTester tester) async {
+    await _toProfile(tester);
+    // Shop is now a real screen (the diamond spend sink), no longer a stub.
     final Finder shop = find.text('Shop');
     await tester.scrollUntilVisible(shop, 150,
         scrollable: find.byType(Scrollable).first);
     await tester.tap(shop);
     await tester.pumpAndSettle();
-    expect(find.text('Coming soon'), findsOneWidget);
+    expect(find.text('Coming soon'), findsNothing);
+    expect(find.text('Streak Freeze'), findsOneWidget);
+    expect(find.text('Your diamonds'), findsOneWidget);
   });
 
   testWidgets('the achievements grid is REAL — a fresh account is all-locked with honest progress',

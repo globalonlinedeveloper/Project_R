@@ -18,12 +18,13 @@ import 'package:ratel/features/profile/profile_screen.dart';
 import 'package:ratel/features/progress/progress_screen.dart';
 import 'package:ratel/features/quests/quests_screen.dart';
 import 'package:ratel/features/settings/settings_screen.dart';
+import 'package:ratel/features/shop/shop_screen.dart';
 import 'package:ratel/features/tutor/ai_tutor_screen.dart';
 
 /// A not-yet-built destination rendered as an honest [ComingSoonScreen].
-/// Settings / Progress / Onboarding / daily-quiz are REAL screens landing in
-/// later increments; Shop / Notifications / Friends are §6 owner-decisions (no
-/// engine). Adding/▶swapping a route is a one-line edit to this list.
+/// Settings / Progress / Onboarding / daily-quiz / Shop are REAL screens;
+/// Notifications / Friends remain §6 owner-decisions (no engine). Adding or
+/// ▶swapping a route is a one-line edit to this list.
 typedef ComingSoonRoute = ({
   String path,
   String title,
@@ -32,14 +33,6 @@ typedef ComingSoonRoute = ({
 });
 
 const List<ComingSoonRoute> kComingSoonRoutes = <ComingSoonRoute>[
-  (
-    path: '/shop',
-    title: 'Shop',
-    emoji: '💎',
-    blurb: 'The diamond economy and consumables have no backend engine yet — '
-        'an owner decision (build a wallet/ledger, or leave it out of v1). '
-        'Nothing here is faked.'
-  ),
   (
     path: '/notifications',
     title: 'Notifications',
@@ -119,6 +112,11 @@ GoRouter buildRouter() {
         path: '/settings',
         builder: (BuildContext context, GoRouterState state) =>
             const SettingsScreen(),
+      ),
+      GoRoute(
+        path: '/shop',
+        builder: (BuildContext context, GoRouterState state) =>
+            const ShopScreen(),
       ),
       GoRoute(
         path: '/onboarding',

@@ -50,6 +50,10 @@
       "type": "integer",
       "minimum": 0
     },
+    "streak_freezes": {
+      "type": "integer",
+      "minimum": 0
+    },
     "created_at": {
       "type": "string",
       "format": "date-time"

@@ -8,10 +8,11 @@
 /// per-event amounts are named constants so the reward curve is auditable and
 /// tunable in one place.
 ///
-/// SCOPE (design spec §6, honestly flagged): only the EARN side is modelled.
-/// SPEND SINKS — streak-freeze, the Shop, consumables — and a real-money IAP
-/// top-up remain owner-decision §6 items with no engine, deliberately NOT faked
-/// here.
+/// SCOPE (design spec §6, honestly flagged): the EARN side plus the wallet's
+/// debit primitive ([canSpend] / [spend]). The FIRST real spend sink built on
+/// it is the streak-freeze (`StreakFreezeModel`, R-I2). A real-money IAP 💎
+/// top-up and other Shop consumables remain owner-decision §6 items with no
+/// engine, deliberately NOT faked here.
 enum DiamondEvent {
   /// A lesson was completed (R-O1 lesson crossing).
   lessonCompleted,
@@ -42,4 +43,16 @@ class DiamondsModel {
   /// input is treated as empty — the wallet never drops below zero.
   int award({required int balance, required DiamondEvent event}) =>
       (balance < 0 ? 0 : balance) + reward(event);
+
+  /// Whether [balance] can cover a spend of [amount] 💎 (a non-negative price).
+  bool canSpend({required int balance, required int amount}) =>
+      amount >= 0 && balance >= amount;
+
+  /// The wallet balance after spending [amount] 💎 from [balance]. Returns the
+  /// balance UNCHANGED when it cannot be afforded or [amount] is negative — a
+  /// spend never drives the wallet below zero, and the caller gates user
+  /// feedback on [canSpend]. The wallet's debit primitive behind the first real
+  /// spend sink, the streak-freeze (R-I2 · R-I4 spend side).
+  int spend({required int balance, required int amount}) =>
+      canSpend(balance: balance, amount: amount) ? balance - amount : balance;
 }
