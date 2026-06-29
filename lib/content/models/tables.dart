@@ -184,7 +184,7 @@ abstract class UserCourse with _$UserCourse {
     @JsonKey(name: 'lessons_completed') int? lessonsCompleted,
     @JsonKey(name: 'streak_days') int? streakDays,
     @JsonKey(name: 'streak_last_active') String? streakLastActive,
-    @JsonKey(name: 'diamonds') int? diamonds,
+    int? diamonds,
     @JsonKey(name: 'created_at') required String createdAt,
     @JsonKey(name: 'updated_at') required String updatedAt,
   }) = _UserCourse;
