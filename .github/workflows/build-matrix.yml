@@ -1,15 +1,19 @@
 name: build-matrix
 
-# Cross-platform BUILD VERIFICATION — compiles every Flutter target (Android APK,
-# Web, Linux, iOS, macOS, Windows) so a change that breaks a platform is caught
-# per release. Like deploy-web.yml / perf-bench.yml this is a SEPARATE, NON-required
-# workflow: it never blocks the red-blocking `flutter-gate` in ci.yml. Project_R is
-# a PUBLIC repo, so Linux/macOS/Windows runners are all free. Build-only (+ artifact)
-# — the Android on-device run is covered by perf-bench.yml. Runs on push to main +
-# manual dispatch (not PRs, to keep PR feedback fast). Local · NO DB · schema frozen · 161.
+# Cross-platform BUILD VERIFICATION — compiles every Flutter target so a change that
+# breaks a platform is caught. Non-required (never blocks ci.yml's flutter-gate or the
+# web deploy). Public repo ⇒ all runners free. Build-only (+ artifact upload).
 #
-# Job names show the TARGET (e.g. "Android (APK)", "iOS"); the host runner each build
-# needs is `matrix.os` (ubuntu = apk/web/linux, macOS = ios/macos, windows = windows).
+# Apple targets (iOS/macOS) live in a SEPARATE `build-apple` job gated to
+# workflow_dispatch ONLY: the macos-latest runner's current Xcode is incompatible with
+# the pinned Flutter 3.44.1 Apple toolchain and the product ships as web, so they are
+# SKIPPED on push (the whole job is skipped — shown as "skipped", not faked green) and
+# stay runnable on demand via the Actions “Run workflow” button.
+# NOTE: the `matrix` context is NOT available in a job-level `if:` (GitHub rejects the
+# file: "Unrecognized named-value: 'matrix'"), so the gate keys on `github.event_name`
+# in a dedicated job rather than a matrix `if`.
+#
+# Runs on push to main + manual dispatch (not PRs, to keep PR feedback fast).
 on:
   push:
     branches: [ main ]
@@ -31,8 +35,6 @@ jobs:
           - { label: "Android (APK)", os: ubuntu-latest,  target: apk,     cmd: "flutter build apk --debug",              artifact: "build/app/outputs/flutter-apk/app-debug.apk" }
           - { label: "Web",           os: ubuntu-latest,  target: web,     cmd: "flutter build web --pwa-strategy=none",  artifact: "build/web" }
           - { label: "Linux",         os: ubuntu-latest,  target: linux,   cmd: "flutter build linux --debug",            artifact: "build/linux/x64/debug/bundle" }
-          - { label: "iOS",           os: macos-latest,   target: ios,     cmd: "flutter build ios --debug --no-codesign", artifact: "build/ios/iphoneos" }
-          - { label: "macOS",         os: macos-latest,   target: macos,   cmd: "flutter build macos --debug",            artifact: "build/macos/Build/Products/Debug" }
           - { label: "Windows",       os: windows-latest, target: windows, cmd: "flutter build windows --debug",          artifact: "build/windows/x64/runner/Debug" }
     steps:
       - uses: actions/checkout@v4
@@ -48,6 +50,44 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.1'
+          channel: stable
+          cache: true
+
+      - run: flutter --version
+      - run: flutter pub get
+
+      - name: Codegen (freezed/json_serializable parts are gitignored)
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Build ${{ matrix.target }}
+        run: ${{ matrix.cmd }}
+
+      - name: Upload ${{ matrix.target }} build
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ matrix.target }}
+          path: ${{ matrix.artifact }}
+          if-no-files-found: warn
+
+  build-apple:
+    name: ${{ matrix.label }}
+    runs-on: macos-latest
+    timeout-minutes: 45
+    # Apple builds run ONLY on manual dispatch (see header). `github.event_name` IS
+    # valid in a job-level if; the `matrix` context is NOT.
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { label: "iOS",   target: ios,   cmd: "flutter build ios --debug --no-codesign", artifact: "build/ios/iphoneos" }
+          - { label: "macOS", target: macos, cmd: "flutter build macos --debug",             artifact: "build/macos/Build/Products/Debug" }
+    steps:
+      - uses: actions/checkout@v4
 
       - uses: subosito/flutter-action@v2
         with:
