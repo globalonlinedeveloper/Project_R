@@ -148,7 +148,7 @@ GoRouter buildRouter() {
       GoRoute(
         path: '/daily-quiz',
         builder: (BuildContext context, GoRouterState state) =>
-            const LessonRunnerScreen(),
+            LessonRunnerScreen(lessonId: state.uri.queryParameters['lesson']),
       ),
       GoRoute(
         path: '/practice',

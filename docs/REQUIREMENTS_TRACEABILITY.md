@@ -55,7 +55,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-B5 | Depth-as-data & CEFR-ceiling enforcement | Must | Stage1 | Built ✅ | — | — |
 | R-B6 | Native realization & divergence nodes | Must | Stage1 | Built ✅ | — | — |
 | R-B7 | Pair-specific / contrastive layer | Must | Stage1 | Built ✅ | — | — |
-| R-B8 | Content difficulty model (IRT + cold-start) | Must | Stage1 | Built ✅ | — | `content_course_spine.dart`, `course_spine.dart` |
+| R-B8 | Content difficulty model (IRT + cold-start) | Must | Stage1 | Built ✅ | — | `content_course_spine.dart`, `course_spine.dart`, `lesson_runner_screen.dart`, `lesson_test.dart` |
 
 ## Part C — Content data model
 

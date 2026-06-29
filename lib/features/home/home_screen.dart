@@ -33,6 +33,7 @@ class HomeScreen extends ConsumerWidget {
       for (int i = 0; i < u.lessons.length; i++) {
         final CourseLesson l = u.lessons[i];
         out.add(_Node(
+          id: l.id,
           section: u.section,
           unit: u.title,
           lesson: l.title,
@@ -344,7 +345,7 @@ class HomeScreen extends ConsumerWidget {
               label: 'Start lesson',
               onPressed: () {
                 Navigator.of(sheetContext).pop();
-                context.push('/daily-quiz');
+                context.push('/daily-quiz?lesson=${Uri.encodeComponent(n.id)}');
               },
             ),
           ],
@@ -398,6 +399,7 @@ class HomeScreen extends ConsumerWidget {
 /// One lesson node on the path (authored content + REAL position).
 class _Node {
   const _Node({
+    required this.id,
     required this.section,
     required this.unit,
     required this.lesson,
@@ -410,6 +412,7 @@ class _Node {
     required this.sectionStart,
   });
 
+  final String id;
   final String section;
   final String unit;
   final String lesson;
