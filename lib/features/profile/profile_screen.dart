@@ -6,6 +6,7 @@ import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/content/models/enums.dart' show CefrLevel;
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/achievements/achievements_controller.dart';
+import 'package:ratel/features/notifications/notifications_controller.dart';
 import 'package:ratel/services/achievements/achievements.dart';
 import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/preferences/app_settings.dart';
@@ -31,6 +32,7 @@ class ProfileScreen extends ConsumerWidget {
         ref.watch(achievementsProvider);
     final int unlockedAch =
         achievements.where((AchievementProgress p) => p.unlocked).length;
+    final int unreadNotifs = ref.watch(unreadNotificationsCountProvider);
 
     return Container(
       key: const ValueKey<String>('tab-profile'),
@@ -77,6 +79,9 @@ class ProfileScreen extends ConsumerWidget {
                 leadingEmoji: '🔔',
                 leadingColor: RatelColors.blue,
                 title: 'Notifications',
+                trailing: unreadNotifs > 0
+                    ? _unreadBadge(context, unreadNotifs)
+                    : null,
                 onTap: () => context.push('/notifications')),
             const SizedBox(height: RatelSpace.sm),
             RatelListRow(
@@ -348,6 +353,21 @@ class ProfileScreen extends ConsumerWidget {
       ),
     );
   }
+
+  Widget _unreadBadge(BuildContext context, int count) => Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          RatelChip(
+              label: '\$count', tone: RatelChipTone.coral, filled: true),
+          const SizedBox(width: RatelSpace.sm),
+          Text('›',
+              style: TextStyle(
+                  fontFamily: RatelFont.display,
+                  fontSize: 22,
+                  fontWeight: RatelType.extraBold,
+                  color: context.palette.muted)),
+        ],
+      );
 
   String _levelName(CefrLevel l) {
     switch (l) {

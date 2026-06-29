@@ -14,6 +14,7 @@ class AppSettings {
     this.haptics = true,
     this.dailyGoal = 20,
     this.themeMode = ThemeMode.system,
+    this.readNotifications = const <String>{},
   });
 
   final bool highContrast;
@@ -26,12 +27,17 @@ class AppSettings {
   /// Appearance preference: follow the OS (default), force light, or force dark.
   final ThemeMode themeMode;
 
+  /// Ids of in-app notifications the learner has marked read (R-L11 inbox).
+  /// Device-local read-state; absent ⇒ nothing read yet.
+  final Set<String> readNotifications;
+
   AppSettings copyWith({
     bool? highContrast,
     bool? sound,
     bool? haptics,
     int? dailyGoal,
     ThemeMode? themeMode,
+    Set<String>? readNotifications,
   }) =>
       AppSettings(
         highContrast: highContrast ?? this.highContrast,
@@ -39,6 +45,7 @@ class AppSettings {
         haptics: haptics ?? this.haptics,
         dailyGoal: dailyGoal ?? this.dailyGoal,
         themeMode: themeMode ?? this.themeMode,
+        readNotifications: readNotifications ?? this.readNotifications,
       );
 
   Map<String, Object> toMap() => <String, Object>{
@@ -47,6 +54,7 @@ class AppSettings {
         'haptics': haptics,
         'dailyGoal': dailyGoal,
         'themeMode': themeMode.name,
+        'readNotifications': (readNotifications.toList()..sort()).join(','),
       };
 
   static AppSettings fromMap(Map<String, Object?> m) => AppSettings(
@@ -55,6 +63,7 @@ class AppSettings {
         haptics: m['haptics'] as bool? ?? true,
         dailyGoal: (m['dailyGoal'] as int?) ?? 20,
         themeMode: _themeModeFromName(m['themeMode'] as String?),
+        readNotifications: _readNotifsFromCsv(m['readNotifications'] as String?),
       );
 
   @override
@@ -64,11 +73,19 @@ class AppSettings {
       other.sound == sound &&
       other.haptics == haptics &&
       other.dailyGoal == dailyGoal &&
-      other.themeMode == themeMode;
+      other.themeMode == themeMode &&
+      setEquals(other.readNotifications, readNotifications);
 
   @override
   int get hashCode =>
-      Object.hash(highContrast, sound, haptics, dailyGoal, themeMode);
+      Object.hash(highContrast, sound, haptics, dailyGoal, themeMode,
+          Object.hashAllUnordered(readNotifications));
+}
+
+/// Parse a persisted read-notifications CSV into a set; null/empty ⇒ none.
+Set<String> _readNotifsFromCsv(String? csv) {
+  if (csv == null || csv.isEmpty) return const <String>{};
+  return csv.split(',').where((String s) => s.isNotEmpty).toSet();
 }
 
 /// Parse a persisted [ThemeMode] name; unknown/absent ⇒ follow the system.

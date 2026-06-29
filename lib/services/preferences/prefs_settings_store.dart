@@ -17,6 +17,7 @@ class PrefsSettingsStore implements SettingsStore {
   static const String _kHaptics = 'ratel.settings.haptics';
   static const String _kDailyGoal = 'ratel.settings.dailyGoal';
   static const String _kThemeMode = 'ratel.settings.themeMode';
+  static const String _kReadNotifications = 'ratel.settings.readNotifications';
 
   @override
   AppSettings load() => AppSettings.fromMap(<String, Object?>{
@@ -25,6 +26,7 @@ class PrefsSettingsStore implements SettingsStore {
         'haptics': _prefs.getBool(_kHaptics),
         'dailyGoal': _prefs.getInt(_kDailyGoal),
         'themeMode': _prefs.getString(_kThemeMode),
+        'readNotifications': _prefs.getString(_kReadNotifications),
       });
 
   @override
@@ -34,5 +36,7 @@ class PrefsSettingsStore implements SettingsStore {
     await _prefs.setBool(_kHaptics, s.haptics);
     await _prefs.setInt(_kDailyGoal, s.dailyGoal);
     await _prefs.setString(_kThemeMode, s.themeMode.name);
+    await _prefs.setString(
+        _kReadNotifications, (s.readNotifications.toList()..sort()).join(','));
   }
 }

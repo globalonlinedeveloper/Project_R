@@ -18,12 +18,13 @@ import 'package:ratel/features/profile/profile_screen.dart';
 import 'package:ratel/features/progress/progress_screen.dart';
 import 'package:ratel/features/quests/quests_screen.dart';
 import 'package:ratel/features/settings/settings_screen.dart';
+import 'package:ratel/features/notifications/notifications_screen.dart';
 import 'package:ratel/features/shop/shop_screen.dart';
 import 'package:ratel/features/tutor/ai_tutor_screen.dart';
 
 /// A not-yet-built destination rendered as an honest [ComingSoonScreen].
 /// Settings / Progress / Onboarding / daily-quiz / Shop are REAL screens;
-/// Notifications / Friends remain §6 owner-decisions (no engine). Adding or
+/// Friends remains a §6 owner-decision (no engine). Adding or
 /// ▶swapping a route is a one-line edit to this list.
 typedef ComingSoonRoute = ({
   String path,
@@ -33,13 +34,6 @@ typedef ComingSoonRoute = ({
 });
 
 const List<ComingSoonRoute> kComingSoonRoutes = <ComingSoonRoute>[
-  (
-    path: '/notifications',
-    title: 'Notifications',
-    emoji: '🔔',
-    blurb: 'There is no notification engine yet — an owner decision (local '
-        'reminders vs push vs an in-app inbox).'
-  ),
   (
     path: '/friends',
     title: 'Friends',
@@ -117,6 +111,11 @@ GoRouter buildRouter() {
         path: '/shop',
         builder: (BuildContext context, GoRouterState state) =>
             const ShopScreen(),
+      ),
+      GoRoute(
+        path: '/notifications',
+        builder: (BuildContext context, GoRouterState state) =>
+            const NotificationsScreen(),
       ),
       GoRoute(
         path: '/onboarding',

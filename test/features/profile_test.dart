@@ -27,15 +27,29 @@ void main() {
   testWidgets('a no-engine destination opens an honest "coming soon" stub',
       (WidgetTester tester) async {
     await _toProfile(tester);
-    // Notifications is still a §6 no-engine destination → an honest stub. It is
-    // below the fold in a lazy ListView, so scroll it into view before tapping
-    // (the finder cannot see unbuilt children).
-    final Finder dest = find.text('Notifications');
+    // Friends is still a §6 no-engine destination → an honest stub. It is below
+    // the fold in a lazy ListView, so scroll it into view before tapping (the
+    // finder cannot see unbuilt children).
+    final Finder dest = find.text('Friends');
     await tester.scrollUntilVisible(dest, 150,
         scrollable: find.byType(Scrollable).first);
     await tester.tap(dest);
     await tester.pumpAndSettle();
     expect(find.text('Coming soon'), findsOneWidget);
+  });
+
+  testWidgets('the Notifications row opens the REAL in-app inbox',
+      (WidgetTester tester) async {
+    await _toProfile(tester);
+    // Notifications is now a real screen (the in-app milestone inbox), no longer
+    // a stub — a fresh guest sees the honest empty state, never fake alerts.
+    final Finder notif = find.text('Notifications');
+    await tester.scrollUntilVisible(notif, 150,
+        scrollable: find.byType(Scrollable).first);
+    await tester.tap(notif);
+    await tester.pumpAndSettle();
+    expect(find.text('Coming soon'), findsNothing);
+    expect(find.text('No notifications yet'), findsOneWidget);
   });
 
   testWidgets('the Shop row opens the REAL streak-freeze spend sink',

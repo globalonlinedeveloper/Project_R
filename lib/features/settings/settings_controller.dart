@@ -37,6 +37,16 @@ class AppSettingsController extends Notifier<AppSettings> {
   /// Appearance preference (System / Light / Dark — R-WT3, S53).
   Future<void> setThemeMode(ThemeMode value) =>
       _commit(state.copyWith(themeMode: value));
+
+  /// Marks notification [ids] as read (R-L11 inbox). Persisted device-locally
+  /// so the unread badge survives a relaunch; a no-op when nothing new is added.
+  Future<void> addReadNotifications(Iterable<String> ids) {
+    final Set<String> next = <String>{...state.readNotifications, ...ids};
+    if (next.length == state.readNotifications.length) {
+      return Future<void>.value();
+    }
+    return _commit(state.copyWith(readNotifications: next));
+  }
 }
 
 final appSettingsControllerProvider =
