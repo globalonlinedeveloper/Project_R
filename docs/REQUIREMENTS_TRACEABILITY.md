@@ -164,7 +164,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-I4 | Gems soft-currency (earn / spend sinks) | Should | Stage2 | Built ✅ | — | — |
 | R-I5 | Rewarded-ads - energy / gems design | Should | Stage2 | Built ✅ | — | — |
 | R-I6 | Leagues / leaderboards (global, weekly reset) | Should | Stage2 | Built ✅ | — | — |
-| R-I7 | Daily goal + chest + quests + achievements | Should | Stage2 | Built ✅ | — | `achievements_controller.dart`, `onboarding_screen.dart`, `progress_screen.dart`, `quests_controller.dart` +7 |
+| R-I7 | Daily goal + chest + quests + achievements | Should | Stage2 | Built ✅ | — | `achievements_controller.dart`, `daily_goal.dart`, `onboarding_screen.dart`, `progress_screen.dart` +8 |
 | R-I8 | Anti-dark-pattern guardrails | Should | Stage2 | Built ✅ | — | — |
 | R-I9 | Social: friends/feed, family plan, classroom, block/report | Should | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 

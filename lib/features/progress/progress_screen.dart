@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/content/models/enums.dart' show CefrLevel;
 import 'package:ratel/core/core.dart';
-import 'package:ratel/services/preferences/app_settings.dart';
 
 /// Progress dashboard (📊) — design spec §4.13, reached from the Profile
 /// "View progress →" banner (`/progress`). Built HONESTLY from the REAL learner
@@ -27,11 +26,11 @@ class ProgressScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final LearnerSnapshot snap = ref.watch(learnerControllerProvider);
     final int words = ref.watch(savedWordsControllerProvider).count;
-    final AppSettings settings = ref.watch(appSettingsControllerProvider);
+    final DailyGoalStatus goalStatus = ref.watch(dailyGoalProvider);
 
     final String level = snap.level.name.toUpperCase();
-    final int goal = settings.dailyGoal <= 0 ? 1 : settings.dailyGoal;
-    final double ringVal = (snap.xpToday / goal).clamp(0.0, 1.0);
+    final int goal = goalStatus.goal;
+    final double ringVal = goalStatus.fraction;
 
     return Scaffold(
       backgroundColor: RatelColors.cream,
@@ -60,7 +59,7 @@ class ProgressScreen extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(
               RatelSpace.screen, RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
           children: <Widget>[
-            _hero(level, snap, goal, ringVal),
+            _hero(level, snap, goal, ringVal, goalStatus.met),
             const SizedBox(height: RatelSpace.cardGap),
             _stats(snap, words, goal, level),
             const SizedBox(height: RatelSpace.lg),
@@ -93,7 +92,7 @@ class ProgressScreen extends ConsumerWidget {
     );
   }
 
-  Widget _hero(String level, LearnerSnapshot snap, int goal, double ringVal) {
+  Widget _hero(String level, LearnerSnapshot snap, int goal, double ringVal, bool met) {
     return RatelCard(
       gradient: const LinearGradient(
         colors: <Color>[RatelColors.blue, RatelColors.navy],
@@ -123,7 +122,7 @@ class ProgressScreen extends ConsumerWidget {
                         fontSize: RatelType.small,
                         color: RatelColors.onColor)),
                 const SizedBox(height: RatelSpace.sm),
-                Text("Today's goal · ${snap.xpToday}/$goal XP",
+                Text("Today's goal · ${snap.xpToday}/$goal XP${met ? ' ✓' : ''}",
                     style: const TextStyle(
                         fontFamily: RatelFont.body,
                         fontSize: RatelType.small,

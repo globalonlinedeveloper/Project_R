@@ -28,6 +28,7 @@ class SettingsScreen extends ConsumerWidget {
     final AppSettings s = ref.watch(appSettingsControllerProvider);
     final AppSettingsController c =
         ref.read(appSettingsControllerProvider.notifier);
+    final DailyGoalStatus goalStatus = ref.watch(dailyGoalProvider);
     final bool isPro = ref.watch(isProProvider);
     final Identity identity = ref.watch(identityProvider);
 
@@ -58,7 +59,9 @@ class SettingsScreen extends ConsumerWidget {
             leadingEmoji: '🎯',
             leadingColor: RatelColors.teal,
             title: 'Daily goal',
-            subtitle: '${s.dailyGoal} XP per day',
+            subtitle: goalStatus.met
+                ? '${s.dailyGoal} XP per day · ✓ reached today'
+                : '${s.dailyGoal} XP per day',
             onTap: () => _pickGoal(context, c, s.dailyGoal),
           ),
           const SizedBox(height: RatelSpace.sm),

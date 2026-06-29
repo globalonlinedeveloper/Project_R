@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/quests/quests_controller.dart';
-import 'package:ratel/services/preferences/app_settings.dart';
 import 'package:ratel/services/quests/quests.dart';
 
 /// Quests tab (🎯) — design spec §4.4 [R-I7]. REAL: the DAILY GOAL (today's XP
@@ -21,9 +20,9 @@ class QuestsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final LearnerSnapshot snap = ref.watch(learnerControllerProvider);
-    final AppSettings settings = ref.watch(appSettingsControllerProvider);
-    final int goal = settings.dailyGoal <= 0 ? 1 : settings.dailyGoal;
-    final double goalVal = (snap.xpToday / goal).clamp(0.0, 1.0);
+    final DailyGoalStatus goalStatus = ref.watch(dailyGoalProvider);
+    final int goal = goalStatus.goal;
+    final double goalVal = goalStatus.fraction;
     final List<QuestProgress> quests = ref.watch(questsProvider);
     final int questsDone =
         quests.where((QuestProgress p) => p.done).length;
@@ -49,7 +48,7 @@ class QuestsScreen extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text('Reach $goal XP today',
+                        Text(goalStatus.met ? 'Daily goal reached! 🎉' : 'Reach $goal XP today',
                             style: const TextStyle(
                                 fontFamily: RatelFont.display,
                                 fontWeight: RatelType.extraBold,
