@@ -41,7 +41,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-A4 | UI/gloss launch set & any-to-any cell-lighting | Must | Stage1 | Built ✅ | — | — |
 | R-A5 | Hindi/Swahili provisional-promotion rule | Must | Spec | Spec/cross ▫ | — | — |
 | R-A6 | Pilot scope & schema-conformance exit gate | Must | Stage1 | Built ✅ | — | — |
-| R-A7 | Pilot CEFR content scope | Must | Stage1 | Built ✅ | — | — |
+| R-A7 | Pilot CEFR content scope | Must | Stage1 | Built ✅ | — | `content_course_spine.dart`, `course_spine_test.dart` |
 | R-A8 | Launch-minimum bar & wave policy | Must | Spec | Spec/cross ▫ | — | — |
 
 ## Part B — Learning model & curriculum
@@ -50,12 +50,12 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 |----|-------------|--------|-------|--------|------|----------|
 | R-B1 | CEFR can-do spine ratification | Must | Stage1 | Built ✅ | — | — |
 | R-B2 | Skill/Concept prerequisite graph | Must | Stage1 | Built ✅ | — | — |
-| R-B3 | Course-Section-Unit-Lesson containers & path rendering | Must | Stage1 | Built ✅ | — | — |
+| R-B3 | Course-Section-Unit-Lesson containers & path rendering | Must | Stage1 | Built ✅ | — | `content_wiring.dart`, `content_course_spine.dart`, `home_screen.dart`, `course_spine.dart` +1 |
 | R-B4 | TBLT task model + tap-to-define | Must | Stage1 | Built ✅ | — | — |
 | R-B5 | Depth-as-data & CEFR-ceiling enforcement | Must | Stage1 | Built ✅ | — | — |
 | R-B6 | Native realization & divergence nodes | Must | Stage1 | Built ✅ | — | — |
 | R-B7 | Pair-specific / contrastive layer | Must | Stage1 | Built ✅ | — | — |
-| R-B8 | Content difficulty model (IRT + cold-start) | Must | Stage1 | Built ✅ | — | — |
+| R-B8 | Content difficulty model (IRT + cold-start) | Must | Stage1 | Built ✅ | — | `content_course_spine.dart`, `course_spine.dart` |
 
 ## Part C — Content data model
 

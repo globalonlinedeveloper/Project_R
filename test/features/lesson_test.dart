@@ -6,6 +6,7 @@ import 'package:ratel/app/ratel_app.dart';
 import 'package:ratel/app/router.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/lesson/lesson_runner_screen.dart';
+import 'package:ratel/features/learning_path/course_spine.dart';
 
 // The §4.7 lesson runner — REAL CAT/IRT/θ selection + ability fold over a
 // hand-authored bank; finishing awards real XP + saves real words. No mockup
@@ -25,6 +26,15 @@ Future<void> _pump(WidgetTester tester, ProviderContainer c) async {
   await tester.pumpAndSettle();
 }
 
+/// Minimal content-free spine so Home renders one active node to start from.
+const CourseSpine _spine = CourseSpine(courseCode: 'es', units: <CourseUnit>[
+  CourseUnit(section: 'SECTION 1 \u00b7 LEVEL A1', title: 'Level A1', lessons: <CourseLesson>[
+    CourseLesson(id: 'l1', title: 'Saludos', cefr: 'A1', exercises: <CourseExercise>[
+      CourseExercise(id: 'i1', exerciseType: 'mcq', prompt: 'hi', accepted: <String>['hola']),
+    ]),
+  ]),
+]);
+
 void main() {
   test('/daily-quiz is removed from the coming-soon stubs (route promoted)', () {
     expect(
@@ -35,7 +45,10 @@ void main() {
 
   testWidgets('Home → Start lesson opens the REAL runner, not the stub',
       (WidgetTester tester) async {
-    await tester.pumpWidget(const ProviderScope(child: RatelApp()));
+    await tester.pumpWidget(ProviderScope(
+      overrides: <Override>[courseSpineProvider.overrideWithValue(_spine)],
+      child: const RatelApp(),
+    ));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const ValueKey<String>('home-active-node')));
     await tester.pumpAndSettle();

@@ -1,0 +1,802 @@
+{
+  "batch_id": "batch_es_course_0001",
+  "schema_version": "2020-12-1",
+  "locale": "es",
+  "tables": {
+    "locale": [
+      {
+        "code": "es",
+        "name": "Español",
+        "direction": "ltr",
+        "plural_categories": [
+          "one",
+          "other"
+        ],
+        "script_meta": {
+          "script": "Latn",
+          "uses_spaces": true
+        },
+        "tts_tier": "hd",
+        "pron_tier": "asr",
+        "pron_method": "asr",
+        "cefr_ceiling": "C2"
+      }
+    ],
+    "vocab_entry": [
+      {
+        "vocab_id": "vocab_hola_es",
+        "locale": "es",
+        "lemma": "hola",
+        "pos": "intj",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_manzana_es",
+        "locale": "es",
+        "lemma": "manzana",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_pan_es",
+        "locale": "es",
+        "lemma": "pan",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_comer_es",
+        "locale": "es",
+        "lemma": "comer",
+        "pos": "verb",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_libro_es",
+        "locale": "es",
+        "lemma": "libro",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "sense": [
+      {
+        "sense_id": "sense_hola",
+        "vocab_id": "vocab_hola_es",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_manzana",
+        "vocab_id": "vocab_manzana_es",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_pan",
+        "vocab_id": "vocab_pan_es",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_comer",
+        "vocab_id": "vocab_comer_es",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_libro",
+        "vocab_id": "vocab_libro_es",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "sentence": [
+      {
+        "sentence_id": "sent_es_1",
+        "locale": "es",
+        "target_text": "Yo como pan.",
+        "tokens": [
+          {
+            "surface": "Yo"
+          },
+          {
+            "surface": "como",
+            "lemma_ref": "vocab_comer_es",
+            "features": {
+              "tense": "pres",
+              "person": "1"
+            }
+          },
+          {
+            "surface": "pan",
+            "lemma_ref": "vocab_pan_es"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sent_es_2",
+        "locale": "es",
+        "target_text": "Ella lee un libro.",
+        "tokens": [
+          {
+            "surface": "Ella"
+          },
+          {
+            "surface": "lee",
+            "features": {
+              "tense": "pres",
+              "person": "3"
+            }
+          },
+          {
+            "surface": "un"
+          },
+          {
+            "surface": "libro",
+            "lemma_ref": "vocab_libro_es"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "grammar_point": [
+      {
+        "grammar_id": "skill_es_greetings",
+        "locale": "es",
+        "name": "Saludos",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "grammar_id": "skill_es_food",
+        "locale": "es",
+        "name": "Comida y bebida",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "grammar_id": "skill_es_articles",
+        "locale": "es",
+        "name": "Artículos: el / la",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "grammar_id": "skill_es_numbers",
+        "locale": "es",
+        "name": "Números 1–5",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "grammar_id": "skill_es_present",
+        "locale": "es",
+        "name": "Presente simple",
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "grammar_id": "skill_es_questions",
+        "locale": "es",
+        "name": "Preguntas básicas",
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "item": [
+      {
+        "item_id": "item_es_greet_1",
+        "locale": "es",
+        "exercise_type": "mcq",
+        "enum_version": 1,
+        "prompt_ref": "prompt_item_es_greet_1",
+        "answer_spec": {
+          "accepted": [
+            "hola"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "strip_diacritics": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_greetings"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.4,
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_es_greet_2",
+        "locale": "es",
+        "exercise_type": "translate",
+        "enum_version": 1,
+        "prompt_ref": "prompt_item_es_greet_2",
+        "answer_spec": {
+          "accepted": [
+            "buenos días",
+            "buenos dias"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "strip_diacritics": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_greetings"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.0,
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_es_food_1",
+        "locale": "es",
+        "exercise_type": "mcq",
+        "enum_version": 1,
+        "prompt_ref": "prompt_item_es_food_1",
+        "answer_spec": {
+          "accepted": [
+            "la manzana",
+            "manzana"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "strip_diacritics": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_food"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.3,
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_es_food_2",
+        "locale": "es",
+        "exercise_type": "translate",
+        "enum_version": 1,
+        "prompt_ref": "prompt_item_es_food_2",
+        "answer_spec": {
+          "accepted": [
+            "yo como pan",
+            "como pan"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "strip_diacritics": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_food"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.7,
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_es_art_1",
+        "locale": "es",
+        "exercise_type": "cloze",
+        "enum_version": 1,
+        "prompt_ref": "prompt_item_es_art_1",
+        "answer_spec": {
+          "accepted": [
+            "la"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "strip_diacritics": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_articles"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.1,
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_es_num_1",
+        "locale": "es",
+        "exercise_type": "mcq",
+        "enum_version": 1,
+        "prompt_ref": "prompt_item_es_num_1",
+        "answer_spec": {
+          "accepted": [
+            "tres"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "strip_diacritics": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_numbers"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.2,
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_es_present_1",
+        "locale": "es",
+        "exercise_type": "translate",
+        "enum_version": 1,
+        "prompt_ref": "prompt_item_es_present_1",
+        "answer_spec": {
+          "accepted": [
+            "ella lee un libro",
+            "lee un libro"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "strip_diacritics": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_present"
+        ],
+        "cefr_level": "A2",
+        "difficulty_band": "core",
+        "irt_b": -0.4,
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_es_quest_1",
+        "locale": "es",
+        "exercise_type": "translate",
+        "enum_version": 1,
+        "prompt_ref": "prompt_item_es_quest_1",
+        "answer_spec": {
+          "accepted": [
+            "cuánto cuesta",
+            "cuanto cuesta",
+            "¿cuánto cuesta?"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "strip_diacritics": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_questions"
+        ],
+        "cefr_level": "A2",
+        "difficulty_band": "core",
+        "irt_b": -0.2,
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ],
+    "gloss": [
+      {
+        "content_id": "prompt_item_es_greet_1",
+        "content_kind": "prompt",
+        "ui_locale": "en",
+        "text": "How do you say \"hello\" in Spanish?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_item_es_greet_2",
+        "content_kind": "prompt",
+        "ui_locale": "en",
+        "text": "Translate to Spanish: \"Good morning\"",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_item_es_food_1",
+        "content_kind": "prompt",
+        "ui_locale": "en",
+        "text": "Which Spanish word means \"the apple\"?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_item_es_food_2",
+        "content_kind": "prompt",
+        "ui_locale": "en",
+        "text": "Translate to Spanish: \"I eat bread\"",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_item_es_art_1",
+        "content_kind": "prompt",
+        "ui_locale": "en",
+        "text": "Fill the blank: \"___ manzana\" (the apple)",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_item_es_num_1",
+        "content_kind": "prompt",
+        "ui_locale": "en",
+        "text": "Which Spanish word means \"three\"?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_item_es_present_1",
+        "content_kind": "prompt",
+        "ui_locale": "en",
+        "text": "Translate to Spanish: \"She reads a book\"",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_item_es_quest_1",
+        "content_kind": "prompt",
+        "ui_locale": "en",
+        "text": "Translate to Spanish: \"How much is it?\"",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "sense_hola",
+        "content_kind": "sense",
+        "ui_locale": "en",
+        "text": "hello",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "sense_manzana",
+        "content_kind": "sense",
+        "ui_locale": "en",
+        "text": "apple",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "sense_pan",
+        "content_kind": "sense",
+        "ui_locale": "en",
+        "text": "bread",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "sense_comer",
+        "content_kind": "sense",
+        "ui_locale": "en",
+        "text": "to eat",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "sense_libro",
+        "content_kind": "sense",
+        "ui_locale": "en",
+        "text": "book",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-06-23T00:00:00Z"
+        }
+      }
+    ]
+  }
+}

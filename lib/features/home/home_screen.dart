@@ -4,64 +4,45 @@ import 'package:go_router/go_router.dart';
 
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
+import 'package:ratel/features/learning_path/course_spine.dart';
 
 /// Home tab (🏠) — the learning path, design spec §4.1. A Duolingo-style winding
-/// path of lesson nodes. The node STATES (done / active / locked) are 100% REAL:
-/// derived from `lessonsCompleted` on the learner snapshot — a fresh account has
-/// node 0 active and everything after it locked. Tapping the active node opens
-/// the lesson-preview sheet (§4.6).
+/// path of lesson nodes.
 ///
-/// HONESTY: the curriculum OUTLINE below (unit + lesson names) is authored
-/// starter course content — NOT fabricated user progress. The full content-
-/// driven spine (units/lessons served from the `lib/content` seed batch through
-/// the content layer) is a follow-up; it needs the codegen content models, which
-/// are intentionally kept out of this locally-gated feature layer for now.
+/// CONTENT-DRIVEN SPINE (queue #H): the units / lessons / exercise counts are
+/// now projected from the authored `ContentBatch` (via [courseSpineProvider],
+/// injected at app root from `lib/content`) — NOT a hand-written outline. The
+/// node STATES (done / active / locked) stay 100% REAL: derived from
+/// `lessonsCompleted` on the learner snapshot, so a fresh account has node 0
+/// active and everything after it locked. Tapping the active node opens the
+/// lesson-preview sheet (§4.6).
+///
+/// HONESTY (§6 / charter "don't fake depth"): every title + the per-lesson
+/// exercise count is real authored content. If no course is wired (the bundled
+/// batch failed to load) the path shows an honest empty state — never a
+/// fabricated curriculum. Wiring each lesson's exercises INTO the runner is the
+/// next increment (#H2); today "Start lesson" opens the adaptive runner.
+/// [R-B3] Course→Section→Unit→Lesson containers & path rendering.
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
-  static const List<({String section, String unit, List<String> lessons})>
-      _outline = <({String section, String unit, List<String> lessons})>[
-    (
-      section: 'SECTION 1 · BASICS',
-      unit: 'Greetings',
-      lessons: <String>['Hello & goodbye', 'Introduce yourself', 'Polite words']
-    ),
-    (
-      section: 'SECTION 1 · BASICS',
-      unit: 'At the café',
-      lessons: <String>['Order a drink', 'Numbers 1–10', 'Pay the bill']
-    ),
-    (
-      section: 'SECTION 2 · GETTING AROUND',
-      unit: 'At the market',
-      lessons: <String>['Fruit & veg', 'How much is it?', 'Colours']
-    ),
-    (
-      section: 'SECTION 2 · GETTING AROUND',
-      unit: 'Directions',
-      lessons: <String>['Left & right', 'Where is…?', 'On the metro']
-    ),
-  ];
-
-  static List<_Node> _flatten() {
+  static List<_Node> _flatten(CourseSpine spine) {
     final List<_Node> out = <_Node>[];
     int gi = 0;
-    String? lastSection;
-    for (final ({String section, String unit, List<String> lessons}) u
-        in _outline) {
-      final bool sectionStart = u.section != lastSection;
-      lastSection = u.section;
+    for (final CourseUnit u in spine.units) {
       for (int i = 0; i < u.lessons.length; i++) {
+        final CourseLesson l = u.lessons[i];
         out.add(_Node(
           section: u.section,
-          unit: u.unit,
-          lesson: u.lessons[i],
+          unit: u.title,
+          lesson: l.title,
+          cefr: l.cefr,
+          exercises: l.exerciseCount,
           globalIndex: gi,
           lessonNum: i + 1,
           lessonCount: u.lessons.length,
           inUnit: i,
-          unitStart: i == 0,
-          sectionStart: sectionStart && i == 0,
+          sectionStart: i == 0,
         ));
         gi++;
       }
@@ -72,7 +53,13 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final LearnerSnapshot snap = ref.watch(learnerControllerProvider);
-    final List<_Node> nodes = _flatten();
+    final CourseSpine spine = ref.watch(courseSpineProvider);
+
+    if (spine.isEmpty) {
+      return _emptyState(snap.streakDays);
+    }
+
+    final List<_Node> nodes = _flatten(spine);
     final int active = snap.lessonsCompleted;
     final _Node current = nodes[active.clamp(0, nodes.length - 1)];
 
@@ -87,7 +74,9 @@ class HomeScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 RatelTopBar(
-                    flagEmoji: '🇪🇸', langCode: 'ES', streak: snap.streakDays),
+                    flagEmoji: _flagFor(spine.courseCode),
+                    langCode: _langFor(spine.courseCode),
+                    streak: snap.streakDays),
                 _unitBanner(context, current),
                 Expanded(
                   child: ListView.builder(
@@ -104,6 +93,51 @@ class HomeScreen extends ConsumerWidget {
               right: RatelSpace.lg,
               bottom: RatelSpace.lg,
               child: _tutorPill(context),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _emptyState(int streak) {
+    return Container(
+      key: const ValueKey<String>('tab-home'),
+      color: RatelColors.cream,
+      child: SafeArea(
+        bottom: false,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            RatelTopBar(flagEmoji: '🦡', langCode: '', streak: streak),
+            const Expanded(
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.all(RatelSpace.xl),
+                  child: Column(
+                    key: ValueKey<String>('home-empty'),
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text('🦡', style: TextStyle(fontSize: 48)),
+                      SizedBox(height: RatelSpace.md),
+                      Text('Your course is getting ready',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: RatelFont.display,
+                              fontWeight: RatelType.extraBold,
+                              fontSize: RatelType.screenTitle,
+                              color: RatelColors.ink)),
+                      SizedBox(height: RatelSpace.xs),
+                      Text('Lessons will appear here once your course content loads.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: RatelFont.body,
+                              fontSize: RatelType.body,
+                              color: RatelColors.muted)),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ],
         ),
@@ -269,6 +303,8 @@ class HomeScreen extends ConsumerWidget {
   }
 
   void _showPreview(BuildContext context, _Node n) {
+    final String exLabel =
+        n.exercises == 1 ? '1 exercise' : '${n.exercises} exercises';
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: RatelColors.white,
@@ -295,8 +331,7 @@ class HomeScreen extends ConsumerWidget {
                     fontSize: RatelType.screenTitle,
                     color: RatelColors.ink)),
             const SizedBox(height: 4),
-            Text(
-                'Lesson ${n.lessonNum} of ${n.lessonCount} · 8 quick exercises.',
+            Text('Lesson ${n.lessonNum} of ${n.lessonCount} · $exLabel · ${n.cefr}.',
                 style: const TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.body,
@@ -341,29 +376,48 @@ class HomeScreen extends ConsumerWidget {
       ),
     );
   }
+
+  static String _flagFor(String code) {
+    switch (code) {
+      case 'es':
+        return '🇪🇸';
+      case 'en':
+        return '🇬🇧';
+      case 'ja':
+        return '🇯🇵';
+      case 'ta':
+        return '🇮🇳';
+      default:
+        return '🦡';
+    }
+  }
+
+  static String _langFor(String code) => code.toUpperCase();
 }
 
-/// One lesson node on the path (authored outline + REAL position).
+/// One lesson node on the path (authored content + REAL position).
 class _Node {
   const _Node({
     required this.section,
     required this.unit,
     required this.lesson,
+    required this.cefr,
+    required this.exercises,
     required this.globalIndex,
     required this.lessonNum,
     required this.lessonCount,
     required this.inUnit,
-    required this.unitStart,
     required this.sectionStart,
   });
 
   final String section;
   final String unit;
   final String lesson;
+  final String cefr;
+  final int exercises;
   final int globalIndex;
   final int lessonNum;
   final int lessonCount;
   final int inUnit;
-  final bool unitStart;
   final bool sectionStart;
 }
