@@ -1,79 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-/// RATEL entrypoint — minimal boot during the Session 35 UI reset.
-///
-/// The full front end (design system + every screen + the auth/settings/Supabase
-/// wiring) was removed in the S35 teardown so each screen can be rebuilt from
-/// the owner's Claude designs. The backend engines survive untouched in
-/// `lib/services/**` and `lib/content/**` (and in git history) and will be wired
-/// back in as the new screens land. The live site shows the placeholder below
-/// while that rebuild is in progress.
-void main() {
-  runApp(const ProviderScope(child: RatelApp()));
-}
+import 'package:ratel/services/preferences/prefs_settings_store.dart';
 
-/// Placeholder app shell shown while the UI is rebuilt. A bare Material app with
-/// a single "rebuilding" scaffold — no routing, no design system, no backend
-/// wiring yet (intentionally minimal so `main` always boots and deploys).
-class RatelApp extends StatelessWidget {
-  const RatelApp({super.key});
+import 'app/backend_wiring.dart';
+import 'app/content_wiring.dart';
+import 'app/ratel_app.dart';
+import 'features/settings/settings_controller.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Ratel',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: const Color(0xFFEF9F27),
-        brightness: Brightness.light,
-      ),
-      home: const _RebuildingScaffold(),
+/// RATEL entrypoint — boots the design-system theme + the go_router 5-tab shell.
+/// Best-effort wirings, each failing safe to a local default so the app ALWAYS
+/// boots: (1) the Supabase-backed data-access + identity seams when the build
+/// carries the publishable config (else in-memory / guest); (2) on-device
+/// settings persistence (else in-memory settings); (3) the authored course
+/// spine projected from the bundled content batch (else an honest empty path).
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final List<Override> overrides = <Override>[];
+
+  // (1) Backend seams: live Supabase when configured, else local defaults.
+  overrides.addAll(await initBackendOverrides());
+
+  // (2) On-device settings persistence (best-effort).
+  try {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    overrides.add(
+      settingsStoreProvider.overrideWithValue(PrefsSettingsStore(prefs)),
     );
+  } catch (_) {
+    // keep the in-memory settings default
   }
-}
 
-class _RebuildingScaffold extends StatelessWidget {
-  const _RebuildingScaffold();
+  // (3) Content-driven learning path: project the bundled course batch.
+  overrides.addAll(await initContentOverrides());
 
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  'Ratel',
-                  style: theme.textTheme.displaySmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: theme.colorScheme.primary,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  "We're rebuilding the experience.",
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.titleMedium,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Check back soon.',
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  runApp(ProviderScope(overrides: overrides, child: const RatelApp()));
 }

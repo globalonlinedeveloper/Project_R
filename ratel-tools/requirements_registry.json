@@ -462,12 +462,12 @@
     "R-H1": {
       "moscow": "Must",
       "phase": "Stage3",
-      "status": "Pending 🔒"
+      "status": "Partial 🟨"
     },
     "R-H2": {
       "moscow": "Must",
       "phase": "Stage3",
-      "status": "Pending 🔒"
+      "status": "Partial 🟨"
     },
     "R-H3": {
       "moscow": "Must",
@@ -547,7 +547,7 @@
     "R-J1": {
       "moscow": "Must",
       "phase": "Stage3",
-      "status": "Pending 🔒"
+      "status": "Partial 🟨"
     },
     "R-J2": {
       "moscow": "Must",
