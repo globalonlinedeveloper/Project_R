@@ -185,6 +185,21 @@ void main() {
       expect(c.read(learnerControllerProvider).xpTotal, 40); // lifetime total
     });
 
+    test('refreshDay re-derives day-scoped surfaces without new activity', () {
+      DateTime clock = DateTime(2026, 6, 29, 9);
+      final ProviderContainer c = _container(() => clock, goal: 20);
+      addTearDown(c.dispose);
+      final LearnerController n = c.read(learnerControllerProvider.notifier);
+      n.recordLessonComplete(xp: 20); // day 1 → streak 1, xpToday 20
+      expect(c.read(learnerControllerProvider).streakDays, 1);
+      clock = DateTime(2026, 7, 1, 9); // a day was missed while away
+      n.refreshDay(); // the app-resume hook — no new XP earned
+      final LearnerSnapshot snap = c.read(learnerControllerProvider);
+      expect(snap.streakDays, 0); // lapse surfaced without a mutation
+      expect(snap.xpToday, 0); // reset at the boundary
+      expect(snap.xpTotal, 20); // lifetime XP intact
+    });
+
     test('persists streak_last_active and continues the run after rehydrate',
         () async {
       DateTime clock = DateTime(2026, 6, 29, 9);

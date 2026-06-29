@@ -214,6 +214,16 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _persist();
   }
 
+  /// Re-derive the surfaced snapshot for the CURRENT clock day WITHOUT mutating
+  /// stored progress. The day-scoped surfaces (the lapsing streak + the
+  /// xpToday reset) are computed in [_derive] against the injected clock, but a
+  /// cached [Notifier] snapshot only recomputes on a mutation or rebuild — so
+  /// the app shell calls this on resume to refresh them across a day boundary
+  /// even when the learner has done nothing yet.
+  void refreshDay() {
+    state = _derive();
+  }
+
   /// Reset to the cold-start state (sign-out / testing). Clears in-memory state
   /// only — it deliberately does NOT wipe the durable store.
   void reset() {
