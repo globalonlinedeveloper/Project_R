@@ -26,7 +26,7 @@ class ProgressScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final LearnerSnapshot snap = ref.watch(learnerControllerProvider);
-    final int words = ref.watch(savedWordsControllerProvider);
+    final int words = ref.watch(savedWordsControllerProvider).count;
     final AppSettings settings = ref.watch(appSettingsControllerProvider);
 
     final String level = snap.level.name.toUpperCase();

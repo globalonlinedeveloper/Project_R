@@ -53,9 +53,9 @@ void main() {
     final SavedWordsController ctrl =
         c.read(savedWordsControllerProvider.notifier);
     expect(ctrl.save('Hola'), SavedWordDisposition.admitted);
-    expect(c.read(savedWordsControllerProvider), 1);
+    expect(c.read(savedWordsControllerProvider).count, 1);
     expect(ctrl.save('  hola '), SavedWordDisposition.duplicate);
-    expect(c.read(savedWordsControllerProvider), 1);
+    expect(c.read(savedWordsControllerProvider).count, 1);
   });
 
   test('AppSettingsController writes back through the store', () async {

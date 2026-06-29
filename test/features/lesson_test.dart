@@ -110,6 +110,6 @@ void main() {
     final LearnerSnapshot snap = c.read(learnerControllerProvider);
     expect(snap.lessonsCompleted, 1);
     expect(snap.xpTotal, 20);
-    expect(c.read(savedWordsControllerProvider), greaterThan(0));
+    expect(c.read(savedWordsControllerProvider).count, greaterThan(0));
   });
 }

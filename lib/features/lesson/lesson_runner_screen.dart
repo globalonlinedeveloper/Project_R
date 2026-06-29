@@ -207,7 +207,8 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
   };
 
   final Set<String> _seen = <String>{};
-  final List<String> _savedWords = <String>[];
+  final List<({String word, String? glyph})> _savedWords =
+      <({String word, String? glyph})>[];
   int _correct = 0;
 
   CatItem? _current;
@@ -260,7 +261,10 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
     if (correct) {
       _correct += 1;
       if (it.saveWord != null) {
-        _savedWords.add(it.saveWord!);
+        _savedWords.add((
+          word: it.saveWord!,
+          glyph: it.options.isNotEmpty ? it.options.first.emoji : null,
+        ));
       }
     }
     setState(() {
@@ -292,8 +296,8 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         .read(learnerControllerProvider.notifier)
         .recordLessonComplete(xp: _kLessonXp);
     final words = ref.read(savedWordsControllerProvider.notifier);
-    for (final String w in _savedWords) {
-      words.save(w);
+    for (final ({String word, String? glyph}) w in _savedWords) {
+      words.save(w.word, glyph: w.glyph);
     }
     setState(() => _done = true);
   }

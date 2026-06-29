@@ -13,6 +13,7 @@ import 'package:ratel/features/lesson/lesson_runner_screen.dart';
 import 'package:ratel/features/library/library_screen.dart';
 import 'package:ratel/features/onboarding/onboarding_screen.dart';
 import 'package:ratel/features/onboarding/placement_quiz_screen.dart';
+import 'package:ratel/features/practice/practice_hub_screen.dart';
 import 'package:ratel/features/profile/profile_screen.dart';
 import 'package:ratel/features/progress/progress_screen.dart';
 import 'package:ratel/features/quests/quests_screen.dart';
@@ -148,6 +149,11 @@ GoRouter buildRouter() {
         path: '/daily-quiz',
         builder: (BuildContext context, GoRouterState state) =>
             const LessonRunnerScreen(),
+      ),
+      GoRoute(
+        path: '/practice',
+        builder: (BuildContext context, GoRouterState state) =>
+            const PracticeHubScreen(),
       ),
       GoRoute(
         path: '/login',

@@ -74,7 +74,7 @@ class LibraryScreen extends ConsumerWidget {
                     leadingColor: RatelColors.green,
                     title: 'Practice hub',
                     subtitle: 'Mistakes, weak words & drills · FREE',
-                    onTap: () => context.push('/daily-quiz'),
+                    onTap: () => context.push('/practice'),
                   ),
                   const SizedBox(height: RatelSpace.lg),
                   const RatelSectionHeader(label: 'Read & listen'),

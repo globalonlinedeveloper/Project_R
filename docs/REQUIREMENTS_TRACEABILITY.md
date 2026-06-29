@@ -135,11 +135,11 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-G2 | theta ability model (global + per-skill) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `lesson_runner_screen.dart`, `progress_screen.dart`, `ability.dart`, `lesson_test.dart` +2 |
 | R-G3 | IRT calibration (how hard each item is) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `irt.dart`, `irt_test.dart` |
 | R-G4 | CAT placement test | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `learner_controller.dart`, `onboarding_screen.dart`, `placement_quiz_screen.dart`, `cat.dart` +3 |
-| R-G5 | FSRS spaced-repetition scheduling | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `fsrs.dart`, `fsrs_test.dart` |
+| R-G5 | FSRS spaced-repetition scheduling | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `practice_hub_screen.dart`, `saved_words_controller.dart`, `fsrs.dart`, `practice_test.dart` +1 |
 | R-G6 | Learner-state entities (what gets stored) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `progress_screen.dart`, `supabase_learner_state_store.dart`, `learner_state.dart`, `user.schema.json` +3 |
 | R-G7 | Cold-start strategy (works from day one) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `learner_controller.dart`, `onboarding_screen.dart`, `placement_quiz_screen.dart`, `cold_start.dart` +3 |
 | R-G8 | Launch path-serving (how lessons are sequenced) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `path_serving.dart`, `path_serving_test.dart` |
-| R-G9 | Saved words - flashcards - graded review | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `lesson_runner_screen.dart`, `progress_screen.dart`, `saved_words.dart`, `lesson_test.dart` +2 |
+| R-G9 | Saved words - flashcards - graded review | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `lesson_runner_screen.dart`, `practice_hub_screen.dart`, `progress_screen.dart`, `saved_words_controller.dart` +5 |
 
 ## Part H — AI, tutor & conversation
 
@@ -263,7 +263,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-O1 | Phase-2 deliverables (local content model - NO DB) | Process | Stage1 | Built ✅ | — | `learner_controller.dart`, `progress_screen.dart`, `data_access.dart`, `settings_store.dart` +1 |
+| R-O1 | Phase-2 deliverables (local content model - NO DB) | Process | Stage1 | Built ✅ | — | `learner_controller.dart`, `practice_hub_screen.dart`, `progress_screen.dart`, `saved_words_controller.dart` +3 |
 | R-O2 | Phase-3 deliverables (DB + runtime + payments - gated, MONEY) | Process | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-O3 | Post-launch waves (tier climb, write/live-roleplay, RTL re-add) | Process | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
 | R-O4 | Risk register & mitigations | Process | Program | Spec/cross ▫ | — | — |
