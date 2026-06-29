@@ -181,6 +181,9 @@ abstract class UserCourse with _$UserCourse {
     @JsonKey(name: 'theta_per_skill') Map<String, Object?>? thetaPerSkill,
     @JsonKey(name: 'cefr_target') CefrLevel? cefrTarget,
     @JsonKey(name: 'xp_total') int? xpTotal,
+    @JsonKey(name: 'lessons_completed') int? lessonsCompleted,
+    @JsonKey(name: 'streak_days') int? streakDays,
+    @JsonKey(name: 'streak_last_active') String? streakLastActive,
     @JsonKey(name: 'created_at') required String createdAt,
     @JsonKey(name: 'updated_at') required String updatedAt,
   }) = _UserCourse;

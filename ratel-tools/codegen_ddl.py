@@ -44,7 +44,11 @@ PARTITIONS = {  # concrete monthly partitions (what pg_partman would automate)
         ("review_log_2026_07", "2026-07-01", "2026-08-01"),
     ],
 }
-UNIQUES = {"credit_ledger": [["client_event_id"]]}
+UNIQUES = {
+    "user_course": [["user_id", "target_locale"]],
+    "user_item_state": [["user_id", "item_id"]],
+    "credit_ledger": [["client_event_id"]],
+}
 INDEXES = {
     "user_item_state": [["user_id", "due"]],
     "review_log": [["user_id", "reviewed_at"]],
@@ -90,6 +94,8 @@ def pg_type(prop: dict, ctx: str) -> tuple[str, str | None]:
             return "timestamptz", None
         if fmt == "uuid":
             return "uuid", None
+        if fmt == "date":
+            return "date", None
         return "text", None
     if t == "integer":
         return "integer", None
