@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/adventures/adventures_screen.dart';
+import 'package:ratel/features/auth/login_screen.dart';
+import 'package:ratel/features/auth/signup_screen.dart';
 import 'package:ratel/features/common/coming_soon_screen.dart';
 import 'package:ratel/features/home/home_screen.dart';
 import 'package:ratel/features/leagues/leagues_screen.dart';
@@ -29,20 +31,6 @@ typedef ComingSoonRoute = ({
 });
 
 const List<ComingSoonRoute> kComingSoonRoutes = <ComingSoonRoute>[
-  (
-    path: '/login',
-    title: 'Log in',
-    emoji: '🔑',
-    blurb: 'Account login is coming next, wired to the real identity / '
-        'anonymous-claim engine.'
-  ),
-  (
-    path: '/signup',
-    title: 'Sign up',
-    emoji: '✉️',
-    blurb: 'Account sign-up is coming next, wired to the real identity / '
-        'anonymous-claim engine.'
-  ),
   (
     path: '/shop',
     title: 'Shop',
@@ -160,6 +148,20 @@ GoRouter buildRouter() {
         path: '/daily-quiz',
         builder: (BuildContext context, GoRouterState state) =>
             const LessonRunnerScreen(),
+      ),
+      GoRoute(
+        path: '/login',
+        builder: (BuildContext context, GoRouterState state) => LoginScreen(
+          onAuthenticated: () => context.go('/home'),
+          onSignUpInstead: () => context.pushReplacement('/signup'),
+        ),
+      ),
+      GoRoute(
+        path: '/signup',
+        builder: (BuildContext context, GoRouterState state) => SignupScreen(
+          onAuthenticated: () => context.go('/home'),
+          onSignInInstead: () => context.pushReplacement('/login'),
+        ),
       ),
       for (final ComingSoonRoute r in kComingSoonRoutes)
         GoRoute(

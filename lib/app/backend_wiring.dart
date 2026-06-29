@@ -11,6 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:ratel/services/data_access/data_access.dart';
+import 'package:ratel/services/auth/auth.dart';
 import 'package:ratel/services/data_access/supabase_learner_state_store.dart';
 import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/identity/supabase_identity.dart';
@@ -39,6 +40,8 @@ List<Override> backendOverridesForClient(SupabaseClient client) => <Override>[
           .overrideWithValue(SupabaseLearnerStateStore.fromClient(client)),
       identityProvider
           .overrideWithValue(SupabaseIdentity.fromClient(client)),
+      authServiceProvider
+          .overrideWithValue(SupabaseAuthService.fromClient(client)),
     ];
 
 /// Best-effort `main`-side wiring: when [supabaseConfigured], initialise the

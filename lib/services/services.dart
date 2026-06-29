@@ -9,6 +9,7 @@ export 'ai_relay/ai_relay.dart';
 export 'analytics/analytics.dart';
 export 'billing/billing.dart';
 export 'data_access/data_access.dart';
+export 'auth/auth.dart';
 export 'identity/identity.dart';
 export 'observability/observability.dart';
 export 'learning/learning.dart';
