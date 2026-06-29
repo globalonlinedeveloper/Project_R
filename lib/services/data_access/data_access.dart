@@ -21,3 +21,9 @@ class InMemoryLearnerStateStore implements LearnerStateStore {
 
 final learnerStateStoreProvider =
     Provider<LearnerStateStore>((ref) => InMemoryLearnerStateStore());
+
+/// Debounce window that coalesces a burst of learner mutations into ONE durable
+/// write-through (R-O1 persistence). Trailing-edge: the save captures the latest
+/// state. Tests override it to [Duration.zero] for a deterministic flush.
+final persistDebounceProvider =
+    Provider<Duration>((ref) => const Duration(milliseconds: 400));

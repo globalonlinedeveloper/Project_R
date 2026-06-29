@@ -1,4 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ratel/content/models/enums.dart' show FsrsState;
+import 'package:ratel/services/data_access/data_access.dart';
+import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/learning/fsrs.dart';
 import 'package:ratel/services/learning/saved_words.dart';
 
@@ -9,7 +12,7 @@ import 'package:ratel/services/learning/saved_words.dart';
 final clockProvider = Provider<DateTime Function()>((ref) => DateTime.now);
 
 /// One saved-word flashcard: its dedup [key], the display [word], an optional
-/// authored picture [glyph] (the lesson's correct-answer emoji — the meaning we
+/// authored picture [glyph] (the lesson's correct-answer emoji, the meaning we
 /// can honestly reveal), plus its REAL FSRS memory state and scheduled [dueAt].
 /// `dueAt == null` ⇒ a brand-new card, due immediately.
 class SavedWordCard {
@@ -106,21 +109,38 @@ class SavedWordsState {
 /// the saved cards, the REAL per-course dedup, and the FSRS due queue.
 ///
 /// HONEST (§6 / charter "don't fake depth"): dedup, the FSRS interval and the
-/// due-scheduling are REAL engine output; the scheduling state lives in-memory
-/// this build (like every R-O1 counter) — the durable cross-restart store
-/// (Supabase `user_item_state`) is the flagged go-live plug, NOT faked. The
-/// engine stays clockless; this layer owns the injected [clockProvider].
+/// due-scheduling are REAL engine output. When a real `auth.uid()` session
+/// exists, the FSRS scheduler state is REHYDRATED from + WRITTEN THROUGH to the
+/// Supabase `user_item_state` table (R-G6), so the review schedule survives a
+/// relaunch; a guest (`uid == null`) keeps the byte-identical in-memory queue.
+/// That table is a pure FSRS scheduler-state store (no surface-form / glyph
+/// columns), so a rehydrated card reviews recall-only off its normalized lemma —
+/// the durable memory state + due date are what persist. The engine stays
+/// clockless; this layer owns the injected [clockProvider].
 class SavedWordsController extends Notifier<SavedWordsState> {
   /// The active course (matches [LearnerController.courseId]).
   static const String courseId = 'es';
 
+  /// `user_item_state.item_id` prefix namespacing saved-word cards apart from
+  /// lesson-item FSRS rows (`sw:<courseId>:<normalizedLemma>`).
+  static const String itemIdPrefix = 'sw:';
+
   final SavedWordsModel _model = const SavedWordsModel();
   final Fsrs _fsrs = const Fsrs();
+
+  bool _hydrated = false;
+  bool _disposed = false;
+  bool _saving = false;
+  bool _dirty = false;
 
   DateTime _now() => ref.read(clockProvider)();
 
   @override
-  SavedWordsState build() => const SavedWordsState();
+  SavedWordsState build() {
+    ref.onDispose(() => _disposed = true);
+    _hydrate(); // fire-and-forget; no-op for a guest / once hydrated
+    return const SavedWordsState();
+  }
 
   Set<SavedWordKey> get _keys =>
       <SavedWordKey>{for (final SavedWordCard c in state.cards) c.key};
@@ -142,13 +162,14 @@ class SavedWordsController extends Notifier<SavedWordsState> {
         addedAt: _now(),
       );
       state = SavedWordsState(cards: <SavedWordCard>[...state.cards, card]);
+      _persist();
     }
     return decision.disposition;
   }
 
   /// Fold a graded flashcard [rating] for [key] through the REAL FSRS-6
   /// scheduler and reschedule its next due date (now + the engine's whole-day
-  /// interval). No-op if the key is unknown.
+  /// interval), then persist. No-op if the key is unknown.
   void review(SavedWordKey key, FsrsRating rating) {
     final int idx = state.cards.indexWhere((SavedWordCard c) => c.key == key);
     if (idx < 0) {
@@ -165,6 +186,7 @@ class SavedWordsController extends Notifier<SavedWordsState> {
     final List<SavedWordCard> next = <SavedWordCard>[...state.cards];
     next[idx] = updated;
     state = SavedWordsState(cards: next);
+    _persist();
   }
 
   /// Project (WITHOUT persisting) the whole-day interval [rating] would schedule
@@ -180,6 +202,147 @@ class SavedWordsController extends Notifier<SavedWordsState> {
 
   void reset() {
     state = const SavedWordsState();
+  }
+
+  // ── Durable persistence (R-G6 / R-M3) ────────────────────────────────────
+
+  /// FSRS lifecycle ↔ the stored `fsrs_state` enum wire value (matches the
+  /// schema `@JsonValue`s, so a row drops straight into `user_item_state`).
+  static const Map<FsrsState, String> _stateToWire = <FsrsState, String>{
+    FsrsState.new_: 'new',
+    FsrsState.learning: 'learning',
+    FsrsState.review: 'review',
+    FsrsState.relearning: 'relearning',
+  };
+
+  static FsrsState _stateFromWire(Object? wire) {
+    switch (wire) {
+      case 'learning':
+        return FsrsState.learning;
+      case 'review':
+        return FsrsState.review;
+      case 'relearning':
+        return FsrsState.relearning;
+      default:
+        return FsrsState.new_;
+    }
+  }
+
+  String _itemId(SavedWordKey key) =>
+      '$itemIdPrefix${key.courseId}:${key.normalizedLemma}';
+
+  /// The `user_item_state` seam row for [card] (the store stamps `user_id`).
+  Map<String, Object?> _itemRow(SavedWordCard card) {
+    final DateTime due = (card.dueAt ?? _now()).toUtc();
+    final int scheduled =
+        (card.lastReviewedAt != null && card.dueAt != null)
+            ? card.dueAt!.difference(card.lastReviewedAt!).inDays
+            : 0;
+    return <String, Object?>{
+      'item_id': _itemId(card.key),
+      'stability': card.fsrs.stability,
+      'difficulty': card.fsrs.difficulty,
+      'due': due.toIso8601String(),
+      'last_review': card.lastReviewedAt?.toUtc().toIso8601String(),
+      'reps': card.fsrs.reps,
+      'lapses': card.fsrs.lapses,
+      'scheduled_days': scheduled < 0 ? 0 : scheduled,
+      'state': _stateToWire[card.fsrs.state],
+    };
+  }
+
+  SavedWordCard? _cardFromRow(Map<Object?, Object?> row) {
+    final Object? id = row['item_id'];
+    if (id is! String || !id.startsWith(itemIdPrefix)) {
+      return null; // not a saved-word row (e.g. a lesson item) — ignore
+    }
+    final List<String> parts = id.substring(itemIdPrefix.length).split(':');
+    if (parts.length < 2) {
+      return null;
+    }
+    final String course = parts.first;
+    final String lemma = parts.sublist(1).join(':');
+    final FsrsCard fsrs = FsrsCard(
+      state: _stateFromWire(row['state']),
+      stability: (row['stability'] as num?)?.toDouble(),
+      difficulty: (row['difficulty'] as num?)?.toDouble(),
+      reps: (row['reps'] as num?)?.toInt() ?? 0,
+      lapses: (row['lapses'] as num?)?.toInt() ?? 0,
+    );
+    return SavedWordCard(
+      key: SavedWordKey(courseId: course, normalizedLemma: lemma),
+      word: lemma,
+      addedAt: _parseDate(row['created_at']) ?? _now(),
+      fsrs: fsrs,
+      dueAt: _parseDate(row['due']),
+      lastReviewedAt: _parseDate(row['last_review']),
+    );
+  }
+
+  static DateTime? _parseDate(Object? raw) =>
+      raw is String ? DateTime.tryParse(raw)?.toLocal() : null;
+
+  /// Rehydrate saved-word cards from the learner's `user_item_state` rows.
+  /// No-op for a guest (`uid == null`) or once hydrated, and a load failure
+  /// never breaks boot — so the flag-off path is byte-identical.
+  Future<void> _hydrate() async {
+    if (_hydrated) return;
+    final String? uid = ref.read(identityProvider).uid;
+    if (uid == null) return;
+    _hydrated = true;
+    final LearnerStateStore store = ref.read(learnerStateStoreProvider);
+    try {
+      final Map<String, Object?> data = await store.load(uid);
+      if (_disposed) return;
+      final Object? items = data['items'];
+      if (items is! List) return;
+      final List<SavedWordCard> cards = <SavedWordCard>[];
+      for (final Object? row in items) {
+        if (row is Map) {
+          final SavedWordCard? card = _cardFromRow(row.cast<Object?, Object?>());
+          if (card != null) cards.add(card);
+        }
+      }
+      if (cards.isNotEmpty) {
+        state = SavedWordsState(cards: cards);
+      }
+    } catch (_) {
+      // never break boot on a load failure — keep the empty queue
+    }
+  }
+
+  /// Mark dirty and (debounced) write all cards through. No-op for a guest.
+  void _persist() {
+    if (ref.read(identityProvider).uid == null) return;
+    _dirty = true;
+    _drain();
+  }
+
+  Future<void> _drain() async {
+    if (_saving) return;
+    _saving = true;
+    final Duration debounce = ref.read(persistDebounceProvider);
+    try {
+      while (_dirty && !_disposed) {
+        _dirty = false;
+        await Future<void>.delayed(debounce);
+        if (_disposed) return;
+        final String? uid = ref.read(identityProvider).uid;
+        if (uid == null) return;
+        final LearnerStateStore store = ref.read(learnerStateStoreProvider);
+        final List<Object?> rows = <Object?>[
+          for (final SavedWordCard c in state.cards) _itemRow(c),
+        ];
+        if (rows.isEmpty) continue;
+        try {
+          await store.save(uid, <String, Object?>{'items': rows});
+        } catch (_) {
+          // best-effort: a save failure must never break the session
+        }
+      }
+    } finally {
+      _saving = false;
+    }
   }
 }
 
