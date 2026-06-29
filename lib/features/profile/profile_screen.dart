@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/content/models/enums.dart' show CefrLevel;
 import 'package:ratel/core/core.dart';
+import 'package:ratel/features/achievements/achievements_controller.dart';
+import 'package:ratel/services/achievements/achievements.dart';
 import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/preferences/app_settings.dart';
 
@@ -12,8 +14,9 @@ import 'package:ratel/services/preferences/app_settings.dart';
 /// learner snapshot (CEFR level from θ via cold_start, XP, lessons completed,
 /// streak, saved words) and the REAL identity: a fresh install is a GUEST —
 /// never the mockup's "Alex Rivera · Level A2 · 1,240 XP". Design elements with
-/// no engine (achievements, leagues, "Top 3", friends) are honest "coming soon"
-/// rows, never fabricated (§6).
+/// the achievements grid is REAL (each badge unlocks from live learner
+/// state, §4.5); the remaining no-engine elements (leagues, "Top 3",
+/// friends) stay honest "coming soon" rows, never fabricated (§6).
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
@@ -24,6 +27,10 @@ class ProfileScreen extends ConsumerWidget {
     final Identity identity = ref.watch(identityProvider);
     final AppSettings settings = ref.watch(appSettingsControllerProvider);
     final String level = snap.level.name.toUpperCase();
+    final List<AchievementProgress> achievements =
+        ref.watch(achievementsProvider);
+    final int unlockedAch =
+        achievements.where((AchievementProgress p) => p.unlocked).length;
 
     return Container(
       key: const ValueKey<String>('tab-profile'),
@@ -41,9 +48,16 @@ class ProfileScreen extends ConsumerWidget {
             _progressBanner(context, level, snap, settings),
             const SizedBox(height: RatelSpace.lg),
             const RatelSectionHeader(label: 'Achievements'),
+            const SizedBox(height: RatelSpace.xs),
+            Text(
+              '$unlockedAch of ${achievements.length} unlocked · real progress',
+              style: const TextStyle(
+                  fontFamily: RatelFont.body,
+                  fontSize: RatelType.small,
+                  color: RatelColors.muted),
+            ),
             const SizedBox(height: RatelSpace.sm),
-            _comingSoonCard(
-                '🏅', 'Achievements unlock as you learn — coming soon.'),
+            _achievementsGrid(achievements),
             const SizedBox(height: RatelSpace.lg),
             const RatelSectionHeader(label: 'Account'),
             const SizedBox(height: RatelSpace.sm),
@@ -274,23 +288,66 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  Widget _comingSoonCard(String emoji, String text) => RatelCard(
-        color: RatelColors.cream2,
-        child: Row(
-          children: <Widget>[
-            Text(emoji, style: const TextStyle(fontSize: 22)),
-            const SizedBox(width: RatelSpace.md),
-            Expanded(
-              child: Text(text,
-                  style: const TextStyle(
-                      fontFamily: RatelFont.body,
-                      fontSize: RatelType.body,
-                      color: RatelColors.muted)),
-            ),
-            const RatelChip(label: 'Soon', tone: RatelChipTone.neutral),
+  /// The REAL §4.5 achievements grid — 3-up rows of badge tiles, each unlocked
+  /// state + progress computed live from the learner snapshot (never faked).
+  Widget _achievementsGrid(List<AchievementProgress> items) {
+    final List<Widget> rows = <Widget>[];
+    for (int i = 0; i < items.length; i += 3) {
+      final List<AchievementProgress> chunk = items.skip(i).take(3).toList();
+      rows.add(Row(
+        children: <Widget>[
+          for (int j = 0; j < 3; j++) ...<Widget>[
+            if (j > 0) const SizedBox(width: RatelSpace.cardGap),
+            if (j < chunk.length)
+              Expanded(child: _achievementTile(chunk[j]))
+            else
+              const Expanded(child: SizedBox()),
           ],
-        ),
-      );
+        ],
+      ));
+      if (i + 3 < items.length) {
+        rows.add(const SizedBox(height: RatelSpace.cardGap));
+      }
+    }
+    return Column(children: rows);
+  }
+
+  Widget _achievementTile(AchievementProgress p) {
+    final bool on = p.unlocked;
+    return RatelCard(
+      key: ValueKey<String>('achievement-${p.achievement.id}'),
+      color: on ? RatelColors.white : RatelColors.cream2,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Opacity(
+            opacity: on ? 1 : 0.35,
+            child: Text(p.achievement.emoji,
+                style: const TextStyle(fontSize: 30)),
+          ),
+          const SizedBox(height: RatelSpace.xs),
+          Text(p.achievement.title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: RatelFont.display,
+                  fontWeight: RatelType.semiBold,
+                  fontSize: RatelType.small,
+                  color: on ? RatelColors.ink : RatelColors.muted)),
+          const SizedBox(height: 2),
+          Text(on ? 'Unlocked' : '${p.current}/${p.target}',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  fontFamily: RatelFont.body,
+                  fontSize: RatelType.caption,
+                  fontWeight: on ? RatelType.semiBold : RatelType.regular,
+                  color: on ? RatelColors.green : RatelColors.muted)),
+        ],
+      ),
+    );
+  }
 
   String _levelName(CefrLevel l) {
     switch (l) {

@@ -36,4 +36,18 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Coming soon'), findsOneWidget);
   });
+
+  testWidgets('the achievements grid is REAL — a fresh account is all-locked with honest progress',
+      (WidgetTester tester) async {
+    await _toProfile(tester);
+    final Finder firstSteps =
+        find.byKey(const ValueKey<String>('achievement-first_steps'));
+    await tester.scrollUntilVisible(firstSteps, 150,
+        scrollable: find.byType(Scrollable).first);
+    expect(firstSteps, findsOneWidget);
+    expect(find.text('First Steps'), findsOneWidget);
+    // Nothing fabricated as earned on a brand-new account.
+    expect(find.text('Unlocked'), findsNothing);
+    expect(find.text('0/1'), findsWidgets); // First Steps needs 1 lesson
+  });
 }
