@@ -30,7 +30,7 @@ class AiTutorScreen extends ConsumerWidget {
         surfaceTintColor: context.palette.cream,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: context.palette.ink),
+          icon: Icon(RatelIcons.arrowBack, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
         title: Text('AI Tutor',

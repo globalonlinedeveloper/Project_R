@@ -17,7 +17,7 @@ class AuthBackButton extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: IconButton(
-        icon: Icon(Icons.arrow_back_rounded, color: context.palette.ink),
+        icon: Icon(RatelIcons.arrowBack, color: context.palette.ink),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
     );

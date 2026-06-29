@@ -130,7 +130,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   onTap: _back,
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Icon(Icons.arrow_back, color: context.palette.ink),
+                    child: Icon(RatelIcons.arrowBack, color: context.palette.ink),
                   ),
                 )
               : null,

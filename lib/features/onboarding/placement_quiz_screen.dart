@@ -125,7 +125,7 @@ class _PlacementQuizScreenState extends ConsumerState<PlacementQuizScreen> {
         surfaceTintColor: context.palette.cream,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.close, color: context.palette.ink),
+          icon: Icon(RatelIcons.close, color: context.palette.ink),
           onPressed: () => context.go('/home'),
         ),
         title: Text(

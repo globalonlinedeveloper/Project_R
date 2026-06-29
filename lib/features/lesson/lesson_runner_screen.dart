@@ -472,7 +472,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
                 key: const ValueKey<String>('lesson-close'),
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
-                icon: Icon(Icons.close, color: context.palette.ink),
+                icon: Icon(RatelIcons.close, color: context.palette.ink),
                 onPressed: () => context.go('/home'),
               ),
               const SizedBox(width: RatelSpace.md),

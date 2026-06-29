@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:ratel/core/core.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ratel/features/onboarding/onboarding_screen.dart';
 
@@ -115,7 +116,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('What do you want to learn?'), findsOneWidget);
 
-    await tester.tap(find.byIcon(Icons.arrow_back));
+    await tester.tap(find.byIcon(RatelIcons.arrowBack));
     await tester.pumpAndSettle();
     expect(find.text("Hi, I'm Ratel!"), findsOneWidget);
   });

@@ -274,7 +274,7 @@ class _SentNotice extends StatelessWidget {
                   key: const Key('login-sent'),
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    const Icon(Icons.mark_email_unread_rounded,
+                    const Icon(RatelIcons.markEmailUnread,
                         size: 64, color: RatelColors.teal),
                     const SizedBox(height: RatelSpace.lg),
                     Text(

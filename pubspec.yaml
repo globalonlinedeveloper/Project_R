@@ -110,3 +110,6 @@ flutter:
     - family: Nunito Sans
       fonts:
         - asset: assets/fonts/NunitoSans-Variable.ttf
+    - family: RatelMaterialIcons
+      fonts:
+        - asset: assets/fonts/MaterialIcons-Regular.ttf
