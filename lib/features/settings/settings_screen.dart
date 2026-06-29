@@ -33,20 +33,20 @@ class SettingsScreen extends ConsumerWidget {
     final Identity identity = ref.watch(identityProvider);
 
     return Scaffold(
-      backgroundColor: RatelColors.cream,
+      backgroundColor: context.palette.cream,
       appBar: AppBar(
-        backgroundColor: RatelColors.cream,
-        surfaceTintColor: RatelColors.cream,
+        backgroundColor: context.palette.cream,
+        surfaceTintColor: context.palette.cream,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: RatelColors.ink),
+          icon: Icon(Icons.arrow_back, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: const Text('Settings',
+        title: Text('Settings',
             style: TextStyle(
                 fontFamily: RatelFont.display,
                 fontWeight: RatelType.extraBold,
-                color: RatelColors.ink,
+                color: context.palette.ink,
                 fontSize: RatelType.cardTitle)),
       ),
       body: ListView(
@@ -65,20 +65,30 @@ class SettingsScreen extends ConsumerWidget {
             onTap: () => _pickGoal(context, c, s.dailyGoal),
           ),
           const SizedBox(height: RatelSpace.sm),
-          _toggle('🔊', 'Sound effects', s.sound, c.setSound),
+          _toggle(context, '🔊', 'Sound effects', s.sound, c.setSound),
+          const SizedBox(height: RatelSpace.lg),
+          const RatelSectionHeader(label: 'Appearance'),
+          const SizedBox(height: RatelSpace.sm),
+          RatelListRow(
+            leadingEmoji: '🌙',
+            leadingColor: RatelColors.purple,
+            title: 'Theme',
+            subtitle: _themeLabel(s.themeMode),
+            onTap: () => _pickTheme(context, c, s.themeMode),
+          ),
           const SizedBox(height: RatelSpace.lg),
           const RatelSectionHeader(label: 'Accessibility'),
           const SizedBox(height: RatelSpace.sm),
-          _toggle('🎨', 'High contrast', s.highContrast, c.setHighContrast),
+          _toggle(context, '🎨', 'High contrast', s.highContrast, c.setHighContrast),
           const SizedBox(height: RatelSpace.sm),
-          _toggle('📳', 'Haptics', s.haptics, c.setHaptics),
+          _toggle(context, '📳', 'Haptics', s.haptics, c.setHaptics),
           const SizedBox(height: RatelSpace.lg),
           const RatelSectionHeader(label: 'Notifications'),
           const SizedBox(height: RatelSpace.sm),
           RatelCard(
-            color: RatelColors.cream2,
+            color: context.palette.cream2,
             child: Row(
-              children: const <Widget>[
+              children: <Widget>[
                 Text('🔔', style: TextStyle(fontSize: 22)),
                 SizedBox(width: RatelSpace.md),
                 Expanded(
@@ -88,7 +98,7 @@ class SettingsScreen extends ConsumerWidget {
                         style: TextStyle(
                             fontFamily: RatelFont.body,
                             fontSize: RatelType.body,
-                            color: RatelColors.muted))),
+                            color: context.palette.muted))),
                 RatelChip(label: 'Soon', tone: RatelChipTone.neutral),
               ],
             ),
@@ -118,7 +128,7 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  Widget _toggle(
+  Widget _toggle(BuildContext context,
           String emoji, String title, bool value, ValueChanged<bool> onChanged) =>
       RatelCard(
         child: Row(
@@ -127,10 +137,10 @@ class SettingsScreen extends ConsumerWidget {
             const SizedBox(width: RatelSpace.md),
             Expanded(
               child: Text(title,
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.bodyLg,
-                      color: RatelColors.ink)),
+                      color: context.palette.ink)),
             ),
             RatelToggle(value: value, onChanged: onChanged),
           ],
@@ -141,7 +151,7 @@ class SettingsScreen extends ConsumerWidget {
       BuildContext context, AppSettingsController c, int current) {
     showModalBottomSheet<void>(
       context: context,
-      backgroundColor: RatelColors.white,
+      backgroundColor: context.palette.white,
       shape: const RoundedRectangleBorder(
           borderRadius:
               BorderRadius.vertical(top: Radius.circular(RatelRadius.featureLg))),
@@ -163,6 +173,61 @@ class SettingsScreen extends ConsumerWidget {
                   title: '${g.label} · ${g.xp} XP/day',
                   onTap: () {
                     c.setDailyGoal(g.xp);
+                    Navigator.of(sheetContext).pop();
+                  },
+                ),
+                const SizedBox(height: RatelSpace.xs),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  static String _themeLabel(ThemeMode m) => switch (m) {
+        ThemeMode.system => 'Match device',
+        ThemeMode.light => 'Light',
+        ThemeMode.dark => 'Dark',
+      };
+
+  static const List<({String label, ThemeMode mode, String emoji})> _themes =
+      <({String label, ThemeMode mode, String emoji})>[
+    (label: 'Match device', mode: ThemeMode.system, emoji: '📱'),
+    (label: 'Light', mode: ThemeMode.light, emoji: '☀️'),
+    (label: 'Dark', mode: ThemeMode.dark, emoji: '🌙'),
+  ];
+
+  /// Appearance picker (System / Light / Dark — R-WT3 / R-WT6, S53). Mirrors the
+  /// daily-goal sheet; the choice persists via [AppSettingsController.setThemeMode]
+  /// and drives `MaterialApp.themeMode`.
+  void _pickTheme(
+      BuildContext context, AppSettingsController c, ThemeMode current) {
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: context.palette.white,
+      shape: const RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.vertical(top: Radius.circular(RatelRadius.featureLg))),
+      builder: (BuildContext sheetContext) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(RatelSpace.lg),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              const Padding(
+                padding:
+                    EdgeInsets.only(left: RatelSpace.sm, bottom: RatelSpace.sm),
+                child: RatelSectionHeader(label: 'Theme'),
+              ),
+              for (final ({String label, ThemeMode mode, String emoji}) t
+                  in _themes) ...<Widget>[
+                RatelListRow(
+                  leadingEmoji: t.mode == current ? '✅' : t.emoji,
+                  title: t.label,
+                  onTap: () {
+                    c.setThemeMode(t.mode);
                     Navigator.of(sheetContext).pop();
                   },
                 ),

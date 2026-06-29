@@ -16,7 +16,7 @@ class LeaguesScreen extends ConsumerWidget {
     final LearnerSnapshot snap = ref.watch(learnerControllerProvider);
     return Container(
       key: const ValueKey<String>('tab-leagues'),
-      color: RatelColors.cream,
+      color: context.palette.cream,
       child: SafeArea(
         bottom: false,
         child: Column(
@@ -34,15 +34,15 @@ class LeaguesScreen extends ConsumerWidget {
                       children: <Widget>[
                         const Text('🏆', style: TextStyle(fontSize: 56)),
                         const SizedBox(height: RatelSpace.md),
-                        const Text('Leagues are coming',
+                        Text('Leagues are coming',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontFamily: RatelFont.display,
                                 fontWeight: RatelType.extraBold,
                                 fontSize: RatelType.screenTitle,
-                                color: RatelColors.ink)),
+                                color: context.palette.ink)),
                         const SizedBox(height: RatelSpace.sm),
-                        const Text(
+                        Text(
                             'Weekly leaderboards with promotion & demotion zones '
                             '(Gold League, "Top 7 advance") need a cohort / '
                             'leaderboard backend. There is no engine for this yet '
@@ -52,7 +52,7 @@ class LeaguesScreen extends ConsumerWidget {
                             style: TextStyle(
                                 fontFamily: RatelFont.body,
                                 fontSize: RatelType.body,
-                                color: RatelColors.muted,
+                                color: context.palette.muted,
                                 height: 1.4)),
                         const SizedBox(height: RatelSpace.md),
                         const RatelChip(

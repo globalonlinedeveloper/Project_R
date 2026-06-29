@@ -34,7 +34,7 @@ class ProfileScreen extends ConsumerWidget {
 
     return Container(
       key: const ValueKey<String>('tab-profile'),
-      color: RatelColors.cream,
+      color: context.palette.cream,
       child: SafeArea(
         bottom: false,
         child: ListView(
@@ -43,7 +43,7 @@ class ProfileScreen extends ConsumerWidget {
           children: <Widget>[
             _header(context, identity, level),
             const SizedBox(height: RatelSpace.cardGap),
-            _stats(snap, words),
+            _stats(context, snap, words),
             const SizedBox(height: RatelSpace.cardGap),
             _progressBanner(context, level, snap, settings),
             const SizedBox(height: RatelSpace.lg),
@@ -51,19 +51,19 @@ class ProfileScreen extends ConsumerWidget {
             const SizedBox(height: RatelSpace.xs),
             Text(
               '$unlockedAch of ${achievements.length} unlocked · real progress',
-              style: const TextStyle(
+              style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.small,
-                  color: RatelColors.muted),
+                  color: context.palette.muted),
             ),
             const SizedBox(height: RatelSpace.sm),
-            _achievementsGrid(achievements),
+            _achievementsGrid(context, achievements),
             const SizedBox(height: RatelSpace.lg),
             const RatelSectionHeader(label: 'Account'),
             const SizedBox(height: RatelSpace.sm),
             RatelListRow(
                 leadingEmoji: '⚙️',
-                leadingColor: RatelColors.muted,
+                leadingColor: context.palette.muted,
                 title: 'Settings',
                 onTap: () => context.push('/settings')),
             const SizedBox(height: RatelSpace.sm),
@@ -90,7 +90,7 @@ class ProfileScreen extends ConsumerWidget {
                 variant: RatelButtonVariant.secondary,
                 onPressed: () => context.push('/onboarding')),
             const SizedBox(height: RatelSpace.md),
-            const Center(
+            Center(
               child: Text(
                 'Level, XP, lessons, streak and saved words are real engine '
                 'state — they start at zero on a fresh account.',
@@ -98,7 +98,7 @@ class ProfileScreen extends ConsumerWidget {
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.small,
-                    color: RatelColors.muted),
+                    color: context.palette.muted),
               ),
             ),
           ],
@@ -121,8 +121,8 @@ class ProfileScreen extends ConsumerWidget {
               Container(
                 width: 64,
                 height: 64,
-                decoration: const BoxDecoration(
-                    color: RatelColors.cream3, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                    color: context.palette.cream3, shape: BoxShape.circle),
                 alignment: Alignment.center,
                 child: const Text('🦡', style: TextStyle(fontSize: 34)),
               ),
@@ -134,19 +134,19 @@ class ProfileScreen extends ConsumerWidget {
                     Text(name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontFamily: RatelFont.display,
                             fontWeight: RatelType.extraBold,
                             fontSize: RatelType.screenTitle,
-                            color: RatelColors.ink)),
+                            color: context.palette.ink)),
                     const SizedBox(height: 2),
                     Text(sub,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontFamily: RatelFont.body,
                             fontSize: RatelType.small,
-                            color: RatelColors.muted)),
+                            color: context.palette.muted)),
                   ],
                 ),
               ),
@@ -159,12 +159,12 @@ class ProfileScreen extends ConsumerWidget {
                 label: 'Create a free account',
                 onPressed: () => context.push('/onboarding')),
             const SizedBox(height: RatelSpace.xs),
-            const Center(
+            Center(
               child: Text('Save your progress across devices',
                   style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.small,
-                      color: RatelColors.muted)),
+                      color: context.palette.muted)),
             ),
           ],
         ],
@@ -172,15 +172,15 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  Widget _stats(LearnerSnapshot snap, int words) {
+  Widget _stats(BuildContext context, LearnerSnapshot snap, int words) {
     return Column(
       children: <Widget>[
         Row(
           children: <Widget>[
             Expanded(
-                child: _statCard('🔥', '${snap.streakDays}', 'Day streak')),
+                child: _statCard(context, '🔥', '${snap.streakDays}', 'Day streak')),
             const SizedBox(width: RatelSpace.cardGap),
-            Expanded(child: _statCard('⚡', '${snap.xpTotal}', 'Total XP')),
+            Expanded(child: _statCard(context, '⚡', '${snap.xpTotal}', 'Total XP')),
           ],
         ),
         const SizedBox(height: RatelSpace.cardGap),
@@ -188,16 +188,16 @@ class ProfileScreen extends ConsumerWidget {
           children: <Widget>[
             Expanded(
                 child:
-                    _statCard('📘', '${snap.lessonsCompleted}', 'Lessons')),
+                    _statCard(context, '📘', '${snap.lessonsCompleted}', 'Lessons')),
             const SizedBox(width: RatelSpace.cardGap),
-            Expanded(child: _statCard('🔖', '$words', 'Saved words')),
+            Expanded(child: _statCard(context, '🔖', '$words', 'Saved words')),
           ],
         ),
       ],
     );
   }
 
-  Widget _statCard(String emoji, String value, String label) => RatelCard(
+  Widget _statCard(BuildContext context, String emoji, String value, String label) => RatelCard(
         child: Row(
           children: <Widget>[
             Text(emoji, style: const TextStyle(fontSize: 22)),
@@ -210,18 +210,18 @@ class ProfileScreen extends ConsumerWidget {
                   Text(value,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: RatelFont.display,
                           fontWeight: RatelType.extraBold,
                           fontSize: RatelType.cardTitle,
-                          color: RatelColors.ink)),
+                          color: context.palette.ink)),
                   Text(label,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: RatelFont.body,
                           fontSize: RatelType.small,
-                          color: RatelColors.muted)),
+                          color: context.palette.muted)),
                 ],
               ),
             ),
@@ -290,7 +290,7 @@ class ProfileScreen extends ConsumerWidget {
 
   /// The REAL §4.5 achievements grid — 3-up rows of badge tiles, each unlocked
   /// state + progress computed live from the learner snapshot (never faked).
-  Widget _achievementsGrid(List<AchievementProgress> items) {
+  Widget _achievementsGrid(BuildContext context, List<AchievementProgress> items) {
     final List<Widget> rows = <Widget>[];
     for (int i = 0; i < items.length; i += 3) {
       final List<AchievementProgress> chunk = items.skip(i).take(3).toList();
@@ -299,7 +299,7 @@ class ProfileScreen extends ConsumerWidget {
           for (int j = 0; j < 3; j++) ...<Widget>[
             if (j > 0) const SizedBox(width: RatelSpace.cardGap),
             if (j < chunk.length)
-              Expanded(child: _achievementTile(chunk[j]))
+              Expanded(child: _achievementTile(context, chunk[j]))
             else
               const Expanded(child: SizedBox()),
           ],
@@ -312,11 +312,11 @@ class ProfileScreen extends ConsumerWidget {
     return Column(children: rows);
   }
 
-  Widget _achievementTile(AchievementProgress p) {
+  Widget _achievementTile(BuildContext context, AchievementProgress p) {
     final bool on = p.unlocked;
     return RatelCard(
       key: ValueKey<String>('achievement-${p.achievement.id}'),
-      color: on ? RatelColors.white : RatelColors.cream2,
+      color: on ? context.palette.white : context.palette.cream2,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -334,7 +334,7 @@ class ProfileScreen extends ConsumerWidget {
                   fontFamily: RatelFont.display,
                   fontWeight: RatelType.semiBold,
                   fontSize: RatelType.small,
-                  color: on ? RatelColors.ink : RatelColors.muted)),
+                  color: on ? context.palette.ink : context.palette.muted)),
           const SizedBox(height: 2),
           Text(on ? 'Unlocked' : '${p.current}/${p.target}',
               maxLines: 1,
@@ -343,7 +343,7 @@ class ProfileScreen extends ConsumerWidget {
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.caption,
                   fontWeight: on ? RatelType.semiBold : RatelType.regular,
-                  color: on ? RatelColors.green : RatelColors.muted)),
+                  color: on ? RatelColors.green : context.palette.muted)),
         ],
       ),
     );

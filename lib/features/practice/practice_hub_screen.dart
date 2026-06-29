@@ -91,21 +91,21 @@ class _PracticeHubScreenState extends ConsumerState<PracticeHubScreen> {
     }
 
     return Scaffold(
-      backgroundColor: RatelColors.cream,
+      backgroundColor: context.palette.cream,
       appBar: AppBar(
-        backgroundColor: RatelColors.cream,
-        surfaceTintColor: RatelColors.cream,
+        backgroundColor: context.palette.cream,
+        surfaceTintColor: context.palette.cream,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: RatelColors.ink),
+          icon: Icon(Icons.arrow_back, color: context.palette.ink),
           onPressed: () => _queue != null ? _endSession() : context.pop(),
         ),
-        title: const Text(
+        title: Text(
           'Practice',
           style: TextStyle(
             fontFamily: RatelFont.display,
             fontWeight: RatelType.extraBold,
-            color: RatelColors.ink,
+            color: context.palette.ink,
             fontSize: RatelType.cardTitle,
           ),
         ),
@@ -185,17 +185,17 @@ class _PracticeHubScreenState extends ConsumerState<PracticeHubScreen> {
     final String tail =
         next == null ? '' : ' · next ${_relative(next.difference(now))}';
     return RatelCard(
-      color: RatelColors.cream2,
+      color: context.palette.cream2,
       child: Row(
         children: <Widget>[
           const Text('🎉', style: TextStyle(fontSize: 22)),
           const SizedBox(width: RatelSpace.md),
           Expanded(
             child: Text('All caught up — nothing due right now$tail.',
-                style: const TextStyle(
+                style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.body,
-                    color: RatelColors.muted)),
+                    color: context.palette.muted)),
           ),
           const RatelChip(label: '0 due', tone: RatelChipTone.neutral),
         ],
@@ -220,17 +220,17 @@ class _PracticeHubScreenState extends ConsumerState<PracticeHubScreen> {
                   Text(c.word,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: RatelFont.display,
                           fontWeight: RatelType.extraBold,
                           fontSize: RatelType.cardTitle,
-                          color: RatelColors.ink)),
+                          color: context.palette.ink)),
                   Text(
                       due ? 'Due now' : 'Due ${_relative(c.dueAt!.difference(now))}',
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: RatelFont.body,
                           fontSize: RatelType.small,
-                          color: RatelColors.muted)),
+                          color: context.palette.muted)),
                 ],
               ),
             ),
@@ -245,7 +245,7 @@ class _PracticeHubScreenState extends ConsumerState<PracticeHubScreen> {
     );
   }
 
-  Widget _scheduleNote() => const Padding(
+  Widget _scheduleNote() => Padding(
         padding: EdgeInsets.symmetric(horizontal: RatelSpace.sm),
         child: Text(
           'Reviews are scheduled by the real FSRS-6 spaced-repetition engine. '
@@ -255,7 +255,7 @@ class _PracticeHubScreenState extends ConsumerState<PracticeHubScreen> {
           style: TextStyle(
               fontFamily: RatelFont.body,
               fontSize: RatelType.small,
-              color: RatelColors.muted,
+              color: context.palette.muted,
               height: 1.4),
         ),
       );
@@ -263,7 +263,7 @@ class _PracticeHubScreenState extends ConsumerState<PracticeHubScreen> {
   // ---- Empty: no saved words yet -------------------------------------------
   List<Widget> _emptyBody(BuildContext context) => <Widget>[
         RatelCard(
-          color: RatelColors.cream2,
+          color: context.palette.cream2,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -273,23 +273,23 @@ class _PracticeHubScreenState extends ConsumerState<PracticeHubScreen> {
                   const SizedBox(width: RatelSpace.md),
                   Expanded(
                     child: Text('No saved words yet',
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontFamily: RatelFont.display,
                             fontWeight: RatelType.extraBold,
                             fontSize: RatelType.cardTitle,
-                            color: RatelColors.ink)),
+                            color: context.palette.ink)),
                   ),
                 ],
               ),
               const SizedBox(height: RatelSpace.md),
-              const Text(
+              Text(
                 'Save a word while you practice a lesson and it lands here as a '
                 'flashcard. Reviews are then scheduled by the real FSRS '
                 'spaced-repetition engine — nothing is pre-filled.',
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.body,
-                    color: RatelColors.muted,
+                    color: context.palette.muted,
                     height: 1.4),
               ),
             ],
@@ -308,10 +308,10 @@ class _PracticeHubScreenState extends ConsumerState<PracticeHubScreen> {
         const SizedBox(height: RatelSpace.sm),
         Center(
           child: Text('Word ${idx + 1} of $total',
-              style: const TextStyle(
+              style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.small,
-                  color: RatelColors.muted)),
+                  color: context.palette.muted)),
         ),
         const SizedBox(height: RatelSpace.lg),
         _flashcard(card),
@@ -334,11 +334,11 @@ class _PracticeHubScreenState extends ConsumerState<PracticeHubScreen> {
               Center(
                 child: Text(card.word,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontFamily: RatelFont.display,
                         fontWeight: RatelType.extraBold,
                         fontSize: RatelType.screenTitle,
-                        color: RatelColors.ink)),
+                        color: context.palette.ink)),
               ),
               if (_revealed) ...<Widget>[
                 const SizedBox(height: RatelSpace.lg),
@@ -347,14 +347,14 @@ class _PracticeHubScreenState extends ConsumerState<PracticeHubScreen> {
                       child:
                           Text(card.glyph!, style: const TextStyle(fontSize: 64)))
                 else
-                  const Center(
+                  Center(
                     child: Text(
                       'Recall the meaning, then grade how well you remembered.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: RatelFont.body,
                           fontSize: RatelType.body,
-                          color: RatelColors.muted),
+                          color: context.palette.muted),
                     ),
                   ),
               ],
@@ -396,13 +396,13 @@ class _PracticeHubScreenState extends ConsumerState<PracticeHubScreen> {
         ],
       ),
       const SizedBox(height: RatelSpace.md),
-      const Center(
+      Center(
         child: Text('FSRS-6 schedules the next review from your grade',
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontFamily: RatelFont.body,
                 fontSize: RatelType.small,
-                color: RatelColors.muted)),
+                color: context.palette.muted)),
       ),
     ];
   }

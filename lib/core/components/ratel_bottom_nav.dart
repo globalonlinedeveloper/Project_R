@@ -36,9 +36,9 @@ class RatelBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: RatelColors.white,
-        border: Border(top: BorderSide(color: RatelColors.border)),
+      decoration: BoxDecoration(
+        color: context.palette.white,
+        border: Border(top: BorderSide(color: context.palette.border)),
       ),
       child: SafeArea(
         top: false,
@@ -105,7 +105,7 @@ class _NavItem extends StatelessWidget {
                 fontFamily: RatelFont.display,
                 fontSize: 10,
                 fontWeight: RatelType.extraBold,
-                color: active ? RatelColors.teal : RatelColors.muted,
+                color: active ? RatelColors.teal : context.palette.muted,
               ),
             ),
           ],

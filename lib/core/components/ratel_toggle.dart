@@ -26,15 +26,15 @@ class RatelToggle extends StatelessWidget {
           decoration: BoxDecoration(
             color: value
                 ? RatelColors.teal
-                : RatelColors.muted.withValues(alpha: 0.35),
+                : context.palette.muted.withValues(alpha: 0.35),
             borderRadius: BorderRadius.circular(RatelRadius.pill),
           ),
           alignment: value ? Alignment.centerRight : Alignment.centerLeft,
           child: Container(
             width: 22,
             height: 22,
-            decoration: const BoxDecoration(
-              color: RatelColors.white,
+            decoration: BoxDecoration(
+              color: context.palette.white,
               shape: BoxShape.circle,
             ),
           ),

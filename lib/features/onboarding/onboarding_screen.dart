@@ -100,7 +100,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: RatelColors.cream,
+      backgroundColor: context.palette.cream,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: RatelSpace.screen),
@@ -128,9 +128,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           child: _step > 0
               ? GestureDetector(
                   onTap: _back,
-                  child: const Align(
+                  child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Icon(Icons.arrow_back, color: RatelColors.ink),
+                    child: Icon(Icons.arrow_back, color: context.palette.ink),
                   ),
                 )
               : null,
@@ -177,11 +177,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     return Text(
       text,
       textAlign: center ? TextAlign.center : TextAlign.start,
-      style: const TextStyle(
+      style: TextStyle(
         fontFamily: RatelFont.display,
         fontWeight: RatelType.extraBold,
         fontSize: RatelType.screenTitle,
-        color: RatelColors.ink,
+        color: context.palette.ink,
       ),
     );
   }
@@ -190,10 +190,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     return Text(
       text,
       textAlign: center ? TextAlign.center : TextAlign.start,
-      style: const TextStyle(
+      style: TextStyle(
         fontFamily: RatelFont.body,
         fontSize: RatelType.body,
-        color: RatelColors.muted,
+        color: context.palette.muted,
       ),
     );
   }
@@ -205,25 +205,25 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           const SizedBox(height: RatelSpace.xl),
           const Text('🦡', style: TextStyle(fontSize: 96)),
           const SizedBox(height: RatelSpace.lg),
-          const Text(
+          Text(
             "Hi, I'm Ratel!",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: RatelFont.display,
               fontWeight: RatelType.extraBold,
               fontSize: RatelType.hero,
-              color: RatelColors.ink,
+              color: context.palette.ink,
             ),
           ),
           const SizedBox(height: RatelSpace.md),
-          const Text(
+          Text(
             'Learn a language the fearless way — bite-sized, fun, and free. '
             'Ready to dig in?',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: RatelFont.body,
               fontSize: RatelType.bodyLg,
-              color: RatelColors.muted,
+              color: context.palette.muted,
             ),
           ),
           const SizedBox(height: RatelSpace.xl),
@@ -240,11 +240,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           ),
           TextButton(
             onPressed: _next,
-            child: const Text(
+            child: Text(
               'Try without an account →',
               style: TextStyle(
                 fontFamily: RatelFont.body,
-                color: RatelColors.muted,
+                color: context.palette.muted,
               ),
             ),
           ),
@@ -396,10 +396,10 @@ class _GoalRow extends StatelessWidget {
           vertical: RatelSpace.lg,
         ),
         decoration: BoxDecoration(
-          color: RatelColors.white,
+          color: context.palette.white,
           borderRadius: BorderRadius.circular(RatelRadius.card),
           border: Border.all(
-            color: selected ? RatelColors.teal : RatelColors.border,
+            color: selected ? RatelColors.teal : context.palette.border,
             width: selected ? 2 : 1,
           ),
         ),
@@ -407,20 +407,20 @@ class _GoalRow extends StatelessWidget {
           children: <Widget>[
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: RatelFont.display,
                 fontWeight: RatelType.semiBold,
                 fontSize: RatelType.cardTitle,
-                color: RatelColors.ink,
+                color: context.palette.ink,
               ),
             ),
             const Spacer(),
             Text(
               '$xp XP / day',
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: RatelFont.body,
                 fontSize: RatelType.body,
-                color: RatelColors.muted,
+                color: context.palette.muted,
               ),
             ),
           ],
@@ -454,10 +454,10 @@ class _ChoiceCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(RatelSpace.lg),
         decoration: BoxDecoration(
-          color: RatelColors.white,
+          color: context.palette.white,
           borderRadius: BorderRadius.circular(RatelRadius.card),
           border: Border.all(
-            color: selected ? RatelColors.teal : RatelColors.border,
+            color: selected ? RatelColors.teal : context.palette.border,
             width: selected ? 2 : 1,
           ),
         ),
@@ -471,20 +471,20 @@ class _ChoiceCard extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: RatelFont.display,
                       fontWeight: RatelType.semiBold,
                       fontSize: RatelType.cardTitle,
-                      color: RatelColors.ink,
+                      color: context.palette.ink,
                     ),
                   ),
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.small,
-                      color: RatelColors.muted,
+                      color: context.palette.muted,
                     ),
                   ),
                 ],

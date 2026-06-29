@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart' show ThemeMode;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ratel/services/preferences/app_settings.dart';
 import 'package:ratel/services/preferences/settings_store.dart';
@@ -10,8 +11,8 @@ final settingsStoreProvider =
 
 /// Bridges the `preferences` engine to the UI: loads [AppSettings] from the
 /// store at build and writes every change back through it. Reduce-motion /
-/// high-contrast / sound / daily-goal are REAL and persisted; the Settings
-/// screen (P2) drives these mutators.
+/// high-contrast / sound / daily-goal / appearance are REAL and persisted; the
+/// Settings screen drives these mutators.
 class AppSettingsController extends Notifier<AppSettings> {
   @override
   AppSettings build() => ref.read(settingsStoreProvider).load();
@@ -32,6 +33,10 @@ class AppSettingsController extends Notifier<AppSettings> {
   /// Daily XP goal (Casual 10 / Regular 20 / Serious 30 — design spec §4.4).
   Future<void> setDailyGoal(int value) =>
       _commit(state.copyWith(dailyGoal: value));
+
+  /// Appearance preference (System / Light / Dark — R-WT3, S53).
+  Future<void> setThemeMode(ThemeMode value) =>
+      _commit(state.copyWith(themeMode: value));
 }
 
 final appSettingsControllerProvider =

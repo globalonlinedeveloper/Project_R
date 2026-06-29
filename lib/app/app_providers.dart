@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart' show ThemeMode;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ratel/features/settings/settings_controller.dart';
 import 'package:ratel/services/billing/billing.dart';
 
 export 'package:ratel/features/learner/learner_controller.dart';
@@ -12,3 +14,9 @@ export 'package:ratel/services/data_access/data_access.dart' show clockProvider;
 /// Stage 3, never client-asserted).
 final isProProvider =
     Provider<bool>((ref) => ref.watch(entitlementsProvider).isPro);
+
+/// The active appearance mode (System / Light / Dark), from the persisted
+/// [AppSettings]. Drives `MaterialApp.themeMode` so a dark choice survives a
+/// relaunch (R-WT3 persisted theme selection, S53).
+final themeModeProvider = Provider<ThemeMode>(
+    (ref) => ref.watch(appSettingsControllerProvider).themeMode);

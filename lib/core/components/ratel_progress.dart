@@ -25,7 +25,7 @@ class RatelProgressBar extends StatelessWidget {
       borderRadius: BorderRadius.circular(RatelRadius.pill),
       child: Container(
         height: height,
-        color: RatelColors.cream3,
+        color: context.palette.cream3,
         child: Align(
           alignment: Alignment.centerLeft,
           child: FractionallySizedBox(
@@ -71,7 +71,7 @@ class RatelProgressRing extends StatelessWidget {
           value: value.clamp(0.0, 1.0),
           stroke: stroke,
           color: color,
-          track: RatelColors.border,
+          track: context.palette.border,
         ),
         child: center == null ? null : Center(child: center),
       ),

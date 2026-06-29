@@ -73,6 +73,35 @@ abstract final class RatelColors {
 
   /// Translucent scrim behind bottom sheets / modals (~45% black).
   static const Color scrim = Color(0x73000000);
+
+  // ── Dark-theme neutrals (S53) — warm charcoal; the accents above are reused
+  // unchanged in dark mode. Surfaced via RatelPalette.dark (lib/core/theme).
+  /// Dark app background (warm near-black).
+  static const Color darkBg = Color(0xFF15140F);
+
+  /// Dark secondary surface.
+  static const Color darkBg2 = Color(0xFF1C1A14);
+
+  /// Dark inset / alt background.
+  static const Color darkBg3 = Color(0xFF222019);
+
+  /// Dark card surface (subtly lifted off the background).
+  static const Color darkSurface = Color(0xFF24221B);
+
+  /// Dark primary text (warm off-white, ~16:1 on darkBg).
+  static const Color darkInk = Color(0xFFF3F0E7);
+
+  /// Dark secondary text (~7:1 on darkBg).
+  static const Color darkMuted = Color(0xFFA8A496);
+
+  /// Dark hairline border.
+  static const Color darkBorder = Color(0xFF34312A);
+
+  /// Dark card shadow (deeper than the light ~8%).
+  static const Color darkShadow = Color(0x33000000);
+
+  /// Dark modal scrim (~60% black).
+  static const Color darkScrim = Color(0x99000000);
 }
 
 /// Spacing scale (spec §2: 4 / 8 / 12 / 16 / 20 / 24).

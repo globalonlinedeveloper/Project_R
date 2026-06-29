@@ -24,13 +24,13 @@ class RatelOptionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color accent = switch (state) {
-      RatelOptionState.idle => RatelColors.border,
+      RatelOptionState.idle => context.palette.border,
       RatelOptionState.selected => RatelColors.teal,
       RatelOptionState.correct => RatelColors.green,
       RatelOptionState.wrong => RatelColors.coral,
     };
     final bool active = state != RatelOptionState.idle;
-    final Color bg = active ? accent.withValues(alpha: 0.10) : RatelColors.white;
+    final Color bg = active ? accent.withValues(alpha: 0.10) : context.palette.white;
 
     return Semantics(
       button: true,
@@ -58,11 +58,11 @@ class RatelOptionCard extends StatelessWidget {
               Text(
                 label,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: RatelFont.display,
                   fontSize: RatelType.bodyLg,
                   fontWeight: RatelType.semiBold,
-                  color: RatelColors.ink,
+                  color: context.palette.ink,
                 ),
               ),
             ],
@@ -100,17 +100,17 @@ class RatelWordTile extends StatelessWidget {
             vertical: RatelSpace.md,
           ),
           decoration: BoxDecoration(
-            color: RatelColors.white,
+            color: context.palette.white,
             borderRadius: BorderRadius.circular(RatelRadius.chip),
-            border: Border.all(color: RatelColors.border),
+            border: Border.all(color: context.palette.border),
           ),
           child: Text(
             word,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: RatelFont.display,
               fontSize: RatelType.body,
               fontWeight: RatelType.semiBold,
-              color: RatelColors.ink,
+              color: context.palette.ink,
             ),
           ),
         ),

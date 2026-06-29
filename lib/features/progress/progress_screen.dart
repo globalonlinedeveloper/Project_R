@@ -33,21 +33,21 @@ class ProgressScreen extends ConsumerWidget {
     final double ringVal = goalStatus.fraction;
 
     return Scaffold(
-      backgroundColor: RatelColors.cream,
+      backgroundColor: context.palette.cream,
       appBar: AppBar(
-        backgroundColor: RatelColors.cream,
-        surfaceTintColor: RatelColors.cream,
+        backgroundColor: context.palette.cream,
+        surfaceTintColor: context.palette.cream,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: RatelColors.ink),
+          icon: Icon(Icons.arrow_back, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: const Text(
+        title: Text(
           'Progress',
           style: TextStyle(
             fontFamily: RatelFont.display,
             fontWeight: RatelType.extraBold,
-            color: RatelColors.ink,
+            color: context.palette.ink,
             fontSize: RatelType.cardTitle,
           ),
         ),
@@ -61,17 +61,17 @@ class ProgressScreen extends ConsumerWidget {
           children: <Widget>[
             _hero(level, snap, goal, ringVal, goalStatus.met),
             const SizedBox(height: RatelSpace.cardGap),
-            _stats(snap, words, goal, level),
+            _stats(context, snap, words, goal, level),
             const SizedBox(height: RatelSpace.lg),
             const RatelSectionHeader(label: 'Last 7 days'),
             const SizedBox(height: RatelSpace.sm),
-            _noHistoryCard(),
+            _noHistoryCard(context),
             const SizedBox(height: RatelSpace.lg),
             const RatelSectionHeader(label: 'Accuracy & retention'),
             const SizedBox(height: RatelSpace.sm),
-            _noEngineCard(),
+            _noEngineCard(context),
             const SizedBox(height: RatelSpace.lg),
-            const Center(
+            Center(
               child: Text(
                 'Level, ability, saved words, XP, lessons and streak are real '
                 'engine state — they start at zero on a fresh account. Accuracy, '
@@ -82,7 +82,7 @@ class ProgressScreen extends ConsumerWidget {
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.small,
-                    color: RatelColors.muted,
+                    color: context.palette.muted,
                     height: 1.4),
               ),
             ),
@@ -148,40 +148,40 @@ class ProgressScreen extends ConsumerWidget {
     );
   }
 
-  Widget _stats(LearnerSnapshot snap, int words, int goal, String level) {
+  Widget _stats(BuildContext context, LearnerSnapshot snap, int words, int goal, String level) {
     return Column(
       children: <Widget>[
         Row(
           children: <Widget>[
-            Expanded(child: _statCard('🔖', '$words', 'Saved words')),
+            Expanded(child: _statCard(context, '🔖', '$words', 'Saved words')),
             const SizedBox(width: RatelSpace.cardGap),
             Expanded(
-                child: _statCard('📘', '${snap.lessonsCompleted}', 'Lessons')),
+                child: _statCard(context, '📘', '${snap.lessonsCompleted}', 'Lessons')),
           ],
         ),
         const SizedBox(height: RatelSpace.cardGap),
         Row(
           children: <Widget>[
             Expanded(
-                child: _statCard('🔥', '${snap.streakDays}', 'Day streak')),
+                child: _statCard(context, '🔥', '${snap.streakDays}', 'Day streak')),
             const SizedBox(width: RatelSpace.cardGap),
-            Expanded(child: _statCard('⚡', '${snap.xpTotal}', 'Total XP')),
+            Expanded(child: _statCard(context, '⚡', '${snap.xpTotal}', 'Total XP')),
           ],
         ),
         const SizedBox(height: RatelSpace.cardGap),
         Row(
           children: <Widget>[
             Expanded(
-                child: _statCard('🎯', '${snap.xpToday}/$goal', "Today's XP")),
+                child: _statCard(context, '🎯', '${snap.xpToday}/$goal', "Today's XP")),
             const SizedBox(width: RatelSpace.cardGap),
-            Expanded(child: _statCard('📈', level, 'CEFR level')),
+            Expanded(child: _statCard(context, '📈', level, 'CEFR level')),
           ],
         ),
       ],
     );
   }
 
-  Widget _statCard(String emoji, String value, String label) => RatelCard(
+  Widget _statCard(BuildContext context, String emoji, String value, String label) => RatelCard(
         child: Row(
           children: <Widget>[
             Text(emoji, style: const TextStyle(fontSize: 22)),
@@ -194,18 +194,18 @@ class ProgressScreen extends ConsumerWidget {
                   Text(value,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: RatelFont.display,
                           fontWeight: RatelType.extraBold,
                           fontSize: RatelType.cardTitle,
-                          color: RatelColors.ink)),
+                          color: context.palette.ink)),
                   Text(label,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: RatelFont.body,
                           fontSize: RatelType.small,
-                          color: RatelColors.muted)),
+                          color: context.palette.muted)),
                 ],
               ),
             ),
@@ -213,20 +213,20 @@ class ProgressScreen extends ConsumerWidget {
         ),
       );
 
-  Widget _noHistoryCard() => RatelCard(
-        color: RatelColors.cream2,
+  Widget _noHistoryCard(BuildContext context) => RatelCard(
+        color: context.palette.cream2,
         child: Row(
           children: <Widget>[
             const Text('📊', style: TextStyle(fontSize: 22)),
             const SizedBox(width: RatelSpace.md),
-            const Expanded(
+            Expanded(
               child: Text(
                 'Your daily activity chart fills in as you learn — there is no '
                 'recorded history yet, so nothing is shown.',
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.body,
-                    color: RatelColors.muted),
+                    color: context.palette.muted),
               ),
             ),
             const RatelChip(label: 'No data yet', tone: RatelChipTone.neutral),
@@ -234,13 +234,13 @@ class ProgressScreen extends ConsumerWidget {
         ),
       );
 
-  Widget _noEngineCard() => RatelCard(
-        color: RatelColors.cream2,
+  Widget _noEngineCard(BuildContext context) => RatelCard(
+        color: context.palette.cream2,
         child: Row(
           children: <Widget>[
             const Text('🎯', style: TextStyle(fontSize: 22)),
             const SizedBox(width: RatelSpace.md),
-            const Expanded(
+            Expanded(
               child: Text(
                 'Accuracy, study time and retention appear once the lesson '
                 'runner records graded reviews — they are never estimated or '
@@ -248,7 +248,7 @@ class ProgressScreen extends ConsumerWidget {
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.body,
-                    color: RatelColors.muted),
+                    color: context.palette.muted),
               ),
             ),
             const RatelChip(label: 'Soon', tone: RatelChipTone.amber),

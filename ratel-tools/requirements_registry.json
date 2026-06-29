@@ -43,7 +43,7 @@
     "R-WT3": {
       "moscow": "Should",
       "phase": "Stage2",
-      "notes": "S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)."
+      "notes": "S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page). S53: theme selection reborn as persisted light/dark/system appearance in the post-S35 design system; the galaxy/Space skin (R-WT2) stays a section-6 no-engine item, NOT built."
     },
     "R-WT4": {
       "moscow": "Should",
@@ -59,7 +59,7 @@
     "R-WT6": {
       "moscow": "Should",
       "phase": "Stage2",
-      "notes": "S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)."
+      "notes": "S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page). S53: the settings appearance surface is the Settings theme picker (light/dark/system); the old galaxy world-skin/motion toggles remain superseded scope."
     },
     "R-WT7": {
       "moscow": "Could",

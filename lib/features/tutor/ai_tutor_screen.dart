@@ -24,20 +24,20 @@ class AiTutorScreen extends ConsumerWidget {
     final bool relayReady = ref.watch(aiRelayProvider).isAvailable;
 
     return Scaffold(
-      backgroundColor: RatelColors.cream,
+      backgroundColor: context.palette.cream,
       appBar: AppBar(
-        backgroundColor: RatelColors.cream,
-        surfaceTintColor: RatelColors.cream,
+        backgroundColor: context.palette.cream,
+        surfaceTintColor: context.palette.cream,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: RatelColors.ink),
+          icon: Icon(Icons.arrow_back, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: const Text('AI Tutor',
+        title: Text('AI Tutor',
             style: TextStyle(
                 fontFamily: RatelFont.display,
                 fontWeight: RatelType.extraBold,
-                color: RatelColors.ink,
+                color: context.palette.ink,
                 fontSize: RatelType.cardTitle)),
       ),
       body: SafeArea(
@@ -52,24 +52,24 @@ class AiTutorScreen extends ConsumerWidget {
                 Container(
                   width: 56,
                   height: 56,
-                  decoration: const BoxDecoration(
-                      color: RatelColors.cream3, shape: BoxShape.circle),
+                  decoration: BoxDecoration(
+                      color: context.palette.cream3, shape: BoxShape.circle),
                   alignment: Alignment.center,
                   child: const Text('🦡', style: TextStyle(fontSize: 30)),
                 ),
                 const SizedBox(width: RatelSpace.md),
-                const Expanded(
+                Expanded(
                   child: Text('Practice a real conversation',
                       style: TextStyle(
                           fontFamily: RatelFont.display,
                           fontWeight: RatelType.extraBold,
                           fontSize: RatelType.cardTitle,
-                          color: RatelColors.ink)),
+                          color: context.palette.ink)),
                 ),
               ],
             ),
             const SizedBox(height: RatelSpace.lg),
-            _statusCard(isPro, relayReady),
+            _statusCard(context, isPro, relayReady),
             const SizedBox(height: RatelSpace.lg),
             _modeCard(
               context,
@@ -116,7 +116,7 @@ class AiTutorScreen extends ConsumerWidget {
                 onPressed: () => context.push('/shop'),
               ),
             const SizedBox(height: RatelSpace.md),
-            const Center(
+            Center(
               child: Text(
                 'Live AI tutoring runs on a moderated, cost-guarded relay and is '
                 'a RATEL PRO feature. Replies are never simulated — a mode starts '
@@ -125,7 +125,7 @@ class AiTutorScreen extends ConsumerWidget {
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.small,
-                    color: RatelColors.muted,
+                    color: context.palette.muted,
                     height: 1.4),
               ),
             ),
@@ -135,7 +135,7 @@ class AiTutorScreen extends ConsumerWidget {
     );
   }
 
-  Widget _statusCard(bool isPro, bool relayReady) {
+  Widget _statusCard(BuildContext context, bool isPro, bool relayReady) {
     final String text = relayReady
         ? (isPro
             ? 'PRO active and the AI relay is connected — pick a mode to begin.'
@@ -143,17 +143,17 @@ class AiTutorScreen extends ConsumerWidget {
         : 'The moderated AI relay is not connected in this build yet — live '
             'tutoring turns on in a later step. Nothing below is simulated.';
     return RatelCard(
-      color: RatelColors.cream2,
+      color: context.palette.cream2,
       child: Row(
         children: <Widget>[
           Text(relayReady ? '✅' : '🔌', style: const TextStyle(fontSize: 22)),
           const SizedBox(width: RatelSpace.md),
           Expanded(
             child: Text(text,
-                style: const TextStyle(
+                style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.body,
-                    color: RatelColors.muted)),
+                    color: context.palette.muted)),
           ),
         ],
       ),

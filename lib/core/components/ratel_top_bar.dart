@@ -114,9 +114,9 @@ class _FlagPill extends StatelessWidget {
           vertical: 6,
         ),
         decoration: BoxDecoration(
-          color: RatelColors.white,
+          color: context.palette.white,
           borderRadius: BorderRadius.circular(RatelRadius.pill),
-          border: Border.all(color: RatelColors.border),
+          border: Border.all(color: context.palette.border),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -125,15 +125,15 @@ class _FlagPill extends StatelessWidget {
             const SizedBox(width: 6),
             Text(
               langCode,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: RatelFont.display,
                 fontSize: RatelType.small,
                 fontWeight: RatelType.extraBold,
-                color: RatelColors.ink,
+                color: context.palette.ink,
               ),
             ),
-            const Text('  ▾',
-                style: TextStyle(fontSize: 11, color: RatelColors.muted)),
+            Text('  ▾',
+                style: TextStyle(fontSize: 11, color: context.palette.muted)),
           ],
         ),
       ),
@@ -158,11 +158,11 @@ class _Stat extends StatelessWidget {
           const SizedBox(width: 3),
           Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: RatelFont.display,
               fontSize: RatelType.small,
               fontWeight: RatelType.extraBold,
-              color: RatelColors.ink,
+              color: context.palette.ink,
             ),
           ),
         ],

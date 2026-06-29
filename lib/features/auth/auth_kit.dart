@@ -17,7 +17,7 @@ class AuthBackButton extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: IconButton(
-        icon: const Icon(Icons.arrow_back_rounded, color: RatelColors.ink),
+        icon: Icon(Icons.arrow_back_rounded, color: context.palette.ink),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
     );
@@ -40,22 +40,22 @@ class AuthHeader extends StatelessWidget {
         Text(
           title,
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: RatelFont.display,
             fontWeight: RatelType.extraBold,
             fontSize: RatelType.screenTitle,
-            color: RatelColors.ink,
+            color: context.palette.ink,
           ),
         ),
         const SizedBox(height: RatelSpace.xs),
         Text(
           subtitle,
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: RatelFont.body,
             fontWeight: RatelType.semiBold,
             fontSize: RatelType.small,
-            color: RatelColors.muted,
+            color: context.palette.muted,
           ),
         ),
       ],
@@ -80,9 +80,9 @@ class AuthSocialButtons extends StatelessWidget {
           key: const Key('auth-google'),
           label: 'Continue with Google',
           emoji: '🔵',
-          background: RatelColors.white,
-          foreground: RatelColors.ink,
-          border: RatelColors.border,
+          background: context.palette.white,
+          foreground: context.palette.ink,
+          border: context.palette.border,
           onTap: onTap,
         ),
         const SizedBox(height: RatelSpace.sm),
@@ -90,9 +90,9 @@ class AuthSocialButtons extends StatelessWidget {
           key: const Key('auth-apple'),
           label: 'Continue with Apple',
           emoji: '',
-          background: RatelColors.ink,
-          foreground: RatelColors.white,
-          border: RatelColors.ink,
+          background: context.palette.ink,
+          foreground: context.palette.white,
+          border: context.palette.ink,
           onTap: onTap,
         ),
       ],
@@ -163,9 +163,9 @@ class AuthDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Widget line = Expanded(child: Divider(color: RatelColors.border, thickness: 1));
+    Widget line = Expanded(child: Divider(color: context.palette.border, thickness: 1));
     return Row(
-      children: const <Widget>[
+      children: <Widget>[
         line,
         Padding(
           padding: EdgeInsets.symmetric(horizontal: RatelSpace.md),
@@ -175,7 +175,7 @@ class AuthDivider extends StatelessWidget {
               fontFamily: RatelFont.body,
               fontWeight: RatelType.semiBold,
               fontSize: RatelType.small,
-              color: RatelColors.muted,
+              color: context.palette.muted,
             ),
           ),
         ),
@@ -221,9 +221,9 @@ class AuthField extends StatelessWidget {
           padding: const EdgeInsets.symmetric(
               horizontal: RatelSpace.lg, vertical: RatelSpace.xs),
           decoration: BoxDecoration(
-            color: RatelColors.white,
+            color: context.palette.white,
             border: Border.all(
-                color: hasError ? RatelColors.coral : RatelColors.border,
+                color: hasError ? RatelColors.coral : context.palette.border,
                 width: 1.5),
             borderRadius: BorderRadius.circular(RatelRadius.card),
           ),
@@ -241,21 +241,21 @@ class AuthField extends StatelessWidget {
                   onSubmitted: onSubmitted,
                   autocorrect: false,
                   enableSuggestions: false,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontWeight: RatelType.medium,
                     fontSize: RatelType.body,
-                    color: RatelColors.ink,
+                    color: context.palette.ink,
                   ),
                   decoration: InputDecoration(
                     isCollapsed: true,
                     border: InputBorder.none,
                     hintText: hint,
-                    hintStyle: const TextStyle(
+                    hintStyle: TextStyle(
                       fontFamily: RatelFont.body,
                       fontWeight: RatelType.medium,
                       fontSize: RatelType.body,
-                      color: RatelColors.muted,
+                      color: context.palette.muted,
                     ),
                   ),
                 ),
@@ -291,18 +291,18 @@ class AuthUnavailableBanner extends StatelessWidget {
       key: const Key('auth-unavailable'),
       padding: const EdgeInsets.all(RatelSpace.md),
       decoration: BoxDecoration(
-        color: RatelColors.cream2,
-        border: Border.all(color: RatelColors.border, width: 1.5),
+        color: context.palette.cream2,
+        border: Border.all(color: context.palette.border, width: 1.5),
         borderRadius: BorderRadius.circular(RatelRadius.card),
       ),
-      child: const Text(
+      child: Text(
         'Accounts aren’t available in this build yet — you can keep learning as '
         'a guest. Sign-in turns on when the backend is configured.',
         style: TextStyle(
           fontFamily: RatelFont.body,
           fontWeight: RatelType.semiBold,
           fontSize: RatelType.small,
-          color: RatelColors.ink,
+          color: context.palette.ink,
         ),
       ),
     );
@@ -330,11 +330,11 @@ class AuthFooterLink extends StatelessWidget {
       children: <Widget>[
         Text(
           lead,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: RatelFont.body,
             fontWeight: RatelType.semiBold,
             fontSize: RatelType.small,
-            color: RatelColors.muted,
+            color: context.palette.muted,
           ),
         ),
         GestureDetector(

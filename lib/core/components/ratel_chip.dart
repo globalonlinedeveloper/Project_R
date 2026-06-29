@@ -34,8 +34,8 @@ class RatelChip extends StatelessWidget {
   factory RatelChip.level(String level) =>
       RatelChip(label: level, tone: RatelChipTone.teal, filled: true);
 
-  Color get _base => switch (tone) {
-        RatelChipTone.neutral => RatelColors.muted,
+  Color _base(BuildContext context) => switch (tone) {
+        RatelChipTone.neutral => context.palette.muted,
         RatelChipTone.teal => RatelColors.teal,
         RatelChipTone.green => RatelColors.green,
         RatelChipTone.amber => RatelColors.amber,
@@ -46,11 +46,11 @@ class RatelChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool neutral = tone == RatelChipTone.neutral;
     final Color bg = filled
-        ? _base
-        : (neutral ? RatelColors.cream3 : _base.withValues(alpha: 0.14));
+        ? _base(context)
+        : (neutral ? context.palette.cream3 : _base(context).withValues(alpha: 0.14));
     final Color fg = filled
         ? RatelColors.onColor
-        : (neutral ? RatelColors.ink : _base);
+        : (neutral ? context.palette.ink : _base(context));
 
     return Container(
       padding: const EdgeInsets.symmetric(

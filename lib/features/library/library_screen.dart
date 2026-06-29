@@ -19,7 +19,7 @@ class LibraryScreen extends ConsumerWidget {
     final bool isPro = ref.watch(isProProvider);
     return Container(
       key: const ValueKey<String>('tab-library'),
-      color: RatelColors.cream,
+      color: context.palette.cream,
       child: SafeArea(
         bottom: false,
         child: Column(
@@ -32,12 +32,12 @@ class LibraryScreen extends ConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(RatelSpace.screen,
                     RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
                 children: <Widget>[
-                  const Text('Library',
+                  Text('Library',
                       style: TextStyle(
                           fontFamily: RatelFont.display,
                           fontWeight: RatelType.extraBold,
                           fontSize: RatelType.screenTitle,
-                          color: RatelColors.ink)),
+                          color: context.palette.ink)),
                   const SizedBox(height: RatelSpace.md),
                   _searchBar(context),
                   const SizedBox(height: RatelSpace.lg),
@@ -79,7 +79,7 @@ class LibraryScreen extends ConsumerWidget {
                   const SizedBox(height: RatelSpace.lg),
                   const RatelSectionHeader(label: 'Read & listen'),
                   const SizedBox(height: RatelSpace.sm),
-                  _comingSoonCard('🎧',
+                  _comingSoonCard(context, '🎧',
                       'Graded stories, podcasts and video need a media / audio engine — coming as an owner decision (§6). Nothing here is faked.'),
                 ],
               ),
@@ -96,11 +96,11 @@ class LibraryScreen extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(
               horizontal: RatelSpace.lg, vertical: RatelSpace.md),
           decoration: BoxDecoration(
-            color: RatelColors.white,
+            color: context.palette.white,
             borderRadius: BorderRadius.circular(RatelRadius.pill),
-            border: Border.all(color: RatelColors.border),
+            border: Border.all(color: context.palette.border),
           ),
-          child: const Row(
+          child: Row(
             children: <Widget>[
               Text('🔍', style: TextStyle(fontSize: 16)),
               SizedBox(width: RatelSpace.sm),
@@ -108,7 +108,7 @@ class LibraryScreen extends ConsumerWidget {
                   style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.body,
-                      color: RatelColors.muted)),
+                      color: context.palette.muted)),
             ],
           ),
         ),
@@ -158,18 +158,18 @@ class LibraryScreen extends ConsumerWidget {
         ),
       );
 
-  Widget _comingSoonCard(String emoji, String text) => RatelCard(
-        color: RatelColors.cream2,
+  Widget _comingSoonCard(BuildContext context, String emoji, String text) => RatelCard(
+        color: context.palette.cream2,
         child: Row(
           children: <Widget>[
             Text(emoji, style: const TextStyle(fontSize: 22)),
             const SizedBox(width: RatelSpace.md),
             Expanded(
               child: Text(text,
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.body,
-                      color: RatelColors.muted)),
+                      color: context.palette.muted)),
             ),
             const RatelChip(label: 'Soon', tone: RatelChipTone.neutral),
           ],

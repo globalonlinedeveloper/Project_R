@@ -31,21 +31,21 @@ class ShopScreen extends ConsumerWidget {
         : 'Not enough 💎 — earn $cost by finishing lessons.';
 
     return Scaffold(
-      backgroundColor: RatelColors.cream,
+      backgroundColor: context.palette.cream,
       appBar: AppBar(
-        backgroundColor: RatelColors.cream,
-        surfaceTintColor: RatelColors.cream,
+        backgroundColor: context.palette.cream,
+        surfaceTintColor: context.palette.cream,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: RatelColors.ink),
+          icon: Icon(Icons.arrow_back, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: const Text(
+        title: Text(
           'Shop',
           style: TextStyle(
             fontFamily: RatelFont.display,
             fontWeight: RatelType.extraBold,
-            color: RatelColors.ink,
+            color: context.palette.ink,
             fontSize: RatelType.cardTitle,
           ),
         ),
@@ -56,7 +56,7 @@ class ShopScreen extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(RatelSpace.screen, RatelSpace.lg,
               RatelSpace.screen, RatelSpace.xl),
           children: <Widget>[
-            _balance(snap.diamonds),
+            _balance(context, snap.diamonds),
             const SizedBox(height: RatelSpace.lg),
             const RatelSectionHeader(label: 'Power-ups'),
             const SizedBox(height: RatelSpace.sm),
@@ -73,20 +73,20 @@ class ShopScreen extends ConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            const Text('Streak Freeze',
+                            Text('Streak Freeze',
                                 style: TextStyle(
                                     fontFamily: RatelFont.display,
                                     fontWeight: RatelType.extraBold,
                                     fontSize: RatelType.cardTitle,
-                                    color: RatelColors.ink)),
+                                    color: context.palette.ink)),
                             const SizedBox(height: 2),
-                            const Text(
+                            Text(
                                 'Protects your streak for one missed day. Spent '
                                 'automatically when you miss your daily goal.',
                                 style: TextStyle(
                                     fontFamily: RatelFont.body,
                                     fontSize: RatelType.small,
-                                    color: RatelColors.muted)),
+                                    color: context.palette.muted)),
                           ],
                         ),
                       ),
@@ -100,11 +100,11 @@ class ShopScreen extends ConsumerWidget {
                           tone: RatelChipTone.teal),
                       const Spacer(),
                       Text('$cost 💎',
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontFamily: RatelFont.display,
                               fontWeight: RatelType.extraBold,
                               fontSize: RatelType.body,
-                              color: RatelColors.ink)),
+                              color: context.palette.ink)),
                     ],
                   ),
                   const SizedBox(height: RatelSpace.md),
@@ -123,23 +123,23 @@ class ShopScreen extends ConsumerWidget {
                   if (!canBuy) ...<Widget>[
                     const SizedBox(height: RatelSpace.xs),
                     Text(reason,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontFamily: RatelFont.body,
                             fontSize: RatelType.caption,
-                            color: RatelColors.muted)),
+                            color: context.palette.muted)),
                   ],
                 ],
               ),
             ),
             const SizedBox(height: RatelSpace.lg),
-            const Text(
+            Text(
               'More power-ups and a 💎 top-up are coming. Diamonds are earned by '
               'finishing lessons and meeting your daily goal — nothing here is '
               'faked.',
               style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.small,
-                  color: RatelColors.muted,
+                  color: context.palette.muted,
                   height: 1.4),
             ),
           ],
@@ -148,7 +148,7 @@ class ShopScreen extends ConsumerWidget {
     );
   }
 
-  Widget _balance(int diamonds) {
+  Widget _balance(BuildContext context, int diamonds) {
     return RatelCard(
       child: Row(
         children: <Widget>[
@@ -158,17 +158,17 @@ class ShopScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text('Your diamonds',
+                Text('Your diamonds',
                     style: TextStyle(
                         fontFamily: RatelFont.body,
                         fontSize: RatelType.small,
-                        color: RatelColors.muted)),
+                        color: context.palette.muted)),
                 Text('$diamonds',
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontFamily: RatelFont.display,
                         fontWeight: RatelType.extraBold,
                         fontSize: RatelType.screenTitle,
-                        color: RatelColors.ink)),
+                        color: context.palette.ink)),
               ],
             ),
           ),

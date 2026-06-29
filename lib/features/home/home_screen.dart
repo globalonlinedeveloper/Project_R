@@ -57,7 +57,7 @@ class HomeScreen extends ConsumerWidget {
     final CourseSpine spine = ref.watch(courseSpineProvider);
 
     if (spine.isEmpty) {
-      return _emptyState(snap.streakDays, snap.diamonds, snap.streakFreezes);
+      return _emptyState(context, snap.streakDays, snap.diamonds, snap.streakFreezes);
     }
 
     final List<_Node> nodes = _flatten(spine);
@@ -66,7 +66,7 @@ class HomeScreen extends ConsumerWidget {
 
     return Container(
       key: const ValueKey<String>('tab-home'),
-      color: RatelColors.cream,
+      color: context.palette.cream,
       child: SafeArea(
         bottom: false,
         child: Stack(
@@ -104,10 +104,10 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _emptyState(int streak, int diamonds, int streakFreezes) {
+  Widget _emptyState(BuildContext context, int streak, int diamonds, int streakFreezes) {
     return Container(
       key: const ValueKey<String>('tab-home'),
-      color: RatelColors.cream,
+      color: context.palette.cream,
       child: SafeArea(
         bottom: false,
         child: Column(
@@ -119,7 +119,7 @@ class HomeScreen extends ConsumerWidget {
                 streak: streak,
                 diamonds: '$diamonds',
                 streakFreeze: streakFreezes > 0 ? streakFreezes : null),
-            const Expanded(
+            Expanded(
               child: Center(
                 child: Padding(
                   padding: EdgeInsets.all(RatelSpace.xl),
@@ -135,14 +135,14 @@ class HomeScreen extends ConsumerWidget {
                               fontFamily: RatelFont.display,
                               fontWeight: RatelType.extraBold,
                               fontSize: RatelType.screenTitle,
-                              color: RatelColors.ink)),
+                              color: context.palette.ink)),
                       SizedBox(height: RatelSpace.xs),
                       Text('Lessons will appear here once your course content loads.',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontFamily: RatelFont.body,
                               fontSize: RatelType.body,
-                              color: RatelColors.muted)),
+                              color: context.palette.muted)),
                     ],
                   ),
                 ),
@@ -243,7 +243,7 @@ class HomeScreen extends ConsumerWidget {
         ? RatelColors.teal
         : isActive
             ? RatelColors.teal
-            : RatelColors.cream3;
+            : context.palette.cream3;
     final String glyph = done
         ? '✓'
         : isActive
@@ -256,10 +256,10 @@ class HomeScreen extends ConsumerWidget {
         color: fill,
         shape: BoxShape.circle,
         border: Border.all(
-            color: isActive || done ? RatelColors.tealDark : RatelColors.border,
+            color: isActive || done ? RatelColors.tealDark : context.palette.border,
             width: 3),
-        boxShadow: const <BoxShadow>[
-          BoxShadow(color: RatelColors.shadow, blurRadius: 8, offset: Offset(0, 3)),
+        boxShadow: <BoxShadow>[
+          BoxShadow(color: context.palette.shadow, blurRadius: 8, offset: Offset(0, 3)),
         ],
       ),
       alignment: Alignment.center,
@@ -268,7 +268,7 @@ class HomeScreen extends ConsumerWidget {
               fontSize: isActive ? 30 : 24,
               fontFamily: RatelFont.display,
               fontWeight: RatelType.extraBold,
-              color: done || isActive ? RatelColors.onColor : RatelColors.muted)),
+              color: done || isActive ? RatelColors.onColor : context.palette.muted)),
     );
 
     if (!isActive) {
@@ -316,7 +316,7 @@ class HomeScreen extends ConsumerWidget {
         n.exercises == 1 ? '1 exercise' : '${n.exercises} exercises';
     showModalBottomSheet<void>(
       context: context,
-      backgroundColor: RatelColors.white,
+      backgroundColor: context.palette.white,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
               top: Radius.circular(RatelRadius.featureLg))),
@@ -327,24 +327,24 @@ class HomeScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text('UNIT · ${n.unit.toUpperCase()}',
-                style: const TextStyle(
+                style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.caption,
                     fontWeight: RatelType.semiBold,
-                    color: RatelColors.muted)),
+                    color: context.palette.muted)),
             const SizedBox(height: 4),
             Text(n.lesson,
-                style: const TextStyle(
+                style: TextStyle(
                     fontFamily: RatelFont.display,
                     fontWeight: RatelType.extraBold,
                     fontSize: RatelType.screenTitle,
-                    color: RatelColors.ink)),
+                    color: context.palette.ink)),
             const SizedBox(height: 4),
             Text('Lesson ${n.lessonNum} of ${n.lessonCount} · $exLabel · ${n.cefr}.',
-                style: const TextStyle(
+                style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.body,
-                    color: RatelColors.muted)),
+                    color: context.palette.muted)),
             const SizedBox(height: RatelSpace.md),
             const RatelChip(
                 label: '+20 XP', tone: RatelChipTone.green, filled: true),
@@ -371,9 +371,9 @@ class HomeScreen extends ConsumerWidget {
         decoration: BoxDecoration(
           color: RatelColors.tealDark,
           borderRadius: BorderRadius.circular(RatelRadius.pill),
-          boxShadow: const <BoxShadow>[
+          boxShadow: <BoxShadow>[
             BoxShadow(
-                color: RatelColors.shadow, blurRadius: 10, offset: Offset(0, 4)),
+                color: context.palette.shadow, blurRadius: 10, offset: Offset(0, 4)),
           ],
         ),
         child: const Text('🦡 Tutor',

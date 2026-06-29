@@ -33,15 +33,15 @@ class RatelCard extends StatelessWidget {
     final Widget content = Container(
       padding: padding,
       decoration: BoxDecoration(
-        color: _feature ? (color ?? RatelColors.teal) : RatelColors.white,
+        color: _feature ? (color ?? RatelColors.teal) : context.palette.white,
         gradient: gradient,
         borderRadius: BorderRadius.circular(radius),
-        border: _feature ? null : Border.all(color: RatelColors.border),
+        border: _feature ? null : Border.all(color: context.palette.border),
         boxShadow: _feature
             ? null
-            : const <BoxShadow>[
+            : <BoxShadow>[
                 BoxShadow(
-                  color: RatelColors.shadow,
+                  color: context.palette.shadow,
                   blurRadius: 10,
                   offset: Offset(0, 4),
                 ),

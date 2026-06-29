@@ -453,7 +453,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: const ValueKey<String>('screen-lesson'),
-      backgroundColor: RatelColors.cream,
+      backgroundColor: context.palette.cream,
       body: SafeArea(child: _done ? _result(context) : _runner(context)),
     );
   }
@@ -472,7 +472,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
                 key: const ValueKey<String>('lesson-close'),
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
-                icon: const Icon(Icons.close, color: RatelColors.ink),
+                icon: Icon(Icons.close, color: context.palette.ink),
                 onPressed: () => context.go('/home'),
               ),
               const SizedBox(width: RatelSpace.md),
@@ -487,11 +487,11 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
           const SizedBox(height: RatelSpace.lg),
           Text(
             it.prompt,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: RatelFont.display,
               fontWeight: RatelType.extraBold,
               fontSize: RatelType.screenTitle,
-              color: RatelColors.ink,
+              color: context.palette.ink,
             ),
           ),
           const SizedBox(height: RatelSpace.lg),
@@ -569,16 +569,16 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
               child: Container(
                 padding: const EdgeInsets.all(RatelSpace.md),
                 decoration: BoxDecoration(
-                  color: RatelColors.white,
+                  color: context.palette.white,
                   borderRadius: BorderRadius.circular(RatelRadius.card),
-                  border: Border.all(color: RatelColors.border),
+                  border: Border.all(color: context.palette.border),
                 ),
                 child: Text(
                   it.source!,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.body,
-                    color: RatelColors.ink,
+                    color: context.palette.ink,
                   ),
                 ),
               ),
@@ -590,8 +590,8 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
           width: double.infinity,
           constraints: const BoxConstraints(minHeight: 52),
           padding: const EdgeInsets.symmetric(vertical: RatelSpace.sm),
-          decoration: const BoxDecoration(
-            border: Border(bottom: BorderSide(color: RatelColors.border)),
+          decoration: BoxDecoration(
+            border: Border(bottom: BorderSide(color: context.palette.border)),
           ),
           child: Wrap(
             spacing: RatelSpace.sm,
@@ -632,7 +632,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
   Widget _typed(_Item it) {
     final Color borderColor = _checked
         ? (_wasCorrect ? RatelColors.green : RatelColors.coral)
-        : RatelColors.border;
+        : context.palette.border;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -641,13 +641,13 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
           children: <Widget>[
             const Text('🦡', style: TextStyle(fontSize: 28)),
             const SizedBox(width: RatelSpace.sm),
-            const Expanded(
+            Expanded(
               child: Text(
                 'Type your answer in the target language.',
                 style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.small,
-                  color: RatelColors.muted,
+                  color: context.palette.muted,
                 ),
               ),
             ),
@@ -658,7 +658,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
           padding: const EdgeInsets.symmetric(
               horizontal: RatelSpace.lg, vertical: RatelSpace.xs),
           decoration: BoxDecoration(
-            color: RatelColors.white,
+            color: context.palette.white,
             border: Border.all(color: borderColor, width: 1.5),
             borderRadius: BorderRadius.circular(RatelRadius.card),
           ),
@@ -675,13 +675,13 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
                 _check();
               }
             },
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: RatelFont.body,
               fontWeight: RatelType.medium,
               fontSize: RatelType.body,
-              color: RatelColors.ink,
+              color: context.palette.ink,
             ),
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               isCollapsed: true,
               border: InputBorder.none,
               contentPadding: EdgeInsets.symmetric(vertical: RatelSpace.md),
@@ -690,7 +690,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
                 fontFamily: RatelFont.body,
                 fontWeight: RatelType.medium,
                 fontSize: RatelType.body,
-                color: RatelColors.muted,
+                color: context.palette.muted,
               ),
             ),
           ),
@@ -734,10 +734,10 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
                   const SizedBox(height: 4),
                   Text(
                     'Answer: $answerText',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.body,
-                      color: RatelColors.ink,
+                      color: context.palette.ink,
                     ),
                   ),
                 ],
@@ -785,14 +785,14 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
           const Text('🎉', textAlign: TextAlign.center,
               style: TextStyle(fontSize: 72)),
           const SizedBox(height: RatelSpace.lg),
-          const Text(
+          Text(
             'Lesson complete!',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: RatelFont.display,
               fontWeight: RatelType.extraBold,
               fontSize: RatelType.screenTitle,
-              color: RatelColors.ink,
+              color: context.palette.ink,
             ),
           ),
           const SizedBox(height: RatelSpace.lg),
@@ -808,10 +808,10 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
             '$_correct of ${_items.length} correct · now '
             '${snap.level.name.toUpperCase()}',
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: RatelFont.body,
               fontSize: RatelType.body,
-              color: RatelColors.muted,
+              color: context.palette.muted,
             ),
           ),
           const Spacer(),

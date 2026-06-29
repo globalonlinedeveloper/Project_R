@@ -23,21 +23,21 @@ class ComingSoonScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: RatelColors.cream,
+      backgroundColor: context.palette.cream,
       appBar: AppBar(
-        backgroundColor: RatelColors.cream,
-        surfaceTintColor: RatelColors.cream,
+        backgroundColor: context.palette.cream,
+        surfaceTintColor: context.palette.cream,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: RatelColors.ink),
+          icon: Icon(Icons.arrow_back, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
         title: Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: RatelFont.display,
             fontWeight: RatelType.extraBold,
-            color: RatelColors.ink,
+            color: context.palette.ink,
             fontSize: RatelType.cardTitle,
           ),
         ),
@@ -59,9 +59,9 @@ class ComingSoonScreen extends StatelessWidget {
               Text(
                 blurb,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: RatelFont.body,
-                  color: RatelColors.muted,
+                  color: context.palette.muted,
                   fontSize: RatelType.bodyLg,
                   height: 1.4,
                 ),

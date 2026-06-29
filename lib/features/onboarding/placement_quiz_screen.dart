@@ -119,22 +119,22 @@ class _PlacementQuizScreenState extends ConsumerState<PlacementQuizScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: RatelColors.cream,
+      backgroundColor: context.palette.cream,
       appBar: AppBar(
-        backgroundColor: RatelColors.cream,
-        surfaceTintColor: RatelColors.cream,
+        backgroundColor: context.palette.cream,
+        surfaceTintColor: context.palette.cream,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.close, color: RatelColors.ink),
+          icon: Icon(Icons.close, color: context.palette.ink),
           onPressed: () => context.go('/home'),
         ),
-        title: const Text(
+        title: Text(
           'Placement test',
           style: TextStyle(
             fontFamily: RatelFont.display,
             fontWeight: RatelType.extraBold,
             fontSize: RatelType.cardTitle,
-            color: RatelColors.ink,
+            color: context.palette.ink,
           ),
         ),
       ),
@@ -160,20 +160,20 @@ class _PlacementQuizScreenState extends ConsumerState<PlacementQuizScreen> {
         const SizedBox(height: RatelSpace.sm),
         Text(
           'Question ${_responses.length + 1}',
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: RatelFont.body,
             fontSize: RatelType.small,
-            color: RatelColors.muted,
+            color: context.palette.muted,
           ),
         ),
         const SizedBox(height: RatelSpace.lg),
         Text(
           q.prompt,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: RatelFont.display,
             fontWeight: RatelType.extraBold,
             fontSize: RatelType.screenTitle,
-            color: RatelColors.ink,
+            color: context.palette.ink,
           ),
         ),
         const SizedBox(height: RatelSpace.lg),
@@ -200,14 +200,14 @@ class _PlacementQuizScreenState extends ConsumerState<PlacementQuizScreen> {
         const SizedBox(height: RatelSpace.xl),
         const Text('🧭', style: TextStyle(fontSize: 72)),
         const SizedBox(height: RatelSpace.lg),
-        const Text(
+        Text(
           'Your starting point',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontFamily: RatelFont.display,
             fontWeight: RatelType.extraBold,
             fontSize: RatelType.screenTitle,
-            color: RatelColors.ink,
+            color: context.palette.ink,
           ),
         ),
         const SizedBox(height: RatelSpace.md),
@@ -217,10 +217,10 @@ class _PlacementQuizScreenState extends ConsumerState<PlacementQuizScreen> {
           'Based on ${_responses.length} questions, we placed you at '
           '${_level.name.toUpperCase()}. You can always adjust later.',
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: RatelFont.body,
             fontSize: RatelType.body,
-            color: RatelColors.muted,
+            color: context.palette.muted,
           ),
         ),
         const Spacer(),

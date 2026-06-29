@@ -28,13 +28,13 @@ class RatelListRow extends StatelessWidget {
     final TextTheme t = Theme.of(context).textTheme;
     final Widget? trail = trailing ??
         (onTap != null
-            ? const Text(
+            ? Text(
                 '›',
                 style: TextStyle(
                   fontFamily: RatelFont.display,
                   fontSize: 22,
                   fontWeight: RatelType.extraBold,
-                  color: RatelColors.muted,
+                  color: context.palette.muted,
                 ),
               )
             : null);
@@ -54,7 +54,7 @@ class RatelListRow extends StatelessWidget {
                   height: 40,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: (leadingColor ?? RatelColors.muted)
+                    color: (leadingColor ?? context.palette.muted)
                         .withValues(alpha: 0.16),
                     shape: BoxShape.circle,
                   ),

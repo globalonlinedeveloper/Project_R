@@ -28,20 +28,20 @@ class AdventuresScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final bool relayReady = ref.watch(aiRelayProvider).isAvailable;
     return Scaffold(
-      backgroundColor: RatelColors.cream,
+      backgroundColor: context.palette.cream,
       appBar: AppBar(
-        backgroundColor: RatelColors.cream,
-        surfaceTintColor: RatelColors.cream,
+        backgroundColor: context.palette.cream,
+        surfaceTintColor: context.palette.cream,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: RatelColors.ink),
+          icon: Icon(Icons.arrow_back, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: const Text('Adventures',
+        title: Text('Adventures',
             style: TextStyle(
                 fontFamily: RatelFont.display,
                 fontWeight: RatelType.extraBold,
-                color: RatelColors.ink,
+                color: context.palette.ink,
                 fontSize: RatelType.cardTitle)),
         actions: <Widget>[
           const Padding(
@@ -62,32 +62,32 @@ class AdventuresScreen extends ConsumerWidget {
                 Container(
                   width: 56,
                   height: 56,
-                  decoration: const BoxDecoration(
-                      color: RatelColors.cream3, shape: BoxShape.circle),
+                  decoration: BoxDecoration(
+                      color: context.palette.cream3, shape: BoxShape.circle),
                   alignment: Alignment.center,
                   child: const Text('🗺️', style: TextStyle(fontSize: 28)),
                 ),
                 const SizedBox(width: RatelSpace.md),
-                const Expanded(
+                Expanded(
                   child: Text('Pick a place and dive in',
                       style: TextStyle(
                           fontFamily: RatelFont.display,
                           fontWeight: RatelType.extraBold,
                           fontSize: RatelType.cardTitle,
-                          color: RatelColors.ink)),
+                          color: context.palette.ink)),
                 ),
               ],
             ),
             const SizedBox(height: RatelSpace.sm),
-            const Text(
+            Text(
               'Every scene is a real conversation — no wrong answers, always free.',
               style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.body,
-                  color: RatelColors.muted),
+                  color: context.palette.muted),
             ),
             const SizedBox(height: RatelSpace.lg),
-            _statusCard(relayReady),
+            _statusCard(context, relayReady),
             const SizedBox(height: RatelSpace.lg),
             for (final ({String emoji, String name, List<String> scenes}) d
                 in _districts) ...<Widget>[
@@ -95,7 +95,7 @@ class AdventuresScreen extends ConsumerWidget {
               const SizedBox(height: RatelSpace.cardGap),
             ],
             const SizedBox(height: RatelSpace.xs),
-            const Center(
+            Center(
               child: Text(
                 'Scene names are ready content; a scene becomes a live, moderated '
                 'conversation once the AI relay is connected. No dialogue is '
@@ -104,7 +104,7 @@ class AdventuresScreen extends ConsumerWidget {
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.small,
-                    color: RatelColors.muted,
+                    color: context.palette.muted,
                     height: 1.4),
               ),
             ),
@@ -114,8 +114,8 @@ class AdventuresScreen extends ConsumerWidget {
     );
   }
 
-  Widget _statusCard(bool relayReady) => RatelCard(
-        color: RatelColors.cream2,
+  Widget _statusCard(BuildContext context, bool relayReady) => RatelCard(
+        color: context.palette.cream2,
         child: Row(
           children: <Widget>[
             Text(relayReady ? '✅' : '🔌', style: const TextStyle(fontSize: 22)),
@@ -125,10 +125,10 @@ class AdventuresScreen extends ConsumerWidget {
                 relayReady
                     ? 'The AI relay is connected — tap any scene to start a real conversation.'
                     : 'The moderated AI relay is not connected in this build yet — scenes open in a later step.',
-                style: const TextStyle(
+                style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.body,
-                    color: RatelColors.muted),
+                    color: context.palette.muted),
               ),
             ),
           ],
@@ -146,11 +146,11 @@ class AdventuresScreen extends ConsumerWidget {
                 Text(emoji, style: const TextStyle(fontSize: 24)),
                 const SizedBox(width: RatelSpace.sm),
                 Text(name,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontFamily: RatelFont.display,
                         fontWeight: RatelType.extraBold,
                         fontSize: RatelType.cardTitle,
-                        color: RatelColors.ink)),
+                        color: context.palette.ink)),
               ],
             ),
             const SizedBox(height: RatelSpace.sm),

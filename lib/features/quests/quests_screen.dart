@@ -28,7 +28,7 @@ class QuestsScreen extends ConsumerWidget {
         quests.where((QuestProgress p) => p.done).length;
     return Container(
       key: const ValueKey<String>('tab-quests'),
-      color: RatelColors.cream,
+      color: context.palette.cream,
       child: SafeArea(
         bottom: false,
         child: Column(
@@ -105,8 +105,8 @@ class QuestsScreen extends ConsumerWidget {
                     _QuestTile(progress: q),
                     const SizedBox(height: RatelSpace.sm),
                   ],
-                  const RatelCard(
-                    color: RatelColors.cream2,
+                  RatelCard(
+                    color: context.palette.cream2,
                     child: Row(
                       children: <Widget>[
                         Text('🎁', style: TextStyle(fontSize: 22)),
@@ -120,7 +120,7 @@ class QuestsScreen extends ConsumerWidget {
                                 style: TextStyle(
                                     fontFamily: RatelFont.body,
                                     fontSize: RatelType.small,
-                                    color: RatelColors.muted))),
+                                    color: context.palette.muted))),
                       ],
                     ),
                   ),
@@ -157,26 +157,26 @@ class _QuestTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(q.title,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontFamily: RatelFont.display,
                         fontWeight: RatelType.semiBold,
                         fontSize: RatelType.bodyLg,
-                        color: RatelColors.ink)),
+                        color: context.palette.ink)),
                 Text(q.description,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontFamily: RatelFont.body,
                         fontSize: RatelType.small,
-                        color: RatelColors.muted)),
+                        color: context.palette.muted)),
                 const SizedBox(height: RatelSpace.sm),
                 RatelProgressBar(
                     value: progress.fraction,
                     color: done ? RatelColors.green : RatelColors.teal),
                 const SizedBox(height: 4),
                 Text(detail,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontFamily: RatelFont.body,
                         fontSize: RatelType.caption,
-                        color: RatelColors.muted)),
+                        color: context.palette.muted)),
               ],
             ),
           ),

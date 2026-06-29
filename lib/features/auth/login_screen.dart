@@ -127,7 +127,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final AuthService auth = ref.watch(authServiceProvider);
     if (_sent) return _SentNotice(email: _emailCtrl.text.trim());
     return Scaffold(
-      backgroundColor: RatelColors.cream,
+      backgroundColor: context.palette.cream,
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -261,7 +261,7 @@ class _SentNotice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: RatelColors.cream,
+      backgroundColor: context.palette.cream,
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -277,14 +277,14 @@ class _SentNotice extends StatelessWidget {
                     const Icon(Icons.mark_email_unread_rounded,
                         size: 64, color: RatelColors.teal),
                     const SizedBox(height: RatelSpace.lg),
-                    const Text(
+                    Text(
                       'Check your inbox',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: RatelFont.display,
                         fontWeight: RatelType.extraBold,
                         fontSize: RatelType.screenTitle,
-                        color: RatelColors.ink,
+                        color: context.palette.ink,
                       ),
                     ),
                     const SizedBox(height: RatelSpace.sm),
@@ -292,11 +292,11 @@ class _SentNotice extends StatelessWidget {
                       'We sent a password-reset link to $email. Open it to '
                       'choose a new password.',
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: RatelFont.body,
                         fontWeight: RatelType.semiBold,
                         fontSize: RatelType.body,
-                        color: RatelColors.muted,
+                        color: context.palette.muted,
                       ),
                     ),
                   ],

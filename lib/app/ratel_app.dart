@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ratel/core/core.dart';
-import 'package:ratel/features/learner/learner_controller.dart';
 
+import 'app_providers.dart';
 import 'router.dart';
 
 /// Root app — Material 3 with the Ratel theme, driven by the [routerProvider]
@@ -52,6 +52,8 @@ class _RatelAppState extends ConsumerState<RatelApp>
       title: 'Ratel',
       debugShowCheckedModeBanner: false,
       theme: RatelTheme.light(),
+      darkTheme: RatelTheme.dark(),
+      themeMode: ref.watch(themeModeProvider),
       routerConfig: router,
     );
   }

@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 
+import 'palette.dart';
 import 'tokens.dart';
 
+export 'palette.dart';
 export 'tokens.dart';
 
 /// Builds the app's [ThemeData] from [RatelColors] / [RatelType] tokens.
 ///
-/// Material 3, warm cream scaffold, Baloo 2 for display/title/labels and
-/// Nunito Sans for body. Only this lib/core/theme layer references raw tokens;
-/// widgets read everything back through `Theme.of(context)` or the tokens.
+/// Material 3, warm cream scaffold in light, warm charcoal in dark; Baloo 2 for
+/// display/title/labels and Nunito Sans for body. Only this lib/core/theme layer
+/// references raw tokens; widgets read everything back through
+/// `Theme.of(context)`, the [RatelColors] accent tokens, or `context.palette`
+/// for the theme-aware neutrals.
 abstract final class RatelTheme {
-  /// The single light theme (the design is a warm light theme; a dark variant
-  /// can land later as an additive token set).
+  /// The warm LIGHT theme (the original design). Neutrals come from
+  /// [RatelPalette.light]; values are unchanged from prior releases (§11).
   static ThemeData light() {
     final ColorScheme scheme = ColorScheme.fromSeed(
       seedColor: RatelColors.teal,
@@ -32,16 +36,15 @@ abstract final class RatelTheme {
       outlineVariant: RatelColors.border,
     );
 
-    final TextTheme text = _textTheme();
-
     return ThemeData(
       useMaterial3: true,
       colorScheme: scheme,
       scaffoldBackgroundColor: RatelColors.cream,
       fontFamily: RatelFont.body,
-      textTheme: text,
+      textTheme: _textTheme(ink: RatelColors.ink, muted: RatelColors.muted),
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
+      extensions: const <ThemeExtension<dynamic>>[RatelPalette.light],
       appBarTheme: const AppBarTheme(
         backgroundColor: RatelColors.cream,
         foregroundColor: RatelColors.ink,
@@ -57,79 +60,127 @@ abstract final class RatelTheme {
     );
   }
 
+  /// The warm DARK theme (S53). Brand accents are identical to light; only the
+  /// neutrals flip, via [RatelPalette.dark] + a dark [ColorScheme] + a dark
+  /// scaffold, app-bar and ink text. R-WT3 (persisted theme selection) / R-WT6
+  /// (settings appearance surface).
+  static ThemeData dark() {
+    final ColorScheme scheme = ColorScheme.fromSeed(
+      seedColor: RatelColors.teal,
+      brightness: Brightness.dark,
+    ).copyWith(
+      primary: RatelColors.teal,
+      onPrimary: RatelColors.onColor,
+      secondary: RatelColors.amber,
+      onSecondary: RatelColors.onColor,
+      tertiary: RatelColors.green,
+      onTertiary: RatelColors.onColor,
+      error: RatelColors.coral,
+      onError: RatelColors.onColor,
+      surface: RatelColors.darkSurface,
+      onSurface: RatelColors.darkInk,
+      onSurfaceVariant: RatelColors.darkMuted,
+      outline: RatelColors.darkBorder,
+      outlineVariant: RatelColors.darkBorder,
+    );
+
+    return ThemeData(
+      useMaterial3: true,
+      colorScheme: scheme,
+      scaffoldBackgroundColor: RatelColors.darkBg,
+      fontFamily: RatelFont.body,
+      textTheme: _textTheme(ink: RatelColors.darkInk, muted: RatelColors.darkMuted),
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      extensions: const <ThemeExtension<dynamic>>[RatelPalette.dark],
+      appBarTheme: const AppBarTheme(
+        backgroundColor: RatelColors.darkBg,
+        foregroundColor: RatelColors.darkInk,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        centerTitle: false,
+      ),
+      dividerTheme: const DividerThemeData(
+        color: RatelColors.darkBorder,
+        thickness: 1,
+        space: 1,
+      ),
+    );
+  }
+
   /// Baloo 2 = display/title/button labels; Nunito Sans = body. Sizes from the
-  /// spec §2 scale; ink text by default, components override per surface.
-  static TextTheme _textTheme() => const TextTheme(
+  /// spec §2 scale; [ink]/[muted] are theme-dependent so the same scale serves
+  /// both light and dark. Components override colour per surface as needed.
+  static TextTheme _textTheme({required Color ink, required Color muted}) =>
+      TextTheme(
         displayLarge: TextStyle(
           fontFamily: RatelFont.display,
           fontSize: RatelType.hero,
           fontWeight: RatelType.extraBold,
-          color: RatelColors.ink,
+          color: ink,
           height: 1.1,
         ),
         displayMedium: TextStyle(
           fontFamily: RatelFont.display,
           fontSize: 28,
           fontWeight: RatelType.extraBold,
-          color: RatelColors.ink,
+          color: ink,
           height: 1.1,
         ),
         headlineMedium: TextStyle(
           fontFamily: RatelFont.display,
           fontSize: RatelType.screenTitle,
           fontWeight: RatelType.extraBold,
-          color: RatelColors.ink,
+          color: ink,
           height: 1.15,
         ),
         titleLarge: TextStyle(
           fontFamily: RatelFont.display,
           fontSize: 19,
           fontWeight: RatelType.extraBold,
-          color: RatelColors.ink,
+          color: ink,
         ),
         titleMedium: TextStyle(
           fontFamily: RatelFont.display,
           fontSize: RatelType.bodyLg,
           fontWeight: RatelType.semiBold,
-          color: RatelColors.ink,
+          color: ink,
         ),
         bodyLarge: TextStyle(
           fontFamily: RatelFont.body,
           fontSize: RatelType.bodyLg,
           fontWeight: RatelType.regular,
-          color: RatelColors.ink,
+          color: ink,
         ),
         bodyMedium: TextStyle(
           fontFamily: RatelFont.body,
           fontSize: RatelType.body,
           fontWeight: RatelType.regular,
-          color: RatelColors.ink,
+          color: ink,
         ),
         bodySmall: TextStyle(
           fontFamily: RatelFont.body,
           fontSize: RatelType.small,
           fontWeight: RatelType.regular,
-          color: RatelColors.muted,
+          color: muted,
         ),
         labelLarge: TextStyle(
           fontFamily: RatelFont.display,
           fontSize: RatelType.body,
           fontWeight: RatelType.extraBold,
-          color: RatelColors.ink,
+          color: ink,
         ),
         labelMedium: TextStyle(
           fontFamily: RatelFont.display,
           fontSize: RatelType.small,
           fontWeight: RatelType.semiBold,
-          color: RatelColors.ink,
+          color: ink,
         ),
-        /// Small-caps muted section labels — use with `.copyWith` + uppercase
-        /// text (spec §2: ~10–11px, weight 700, letter-spaced, muted).
         labelSmall: TextStyle(
           fontFamily: RatelFont.display,
           fontSize: RatelType.caption,
           fontWeight: RatelType.semiBold,
-          color: RatelColors.muted,
+          color: muted,
           letterSpacing: 0.8,
         ),
       );

@@ -46,7 +46,7 @@ class RatelButton extends StatelessWidget {
         ? Colors.transparent
         : (disabled ? base.withValues(alpha: 0.4) : base);
     final Color fg = secondary
-        ? (disabled ? RatelColors.muted : RatelColors.teal)
+        ? (disabled ? context.palette.muted : RatelColors.teal)
         : RatelColors.onColor;
 
     final TextStyle labelStyle =
