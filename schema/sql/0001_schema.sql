@@ -27,9 +27,13 @@ CREATE TABLE "user_course" (
     theta_per_skill jsonb,
     cefr_target cefr_level,
     xp_total integer,
+    lessons_completed integer,
+    streak_days integer,
+    streak_last_active date,
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
     PRIMARY KEY (user_course_id),
+    UNIQUE (user_id, target_locale),
     FOREIGN KEY (user_id) REFERENCES "user" (user_id) ON DELETE CASCADE
 );
 
@@ -48,6 +52,7 @@ CREATE TABLE "user_item_state" (
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
     PRIMARY KEY (user_item_state_id),
+    UNIQUE (user_id, item_id),
     FOREIGN KEY (user_id) REFERENCES "user" (user_id) ON DELETE CASCADE
 );
 

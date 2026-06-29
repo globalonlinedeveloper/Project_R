@@ -34,6 +34,18 @@
       "type": "integer",
       "minimum": 0
     },
+    "lessons_completed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "streak_days": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "streak_last_active": {
+      "type": "string",
+      "format": "date"
+    },
     "created_at": {
       "type": "string",
       "format": "date-time"
