@@ -62,4 +62,16 @@ void main() {
     expect(find.textContaining('getting ready'), findsOneWidget);
     expect(find.text('START'), findsNothing); // no fabricated path
   });
+
+  testWidgets('Home top bar shows the 🔔 bell that opens the REAL inbox',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(_appWith(_testSpine));
+    await tester.pumpAndSettle();
+    // The bell is wired on the Home top bar; a fresh account ⇒ no badge.
+    expect(find.text('🔔'), findsOneWidget);
+    await tester.tap(find.text('🔔'));
+    await tester.pumpAndSettle();
+    // Lands on the S54 in-app inbox — honest empty state, never faked.
+    expect(find.text('No notifications yet'), findsOneWidget);
+  });
 }

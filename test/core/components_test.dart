@@ -64,6 +64,60 @@ void main() {
     expect(find.text('💎'), findsNothing); // diamonds hidden — no engine
   });
 
+  testWidgets('RatelTopBar hides the bell when no inbox callback is given',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(_host(
+      const RatelTopBar(flagEmoji: '🇪🇸', langCode: 'ES', streak: 7),
+    ));
+    expect(find.text('🔔'), findsNothing);
+  });
+
+  testWidgets('RatelTopBar bell renders, shows the unread badge + fires onTap',
+      (WidgetTester tester) async {
+    int taps = 0;
+    await tester.pumpWidget(_host(
+      RatelTopBar(
+        flagEmoji: '🇪🇸',
+        langCode: 'ES',
+        streak: 7,
+        unreadNotifications: 3,
+        onNotificationsTap: () => taps++,
+      ),
+    ));
+    expect(find.text('🔔'), findsOneWidget);
+    expect(find.text('3'), findsOneWidget); // the unread badge count
+    await tester.tap(find.text('🔔'));
+    expect(taps, 1);
+  });
+
+  testWidgets('RatelTopBar bell badge caps the display at 9+',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(_host(
+      RatelTopBar(
+        flagEmoji: '🇪🇸',
+        langCode: 'ES',
+        unreadNotifications: 12,
+        onNotificationsTap: () {},
+      ),
+    ));
+    expect(find.text('9+'), findsOneWidget);
+    expect(find.text('12'), findsNothing);
+  });
+
+  testWidgets('RatelTopBar bell shows NO badge at zero unread (honest §6)',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(_host(
+      RatelTopBar(
+        flagEmoji: '🇪🇸',
+        langCode: 'ES',
+        unreadNotifications: 0,
+        onNotificationsTap: () {},
+      ),
+    ));
+    expect(find.text('🔔'), findsOneWidget);
+    expect(find.text('0'), findsNothing); // never a fabricated zero badge
+  });
+
   testWidgets('RatelSectionHeader uppercases + fires action',
       (WidgetTester tester) async {
     bool tapped = false;
@@ -148,6 +202,16 @@ void main() {
               streak: 7,
               energy: 4,
               diamonds: '1.24k',
+            ),
+            RatelTopBar(
+              flagEmoji: '🇪🇸',
+              langCode: 'ES',
+              streakFreeze: 3,
+              streak: 7,
+              energy: 4,
+              diamonds: '1.24k',
+              unreadNotifications: 12,
+              onNotificationsTap: () {},
             ),
             const RatelCard(child: Text('card')),
             const SizedBox(height: 8),

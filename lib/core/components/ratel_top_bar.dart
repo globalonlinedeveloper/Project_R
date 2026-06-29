@@ -5,11 +5,12 @@ import '../theme/theme.dart';
 /// Fixed top bar for the tab screens (design spec §3).
 ///
 /// Left = a tappable language flag pill (`🇪🇸 ES ▾`). Right = a cluster of
-/// stat chips. Each stat is OPTIONAL and only renders when a non-null value is
-/// supplied — so a screen surfaces only what is REAL (e.g. energy / diamonds
-/// have no backend engine yet, so they stay hidden rather than showing a faked
-/// number — design spec §6). The cluster scales-down to fit narrow phones, so
-/// it can never overflow the bar.
+/// stat chips plus optional action buttons (🔔 notifications, 🎨 theme). Each
+/// stat is OPTIONAL and only renders when a non-null value is supplied — so a
+/// screen surfaces only what is REAL (e.g. energy / diamonds have no backend
+/// engine yet, so they stay hidden rather than showing a faked number — design
+/// spec §6). The cluster scales-down to fit narrow phones, so it can never
+/// overflow the bar.
 class RatelTopBar extends StatelessWidget {
   const RatelTopBar({
     super.key,
@@ -20,6 +21,8 @@ class RatelTopBar extends StatelessWidget {
     this.energy,
     this.diamonds,
     this.streakFreeze,
+    this.onNotificationsTap,
+    this.unreadNotifications = 0,
     this.onThemeTap,
   });
 
@@ -38,6 +41,15 @@ class RatelTopBar extends StatelessWidget {
 
   /// 💪 streak-freeze count (null hides — no engine yet).
   final int? streakFreeze;
+
+  /// 🔔 opens the in-app notifications inbox (null hides the bell button).
+  final VoidCallback? onNotificationsTap;
+
+  /// Count of earned-but-unseen notifications. Shows a coral count badge on the
+  /// bell when > 0 (0 = bell with no badge). Only meaningful when
+  /// [onNotificationsTap] is supplied, so the count is REAL learner-derived
+  /// state, never a faked number.
+  final int unreadNotifications;
 
   /// 🎨 theme picker (null hides the button).
   final VoidCallback? onThemeTap;
@@ -79,6 +91,11 @@ class RatelTopBar extends StatelessWidget {
                             padding: EdgeInsets.only(left: RatelSpace.sm),
                             child: Text('🎨', style: TextStyle(fontSize: 20)),
                           ),
+                        ),
+                      if (onNotificationsTap != null)
+                        _BellButton(
+                          unread: unreadNotifications,
+                          onTap: onNotificationsTap!,
                         ),
                     ],
                   ),
@@ -166,6 +183,61 @@ class _Stat extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// 🔔 inbox button with an optional coral unread-count badge. The badge text is
+/// constant-white on the constant coral accent (legible in light AND dark),
+/// while the separating ring uses the theme surface so it reads cleanly on any
+/// bar background. Caps the display at `9+` so the cluster stays compact.
+class _BellButton extends StatelessWidget {
+  const _BellButton({required this.unread, required this.onTap});
+
+  final int unread;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.only(left: RatelSpace.sm),
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: <Widget>[
+            const Text('🔔', style: TextStyle(fontSize: 20)),
+            if (unread > 0)
+              Positioned(
+                top: -5,
+                right: -7,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                  constraints: const BoxConstraints(minWidth: 16),
+                  decoration: BoxDecoration(
+                    color: RatelColors.coral,
+                    borderRadius: BorderRadius.circular(RatelRadius.pill),
+                    border:
+                        Border.all(color: context.palette.white, width: 1.5),
+                  ),
+                  child: Text(
+                    unread > 9 ? '9+' : '$unread',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontFamily: RatelFont.display,
+                      fontSize: 10,
+                      height: 1.1,
+                      fontWeight: RatelType.extraBold,
+                      color: RatelColors.white,
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

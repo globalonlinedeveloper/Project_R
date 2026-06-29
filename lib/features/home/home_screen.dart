@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
+import 'package:ratel/features/notifications/notifications_controller.dart';
 
 /// Home tab (🏠) — the learning path, design spec §4.1. A Duolingo-style winding
 /// path of lesson nodes.
@@ -55,9 +56,12 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final LearnerSnapshot snap = ref.watch(learnerControllerProvider);
     final CourseSpine spine = ref.watch(courseSpineProvider);
+    // R-L11 inbox surface: the Home top-bar bell + unread badge open the
+    // in-app notifications feed (a real, learner-derived count — never faked).
+    final int unread = ref.watch(unreadNotificationsCountProvider);
 
     if (spine.isEmpty) {
-      return _emptyState(context, snap.streakDays, snap.diamonds, snap.streakFreezes);
+      return _emptyState(context, snap.streakDays, snap.diamonds, snap.streakFreezes, unread);
     }
 
     final List<_Node> nodes = _flatten(spine);
@@ -80,7 +84,9 @@ class HomeScreen extends ConsumerWidget {
                     streak: snap.streakDays,
                     diamonds: '${snap.diamonds}',
                     streakFreeze:
-                        snap.streakFreezes > 0 ? snap.streakFreezes : null),
+                        snap.streakFreezes > 0 ? snap.streakFreezes : null,
+                    unreadNotifications: unread,
+                    onNotificationsTap: () => context.push('/notifications')),
                 _unitBanner(context, current),
                 Expanded(
                   child: ListView.builder(
@@ -104,7 +110,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _emptyState(BuildContext context, int streak, int diamonds, int streakFreezes) {
+  Widget _emptyState(BuildContext context, int streak, int diamonds, int streakFreezes, int unread) {
     return Container(
       key: const ValueKey<String>('tab-home'),
       color: context.palette.cream,
@@ -118,7 +124,9 @@ class HomeScreen extends ConsumerWidget {
                 langCode: '',
                 streak: streak,
                 diamonds: '$diamonds',
-                streakFreeze: streakFreezes > 0 ? streakFreezes : null),
+                streakFreeze: streakFreezes > 0 ? streakFreezes : null,
+                unreadNotifications: unread,
+                onNotificationsTap: () => context.push('/notifications')),
             Expanded(
               child: Center(
                 child: Padding(

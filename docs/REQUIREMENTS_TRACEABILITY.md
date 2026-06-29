@@ -210,7 +210,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-L8 | Gamification & social screens | Must | Stage2 | Built ✅ | — | `user.schema.json` |
 | R-L9 | Multi-course, course-switch, flip-UI & immersion | Must | Stage2 | Built ✅ | — | — |
 | R-L10 | Navigation / information architecture (tab shell, deep links) | Must | Stage2 | Built ✅ | — | — |
-| R-L11 | Notifications (push categories, opt-in, inbox) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `notifications_controller.dart`, `notifications_screen.dart`, `settings_controller.dart`, `notifications.dart` +2 |
+| R-L11 | Notifications (push categories, opt-in, inbox) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `home_screen.dart`, `notifications_controller.dart`, `notifications_screen.dart`, `settings_controller.dart` +3 |
 | R-L11a | Widgets are mobile-only; desktop/web get in-app/tray equivalent | Could | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-L11b | Notifications: per-platform delivery profile | Should | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-L12 | Global search | Should | Stage2 | Built ✅ | — | — |
