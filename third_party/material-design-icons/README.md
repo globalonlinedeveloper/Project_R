@@ -27,3 +27,21 @@ Material icon style (Regular/Outlined/Round/Sharp/TwoTone). To adopt a new icon:
    ```
    then declare it in `pubspec.yaml` (`family: MaterialSymbolsRounded`) and add the
    `RatelIcons` const with that family + the codepoint from `MaterialIconsRound-Regular.codepoints`.
+
+
+## Glyphs currently promoted into `RatelIcons`
+
+The app draws these via `lib/core/theme/ratel_icons.dart`, all from the bundled
+filled `MaterialIcons-Regular.ttf` (no extra font data shipped):
+
+| `RatelIcons` member | Material name | Codepoint |
+|---|---|---|
+| `arrowBack` | `arrow_back` | U+E5C4 |
+| `close` | `close` | U+E5CD |
+| `markEmailUnread` | `mark_email_unread` | U+F18A |
+| `notifications` | `notifications` | U+E7F4 |
+| `palette` | `palette` | U+E40A |
+| `arrowDropDown` | `arrow_drop_down` | U+E5C5 |
+
+Stat / gamification (🔥 💎 🏆 ⚡), brand (🦡) and lesson-content emoji are
+intentionally NOT icon-font glyphs — they stay colourful.

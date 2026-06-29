@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ratel/app/ratel_app.dart';
+import 'package:ratel/core/core.dart';
 
 Future<void> _toTab(WidgetTester tester, String label) async {
   await tester.pumpWidget(const ProviderScope(child: RatelApp()));
@@ -30,8 +31,8 @@ void main() {
   testWidgets('Leagues top bar shows the 🔔 bell that opens the REAL inbox',
       (WidgetTester tester) async {
     await _toTab(tester, 'Leagues');
-    expect(find.text('🔔'), findsOneWidget);
-    await tester.tap(find.text('🔔'));
+    expect(find.byIcon(RatelIcons.notifications), findsOneWidget);
+    await tester.tap(find.byIcon(RatelIcons.notifications));
     await tester.pumpAndSettle();
     expect(find.text('No notifications yet'), findsOneWidget);
   });
@@ -39,8 +40,8 @@ void main() {
   testWidgets('Quests top bar shows the 🔔 bell that opens the REAL inbox',
       (WidgetTester tester) async {
     await _toTab(tester, 'Quests');
-    expect(find.text('🔔'), findsOneWidget);
-    await tester.tap(find.text('🔔'));
+    expect(find.byIcon(RatelIcons.notifications), findsOneWidget);
+    await tester.tap(find.byIcon(RatelIcons.notifications));
     await tester.pumpAndSettle();
     expect(find.text('No notifications yet'), findsOneWidget);
   });

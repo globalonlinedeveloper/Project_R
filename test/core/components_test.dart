@@ -69,7 +69,7 @@ void main() {
     await tester.pumpWidget(_host(
       const RatelTopBar(flagEmoji: '🇪🇸', langCode: 'ES', streak: 7),
     ));
-    expect(find.text('🔔'), findsNothing);
+    expect(find.byIcon(RatelIcons.notifications), findsNothing);
   });
 
   testWidgets('RatelTopBar bell renders, shows the unread badge + fires onTap',
@@ -84,9 +84,9 @@ void main() {
         onNotificationsTap: () => taps++,
       ),
     ));
-    expect(find.text('🔔'), findsOneWidget);
+    expect(find.byIcon(RatelIcons.notifications), findsOneWidget);
     expect(find.text('3'), findsOneWidget); // the unread badge count
-    await tester.tap(find.text('🔔'));
+    await tester.tap(find.byIcon(RatelIcons.notifications));
     expect(taps, 1);
   });
 
@@ -114,8 +114,27 @@ void main() {
         onNotificationsTap: () {},
       ),
     ));
-    expect(find.text('🔔'), findsOneWidget);
+    expect(find.byIcon(RatelIcons.notifications), findsOneWidget);
     expect(find.text('0'), findsNothing); // never a fabricated zero badge
+  });
+
+  testWidgets('RatelTopBar draws functional chrome as self-hosted Material '
+      'glyphs (keeps gamification emoji)', (WidgetTester tester) async {
+    await tester.pumpWidget(_host(
+      RatelTopBar(
+        flagEmoji: '🇪🇸',
+        langCode: 'ES',
+        streak: 7,
+        onThemeTap: () {},
+        onNotificationsTap: () {},
+      ),
+    ));
+    // Functional affordances are RatelIcons over the vendored font, not emoji.
+    expect(find.byIcon(RatelIcons.notifications), findsOneWidget);
+    expect(find.byIcon(RatelIcons.palette), findsOneWidget);
+    expect(find.byIcon(RatelIcons.arrowDropDown), findsOneWidget);
+    // Gamification stats stay colourful emoji (kept by design / owner choice).
+    expect(find.text('🔥'), findsOneWidget);
   });
 
   testWidgets('RatelSectionHeader uppercases + fires action',

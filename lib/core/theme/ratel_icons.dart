@@ -31,4 +31,17 @@ class RatelIcons {
   /// Material `mark_email_unread` (U+F18A).
   static const IconData markEmailUnread =
       IconData(0xf18a, fontFamily: fontFamily);
+
+  /// In-app notifications bell — the top-bar inbox button. Material
+  /// `notifications` (U+E7F4).
+  static const IconData notifications =
+      IconData(0xe7f4, fontFamily: fontFamily);
+
+  /// Appearance / theme picker affordance. Material `palette` (U+E40A).
+  static const IconData palette = IconData(0xe40a, fontFamily: fontFamily);
+
+  /// Dropdown affordance (e.g. the language pill chevron). Material
+  /// `arrow_drop_down` (U+E5C5).
+  static const IconData arrowDropDown =
+      IconData(0xe5c5, fontFamily: fontFamily);
 }

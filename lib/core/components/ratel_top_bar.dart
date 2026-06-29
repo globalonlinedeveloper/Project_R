@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/theme.dart';
+import '../theme/ratel_icons.dart';
 
 /// Fixed top bar for the tab screens (design spec §3).
 ///
@@ -87,9 +88,10 @@ class RatelTopBar extends StatelessWidget {
                         GestureDetector(
                           behavior: HitTestBehavior.opaque,
                           onTap: onThemeTap,
-                          child: const Padding(
-                            padding: EdgeInsets.only(left: RatelSpace.sm),
-                            child: Text('🎨', style: TextStyle(fontSize: 20)),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: RatelSpace.sm),
+                            child: Icon(RatelIcons.palette,
+                                size: 20, color: context.palette.ink),
                           ),
                         ),
                       if (onNotificationsTap != null)
@@ -149,8 +151,9 @@ class _FlagPill extends StatelessWidget {
                 color: context.palette.ink,
               ),
             ),
-            Text('  ▾',
-                style: TextStyle(fontSize: 11, color: context.palette.muted)),
+            const SizedBox(width: 2),
+            Icon(RatelIcons.arrowDropDown,
+                size: 18, color: context.palette.muted),
           ],
         ),
       ),
@@ -208,7 +211,8 @@ class _BellButton extends StatelessWidget {
         child: Stack(
           clipBehavior: Clip.none,
           children: <Widget>[
-            const Text('🔔', style: TextStyle(fontSize: 20)),
+            Icon(RatelIcons.notifications,
+                size: 20, color: context.palette.ink),
             if (unread > 0)
               Positioned(
                 top: -5,

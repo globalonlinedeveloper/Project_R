@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ratel/app/ratel_app.dart';
+import 'package:ratel/core/core.dart';
 
 Future<void> _toLibrary(WidgetTester tester) async {
   await tester.pumpWidget(const ProviderScope(child: RatelApp()));
@@ -34,8 +35,8 @@ void main() {
       (WidgetTester tester) async {
     await _toLibrary(tester);
     // The bell is wired on the Library top bar; a fresh account ⇒ no badge.
-    expect(find.text('🔔'), findsOneWidget);
-    await tester.tap(find.text('🔔'));
+    expect(find.byIcon(RatelIcons.notifications), findsOneWidget);
+    await tester.tap(find.byIcon(RatelIcons.notifications));
     await tester.pumpAndSettle();
     // Lands on the S54 in-app inbox — honest empty state, never faked.
     expect(find.text('No notifications yet'), findsOneWidget);

@@ -28,6 +28,12 @@ void main() {
     expect(RatelIcons.arrowBack.codePoint, 0xe5c4);
     expect(RatelIcons.close.codePoint, 0xe5cd);
     expect(RatelIcons.markEmailUnread.codePoint, 0xf18a);
+    expect(RatelIcons.notifications.fontFamily, 'RatelMaterialIcons');
+    expect(RatelIcons.palette.fontFamily, 'RatelMaterialIcons');
+    expect(RatelIcons.arrowDropDown.fontFamily, 'RatelMaterialIcons');
+    expect(RatelIcons.notifications.codePoint, 0xe7f4);
+    expect(RatelIcons.palette.codePoint, 0xe40a);
+    expect(RatelIcons.arrowDropDown.codePoint, 0xe5c5);
     // arrow_back mirrors in RTL, matching Flutter's Icons.arrow_back.
     expect(RatelIcons.arrowBack.matchTextDirection, isTrue);
   });
