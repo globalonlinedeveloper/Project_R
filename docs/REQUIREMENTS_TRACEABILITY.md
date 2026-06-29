@@ -93,7 +93,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-D10 | scripted_roleplay (a branching scripted conversation) | Must | Stage2 | Built ✅ | — | `adventures_screen.dart` |
 | R-D11 | Phase-3 scaffolds: write + live_roleplay (scaffolded now) | Should | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
 | R-D12 | tap-to-define reading feature + comprehension-item policy | Must | Stage2 | Built ✅ | — | — |
-| R-D13 | Autoscoring & answer-equivalence rules | Must | Stage2 | Built ✅ | — | — |
+| R-D13 | Autoscoring & answer-equivalence rules | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `lesson_test.dart` |
 | R-D14 | Result - signal mapping (proficiency / memory / engagement) | Must | Stage2 | Built ✅ | — | — |
 
 ## Part E — Content generation & QA
@@ -132,14 +132,14 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
 | R-G1 | One identity, many courses | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `supabase_identity.dart` |
-| R-G2 | theta ability model (global + per-skill) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `progress_screen.dart`, `ability.dart`, `progress_test.dart`, `ability_test.dart` |
+| R-G2 | theta ability model (global + per-skill) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `lesson_runner_screen.dart`, `progress_screen.dart`, `ability.dart`, `lesson_test.dart` +2 |
 | R-G3 | IRT calibration (how hard each item is) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `irt.dart`, `irt_test.dart` |
 | R-G4 | CAT placement test | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `learner_controller.dart`, `onboarding_screen.dart`, `placement_quiz_screen.dart`, `cat.dart` +3 |
 | R-G5 | FSRS spaced-repetition scheduling | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `fsrs.dart`, `fsrs_test.dart` |
 | R-G6 | Learner-state entities (what gets stored) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `progress_screen.dart`, `supabase_learner_state_store.dart`, `learner_state.dart`, `user.schema.json` +3 |
 | R-G7 | Cold-start strategy (works from day one) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `learner_controller.dart`, `onboarding_screen.dart`, `placement_quiz_screen.dart`, `cold_start.dart` +3 |
 | R-G8 | Launch path-serving (how lessons are sequenced) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `path_serving.dart`, `path_serving_test.dart` |
-| R-G9 | Saved words - flashcards - graded review | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `progress_screen.dart`, `saved_words.dart`, `progress_test.dart`, `saved_words_test.dart` |
+| R-G9 | Saved words - flashcards - graded review | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `lesson_runner_screen.dart`, `progress_screen.dart`, `saved_words.dart`, `lesson_test.dart` +2 |
 
 ## Part H — AI, tutor & conversation
 
@@ -158,7 +158,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-I1 | XP model (sources & amounts) | Should | Stage2 | Built ✅ | — | `progress_screen.dart`, `progress_test.dart` |
+| R-I1 | XP model (sources & amounts) | Should | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `progress_screen.dart`, `lesson_test.dart`, `progress_test.dart` |
 | R-I2 | Streak + streak-freeze + Society tiers | Should | Stage2 | Built ✅ | — | `progress_screen.dart`, `progress_test.dart` |
 | R-I3 | Energy model (lesson cost, regen, caps) | Should | Stage2 | Built ✅ | — | — |
 | R-I4 | Gems soft-currency (earn / spend sinks) | Should | Stage2 | Built ✅ | — | — |
@@ -201,7 +201,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 |----|-------------|--------|-------|--------|------|----------|
 | R-L1 | Auth & account flows | Must | Stage2 | Built ✅ | — | — |
 | R-L2 | Onboarding flow (language-motivation-goal-placement-first win) | Must | Stage2 | Built ✅ | — | `onboarding_screen.dart`, `onboarding_test.dart` |
-| R-L3 | Core learning loop (lesson run, check/feedback, complete) | Must | Stage2 | Built ✅ | — | — |
+| R-L3 | Core learning loop (lesson run, check/feedback, complete) | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `lesson_test.dart` |
 | R-L4 | Practice & AI hub | Must | Stage2 | Built ✅ | — | — |
 | R-L4a | Adventures immersive surface (explorable roleplay world) | Must | Stage2 | Built ✅ | — | — |
 | R-L5 | Reading & listening (stories, listening feed, video, tap-to-define) | Must | Stage2 | Built ✅ | — | — |
@@ -221,7 +221,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-L16 | Motion & interaction design-system | Must | Stage2 | Built ✅ | — | — |
 | R-L17 | Animated & interactive acceptance bar | Must | Stage2 | Built ✅ | — | — |
 | R-L18 | Mascot animation tech & rig contract | Must | Stage2 | Built ✅ | — | — |
-| R-L19 | Celebration & lesson-feedback kit | Must | Stage2 | Built ✅ | — | — |
+| R-L19 | Celebration & lesson-feedback kit | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `lesson_test.dart` |
 
 ## Part M — Analytics, ops & infrastructure
 

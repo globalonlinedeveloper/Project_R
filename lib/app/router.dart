@@ -7,6 +7,7 @@ import 'package:ratel/features/adventures/adventures_screen.dart';
 import 'package:ratel/features/common/coming_soon_screen.dart';
 import 'package:ratel/features/home/home_screen.dart';
 import 'package:ratel/features/leagues/leagues_screen.dart';
+import 'package:ratel/features/lesson/lesson_runner_screen.dart';
 import 'package:ratel/features/library/library_screen.dart';
 import 'package:ratel/features/onboarding/onboarding_screen.dart';
 import 'package:ratel/features/onboarding/placement_quiz_screen.dart';
@@ -41,14 +42,6 @@ const List<ComingSoonRoute> kComingSoonRoutes = <ComingSoonRoute>[
     emoji: '✉️',
     blurb: 'Account sign-up is coming next, wired to the real identity / '
         'anonymous-claim engine.'
-  ),
-  (
-    path: '/daily-quiz',
-    title: 'Daily refresh',
-    emoji: '🎯',
-    blurb: 'The lesson / quiz runner is coming next — it will serve a real '
-        '5-item mix from your review queue and score it through the '
-        'CAT / IRT / FSRS engines.'
   ),
   (
     path: '/shop',
@@ -162,6 +155,11 @@ GoRouter buildRouter() {
         path: '/adventures',
         builder: (BuildContext context, GoRouterState state) =>
             const AdventuresScreen(),
+      ),
+      GoRoute(
+        path: '/daily-quiz',
+        builder: (BuildContext context, GoRouterState state) =>
+            const LessonRunnerScreen(),
       ),
       for (final ComingSoonRoute r in kComingSoonRoutes)
         GoRoute(
