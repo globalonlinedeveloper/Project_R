@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
+import 'package:ratel/features/notifications/notifications_controller.dart';
 
 /// Library tab (📚) — design spec §4.2. REAL where an engine exists: the PRO
 /// badges are driven by the actual billing entitlement (`isProProvider`, free by
@@ -16,6 +17,7 @@ class LibraryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final LearnerSnapshot snap = ref.watch(learnerControllerProvider);
+    final int unread = ref.watch(unreadNotificationsCountProvider);
     final bool isPro = ref.watch(isProProvider);
     return Container(
       key: const ValueKey<String>('tab-library'),
@@ -25,8 +27,14 @@ class LibraryScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            // R-L11 inbox surface: the top-bar bell + unread badge open the
+            // in-app notifications feed (a real, learner-derived count).
             RatelTopBar(
-                flagEmoji: '🇪🇸', langCode: 'ES', streak: snap.streakDays),
+                flagEmoji: '🇪🇸',
+                langCode: 'ES',
+                streak: snap.streakDays,
+                unreadNotifications: unread,
+                onNotificationsTap: () => context.push('/notifications')),
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.fromLTRB(RatelSpace.screen,

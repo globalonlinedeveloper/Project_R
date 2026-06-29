@@ -26,4 +26,22 @@ void main() {
     // Real engine state: today's XP toward the persisted daily goal.
     expect(find.textContaining('XP today'), findsWidgets);
   });
+
+  testWidgets('Leagues top bar shows the 🔔 bell that opens the REAL inbox',
+      (WidgetTester tester) async {
+    await _toTab(tester, 'Leagues');
+    expect(find.text('🔔'), findsOneWidget);
+    await tester.tap(find.text('🔔'));
+    await tester.pumpAndSettle();
+    expect(find.text('No notifications yet'), findsOneWidget);
+  });
+
+  testWidgets('Quests top bar shows the 🔔 bell that opens the REAL inbox',
+      (WidgetTester tester) async {
+    await _toTab(tester, 'Quests');
+    expect(find.text('🔔'), findsOneWidget);
+    await tester.tap(find.text('🔔'));
+    await tester.pumpAndSettle();
+    expect(find.text('No notifications yet'), findsOneWidget);
+  });
 }

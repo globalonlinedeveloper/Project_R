@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
+import 'package:ratel/features/notifications/notifications_controller.dart';
 import 'package:ratel/features/quests/quests_controller.dart';
 import 'package:ratel/services/quests/quests.dart';
 
@@ -20,6 +21,7 @@ class QuestsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final LearnerSnapshot snap = ref.watch(learnerControllerProvider);
+    final int unread = ref.watch(unreadNotificationsCountProvider);
     final DailyGoalStatus goalStatus = ref.watch(dailyGoalProvider);
     final int goal = goalStatus.goal;
     final double goalVal = goalStatus.fraction;
@@ -34,8 +36,14 @@ class QuestsScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            // R-L11 inbox surface: the top-bar bell + unread badge open the
+            // in-app notifications feed (a real, learner-derived count).
             RatelTopBar(
-                flagEmoji: '🇪🇸', langCode: 'ES', streak: snap.streakDays),
+                flagEmoji: '🇪🇸',
+                langCode: 'ES',
+                streak: snap.streakDays,
+                unreadNotifications: unread,
+                onNotificationsTap: () => context.push('/notifications')),
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.fromLTRB(RatelSpace.screen,
