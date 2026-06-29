@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ratel/content/models/enums.dart' show CefrLevel;
 import 'package:ratel/features/settings/settings_controller.dart';
 import 'package:ratel/services/data_access/data_access.dart';
+import 'package:ratel/services/economy/economy.dart';
 import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/learning/learning.dart';
 
@@ -10,8 +11,9 @@ import 'package:ratel/services/learning/learning.dart';
 /// HONESTY (design spec §6): [theta] + [level] are REAL — derived by composing
 /// the `learner_state` ability fold (seeded with the `cold_start` CEFR-anchor
 /// prior, OR a θ restored from the durable store) over the in-memory answer log.
-/// The counters ([lessonsCompleted], [xpTotal], [xpToday], [streakDays]) are
-/// honest progress (R-O1): ZERO on a freshly-wiped backend, then — once a real
+/// The counters ([lessonsCompleted], [xpTotal], [xpToday], [streakDays],
+/// [diamonds]) are honest progress (R-O1 / R-I4): ZERO on a freshly-wiped
+/// backend, then — once a real
 /// `auth.uid()` session exists — REHYDRATED from + WRITTEN THROUGH to the
 /// Supabase `user_course` row so they survive a relaunch. A pure guest
 /// (`uid == null`) keeps the byte-identical in-memory behaviour.
@@ -31,6 +33,7 @@ class LearnerSnapshot {
     this.xpTotal = 0,
     this.xpToday = 0,
     this.streakDays = 0,
+    this.diamonds = 0,
   });
 
   /// Global ability on the IRT logit scale (REAL — from the ability fold).
@@ -44,6 +47,11 @@ class LearnerSnapshot {
   final int xpToday;
   final int streakDays;
 
+  /// 💎 earned diamonds (REAL — R-I4 earn side; spend sinks stay §6, see
+  /// `DiamondsModel`). Durable: rehydrated from + written through to
+  /// `user_course.diamonds`.
+  final int diamonds;
+
   @override
   bool operator ==(Object other) =>
       other is LearnerSnapshot &&
@@ -52,11 +60,12 @@ class LearnerSnapshot {
       other.lessonsCompleted == lessonsCompleted &&
       other.xpTotal == xpTotal &&
       other.xpToday == xpToday &&
-      other.streakDays == streakDays;
+      other.streakDays == streakDays &&
+      other.diamonds == diamonds;
 
   @override
   int get hashCode => Object.hash(
-      theta, level, lessonsCompleted, xpTotal, xpToday, streakDays);
+      theta, level, lessonsCompleted, xpTotal, xpToday, streakDays, diamonds);
 }
 
 /// Bridges the learning engines (`learner_state` + `cold_start` + `streak`) to
@@ -66,7 +75,8 @@ class LearnerSnapshot {
 /// level from it on every change via the pure [LearnerStateModel]. A brand-new
 /// learner cold-starts at the A1 anchor (honest — not the mockup's A2). When a
 /// real `auth.uid()` session exists, on first build it REHYDRATES xp / lessons /
-/// streak (+ the last goal-met day) / θ from the learner's `user_course` row,
+/// streak (+ the last goal-met day) / diamonds / θ from the learner's
+/// `user_course` row,
 /// and every mutation is WRITTEN THROUGH (debounced) to that row. With no
 /// session (guest) — or no Supabase config — the store/identity defaults make
 /// load + save no-ops, so the flag-off behaviour is byte-identical to the
@@ -88,6 +98,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   final LearnerStateModel _engine = const LearnerStateModel();
   final ColdStartModel _cold = const ColdStartModel();
   final StreakModel _streakModel = const StreakModel();
+  final DiamondsModel _diamondsModel = const DiamondsModel();
   final List<ReviewLogEntry> _log = <ReviewLogEntry>[];
 
   /// Placement θ once a CAT placement test completes (null ⇒ cold-start A1).
@@ -102,6 +113,9 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   int _xpTotal = 0;
   int _xpToday = 0;
   int _streak = 0;
+
+  /// 💎 earned diamonds balance (R-I4 earn side; durable via `user_course`).
+  int _diamonds = 0;
 
   /// Calendar day [_xpToday] currently belongs to (day-boundary reset), and the
   /// day the streak last advanced (persisted as `streak_last_active`). Both are
@@ -156,6 +170,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
       xpToday: xpToday,
       streakDays: _streakModel.current(
           streak: _streak, lastMet: _lastGoalMetDate, today: today),
+      diamonds: _diamonds,
     );
   }
 
@@ -167,16 +182,20 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _persist();
   }
 
-  /// Record a completed lesson (R-O1 XP/lessons). Rolls today's XP over the day
-  /// boundary first, adds the lesson XP, then advances the goal-gated streak if
-  /// today's XP just reached the daily goal — and writes the lot through.
+  /// Record a completed lesson (R-O1 XP/lessons; R-I4 diamonds). Rolls today's
+  /// XP over the day boundary first, adds the lesson XP, credits the lesson
+  /// diamond, then — if today's XP just reached the daily goal — advances the
+  /// goal-gated streak and credits the goal-met diamond bonus, and writes the
+  /// lot through.
   void recordLessonComplete({int xp = 20}) {
     final DateTime today = _today();
     _rollDay(today);
     _lessons += 1;
     _xpTotal += xp;
     _xpToday += xp;
-    _maybeAdvanceStreak(today);
+    _diamonds = _diamondsModel
+        .award(balance: _diamonds, event: DiamondEvent.lessonCompleted);
+    _maybeAwardGoalMet(today);
     state = _derive();
     _persist();
   }
@@ -189,16 +208,20 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _xpTodayDate = today;
   }
 
-  /// Advance the streak the FIRST time today's XP reaches the daily goal
-  /// (goal-gated, idempotent within a day). The goal is read at completion time
-  /// from the persisted setting (floored at 1, matching `dailyGoalProvider`).
-  void _maybeAdvanceStreak(DateTime today) {
+  /// Award the daily-goal-met rewards the FIRST time today's XP reaches the
+  /// daily goal (goal-gated, idempotent within a day): advance the goal-gated
+  /// streak (R-I2) and credit the diamond bonus (R-I4). The goal is read at
+  /// completion time from the persisted setting (floored at 1, matching
+  /// `dailyGoalProvider`).
+  void _maybeAwardGoalMet(DateTime today) {
     final int rawGoal = ref.read(appSettingsControllerProvider).dailyGoal;
     final int goal = rawGoal <= 0 ? 1 : rawGoal;
     if (_xpToday < goal) return; // goal not reached yet today
-    if (_lastGoalMetDate == today) return; // already advanced today
+    if (_lastGoalMetDate == today) return; // already rewarded today
     _streak = _streakModel.afterGoalMet(
         streak: _streak, lastMet: _lastGoalMetDate, today: today);
+    _diamonds = _diamondsModel
+        .award(balance: _diamonds, event: DiamondEvent.dailyGoalMet);
     _lastGoalMetDate = today;
   }
 
@@ -231,7 +254,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _placementTheta = null;
     _restoredTheta = null;
     _restoredPerSkill = const <String, double>{};
-    _lessons = _xpTotal = _xpToday = _streak = 0;
+    _lessons = _xpTotal = _xpToday = _streak = _diamonds = 0;
     _xpTodayDate = null;
     _lastGoalMetDate = null;
     state = _derive();
@@ -239,8 +262,8 @@ class LearnerController extends Notifier<LearnerSnapshot> {
 
   // ── Durable persistence (R-O1 / R-M3) ────────────────────────────────────
 
-  /// Rehydrate xp / lessons / streak (+ last goal-met day) / θ from the
-  /// learner's `user_course` row. No-op for a guest (`uid == null`) or when
+  /// Rehydrate xp / lessons / streak (+ last goal-met day) / diamonds / θ from
+  /// the learner's `user_course` row. No-op for a guest (`uid == null`) or when
   /// already hydrated, so the flag-off path is byte-identical and a load
   /// failure never breaks boot.
   Future<void> _hydrate() async {
@@ -276,6 +299,8 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     if (streak is num) _streak = streak.toInt();
     final Object? lastActive = row['streak_last_active'];
     if (lastActive is String) _lastGoalMetDate = _parseDate(lastActive);
+    final Object? diamonds = row['diamonds'];
+    if (diamonds is num) _diamonds = diamonds.toInt();
     final Object? theta = row['theta_per_skill'];
     if (theta is Map) {
       final Map<String, double> perSkill = <String, double>{};
@@ -310,6 +335,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
       'lessons_completed': _lessons,
       'streak_days': _streak,
       'streak_last_active': _fmtDate(_lastGoalMetDate),
+      'diamonds': _diamonds,
       'theta_per_skill': theta,
     };
   }

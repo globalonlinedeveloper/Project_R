@@ -30,6 +30,7 @@ CREATE TABLE "user_course" (
     lessons_completed integer,
     streak_days integer,
     streak_last_active date,
+    diamonds integer,
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
     PRIMARY KEY (user_course_id),

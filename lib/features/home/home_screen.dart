@@ -57,7 +57,7 @@ class HomeScreen extends ConsumerWidget {
     final CourseSpine spine = ref.watch(courseSpineProvider);
 
     if (spine.isEmpty) {
-      return _emptyState(snap.streakDays);
+      return _emptyState(snap.streakDays, snap.diamonds);
     }
 
     final List<_Node> nodes = _flatten(spine);
@@ -77,7 +77,8 @@ class HomeScreen extends ConsumerWidget {
                 RatelTopBar(
                     flagEmoji: _flagFor(spine.courseCode),
                     langCode: _langFor(spine.courseCode),
-                    streak: snap.streakDays),
+                    streak: snap.streakDays,
+                    diamonds: '${snap.diamonds}'),
                 _unitBanner(context, current),
                 Expanded(
                   child: ListView.builder(
@@ -101,7 +102,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _emptyState(int streak) {
+  Widget _emptyState(int streak, int diamonds) {
     return Container(
       key: const ValueKey<String>('tab-home'),
       color: RatelColors.cream,
@@ -110,7 +111,8 @@ class HomeScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            RatelTopBar(flagEmoji: '🦡', langCode: '', streak: streak),
+            RatelTopBar(
+                flagEmoji: '🦡', langCode: '', streak: streak, diamonds: '$diamonds'),
             const Expanded(
               child: Center(
                 child: Padding(
