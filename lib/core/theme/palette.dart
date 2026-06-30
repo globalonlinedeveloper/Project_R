@@ -86,6 +86,21 @@ class RatelPalette extends ThemeExtension<RatelPalette> {
     scrim: RatelColors.darkScrim,
   );
 
+  /// SPACE world-theme (R-WT2, S66) — deep-space neutrals. The scaffold
+  /// [cream] is translucent so the app-wide starfield shows through; cards are
+  /// opaque. Accents are reused unchanged.
+  static const RatelPalette space = RatelPalette(
+    cream: RatelColors.spaceBg,
+    cream2: RatelColors.spaceBg2,
+    cream3: RatelColors.spaceBg3,
+    white: RatelColors.spaceSurface,
+    ink: RatelColors.spaceInk,
+    muted: RatelColors.spaceMuted,
+    border: RatelColors.spaceBorder,
+    shadow: RatelColors.spaceShadow,
+    scrim: RatelColors.spaceScrim,
+  );
+
   @override
   RatelPalette copyWith({
     Color? cream,

@@ -15,11 +15,11 @@
 | Priority | Built | Build-ahead | Partial | Pending | Deferred | Removed | Spec/cross | Total |
 |---|---|---|---|---|---|---|---|---|
 | **Must** | 78 | 23 | 4 | 11 | 2 | 0 | 13 | 131 |
-| **Should** | 15 | 2 | 1 | 3 | 1 | 0 | 0 | 22 |
+| **Should** | 16 | 2 | 1 | 2 | 1 | 0 | 0 | 22 |
 | **Could** | 0 | 0 | 0 | 2 | 7 | 0 | 0 | 9 |
 | **Won't** | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 1 |
 | **Process** | 1 | 0 | 0 | 1 | 1 | 0 | 2 | 5 |
-| **All** | 94 | 25 | 5 | 17 | 11 | 1 | 15 | 168 |
+| **All** | 95 | 25 | 5 | 16 | 11 | 1 | 15 | 168 |
 
 _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not live) · Pending=Stage-3 not started · Deferred=post-launch wave · Removed=cut · Spec/cross=policy/cross-cutting._
 
@@ -273,11 +273,11 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-WT1 | World-theme template seam (palette + painters + traveller + vocabulary, app-wide + persisted)<br>_S33 seam added. AUDIT 2026-06-30: the light/dark/system appearance seam (palette + persisted selection) is built+tested, but the galaxy-specific painters/traveller are NOT → Partial. Owner S66: galaxy/Space World Theme approved to BUILD as a real feature; flips toward Built as real painter/traveller code+tests land._ | Should | Stage2 | Partial 🟨 | — | — |
-| R-WT2 | Space world theme #1 (deep-space galaxy skin, app-wide re-skin)<br>_S33 baseline. AUDIT 2026-06-30: the deep-space galaxy skin is NOT built (superseded at S53 by light/dark/system; palette.dart itself says the skin is not built). Owner S66: approved to BUILD the galaxy/Space skin → status reset from a stale 'Built ✅' to Pending (not started); flips to Partial/Built as real code+tests land._ | Should | Stage2 | Pending 🔒 | — | `palette.dart` |
-| R-WT3 | Persisted theme selection (default Classic, opt-in Space)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page). S53: theme selection reborn as persisted light/dark/system appearance in the post-S35 design system; the galaxy/Space skin (R-WT2) stays a section-6 no-engine item, NOT built._ | Should | Stage2 | Built ✅ | — | `app_providers.dart`, `palette.dart`, `theme.dart`, `settings_controller.dart` +3 |
+| R-WT1 | World-theme template seam (palette + painters + traveller + vocabulary, app-wide + persisted)<br>_S33 seam added. AUDIT 2026-06-30: only the light/dark/system appearance seam was built. S66·G1: the world-theme template seam is now REAL + app-wide + persisted — a selectable Space WorldTheme (RatelTheme.space + RatelPalette.space) with a deterministic StarfieldPainter painted app-wide behind translucent scaffolds, opt-in + persisted via AppSettings.worldTheme; flipped Partial→Built. (Galaxy-Home planet path + pod traveller = R-WT4/G2; tier-gated FX = R-WT7/G3.)_ | Should | Stage2 | Built ✅ | — | `app_providers.dart`, `ratel_app.dart`, `starfield.dart`, `tokens.dart` +3 |
+| R-WT2 | Space world theme #1 (deep-space galaxy skin, app-wide re-skin)<br>_S33 baseline; superseded at S53. S66·G1: the deep-space Space skin is now BUILT as a real app-wide re-skin (Space palette + ThemeData + the StarfieldPainter backdrop), opt-in from Settings → World; flipped Pending→Partial (a static skin — galaxy-Home path/traveller + tier-gated motion FX land in G2/G3)._ | Should | Stage2 | Partial 🟨 | — | `palette.dart`, `starfield.dart`, `theme.dart`, `space_theme_test.dart` |
+| R-WT3 | Persisted theme selection (default Classic, opt-in Space)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page). S53: theme selection reborn as persisted light/dark/system appearance in the post-S35 design system; the galaxy/Space skin (R-WT2) stays a section-6 no-engine item, NOT built._ | Should | Stage2 | Built ✅ | — | `app_providers.dart`, `palette.dart`, `theme.dart`, `settings_controller.dart` +4 |
 | R-WT4 | Galaxy Home — CustomPainter backdrop + planet path + locked v8 pod traveller<br>_AUDIT 2026-06-30: Galaxy Home (CustomPainter backdrop + planet path + pod traveller) is NOT built — the only CustomPainter in lib is the progress ring and Home is the plain content path. The prior 'Built ✅' override was a stale over-claim. Owner S66: approved to BUILD → Pending (not started)._ | Should | Stage2 | Pending 🔒 | — | — |
 | R-WT5 | Motion-tier preference (High/Reduced/Off) with OS reduce-motion hard floor<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page)._ | Should | Stage2 | Built ✅ | — | `app_settings.dart` |
 | R-WT6 | Profile settings surface (theme + motion + a11y toggles)<br>_S33: galaxy / world-theme feature added to the requirements baseline (owner-directed, page-by-page). S53: the settings appearance surface is the Settings theme picker (light/dark/system); the old galaxy world-skin/motion toggles remain superseded scope._ | Should | Stage2 | Built ✅ | — | `palette.dart`, `theme.dart`, `settings_screen.dart`, `dark_theme_test.dart` |
-| R-WT7 | Tier-gated galaxy FX + pod auto-defense (HIGH-only, reduce-motion floor)<br>_AUDIT 2026-06-30: tier-gated galaxy FX + pod auto-defense — no FX code and no such test exist anywhere. The prior 'Built ✅' override was a stale over-claim. Owner S66: approved to BUILD → Pending (not started)._ | Could | Stage2 | Pending 🔒 | — | — |
+| R-WT7 | Tier-gated galaxy FX + pod auto-defense (HIGH-only, reduce-motion floor)<br>_AUDIT 2026-06-30: tier-gated galaxy FX + pod auto-defense — no FX code and no such test exist anywhere. The prior 'Built ✅' override was a stale over-claim. Owner S66: approved to BUILD → Pending (not started)._ | Could | Stage2 | Pending 🔒 | — | `starfield.dart` |
 

@@ -33,14 +33,14 @@
     "R-WT1": {
       "moscow": "Should",
       "phase": "Stage2",
-      "notes": "S33 seam added. AUDIT 2026-06-30: the light/dark/system appearance seam (palette + persisted selection) is built+tested, but the galaxy-specific painters/traveller are NOT → Partial. Owner S66: galaxy/Space World Theme approved to BUILD as a real feature; flips toward Built as real painter/traveller code+tests land.",
-      "status_override": "Partial 🟨"
+      "notes": "S33 seam added. AUDIT 2026-06-30: only the light/dark/system appearance seam was built. S66·G1: the world-theme template seam is now REAL + app-wide + persisted — a selectable Space WorldTheme (RatelTheme.space + RatelPalette.space) with a deterministic StarfieldPainter painted app-wide behind translucent scaffolds, opt-in + persisted via AppSettings.worldTheme; flipped Partial→Built. (Galaxy-Home planet path + pod traveller = R-WT4/G2; tier-gated FX = R-WT7/G3.)",
+      "status_override": "Built ✅"
     },
     "R-WT2": {
       "moscow": "Should",
       "phase": "Stage2",
-      "notes": "S33 baseline. AUDIT 2026-06-30: the deep-space galaxy skin is NOT built (superseded at S53 by light/dark/system; palette.dart itself says the skin is not built). Owner S66: approved to BUILD the galaxy/Space skin → status reset from a stale 'Built ✅' to Pending (not started); flips to Partial/Built as real code+tests land.",
-      "status_override": "Pending 🔒"
+      "notes": "S33 baseline; superseded at S53. S66·G1: the deep-space Space skin is now BUILT as a real app-wide re-skin (Space palette + ThemeData + the StarfieldPainter backdrop), opt-in from Settings → World; flipped Pending→Partial (a static skin — galaxy-Home path/traveller + tier-gated motion FX land in G2/G3).",
+      "status_override": "Partial 🟨"
     },
     "R-WT3": {
       "moscow": "Should",
@@ -879,12 +879,12 @@
     "R-WT1": {
       "moscow": "Should",
       "phase": "Stage2",
-      "status": "Partial 🟨"
+      "status": "Built ✅"
     },
     "R-WT2": {
       "moscow": "Should",
       "phase": "Stage2",
-      "status": "Pending 🔒"
+      "status": "Partial 🟨"
     },
     "R-WT3": {
       "moscow": "Should",

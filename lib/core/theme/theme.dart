@@ -5,6 +5,7 @@ import 'tokens.dart';
 
 export 'palette.dart';
 export 'tokens.dart';
+export 'starfield.dart';
 
 /// Builds the app's [ThemeData] from [RatelColors] / [RatelType] tokens.
 ///
@@ -102,6 +103,55 @@ abstract final class RatelTheme {
       ),
       dividerTheme: const DividerThemeData(
         color: RatelColors.darkBorder,
+        thickness: 1,
+        space: 1,
+      ),
+    );
+  }
+
+  /// The SPACE world-theme (R-WT2, S66 · G1) — a deep-space re-skin applied
+  /// app-wide regardless of light/dark. A dark [ColorScheme] + the space
+  /// [RatelPalette]; the scaffold + app-bar are TRANSLUCENT so the app-wide
+  /// starfield (painted behind in `RatelApp`) shows through. Brand accents are
+  /// unchanged.
+  static ThemeData space() {
+    final ColorScheme scheme = ColorScheme.fromSeed(
+      seedColor: RatelColors.teal,
+      brightness: Brightness.dark,
+    ).copyWith(
+      primary: RatelColors.teal,
+      onPrimary: RatelColors.onColor,
+      secondary: RatelColors.amber,
+      onSecondary: RatelColors.onColor,
+      tertiary: RatelColors.green,
+      onTertiary: RatelColors.onColor,
+      error: RatelColors.coral,
+      onError: RatelColors.onColor,
+      surface: RatelColors.spaceSurface,
+      onSurface: RatelColors.spaceInk,
+      onSurfaceVariant: RatelColors.spaceMuted,
+      outline: RatelColors.spaceBorder,
+      outlineVariant: RatelColors.spaceBorder,
+    );
+
+    return ThemeData(
+      useMaterial3: true,
+      colorScheme: scheme,
+      scaffoldBackgroundColor: RatelColors.spaceBg,
+      fontFamily: RatelFont.body,
+      textTheme: _textTheme(ink: RatelColors.spaceInk, muted: RatelColors.spaceMuted),
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      extensions: const <ThemeExtension<dynamic>>[RatelPalette.space],
+      appBarTheme: const AppBarTheme(
+        backgroundColor: RatelColors.spaceBg,
+        foregroundColor: RatelColors.spaceInk,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        centerTitle: false,
+      ),
+      dividerTheme: const DividerThemeData(
+        color: RatelColors.spaceBorder,
         thickness: 1,
         space: 1,
       ),

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ratel/core/core.dart';
+import 'package:ratel/services/preferences/app_settings.dart' show WorldTheme;
 
 import 'app_providers.dart';
 import 'router.dart';
@@ -48,23 +49,40 @@ class _RatelAppState extends ConsumerState<RatelApp>
   @override
   Widget build(BuildContext context) {
     final GoRouter router = ref.watch(routerProvider);
+    // Space world-theme (R-WT1/WT2, S66 · G1): a deep-space re-skin applied app-
+    // wide regardless of light/dark, with a starfield painted behind the
+    // translucent scaffolds.
+    final bool space = ref.watch(worldThemeProvider) == WorldTheme.space;
     return MaterialApp.router(
       title: 'Ratel',
       debugShowCheckedModeBanner: false,
-      theme: RatelTheme.light(),
-      darkTheme: RatelTheme.dark(),
+      theme: space ? RatelTheme.space() : RatelTheme.light(),
+      darkTheme: space ? RatelTheme.space() : RatelTheme.dark(),
       themeMode: ref.watch(themeModeProvider),
       routerConfig: router,
       builder: (BuildContext context, Widget? child) {
         // Reduce-motion (HABITS · §4.9): honor the persisted toggle app-wide,
         // with the OS reduce-motion setting as a hard floor on top.
         final MediaQueryData mq = MediaQuery.of(context);
-        return MediaQuery(
+        Widget content = MediaQuery(
           data: mq.copyWith(
               disableAnimations:
                   mq.disableAnimations || ref.watch(reduceMotionProvider)),
           child: child ?? const SizedBox.shrink(),
         );
+        if (space) {
+          content = Stack(
+            children: <Widget>[
+              const Positioned.fill(
+                  child: ColoredBox(color: RatelColors.spaceBackdrop)),
+              const Positioned.fill(
+                  child: RepaintBoundary(
+                      child: CustomPaint(painter: StarfieldPainter()))),
+              content,
+            ],
+          );
+        }
+        return content;
       },
     );
   }

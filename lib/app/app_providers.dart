@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' show ThemeMode;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ratel/services/preferences/app_settings.dart' show WorldTheme;
 import 'package:ratel/features/learner/learner_controller.dart';
 import 'package:ratel/features/settings/settings_controller.dart';
 import 'package:ratel/services/billing/billing.dart';
@@ -45,3 +46,9 @@ final reviewedItemCountProvider = Provider<int>((ref) {
   ref.watch(learnerControllerProvider);
   return ref.read(learnerControllerProvider.notifier).reviewedItemCount;
 });
+
+
+/// The active WORLD theme (Classic / Space — R-WT1/WT2/WT3, S66), from the
+/// persisted [AppSettings]. Drives the app-wide Space re-skin + starfield.
+final worldThemeProvider = Provider<WorldTheme>(
+    (ref) => ref.watch(appSettingsControllerProvider).worldTheme);

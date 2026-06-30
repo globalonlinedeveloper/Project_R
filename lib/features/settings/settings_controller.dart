@@ -39,6 +39,11 @@ class AppSettingsController extends Notifier<AppSettings> {
   Future<void> setThemeMode(ThemeMode value) =>
       _commit(state.copyWith(themeMode: value));
 
+  /// World theme (Classic / Space — R-WT3, S66). Persisted; drives the
+  /// app-wide Space re-skin + starfield.
+  Future<void> setWorldTheme(WorldTheme value) =>
+      _commit(state.copyWith(worldTheme: value));
+
   /// Reduce non-essential motion (HABITS · §4.9). Persisted; honored app-wide.
   Future<void> setReduceMotion(bool value) =>
       _commit(state.copyWith(reduceMotion: value));

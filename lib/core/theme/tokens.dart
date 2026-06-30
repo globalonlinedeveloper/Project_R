@@ -114,6 +114,30 @@ abstract final class RatelColors {
 
   /// Dark modal scrim (~60% black).
   static const Color darkScrim = Color(0x99000000);
+
+  // ── SPACE world-theme (R-WT1/WT2, S66) — deep-space neutrals; the brand
+  // accents (teal/amber/coral/green/gold) are reused unchanged. ──────────────
+  /// Solid deep-space backdrop painted behind the starfield.
+  static const Color spaceBackdrop = Color(0xFF070A16);
+
+  /// Star colour.
+  static const Color spaceStar = Color(0xFFFFFFFF);
+
+  /// Scaffold background — TRANSLUCENT so the app-wide starfield shows through.
+  static const Color spaceBg = Color(0xCC0C1226);
+
+  /// Card surface (opaque deep blue).
+  static const Color spaceBg2 = Color(0xFF141C36);
+
+  /// Raised surface.
+  static const Color spaceBg3 = Color(0xFF1B2547);
+
+  static const Color spaceSurface = Color(0xFF1B2547);
+  static const Color spaceInk = Color(0xFFEDF0FF);
+  static const Color spaceMuted = Color(0xFFA6B0D8);
+  static const Color spaceBorder = Color(0x33A6B0D8);
+  static const Color spaceShadow = Color(0x66000000);
+  static const Color spaceScrim = Color(0x99000510);
 }
 
 /// Spacing scale (spec §2: 4 / 8 / 12 / 16 / 20 / 24).

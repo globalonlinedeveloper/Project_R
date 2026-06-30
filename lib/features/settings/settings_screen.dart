@@ -132,6 +132,14 @@ class SettingsScreen extends ConsumerWidget {
           ),
           const SizedBox(height: RatelSpace.sm),
           RatelListRow(
+            leadingEmoji: '🌌',
+            leadingColor: RatelColors.blue,
+            title: 'World',
+            subtitle: _worldLabel(s.worldTheme),
+            onTap: () => _pickWorld(context, c, s.worldTheme),
+          ),
+          const SizedBox(height: RatelSpace.sm),
+          RatelListRow(
             leadingEmoji: '👤',
             leadingColor: RatelColors.blue,
             title: 'Edit profile',
@@ -288,4 +296,58 @@ class SettingsScreen extends ConsumerWidget {
       ),
     );
   }
+  static const List<({String label, WorldTheme world, String emoji})> _worlds =
+      <({String label, WorldTheme world, String emoji})>[
+    (label: 'Classic', world: WorldTheme.classic, emoji: '🌍'),
+    (label: 'Space', world: WorldTheme.space, emoji: '🌌'),
+  ];
+
+  String _worldLabel(WorldTheme w) =>
+      w == WorldTheme.space ? 'Space' : 'Classic';
+
+  /// World-theme picker (Classic / Space — R-WT1/WT2/WT3, S66). Mirrors the
+  /// theme picker; the choice persists via [AppSettingsController.setWorldTheme]
+  /// and re-skins the whole app (Space adds the starfield).
+  void _pickWorld(
+      BuildContext context, AppSettingsController c, WorldTheme current) {
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: context.palette.white,
+      shape: const RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.vertical(top: Radius.circular(RatelRadius.featureLg))),
+      builder: (BuildContext sheetContext) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(RatelSpace.lg),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              const Padding(
+                padding:
+                    EdgeInsets.only(left: RatelSpace.sm, bottom: RatelSpace.sm),
+                child: RatelSectionHeader(label: 'World'),
+              ),
+              for (final ({String label, WorldTheme world, String emoji}) t
+                  in _worlds) ...<Widget>[
+                RatelListRow(
+                  leadingEmoji: t.world == current ? '✅' : t.emoji,
+                  title: t.label,
+                  subtitle: t.world == WorldTheme.space
+                      ? 'Deep-space skin + starfield'
+                      : 'The standard warm skin',
+                  onTap: () {
+                    c.setWorldTheme(t.world);
+                    Navigator.of(sheetContext).pop();
+                  },
+                ),
+                const SizedBox(height: RatelSpace.xs),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
 }

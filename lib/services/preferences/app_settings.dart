@@ -1,6 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show ThemeMode;
 
+/// The selectable WORLD theme (R-WT1/WT2/WT3, S66): the standard Classic skin
+/// or the deep-space Space skin (a starfield re-skin on top of the appearance).
+enum WorldTheme { classic, space }
+
 /// Minimal, neutral persisted user settings.
 ///
 /// Pure + immutable so it serialises cleanly to any settings store. Holds the
@@ -19,6 +23,7 @@ class AppSettings {
     this.reduceMotion = false,
     this.mutedNotifications = const <String>{},
     this.displayName = '',
+    this.worldTheme = WorldTheme.classic,
   });
 
   final bool highContrast;
@@ -57,6 +62,9 @@ class AppSettings {
   /// empty ⇒ fall back to "Learner"/"Guest" on the profile header.
   final String displayName;
 
+  /// The selected world theme (Classic / Space — R-WT3 persisted opt-in).
+  final WorldTheme worldTheme;
+
   AppSettings copyWith({
     bool? highContrast,
     bool? sound,
@@ -68,6 +76,7 @@ class AppSettings {
     bool? reduceMotion,
     Set<String>? mutedNotifications,
     String? displayName,
+    WorldTheme? worldTheme,
   }) =>
       AppSettings(
         highContrast: highContrast ?? this.highContrast,
@@ -80,6 +89,7 @@ class AppSettings {
         reduceMotion: reduceMotion ?? this.reduceMotion,
         mutedNotifications: mutedNotifications ?? this.mutedNotifications,
         displayName: displayName ?? this.displayName,
+        worldTheme: worldTheme ?? this.worldTheme,
       );
 
   Map<String, Object> toMap() => <String, Object>{
@@ -93,6 +103,7 @@ class AppSettings {
         'reduceMotion': reduceMotion,
         'mutedNotifications': (mutedNotifications.toList()..sort()).join(','),
         'displayName': displayName,
+        'worldTheme': worldTheme.name,
       };
 
   static AppSettings fromMap(Map<String, Object?> m) => AppSettings(
@@ -106,6 +117,7 @@ class AppSettings {
         reduceMotion: m['reduceMotion'] as bool? ?? false,
         mutedNotifications: _mutedFromCsv(m['mutedNotifications'] as String?),
         displayName: m['displayName'] as String? ?? '',
+        worldTheme: _worldThemeFromName(m['worldTheme'] as String?),
       );
 
   @override
@@ -120,13 +132,15 @@ class AppSettings {
       listEquals(other.recentSearches, recentSearches) &&
       other.reduceMotion == reduceMotion &&
       setEquals(other.mutedNotifications, mutedNotifications) &&
-      other.displayName == displayName;
+      other.displayName == displayName &&
+      other.worldTheme == worldTheme;
 
   @override
   int get hashCode =>
       Object.hash(highContrast, sound, haptics, dailyGoal, themeMode,
           Object.hashAllUnordered(readNotifications), Object.hashAll(recentSearches),
-          reduceMotion, Object.hashAllUnordered(mutedNotifications), displayName);
+          reduceMotion, Object.hashAllUnordered(mutedNotifications), displayName,
+          worldTheme);
 }
 
 /// Parse a persisted read-notifications CSV into a set; null/empty ⇒ none.
@@ -150,6 +164,10 @@ List<String> _recentsFromCsv(String? csv) {
       if (e.isNotEmpty) Uri.decodeComponent(e),
   ];
 }
+
+/// Parse a persisted [WorldTheme] name; unknown/absent ⇒ Classic.
+WorldTheme _worldThemeFromName(String? name) =>
+    name == 'space' ? WorldTheme.space : WorldTheme.classic;
 
 /// Parse a persisted [ThemeMode] name; unknown/absent ⇒ follow the system.
 ThemeMode _themeModeFromName(String? name) {
