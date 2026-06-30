@@ -12,12 +12,30 @@ Future<void> _toTab(WidgetTester tester, String label) async {
 }
 
 void main() {
-  testWidgets('Leagues is an honest no-engine stub (no fake leaderboard)',
+  testWidgets('Leagues shows the REAL solo cohort (no fabricated rivals)',
       (WidgetTester tester) async {
     await _toTab(tester, 'Leagues');
     expect(find.byKey(const ValueKey<String>('tab-leagues')), findsOneWidget);
-    expect(find.text('Leagues are coming'), findsOneWidget);
-    expect(find.text('Owner decision'), findsOneWidget);
+    // A fresh learner: entry tier (Bronze) + an honest cohort of one.
+    expect(find.text('Bronze League'), findsOneWidget);
+    expect(find.text('You'), findsOneWidget);
+    expect(find.textContaining('only learner in your group'), findsOneWidget);
+    // Honesty: the design mock's fabricated rivals never appear, and the old
+    // no-engine stub copy is gone.
+    expect(find.text('Sofía M.'), findsNothing);
+    expect(find.text('Kenji T.'), findsNothing);
+    expect(find.text('Leagues are coming'), findsNothing);
+  });
+
+  testWidgets('Leagues ladder sheet lists all ten tiers',
+      (WidgetTester tester) async {
+    await _toTab(tester, 'Leagues');
+    await tester.tap(find.text('🏆 View all 10 tiers'));
+    await tester.pumpAndSettle();
+    expect(find.text('League tiers'), findsOneWidget);
+    expect(find.text('Diamond League'), findsOneWidget);
+    // Bronze shows in the header card AND as a ladder row → at least one.
+    expect(find.text('Bronze League'), findsWidgets);
   });
 
   testWidgets('Quests surfaces the REAL daily-goal progress',

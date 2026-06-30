@@ -64,6 +64,18 @@ abstract final class RatelColors {
   static const Color redFlagAlt = Color(0xFFC0392B);
   static const Color navy = Color(0xFF15324A);
 
+  // -- League tier badges (design spec 4.3 ladder, Bronze -> Diamond) -------
+  static const Color tierBronze = Color(0xFFCD7F32);
+  static const Color tierSilver = Color(0xFF9AA7B2);
+  static const Color tierGold = Color(0xFFE0972B);
+  static const Color tierSapphire = Color(0xFF2A6FDB);
+  static const Color tierRuby = Color(0xFFC0392B);
+  static const Color tierEmerald = Color(0xFF1F8A5B);
+  static const Color tierAmethyst = Color(0xFF7D3CC9);
+  static const Color tierPearl = Color(0xFF9AA0A6);
+  static const Color tierObsidian = Color(0xFF3A3A44);
+  static const Color tierDiamond = Color(0xFF16A085);
+
   // ── Derived neutrals ─────────────────────────────────────────────────────
   /// Text / icon on a saturated (teal/green/amber/coral) surface.
   static const Color onColor = Color(0xFFFFFFFF);

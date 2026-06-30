@@ -4,6 +4,7 @@ import 'package:ratel/features/settings/settings_controller.dart';
 import 'package:ratel/services/data_access/data_access.dart';
 import 'package:ratel/services/economy/economy.dart';
 import 'package:ratel/services/identity/identity.dart';
+import 'package:ratel/services/leagues/leagues.dart' show LeagueWeek;
 import 'package:ratel/services/learning/learning.dart';
 
 /// An immutable snapshot of the learner's surfaced progress.
@@ -33,6 +34,7 @@ class LearnerSnapshot {
     this.lessonsCompleted = 0,
     this.xpTotal = 0,
     this.xpToday = 0,
+    this.xpWeekEarned = 0,
     this.streakDays = 0,
     this.diamonds = 0,
     this.streakFreezes = 0,
@@ -47,6 +49,12 @@ class LearnerSnapshot {
   final int lessonsCompleted;
   final int xpTotal;
   final int xpToday;
+
+  /// XP genuinely earned this LEAGUE week (Monday->Sunday). Like [xpToday]
+  /// it has no durable column: it resets at the weekly boundary (the injected
+  /// clock) and starts at zero on each relaunch (R-I6). Ranks the weekly
+  /// leaderboard, never a fabricated cohort.
+  final int xpWeekEarned;
   final int streakDays;
 
   /// 💎 earned diamonds (REAL — R-I4 earn side; spend sinks stay §6, see
@@ -67,13 +75,14 @@ class LearnerSnapshot {
       other.lessonsCompleted == lessonsCompleted &&
       other.xpTotal == xpTotal &&
       other.xpToday == xpToday &&
+      other.xpWeekEarned == xpWeekEarned &&
       other.streakDays == streakDays &&
       other.diamonds == diamonds &&
       other.streakFreezes == streakFreezes;
 
   @override
   int get hashCode => Object.hash(theta, level, lessonsCompleted, xpTotal,
-      xpToday, streakDays, diamonds, streakFreezes);
+      xpToday, xpWeekEarned, streakDays, diamonds, streakFreezes);
 }
 
 /// Bridges the learning engines (`learner_state` + `cold_start` + `streak`) to
@@ -121,6 +130,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   int _lessons = 0;
   int _xpTotal = 0;
   int _xpToday = 0;
+  int _xpWeek = 0;
   int _streak = 0;
 
   /// 💎 earned diamonds balance (R-I4 earn side; durable via `user_course`).
@@ -133,6 +143,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   /// day the streak last advanced (persisted as `streak_last_active`). Both are
   /// date-only (local midnight) or null when never set.
   DateTime? _xpTodayDate;
+  DateTime? _xpWeekStart;
   DateTime? _lastGoalMetDate;
 
   bool _hydrated = false;
@@ -174,12 +185,16 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     // over since it was last earned, and the streak lapses after a missed day.
     final int xpToday =
         (_xpTodayDate != null && _xpTodayDate != today) ? 0 : _xpToday;
+    final DateTime weekStart = LeagueWeek.startOf(today);
+    final int xpWeek =
+        (_xpWeekStart != null && _xpWeekStart != weekStart) ? 0 : _xpWeek;
     return LearnerSnapshot(
       theta: course.thetaGlobal,
       level: level,
       lessonsCompleted: _lessons,
       xpTotal: _xpTotal,
       xpToday: xpToday,
+      xpWeekEarned: xpWeek,
       streakDays: _streakModel.current(
           streak: _streak, lastMet: _lastGoalMetDate, today: today),
       diamonds: _diamonds,
@@ -203,10 +218,12 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   void recordLessonComplete({int xp = 20}) {
     final DateTime today = _today();
     _rollDay(today);
+    _rollWeek(today);
     _coverMissedDays(today);
     _lessons += 1;
     _xpTotal += xp;
     _xpToday += xp;
+    _xpWeek += xp;
     _diamonds = _diamondsModel
         .award(balance: _diamonds, event: DiamondEvent.lessonCompleted);
     _maybeAwardGoalMet(today);
@@ -220,6 +237,15 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   void _rollDay(DateTime today) {
     if (_xpTodayDate != null && _xpTodayDate != today) _xpToday = 0;
     _xpTodayDate = today;
+  }
+
+  /// Reset this week's XP when the league week (Monday boundary) has rolled
+  /// over since it was last touched. Mirrors [_rollDay]: [xpWeekEarned] has no
+  /// durable column, so a relaunch already starts it at zero (R-I6).
+  void _rollWeek(DateTime today) {
+    final DateTime weekStart = LeagueWeek.startOf(today);
+    if (_xpWeekStart != null && _xpWeekStart != weekStart) _xpWeek = 0;
+    _xpWeekStart = weekStart;
   }
 
   /// Award the daily-goal-met rewards the FIRST time today's XP reaches the
@@ -309,7 +335,9 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _restoredTheta = null;
     _restoredPerSkill = const <String, double>{};
     _lessons = _xpTotal = _xpToday = _streak = _diamonds = _streakFreezes = 0;
+    _xpWeek = 0;
     _xpTodayDate = null;
+    _xpWeekStart = null;
     _lastGoalMetDate = null;
     state = _derive();
   }
