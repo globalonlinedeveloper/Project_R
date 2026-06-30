@@ -9,6 +9,7 @@ import 'package:ratel/features/auth/signup_screen.dart';
 import 'package:ratel/features/common/coming_soon_screen.dart';
 import 'package:ratel/features/home/home_screen.dart';
 import 'package:ratel/features/leagues/leagues_screen.dart';
+import 'package:ratel/features/library/library_search_screen.dart';
 import 'package:ratel/features/lesson/lesson_runner_screen.dart';
 import 'package:ratel/features/library/library_screen.dart';
 import 'package:ratel/features/onboarding/onboarding_screen.dart';
@@ -40,13 +41,6 @@ const List<ComingSoonRoute> kComingSoonRoutes = <ComingSoonRoute>[
     emoji: '👥',
     blurb: 'Friends & social (followers, friend activity, "passed you") have '
         'no engine yet — an owner decision.'
-  ),
-  (
-    path: '/search',
-    title: 'Search',
-    emoji: '🔍',
-    blurb: 'Library search is coming next — it will query the real content '
-        'catalogue (lessons, saved words, stories).'
   ),
 ];
 
@@ -141,6 +135,11 @@ GoRouter buildRouter() {
         path: '/adventures',
         builder: (BuildContext context, GoRouterState state) =>
             const AdventuresScreen(),
+      ),
+      GoRoute(
+        path: '/search',
+        builder: (BuildContext context, GoRouterState state) =>
+            const LibrarySearchScreen(),
       ),
       GoRoute(
         path: '/daily-quiz',
