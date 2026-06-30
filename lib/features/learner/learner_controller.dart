@@ -163,6 +163,10 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   DateTime? _xpWeekStart;
   DateTime? _lastGoalMetDate;
 
+  /// Session-local Double-XP boost expiry (E1 · R-I4). null ⇒ no boost; not
+  /// persisted (gone on relaunch, like energy/xpToday) — the 💎 debit IS durable.
+  DateTime? _xpBoostUntil;
+
   bool _hydrated = false;
   bool _disposed = false;
   bool _saving = false;
@@ -244,16 +248,17 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _rollWeek(today);
     _coverMissedDays(today);
     _spendEnergyForLesson();
+    final int gained = isDoubleXpActive ? xp * PowerUpPrices.doubleXpMultiplier : xp;
     _lessons += 1;
-    _xpTotal += xp;
-    _xpToday += xp;
-    _xpWeek += xp;
+    _xpTotal += gained;
+    _xpToday += gained;
+    _xpWeek += gained;
     _diamonds = _diamondsModel
         .award(balance: _diamonds, event: DiamondEvent.lessonCompleted);
     _maybeAwardGoalMet(today);
     // D1: record the lesson's XP into the device-local 7-day history
     // (R-G6 / R-L14). Honest — only real earned XP, never fabricated.
-    ref.read(xpHistoryControllerProvider.notifier).recordToday(xp);
+    ref.read(xpHistoryControllerProvider.notifier).recordToday(gained);
     state = _derive();
     _persist();
   }
@@ -412,6 +417,44 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _persist();
   }
 
+  /// 💎 price of a Double-XP boost (surfaced to the Shop).
+  int get doubleXpCost => PowerUpPrices.doubleXpCost;
+
+  /// Whether a Double-XP boost is currently running (clock-checked).
+  bool get isDoubleXpActive {
+    final DateTime? until = _xpBoostUntil;
+    return until != null && ref.read(clockProvider)().isBefore(until);
+  }
+
+  /// Time left on the active Double-XP boost, or null when none is running.
+  Duration? get doubleXpRemaining {
+    final DateTime? until = _xpBoostUntil;
+    if (until == null) return null;
+    final Duration d = until.difference(ref.read(clockProvider)());
+    return d > Duration.zero ? d : null;
+  }
+
+  /// Whether a Double-XP boost can be bought now: none active AND enough 💎.
+  bool get canBuyDoubleXp =>
+      !isDoubleXpActive &&
+      _diamondsModel.canSpend(
+          balance: _diamonds, amount: PowerUpPrices.doubleXpCost);
+
+  /// Activate a Double-XP boost for [PowerUpPrices.doubleXpDuration] for
+  /// [doubleXpCost] 💎 (E1 · R-I4 spend · R-I1 XP). No-op when one is already
+  /// running or unaffordable. The 💎 debit is durable; the boost window is
+  /// session-local (gone on relaunch) — stated honestly in the Shop. While
+  /// active, every completed lesson earns 2× XP.
+  void buyDoubleXp() {
+    if (!canBuyDoubleXp) return;
+    _diamonds = _diamondsModel.spend(
+        balance: _diamonds, amount: PowerUpPrices.doubleXpCost);
+    _xpBoostUntil =
+        ref.read(clockProvider)().add(PowerUpPrices.doubleXpDuration);
+    state = _derive();
+    _persist();
+  }
+
   /// Seed ability from a completed CAT placement (design spec §4.11 — the
   /// "Take a placement test" branch). Replaces the cold-start prior with the
   /// placement θ estimate (same IRT logit scale), clears any prior answer log
@@ -450,6 +493,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _xpTodayDate = null;
     _xpWeekStart = null;
     _lastGoalMetDate = null;
+    _xpBoostUntil = null;
     state = _derive();
   }
 

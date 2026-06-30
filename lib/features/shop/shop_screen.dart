@@ -35,6 +35,10 @@ class ShopScreen extends ConsumerWidget {
     final int streakRepairCost = learner.streakRepairCost;
     final bool canRepair = learner.canRepairStreak;
     final bool streakLapsed = learner.streakLapsed;
+    final int doubleXpCost = learner.doubleXpCost;
+    final bool canBuyXp = learner.canBuyDoubleXp;
+    final bool xpBoostActive = learner.isDoubleXpActive;
+    final Duration? xpBoostLeft = learner.doubleXpRemaining;
 
     return Scaffold(
       backgroundColor: context.palette.cream,
@@ -190,6 +194,32 @@ class ShopScreen extends ConsumerWidget {
                   : (streakLapsed
                       ? 'Not enough 💎 — earn more by finishing lessons.'
                       : 'Your streak is safe — nothing to repair right now.'),
+            ),
+            const SizedBox(height: RatelSpace.cardGap),
+            _PowerUpCard(
+              emoji: '✨',
+              title: 'Double XP',
+              desc: 'Earn 2× XP from every lesson for 15 minutes.',
+              status: xpBoostActive
+                  ? 'Active · ${(xpBoostLeft?.inMinutes ?? 0) + 1}m left'
+                  : 'Inactive',
+              statusTone:
+                  xpBoostActive ? RatelChipTone.green : RatelChipTone.neutral,
+              buttonLabel: xpBoostActive ? 'Active' : 'Buy for $doubleXpCost 💎',
+              onBuy: canBuyXp
+                  ? () {
+                      learner.buyDoubleXp();
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentSnackBar()
+                        ..showSnackBar(const SnackBar(
+                            content: Text('Double XP active ✨')));
+                    }
+                  : null,
+              note: canBuyXp
+                  ? null
+                  : (xpBoostActive
+                      ? 'Your boost is running — XP is doubled.'
+                      : 'Not enough 💎 — earn more by finishing lessons.'),
             ),
             const SizedBox(height: RatelSpace.lg),
             Text(

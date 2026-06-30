@@ -126,7 +126,54 @@ void main() {
     });
   });
 
-  testWidgets('Shop renders the Energy Refill + Streak Repair cards',
+  group('Double XP', () {
+    test('doubles lesson XP while active, then debits 💎', () async {
+      final _Store store = _Store(_seed(<String, Object?>{'diamonds': 30}));
+      final ProviderContainer c = _c(() => DateTime(2026, 6, 1, 9),
+          goal: 100, identity: FakeIdentity(), store: store);
+      addTearDown(c.dispose);
+      final LearnerController n = c.read(learnerControllerProvider.notifier);
+      await _settle();
+      expect(n.canBuyDoubleXp, isTrue);
+      n.buyDoubleXp();
+      expect(n.isDoubleXpActive, isTrue);
+      expect(c.read(learnerControllerProvider).diamonds, 15); // 30 - 15
+      n.recordLessonComplete(xp: 10);
+      expect(c.read(learnerControllerProvider).xpTotal, 20); // 10 × 2
+      expect(c.read(learnerControllerProvider).diamonds, 16); // 15 + 1 lesson
+      expect(n.canBuyDoubleXp, isFalse); // already active
+    });
+
+    test('expires after its window; XP returns to 1×', () async {
+      DateTime now = DateTime(2026, 6, 1, 9, 0, 0);
+      final _Store store = _Store(_seed(<String, Object?>{'diamonds': 30}));
+      final ProviderContainer c =
+          _c(() => now, goal: 100, identity: FakeIdentity(), store: store);
+      addTearDown(c.dispose);
+      final LearnerController n = c.read(learnerControllerProvider.notifier);
+      await _settle();
+      n.buyDoubleXp();
+      now = DateTime(2026, 6, 1, 9, 16); // +16 min, past the 15-min window
+      expect(n.isDoubleXpActive, isFalse);
+      n.recordLessonComplete(xp: 10);
+      expect(c.read(learnerControllerProvider).xpTotal, 10); // not doubled
+    });
+
+    test('gated when unaffordable', () async {
+      final _Store store = _Store(_seed(<String, Object?>{'diamonds': 5}));
+      final ProviderContainer c = _c(() => DateTime(2026, 6, 1, 9),
+          identity: FakeIdentity(), store: store);
+      addTearDown(c.dispose);
+      final LearnerController n = c.read(learnerControllerProvider.notifier);
+      await _settle();
+      expect(n.canBuyDoubleXp, isFalse); // 5 < 15
+      n.buyDoubleXp(); // no-op
+      expect(n.isDoubleXpActive, isFalse);
+      expect(c.read(learnerControllerProvider).diamonds, 5);
+    });
+  });
+
+  testWidgets('Shop renders the Energy Refill / Streak Repair / Double XP cards',
       (WidgetTester tester) async {
     tester.view.physicalSize = const Size(440, 2600);
     tester.view.devicePixelRatio = 1.0;
@@ -138,6 +185,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Energy Refill'), findsOneWidget);
     expect(find.text('Streak Repair'), findsOneWidget);
+    expect(find.text('Double XP'), findsOneWidget);
     // Honest disabled state on a fresh account (full energy / safe streak).
     expect(find.text('Already full'), findsOneWidget);
     expect(find.textContaining('nothing to repair'), findsOneWidget);

@@ -158,7 +158,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-I1 | XP model (sources & amounts) | Should | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `progress_screen.dart`, `lesson_test.dart`, `progress_test.dart` |
+| R-I1 | XP model (sources & amounts) | Should | Stage2 | Built ✅ | — | `learner_controller.dart`, `lesson_runner_screen.dart`, `progress_screen.dart`, `power_ups.dart` +2 |
 | R-I2 | Streak + streak-freeze + Society tiers | Should | Stage2 | Built ✅ | — | `learner_controller.dart`, `progress_screen.dart`, `shop_screen.dart`, `diamonds.dart` +6 |
 | R-I3 | Energy model (lesson cost, regen, caps) | Should | Stage2 | Built ✅ | — | `learner_controller.dart`, `energy.dart`, `power_ups.dart`, `energy_test.dart` +2 |
 | R-I4 | Gems soft-currency (earn / spend sinks) | Should | Stage2 | Built ✅ | — | `learner_controller.dart`, `shop_screen.dart`, `diamonds.dart`, `economy.dart` +5 |

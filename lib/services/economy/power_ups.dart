@@ -10,4 +10,13 @@ class PowerUpPrices {
 
   /// 💎 to restore a lapsed streak to its prior length (R-I2).
   static const int streakRepairCost = 20;
+
+  /// 💎 to activate a timed Double-XP boost (R-I4 spend · R-I1 XP).
+  static const int doubleXpCost = 15;
+
+  /// How long a Double-XP boost lasts once bought.
+  static const Duration doubleXpDuration = Duration(minutes: 15);
+
+  /// The XP multiplier applied while a Double-XP boost is active.
+  static const int doubleXpMultiplier = 2;
 }
