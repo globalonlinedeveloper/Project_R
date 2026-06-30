@@ -94,6 +94,14 @@ final friendsStoreProvider =
 abstract interface class LeaguesStore {
   Future<Map<String, Object?>> load(String userId);
   Future<void> save(String userId, Map<String, Object?> data);
+
+  /// The caller's CROSS-USER weekly cohort (the real leaderboard). Own-row RLS
+  /// forbids a direct cross-row client SELECT, so the durable backend serves this
+  /// via a SECURITY DEFINER (`read_league_cohort`) that forms/joins the caller's
+  /// cohort then returns its members. The in-memory default returns an EMPTY list
+  /// (no cross-user backend) so the Leagues feature stays an honest solo cohort —
+  /// byte-identical to the pre-go-live build.
+  Future<List<Map<String, Object?>>> readCohort(String userId);
 }
 
 /// Key holding the list of the learner's own `league_member` rows in the seam-Map.
@@ -110,6 +118,9 @@ class InMemoryLeaguesStore implements LeaguesStore {
   @override
   Future<void> save(String userId, Map<String, Object?> data) async =>
       _data[userId] = Map<String, Object?>.from(data);
+  @override
+  Future<List<Map<String, Object?>>> readCohort(String userId) async =>
+      const <Map<String, Object?>>[]; // no cross-user backend -> honest solo cohort
 }
 
 final leaguesStoreProvider =

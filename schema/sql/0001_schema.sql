@@ -183,7 +183,8 @@ CREATE TABLE "league_member" (
     updated_at timestamptz NOT NULL,
     PRIMARY KEY (league_member_id),
     UNIQUE (user_id, week_start),
-    FOREIGN KEY (user_id) REFERENCES "user" (user_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES "user" (user_id) ON DELETE CASCADE,
+    FOREIGN KEY (cohort_id) REFERENCES "league_cohort" (league_cohort_id) ON DELETE SET NULL
 );
 
 CREATE INDEX ON "league_member" (cohort_id, week_start);

@@ -29,6 +29,9 @@ class SupabaseLeaguesStore implements LeaguesStore {
   /// The learner's own weekly-standing table.
   static const String memberTable = 'league_member';
 
+  /// The SECURITY DEFINER that serves the cross-user leaderboard read (R-I6).
+  static const String readCohortFn = 'read_league_cohort';
+
   @override
   Future<Map<String, Object?>> load(String userId) async {
     final List<Map<String, dynamic>> rows =
@@ -50,6 +53,22 @@ class SupabaseLeaguesStore implements LeaguesStore {
     if (rows.isNotEmpty) {
       await _db.from(memberTable).insert(rows);
     }
+  }
+
+  /// The CROSS-USER leaderboard: the caller's cohort members, served by the
+  /// `read_league_cohort` SECURITY DEFINER (own-row RLS forbids a direct cross-row
+  /// client SELECT — the S73 own-row lesson). The definer forms/joins the caller's
+  /// tier+week cohort then returns its members ranked by weekly XP; it exposes the
+  /// opaque league_member row id, NEVER a co-member's `auth.uid()`. [userId] is
+  /// accepted for seam symmetry; the definer derives the caller from `auth.uid()`.
+  @override
+  Future<List<Map<String, Object?>>> readCohort(String userId) async {
+    final Object? res = await _db.rpc(readCohortFn);
+    if (res is! List) return const <Map<String, Object?>>[];
+    return res
+        .whereType<Map<dynamic, dynamic>>()
+        .map((Map<dynamic, dynamic> row) => Map<String, Object?>.from(row))
+        .toList();
   }
 
   /// Coerce an opaque seam value into a list of row-maps, stamping the owning

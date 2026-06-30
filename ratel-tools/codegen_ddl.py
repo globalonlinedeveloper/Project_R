@@ -66,6 +66,16 @@ FK_USER = ["user_course", "user_item_state", "user_phoneme_state",
            "placement_session", "review_log", "credit_ledger",
            "friendship", "friend_activity", "league_member"]
 
+# Non-user foreign keys: {table: [(column, ref_table, ref_column, on_delete), ...]}.
+# league_member.cohort_id -> league_cohort(league_cohort_id): cohort FORMATION assigns
+# it (NULL until then, so the FK is on a NULLABLE column). league_cohort is emitted
+# before league_member (USER_TABLES order) so the reference resolves. ON DELETE SET
+# NULL: dropping a cohort de-assigns its members (their own-row standing survives,
+# re-formed on the next read) — never a cascade delete of a learner's standing.
+FK_EXTRA = {
+    "league_member": [("cohort_id", "league_cohort", "league_cohort_id", "SET NULL")],
+}
+
 
 def _load(rel: str) -> dict:
     return json.loads((SCHEMA / rel).read_text(encoding="utf-8"))
@@ -139,6 +149,9 @@ def generate() -> str:
             cols.append(f'    UNIQUE ({", ".join(uq)})')
         if tbl in FK_USER:
             cols.append('    FOREIGN KEY (user_id) REFERENCES "user" (user_id) ON DELETE CASCADE')
+        for _col, _rtbl, _rcol, _ondel in FK_EXTRA.get(tbl, []):
+            cols.append(
+                f'    FOREIGN KEY ({_col}) REFERENCES "{_rtbl}" ({_rcol}) ON DELETE {_ondel}')
         body = ",\n".join(cols)
         part = f" PARTITION BY RANGE ({PARTITION_BY[tbl]})" if tbl in PARTITION_BY else ""
         table_sql.append(f'CREATE TABLE "{tbl}" (\n{body}\n){part};')

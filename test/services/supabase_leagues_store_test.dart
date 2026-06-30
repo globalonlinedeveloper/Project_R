@@ -44,5 +44,18 @@ void main() {
       // Isolated by key: a different user is still empty.
       expect(await store.load('uid-2'), isEmpty);
     });
+
+    test('readCohort is empty: no cross-user backend -> honest solo cohort',
+        () async {
+      final InMemoryLeaguesStore store = InMemoryLeaguesStore();
+      // Even after persisting an own standing, the in-memory store exposes NO
+      // cross-user cohort (the real leaderboard is a SECURITY DEFINER read).
+      await store.save('uid-1', <String, Object?>{
+        kLeagueMembershipKey: <Map<String, Object?>>[
+          <String, Object?>{'week_start': '2026-06-29', 'tier': 'bronze', 'weekly_xp': 50},
+        ],
+      });
+      expect(await store.readCohort('uid-1'), isEmpty);
+    });
   });
 }
