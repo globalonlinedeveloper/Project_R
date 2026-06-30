@@ -58,6 +58,8 @@ class ShopScreen extends ConsumerWidget {
           children: <Widget>[
             _balance(context, snap.diamonds),
             const SizedBox(height: RatelSpace.lg),
+            _proBanner(context),
+            const SizedBox(height: RatelSpace.lg),
             const RatelSectionHeader(label: 'Power-ups'),
             const SizedBox(height: RatelSpace.sm),
             RatelCard(
@@ -147,6 +149,38 @@ class ShopScreen extends ConsumerWidget {
       ),
     );
   }
+
+  Widget _proBanner(BuildContext context) => RatelCard(
+        gradient: const LinearGradient(
+            colors: <Color>[RatelColors.gold, RatelColors.amber],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight),
+        onTap: () => context.push('/paywall?source=shop'),
+        child: Row(
+          children: <Widget>[
+            const Text('\u{1F9A1}', style: TextStyle(fontSize: 30)),
+            const SizedBox(width: RatelSpace.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const Text('RATEL PRO',
+                      style: TextStyle(
+                          fontFamily: RatelFont.display,
+                          fontWeight: RatelType.extraBold,
+                          fontSize: RatelType.cardTitle,
+                          color: RatelColors.onColor)),
+                  Text('Live AI, no ads, offline \u00B7 Try 7 days free',
+                      style: TextStyle(
+                          fontFamily: RatelFont.body,
+                          fontSize: RatelType.small,
+                          color: RatelColors.onColor.withValues(alpha: 0.95))),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
 
   Widget _balance(BuildContext context, int diamonds) {
     return RatelCard(

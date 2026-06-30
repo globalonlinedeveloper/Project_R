@@ -113,7 +113,7 @@ class AiTutorScreen extends ConsumerWidget {
             if (!isPro)
               RatelButton(
                 label: 'Unlock RATEL PRO',
-                onPressed: () => context.push('/shop'),
+                onPressed: () => context.push('/paywall?source=tutor'),
               ),
             const SizedBox(height: RatelSpace.md),
             Center(

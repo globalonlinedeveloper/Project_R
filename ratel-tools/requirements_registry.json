@@ -547,12 +547,12 @@
     "R-J1": {
       "moscow": "Must",
       "phase": "Stage3",
-      "status": "Partial 🟨"
+      "status": "Build-ahead 🟦"
     },
     "R-J2": {
       "moscow": "Must",
       "phase": "Stage3",
-      "status": "Pending 🔒"
+      "status": "Build-ahead 🟦"
     },
     "R-J3": {
       "moscow": "Must",
@@ -572,7 +572,7 @@
     "R-J6": {
       "moscow": "Must",
       "phase": "Stage3",
-      "status": "Partial 🟨"
+      "status": "Build-ahead 🟦"
     },
     "R-J7": {
       "moscow": "Must",

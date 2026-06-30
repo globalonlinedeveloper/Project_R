@@ -21,6 +21,7 @@ import 'package:ratel/features/progress/progress_screen.dart';
 import 'package:ratel/features/quests/quests_screen.dart';
 import 'package:ratel/features/settings/settings_screen.dart';
 import 'package:ratel/features/notifications/notifications_screen.dart';
+import 'package:ratel/features/paywall/paywall_screen.dart';
 import 'package:ratel/features/shop/shop_screen.dart';
 import 'package:ratel/features/tutor/ai_tutor_screen.dart';
 
@@ -139,6 +140,11 @@ GoRouter buildRouter() {
         path: '/friends',
         builder: (BuildContext context, GoRouterState state) =>
             const FriendsScreen(),
+      ),
+      GoRoute(
+        path: '/paywall',
+        builder: (BuildContext context, GoRouterState state) => PaywallScreen(
+            source: state.uri.queryParameters['source'] ?? 'direct'),
       ),
       GoRoute(
         path: '/daily-quiz',

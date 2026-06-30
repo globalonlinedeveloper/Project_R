@@ -14,12 +14,12 @@
 
 | Priority | Built | Build-ahead | Partial | Pending | Deferred | Removed | Spec/cross | Total |
 |---|---|---|---|---|---|---|---|---|
-| **Must** | 78 | 20 | 6 | 12 | 2 | 0 | 13 | 131 |
+| **Must** | 78 | 23 | 4 | 11 | 2 | 0 | 13 | 131 |
 | **Should** | 18 | 2 | 0 | 1 | 1 | 0 | 0 | 22 |
 | **Could** | 1 | 0 | 0 | 1 | 7 | 0 | 0 | 9 |
 | **Won't** | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 1 |
 | **Process** | 1 | 0 | 0 | 1 | 1 | 0 | 2 | 5 |
-| **All** | 98 | 22 | 6 | 15 | 11 | 1 | 15 | 168 |
+| **All** | 98 | 25 | 4 | 14 | 11 | 1 | 15 | 168 |
 
 _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not live) · Pending=Stage-3 not started · Deferred=post-launch wave · Removed=cut · Spec/cross=policy/cross-cutting._
 
@@ -166,20 +166,20 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-I6 | Leagues / leaderboards (global, weekly reset) | Should | Stage2 | Built ✅ | — | `leagues_controller.dart`, `leagues_screen.dart`, `learner_controller.dart`, `leagues.dart` +2 |
 | R-I7 | Daily goal + chest + quests + achievements | Should | Stage2 | Built ✅ | — | `achievements_controller.dart`, `daily_goal.dart`, `onboarding_screen.dart`, `progress_screen.dart` +9 |
 | R-I8 | Anti-dark-pattern guardrails | Should | Stage2 | Built ✅ | — | — |
-| R-I9 | Social: friends/feed, family plan, classroom, block/report | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `router.dart`, `friends_controller.dart`, `friends_screen.dart`, `data_access.dart` +4 |
+| R-I9 | Social: friends/feed, family plan, classroom, block/report | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `router.dart`, `friends_controller.dart`, `friends_screen.dart`, `data_access.dart` +6 |
 
 ## Part J — Monetization
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-J1 | Free vs Pro feature split (exact) | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `adventures_screen.dart`, `ai_tutor_screen.dart` |
-| R-J2 | Pro price point(s) + billing (regional/PPP, trial) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
+| R-J1 | Free vs Pro feature split (exact) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `adventures_screen.dart`, `paywall_screen.dart`, `ai_tutor_screen.dart`, `paywall_screen_test.dart` |
+| R-J2 | Pro price point(s) + billing (regional/PPP, trial) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `paywall_screen.dart`, `pricing.dart`, `paywall_screen_test.dart` |
 | R-J3 | AI access policy - Pro-only live AI, metered by credits | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `ai_tutor_screen.dart`, `play_receipt_verify.dart`, `user.schema.json` |
 | R-J4 | Ad strategy + network/mediation | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-J5 | Voice minute caps (even Pro) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-J6 | Store-safe paywall / cancel (single CTA, easy cancel) | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `credit_ledger.schema.json` |
-| R-J7 | Payments / IAP integration (App Store / Play / web) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `play_receipt_verify.dart`, `user.schema.json`, `user_course.schema.json`, `play_receipt_verify_test.dart` |
-| R-J7a | Desktop/web billing - web-checkout fallback (no native store) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `billing.dart`, `media_authz.dart`, `payments_verify.dart`, `play_receipt_verify.dart` +4 |
+| R-J6 | Store-safe paywall / cancel (single CTA, easy cancel) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `paywall_screen.dart`, `pricing.dart`, `pro_checkout.dart`, `credit_ledger.schema.json` +1 |
+| R-J7 | Payments / IAP integration (App Store / Play / web) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `play_receipt_verify.dart`, `pricing.dart`, `pro_checkout.dart`, `user.schema.json` +3 |
+| R-J7a | Desktop/web billing - web-checkout fallback (no native store) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `billing.dart`, `media_authz.dart`, `payments_verify.dart`, `play_receipt_verify.dart` +6 |
 
 ## Part K — Compliance, privacy & safety
 
@@ -207,7 +207,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-L5 | Reading & listening (stories, listening feed, video, tap-to-define) | Must | Stage2 | Built ✅ | — | — |
 | R-L6 | Profile & settings hub | Must | Stage2 | Built ✅ | — | — |
 | R-L7 | Monetization screens | Must | Stage2 | Built ✅ | — | — |
-| R-L8 | Gamification & social screens | Must | Stage2 | Built ✅ | — | `router.dart`, `friends_controller.dart`, `friends_screen.dart`, `data_access.dart` +4 |
+| R-L8 | Gamification & social screens | Must | Stage2 | Built ✅ | — | `router.dart`, `friends_controller.dart`, `friends_screen.dart`, `data_access.dart` +5 |
 | R-L9 | Multi-course, course-switch, flip-UI & immersion | Must | Stage2 | Built ✅ | — | — |
 | R-L10 | Navigation / information architecture (tab shell, deep links) | Must | Stage2 | Built ✅ | — | — |
 | R-L11 | Notifications (push categories, opt-in, inbox) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `home_screen.dart`, `leagues_screen.dart`, `library_screen.dart`, `notifications_controller.dart` +6 |
@@ -227,9 +227,9 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-M1 | Analytics event taxonomy & core KPIs | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `analytics.dart`, `analytics_identity.dart`, `taxonomy.dart`, `audit_sink.dart` +3 |
+| R-M1 | Analytics event taxonomy & core KPIs | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `paywall_screen.dart`, `analytics.dart`, `analytics_identity.dart`, `taxonomy.dart` +5 |
 | R-M2 | Experimentation & feature flags (dark-launch, A/B, wave gating) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `feature_flags.dart`, `feature_flags_test.dart` |
-| R-M3 | Backend infrastructure (Supabase: Postgres, RLS, Edge, Storage/CDN) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `content_providers.dart`, `content_repository.dart`, `learner_controller.dart`, `saved_words_controller.dart` +7 |
+| R-M3 | Backend infrastructure (Supabase: Postgres, RLS, Edge, Storage/CDN) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `content_providers.dart`, `content_repository.dart`, `learner_controller.dart`, `saved_words_controller.dart` +8 |
 | R-M4 | Content build/upload ops (batch tooling, staging-prod) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-M5 | Observability (logging & error tracking) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `audit_sink.dart`, `crash_telemetry.dart`, `observability.dart`, `test_audit_log.py` +3 |
 | R-M6 | CI/CD & store-release process | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |

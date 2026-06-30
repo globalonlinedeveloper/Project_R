@@ -111,7 +111,17 @@ class SettingsScreen extends ConsumerWidget {
             leadingColor: RatelColors.amber,
             title: 'Manage subscription',
             subtitle: isPro ? 'RATEL PRO active' : 'Free plan',
-            onTap: () => context.push('/shop'),
+            onTap: () {
+              if (isPro) {
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(const SnackBar(
+                      content: Text(
+                          'Manage or cancel in your app store subscriptions.')));
+              } else {
+                context.push('/paywall?source=settings');
+              }
+            },
           ),
           const SizedBox(height: RatelSpace.sm),
           RatelListRow(
