@@ -27,7 +27,7 @@ OUT = ROOT / "schema" / "sql" / "0001_schema.sql"
 # Deterministic table order; "user" first so child FKs resolve.
 USER_TABLES = ["user", "user_course", "user_item_state", "user_phoneme_state",
                "placement_session", "review_log", "credit_ledger",
-               "friendship", "friend_activity"]
+               "friendship", "friend_activity", "league_cohort", "league_member"]
 
 PK = {
     "user": ["user_id"],
@@ -39,6 +39,8 @@ PK = {
     "credit_ledger": ["credit_ledger_id"],
     "friendship": ["friendship_id"],
     "friend_activity": ["friend_activity_id"],
+    "league_cohort": ["league_cohort_id"],
+    "league_member": ["league_member_id"],
 }
 PARTITION_BY = {"review_log": "reviewed_at"}
 PARTITIONS = {  # concrete monthly partitions (what pg_partman would automate)
@@ -52,15 +54,17 @@ UNIQUES = {
     "user_item_state": [["user_id", "item_id"]],
     "credit_ledger": [["client_event_id"]],
     "friendship": [["user_id", "friend_id"]],
+    "league_member": [["user_id", "week_start"]],
 }
 INDEXES = {
     "user_item_state": [["user_id", "due"]],
     "review_log": [["user_id", "reviewed_at"]],
     "friend_activity": [["user_id", "at"]],
+    "league_member": [["cohort_id", "week_start"]],
 }
 FK_USER = ["user_course", "user_item_state", "user_phoneme_state",
            "placement_session", "review_log", "credit_ledger",
-           "friendship", "friend_activity"]
+           "friendship", "friend_activity", "league_member"]
 
 
 def _load(rel: str) -> dict:

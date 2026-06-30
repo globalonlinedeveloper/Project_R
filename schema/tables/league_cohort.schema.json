@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/league_cohort.json",
+  "title": "LeagueCohort (R-I6) — a durable weekly league grouping (one tier, one ISO-week). SHARED across its members (no single owner), so it carries NO user_id; client read of a member's own cohort is a server-side (SECURITY DEFINER) path in a later slice, never a direct cross-row client SELECT.",
+  "type": "object",
+  "required": [
+    "league_cohort_id",
+    "tier",
+    "week_start",
+    "created_at"
+  ],
+  "properties": {
+    "league_cohort_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/uuid"
+    },
+    "tier": {
+      "type": "string",
+      "description": "LeagueTier.name for the whole cohort: bronze|silver|gold|sapphire|ruby|emerald|amethyst|pearl|obsidian|diamond (stored as text; the engine maps an unknown value to bronze for forward-compat)."
+    },
+    "week_start": {
+      "type": "string",
+      "format": "date",
+      "description": "The Monday (date-only) of the league week this cohort runs, per LeagueWeek.startOf."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

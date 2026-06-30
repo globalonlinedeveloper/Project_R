@@ -33,7 +33,7 @@ def _user_tables():
 USER_TABLES = _user_tables()
 EXPECTED = {"user", "user_course", "user_item_state", "user_phoneme_state",
             "placement_session", "review_log", "credit_ledger",
-            "friendship", "friend_activity"}
+            "friendship", "friend_activity", "league_member"}
 
 # Minimal valid INSERT (column list, VALUES body with {uid} = the owner literal) per user table.
 _SEED = {
@@ -55,6 +55,8 @@ _SEED = {
                    "gen_random_uuid(),{uid},'friend_handle','friends',now(),now()"),
     "friend_activity": ("friend_activity_id,user_id,actor_id,type,at,created_at",
                         "gen_random_uuid(),{uid},'actor_handle','lessonsCompleted',now(),now()"),
+    "league_member": ("league_member_id,user_id,week_start,tier,weekly_xp,created_at,updated_at",
+                      "gen_random_uuid(),{uid},'2026-06-29','bronze',0,now(),now()"),
 }
 
 

@@ -116,3 +116,30 @@ CREATE POLICY friend_activity_service_all ON "friend_activity"
 REVOKE ALL ON "friend_activity" FROM authenticated;
 GRANT SELECT ON "friend_activity" TO authenticated;
 GRANT ALL ON "friend_activity" TO service_role;
+
+-- ---- league_cohort: SHARED weekly grouping (R-I6), NO single owner -> NO authenticated policy
+-- (deny-by-default): a client never directly SELECTs a cohort row. Reading a member's own cohort is
+-- a server-side (SECURITY DEFINER) path in a later slice; service_role owns formation + the close job.
+ALTER TABLE "league_cohort" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "league_cohort" FORCE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS league_cohort_service_all ON "league_cohort";
+CREATE POLICY league_cohort_service_all ON "league_cohort"
+  FOR ALL TO service_role USING (true) WITH CHECK (true);
+REVOKE ALL ON "league_cohort" FROM authenticated;
+GRANT ALL ON "league_cohort" TO service_role;
+
+-- ---- league_member: own-row weekly standing (R-I6). own-row FOR ALL mirrors user_course/friendship;
+-- the cross-user leaderboard (co-members' XP) is a server-side read path in a later slice, never a
+-- direct cross-row client SELECT. ------------------------------------------------------------------
+ALTER TABLE "league_member" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "league_member" FORCE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS league_member_own ON "league_member";
+CREATE POLICY league_member_own ON "league_member"
+  FOR ALL TO authenticated
+  USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS league_member_service_all ON "league_member";
+CREATE POLICY league_member_service_all ON "league_member"
+  FOR ALL TO service_role USING (true) WITH CHECK (true);
+REVOKE ALL ON "league_member" FROM authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON "league_member" TO authenticated;
+GRANT ALL ON "league_member" TO service_role;

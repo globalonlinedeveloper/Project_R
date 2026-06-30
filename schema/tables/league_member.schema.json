@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/league_member.json",
+  "title": "LeagueMember (R-I6) — one learner's OWN-ROW weekly league standing (their tier + REAL weekly-XP snapshot for an ISO-week). Own-row like user_course: a learner reads + writes ONLY their own membership; the cross-user leaderboard (co-members' XP) is a server-side read path in a later slice, never a direct cross-row client SELECT.",
+  "type": "object",
+  "required": [
+    "league_member_id",
+    "user_id",
+    "week_start",
+    "tier",
+    "weekly_xp",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "league_member_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/uuid"
+    },
+    "user_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/user_id"
+    },
+    "cohort_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/uuid",
+      "description": "The league_cohort this membership belongs to. NULL until cohort formation assigns it (a later slice); the DB-level FK to league_cohort is added with formation. Stored as uuid."
+    },
+    "week_start": {
+      "type": "string",
+      "format": "date",
+      "description": "The Monday (date-only) of the league week this standing is for, per LeagueWeek.startOf."
+    },
+    "tier": {
+      "type": "string",
+      "description": "LeagueTier.name from the member's perspective this week (stored as text; engine maps an unknown value to bronze for forward-compat)."
+    },
+    "weekly_xp": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "The member's REAL weekly XP snapshot (mirrors friendship.weekly_xp; the leaderboard read side). Client-asserted exactly like xp_total/streak, clamped server-side."
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "avatar_emoji": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

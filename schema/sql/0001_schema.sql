@@ -161,3 +161,29 @@ CREATE TABLE "friend_activity" (
 );
 
 CREATE INDEX ON "friend_activity" (user_id, at);
+
+CREATE TABLE "league_cohort" (
+    league_cohort_id uuid NOT NULL,
+    tier text NOT NULL,
+    week_start date NOT NULL,
+    created_at timestamptz NOT NULL,
+    PRIMARY KEY (league_cohort_id)
+);
+
+CREATE TABLE "league_member" (
+    league_member_id uuid NOT NULL,
+    user_id uuid NOT NULL,
+    cohort_id uuid,
+    week_start date NOT NULL,
+    tier text NOT NULL,
+    weekly_xp integer NOT NULL,
+    display_name text,
+    avatar_emoji text,
+    created_at timestamptz NOT NULL,
+    updated_at timestamptz NOT NULL,
+    PRIMARY KEY (league_member_id),
+    UNIQUE (user_id, week_start),
+    FOREIGN KEY (user_id) REFERENCES "user" (user_id) ON DELETE CASCADE
+);
+
+CREATE INDEX ON "league_member" (cohort_id, week_start);

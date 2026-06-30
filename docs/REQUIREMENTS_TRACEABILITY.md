@@ -163,7 +163,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-I3 | Energy model (lesson cost, regen, caps) | Should | Stage2 | Built ✅ | — | `learner_controller.dart`, `energy.dart`, `power_ups.dart`, `energy_test.dart` +2 |
 | R-I4 | Gems soft-currency (earn / spend sinks) | Should | Stage2 | Built ✅ | — | `learner_controller.dart`, `outfits_controller.dart`, `shop_screen.dart`, `diamonds.dart` +8 |
 | R-I5 | Rewarded-ads - energy / gems design | Should | Stage2 | Built ✅ | — | — |
-| R-I6 | Leagues / leaderboards (global, weekly reset) | Should | Stage2 | Built ✅ | — | `leagues_controller.dart`, `leagues_screen.dart`, `learner_controller.dart`, `leagues.dart` +2 |
+| R-I6 | Leagues / leaderboards (global, weekly reset) | Should | Stage2 | Built ✅ | — | `leagues_controller.dart`, `leagues_screen.dart`, `learner_controller.dart`, `data_access.dart` +8 |
 | R-I7 | Daily goal + chest + quests + achievements | Should | Stage2 | Built ✅ | — | `achievements_controller.dart`, `daily_goal.dart`, `onboarding_screen.dart`, `progress_screen.dart` +9 |
 | R-I8 | Anti-dark-pattern guardrails | Should | Stage2 | Built ✅ | — | — |
 | R-I9 | Social: friends/feed, family plan, classroom, block/report | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `router.dart`, `friends_controller.dart`, `friends_screen.dart`, `learner_controller.dart` +17 |
@@ -191,7 +191,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-K3 | Data minimization & retention (no raw-speech retention) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `test_voice_no_audio_persist.py`, `0006_review_log_partitions.sql`, `0007_dsar_delete_anchor.sql`, `0008_audit_log.sql` |
 | R-K4 | Regional privacy rights - export + delete (GDPR/DPDP/CCPA) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `test_dsar_delete_anchor.py`, `0007_dsar_delete_anchor.sql`, `0008_audit_log.sql` |
 | R-K5 | Generated-content safety (AI-content; profanity; bias) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-K6 | Security - server-side keys, Supabase RLS, auth, PII | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `login_screen.dart`, `signup_screen.dart`, `taxonomy.dart`, `auth_service.dart` +16 |
+| R-K6 | Security - server-side keys, Supabase RLS, auth, PII | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `login_screen.dart`, `signup_screen.dart`, `taxonomy.dart`, `auth_service.dart` +17 |
 | R-K7 | Terms of Service + Privacy Policy - final copy & ownership | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-K8 | Accessibility - WCAG 2.2 AA conformance (test-enforced) | Must | Stage2 | Built ✅ | — | — |
 
@@ -229,7 +229,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 |----|-------------|--------|-------|--------|------|----------|
 | R-M1 | Analytics event taxonomy & core KPIs | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `paywall_screen.dart`, `analytics.dart`, `analytics_identity.dart`, `taxonomy.dart` +5 |
 | R-M2 | Experimentation & feature flags (dark-launch, A/B, wave gating) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `feature_flags.dart`, `feature_flags_test.dart` |
-| R-M3 | Backend infrastructure (Supabase: Postgres, RLS, Edge, Storage/CDN) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `content_providers.dart`, `content_repository.dart`, `learner_controller.dart`, `saved_words_controller.dart` +11 |
+| R-M3 | Backend infrastructure (Supabase: Postgres, RLS, Edge, Storage/CDN) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `content_providers.dart`, `content_repository.dart`, `learner_controller.dart`, `saved_words_controller.dart` +13 |
 | R-M4 | Content build/upload ops (batch tooling, staging-prod) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-M5 | Observability (logging & error tracking) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `audit_sink.dart`, `crash_telemetry.dart`, `observability.dart`, `test_audit_log.py` +3 |
 | R-M6 | CI/CD & store-release process | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
@@ -263,7 +263,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-O1 | Phase-2 deliverables (local content model - NO DB) | Process | Stage1 | Built ✅ | — | `friends_screen.dart`, `leagues_controller.dart`, `learner_controller.dart`, `practice_hub_screen.dart` +16 |
+| R-O1 | Phase-2 deliverables (local content model - NO DB) | Process | Stage1 | Built ✅ | — | `friends_screen.dart`, `leagues_controller.dart`, `learner_controller.dart`, `practice_hub_screen.dart` +17 |
 | R-O2 | Phase-3 deliverables (DB + runtime + payments - gated, MONEY) | Process | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-O3 | Post-launch waves (tier climb, write/live-roleplay, RTL re-add) | Process | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
 | R-O4 | Risk register & mitigations | Process | Program | Spec/cross ▫ | — | — |

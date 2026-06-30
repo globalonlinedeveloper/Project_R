@@ -5,6 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:ratel/app/backend_wiring.dart';
 import 'package:ratel/services/data_access/data_access.dart';
 import 'package:ratel/services/data_access/supabase_friends_store.dart';
+import 'package:ratel/services/data_access/supabase_leagues_store.dart';
 import 'package:ratel/services/data_access/supabase_friends_service.dart';
 import 'package:ratel/services/social/friends_service.dart';
 import 'package:ratel/services/data_access/supabase_learner_state_store.dart';
@@ -38,6 +39,8 @@ void main() {
       // No overrides ⇒ a fresh learner gets an honestly EMPTY in-memory graph;
       // boot is byte-identical to an un-configured build.
       expect(container.read(friendsStoreProvider), isA<InMemoryFriendsStore>());
+      // The leagues standing seam also defaults to the in-memory stub.
+      expect(container.read(leaguesStoreProvider), isA<InMemoryLeaguesStore>());
       // The cross-user delivery seam defaults to the honest 'unavailable'
       // service — a local build never routes to another account.
       expect(container.read(friendsServiceProvider),
@@ -60,6 +63,9 @@ void main() {
 
       expect(container.read(friendsStoreProvider),
           isA<SupabaseFriendsStore>());
+      // The leagues standing seam plugs in behind the SAME wiring.
+      expect(container.read(leaguesStoreProvider),
+          isA<SupabaseLeaguesStore>());
       // DELIVERY: the cross-user RPC service plugs in behind the SAME seam.
       expect(container.read(friendsServiceProvider),
           isA<SupabaseFriendsService>());

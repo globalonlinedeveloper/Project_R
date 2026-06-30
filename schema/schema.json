@@ -22,6 +22,8 @@
     "review_log": { "$ref": "https://ratel.dev/schema/tables/review_log.json" },
     "credit_ledger": { "$ref": "https://ratel.dev/schema/tables/credit_ledger.json" },
     "friendship": { "$ref": "https://ratel.dev/schema/tables/friendship.json" },
-    "friend_activity": { "$ref": "https://ratel.dev/schema/tables/friend_activity.json" }
+    "friend_activity": { "$ref": "https://ratel.dev/schema/tables/friend_activity.json" },
+    "league_cohort": { "$ref": "https://ratel.dev/schema/tables/league_cohort.json" },
+    "league_member": { "$ref": "https://ratel.dev/schema/tables/league_member.json" }
   }
 }

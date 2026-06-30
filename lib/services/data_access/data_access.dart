@@ -81,3 +81,36 @@ class InMemoryFriendsStore implements FriendsStore {
 
 final friendsStoreProvider =
     Provider<FriendsStore>((ref) => InMemoryFriendsStore());
+
+/// Portability seam (R-M3) for the weekly LEAGUE standing [R-I6]. The Leagues
+/// feature reads + writes ONLY through this. Stage 1–2 back it in-memory (an
+/// honest solo cohort for a fresh learner — never seeded with fabricated
+/// rivals); Stage 3 plugs [SupabaseLeaguesStore] behind the SAME interface,
+/// every row keyed on `auth.uid()` (R-K6) and guarded by own-row RLS. Seam-Map
+/// shape: `{ 'membership': [ <league_member row>, … ] }` — `load` returns the
+/// learner's OWN weekly-standing rows, `save` persists them. The cross-user
+/// leaderboard (co-members' XP) is a server-side (SECURITY DEFINER) read path in
+/// a later slice, never part of this own-row seam.
+abstract interface class LeaguesStore {
+  Future<Map<String, Object?>> load(String userId);
+  Future<void> save(String userId, Map<String, Object?> data);
+}
+
+/// Key holding the list of the learner's own `league_member` rows in the seam-Map.
+const String kLeagueMembershipKey = 'membership';
+
+/// Default (local / Stage 1–2): ephemeral in-memory store (R-O1 stub). A fresh
+/// learner is an honest solo cohort — never seeded with fake rivals.
+class InMemoryLeaguesStore implements LeaguesStore {
+  final Map<String, Map<String, Object?>> _data =
+      <String, Map<String, Object?>>{};
+  @override
+  Future<Map<String, Object?>> load(String userId) async =>
+      Map<String, Object?>.from(_data[userId] ?? const <String, Object?>{});
+  @override
+  Future<void> save(String userId, Map<String, Object?> data) async =>
+      _data[userId] = Map<String, Object?>.from(data);
+}
+
+final leaguesStoreProvider =
+    Provider<LeaguesStore>((ref) => InMemoryLeaguesStore());
