@@ -1,5 +1,11 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'package:ratel/app/backend_wiring.dart';
+import 'package:ratel/services/data_access/data_access.dart';
+import 'package:ratel/services/data_access/supabase_friends_store.dart';
+import 'package:ratel/services/data_access/supabase_learner_state_store.dart';
 
 void main() {
   group('supabaseConfigured gate (R-M3 / R-K6 seam wiring)', () {
@@ -19,6 +25,38 @@ void main() {
       // The test runner passes no dart-define ⇒ both compile-time consts are
       // empty ⇒ the Supabase seams are NEVER selected ⇒ local defaults hold.
       expect(supabaseConfigured(), isFalse);
+    });
+  });
+
+  group('backendOverridesForClient seam wiring (R-I9 / R-L8 / R-G6)', () {
+    test('default friends store is the in-memory stub (flag-off stays LOCAL)',
+        () {
+      final container = ProviderContainer();
+      addTearDown(container.dispose);
+      // No overrides ⇒ a fresh learner gets an honestly EMPTY in-memory graph;
+      // boot is byte-identical to an un-configured build.
+      expect(container.read(friendsStoreProvider), isA<InMemoryFriendsStore>());
+    });
+
+    test('plugs the Supabase-backed friends + learner-state stores when wired',
+        () {
+      // A client is enough to BUILD the seam overrides (no network on read —
+      // the stores just capture the client). Mirrors how the live build wires
+      // every durable R-O1 seam behind supabaseConfigured().
+      final client = SupabaseClient(
+        'https://stub.supabase.co',
+        'sb_publishable_stub_key',
+      );
+      addTearDown(() async => client.dispose());
+      final container =
+          ProviderContainer(overrides: backendOverridesForClient(client));
+      addTearDown(container.dispose);
+
+      expect(container.read(friendsStoreProvider),
+          isA<SupabaseFriendsStore>());
+      // Regression: wiring friends must not drop the existing learner-state seam.
+      expect(container.read(learnerStateStoreProvider),
+          isA<SupabaseLearnerStateStore>());
     });
   });
 }

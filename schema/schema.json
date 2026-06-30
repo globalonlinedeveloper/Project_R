@@ -20,6 +20,8 @@
     "user_phoneme_state": { "$ref": "https://ratel.dev/schema/tables/user_phoneme_state.json" },
     "placement_session": { "$ref": "https://ratel.dev/schema/tables/placement_session.json" },
     "review_log": { "$ref": "https://ratel.dev/schema/tables/review_log.json" },
-    "credit_ledger": { "$ref": "https://ratel.dev/schema/tables/credit_ledger.json" }
+    "credit_ledger": { "$ref": "https://ratel.dev/schema/tables/credit_ledger.json" },
+    "friendship": { "$ref": "https://ratel.dev/schema/tables/friendship.json" },
+    "friend_activity": { "$ref": "https://ratel.dev/schema/tables/friend_activity.json" }
   }
 }

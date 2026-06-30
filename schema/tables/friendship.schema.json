@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/friendship.json",
+  "title": "Friendship (R-I9 / R-L8) — one learner's OWN-ROW view of a relationship with another user (status from the owner's perspective).",
+  "type": "object",
+  "required": [
+    "friendship_id",
+    "user_id",
+    "friend_id",
+    "status",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "friendship_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/uuid"
+    },
+    "user_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/user_id"
+    },
+    "friend_id": {
+      "type": "string",
+      "description": "The friend's identity key from the owner's perspective. Currently the normalized @handle (the engine's key until handle->uid resolution lands); becomes the resolved auth.users uuid when cross-user delivery ships. Stored as text."
+    },
+    "handle": {
+      "type": "string"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "description": "FriendStatus.name from the owner's perspective: none|outgoing|incoming|friends|blocked (stored as text; the engine maps an unknown value to none for forward-compat)."
+    },
+    "avatar_emoji": {
+      "type": "string"
+    },
+    "weekly_xp": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

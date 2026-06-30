@@ -87,3 +87,32 @@ CREATE POLICY review_log_service_all ON "review_log"
 REVOKE ALL ON "review_log" FROM authenticated;
 GRANT SELECT, INSERT ON "review_log" TO authenticated;
 GRANT ALL ON "review_log" TO service_role;
+
+-- ---- friendship: own-row relationship set (R-I9/R-L8). The app deletes-own + inserts-own its
+-- current relationship set; own-row FOR ALL mirrors user_course. -------------------------------
+ALTER TABLE "friendship" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "friendship" FORCE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS friendship_own ON "friendship";
+CREATE POLICY friendship_own ON "friendship"
+  FOR ALL TO authenticated
+  USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS friendship_service_all ON "friendship";
+CREATE POLICY friendship_service_all ON "friendship"
+  FOR ALL TO service_role USING (true) WITH CHECK (true);
+REVOKE ALL ON "friendship" FROM authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON "friendship" TO authenticated;
+GRANT ALL ON "friendship" TO service_role;
+
+-- ---- friend_activity: SELECT-own only (R-I9/R-L8). The feed is produced server-side; a learner
+-- reads but never forges it -> INSERT/UPDATE/DELETE are service_role only (review_log read pattern). 
+ALTER TABLE "friend_activity" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "friend_activity" FORCE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS friend_activity_select_own ON "friend_activity";
+CREATE POLICY friend_activity_select_own ON "friend_activity"
+  FOR SELECT TO authenticated USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS friend_activity_service_all ON "friend_activity";
+CREATE POLICY friend_activity_service_all ON "friend_activity"
+  FOR ALL TO service_role USING (true) WITH CHECK (true);
+REVOKE ALL ON "friend_activity" FROM authenticated;
+GRANT SELECT ON "friend_activity" TO authenticated;
+GRANT ALL ON "friend_activity" TO service_role;

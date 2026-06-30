@@ -128,3 +128,36 @@ CREATE TABLE "credit_ledger" (
     UNIQUE (client_event_id),
     FOREIGN KEY (user_id) REFERENCES "user" (user_id) ON DELETE CASCADE
 );
+
+CREATE TABLE "friendship" (
+    friendship_id uuid NOT NULL,
+    user_id uuid NOT NULL,
+    friend_id text NOT NULL,
+    handle text,
+    display_name text,
+    status text NOT NULL,
+    avatar_emoji text,
+    weekly_xp integer,
+    created_at timestamptz NOT NULL,
+    updated_at timestamptz NOT NULL,
+    PRIMARY KEY (friendship_id),
+    UNIQUE (user_id, friend_id),
+    FOREIGN KEY (user_id) REFERENCES "user" (user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE "friend_activity" (
+    friend_activity_id uuid NOT NULL,
+    user_id uuid NOT NULL,
+    actor_id text NOT NULL,
+    actor_handle text,
+    actor_name text,
+    type text NOT NULL,
+    summary text,
+    at timestamptz NOT NULL,
+    avatar_emoji text,
+    created_at timestamptz NOT NULL,
+    PRIMARY KEY (friend_activity_id),
+    FOREIGN KEY (user_id) REFERENCES "user" (user_id) ON DELETE CASCADE
+);
+
+CREATE INDEX ON "friend_activity" (user_id, at);

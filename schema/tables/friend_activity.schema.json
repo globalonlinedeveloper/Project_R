@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/friend_activity.json",
+  "title": "FriendActivity (R-I9 / R-L8) — an event by one of the learner's friends, surfaced in the owner's activity feed (load-only; produced by the friends engine).",
+  "type": "object",
+  "required": [
+    "friend_activity_id",
+    "user_id",
+    "actor_id",
+    "type",
+    "at",
+    "created_at"
+  ],
+  "properties": {
+    "friend_activity_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/uuid"
+    },
+    "user_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/user_id"
+    },
+    "actor_id": {
+      "type": "string",
+      "description": "The acting friend's identity key (the engine's free-form id; currently the @handle). Stored as text."
+    },
+    "actor_handle": {
+      "type": "string"
+    },
+    "actor_name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "description": "FriendActivityType.name (stored as text; the engine maps an unknown value to a safe default for forward-compat)."
+    },
+    "summary": {
+      "type": "string"
+    },
+    "at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "avatar_emoji": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

@@ -32,7 +32,8 @@ def _user_tables():
 
 USER_TABLES = _user_tables()
 EXPECTED = {"user", "user_course", "user_item_state", "user_phoneme_state",
-            "placement_session", "review_log", "credit_ledger"}
+            "placement_session", "review_log", "credit_ledger",
+            "friendship", "friend_activity"}
 
 # Minimal valid INSERT (column list, VALUES body with {uid} = the owner literal) per user table.
 _SEED = {
@@ -50,6 +51,10 @@ _SEED = {
                    "gen_random_uuid(),{uid},'it1',now(),3"),
     "credit_ledger": ("credit_ledger_id,user_id,entry_type,amount,client_event_id,created_at",
                       "gen_random_uuid(),{uid},'grant',5,gen_random_uuid(),now()"),
+    "friendship": ("friendship_id,user_id,friend_id,status,created_at,updated_at",
+                   "gen_random_uuid(),{uid},'friend_handle','friends',now(),now()"),
+    "friend_activity": ("friend_activity_id,user_id,actor_id,type,at,created_at",
+                        "gen_random_uuid(),{uid},'actor_handle','lessonsCompleted',now(),now()"),
 }
 
 

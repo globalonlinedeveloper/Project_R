@@ -13,6 +13,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:ratel/services/data_access/data_access.dart';
 import 'package:ratel/services/auth/auth.dart';
 import 'package:ratel/services/data_access/supabase_learner_state_store.dart';
+import 'package:ratel/services/data_access/supabase_friends_store.dart';
 import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/identity/supabase_identity.dart';
 
@@ -38,6 +39,8 @@ bool supabaseConfigured({
 List<Override> backendOverridesForClient(SupabaseClient client) => <Override>[
       learnerStateStoreProvider
           .overrideWithValue(SupabaseLearnerStateStore.fromClient(client)),
+      friendsStoreProvider
+          .overrideWithValue(SupabaseFriendsStore.fromClient(client)),
       identityProvider
           .overrideWithValue(SupabaseIdentity.fromClient(client)),
       authServiceProvider
