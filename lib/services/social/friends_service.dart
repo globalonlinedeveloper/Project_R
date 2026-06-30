@@ -77,6 +77,19 @@ abstract interface class FriendsService {
   /// caller's own `'blocked'` row so the user cannot be re-requested.
   Future<FriendDeliveryResult> removeFriend(String otherHandle,
       {required bool block});
+
+  /// Emit a server-produced friend-activity event of [activityType] (a
+  /// `FriendActivityType.name`) to the caller's friends — BROADCAST to all
+  /// current friends, or only to [targets] when given (the targeted `joined`
+  /// kind now; `passedYouInLeague` later). The definer RPC resolves the friends
+  /// and inserts on their behalf, because `friend_activity` is SELECT-own (a
+  /// client cannot write another user's feed row directly). Honest no-op for a
+  /// guest / un-configured build.
+  Future<FriendDeliveryResult> emitActivity(
+    String activityType, {
+    String summary,
+    List<String>? targets,
+  });
 }
 
 /// Default (local / guest / un-configured build): no backend, so nothing can be
@@ -105,6 +118,11 @@ class UnavailableFriendsService implements FriendsService {
   @override
   Future<FriendDeliveryResult> removeFriend(String otherHandle,
           {required bool block}) async =>
+      _unavailable;
+
+  @override
+  Future<FriendDeliveryResult> emitActivity(String activityType,
+          {String summary = '', List<String>? targets}) async =>
       _unavailable;
 }
 

@@ -83,4 +83,9 @@ class _RecordingFriendsService implements FriendsService {
   Future<FriendDeliveryResult> removeFriend(String otherHandle,
           {required bool block}) async =>
       const FriendDeliveryResult(FriendDeliveryOutcome.unavailable);
+
+  @override
+  Future<FriendDeliveryResult> emitActivity(String activityType,
+          {String summary = '', List<String>? targets}) async =>
+      const FriendDeliveryResult(FriendDeliveryOutcome.unavailable);
 }

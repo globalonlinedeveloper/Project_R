@@ -33,6 +33,11 @@ class SupabaseFriendsService implements FriendsService {
   /// row too; block leaves the caller's own `'blocked'` row).
   static const String removeFn = 'remove_friend';
 
+  /// SECURITY DEFINER RPC: emit friend-activity feed rows to the caller's
+  /// friends (resolves friends server-side; bypasses the SELECT-own RLS to
+  /// insert on their behalf, attributed only to the caller).
+  static const String emitFn = 'emit_friend_activity';
+
   /// The caller's own `profiles` row (own-row RLS; unique index on the handle).
   static const String profilesTable = 'profiles';
 
@@ -98,6 +103,27 @@ class SupabaseFriendsService implements FriendsService {
   }
 
   @override
+  Future<FriendDeliveryResult> emitActivity(String activityType,
+      {String summary = '', List<String>? targets}) async {
+    try {
+      final Object? res = await _db.rpc(
+        emitFn,
+        params: <String, Object?>{
+          'activity_type': activityType,
+          'summary': summary,
+          if (targets != null)
+            'targets': targets.map(normalizeHandle).toList(),
+        },
+      );
+      return resultFromEmit(res);
+    } on PostgrestException catch (e) {
+      return resultFromError(e);
+    } catch (_) {
+      return _network;
+    }
+  }
+
+  @override
   Future<FriendDeliveryResult> setHandle(String desiredHandle) async {
     final String h = normalizeHandle(desiredHandle);
     final String? uid = _db.auth.currentUser?.id;
@@ -152,6 +178,16 @@ class SupabaseFriendsService implements FriendsService {
         return FriendDeliveryResult(FriendDeliveryOutcome.delivered,
             status: status);
     }
+  }
+
+  /// Map the emit RPC's integer row-count → a delivery result (delivered, the
+  /// inserted-row count carried in `status`). Pure for unit testing. A zero
+  /// count is still an honest `delivered` — nothing failed; the caller simply
+  /// had no eligible friends to notify.
+  static FriendDeliveryResult resultFromEmit(Object? res) {
+    final int n = (res is num) ? res.toInt() : 0;
+    return FriendDeliveryResult(FriendDeliveryOutcome.delivered,
+        status: n.toString());
   }
 
   /// Map a raised RPC error → an honest, specific result (never a fake

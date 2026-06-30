@@ -1,5 +1,6 @@
-// R-I9 / R-L8 — the Friends controller DELIVERS cross-user mutations through the
-// FriendsService seam on a real session, and stays purely local for a guest.
+// R-I9 / R-L8 / R-L11 — the Friends controller DELIVERS cross-user mutations
+// through the FriendsService seam on a real session (incl. a `joined` activity
+// emit when a friendship forms on accept), and stays purely local for a guest.
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -14,6 +15,8 @@ class _RecordingService implements FriendsService {
   final List<(String, bool)> responded = <(String, bool)>[];
   final List<String> handles = <String>[];
   final List<(String, bool)> removed = <(String, bool)>[];
+  final List<(String, String, List<String>?)> emitted =
+      <(String, String, List<String>?)>[];
 
   @override
   Future<FriendDeliveryResult> sendRequest(String targetHandle) async {
@@ -25,7 +28,9 @@ class _RecordingService implements FriendsService {
   Future<FriendDeliveryResult> respond(String requesterHandle,
       {required bool accept}) async {
     responded.add((requesterHandle, accept));
-    return const FriendDeliveryResult(FriendDeliveryOutcome.delivered);
+    // Mirror the real RPC: an accept settles to `friends`, a decline clears.
+    return FriendDeliveryResult(
+        accept ? FriendDeliveryOutcome.friends : FriendDeliveryOutcome.cleared);
   }
 
   @override
@@ -39,6 +44,13 @@ class _RecordingService implements FriendsService {
       {required bool block}) async {
     removed.add((otherHandle, block));
     return const FriendDeliveryResult(FriendDeliveryOutcome.cleared);
+  }
+
+  @override
+  Future<FriendDeliveryResult> emitActivity(String activityType,
+      {String summary = '', List<String>? targets}) async {
+    emitted.add((activityType, summary, targets));
+    return const FriendDeliveryResult(FriendDeliveryOutcome.delivered);
   }
 }
 
@@ -62,8 +74,9 @@ const FriendRecord _mia = FriendRecord(
 );
 
 void main() {
-  test('a signed-in learner DELIVERS send / accept / decline via the service',
-      () {
+  test(
+      'a signed-in learner DELIVERS send/accept/decline/remove/block, and '
+      'emits a targeted joined activity to the new friend on accept', () async {
     final svc = _RecordingService();
     final container = ProviderContainer(overrides: <Override>[
       identityProvider.overrideWithValue(_SignedInIdentity()),
@@ -78,17 +91,24 @@ void main() {
     c.decline('bob');
     c.remove('mia');
     c.block('bob');
+    await Future<void>.delayed(Duration.zero); // let chained deliveries run
 
     expect(svc.sent, <String>['mia']);
     expect(svc.responded, <(String, bool)>[('mia', true), ('bob', false)]);
-    // remove ⇒ block:false, block ⇒ block:true — both propagate cross-user.
     expect(svc.removed, <(String, bool)>[('mia', false), ('bob', true)]);
+    // accept('mia') settled to friends ⇒ exactly one targeted `joined` to mia;
+    // the decline did NOT emit.
+    expect(svc.emitted.length, 1);
+    final e = svc.emitted.single;
+    expect(e.$1, 'joined');
+    expect(e.$2, 'is now your friend');
+    expect(e.$3, <String>['mia']);
   });
 
-  test('a guest routes NOTHING (no session ⇒ delivery is skipped)', () {
+  test('a guest routes NOTHING (no session ⇒ no delivery, no activity emit)',
+      () async {
     final svc = _RecordingService();
     final container = ProviderContainer(overrides: <Override>[
-      // identityProvider stays the default AnonymousIdentity (uid == null).
       friendsServiceProvider.overrideWithValue(svc),
       persistDebounceProvider.overrideWithValue(Duration.zero),
     ]);
@@ -99,10 +119,11 @@ void main() {
     c.accept('mia');
     c.remove('mia');
     c.block('bob');
+    await Future<void>.delayed(Duration.zero);
 
-    // The local optimistic state still updates, but nothing was delivered.
     expect(svc.sent, isEmpty);
     expect(svc.responded, isEmpty);
     expect(svc.removed, isEmpty);
+    expect(svc.emitted, isEmpty);
   });
 }

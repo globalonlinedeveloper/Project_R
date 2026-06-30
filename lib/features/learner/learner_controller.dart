@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ratel/content/models/enums.dart' show CefrLevel;
 import 'package:ratel/features/settings/settings_controller.dart';
@@ -7,6 +9,8 @@ import 'package:ratel/services/economy/economy.dart';
 import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/leagues/leagues.dart' show LeagueWeek;
 import 'package:ratel/services/learning/learning.dart';
+import 'package:ratel/services/social/friends.dart' show FriendActivityType;
+import 'package:ratel/services/social/friends_service.dart';
 
 /// An immutable snapshot of the learner's surfaced progress.
 ///
@@ -232,9 +236,11 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   /// Append a graded answer to the immutable log and re-derive ability + level
   /// through the real engine (the only path that moves θ/level), then persist.
   void recordReview(ReviewLogEntry entry) {
+    final CefrLevel levelBefore = state.level;
     _log.add(entry);
     state = _derive();
     _persist();
+    _maybeEmitLevelUp(levelBefore, state.level);
   }
 
   /// Record a completed lesson (R-O1 XP/lessons; R-I4 diamonds). Rolls today's
@@ -243,6 +249,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   /// goal-gated streak and credits the goal-met diamond bonus, and writes the
   /// lot through.
   void recordLessonComplete({int xp = 20}) {
+    final int streakBefore = state.streakDays;
     final DateTime today = _today();
     _rollDay(today);
     _rollWeek(today);
@@ -261,6 +268,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     ref.read(xpHistoryControllerProvider.notifier).recordToday(gained);
     state = _derive();
     _persist();
+    _maybeEmitStreak(streakBefore, state.streakDays);
   }
 
   /// Reset today's XP when the calendar day has rolled over since it was last
@@ -510,6 +518,39 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _xpBoostUntil = null;
     state = _derive();
   }
+
+  // ── Friend activity production (R-I9 / R-L8 / R-L11) ──────────────────────
+
+  /// Broadcast a `leveledUp` friend-activity event when a graded answer just
+  /// pushed the learner across a CEFR band (the REAL, theta-driven rise — never
+  /// fabricated). Fire-and-forget + session-guarded: a guest (or the default
+  /// UnavailableFriendsService) routes nothing, so flag-off is byte-identical.
+  void _maybeEmitLevelUp(CefrLevel before, CefrLevel after) {
+    if (after.index <= before.index) return;
+    if (ref.read(identityProvider).uid == null) return;
+    unawaited(ref.read(friendsServiceProvider).emitActivity(
+        FriendActivityType.leveledUp.name,
+        summary: 'reached ${after.name.toUpperCase()}'));
+  }
+
+  /// Broadcast a `streak` friend-activity event when a completed lesson just
+  /// advanced the goal-gated streak to a milestone length (avoids per-day feed
+  /// spam). Same session guard + fire-and-forget as [_maybeEmitLevelUp].
+  void _maybeEmitStreak(int before, int after) {
+    if (after <= before || !_isStreakMilestone(after)) return;
+    if (ref.read(identityProvider).uid == null) return;
+    unawaited(ref.read(friendsServiceProvider).emitActivity(
+        FriendActivityType.streak.name, summary: '$after-day streak'));
+  }
+
+  /// Streak lengths worth announcing to friends (keeps the feed meaningful).
+  static bool _isStreakMilestone(int days) =>
+      days == 3 ||
+      days == 7 ||
+      days == 14 ||
+      days == 30 ||
+      days == 50 ||
+      (days > 0 && days % 100 == 0);
 
   // ── D2 retention (R-G5 / R-G6) ────────────────────────────────────────────
 

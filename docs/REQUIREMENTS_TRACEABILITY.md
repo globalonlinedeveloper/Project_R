@@ -166,7 +166,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-I6 | Leagues / leaderboards (global, weekly reset) | Should | Stage2 | Built ✅ | — | `leagues_controller.dart`, `leagues_screen.dart`, `learner_controller.dart`, `leagues.dart` +2 |
 | R-I7 | Daily goal + chest + quests + achievements | Should | Stage2 | Built ✅ | — | `achievements_controller.dart`, `daily_goal.dart`, `onboarding_screen.dart`, `progress_screen.dart` +9 |
 | R-I8 | Anti-dark-pattern guardrails | Should | Stage2 | Built ✅ | — | — |
-| R-I9 | Social: friends/feed, family plan, classroom, block/report | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `router.dart`, `friends_controller.dart`, `friends_screen.dart`, `edit_profile_screen.dart` +15 |
+| R-I9 | Social: friends/feed, family plan, classroom, block/report | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `router.dart`, `friends_controller.dart`, `friends_screen.dart`, `learner_controller.dart` +17 |
 
 ## Part J — Monetization
 
@@ -207,10 +207,10 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-L5 | Reading & listening (stories, listening feed, video, tap-to-define) | Must | Stage2 | Built ✅ | — | — |
 | R-L6 | Profile & settings hub | Must | Stage2 | Built ✅ | — | — |
 | R-L7 | Monetization screens | Must | Stage2 | Built ✅ | — | — |
-| R-L8 | Gamification & social screens | Must | Stage2 | Built ✅ | — | `router.dart`, `friends_controller.dart`, `friends_screen.dart`, `edit_profile_screen.dart` +14 |
+| R-L8 | Gamification & social screens | Must | Stage2 | Built ✅ | — | `router.dart`, `friends_controller.dart`, `friends_screen.dart`, `learner_controller.dart` +16 |
 | R-L9 | Multi-course, course-switch, flip-UI & immersion | Must | Stage2 | Built ✅ | — | — |
 | R-L10 | Navigation / information architecture (tab shell, deep links) | Must | Stage2 | Built ✅ | — | — |
-| R-L11 | Notifications (push categories, opt-in, inbox) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `home_screen.dart`, `leagues_screen.dart`, `library_screen.dart`, `notifications_controller.dart` +6 |
+| R-L11 | Notifications (push categories, opt-in, inbox) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `friends_controller.dart`, `home_screen.dart`, `leagues_screen.dart`, `learner_controller.dart` +10 |
 | R-L11a | Widgets are mobile-only; desktop/web get in-app/tray equivalent | Could | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-L11b | Notifications: per-platform delivery profile | Should | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-L12 | Global search | Should | Stage2 | Built ✅ | — | `library_search_screen.dart`, `settings_controller.dart`, `app_settings.dart`, `search.dart` +3 |

@@ -37,6 +37,13 @@ void main() {
       expect((await svc.removeFriend('mia', block: true)).outcome,
           FriendDeliveryOutcome.unavailable);
     });
+
+    test('emitActivity is unavailable, never a fabricated feed write', () async {
+      final FriendDeliveryResult r =
+          await svc.emitActivity('leveledUp', summary: 'reached B1');
+      expect(r.outcome, FriendDeliveryOutcome.unavailable);
+      expect(r.ok, isFalse);
+    });
   });
 
   group('SupabaseFriendsService.normalizeHandle', () {
@@ -77,6 +84,22 @@ void main() {
       final r = SupabaseFriendsService.resultFromRpc(null);
       expect(r.outcome, FriendDeliveryOutcome.delivered);
       expect(r.status, isNull);
+    });
+  });
+
+  group('SupabaseFriendsService.resultFromEmit (row-count → delivered)', () {
+    test('a positive count ⇒ delivered with the count in status', () {
+      final r = SupabaseFriendsService.resultFromEmit(2);
+      expect(r.outcome, FriendDeliveryOutcome.delivered);
+      expect(r.status, '2');
+      expect(r.ok, isTrue);
+    });
+    test('zero is still an honest delivered (no eligible friends)', () {
+      expect(SupabaseFriendsService.resultFromEmit(0).outcome,
+          FriendDeliveryOutcome.delivered);
+    });
+    test('a non-number resolves to 0, never throws', () {
+      expect(SupabaseFriendsService.resultFromEmit(null).status, '0');
     });
   });
 

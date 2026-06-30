@@ -99,15 +99,37 @@ class FriendsController extends Notifier<FriendsState> {
   /// is also DELIVERED to the other account via the cross-user RPC (R-I9/R-L8).
   void sendRequest(FriendRecord target) {
     _set(engine.applySendRequest(state.relationships, target));
-    _deliver(() =>
-        ref.read(friendsServiceProvider).sendRequest(target.handle));
+    _deliver(() async {
+      final FriendDeliveryResult r =
+          await ref.read(friendsServiceProvider).sendRequest(target.handle);
+      // If the request immediately resolved to a mutual friendship (they had
+      // already requested us), announce the `joined` to them too.
+      if (r.outcome == FriendDeliveryOutcome.friends) {
+        await ref.read(friendsServiceProvider).emitActivity(
+            FriendActivityType.joined.name,
+            summary: 'is now your friend',
+            targets: <String>[target.handle]);
+      }
+      return r;
+    });
   }
 
   /// Accept an incoming request → friends (delivered to the requester too).
   void accept(String userId) {
     _set(engine.applyAccept(state.relationships, userId));
-    _deliver(() =>
-        ref.read(friendsServiceProvider).respond(userId, accept: true));
+    _deliver(() async {
+      final FriendDeliveryResult r =
+          await ref.read(friendsServiceProvider).respond(userId, accept: true);
+      // A confirmed friendship → announce a real `joined` event to the new
+      // friend's feed (R-L11), targeted (never broadcast).
+      if (r.outcome == FriendDeliveryOutcome.friends) {
+        await ref.read(friendsServiceProvider).emitActivity(
+            FriendActivityType.joined.name,
+            summary: 'is now your friend',
+            targets: <String>[userId]);
+      }
+      return r;
+    });
   }
 
   /// Decline an incoming request → removed (cleared on the requester too).
