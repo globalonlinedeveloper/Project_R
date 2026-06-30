@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/services/identity/identity.dart';
+import 'package:ratel/services/billing/billing.dart';
 import 'package:ratel/services/preferences/app_settings.dart';
 
 /// Settings (design spec §4.9) — REAL where an engine exists: daily goal, sound,
@@ -113,11 +114,12 @@ class SettingsScreen extends ConsumerWidget {
             subtitle: isPro ? 'RATEL PRO active' : 'Free plan',
             onTap: () {
               if (isPro) {
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(const SnackBar(
-                      content: Text(
-                          'Manage or cancel in your app store subscriptions.')));
+                ref.read(manageSubscriptionProvider).open().then((ManageResult r) {
+                  if (!context.mounted) return;
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(SnackBar(content: Text(r.message)));
+                });
               } else {
                 context.push('/paywall?source=settings');
               }

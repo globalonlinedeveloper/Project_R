@@ -314,6 +314,21 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
                     fontSize: RatelType.small,
                     color: context.palette.muted,
                     height: 1.4)),
+            const SizedBox(height: RatelSpace.md),
+            GestureDetector(
+              onTap: () async {
+                final ManageResult r =
+                    await ref.read(manageSubscriptionProvider).open();
+                if (!context.mounted) return;
+                _snack(context, r.message);
+              },
+              child: Text('Manage subscription',
+                  style: TextStyle(
+                      fontFamily: RatelFont.body,
+                      fontSize: RatelType.body,
+                      fontWeight: RatelType.semiBold,
+                      color: RatelColors.teal)),
+            ),
           ],
         ),
       );

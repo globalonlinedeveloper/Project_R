@@ -172,12 +172,12 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-J1 | Free vs Pro feature split (exact) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `adventures_screen.dart`, `paywall_screen.dart`, `ai_tutor_screen.dart`, `paywall_screen_test.dart` |
+| R-J1 | Free vs Pro feature split (exact) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `adventures_screen.dart`, `paywall_screen.dart`, `ai_tutor_screen.dart`, `monetization_polish_test.dart` +1 |
 | R-J2 | Pro price point(s) + billing (regional/PPP, trial) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `paywall_screen.dart`, `pricing.dart`, `paywall_screen_test.dart` |
 | R-J3 | AI access policy - Pro-only live AI, metered by credits | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `ai_tutor_screen.dart`, `play_receipt_verify.dart`, `user.schema.json` |
 | R-J4 | Ad strategy + network/mediation | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-J5 | Voice minute caps (even Pro) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-J6 | Store-safe paywall / cancel (single CTA, easy cancel) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `paywall_screen.dart`, `pricing.dart`, `pro_checkout.dart`, `credit_ledger.schema.json` +1 |
+| R-J6 | Store-safe paywall / cancel (single CTA, easy cancel) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `paywall_screen.dart`, `manage_subscription.dart`, `pricing.dart`, `pro_checkout.dart` +3 |
 | R-J7 | Payments / IAP integration (App Store / Play / web) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `play_receipt_verify.dart`, `pricing.dart`, `pro_checkout.dart`, `user.schema.json` +3 |
 | R-J7a | Desktop/web billing - web-checkout fallback (no native store) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `billing.dart`, `media_authz.dart`, `payments_verify.dart`, `play_receipt_verify.dart` +6 |
 

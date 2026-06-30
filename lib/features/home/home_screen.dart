@@ -103,7 +103,7 @@ class HomeScreen extends ConsumerWidget {
             Positioned(
               right: RatelSpace.lg,
               bottom: RatelSpace.lg,
-              child: _tutorPill(context),
+              child: _tutorPill(context, ref.watch(isProProvider)),
             ),
           ],
         ),
@@ -372,7 +372,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _tutorPill(BuildContext context) {
+  Widget _tutorPill(BuildContext context, bool isPro) {
     return GestureDetector(
       onTap: () => context.push('/tutor'),
       child: Container(
@@ -386,12 +386,21 @@ class HomeScreen extends ConsumerWidget {
                 color: context.palette.shadow, blurRadius: 10, offset: Offset(0, 4)),
           ],
         ),
-        child: const Text('🦡 Tutor',
-            style: TextStyle(
-                fontFamily: RatelFont.display,
-                fontWeight: RatelType.extraBold,
-                fontSize: RatelType.body,
-                color: RatelColors.onColor)),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            const Text('🦡 Tutor',
+                style: TextStyle(
+                    fontFamily: RatelFont.display,
+                    fontWeight: RatelType.extraBold,
+                    fontSize: RatelType.body,
+                    color: RatelColors.onColor)),
+            if (!isPro) ...<Widget>[
+              const SizedBox(width: RatelSpace.sm),
+              RatelChip.pro(),
+            ],
+          ],
+        ),
       ),
     );
   }

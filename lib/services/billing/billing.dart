@@ -6,6 +6,7 @@ export 'grant_guard.dart';
 export 'play_receipt_verify.dart';
 export 'pricing.dart';
 export 'pro_checkout.dart';
+export 'manage_subscription.dart';
 
 /// Portability seam (R-J7a): payments / entitlement. IAP + web checkout sit behind
 /// one adapter; entitlement is computed server-side at Stage 3, never
