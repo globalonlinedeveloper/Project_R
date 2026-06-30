@@ -255,7 +255,8 @@ void main() {
       expect(find.text('Buy for 10 💎'), findsOneWidget);
       expect(c.read(learnerControllerProvider).diamonds, 50);
 
-      await tester.tap(find.byType(RatelButton));
+      // The Shop now has several power-up buttons; target the freeze one.
+      await tester.tap(find.widgetWithText(RatelButton, 'Buy for 10 💎'));
       await tester.pump(); // process the tap + buy mutation
 
       expect(c.read(learnerControllerProvider).streakFreezes, 1);

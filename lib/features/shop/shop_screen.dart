@@ -29,6 +29,12 @@ class ShopScreen extends ConsumerWidget {
     final String reason = atCap
         ? 'You already hold the most freezes ($max).'
         : 'Not enough 💎 — earn $cost by finishing lessons.';
+    final int energyRefillCost = learner.energyRefillCost;
+    final bool canRefill = learner.canBuyEnergyRefill;
+    final bool energyFull = snap.energy >= learner.energyCap;
+    final int streakRepairCost = learner.streakRepairCost;
+    final bool canRepair = learner.canRepairStreak;
+    final bool streakLapsed = learner.streakLapsed;
 
     return Scaffold(
       backgroundColor: context.palette.cream,
@@ -133,11 +139,63 @@ class ShopScreen extends ConsumerWidget {
                 ],
               ),
             ),
+            const SizedBox(height: RatelSpace.cardGap),
+            _PowerUpCard(
+              emoji: '⚡',
+              title: 'Energy Refill',
+              desc: 'Top your energy straight back up to full. Energy is '
+                  'display-only — lessons never block.',
+              status: '⚡ ${snap.energy}/${learner.energyCap}',
+              statusTone: RatelChipTone.amber,
+              buttonLabel:
+                  energyFull ? 'Already full' : 'Buy for $energyRefillCost 💎',
+              onBuy: canRefill
+                  ? () {
+                      learner.buyEnergyRefill();
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentSnackBar()
+                        ..showSnackBar(const SnackBar(
+                            content: Text('Energy refilled ⚡')));
+                    }
+                  : null,
+              note: canRefill
+                  ? null
+                  : (energyFull
+                      ? 'Your energy is already full.'
+                      : 'Not enough 💎 — earn more by finishing lessons.'),
+            ),
+            const SizedBox(height: RatelSpace.cardGap),
+            _PowerUpCard(
+              emoji: '🛠️',
+              title: 'Streak Repair',
+              desc: 'Lost your streak? Restore it to its previous length and '
+                  'keep the run going.',
+              status: streakLapsed
+                  ? 'Streak lapsed'
+                  : '🔥 ${snap.streakDays}-day streak',
+              statusTone:
+                  streakLapsed ? RatelChipTone.coral : RatelChipTone.teal,
+              buttonLabel: 'Repair for $streakRepairCost 💎',
+              onBuy: canRepair
+                  ? () {
+                      learner.repairStreak();
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentSnackBar()
+                        ..showSnackBar(const SnackBar(
+                            content: Text('Streak restored 🔥')));
+                    }
+                  : null,
+              note: canRepair
+                  ? null
+                  : (streakLapsed
+                      ? 'Not enough 💎 — earn more by finishing lessons.'
+                      : 'Your streak is safe — nothing to repair right now.'),
+            ),
             const SizedBox(height: RatelSpace.lg),
             Text(
-              'More power-ups and a 💎 top-up are coming. Diamonds are earned by '
-              'finishing lessons and meeting your daily goal — nothing here is '
-              'faked.',
+              'A real-money 💎 top-up is coming. Diamonds are earned by '
+              'finishing lessons and meeting your daily goal, and every '
+              'power-up here spends them for real — nothing is faked.',
               style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.small,
@@ -206,6 +264,81 @@ class ShopScreen extends ConsumerWidget {
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+
+/// A Shop power-up card (E1): emoji + title + description, a status chip, and a
+/// buy button that is disabled (with an honest [note]) when the purchase is not
+/// applicable or unaffordable. Mirrors the streak-freeze card's layout.
+class _PowerUpCard extends StatelessWidget {
+  const _PowerUpCard({
+    required this.emoji,
+    required this.title,
+    required this.desc,
+    required this.status,
+    required this.statusTone,
+    required this.buttonLabel,
+    required this.onBuy,
+    this.note,
+  });
+
+  final String emoji;
+  final String title;
+  final String desc;
+  final String status;
+  final RatelChipTone statusTone;
+  final String buttonLabel;
+  final VoidCallback? onBuy;
+  final String? note;
+
+  @override
+  Widget build(BuildContext context) {
+    return RatelCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(emoji, style: const TextStyle(fontSize: 34)),
+              const SizedBox(width: RatelSpace.md),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(title,
+                        style: TextStyle(
+                            fontFamily: RatelFont.display,
+                            fontWeight: RatelType.extraBold,
+                            fontSize: RatelType.cardTitle,
+                            color: context.palette.ink)),
+                    const SizedBox(height: 2),
+                    Text(desc,
+                        style: TextStyle(
+                            fontFamily: RatelFont.body,
+                            fontSize: RatelType.small,
+                            color: context.palette.muted)),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: RatelSpace.md),
+          Row(children: <Widget>[RatelChip(label: status, tone: statusTone)]),
+          const SizedBox(height: RatelSpace.md),
+          RatelButton(label: buttonLabel, onPressed: onBuy),
+          if (note != null) ...<Widget>[
+            const SizedBox(height: RatelSpace.xs),
+            Text(note!,
+                style: TextStyle(
+                    fontFamily: RatelFont.body,
+                    fontSize: RatelType.caption,
+                    color: context.palette.muted)),
+          ],
         ],
       ),
     );

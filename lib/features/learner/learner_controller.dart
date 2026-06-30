@@ -342,6 +342,76 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _persist();
   }
 
+  // ── E1 Shop spend sinks: Energy Refill + Streak Repair (R-I3 / R-I4) ──────
+
+  /// The ⚡ energy cap (surfaced to the Shop for the "x/cap" status).
+  int get energyCap => EnergyModel.cap;
+
+  /// 💎 price of an energy refill (surfaced to the Shop).
+  int get energyRefillCost => PowerUpPrices.energyRefillCost;
+
+  /// ⚡ energy settled to the current clock (regen banked up to now).
+  int _currentEnergy() {
+    final DateTime nowTs = ref.read(clockProvider)();
+    return _energyAnchor == null
+        ? _energy
+        : _energyModel.regenerated(
+            energy: _energy, elapsed: nowTs.difference(_energyAnchor!));
+  }
+
+  /// Whether ⚡ energy can be refilled now: not already full AND enough 💎.
+  bool get canBuyEnergyRefill =>
+      _currentEnergy() < EnergyModel.cap &&
+      _diamondsModel.canSpend(
+          balance: _diamonds, amount: PowerUpPrices.energyRefillCost);
+
+  /// Refill ⚡ energy to the cap for [energyRefillCost] 💎 (E1 · R-I3/R-I4).
+  /// No-op when already full or unaffordable (the UI disables the control then).
+  /// The 💎 debit is durable; energy is display-only/session-local (S60), so the
+  /// refill shows this session — stated honestly in the Shop.
+  void buyEnergyRefill() {
+    if (!canBuyEnergyRefill) return;
+    _diamonds = _diamondsModel.spend(
+        balance: _diamonds, amount: PowerUpPrices.energyRefillCost);
+    _energy = EnergyModel.cap;
+    _energyAnchor = ref.read(clockProvider)();
+    state = _derive();
+    _persist();
+  }
+
+  /// 💎 price of a streak repair (surfaced to the Shop).
+  int get streakRepairCost => PowerUpPrices.streakRepairCost;
+
+  /// Whether the streak has LAPSED — a prior run exists but today's surfaced
+  /// streak is 0 — so there is genuinely something to restore.
+  bool get streakLapsed {
+    final DateTime today = _today();
+    return _streak > 0 &&
+        _lastGoalMetDate != null &&
+        _streakModel.current(
+                streak: _streak, lastMet: _lastGoalMetDate, today: today) ==
+            0;
+  }
+
+  /// Whether a lapsed streak can be repaired now (lapsed AND enough 💎).
+  bool get canRepairStreak =>
+      streakLapsed &&
+      _diamondsModel.canSpend(
+          balance: _diamonds, amount: PowerUpPrices.streakRepairCost);
+
+  /// Restore a lapsed streak for [streakRepairCost] 💎 (E1 · R-I2/R-I4): re-
+  /// anchors the last goal-met day to yesterday so the run resumes at its prior
+  /// length. No-op when the streak is alive / never started or unaffordable.
+  void repairStreak() {
+    if (!canRepairStreak) return;
+    _diamonds = _diamondsModel.spend(
+        balance: _diamonds, amount: PowerUpPrices.streakRepairCost);
+    final DateTime today = _today();
+    _lastGoalMetDate = DateTime(today.year, today.month, today.day - 1);
+    state = _derive();
+    _persist();
+  }
+
   /// Seed ability from a completed CAT placement (design spec §4.11 — the
   /// "Take a placement test" branch). Replaces the cold-start prior with the
   /// placement θ estimate (same IRT logit scale), clears any prior answer log
