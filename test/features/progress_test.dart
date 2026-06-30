@@ -58,7 +58,9 @@ void main() {
     expect(find.text('CEFR level'), findsOneWidget);
     expect(find.textContaining('Ability θ'), findsOneWidget);
     // Honest empty states for the no-engine stats — NEVER the mockup numbers.
-    expect(find.textContaining('daily activity'), findsOneWidget);
+    // D1: the 7-day chart frame shows but reads honestly empty (no XP yet).
+    expect(find.textContaining('No XP recorded yet'), findsOneWidget);
+    expect(find.textContaining('inactive days stay'), findsOneWidget);
     expect(find.text('Soon'), findsOneWidget);
     expect(find.text('No data yet'), findsOneWidget);
     expect(find.textContaining('86%'), findsNothing);
@@ -79,5 +81,7 @@ void main() {
     expect(find.text('20'), findsOneWidget); // Total XP card = real xpTotal
     expect(find.text('2'), findsOneWidget); // Saved words = real dedup count
     expect(find.text("Today's XP"), findsOneWidget);
+    // D1: the real 7-day chart reflects the recorded lesson XP.
+    expect(find.text('20 XP · last 7 days'), findsOneWidget);
   });
 }

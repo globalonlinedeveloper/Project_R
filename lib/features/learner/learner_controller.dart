@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ratel/content/models/enums.dart' show CefrLevel;
 import 'package:ratel/features/settings/settings_controller.dart';
+import 'package:ratel/features/progress/xp_history_controller.dart';
 import 'package:ratel/services/data_access/data_access.dart';
 import 'package:ratel/services/economy/economy.dart';
 import 'package:ratel/services/identity/identity.dart';
@@ -249,6 +250,9 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _diamonds = _diamondsModel
         .award(balance: _diamonds, event: DiamondEvent.lessonCompleted);
     _maybeAwardGoalMet(today);
+    // D1: record the lesson's XP into the device-local 7-day history
+    // (R-G6 / R-L14). Honest — only real earned XP, never fabricated.
+    ref.read(xpHistoryControllerProvider.notifier).recordToday(xp);
     state = _derive();
     _persist();
   }

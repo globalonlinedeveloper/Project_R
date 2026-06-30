@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show Clipboard, ClipboardData;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -12,12 +13,17 @@ import 'package:ratel/core/core.dart';
 /// seeded by the `cold_start` anchor), the saved-words count (real per-course
 /// dedup) and the in-memory R-O1 gameplay counters (XP, lessons, streak — they
 /// start at ZERO on a freshly-wiped account, never the mockup's "412 / 88 /
-/// 86%"). Stats with NO engine in this foundation — accuracy, study time,
-/// retention %, and the per-day history chart — are shown as honest empty
-/// states, never fabricated (design spec §6 "don't fake depth").
+/// 86%").
 ///
-/// Surfaces UI for: [R-G2] ability θ · [R-G6] learner-state stats · [R-G9]
-/// saved-words count · [R-I1] XP · [R-I2] streak · [R-I7] daily goal ·
+/// D1: the **Last 7 days** chart is now REAL — driven by the device-local
+/// [last7DaysXpProvider] recorder hooked to every completed lesson; inactive
+/// days are honest zeros, never invented. **Share milestone** copies a real
+/// level/XP/streak card to the clipboard. Stats with NO engine yet — accuracy,
+/// study time, retention % — stay honest empty states (D2 / §6 "don't fake
+/// depth").
+///
+/// Surfaces UI for: [R-G2] ability θ · [R-G6] learner-state + 7-day history ·
+/// [R-G9] saved-words count · [R-I1] XP · [R-I2] streak · [R-I7] daily goal ·
 /// [R-L14] honest empty / no-data UI states.
 class ProgressScreen extends ConsumerWidget {
   const ProgressScreen({super.key});
@@ -27,6 +33,8 @@ class ProgressScreen extends ConsumerWidget {
     final LearnerSnapshot snap = ref.watch(learnerControllerProvider);
     final int words = ref.watch(savedWordsControllerProvider).count;
     final DailyGoalStatus goalStatus = ref.watch(dailyGoalProvider);
+    final List<DayXp> last7 = ref.watch(last7DaysXpProvider);
+    final int weekTotal = last7.fold<int>(0, (int a, DayXp d) => a + d.xp);
 
     final String level = snap.level.name.toUpperCase();
     final int goal = goalStatus.goal;
@@ -62,10 +70,17 @@ class ProgressScreen extends ConsumerWidget {
             _hero(level, snap, goal, ringVal, goalStatus.met),
             const SizedBox(height: RatelSpace.cardGap),
             _stats(context, snap, words, goal, level),
+            const SizedBox(height: RatelSpace.cardGap),
+            RatelButton(
+              label: 'Share milestone',
+              variant: RatelButtonVariant.secondary,
+              leading: const Text('📤', style: TextStyle(fontSize: 18)),
+              onPressed: () => _shareMilestone(context, snap, level),
+            ),
             const SizedBox(height: RatelSpace.lg),
             const RatelSectionHeader(label: 'Last 7 days'),
             const SizedBox(height: RatelSpace.sm),
-            _noHistoryCard(context),
+            _HistoryChart(days: last7, weekTotal: weekTotal),
             const SizedBox(height: RatelSpace.lg),
             const RatelSectionHeader(label: 'Accuracy & retention'),
             const SizedBox(height: RatelSpace.sm),
@@ -73,11 +88,10 @@ class ProgressScreen extends ConsumerWidget {
             const SizedBox(height: RatelSpace.lg),
             Center(
               child: Text(
-                'Level, ability, saved words, XP, lessons and streak are real '
-                'engine state — they start at zero on a fresh account. Accuracy, '
-                'study time, retention and daily history need recorded review '
-                'history (arriving with the lesson runner); nothing here is '
-                'invented.',
+                'Level, ability, saved words, XP, lessons, streak and your '
+                '7-day history are real recorded state — they start at zero on a '
+                'fresh account. Accuracy, study time and retention arrive as you '
+                'complete graded lessons; nothing here is invented.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: RatelFont.body,
@@ -88,6 +102,22 @@ class ProgressScreen extends ConsumerWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  /// Copy a REAL level/XP/streak milestone card to the clipboard (D1 "Share
+  /// milestone"). No `share_plus` dependency — a clipboard copy works on every
+  /// platform incl. web, and is honest about what it does (the SnackBar says so).
+  void _shareMilestone(BuildContext context, LearnerSnapshot snap, String level) {
+    final String text = '🦡 RATEL · Level $level (${_levelName(snap.level)})\n'
+        '🔥 ${snap.streakDays}-day streak · ⚡ ${snap.xpTotal} XP · '
+        '📘 ${snap.lessonsCompleted} lessons\n'
+        'Learning at learnwithratel.com';
+    Clipboard.setData(ClipboardData(text: text));
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Milestone copied to clipboard — share it anywhere!'),
       ),
     );
   }
@@ -213,27 +243,6 @@ class ProgressScreen extends ConsumerWidget {
         ),
       );
 
-  Widget _noHistoryCard(BuildContext context) => RatelCard(
-        color: context.palette.cream2,
-        child: Row(
-          children: <Widget>[
-            const Text('📊', style: TextStyle(fontSize: 22)),
-            const SizedBox(width: RatelSpace.md),
-            Expanded(
-              child: Text(
-                'Your daily activity chart fills in as you learn — there is no '
-                'recorded history yet, so nothing is shown.',
-                style: TextStyle(
-                    fontFamily: RatelFont.body,
-                    fontSize: RatelType.body,
-                    color: context.palette.muted),
-              ),
-            ),
-            const RatelChip(label: 'No data yet', tone: RatelChipTone.neutral),
-          ],
-        ),
-      );
-
   Widget _noEngineCard(BuildContext context) => RatelCard(
         color: context.palette.cream2,
         child: Row(
@@ -271,5 +280,117 @@ class ProgressScreen extends ConsumerWidget {
       case CefrLevel.c2:
         return 'Proficient';
     }
+  }
+}
+
+/// A real 7-bar daily-XP chart (D1). Bars scale to the busiest day; inactive
+/// days show a faint baseline stub (honest zero, never a gap). When no XP has
+/// been recorded in the window the header reads "No XP recorded yet" with a
+/// "No data yet" chip + an honest caption — the frame is shown but nothing is
+/// invented.
+class _HistoryChart extends StatelessWidget {
+  const _HistoryChart({required this.days, required this.weekTotal});
+
+  final List<DayXp> days;
+  final int weekTotal;
+
+  static const List<String> _dow = <String>[
+    '', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final int maxXp =
+        days.fold<int>(0, (int m, DayXp d) => d.xp > m ? d.xp : m);
+    const double trackH = 84;
+    return RatelCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              const Text('📊', style: TextStyle(fontSize: 20)),
+              const SizedBox(width: RatelSpace.sm),
+              Expanded(
+                child: Text(
+                  weekTotal > 0
+                      ? '$weekTotal XP · last 7 days'
+                      : 'No XP recorded yet',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontFamily: RatelFont.display,
+                      fontWeight: RatelType.extraBold,
+                      fontSize: RatelType.cardTitle,
+                      color: context.palette.ink),
+                ),
+              ),
+              if (weekTotal == 0)
+                const RatelChip(
+                    label: 'No data yet', tone: RatelChipTone.neutral),
+            ],
+          ),
+          const SizedBox(height: RatelSpace.md),
+          SizedBox(
+            height: trackH + 28,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                for (final DayXp d in days)
+                  Expanded(child: _bar(context, d, maxXp, trackH)),
+              ],
+            ),
+          ),
+          if (weekTotal == 0) ...<Widget>[
+            const SizedBox(height: RatelSpace.sm),
+            Text(
+              'Finish a lesson to start your 7-day history — inactive days stay '
+              'at zero, nothing is invented.',
+              style: TextStyle(
+                  fontFamily: RatelFont.body,
+                  fontSize: RatelType.small,
+                  color: context.palette.muted,
+                  height: 1.4),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _bar(BuildContext context, DayXp d, int maxXp, double trackH) {
+    final double frac = maxXp <= 0 ? 0 : d.xp / maxXp;
+    final double h = d.xp <= 0 ? 4 : (8 + frac * (trackH - 8));
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        SizedBox(
+          height: trackH,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 3),
+                height: h,
+                decoration: BoxDecoration(
+                  color: d.xp > 0 ? RatelColors.teal : context.palette.cream3,
+                  borderRadius: const BorderRadius.all(Radius.circular(6)),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          _dow[d.date.weekday],
+          maxLines: 1,
+          style: TextStyle(
+              fontFamily: RatelFont.body,
+              fontSize: RatelType.small,
+              color: context.palette.muted),
+        ),
+      ],
+    );
   }
 }

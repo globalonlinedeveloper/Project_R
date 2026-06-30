@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:ratel/services/preferences/prefs_settings_store.dart';
+import 'package:ratel/services/progress/prefs_xp_history_store.dart';
+import 'package:ratel/services/progress/xp_history_store.dart';
 
 import 'app/backend_wiring.dart';
 import 'app/content_wiring.dart';
@@ -27,6 +29,9 @@ Future<void> main() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     overrides.add(
       settingsStoreProvider.overrideWithValue(PrefsSettingsStore(prefs)),
+    );
+    overrides.add(
+      xpHistoryStoreProvider.overrideWithValue(PrefsXpHistoryStore(prefs)),
     );
   } catch (_) {
     // keep the in-memory settings default

@@ -7,6 +7,7 @@ export 'package:ratel/features/learner/learner_controller.dart';
 export 'package:ratel/features/saved_words/saved_words_controller.dart';
 export 'package:ratel/features/settings/settings_controller.dart';
 export 'package:ratel/features/learner/daily_goal.dart';
+export 'package:ratel/features/progress/xp_history_controller.dart';
 export 'package:ratel/services/data_access/data_access.dart' show clockProvider;
 
 /// Current Pro entitlement (design spec §4 PRO gating) — wraps the existing
