@@ -7,6 +7,7 @@ import 'package:ratel/features/adventures/adventures_screen.dart';
 import 'package:ratel/features/auth/login_screen.dart';
 import 'package:ratel/features/auth/signup_screen.dart';
 import 'package:ratel/features/common/coming_soon_screen.dart';
+import 'package:ratel/features/friends/friends_screen.dart';
 import 'package:ratel/features/home/home_screen.dart';
 import 'package:ratel/features/leagues/leagues_screen.dart';
 import 'package:ratel/features/library/library_search_screen.dart';
@@ -23,10 +24,11 @@ import 'package:ratel/features/notifications/notifications_screen.dart';
 import 'package:ratel/features/shop/shop_screen.dart';
 import 'package:ratel/features/tutor/ai_tutor_screen.dart';
 
-/// A not-yet-built destination rendered as an honest [ComingSoonScreen].
-/// Settings / Progress / Onboarding / daily-quiz / Shop are REAL screens;
-/// Friends remains a §6 owner-decision (no engine). Adding or
-/// ▶swapping a route is a one-line edit to this list.
+/// A not-yet-built destination rendered as an honest [ComingSoonScreen]. The
+/// list is now EMPTY — every navigable destination resolves to a real screen
+/// (Friends, the last stub, became a real screen in S64 / R-I9 + R-L8). The
+/// typedef + const are kept as the seam for any future honest stub (and are
+/// asserted-empty by the route tests); adding one is a one-line edit here.
 typedef ComingSoonRoute = ({
   String path,
   String title,
@@ -34,15 +36,7 @@ typedef ComingSoonRoute = ({
   String blurb,
 });
 
-const List<ComingSoonRoute> kComingSoonRoutes = <ComingSoonRoute>[
-  (
-    path: '/friends',
-    title: 'Friends',
-    emoji: '👥',
-    blurb: 'Friends & social (followers, friend activity, "passed you") have '
-        'no engine yet — an owner decision.'
-  ),
-];
+const List<ComingSoonRoute> kComingSoonRoutes = <ComingSoonRoute>[];
 
 /// The app router — a [StatefulShellRoute] with one branch per bottom-nav tab
 /// (Home / Library / Leagues / Quests / Profile, design spec §3). Each branch
@@ -140,6 +134,11 @@ GoRouter buildRouter() {
         path: '/search',
         builder: (BuildContext context, GoRouterState state) =>
             const LibrarySearchScreen(),
+      ),
+      GoRoute(
+        path: '/friends',
+        builder: (BuildContext context, GoRouterState state) =>
+            const FriendsScreen(),
       ),
       GoRoute(
         path: '/daily-quiz',

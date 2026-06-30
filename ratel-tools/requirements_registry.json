@@ -542,7 +542,7 @@
     "R-I9": {
       "moscow": "Should",
       "phase": "Stage3",
-      "status": "Pending 🔒"
+      "status": "Build-ahead 🟦"
     },
     "R-J1": {
       "moscow": "Must",

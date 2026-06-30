@@ -33,8 +33,9 @@ void main() {
     final Set<String> stubbed =
         kComingSoonRoutes.map((ComingSoonRoute r) => r.path).toSet();
     expect(stubbed.contains('/search'), isFalse);
-    // /friends remains an honest stub (multi-user, owner-scoped).
-    expect(stubbed.contains('/friends'), isTrue);
+    // /friends is now a REAL screen too (S64 / R-I9) — no honest stubs remain.
+    expect(stubbed.contains('/friends'), isFalse);
+    expect(stubbed, isEmpty);
   });
 
   testWidgets('the /search route renders the REAL search screen + live results',

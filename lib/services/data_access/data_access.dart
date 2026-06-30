@@ -34,3 +34,38 @@ final persistDebounceProvider =
 /// real time, the streak is gated on the calendar day, and tests pin it via an
 /// override. Defaults to the real [DateTime.now].
 final clockProvider = Provider<DateTime Function()>((ref) => DateTime.now);
+
+/// Portability seam (R-M3) for the social graph [R-I9 / R-L8]. The Friends
+/// feature reads + writes ONLY through this. Stage 1–2 back it in-memory (an
+/// honestly EMPTY graph for a fresh learner); Stage 3 plugs
+/// [SupabaseFriendsStore] behind the SAME interface, every row keyed on
+/// `auth.uid()` (R-K6). Seam-Map shape:
+/// `{ 'relationships': [ <friendship row>, … ], 'activity': [ <friend_activity
+/// row>, … ] }` — `load` returns it, `save` persists the relationships (the
+/// activity feed is produced by friends, so it is load-only).
+abstract interface class FriendsStore {
+  Future<Map<String, Object?>> load(String userId);
+  Future<void> save(String userId, Map<String, Object?> data);
+}
+
+/// Key holding the list of relationship (`friendship`) rows in the seam-Map.
+const String kFriendsRelationshipsKey = 'relationships';
+
+/// Key holding the list of `friend_activity` rows in the seam-Map.
+const String kFriendsActivityKey = 'activity';
+
+/// Default (local / Stage 1–2): ephemeral in-memory store (R-O1 stub). A fresh
+/// learner starts with an empty graph — never seeded with fake friends.
+class InMemoryFriendsStore implements FriendsStore {
+  final Map<String, Map<String, Object?>> _data =
+      <String, Map<String, Object?>>{};
+  @override
+  Future<Map<String, Object?>> load(String userId) async =>
+      Map<String, Object?>.from(_data[userId] ?? const <String, Object?>{});
+  @override
+  Future<void> save(String userId, Map<String, Object?> data) async =>
+      _data[userId] = Map<String, Object?>.from(data);
+}
+
+final friendsStoreProvider =
+    Provider<FriendsStore>((ref) => InMemoryFriendsStore());
