@@ -19,6 +19,8 @@ class PrefsSettingsStore implements SettingsStore {
   static const String _kThemeMode = 'ratel.settings.themeMode';
   static const String _kReadNotifications = 'ratel.settings.readNotifications';
   static const String _kRecentSearches = 'ratel.settings.recentSearches';
+  static const String _kReduceMotion = 'ratel.settings.reduceMotion';
+  static const String _kMutedNotifications = 'ratel.settings.mutedNotifications';
 
   @override
   AppSettings load() => AppSettings.fromMap(<String, Object?>{
@@ -29,6 +31,8 @@ class PrefsSettingsStore implements SettingsStore {
         'themeMode': _prefs.getString(_kThemeMode),
         'readNotifications': _prefs.getString(_kReadNotifications),
         'recentSearches': _prefs.getString(_kRecentSearches),
+        'reduceMotion': _prefs.getBool(_kReduceMotion),
+        'mutedNotifications': _prefs.getString(_kMutedNotifications),
       });
 
   @override
@@ -42,5 +46,8 @@ class PrefsSettingsStore implements SettingsStore {
         _kReadNotifications, (s.readNotifications.toList()..sort()).join(','));
     await _prefs.setString(
         _kRecentSearches, s.recentSearches.map(Uri.encodeComponent).join(','));
+    await _prefs.setBool(_kReduceMotion, s.reduceMotion);
+    await _prefs.setString(
+        _kMutedNotifications, (s.mutedNotifications.toList()..sort()).join(','));
   }
 }

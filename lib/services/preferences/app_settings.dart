@@ -16,6 +16,8 @@ class AppSettings {
     this.themeMode = ThemeMode.system,
     this.readNotifications = const <String>{},
     this.recentSearches = const <String>[],
+    this.reduceMotion = false,
+    this.mutedNotifications = const <String>{},
   });
 
   final bool highContrast;
@@ -36,6 +38,20 @@ class AppSettings {
   /// Device-local history; absent ⇒ no searches yet. Order is significant.
   final List<String> recentSearches;
 
+  /// Whether the learner asked to reduce non-essential motion/animation
+  /// (HABITS · §4.9 · R-WT5 motion preference). Honored app-wide via
+  /// MediaQuery.disableAnimations; the OS
+  /// reduce-motion setting stays a hard floor on top.
+  final bool reduceMotion;
+
+  /// Notification categories the learner has MUTED (push/streak/league/friend).
+  /// Empty ⇒ all on. The preference persists now; delivery activates with the
+  /// push engine (§6).
+  final Set<String> mutedNotifications;
+
+  /// Whether a notification [category] is enabled (i.e. not muted).
+  bool notifyEnabled(String category) => !mutedNotifications.contains(category);
+
   AppSettings copyWith({
     bool? highContrast,
     bool? sound,
@@ -44,6 +60,8 @@ class AppSettings {
     ThemeMode? themeMode,
     Set<String>? readNotifications,
     List<String>? recentSearches,
+    bool? reduceMotion,
+    Set<String>? mutedNotifications,
   }) =>
       AppSettings(
         highContrast: highContrast ?? this.highContrast,
@@ -53,6 +71,8 @@ class AppSettings {
         themeMode: themeMode ?? this.themeMode,
         readNotifications: readNotifications ?? this.readNotifications,
         recentSearches: recentSearches ?? this.recentSearches,
+        reduceMotion: reduceMotion ?? this.reduceMotion,
+        mutedNotifications: mutedNotifications ?? this.mutedNotifications,
       );
 
   Map<String, Object> toMap() => <String, Object>{
@@ -63,6 +83,8 @@ class AppSettings {
         'themeMode': themeMode.name,
         'readNotifications': (readNotifications.toList()..sort()).join(','),
         'recentSearches': recentSearches.map(Uri.encodeComponent).join(','),
+        'reduceMotion': reduceMotion,
+        'mutedNotifications': (mutedNotifications.toList()..sort()).join(','),
       };
 
   static AppSettings fromMap(Map<String, Object?> m) => AppSettings(
@@ -73,6 +95,8 @@ class AppSettings {
         themeMode: _themeModeFromName(m['themeMode'] as String?),
         readNotifications: _readNotifsFromCsv(m['readNotifications'] as String?),
         recentSearches: _recentsFromCsv(m['recentSearches'] as String?),
+        reduceMotion: m['reduceMotion'] as bool? ?? false,
+        mutedNotifications: _mutedFromCsv(m['mutedNotifications'] as String?),
       );
 
   @override
@@ -84,16 +108,25 @@ class AppSettings {
       other.dailyGoal == dailyGoal &&
       other.themeMode == themeMode &&
       setEquals(other.readNotifications, readNotifications) &&
-      listEquals(other.recentSearches, recentSearches);
+      listEquals(other.recentSearches, recentSearches) &&
+      other.reduceMotion == reduceMotion &&
+      setEquals(other.mutedNotifications, mutedNotifications);
 
   @override
   int get hashCode =>
       Object.hash(highContrast, sound, haptics, dailyGoal, themeMode,
-          Object.hashAllUnordered(readNotifications), Object.hashAll(recentSearches));
+          Object.hashAllUnordered(readNotifications), Object.hashAll(recentSearches),
+          reduceMotion, Object.hashAllUnordered(mutedNotifications));
 }
 
 /// Parse a persisted read-notifications CSV into a set; null/empty ⇒ none.
 Set<String> _readNotifsFromCsv(String? csv) {
+  if (csv == null || csv.isEmpty) return const <String>{};
+  return csv.split(',').where((String s) => s.isNotEmpty).toSet();
+}
+
+/// Parse a persisted muted-notifications CSV into a set; null/empty ⇒ none muted.
+Set<String> _mutedFromCsv(String? csv) {
   if (csv == null || csv.isEmpty) return const <String>{};
   return csv.split(',').where((String s) => s.isNotEmpty).toSet();
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
@@ -68,44 +69,7 @@ class SettingsScreen extends ConsumerWidget {
           const SizedBox(height: RatelSpace.sm),
           _toggle(context, '🔊', 'Sound effects', s.sound, c.setSound),
           const SizedBox(height: RatelSpace.lg),
-          const RatelSectionHeader(label: 'Appearance'),
-          const SizedBox(height: RatelSpace.sm),
-          RatelListRow(
-            leadingEmoji: '🌙',
-            leadingColor: RatelColors.purple,
-            title: 'Theme',
-            subtitle: _themeLabel(s.themeMode),
-            onTap: () => _pickTheme(context, c, s.themeMode),
-          ),
-          const SizedBox(height: RatelSpace.lg),
-          const RatelSectionHeader(label: 'Accessibility'),
-          const SizedBox(height: RatelSpace.sm),
-          _toggle(context, '🎨', 'High contrast', s.highContrast, c.setHighContrast),
-          const SizedBox(height: RatelSpace.sm),
-          _toggle(context, '📳', 'Haptics', s.haptics, c.setHaptics),
-          const SizedBox(height: RatelSpace.lg),
-          const RatelSectionHeader(label: 'Notifications'),
-          const SizedBox(height: RatelSpace.sm),
-          RatelCard(
-            color: context.palette.cream2,
-            child: Row(
-              children: <Widget>[
-                Text('🔔', style: TextStyle(fontSize: 22)),
-                SizedBox(width: RatelSpace.md),
-                Expanded(
-                    child: Text(
-                        'Push, streak reminders, league & friend alerts need a '
-                        'notification engine — an owner decision (§6).',
-                        style: TextStyle(
-                            fontFamily: RatelFont.body,
-                            fontSize: RatelType.body,
-                            color: context.palette.muted))),
-                RatelChip(label: 'Soon', tone: RatelChipTone.neutral),
-              ],
-            ),
-          ),
-          const SizedBox(height: RatelSpace.lg),
-          const RatelSectionHeader(label: 'Account'),
+          const RatelSectionHeader(label: 'Habits'),
           const SizedBox(height: RatelSpace.sm),
           RatelListRow(
             leadingEmoji: '💳',
@@ -126,6 +90,63 @@ class SettingsScreen extends ConsumerWidget {
             },
           ),
           const SizedBox(height: RatelSpace.sm),
+          _toggle(context, '🌀', 'Reduce motion', s.reduceMotion, c.setReduceMotion),
+          const SizedBox(height: RatelSpace.sm),
+          _toggle(context, '🎨', 'High contrast', s.highContrast, c.setHighContrast),
+          const SizedBox(height: RatelSpace.sm),
+          _toggle(context, '📳', 'Haptics', s.haptics, c.setHaptics),
+          const SizedBox(height: RatelSpace.lg),
+          const RatelSectionHeader(label: 'Notifications'),
+          const SizedBox(height: RatelSpace.sm),
+          _toggle(context, '🔔', 'Push notifications', s.notifyEnabled('push'),
+              (bool v) => c.setNotification('push', v)),
+          const SizedBox(height: RatelSpace.sm),
+          _toggle(context, '🔥', 'Streak reminders', s.notifyEnabled('streak'),
+              (bool v) => c.setNotification('streak', v)),
+          const SizedBox(height: RatelSpace.sm),
+          _toggle(context, '🏆', 'League updates', s.notifyEnabled('league'),
+              (bool v) => c.setNotification('league', v)),
+          const SizedBox(height: RatelSpace.sm),
+          _toggle(context, '👥', 'Friend activity', s.notifyEnabled('friend'),
+              (bool v) => c.setNotification('friend', v)),
+          const SizedBox(height: RatelSpace.sm),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: RatelSpace.xs),
+            child: Text(
+                'Your choices are saved now — delivery switches on when push '
+                'notifications ship.',
+                style: TextStyle(
+                    fontFamily: RatelFont.body,
+                    fontSize: RatelType.small,
+                    color: context.palette.muted)),
+          ),
+          const SizedBox(height: RatelSpace.lg),
+          const RatelSectionHeader(label: 'Appearance & account'),
+          const SizedBox(height: RatelSpace.sm),
+          RatelListRow(
+            leadingEmoji: '🌙',
+            leadingColor: RatelColors.purple,
+            title: 'Theme',
+            subtitle: _themeLabel(s.themeMode),
+            onTap: () => _pickTheme(context, c, s.themeMode),
+          ),
+          const SizedBox(height: RatelSpace.sm),
+          RatelListRow(
+            leadingEmoji: '🔒',
+            leadingColor: RatelColors.teal,
+            title: 'Privacy & data',
+            subtitle: 'learnwithratel.com/privacy',
+            onTap: () => _openUrl(context, 'https://learnwithratel.com/privacy'),
+          ),
+          const SizedBox(height: RatelSpace.sm),
+          RatelListRow(
+            leadingEmoji: '❓',
+            leadingColor: RatelColors.green,
+            title: 'Help & support',
+            subtitle: 'learnwithratel.com/help',
+            onTap: () => _openUrl(context, 'https://learnwithratel.com/help'),
+          ),
+          const SizedBox(height: RatelSpace.sm),
           RatelListRow(
             leadingEmoji: identity.isAuthenticated ? '🚪' : '✨',
             leadingColor: RatelColors.coral,
@@ -138,6 +159,15 @@ class SettingsScreen extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _openUrl(BuildContext context, String url) async {
+    final bool ok =
+        await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+    if (ok || !context.mounted) return;
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text('Could not open $url')));
   }
 
   Widget _toggle(BuildContext context,

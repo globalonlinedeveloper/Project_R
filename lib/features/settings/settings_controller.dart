@@ -39,6 +39,22 @@ class AppSettingsController extends Notifier<AppSettings> {
   Future<void> setThemeMode(ThemeMode value) =>
       _commit(state.copyWith(themeMode: value));
 
+  /// Reduce non-essential motion (HABITS · §4.9). Persisted; honored app-wide.
+  Future<void> setReduceMotion(bool value) =>
+      _commit(state.copyWith(reduceMotion: value));
+
+  /// Enable/disable a notification [category] (push/streak/league/friend). The
+  /// preference persists now; delivery activates with the push engine (§6).
+  Future<void> setNotification(String category, bool enabled) {
+    final Set<String> next = <String>{...state.mutedNotifications};
+    if (enabled) {
+      next.remove(category);
+    } else {
+      next.add(category);
+    }
+    return _commit(state.copyWith(mutedNotifications: next));
+  }
+
   /// Marks notification [ids] as read (R-L11 inbox). Persisted device-locally
   /// so the unread badge survives a relaunch; a no-op when nothing new is added.
   Future<void> addReadNotifications(Iterable<String> ids) {

@@ -55,6 +55,17 @@ class _RatelAppState extends ConsumerState<RatelApp>
       darkTheme: RatelTheme.dark(),
       themeMode: ref.watch(themeModeProvider),
       routerConfig: router,
+      builder: (BuildContext context, Widget? child) {
+        // Reduce-motion (HABITS · §4.9): honor the persisted toggle app-wide,
+        // with the OS reduce-motion setting as a hard floor on top.
+        final MediaQueryData mq = MediaQuery.of(context);
+        return MediaQuery(
+          data: mq.copyWith(
+              disableAnimations:
+                  mq.disableAnimations || ref.watch(reduceMotionProvider)),
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
     );
   }
 }

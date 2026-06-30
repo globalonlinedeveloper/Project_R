@@ -20,3 +20,9 @@ final isProProvider =
 /// relaunch (R-WT3 persisted theme selection, S53).
 final themeModeProvider = Provider<ThemeMode>(
     (ref) => ref.watch(appSettingsControllerProvider).themeMode);
+
+/// Whether to reduce non-essential motion/animation (HABITS · §4.9), from the
+/// persisted [AppSettings]. Honored app-wide via MediaQuery.disableAnimations
+/// (the OS reduce-motion setting stays a hard floor on top).
+final reduceMotionProvider = Provider<bool>(
+    (ref) => ref.watch(appSettingsControllerProvider).reduceMotion);
