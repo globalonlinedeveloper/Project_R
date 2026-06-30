@@ -14,7 +14,9 @@ import 'package:ratel/services/data_access/data_access.dart';
 import 'package:ratel/services/auth/auth.dart';
 import 'package:ratel/services/data_access/supabase_learner_state_store.dart';
 import 'package:ratel/services/data_access/supabase_friends_store.dart';
+import 'package:ratel/services/data_access/supabase_friends_service.dart';
 import 'package:ratel/services/identity/identity.dart';
+import 'package:ratel/services/social/friends_service.dart';
 import 'package:ratel/services/identity/supabase_identity.dart';
 
 /// Compile-time, client-SAFE Supabase config, injected at build via
@@ -41,6 +43,8 @@ List<Override> backendOverridesForClient(SupabaseClient client) => <Override>[
           .overrideWithValue(SupabaseLearnerStateStore.fromClient(client)),
       friendsStoreProvider
           .overrideWithValue(SupabaseFriendsStore.fromClient(client)),
+      friendsServiceProvider
+          .overrideWithValue(SupabaseFriendsService.fromClient(client)),
       identityProvider
           .overrideWithValue(SupabaseIdentity.fromClient(client)),
       authServiceProvider

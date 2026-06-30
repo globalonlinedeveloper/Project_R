@@ -8,6 +8,7 @@ import 'package:ratel/services/data_access/data_access.dart'
         kFriendsRelationshipsKey, kFriendsActivityKey;
 import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/social/friends.dart';
+import 'package:ratel/services/social/friends_service.dart';
 
 /// Immutable view of the learner's social graph.
 class FriendsState {
@@ -93,17 +94,28 @@ class FriendsController extends Notifier<FriendsState> {
     _persist();
   }
 
-  /// Send a friend request to [target] (no-op on self / a duplicate).
-  void sendRequest(FriendRecord target) =>
-      _set(engine.applySendRequest(state.relationships, target));
+  /// Send a friend request to [target] (no-op on self / a duplicate). The
+  /// local optimistic row is added immediately; on a real session the request
+  /// is also DELIVERED to the other account via the cross-user RPC (R-I9/R-L8).
+  void sendRequest(FriendRecord target) {
+    _set(engine.applySendRequest(state.relationships, target));
+    _deliver(() =>
+        ref.read(friendsServiceProvider).sendRequest(target.handle));
+  }
 
-  /// Accept an incoming request → friends.
-  void accept(String userId) =>
-      _set(engine.applyAccept(state.relationships, userId));
+  /// Accept an incoming request → friends (delivered to the requester too).
+  void accept(String userId) {
+    _set(engine.applyAccept(state.relationships, userId));
+    _deliver(() =>
+        ref.read(friendsServiceProvider).respond(userId, accept: true));
+  }
 
-  /// Decline an incoming request → removed.
-  void decline(String userId) =>
-      _set(engine.applyDecline(state.relationships, userId));
+  /// Decline an incoming request → removed (cleared on the requester too).
+  void decline(String userId) {
+    _set(engine.applyDecline(state.relationships, userId));
+    _deliver(() =>
+        ref.read(friendsServiceProvider).respond(userId, accept: false));
+  }
 
   /// Remove a friend or cancel an outgoing request.
   void remove(String userId) =>
@@ -117,6 +129,17 @@ class FriendsController extends Notifier<FriendsState> {
   /// moderation when the durable graph goes live; locally it blocks so the
   /// learner stops seeing them immediately.
   void report(String userId) => block(userId);
+
+  /// Fire a cross-user DELIVERY (R-I9/R-L8) for the just-applied local
+  /// mutation — ONLY when signed in (a guest has nobody to route to). It is
+  /// fire-and-forget: the optimistic local state + own-row persist already
+  /// stand, so a delivery hiccup never blocks the UI, and the authoritative
+  /// server state reconciles on the next load. With no session — or the default
+  /// [UnavailableFriendsService] — this is a no-op, so behaviour is unchanged.
+  void _deliver(Future<FriendDeliveryResult> Function() op) {
+    if (ref.read(identityProvider).uid == null) return;
+    unawaited(op());
+  }
 
   void _persist() {
     if (ref.read(identityProvider).uid == null) return;
