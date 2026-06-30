@@ -296,6 +296,8 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
   final List<({String word, String? glyph})> _savedWords =
       <({String word, String? glyph})>[];
   int _correct = 0;
+  int _graded = 0; // graded answers this session (accuracy denominator)
+  late final DateTime _sessionStart; // D2 study-time clock anchor
 
   CatItem? _current;
   int? _picked; // pick-the-picture selected option index
@@ -308,6 +310,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
   @override
   void initState() {
     super.initState();
+    _sessionStart = ref.read(clockProvider)();
     _items = _resolveItems();
     _bank = <CatItem>[
       for (final _Item it in _items) CatItem(id: it.id, params: IrtItem(b: it.b)),
@@ -404,6 +407,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
             source: 'lesson',
           ),
         );
+    _graded += 1;
     _seen.add(it.id);
     if (correct) {
       _correct += 1;
@@ -442,6 +446,14 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
     ref
         .read(learnerControllerProvider.notifier)
         .recordLessonComplete(xp: _kLessonXp);
+    // D2: record graded accuracy + the real lesson session duration.
+    final Duration session =
+        ref.read(clockProvider)().difference(_sessionStart);
+    ref.read(studyStatsControllerProvider.notifier).recordLesson(
+          correct: _correct,
+          total: _graded,
+          session: session,
+        );
     final words = ref.read(savedWordsControllerProvider.notifier);
     for (final ({String word, String? glyph}) w in _savedWords) {
       words.save(w.word, glyph: w.glyph);

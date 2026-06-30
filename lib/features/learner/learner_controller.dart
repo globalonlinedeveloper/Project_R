@@ -127,6 +127,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   final DiamondsModel _diamondsModel = const DiamondsModel();
   final StreakFreezeModel _freezeModel = const StreakFreezeModel();
   final List<ReviewLogEntry> _log = <ReviewLogEntry>[];
+  final Fsrs _fsrs = const Fsrs();
 
   /// Placement θ once a CAT placement test completes (null ⇒ cold-start A1).
   double? _placementTheta;
@@ -381,6 +382,32 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _lastGoalMetDate = null;
     state = _derive();
   }
+
+  // ── D2 retention (R-G5 / R-G6) ────────────────────────────────────────────
+
+  /// Predicted FSRS recall probability averaged over the DISTINCT items reviewed
+  /// this session, at a [horizonDays]-day horizon (D2 retention). Folds the
+  /// in-memory review log per item through the REAL FSRS engine; null when
+  /// nothing has been reviewed yet (honest "no data"). Session-scoped — the
+  /// durable per-item scheduler with real review timestamps is go-live wiring.
+  double? retentionEstimate({double horizonDays = 1.0}) {
+    if (_log.isEmpty) return null;
+    final Map<String, FsrsCard> cards = <String, FsrsCard>{};
+    for (final ReviewLogEntry e in _log) {
+      final FsrsCard card = cards[e.itemId] ?? const FsrsCard();
+      cards[e.itemId] = _fsrs.schedule(card, e.grade, e.elapsedDays).card;
+    }
+    if (cards.isEmpty) return null;
+    double sum = 0;
+    for (final FsrsCard c in cards.values) {
+      sum += _fsrs.retrievability(c, horizonDays);
+    }
+    return sum / cards.length;
+  }
+
+  /// Distinct items reviewed this session (the basis for [retentionEstimate]).
+  int get reviewedItemCount =>
+      _log.map((ReviewLogEntry e) => e.itemId).toSet().length;
 
   // ── Durable persistence (R-O1 / R-M3) ────────────────────────────────────
 

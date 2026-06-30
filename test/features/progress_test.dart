@@ -61,8 +61,12 @@ void main() {
     // D1: the 7-day chart frame shows but reads honestly empty (no XP yet).
     expect(find.textContaining('No XP recorded yet'), findsOneWidget);
     expect(find.textContaining('inactive days stay'), findsOneWidget);
-    expect(find.text('Soon'), findsOneWidget);
-    expect(find.text('No data yet'), findsOneWidget);
+    // D2: accuracy / study time / retention are present but honestly empty.
+    expect(find.text('Accuracy'), findsOneWidget);
+    expect(find.text('Study time'), findsOneWidget);
+    expect(find.text('Retention'), findsOneWidget);
+    // The chart + all three D2 metrics each read "No data yet" on a fresh acct.
+    expect(find.text('No data yet'), findsNWidgets(4));
     expect(find.textContaining('86%'), findsNothing);
     expect(find.textContaining('retained'), findsNothing);
     expect(find.text('412'), findsNothing);

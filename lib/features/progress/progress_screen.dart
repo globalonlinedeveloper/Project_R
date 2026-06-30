@@ -35,6 +35,9 @@ class ProgressScreen extends ConsumerWidget {
     final DailyGoalStatus goalStatus = ref.watch(dailyGoalProvider);
     final List<DayXp> last7 = ref.watch(last7DaysXpProvider);
     final int weekTotal = last7.fold<int>(0, (int a, DayXp d) => a + d.xp);
+    final StudyStats stats = ref.watch(studyStatsControllerProvider);
+    final double? retention = ref.watch(retentionEstimateProvider);
+    final int reviewed = ref.watch(reviewedItemCountProvider);
 
     final String level = snap.level.name.toUpperCase();
     final int goal = goalStatus.goal;
@@ -84,14 +87,15 @@ class ProgressScreen extends ConsumerWidget {
             const SizedBox(height: RatelSpace.lg),
             const RatelSectionHeader(label: 'Accuracy & retention'),
             const SizedBox(height: RatelSpace.sm),
-            _noEngineCard(context),
+            _statsCard(context, stats, retention, reviewed),
             const SizedBox(height: RatelSpace.lg),
             Center(
               child: Text(
-                'Level, ability, saved words, XP, lessons, streak and your '
-                '7-day history are real recorded state — they start at zero on a '
-                'fresh account. Accuracy, study time and retention arrive as you '
-                'complete graded lessons; nothing here is invented.',
+                'Everything here is real recorded state — level, ability, saved '
+                'words, XP, lessons, streak, your 7-day history, accuracy and '
+                'study time all start at zero and grow as you learn. Retention is '
+                "this session's predicted recall (the durable cross-session "
+                'scheduler is go-live wiring); nothing is invented.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: RatelFont.body,
@@ -243,27 +247,103 @@ class ProgressScreen extends ConsumerWidget {
         ),
       );
 
-  Widget _noEngineCard(BuildContext context) => RatelCard(
-        color: context.palette.cream2,
-        child: Row(
-          children: <Widget>[
-            const Text('🎯', style: TextStyle(fontSize: 22)),
-            const SizedBox(width: RatelSpace.md),
-            Expanded(
-              child: Text(
-                'Accuracy, study time and retention appear once the lesson '
-                'runner records graded reviews — they are never estimated or '
-                'faked.',
-                style: TextStyle(
-                    fontFamily: RatelFont.body,
-                    fontSize: RatelType.body,
-                    color: context.palette.muted),
-              ),
+  /// Real accuracy / study-time / retention (D2). Accuracy + study time are the
+  /// cumulative device-local [StudyStats]; retention is the live FSRS 1-day
+  /// recall over this session's reviewed items. Each surfaces an honest "No data
+  /// yet" until it has something real — never an estimate.
+  Widget _statsCard(
+      BuildContext context, StudyStats stats, double? retention, int reviewed) {
+    final double? acc = stats.accuracy;
+    return RatelCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _metric(
+            context,
+            '🎯',
+            'Accuracy',
+            acc == null ? null : '${(acc * 100).round()}%',
+            acc == null
+                ? 'Answer graded exercises to start'
+                : '${stats.correct} of ${stats.total} correct',
+          ),
+          Divider(height: RatelSpace.lg, color: context.palette.border),
+          _metric(
+            context,
+            '⏱️',
+            'Study time',
+            stats.studySeconds == 0 ? null : _fmtDuration(stats.studySeconds),
+            stats.studySeconds == 0
+                ? 'Time in lessons adds up here'
+                : 'across all your lessons',
+          ),
+          Divider(height: RatelSpace.lg, color: context.palette.border),
+          _metric(
+            context,
+            '🧠',
+            'Retention',
+            retention == null ? null : '${(retention * 100).round()}%',
+            retention == null
+                ? 'Review items to see predicted recall'
+                : 'predicted 1-day recall · $reviewed '
+                    'item${reviewed == 1 ? '' : 's'} this session',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _metric(BuildContext context, String emoji, String label,
+          String? value, String subtitle) =>
+      Row(
+        children: <Widget>[
+          Text(emoji, style: const TextStyle(fontSize: 22)),
+          const SizedBox(width: RatelSpace.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(label,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontFamily: RatelFont.display,
+                        fontWeight: RatelType.extraBold,
+                        fontSize: RatelType.body,
+                        color: context.palette.ink)),
+                Text(subtitle,
+                    style: TextStyle(
+                        fontFamily: RatelFont.body,
+                        fontSize: RatelType.small,
+                        color: context.palette.muted,
+                        height: 1.3)),
+              ],
             ),
-            const RatelChip(label: 'Soon', tone: RatelChipTone.amber),
-          ],
-        ),
+          ),
+          const SizedBox(width: RatelSpace.sm),
+          if (value == null)
+            const RatelChip(label: 'No data yet', tone: RatelChipTone.neutral)
+          else
+            Text(value,
+                maxLines: 1,
+                style: TextStyle(
+                    fontFamily: RatelFont.display,
+                    fontWeight: RatelType.extraBold,
+                    fontSize: RatelType.cardTitle,
+                    color: context.palette.ink)),
+        ],
       );
+
+  /// Compact human duration: `45s` / `12m` / `2h` / `1h 23m`.
+  String _fmtDuration(int seconds) {
+    if (seconds < 60) return '${seconds}s';
+    final int m = seconds ~/ 60;
+    if (m < 60) return '${m}m';
+    final int h = m ~/ 60;
+    final int rem = m % 60;
+    return rem == 0 ? '${h}h' : '${h}h ${rem}m';
+  }
 
   String _levelName(CefrLevel l) {
     switch (l) {

@@ -125,15 +125,21 @@ void main() {
   testWidgets('Settings Appearance picker switches + persists the theme',
       (WidgetTester tester) async {
     final InMemorySettingsStore store = InMemorySettingsStore();
+    // Tall surface so the whole lazy Settings ListView builds — the §4.9
+    // (C1) sections push 'Appearance & account' below the default fold.
+    tester.view.physicalSize = const Size(440, 2400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
     await tester.pumpWidget(ProviderScope(
       overrides: <Override>[settingsStoreProvider.overrideWithValue(store)],
       child: const MaterialApp(home: SettingsScreen()),
     ));
     await tester.pumpAndSettle();
 
-    // RatelSectionHeader uppercases → the header renders 'APPEARANCE'; assert
-    // the row title + current label (RatelListRow text is verbatim).
-    expect(find.text('APPEARANCE'), findsOneWidget);
+    // RatelSectionHeader uppercases → the §4.9 (C1) header renders
+    // 'APPEARANCE & ACCOUNT'; assert the row title + current label.
+    expect(find.text('APPEARANCE & ACCOUNT'), findsOneWidget);
     expect(find.text('Theme'), findsOneWidget);
     expect(find.text('Match device'), findsOneWidget); // current label (default)
 
