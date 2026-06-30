@@ -3,7 +3,8 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:ratel/core/core.dart';
 
-/// Galaxy Home rendering for the Space world-theme (R-WT4, S66 · G2).
+/// Galaxy Home rendering for the Space world-theme (R-WT4, S66 · G2; tier-gated
+/// motion FX R-WT7, S66 · G3).
 ///
 /// When the Space [WorldTheme] is active, the Home learning path re-skins into a
 /// galaxy: a [GalaxyPathPainter] paints a CustomPainter backdrop (a faint nebula
@@ -13,13 +14,17 @@ import 'package:ratel/core/core.dart';
 /// the badger's space pod parked at the learner's REAL position. Classic keeps
 /// the original winding path untouched.
 ///
+/// MOTION (R-WT7, G3): when motion is allowed the pod comes alive — a gentle bob
+/// + a periodic shield-pulse ("pod auto-defense"). Motion is OPT-OUT under the
+/// reduce-motion HARD FLOOR: the OS reduce-motion setting and the in-app
+/// reduce-motion toggle are both folded into `MediaQuery.disableAnimations`, so
+/// when either is set the pod renders STATIC (no ticker).
+///
 /// HONESTY (§6 / "don't fake depth"): this is a pure VISUAL re-skin of the SAME
 /// real path. The node states (done / active / locked) and positions are
 /// unchanged — derived from the learner's real `lessonsCompleted` — so nothing
-/// about progress is fabricated. This G2 layer is fully STATIC, so it is
-/// inherently reduce-motion safe; the optional tier-gated motion FX (twinkle /
-/// pod drift / shield pulse) land in G3 (R-WT7), gated on the reduce-motion
-/// hard floor.
+/// about progress is fabricated. The motion is decorative only; it never
+/// changes state.
 
 /// The winding horizontal offsets (Alignment x in [-1, 1]) the path cycles
 /// through. Shared with the Classic path so Space and Classic place nodes
@@ -280,29 +285,144 @@ class PlanetRingPainter extends CustomPainter {
 }
 
 /// The "pod traveller" marker (R-WT4) — a small space pod with the badger
-/// piloting, parked at the learner's current planet. Static in G2.
-class PodTraveller extends StatelessWidget {
-  const PodTraveller({super.key, this.size = 40});
+/// piloting, parked at the learner's current planet.
+///
+/// R-WT7 · G3: when [motion] is true the pod animates (a gentle bob + a periodic
+/// shield-pulse "auto-defense" ring). [motion] must already honour the
+/// reduce-motion HARD FLOOR (the caller passes `!MediaQuery.disableAnimations`,
+/// which folds the OS reduce-motion setting AND the in-app toggle) — so when
+/// motion is reduced the pod is rendered STATIC, no ticker created.
+class PodTraveller extends StatefulWidget {
+  const PodTraveller({super.key, this.size = 40, this.motion = false});
 
   final double size;
 
+  /// Animate the pod (R-WT7). Only ever true when the reduce-motion floor allows
+  /// motion; the static branch creates no [AnimationController].
+  final bool motion;
+
   @override
-  Widget build(BuildContext context) {
+  State<PodTraveller> createState() => _PodTravellerState();
+}
+
+class _PodTravellerState extends State<PodTraveller>
+    with SingleTickerProviderStateMixin {
+  AnimationController? _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.motion) _startMotion();
+  }
+
+  void _startMotion() {
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 2600))
+      ..repeat();
+  }
+
+  @override
+  void didUpdateWidget(PodTraveller old) {
+    super.didUpdateWidget(old);
+    if (widget.motion && _controller == null) {
+      _startMotion();
+    } else if (!widget.motion && _controller != null) {
+      _controller!.dispose();
+      _controller = null;
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
+
+  Widget _podBody() {
+    final double s = widget.size;
     return SizedBox(
-      key: const ValueKey<String>('home-galaxy-pod'),
-      width: size,
-      height: size,
+      width: s,
+      height: s,
       child: CustomPaint(
         painter: const PodPainter(),
         child: Center(
           child: Padding(
-            padding: EdgeInsets.only(bottom: size * 0.10),
-            child: Text('🦡', style: TextStyle(fontSize: size * 0.40)),
+            padding: EdgeInsets.only(bottom: s * 0.10),
+            child: Text('🦡', style: TextStyle(fontSize: s * 0.40)),
           ),
         ),
       ),
     );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    // STATIC (reduce-motion floor): the G2 pod, no ticker.
+    if (_controller == null) {
+      return KeyedSubtree(
+        key: const ValueKey<String>('home-galaxy-pod'),
+        child: _podBody(),
+      );
+    }
+    // MOTION (R-WT7): bob + shield-pulse auto-defense — decorative only.
+    return KeyedSubtree(
+      key: const ValueKey<String>('home-galaxy-pod'),
+      child: AnimatedBuilder(
+        animation: _controller!,
+        builder: (BuildContext context, Widget? child) {
+          final double t = _controller!.value; // 0..1
+          final double bob = math.sin(t * 2 * math.pi) * 2.0;
+          return Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              Positioned.fill(
+                child: CustomPaint(
+                  key: const ValueKey<String>('home-galaxy-pod-shield'),
+                  painter: PodShieldPainter(t),
+                ),
+              ),
+              Transform.translate(offset: Offset(0, bob), child: child),
+            ],
+          );
+        },
+        child: _podBody(),
+      ),
+    );
+  }
+}
+
+/// The pod's periodic shield-pulse — the "pod auto-defense" FX (R-WT7). Two
+/// staggered rings expand + fade for a continuous shimmer, drawn within the pod
+/// bounds so the footprint is unchanged from the static pod.
+class PodShieldPainter extends CustomPainter {
+  const PodShieldPainter(this.t);
+
+  /// Animation phase in [0, 1).
+  final double t;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (size.isEmpty) return;
+    final Offset c = size.center(Offset.zero);
+    final double base = size.shortestSide / 2;
+    for (final double phase in <double>[0.0, 0.5]) {
+      final double p = (t + phase) % 1.0;
+      final double r = base * (0.55 + 0.45 * p);
+      final double alpha = (1.0 - p) * 0.5;
+      if (alpha <= 0.0) continue;
+      canvas.drawCircle(
+        c,
+        r,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.5
+          ..color = RatelColors.teal.withValues(alpha: alpha),
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(PodShieldPainter old) => old.t != t;
 }
 
 /// Paints the pod body (capsule + window + fins + thruster glow).

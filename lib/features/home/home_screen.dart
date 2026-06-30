@@ -307,6 +307,9 @@ class HomeScreen extends ConsumerWidget {
   Widget _galaxyNode(
       BuildContext context, _Node n, bool done, bool isActive) {
     final double size = isActive ? 84 : 64;
+    // R-WT7 (G3): animate the pod only when the reduce-motion HARD FLOOR allows
+    // it — MediaQuery.disableAnimations folds the OS setting + the in-app toggle.
+    final bool motion = !MediaQuery.of(context).disableAnimations;
     final String glyph = done
         ? '✓'
         : isActive
@@ -334,10 +337,10 @@ class HomeScreen extends ConsumerWidget {
             alignment: Alignment.center,
             children: <Widget>[
               planet,
-              const Positioned(
+              Positioned(
                 right: -4,
                 top: -12,
-                child: PodTraveller(),
+                child: PodTraveller(motion: motion),
               ),
             ],
           ),

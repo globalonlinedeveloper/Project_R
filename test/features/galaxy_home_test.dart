@@ -35,11 +35,12 @@ bool _hasGalaxyPath(WidgetTester t) => t
     .widgetList(find.byType(CustomPaint))
     .any((Widget w) => (w as CustomPaint).painter is GalaxyPathPainter);
 
-Widget _app({required WorldTheme world}) => ProviderScope(
+Widget _app({required WorldTheme world, bool reduceMotion = false}) =>
+    ProviderScope(
       overrides: <Override>[
         courseSpineProvider.overrideWithValue(_testSpine),
-        settingsStoreProvider.overrideWithValue(
-            InMemorySettingsStore(AppSettings(worldTheme: world))),
+        settingsStoreProvider.overrideWithValue(InMemorySettingsStore(
+            AppSettings(worldTheme: world, reduceMotion: reduceMotion))),
       ],
       child: const RatelApp(),
     );
@@ -80,7 +81,7 @@ void main() {
 
   testWidgets('Space re-skins Home as a galaxy: orbital path + pod traveller',
       (WidgetTester tester) async {
-    await tester.pumpWidget(_app(world: WorldTheme.space));
+    await tester.pumpWidget(_app(world: WorldTheme.space, reduceMotion: true));
     await tester.pumpAndSettle();
     expect(find.byKey(const ValueKey<String>('tab-home')), findsOneWidget);
     expect(_hasGalaxyPath(tester), isTrue); // CustomPainter backdrop + path
@@ -101,7 +102,7 @@ void main() {
 
   testWidgets('galaxy active planet still opens the REAL lesson preview (§4.6)',
       (WidgetTester tester) async {
-    await tester.pumpWidget(_app(world: WorldTheme.space));
+    await tester.pumpWidget(_app(world: WorldTheme.space, reduceMotion: true));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const ValueKey<String>('home-active-node')));
     await tester.pumpAndSettle();

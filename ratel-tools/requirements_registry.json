@@ -39,8 +39,8 @@
     "R-WT2": {
       "moscow": "Should",
       "phase": "Stage2",
-      "notes": "S33 baseline; superseded at S53. S66·G1: the deep-space Space skin is now BUILT as a real app-wide re-skin (Space palette + ThemeData + the StarfieldPainter backdrop), opt-in from Settings → World; flipped Pending→Partial (a static skin — galaxy-Home path/traveller + tier-gated motion FX land in G2/G3).",
-      "status_override": "Partial 🟨"
+      "status_override": "Built ✅",
+      "notes": "S33 baseline; superseded at S53. S66·G1 built the static app-wide deep-space skin (Space palette + RatelTheme.space + app-wide StarfieldPainter, opt-in from Settings → World) → Partial. S66·G2 added the Galaxy Home (orbital backdrop + planet path + pod traveller, R-WT4) and S66·G3 the tier-gated motion FX (R-WT7); with the skin + galaxy home + reduce-motion-gated motion all live, the deep-space Space world theme is fully realized → flipped Partial→Built."
     },
     "R-WT3": {
       "moscow": "Should",
@@ -66,8 +66,8 @@
     "R-WT7": {
       "moscow": "Could",
       "phase": "Stage2",
-      "status_override": "Pending 🔒",
-      "notes": "AUDIT 2026-06-30: tier-gated galaxy FX + pod auto-defense — no FX code and no such test exist anywhere. The prior 'Built ✅' override was a stale over-claim. Owner S66: approved to BUILD → Pending (not started)."
+      "status_override": "Built ✅",
+      "notes": "AUDIT 2026-06-30 flagged the prior 'Built ✅' as a stale over-claim (no FX code) → corrected to Pending; owner S66 approved BUILDING it. S66·G3: BUILT for real. The Galaxy-Home PodTraveller now animates — a gentle bob + a periodic shield-pulse ('pod auto-defense', PodShieldPainter) — but ONLY when motion is allowed. The gate is the reduce-motion HARD FLOOR: the caller passes !MediaQuery.disableAnimations, and RatelApp folds BOTH the OS reduce-motion setting AND the in-app reduce-motion toggle into disableAnimations, so when either is set the pod renders STATIC (no AnimationController/ticker created). Decorative only — never touches state. lib/features/home/galaxy_path.dart (PodTraveller StatefulWidget + PodShieldPainter); tests test/features/galaxy_fx_test.dart (3: painter + motion-on shield present + reduce-motion static). Flipped Pending→Built."
     }
   },
   "derived": {
@@ -884,7 +884,7 @@
     "R-WT2": {
       "moscow": "Should",
       "phase": "Stage2",
-      "status": "Partial 🟨"
+      "status": "Built ✅"
     },
     "R-WT3": {
       "moscow": "Should",
@@ -909,7 +909,7 @@
     "R-WT7": {
       "moscow": "Could",
       "phase": "Stage2",
-      "status": "Pending 🔒"
+      "status": "Built ✅"
     }
   }
 }
