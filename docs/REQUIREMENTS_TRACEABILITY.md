@@ -15,11 +15,11 @@
 | Priority | Built | Build-ahead | Partial | Pending | Deferred | Removed | Spec/cross | Total |
 |---|---|---|---|---|---|---|---|---|
 | **Must** | 78 | 23 | 4 | 11 | 2 | 0 | 13 | 131 |
-| **Should** | 18 | 2 | 0 | 1 | 1 | 0 | 0 | 22 |
+| **Should** | 18 | 3 | 0 | 0 | 1 | 0 | 0 | 22 |
 | **Could** | 1 | 0 | 0 | 1 | 7 | 0 | 0 | 9 |
 | **Won't** | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 1 |
 | **Process** | 1 | 0 | 0 | 1 | 1 | 0 | 2 | 5 |
-| **All** | 98 | 25 | 4 | 14 | 11 | 1 | 15 | 168 |
+| **All** | 98 | 26 | 4 | 13 | 11 | 1 | 15 | 168 |
 
 _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not live) · Pending=Stage-3 not started · Deferred=post-launch wave · Removed=cut · Spec/cross=policy/cross-cutting._
 
@@ -212,7 +212,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-L10 | Navigation / information architecture (tab shell, deep links) | Must | Stage2 | Built ✅ | — | — |
 | R-L11 | Notifications (push categories, opt-in, inbox) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `friends_controller.dart`, `home_screen.dart`, `leagues_screen.dart`, `learner_controller.dart` +10 |
 | R-L11a | Widgets are mobile-only; desktop/web get in-app/tray equivalent | Could | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
-| R-L11b | Notifications: per-platform delivery profile | Should | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
+| R-L11b | Notifications: per-platform delivery profile | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `friends_controller.dart`, `data_access.dart`, `supabase_friends_store.dart`, `friends_realtime_test.dart` |
 | R-L12 | Global search | Should | Stage2 | Built ✅ | — | `library_search_screen.dart`, `settings_controller.dart`, `app_settings.dart`, `search.dart` +3 |
 | R-L13 | Offline mode & caching | Must | Stage2 | Built ✅ | — | — |
 | R-L13a | Background sync is foreground-reconcile on iOS-PWA + desktop | Should | Stage2 | Built ✅ | — | — |

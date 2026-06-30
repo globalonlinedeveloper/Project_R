@@ -58,6 +58,20 @@ class SupabaseFriendsStore implements FriendsStore {
     }
   }
 
+  /// LIVE feed (R-L11b): a Supabase Realtime stream of the learner's OWN
+  /// `friend_activity` rows, RLS-scoped to `user_id = auth.uid()`, so a new
+  /// event from a friend appears WITHOUT a reload. Requires `friend_activity`
+  /// in the `supabase_realtime` publication; otherwise it still yields the
+  /// initial snapshot and simply does not push live updates.
+  @override
+  Stream<List<Map<String, Object?>>>? activityStream(String userId) => _db
+      .from(activityTable)
+      .stream(primaryKey: <String>['friend_activity_id'])
+      .eq('user_id', userId)
+      .map((List<Map<String, dynamic>> rows) => rows
+          .map((Map<String, dynamic> r) => Map<String, Object?>.from(r))
+          .toList());
+
   /// Coerce an opaque seam value into a list of row-maps, stamping the owning
   /// [userId] on every row (RLS requires `user_id = auth.uid()`).
   static List<Map<String, Object?>> rowsFor(Object? raw, String userId) {

@@ -699,7 +699,7 @@
     "R-L11b": {
       "moscow": "Should",
       "phase": "Stage3",
-      "status": "Pending 🔒"
+      "status": "Build-ahead 🟦"
     },
     "R-L12": {
       "moscow": "Should",

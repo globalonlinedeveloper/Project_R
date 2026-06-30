@@ -53,14 +53,17 @@ class FriendsController extends Notifier<FriendsState> {
 
   bool _disposed = false;
   Timer? _debounce;
+  StreamSubscription<List<Map<String, Object?>>>? _activitySub;
 
   @override
   FriendsState build() {
     ref.onDispose(() {
       _disposed = true;
       _debounce?.cancel();
+      _activitySub?.cancel();
     });
     _rehydrate();
+    _subscribeActivity();
     return const FriendsState();
   }
 
@@ -87,6 +90,27 @@ class FriendsController extends Notifier<FriendsState> {
           .toList(),
       loaded: true,
     );
+  }
+
+  /// Subscribe to the live `friend_activity` feed (R-L11b) so a new event from a
+  /// friend appears WITHOUT a reload. Signed-in only, and only when the store
+  /// exposes a realtime channel (the in-memory default returns null) — so a
+  /// guest / flag-off build sets up nothing and stays byte-identical.
+  void _subscribeActivity() {
+    final String? uid = ref.read(identityProvider).uid;
+    if (uid == null) return;
+    final Stream<List<Map<String, Object?>>>? stream =
+        ref.read(friendsStoreProvider).activityStream(uid);
+    if (stream == null) return;
+    _activitySub = stream.listen((List<Map<String, Object?>> rows) {
+      if (_disposed) return;
+      state = state.copyWith(
+        activity: rows
+            .map((Map<String, Object?> m) => FriendActivity.fromRow(m))
+            .toList(),
+        loaded: true,
+      );
+    });
   }
 
   void _set(List<FriendRecord> relationships) {

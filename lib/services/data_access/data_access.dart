@@ -46,6 +46,13 @@ final clockProvider = Provider<DateTime Function()>((ref) => DateTime.now);
 abstract interface class FriendsStore {
   Future<Map<String, Object?>> load(String userId);
   Future<void> save(String userId, Map<String, Object?> data);
+
+  /// Optional LIVE stream of the learner's OWN `friend_activity` rows (R-L11b):
+  /// emits the current own-row set whenever it changes, so the feed updates
+  /// without a reload. Returns null when the backend has no realtime channel
+  /// (the in-memory default) — the controller then skips the subscription and
+  /// behaviour stays byte-identical.
+  Stream<List<Map<String, Object?>>>? activityStream(String userId);
 }
 
 /// Key holding the list of relationship (`friendship`) rows in the seam-Map.
@@ -65,6 +72,11 @@ class InMemoryFriendsStore implements FriendsStore {
   @override
   Future<void> save(String userId, Map<String, Object?> data) async =>
       _data[userId] = Map<String, Object?>.from(data);
+
+  /// No realtime channel for the in-memory store — the controller skips the
+  /// live subscription, so behaviour is unchanged.
+  @override
+  Stream<List<Map<String, Object?>>>? activityStream(String userId) => null;
 }
 
 final friendsStoreProvider =
