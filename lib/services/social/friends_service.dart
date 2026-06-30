@@ -90,6 +90,13 @@ abstract interface class FriendsService {
     String summary,
     List<String>? targets,
   });
+
+  /// Publish the caller's REAL weekly league XP to friends (the durable,
+  /// cross-user `friendship.weekly_xp` mirror) and let the `publish_weekly_xp`
+  /// definer emit `passedYouInLeague` to any friend the caller just overtook.
+  /// The definer writes friends' rows on the caller's behalf (own-row RLS).
+  /// Honest no-op for a guest / un-configured build.
+  Future<FriendDeliveryResult> publishWeeklyXp(int weeklyXp);
 }
 
 /// Default (local / guest / un-configured build): no backend, so nothing can be
@@ -123,6 +130,10 @@ class UnavailableFriendsService implements FriendsService {
   @override
   Future<FriendDeliveryResult> emitActivity(String activityType,
           {String summary = '', List<String>? targets}) async =>
+      _unavailable;
+
+  @override
+  Future<FriendDeliveryResult> publishWeeklyXp(int weeklyXp) async =>
       _unavailable;
 }
 

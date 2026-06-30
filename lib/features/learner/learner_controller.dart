@@ -269,6 +269,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     state = _derive();
     _persist();
     _maybeEmitStreak(streakBefore, state.streakDays);
+    _maybePublishWeeklyXp();
   }
 
   /// Reset today's XP when the calendar day has rolled over since it was last
@@ -541,6 +542,17 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     if (ref.read(identityProvider).uid == null) return;
     unawaited(ref.read(friendsServiceProvider).emitActivity(
         FriendActivityType.streak.name, summary: '$after-day streak'));
+  }
+
+  /// Publish the learner's REAL weekly league XP to friends (the durable,
+  /// cross-user mirror) after a completed lesson moved it — and let the
+  /// `publish_weekly_xp` definer emit `passedYouInLeague` to any friend just
+  /// overtaken. Session-guarded + fire-and-forget: a guest (or the default
+  /// UnavailableFriendsService) routes nothing, so flag-off is byte-identical.
+  void _maybePublishWeeklyXp() {
+    if (ref.read(identityProvider).uid == null) return;
+    unawaited(
+        ref.read(friendsServiceProvider).publishWeeklyXp(state.xpWeekEarned));
   }
 
   /// Streak lengths worth announcing to friends (keeps the feed meaningful).

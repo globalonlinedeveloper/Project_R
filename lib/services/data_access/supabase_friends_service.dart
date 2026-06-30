@@ -38,6 +38,11 @@ class SupabaseFriendsService implements FriendsService {
   /// insert on their behalf, attributed only to the caller).
   static const String emitFn = 'emit_friend_activity';
 
+  /// SECURITY DEFINER RPC: publish the caller's weekly league XP into friends'
+  /// own-row `friendship.weekly_xp` mirror + emit `passedYouInLeague` to anyone
+  /// the caller just overtook (own-row RLS ⇒ a client cannot write either).
+  static const String publishFn = 'publish_weekly_xp';
+
   /// The caller's own `profiles` row (own-row RLS; unique index on the handle).
   static const String profilesTable = 'profiles';
 
@@ -114,6 +119,21 @@ class SupabaseFriendsService implements FriendsService {
           if (targets != null)
             'targets': targets.map(normalizeHandle).toList(),
         },
+      );
+      return resultFromEmit(res);
+    } on PostgrestException catch (e) {
+      return resultFromError(e);
+    } catch (_) {
+      return _network;
+    }
+  }
+
+  @override
+  Future<FriendDeliveryResult> publishWeeklyXp(int weeklyXp) async {
+    try {
+      final Object? res = await _db.rpc(
+        publishFn,
+        params: <String, Object?>{'p_weekly_xp': weeklyXp},
       );
       return resultFromEmit(res);
     } on PostgrestException catch (e) {

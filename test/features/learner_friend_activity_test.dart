@@ -17,10 +17,17 @@ import 'auth/fake_identity.dart';
 
 class _RecordingFriendsService implements FriendsService {
   final List<(String, String)> emitted = <(String, String)>[];
+  final List<int> published = <int>[];
   @override
   Future<FriendDeliveryResult> emitActivity(String activityType,
       {String summary = '', List<String>? targets}) async {
     emitted.add((activityType, summary));
+    return const FriendDeliveryResult(FriendDeliveryOutcome.delivered);
+  }
+
+  @override
+  Future<FriendDeliveryResult> publishWeeklyXp(int weeklyXp) async {
+    published.add(weeklyXp);
     return const FriendDeliveryResult(FriendDeliveryOutcome.delivered);
   }
 
@@ -115,6 +122,20 @@ void main() {
     expect(svc.emitted.where((e) => e.$1 == 'streak').length, 1);
   });
 
+  test('a completed lesson publishes REAL weekly XP (signed in)', () async {
+    final svc = _RecordingFriendsService();
+    final c =
+        _container(() => DateTime(2026, 6, 29, 9), svc, identity: FakeIdentity());
+    addTearDown(c.dispose);
+    final n = c.read(learnerControllerProvider.notifier);
+    n.recordLessonComplete(xp: 20);
+    await Future<void>.delayed(const Duration(milliseconds: 10));
+    expect(svc.published, isNotEmpty);
+    expect(svc.published.last,
+        c.read(learnerControllerProvider).xpWeekEarned);
+    expect(svc.published.last, greaterThan(0));
+  });
+
   test('a GUEST produces no friend activity (honest, byte-identical flag-off)',
       () async {
     final svc = _RecordingFriendsService();
@@ -132,5 +153,6 @@ void main() {
     n.recordLessonComplete(xp: 20);
     await Future<void>.delayed(const Duration(milliseconds: 10));
     expect(svc.emitted, isEmpty);
+    expect(svc.published, isEmpty);
   });
 }

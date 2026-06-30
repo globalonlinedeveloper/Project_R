@@ -52,6 +52,10 @@ class _RecordingService implements FriendsService {
     emitted.add((activityType, summary, targets));
     return const FriendDeliveryResult(FriendDeliveryOutcome.delivered);
   }
+
+  @override
+  Future<FriendDeliveryResult> publishWeeklyXp(int weeklyXp) async =>
+      const FriendDeliveryResult(FriendDeliveryOutcome.delivered);
 }
 
 class _SignedInIdentity implements Identity {

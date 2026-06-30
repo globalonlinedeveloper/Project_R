@@ -44,6 +44,13 @@ void main() {
       expect(r.outcome, FriendDeliveryOutcome.unavailable);
       expect(r.ok, isFalse);
     });
+
+    test('publishWeeklyXp is unavailable, never a fabricated XP publish',
+        () async {
+      final FriendDeliveryResult r = await svc.publishWeeklyXp(120);
+      expect(r.outcome, FriendDeliveryOutcome.unavailable);
+      expect(r.ok, isFalse);
+    });
   });
 
   group('SupabaseFriendsService.normalizeHandle', () {
