@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
+import 'package:ratel/features/shop/outfits_controller.dart';
 
 /// Shop (💎) — design spec §4.5 / §6. The FIRST real diamond SPEND sink: buy a
 /// streak-freeze with earned 💎 (R-I2 streak-freeze · R-I4 gems spend side).
@@ -39,6 +40,10 @@ class ShopScreen extends ConsumerWidget {
     final bool canBuyXp = learner.canBuyDoubleXp;
     final bool xpBoostActive = learner.isDoubleXpActive;
     final Duration? xpBoostLeft = learner.doubleXpRemaining;
+    final OutfitState outfits = ref.watch(outfitsControllerProvider);
+    final OutfitsController outfitsCtl =
+        ref.read(outfitsControllerProvider.notifier);
+    final BadgerOutfit equipped = ref.watch(equippedOutfitProvider);
 
     return Scaffold(
       backgroundColor: context.palette.cream,
@@ -222,6 +227,44 @@ class ShopScreen extends ConsumerWidget {
                       : 'Not enough 💎 — earn more by finishing lessons.'),
             ),
             const SizedBox(height: RatelSpace.lg),
+            const RatelSectionHeader(label: 'Badger outfits'),
+            const SizedBox(height: RatelSpace.sm),
+            RatelCard(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Text(equipped.emoji,
+                          style: const TextStyle(fontSize: 40)),
+                      const SizedBox(width: RatelSpace.md),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text('Your badger',
+                                style: TextStyle(
+                                    fontFamily: RatelFont.body,
+                                    fontSize: RatelType.small,
+                                    color: context.palette.muted)),
+                            Text(equipped.name,
+                                style: TextStyle(
+                                    fontFamily: RatelFont.display,
+                                    fontWeight: RatelType.extraBold,
+                                    fontSize: RatelType.cardTitle,
+                                    color: context.palette.ink)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Divider(height: RatelSpace.lg, color: context.palette.border),
+                  for (final BadgerOutfit o in OutfitCatalogue.all)
+                    _outfitRow(context, o, outfits, snap.diamonds, outfitsCtl),
+                ],
+              ),
+            ),
+            const SizedBox(height: RatelSpace.lg),
             Text(
               'A real-money 💎 top-up is coming. Diamonds are earned by '
               'finishing lessons and meeting your daily goal, and every '
@@ -298,6 +341,87 @@ class ShopScreen extends ConsumerWidget {
       ),
     );
   }
+
+  /// One badger-outfit row: emoji + name + price, and a trailing control —
+  /// "Equipped" chip, a free "Equip" pill (owned), or a "N 💎" buy pill gated on
+  /// affordability. Buying debits the real wallet and equips the outfit.
+  Widget _outfitRow(BuildContext context, BadgerOutfit o, OutfitState st,
+      int diamonds, OutfitsController ctl) {
+    final bool owned = st.isOwned(o.id);
+    final bool isOn = st.selected == o.id;
+    final bool canAfford = diamonds >= o.cost;
+    final Widget trailing;
+    if (isOn) {
+      trailing = const RatelChip(label: 'Equipped', tone: RatelChipTone.teal);
+    } else if (owned) {
+      trailing = _pill(context, 'Equip', RatelColors.teal, RatelColors.onColor,
+          () => ctl.equip(o.id));
+    } else {
+      trailing = _pill(
+        context,
+        '${o.cost} 💎',
+        canAfford ? RatelColors.teal : context.palette.cream3,
+        canAfford ? RatelColors.onColor : context.palette.muted,
+        canAfford
+            ? () {
+                if (ctl.buy(o)) {
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(SnackBar(
+                        content: Text('Equipped ${o.name} ${o.emoji}')));
+                }
+              }
+            : null,
+      );
+    }
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: RatelSpace.xs),
+      child: Row(
+        children: <Widget>[
+          Text(o.emoji, style: const TextStyle(fontSize: 30)),
+          const SizedBox(width: RatelSpace.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(o.name,
+                    style: TextStyle(
+                        fontFamily: RatelFont.body,
+                        fontSize: RatelType.body,
+                        color: context.palette.ink)),
+                Text(o.cost == 0 ? 'Free' : '${o.cost} 💎',
+                    style: TextStyle(
+                        fontFamily: RatelFont.body,
+                        fontSize: RatelType.small,
+                        color: context.palette.muted)),
+              ],
+            ),
+          ),
+          const SizedBox(width: RatelSpace.sm),
+          trailing,
+        ],
+      ),
+    );
+  }
+
+  Widget _pill(BuildContext context, String label, Color bg, Color fg,
+          VoidCallback? onTap) =>
+      GestureDetector(
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: RatelSpace.md, vertical: RatelSpace.xs),
+          decoration: BoxDecoration(
+              color: bg, borderRadius: BorderRadius.circular(20)),
+          child: Text(label,
+              style: TextStyle(
+                  fontFamily: RatelFont.body,
+                  fontSize: RatelType.small,
+                  fontWeight: RatelType.semiBold,
+                  color: fg)),
+        ),
+      );
 }
 
 

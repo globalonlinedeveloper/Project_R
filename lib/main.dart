@@ -7,6 +7,8 @@ import 'package:ratel/services/progress/prefs_xp_history_store.dart';
 import 'package:ratel/services/progress/xp_history_store.dart';
 import 'package:ratel/services/progress/prefs_study_stats_store.dart';
 import 'package:ratel/services/progress/study_stats_store.dart';
+import 'package:ratel/services/economy/outfits_store.dart';
+import 'package:ratel/services/economy/prefs_outfits_store.dart';
 
 import 'app/backend_wiring.dart';
 import 'app/content_wiring.dart';
@@ -37,6 +39,9 @@ Future<void> main() async {
     );
     overrides.add(
       studyStatsStoreProvider.overrideWithValue(PrefsStudyStatsStore(prefs)),
+    );
+    overrides.add(
+      outfitsStoreProvider.overrideWithValue(PrefsOutfitsStore(prefs)),
     );
   } catch (_) {
     // keep the in-memory settings default

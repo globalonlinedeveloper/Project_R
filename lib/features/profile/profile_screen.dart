@@ -7,6 +7,7 @@ import 'package:ratel/content/models/enums.dart' show CefrLevel;
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/achievements/achievements_controller.dart';
 import 'package:ratel/features/notifications/notifications_controller.dart';
+import 'package:ratel/features/shop/outfits_controller.dart';
 import 'package:ratel/services/achievements/achievements.dart';
 import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/preferences/app_settings.dart';
@@ -43,7 +44,8 @@ class ProfileScreen extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(RatelSpace.screen, RatelSpace.lg,
               RatelSpace.screen, RatelSpace.xl),
           children: <Widget>[
-            _header(context, identity, level, settings.displayName),
+            _header(context, identity, level, settings.displayName,
+                ref.watch(equippedOutfitProvider).emoji),
             const SizedBox(height: RatelSpace.cardGap),
             _stats(context, snap, words),
             const SizedBox(height: RatelSpace.cardGap),
@@ -113,7 +115,7 @@ class ProfileScreen extends ConsumerWidget {
   }
 
   Widget _header(BuildContext context, Identity identity, String level,
-      String displayName) {
+      String displayName, String avatarEmoji) {
     final bool authed = identity.isAuthenticated;
     final String name = displayName.trim().isNotEmpty
         ? displayName.trim()
@@ -132,7 +134,7 @@ class ProfileScreen extends ConsumerWidget {
                 decoration: BoxDecoration(
                     color: context.palette.cream3, shape: BoxShape.circle),
                 alignment: Alignment.center,
-                child: const Text('🦡', style: TextStyle(fontSize: 34)),
+                child: Text(avatarEmoji, style: const TextStyle(fontSize: 34)),
               ),
               const SizedBox(width: RatelSpace.lg),
               Expanded(

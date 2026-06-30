@@ -455,6 +455,20 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _persist();
   }
 
+  /// Spend [amount] 💎 if affordable (E1 generic sink — e.g. cosmetics). Returns
+  /// whether the debit happened; updates state + persists on success, and is a
+  /// no-op (false) when unaffordable or [amount] is negative.
+  bool trySpendDiamonds(int amount) {
+    if (amount < 0 ||
+        !_diamondsModel.canSpend(balance: _diamonds, amount: amount)) {
+      return false;
+    }
+    _diamonds = _diamondsModel.spend(balance: _diamonds, amount: amount);
+    state = _derive();
+    _persist();
+    return true;
+  }
+
   /// Seed ability from a completed CAT placement (design spec §4.11 — the
   /// "Take a placement test" branch). Replaces the cold-start prior with the
   /// placement θ estimate (same IRT logit scale), clears any prior answer log

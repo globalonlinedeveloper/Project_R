@@ -175,7 +175,7 @@ void main() {
 
   testWidgets('Shop renders the Energy Refill / Streak Repair / Double XP cards',
       (WidgetTester tester) async {
-    tester.view.physicalSize = const Size(440, 2600);
+    tester.view.physicalSize = const Size(440, 4200);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
@@ -186,6 +186,10 @@ void main() {
     expect(find.text('Energy Refill'), findsOneWidget);
     expect(find.text('Streak Repair'), findsOneWidget);
     expect(find.text('Double XP'), findsOneWidget);
+    // E1c: badger outfits section + a buyable outfit + the equipped chip.
+    expect(find.text('BADGER OUTFITS'), findsOneWidget);
+    expect(find.text('Scholar'), findsOneWidget);
+    expect(find.text('Equipped'), findsOneWidget); // Classic equipped by default
     // Honest disabled state on a fresh account (full energy / safe streak).
     expect(find.text('Already full'), findsOneWidget);
     expect(find.textContaining('nothing to repair'), findsOneWidget);
