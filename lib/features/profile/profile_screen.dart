@@ -43,7 +43,7 @@ class ProfileScreen extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(RatelSpace.screen, RatelSpace.lg,
               RatelSpace.screen, RatelSpace.xl),
           children: <Widget>[
-            _header(context, identity, level),
+            _header(context, identity, level, settings.displayName),
             const SizedBox(height: RatelSpace.cardGap),
             _stats(context, snap, words),
             const SizedBox(height: RatelSpace.cardGap),
@@ -112,9 +112,12 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  Widget _header(BuildContext context, Identity identity, String level) {
+  Widget _header(BuildContext context, Identity identity, String level,
+      String displayName) {
     final bool authed = identity.isAuthenticated;
-    final String name = authed ? 'Learner' : 'Guest';
+    final String name = displayName.trim().isNotEmpty
+        ? displayName.trim()
+        : (authed ? 'Learner' : 'Guest');
     final String sub =
         authed ? '🇪🇸 Spanish · Level $level' : 'Not signed in · 🇪🇸 Spanish';
     return RatelCard(

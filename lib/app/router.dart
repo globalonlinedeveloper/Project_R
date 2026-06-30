@@ -16,6 +16,7 @@ import 'package:ratel/features/library/library_screen.dart';
 import 'package:ratel/features/onboarding/onboarding_screen.dart';
 import 'package:ratel/features/onboarding/placement_quiz_screen.dart';
 import 'package:ratel/features/practice/practice_hub_screen.dart';
+import 'package:ratel/features/profile/edit_profile_screen.dart';
 import 'package:ratel/features/profile/profile_screen.dart';
 import 'package:ratel/features/progress/progress_screen.dart';
 import 'package:ratel/features/quests/quests_screen.dart';
@@ -95,6 +96,11 @@ GoRouter buildRouter() {
         path: '/settings',
         builder: (BuildContext context, GoRouterState state) =>
             const SettingsScreen(),
+      ),
+      GoRoute(
+        path: '/edit-profile',
+        builder: (BuildContext context, GoRouterState state) =>
+            const EditProfileScreen(),
       ),
       GoRoute(
         path: '/shop',

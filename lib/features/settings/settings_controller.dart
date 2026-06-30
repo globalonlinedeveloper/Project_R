@@ -55,6 +55,10 @@ class AppSettingsController extends Notifier<AppSettings> {
     return _commit(state.copyWith(mutedNotifications: next));
   }
 
+  /// The learner's display name (Edit profile · §4.9). Device-local; trimmed.
+  Future<void> setDisplayName(String value) =>
+      _commit(state.copyWith(displayName: value.trim()));
+
   /// Marks notification [ids] as read (R-L11 inbox). Persisted device-locally
   /// so the unread badge survives a relaunch; a no-op when nothing new is added.
   Future<void> addReadNotifications(Iterable<String> ids) {

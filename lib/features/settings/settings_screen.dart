@@ -132,6 +132,13 @@ class SettingsScreen extends ConsumerWidget {
           ),
           const SizedBox(height: RatelSpace.sm),
           RatelListRow(
+            leadingEmoji: '👤',
+            leadingColor: RatelColors.blue,
+            title: 'Edit profile',
+            onTap: () => context.push('/edit-profile'),
+          ),
+          const SizedBox(height: RatelSpace.sm),
+          RatelListRow(
             leadingEmoji: '🔒',
             leadingColor: RatelColors.teal,
             title: 'Privacy & data',

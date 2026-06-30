@@ -18,6 +18,7 @@ class AppSettings {
     this.recentSearches = const <String>[],
     this.reduceMotion = false,
     this.mutedNotifications = const <String>{},
+    this.displayName = '',
   });
 
   final bool highContrast;
@@ -52,6 +53,10 @@ class AppSettings {
   /// Whether a notification [category] is enabled (i.e. not muted).
   bool notifyEnabled(String category) => !mutedNotifications.contains(category);
 
+  /// The learner's chosen display name (Edit profile · §4.9). Device-local;
+  /// empty ⇒ fall back to "Learner"/"Guest" on the profile header.
+  final String displayName;
+
   AppSettings copyWith({
     bool? highContrast,
     bool? sound,
@@ -62,6 +67,7 @@ class AppSettings {
     List<String>? recentSearches,
     bool? reduceMotion,
     Set<String>? mutedNotifications,
+    String? displayName,
   }) =>
       AppSettings(
         highContrast: highContrast ?? this.highContrast,
@@ -73,6 +79,7 @@ class AppSettings {
         recentSearches: recentSearches ?? this.recentSearches,
         reduceMotion: reduceMotion ?? this.reduceMotion,
         mutedNotifications: mutedNotifications ?? this.mutedNotifications,
+        displayName: displayName ?? this.displayName,
       );
 
   Map<String, Object> toMap() => <String, Object>{
@@ -85,6 +92,7 @@ class AppSettings {
         'recentSearches': recentSearches.map(Uri.encodeComponent).join(','),
         'reduceMotion': reduceMotion,
         'mutedNotifications': (mutedNotifications.toList()..sort()).join(','),
+        'displayName': displayName,
       };
 
   static AppSettings fromMap(Map<String, Object?> m) => AppSettings(
@@ -97,6 +105,7 @@ class AppSettings {
         recentSearches: _recentsFromCsv(m['recentSearches'] as String?),
         reduceMotion: m['reduceMotion'] as bool? ?? false,
         mutedNotifications: _mutedFromCsv(m['mutedNotifications'] as String?),
+        displayName: m['displayName'] as String? ?? '',
       );
 
   @override
@@ -110,13 +119,14 @@ class AppSettings {
       setEquals(other.readNotifications, readNotifications) &&
       listEquals(other.recentSearches, recentSearches) &&
       other.reduceMotion == reduceMotion &&
-      setEquals(other.mutedNotifications, mutedNotifications);
+      setEquals(other.mutedNotifications, mutedNotifications) &&
+      other.displayName == displayName;
 
   @override
   int get hashCode =>
       Object.hash(highContrast, sound, haptics, dailyGoal, themeMode,
           Object.hashAllUnordered(readNotifications), Object.hashAll(recentSearches),
-          reduceMotion, Object.hashAllUnordered(mutedNotifications));
+          reduceMotion, Object.hashAllUnordered(mutedNotifications), displayName);
 }
 
 /// Parse a persisted read-notifications CSV into a set; null/empty ⇒ none.
