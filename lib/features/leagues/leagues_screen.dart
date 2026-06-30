@@ -39,6 +39,7 @@ class LeaguesScreen extends ConsumerWidget {
                 flagEmoji: '🇪🇸',
                 langCode: 'ES',
                 streak: snap.streakDays,
+                energy: snap.energy,
                 unreadNotifications: unread,
                 onNotificationsTap: () => context.push('/notifications')),
             Expanded(

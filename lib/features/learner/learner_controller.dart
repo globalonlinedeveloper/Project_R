@@ -38,6 +38,7 @@ class LearnerSnapshot {
     this.streakDays = 0,
     this.diamonds = 0,
     this.streakFreezes = 0,
+    this.energy = EnergyModel.cap,
   });
 
   /// Global ability on the IRT logit scale (REAL — from the ability fold).
@@ -67,6 +68,12 @@ class LearnerSnapshot {
   /// `user_course.streak_freezes`.
   final int streakFreezes;
 
+  /// ⚡ energy (REAL — R-I3: depletes 1 per lesson, regenerates over time
+  /// toward [EnergyModel.cap]). DISPLAY-ONLY / NON-BLOCKING (S60) — never
+  /// gates a lesson. Session-local for now (full on relaunch; the durable
+  /// store is go-live wiring), so it is honestly real but not yet persisted.
+  final int energy;
+
   @override
   bool operator ==(Object other) =>
       other is LearnerSnapshot &&
@@ -78,11 +85,12 @@ class LearnerSnapshot {
       other.xpWeekEarned == xpWeekEarned &&
       other.streakDays == streakDays &&
       other.diamonds == diamonds &&
-      other.streakFreezes == streakFreezes;
+      other.streakFreezes == streakFreezes &&
+      other.energy == energy;
 
   @override
   int get hashCode => Object.hash(theta, level, lessonsCompleted, xpTotal,
-      xpToday, xpWeekEarned, streakDays, diamonds, streakFreezes);
+      xpToday, xpWeekEarned, streakDays, diamonds, streakFreezes, energy);
 }
 
 /// Bridges the learning engines (`learner_state` + `cold_start` + `streak`) to
@@ -139,6 +147,13 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   /// 💪 streak-freezes owned (R-I2 spend sink; durable via `user_course`).
   int _streakFreezes = 0;
 
+  /// ⚡ energy model + session-local state (R-I3, display-only/non-blocking,
+  /// S60). [_energy] is the value at [_energyAnchor]; regen accrues from
+  /// there. No durable column (full on relaunch — go-live wiring).
+  final EnergyModel _energyModel = const EnergyModel();
+  int _energy = EnergyModel.cap;
+  DateTime? _energyAnchor;
+
   /// Calendar day [_xpToday] currently belongs to (day-boundary reset), and the
   /// day the streak last advanced (persisted as `streak_last_active`). Both are
   /// date-only (local midnight) or null when never set.
@@ -188,6 +203,11 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     final DateTime weekStart = LeagueWeek.startOf(today);
     final int xpWeek =
         (_xpWeekStart != null && _xpWeekStart != weekStart) ? 0 : _xpWeek;
+    final DateTime nowTs = ref.read(clockProvider)();
+    final int energy = _energyAnchor == null
+        ? _energy
+        : _energyModel.regenerated(
+            energy: _energy, elapsed: nowTs.difference(_energyAnchor!));
     return LearnerSnapshot(
       theta: course.thetaGlobal,
       level: level,
@@ -199,6 +219,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
           streak: _streak, lastMet: _lastGoalMetDate, today: today),
       diamonds: _diamonds,
       streakFreezes: _streakFreezes,
+      energy: energy,
     );
   }
 
@@ -220,6 +241,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _rollDay(today);
     _rollWeek(today);
     _coverMissedDays(today);
+    _spendEnergyForLesson();
     _lessons += 1;
     _xpTotal += xp;
     _xpToday += xp;
@@ -246,6 +268,18 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     final DateTime weekStart = LeagueWeek.startOf(today);
     if (_xpWeekStart != null && _xpWeekStart != weekStart) _xpWeek = 0;
     _xpWeekStart = weekStart;
+  }
+
+  /// Spend one ⚡ for a completed lesson, banking regen up to now first
+  /// (R-I3, NON-BLOCKING — energy may reach 0 and the lesson still proceeds).
+  void _spendEnergyForLesson() {
+    final DateTime nowTs = ref.read(clockProvider)();
+    final int settled = _energyAnchor == null
+        ? _energy
+        : _energyModel.regenerated(
+            energy: _energy, elapsed: nowTs.difference(_energyAnchor!));
+    _energy = _energyModel.afterLesson(energy: settled);
+    _energyAnchor = nowTs;
   }
 
   /// Award the daily-goal-met rewards the FIRST time today's XP reaches the
@@ -336,6 +370,8 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _restoredPerSkill = const <String, double>{};
     _lessons = _xpTotal = _xpToday = _streak = _diamonds = _streakFreezes = 0;
     _xpWeek = 0;
+    _energy = EnergyModel.cap;
+    _energyAnchor = null;
     _xpTodayDate = null;
     _xpWeekStart = null;
     _lastGoalMetDate = null;

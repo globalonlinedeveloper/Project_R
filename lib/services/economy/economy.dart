@@ -7,4 +7,5 @@
 library;
 
 export 'diamonds.dart';
+export 'energy.dart';
 export 'streak_freeze.dart';

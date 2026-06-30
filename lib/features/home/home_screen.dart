@@ -61,7 +61,7 @@ class HomeScreen extends ConsumerWidget {
     final int unread = ref.watch(unreadNotificationsCountProvider);
 
     if (spine.isEmpty) {
-      return _emptyState(context, snap.streakDays, snap.diamonds, snap.streakFreezes, unread);
+      return _emptyState(context, snap.streakDays, snap.diamonds, snap.streakFreezes, unread, snap.energy);
     }
 
     final List<_Node> nodes = _flatten(spine);
@@ -82,6 +82,7 @@ class HomeScreen extends ConsumerWidget {
                     flagEmoji: _flagFor(spine.courseCode),
                     langCode: _langFor(spine.courseCode),
                     streak: snap.streakDays,
+                    energy: snap.energy,
                     diamonds: '${snap.diamonds}',
                     streakFreeze:
                         snap.streakFreezes > 0 ? snap.streakFreezes : null,
@@ -110,7 +111,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _emptyState(BuildContext context, int streak, int diamonds, int streakFreezes, int unread) {
+  Widget _emptyState(BuildContext context, int streak, int diamonds, int streakFreezes, int unread, int energy) {
     return Container(
       key: const ValueKey<String>('tab-home'),
       color: context.palette.cream,
@@ -123,7 +124,8 @@ class HomeScreen extends ConsumerWidget {
                 flagEmoji: '🦡',
                 langCode: '',
                 streak: streak,
-                diamonds: '$diamonds',
+                energy: energy,
+                diamonds: '\$diamonds',
                 streakFreeze: streakFreezes > 0 ? streakFreezes : null,
                 unreadNotifications: unread,
                 onNotificationsTap: () => context.push('/notifications')),
