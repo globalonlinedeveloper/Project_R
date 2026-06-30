@@ -58,8 +58,24 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
         for (final CourseUnit u in spine.units)
           for (final CourseLesson l in u.lessons)
             SearchableLesson(
-                id: l.id, title: l.title, cefr: l.cefr, unitTitle: u.title),
+                id: l.id,
+                title: l.title,
+                cefr: l.cefr,
+                unitTitle: u.title,
+                terms: _termsOf(l)),
       ];
+
+  /// The lesson's REAL published exercise text (prompts + accepted answers),
+  /// bounded — full-text search matches it below titles (R-L12 fast-follow).
+  List<String> _termsOf(CourseLesson l) {
+    final List<String> out = <String>[];
+    for (final CourseExercise e in l.exercises) {
+      if (e.prompt.isNotEmpty) out.add(e.prompt);
+      out.addAll(e.accepted);
+      if (out.length > 24) break;
+    }
+    return out;
+  }
 
   @override
   Widget build(BuildContext context) {

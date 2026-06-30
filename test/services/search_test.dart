@@ -1,4 +1,4 @@
-// R-L12 · Global search — pure-engine unit coverage.
+// R-L12 · Global search — pure-engine unit coverage (titles + tags + full-text).
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ratel/services/search/search.dart';
 
@@ -19,6 +19,22 @@ const List<SearchableLesson> _lessons = <SearchableLesson>[
 const List<SearchableWord> _words = <SearchableWord>[
   SearchableWord(word: 'manzana', glyph: '🍎'),
   SearchableWord(word: 'agua'),
+];
+
+// Full-text fixtures: the query lives only in the lesson's exercise content.
+const List<SearchableLesson> _ftLessons = <SearchableLesson>[
+  SearchableLesson(
+      id: 'es-greet-1',
+      title: 'Greetings',
+      cefr: 'A1',
+      unitTitle: 'Level A1',
+      terms: <String>['hola', 'buenos días']),
+  SearchableLesson(
+      id: 'es-food-1',
+      title: 'Food & drink',
+      cefr: 'A1',
+      unitTitle: 'Level A1',
+      terms: <String>['la manzana', 'el agua']),
 ];
 
 void main() {
@@ -47,8 +63,6 @@ void main() {
   });
 
   test('prefix matches rank above mere substring matches', () {
-    // "Past tense" starts with the query (score 3); "A recap of the past" only
-    // has "past" as a trailing word-start (score 2) → the prefix wins.
     final List<SearchHit> hits =
         GlobalSearch.run('past', lessons: _lessons, words: _words);
     expect(hits.first.title, 'Past tense');
@@ -91,5 +105,30 @@ void main() {
     for (final SearchDestination d in kSearchDestinations) {
       expect(d.route.startsWith('/'), isTrue, reason: d.title);
     }
+  });
+
+  test('full-text: a query matching only exercise content finds the lesson', () {
+    final List<SearchHit> hits = GlobalSearch.run('hola',
+        lessons: _ftLessons, words: const <SearchableWord>[]);
+    expect(
+        hits.any((SearchHit h) =>
+            h.kind == SearchHitKind.lesson && h.title == 'Greetings'),
+        isTrue);
+  });
+
+  test('a title match outranks a content-only match', () {
+    const List<SearchableLesson> mix = <SearchableLesson>[
+      SearchableLesson(
+          id: 'b',
+          title: 'Greetings',
+          cefr: 'A1',
+          unitTitle: 'U',
+          terms: <String>['I like food']),
+      SearchableLesson(
+          id: 'a', title: 'Food & drink', cefr: 'A1', unitTitle: 'U'),
+    ];
+    final List<SearchHit> hits =
+        GlobalSearch.run('food', lessons: mix, words: const <SearchableWord>[]);
+    expect(hits.first.title, 'Food & drink');
   });
 }

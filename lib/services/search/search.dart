@@ -25,6 +25,7 @@ class SearchableLesson {
     required this.title,
     required this.cefr,
     required this.unitTitle,
+    this.terms = const <String>[],
   });
 
   final String id;
@@ -33,6 +34,11 @@ class SearchableLesson {
   /// 'A1'..'C2' — shown as the result's type tag.
   final String cefr;
   final String unitTitle;
+
+  /// The lesson's REAL published exercise text (prompts + accepted answers).
+  /// Matched at the WEAKEST rank so full-text hits never outrank a title match
+  /// (the R-L12 "extend to full text" fast-follow over already-authored content).
+  final List<String> terms;
 }
 
 /// One of the learner's saved words, flattened for search.
@@ -129,7 +135,8 @@ class GlobalSearch {
     final List<_Scored> scored = <_Scored>[];
 
     for (final SearchableLesson l in lessons) {
-      final int s = _score(l.title, q);
+      int s = _score(l.title, q);
+      if (s == 0 && _matchesAny(l.terms, q)) s = _kContentScore;
       if (s > 0) {
         scored.add(_Scored(
           s,
@@ -193,17 +200,30 @@ class GlobalSearch {
     return out.length > maxResults ? out.sublist(0, maxResults) : out;
   }
 
-  /// Title/tag match score: exact (4) > whole-string prefix (3) > word-start (2)
-  /// > substring (1) > no match (0). Case-insensitive; [q] is already
-  /// lower-cased and trimmed by [run].
+  /// Title/name match score: exact (5) > whole-string prefix (4) > word-start
+  /// (3) > substring (2) > no match (0). Case-insensitive; [q] is already
+  /// lower-cased and trimmed by [run]. Score 1 is reserved for [_kContentScore]
+  /// so a deep full-text hit always ranks below any title/name match.
   static int _score(String field, String q) {
     final String f = field.toLowerCase();
-    if (f == q) return 4;
-    if (f.startsWith(q)) return 3;
+    if (f == q) return 5;
+    if (f.startsWith(q)) return 4;
     for (final String w in f.split(RegExp(r'\s+'))) {
-      if (w.startsWith(q)) return 2;
+      if (w.startsWith(q)) return 3;
     }
-    return f.contains(q) ? 1 : 0;
+    return f.contains(q) ? 2 : 0;
+  }
+
+  /// Weakest signal: the query appears only in a lesson's deep CONTENT (an
+  /// exercise prompt/answer), not its title — always ranked below title/name.
+  static const int _kContentScore = 1;
+
+  /// True if [q] matches any of a lesson's real exercise [terms].
+  static bool _matchesAny(List<String> terms, String q) {
+    for (final String t in terms) {
+      if (_score(t, q) > 0) return true;
+    }
+    return false;
   }
 }
 
