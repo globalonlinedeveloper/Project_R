@@ -43,94 +43,247 @@ void main() {
   final DateTime monday = DateTime(2026, 6, 29, 9); // a league-week Monday
   const String week = '2026-06-29';
 
-  test('signed-in: leagueStatus becomes the REAL cohort + persisted tier',
-      () async {
-    final FakeLeaguesStore store = FakeLeaguesStore(
-      loadData: <String, Object?>{
-        kLeagueMembershipKey: <Map<String, Object?>>[
-          <String, Object?>{'week_start': week, 'tier': 'silver', 'weekly_xp': 100},
+  test(
+    'signed-in: leagueStatus becomes the REAL cohort + persisted tier',
+    () async {
+      final FakeLeaguesStore store = FakeLeaguesStore(
+        loadData: <String, Object?>{
+          kLeagueMembershipKey: <Map<String, Object?>>[
+            <String, Object?>{
+              'week_start': week,
+              'tier': 'silver',
+              'weekly_xp': 100,
+            },
+          ],
+        },
+        cohort: <Map<String, Object?>>[
+          <String, Object?>{
+            'member_id': 'm-bob',
+            'display_name': 'Bob',
+            'avatar_emoji': '🦊',
+            'weekly_xp': 200,
+            'tier': 'silver',
+            'is_you': false,
+          },
+          <String, Object?>{
+            'member_id': 'm-you',
+            'display_name': 'Badger',
+            'avatar_emoji': '🦡',
+            'weekly_xp': 100,
+            'tier': 'silver',
+            'is_you': true,
+          },
+          <String, Object?>{
+            'member_id': 'm-cara',
+            'display_name': 'Cara',
+            'avatar_emoji': '🐼',
+            'weekly_xp': 50,
+            'tier': 'silver',
+            'is_you': false,
+          },
         ],
-      },
-      cohort: <Map<String, Object?>>[
-        <String, Object?>{'member_id': 'm-bob', 'display_name': 'Bob', 'avatar_emoji': '🦊', 'weekly_xp': 200, 'tier': 'silver', 'is_you': false},
-        <String, Object?>{'member_id': 'm-you', 'display_name': 'Badger', 'avatar_emoji': '🦡', 'weekly_xp': 100, 'tier': 'silver', 'is_you': true},
-        <String, Object?>{'member_id': 'm-cara', 'display_name': 'Cara', 'avatar_emoji': '🐼', 'weekly_xp': 50, 'tier': 'silver', 'is_you': false},
-      ],
-    );
-    final ProviderContainer c = ProviderContainer(overrides: <Override>[
-      clockProvider.overrideWithValue(() => monday),
-      identityProvider.overrideWithValue(FakeIdentity()),
-      leaguesStoreProvider.overrideWithValue(store),
-    ]);
-    addTearDown(c.dispose);
+      );
+      final ProviderContainer c = ProviderContainer(
+        overrides: <Override>[
+          clockProvider.overrideWithValue(() => monday),
+          identityProvider.overrideWithValue(FakeIdentity()),
+          leaguesStoreProvider.overrideWithValue(store),
+        ],
+      );
+      addTearDown(c.dispose);
 
-    // Keep the provider chain alive (as the screen's watch would) so the
-    // fire-and-forget sync's state update propagates; first frame is solo.
-    c.listen(leagueStatusProvider, (_, _) {}, fireImmediately: true);
-    expect(c.read(leagueStatusProvider).isSolo, true);
-    await _settle();
+      // Keep the provider chain alive (as the screen's watch would) so the
+      // fire-and-forget sync's state update propagates; first frame is solo.
+      c.listen(leagueStatusProvider, (_, _) {}, fireImmediately: true);
+      expect(c.read(leagueStatusProvider).isSolo, true);
+      await _settle();
 
-    final LeagueStatus status = c.read(leagueStatusProvider);
-    expect(status.cohortSize, 3); // the REAL multi-member cohort
-    expect(status.tier, LeagueTier.silver); // persisted tier consumed
-    expect(status.you.member.isYou, true);
-    expect(status.you.rank, 2); // 200 > 100(you) > 50
-    expect(status.standings.first.member.weeklyXp, 200); // ranked desc
-    // The learner's OWN standing was persisted (the dormant store is now live).
-    expect(store.saves, isNotEmpty);
-    final Map<Object?, Object?> saved =
-        (store.saves.last[kLeagueMembershipKey] as List).first as Map<Object?, Object?>;
-    expect(saved['week_start'], week);
-    expect(saved['tier'], 'silver');
-  });
+      final LeagueStatus status = c.read(leagueStatusProvider);
+      expect(status.cohortSize, 3); // the REAL multi-member cohort
+      expect(status.tier, LeagueTier.silver); // persisted tier consumed
+      expect(status.you.member.isYou, true);
+      expect(status.you.rank, 2); // 200 > 100(you) > 50
+      expect(status.standings.first.member.weeklyXp, 200); // ranked desc
+      // The learner's OWN standing was persisted (the dormant store is now live).
+      expect(store.saves, isNotEmpty);
+      final Map<Object?, Object?> saved =
+          (store.saves.last[kLeagueMembershipKey] as List).first
+              as Map<Object?, Object?>;
+      expect(saved['week_start'], week);
+      expect(saved['tier'], 'silver');
+    },
+  );
 
-  test('guest: the honest solo cohort is byte-identical (no persistence)',
-      () async {
-    // Even a populated cohort is never read for a guest (uid == null).
+  test(
+    'guest: the honest solo cohort is byte-identical (no persistence)',
+    () async {
+      // Even a populated cohort is never read for a guest (uid == null).
+      final FakeLeaguesStore store = FakeLeaguesStore(
+        cohort: <Map<String, Object?>>[
+          <String, Object?>{
+            'member_id': 'x',
+            'display_name': 'Ghost',
+            'avatar_emoji': '👻',
+            'weekly_xp': 999,
+            'is_you': false,
+          },
+        ],
+      );
+      final ProviderContainer c = ProviderContainer(
+        overrides: <Override>[
+          clockProvider.overrideWithValue(() => monday),
+          leaguesStoreProvider.overrideWithValue(store),
+          // no identity override -> AnonymousIdentity (uid null)
+        ],
+      );
+      addTearDown(c.dispose);
+
+      c.listen(leagueStatusProvider, (_, _) {}, fireImmediately: true);
+      await _settle();
+
+      final LeagueStatus status = c.read(leagueStatusProvider);
+      expect(status.isSolo, true);
+      expect(status.cohortSize, 1);
+      expect(status.tier, LeagueTier.bronze);
+      expect(status.you.member.isYou, true);
+      expect(store.saves, isEmpty); // a guest persists nothing
+    },
+  );
+
+  test(
+    'signed-in, no cross-user backend: solo baseline but OWN standing persisted',
+    () async {
+      final FakeLeaguesStore store =
+          FakeLeaguesStore(); // empty cohort -> honest solo
+      final ProviderContainer c = ProviderContainer(
+        overrides: <Override>[
+          clockProvider.overrideWithValue(() => monday),
+          identityProvider.overrideWithValue(FakeIdentity()),
+          leaguesStoreProvider.overrideWithValue(store),
+        ],
+      );
+      addTearDown(c.dispose);
+
+      // Earn real weekly XP first, then let the sync persist it.
+      c.read(learnerControllerProvider.notifier).recordLessonComplete(xp: 30);
+      c.listen(leagueStatusProvider, (_, _) {}, fireImmediately: true);
+      await _settle();
+
+      final LeagueStatus status = c.read(leagueStatusProvider);
+      expect(status.isSolo, true); // no fabricated rivals
+      expect(store.saves, isNotEmpty);
+      final Map<Object?, Object?> saved =
+          (store.saves.last[kLeagueMembershipKey] as List).first
+              as Map<Object?, Object?>;
+      expect(saved['weekly_xp'], 30); // the REAL weekly XP was persisted
+      expect(saved['week_start'], week);
+    },
+  );
+
+  test(
+    'refresh re-syncs: re-persists own standing + surfaces new cohort members',
+    () async {
+      // A store whose cohort GROWS on the 2nd read — a rival joining between opens.
+      // refresh() must surface them WITHOUT a full reload (own-row RLS blocks a true
+      // stream, so the live update is a re-poll of read_league_cohort).
+      final GrowingCohortStore store = GrowingCohortStore();
+      final ProviderContainer c = ProviderContainer(
+        overrides: <Override>[
+          clockProvider.overrideWithValue(() => monday),
+          identityProvider.overrideWithValue(FakeIdentity()),
+          leaguesStoreProvider.overrideWithValue(store),
+        ],
+      );
+      addTearDown(c.dispose);
+
+      c.listen(leagueStatusProvider, (_, _) {}, fireImmediately: true);
+      await _settle();
+      expect(
+        c.read(leagueStatusProvider).cohortSize,
+        1,
+      ); // first read: just you
+      final int savesAfterBuild = store.saves.length;
+      expect(savesAfterBuild, greaterThan(0));
+
+      await c.read(leaguesSyncProvider.notifier).refresh();
+      await _settle();
+
+      expect(c.read(leagueStatusProvider).cohortSize, 2); // rival surfaced live
+      expect(
+        store.saves.length,
+        greaterThan(savesAfterBuild),
+      ); // own standing re-persisted
+    },
+  );
+
+  test('refresh for a guest is an honest no-op (nothing persisted)', () async {
     final FakeLeaguesStore store = FakeLeaguesStore(
       cohort: <Map<String, Object?>>[
-        <String, Object?>{'member_id': 'x', 'display_name': 'Ghost', 'avatar_emoji': '👻', 'weekly_xp': 999, 'is_you': false},
+        <String, Object?>{
+          'member_id': 'x',
+          'display_name': 'Ghost',
+          'avatar_emoji': '👻',
+          'weekly_xp': 999,
+          'is_you': false,
+        },
       ],
     );
-    final ProviderContainer c = ProviderContainer(overrides: <Override>[
-      clockProvider.overrideWithValue(() => monday),
-      leaguesStoreProvider.overrideWithValue(store),
-      // no identity override -> AnonymousIdentity (uid null)
-    ]);
+    final ProviderContainer c = ProviderContainer(
+      overrides: <Override>[
+        clockProvider.overrideWithValue(() => monday),
+        leaguesStoreProvider.overrideWithValue(store),
+      ],
+    );
     addTearDown(c.dispose);
 
     c.listen(leagueStatusProvider, (_, _) {}, fireImmediately: true);
     await _settle();
-
-    final LeagueStatus status = c.read(leagueStatusProvider);
-    expect(status.isSolo, true);
-    expect(status.cohortSize, 1);
-    expect(status.tier, LeagueTier.bronze);
-    expect(status.you.member.isYou, true);
-    expect(store.saves, isEmpty); // a guest persists nothing
-  });
-
-  test('signed-in, no cross-user backend: solo baseline but OWN standing persisted',
-      () async {
-    final FakeLeaguesStore store = FakeLeaguesStore(); // empty cohort -> honest solo
-    final ProviderContainer c = ProviderContainer(overrides: <Override>[
-      clockProvider.overrideWithValue(() => monday),
-      identityProvider.overrideWithValue(FakeIdentity()),
-      leaguesStoreProvider.overrideWithValue(store),
-    ]);
-    addTearDown(c.dispose);
-
-    // Earn real weekly XP first, then let the sync persist it.
-    c.read(learnerControllerProvider.notifier).recordLessonComplete(xp: 30);
-    c.listen(leagueStatusProvider, (_, _) {}, fireImmediately: true);
+    await c.read(leaguesSyncProvider.notifier).refresh();
     await _settle();
 
-    final LeagueStatus status = c.read(leagueStatusProvider);
-    expect(status.isSolo, true); // no fabricated rivals
-    expect(store.saves, isNotEmpty);
-    final Map<Object?, Object?> saved =
-        (store.saves.last[kLeagueMembershipKey] as List).first as Map<Object?, Object?>;
-    expect(saved['weekly_xp'], 30); // the REAL weekly XP was persisted
-    expect(saved['week_start'], week);
+    expect(
+      c.read(leagueStatusProvider).isSolo,
+      true,
+    ); // never a fabricated cohort
+    expect(store.saves, isEmpty); // a guest persists nothing, even on refresh
   });
+}
+
+/// A [LeaguesStore] whose cross-user cohort GROWS on the 2nd read — proves that
+/// refresh() re-polls read_league_cohort and surfaces new members live.
+class GrowingCohortStore implements LeaguesStore {
+  int _reads = 0;
+  final List<Map<String, Object?>> saves = <Map<String, Object?>>[];
+
+  @override
+  Future<Map<String, Object?>> load(String userId) async =>
+      const <String, Object?>{};
+
+  @override
+  Future<void> save(String userId, Map<String, Object?> data) async =>
+      saves.add(data);
+
+  @override
+  Future<List<Map<String, Object?>>> readCohort(String userId) async {
+    _reads++;
+    return <Map<String, Object?>>[
+      <String, Object?>{
+        'member_id': 'm-you',
+        'display_name': 'Badger',
+        'avatar_emoji': '🦡',
+        'weekly_xp': 100,
+        'tier': 'bronze',
+        'is_you': true,
+      },
+      if (_reads >= 2)
+        <String, Object?>{
+          'member_id': 'm-bob',
+          'display_name': 'Bob',
+          'avatar_emoji': '🦊',
+          'weekly_xp': 50,
+          'tier': 'bronze',
+          'is_you': false,
+        },
+    ];
+  }
 }

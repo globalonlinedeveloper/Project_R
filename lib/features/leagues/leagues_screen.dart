@@ -36,34 +36,45 @@ class LeaguesScreen extends ConsumerWidget {
             // R-L11 inbox surface: the top-bar bell + unread badge open the
             // in-app notifications feed (a real, learner-derived count).
             RatelTopBar(
-                flagEmoji: '🇪🇸',
-                langCode: 'ES',
-                streak: snap.streakDays,
-                energy: snap.energy,
-                unreadNotifications: unread,
-                onNotificationsTap: () => context.push('/notifications')),
+              flagEmoji: '🇪🇸',
+              langCode: 'ES',
+              streak: snap.streakDays,
+              energy: snap.energy,
+              unreadNotifications: unread,
+              onNotificationsTap: () => context.push('/notifications'),
+            ),
             Expanded(
-              child: ListView(
-                padding: const EdgeInsets.fromLTRB(RatelSpace.screen,
-                    RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
-                children: <Widget>[
-                  _TierHeaderCard(status: status),
-                  const SizedBox(height: RatelSpace.cardGap),
-                  _StatusCard(status: status),
-                  const SizedBox(height: RatelSpace.lg),
-                  RatelSectionHeader(
+              child: RefreshIndicator(
+                onRefresh: () =>
+                    ref.read(leaguesSyncProvider.notifier).refresh(),
+                child: ListView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.fromLTRB(
+                    RatelSpace.screen,
+                    RatelSpace.lg,
+                    RatelSpace.screen,
+                    RatelSpace.xl,
+                  ),
+                  children: <Widget>[
+                    _TierHeaderCard(status: status),
+                    const SizedBox(height: RatelSpace.cardGap),
+                    _StatusCard(status: status),
+                    const SizedBox(height: RatelSpace.lg),
+                    RatelSectionHeader(
                       label: status.isSolo
                           ? 'YOUR GROUP'
-                          : 'THIS WEEK · ${status.cohortSize} LEARNERS'),
-                  const SizedBox(height: RatelSpace.sm),
-                  ..._standings(status),
-                  if (status.isSolo) ...<Widget>[
-                    const SizedBox(height: RatelSpace.xs),
-                    const _SoloNote(),
+                          : 'THIS WEEK · ${status.cohortSize} LEARNERS',
+                    ),
+                    const SizedBox(height: RatelSpace.sm),
+                    ..._standings(status),
+                    if (status.isSolo) ...<Widget>[
+                      const SizedBox(height: RatelSpace.xs),
+                      const _SoloNote(),
+                    ],
+                    const SizedBox(height: RatelSpace.lg),
+                    _RulesFootnote(status: status),
                   ],
-                  const SizedBox(height: RatelSpace.lg),
-                  _RulesFootnote(status: status),
-                ],
+                ),
               ),
             ),
           ],
@@ -76,17 +87,17 @@ class LeaguesScreen extends ConsumerWidget {
 /// The ten-tier accent colours (raw hex lives only in tokens; this maps the
 /// pure-engine [LeagueTier] onto those tokens).
 Color _tierColor(LeagueTier t) => switch (t) {
-      LeagueTier.bronze => RatelColors.tierBronze,
-      LeagueTier.silver => RatelColors.tierSilver,
-      LeagueTier.gold => RatelColors.tierGold,
-      LeagueTier.sapphire => RatelColors.tierSapphire,
-      LeagueTier.ruby => RatelColors.tierRuby,
-      LeagueTier.emerald => RatelColors.tierEmerald,
-      LeagueTier.amethyst => RatelColors.tierAmethyst,
-      LeagueTier.pearl => RatelColors.tierPearl,
-      LeagueTier.obsidian => RatelColors.tierObsidian,
-      LeagueTier.diamond => RatelColors.tierDiamond,
-    };
+  LeagueTier.bronze => RatelColors.tierBronze,
+  LeagueTier.silver => RatelColors.tierSilver,
+  LeagueTier.gold => RatelColors.tierGold,
+  LeagueTier.sapphire => RatelColors.tierSapphire,
+  LeagueTier.ruby => RatelColors.tierRuby,
+  LeagueTier.emerald => RatelColors.tierEmerald,
+  LeagueTier.amethyst => RatelColors.tierAmethyst,
+  LeagueTier.pearl => RatelColors.tierPearl,
+  LeagueTier.obsidian => RatelColors.tierObsidian,
+  LeagueTier.diamond => RatelColors.tierDiamond,
+};
 
 /// Ranked rows with promotion/demotion zone dividers at the real boundaries
 /// (none show for a solo cohort — everyone is in the promotion zone).
@@ -114,32 +125,44 @@ void _showTierLadder(BuildContext context, LeagueTier current) {
     backgroundColor: context.palette.white,
     showDragHandle: true,
     shape: const RoundedRectangleBorder(
-        borderRadius:
-            BorderRadius.vertical(top: Radius.circular(RatelRadius.featureLg))),
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(RatelRadius.featureLg),
+      ),
+    ),
     builder: (BuildContext context) {
       final RatelPalette p = context.palette;
       return SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(RatelSpace.screen, 0,
-              RatelSpace.screen, RatelSpace.lg),
+          padding: const EdgeInsets.fromLTRB(
+            RatelSpace.screen,
+            0,
+            RatelSpace.screen,
+            RatelSpace.lg,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(bottom: 2),
-                child: Text('League tiers',
-                    style: TextStyle(
-                        fontFamily: RatelFont.display,
-                        fontWeight: RatelType.extraBold,
-                        fontSize: RatelType.cardTitle,
-                        color: p.ink)),
-              ),
-              Text("You're in ${current.label} · top 7 climb each week",
+                child: Text(
+                  'League tiers',
                   style: TextStyle(
-                      fontFamily: RatelFont.body,
-                      fontSize: RatelType.small,
-                      color: p.muted)),
+                    fontFamily: RatelFont.display,
+                    fontWeight: RatelType.extraBold,
+                    fontSize: RatelType.cardTitle,
+                    color: p.ink,
+                  ),
+                ),
+              ),
+              Text(
+                "You're in ${current.label} · top 7 climb each week",
+                style: TextStyle(
+                  fontFamily: RatelFont.body,
+                  fontSize: RatelType.small,
+                  color: p.muted,
+                ),
+              ),
               const SizedBox(height: RatelSpace.md),
               for (final LeagueTier t in LeaguesEngine.ladder.reversed)
                 _LadderRow(tier: t, here: t == current),
@@ -169,31 +192,39 @@ class _TierHeaderCard extends StatelessWidget {
             height: 64,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-                color: tc.withValues(alpha: 0.16), shape: BoxShape.circle),
+              color: tc.withValues(alpha: 0.16),
+              shape: BoxShape.circle,
+            ),
             child: Text(tier.emoji, style: const TextStyle(fontSize: 34)),
           ),
           const SizedBox(height: RatelSpace.sm),
-          Text('${tier.label} League',
-              style: TextStyle(
-                  fontFamily: RatelFont.display,
-                  fontWeight: RatelType.extraBold,
-                  fontSize: RatelType.screenTitle,
-                  color: p.ink)),
+          Text(
+            '${tier.label} League',
+            style: TextStyle(
+              fontFamily: RatelFont.display,
+              fontWeight: RatelType.extraBold,
+              fontSize: RatelType.screenTitle,
+              color: p.ink,
+            ),
+          ),
           const SizedBox(height: 2),
           Text(
-              'Top ${status.rules.promoteTop} climb each week · ends in '
-              '$days ${days == 1 ? 'day' : 'days'}',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontFamily: RatelFont.body,
-                  fontSize: RatelType.small,
-                  color: p.muted)),
+            'Top ${status.rules.promoteTop} climb each week · ends in '
+            '$days ${days == 1 ? 'day' : 'days'}',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: RatelFont.body,
+              fontSize: RatelType.small,
+              color: p.muted,
+            ),
+          ),
           const SizedBox(height: RatelSpace.md),
           RatelButton(
-              label: '🏆 View all 10 tiers',
-              variant: RatelButtonVariant.secondary,
-              expand: false,
-              onPressed: () => _showTierLadder(context, tier)),
+            label: '🏆 View all 10 tiers',
+            variant: RatelButtonVariant.secondary,
+            expand: false,
+            onPressed: () => _showTierLadder(context, tier),
+          ),
         ],
       ),
     );
@@ -211,31 +242,37 @@ class _StatusCard extends StatelessWidget {
     final Color zoneColor = you.isDemotion
         ? RatelColors.coral
         : you.isPromotion
-            ? RatelColors.green
-            : p.muted;
+        ? RatelColors.green
+        : p.muted;
     final String zoneLabel = you.isDemotion
         ? 'Demotion zone'
         : you.isPromotion
-            ? 'Promotion zone'
-            : 'Safe zone';
+        ? 'Promotion zone'
+        : 'Safe zone';
     return RatelCard(
       child: Row(
         children: <Widget>[
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('#${you.rank}',
-                  style: TextStyle(
-                      fontFamily: RatelFont.display,
-                      fontWeight: RatelType.extraBold,
-                      fontSize: RatelType.hero,
-                      color: p.ink)),
-              Text(zoneLabel,
-                  style: TextStyle(
-                      fontFamily: RatelFont.body,
-                      fontWeight: RatelType.semiBold,
-                      fontSize: RatelType.small,
-                      color: zoneColor)),
+              Text(
+                '#${you.rank}',
+                style: TextStyle(
+                  fontFamily: RatelFont.display,
+                  fontWeight: RatelType.extraBold,
+                  fontSize: RatelType.hero,
+                  color: p.ink,
+                ),
+              ),
+              Text(
+                zoneLabel,
+                style: TextStyle(
+                  fontFamily: RatelFont.body,
+                  fontWeight: RatelType.semiBold,
+                  fontSize: RatelType.small,
+                  color: zoneColor,
+                ),
+              ),
             ],
           ),
           const SizedBox(width: RatelSpace.lg),
@@ -243,24 +280,29 @@ class _StatusCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                Text('${you.member.weeklyXp} XP',
-                    style: TextStyle(
-                        fontFamily: RatelFont.display,
-                        fontWeight: RatelType.extraBold,
-                        fontSize: RatelType.cardTitle,
-                        color: p.ink)),
+                Text(
+                  '${you.member.weeklyXp} XP',
+                  style: TextStyle(
+                    fontFamily: RatelFont.display,
+                    fontWeight: RatelType.extraBold,
+                    fontSize: RatelType.cardTitle,
+                    color: p.ink,
+                  ),
+                ),
                 const SizedBox(height: 2),
                 Text(
-                    status.isSolo
-                        ? 'this week · solo group'
-                        : status.xpToRankAbove > 0
-                            ? '${status.xpToRankAbove} XP to rank ${you.rank - 1}'
-                            : 'leading your group',
-                    textAlign: TextAlign.end,
-                    style: TextStyle(
-                        fontFamily: RatelFont.body,
-                        fontSize: RatelType.small,
-                        color: p.muted)),
+                  status.isSolo
+                      ? 'this week · solo group'
+                      : status.xpToRankAbove > 0
+                      ? '${status.xpToRankAbove} XP to rank ${you.rank - 1}'
+                      : 'leading your group',
+                  textAlign: TextAlign.end,
+                  style: TextStyle(
+                    fontFamily: RatelFont.body,
+                    fontSize: RatelType.small,
+                    color: p.muted,
+                  ),
+                ),
               ],
             ),
           ),
@@ -289,46 +331,58 @@ class _StandingRow extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: RatelSpace.sm),
       padding: const EdgeInsets.symmetric(
-          horizontal: RatelSpace.md, vertical: RatelSpace.md),
+        horizontal: RatelSpace.md,
+        vertical: RatelSpace.md,
+      ),
       decoration: BoxDecoration(
         color: you ? RatelColors.teal.withValues(alpha: 0.12) : p.white,
         borderRadius: BorderRadius.circular(RatelRadius.card),
         border: Border.all(
-            color: you ? RatelColors.teal : p.border, width: you ? 2 : 1),
+          color: you ? RatelColors.teal : p.border,
+          width: you ? 2 : 1,
+        ),
       ),
       child: Row(
         children: <Widget>[
           SizedBox(
             width: 28,
-            child: Text(rankLabel,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: medal ? RatelFont.body : RatelFont.display,
-                    fontWeight: RatelType.semiBold,
-                    fontSize: medal ? 18 : RatelType.body,
-                    color: p.muted)),
+            child: Text(
+              rankLabel,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: medal ? RatelFont.body : RatelFont.display,
+                fontWeight: RatelType.semiBold,
+                fontSize: medal ? 18 : RatelType.body,
+                color: p.muted,
+              ),
+            ),
           ),
           const SizedBox(width: RatelSpace.sm),
           Text(m.avatarEmoji, style: const TextStyle(fontSize: 24)),
           const SizedBox(width: RatelSpace.md),
           Expanded(
-            child: Text(you ? 'You' : m.displayName,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    fontFamily: RatelFont.display,
-                    fontWeight:
-                        you ? RatelType.extraBold : RatelType.semiBold,
-                    fontSize: RatelType.body,
-                    color: p.ink)),
+            child: Text(
+              you ? 'You' : m.displayName,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontFamily: RatelFont.display,
+                fontWeight: you ? RatelType.extraBold : RatelType.semiBold,
+                fontSize: RatelType.body,
+                color: p.ink,
+              ),
+            ),
           ),
           const SizedBox(width: RatelSpace.sm),
-          Text('${m.weeklyXp} XP',
-              style: TextStyle(
-                  fontFamily: RatelFont.body,
-                  fontWeight: RatelType.semiBold,
-                  fontSize: RatelType.small,
-                  color: p.muted)),
+          Text(
+            '${m.weeklyXp} XP',
+            style: TextStyle(
+              fontFamily: RatelFont.body,
+              fontWeight: RatelType.semiBold,
+              fontSize: RatelType.small,
+              color: p.muted,
+            ),
+          ),
         ],
       ),
     );
@@ -342,29 +396,30 @@ class _ZoneDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color c = promotion ? RatelColors.green : RatelColors.coral;
-    final String label =
-        promotion ? '⬆ PROMOTION ZONE' : '⬇ DEMOTION ZONE';
+    final String label = promotion ? '⬆ PROMOTION ZONE' : '⬇ DEMOTION ZONE';
     return Padding(
       padding: const EdgeInsets.only(bottom: RatelSpace.sm),
       child: Row(
         children: <Widget>[
           Expanded(
-              child: Container(
-                  height: 1.5, color: c.withValues(alpha: 0.5))),
+            child: Container(height: 1.5, color: c.withValues(alpha: 0.5)),
+          ),
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: RatelSpace.sm),
-            child: Text(label,
-                style: TextStyle(
-                    fontFamily: RatelFont.display,
-                    fontWeight: RatelType.extraBold,
-                    fontSize: RatelType.caption,
-                    color: c,
-                    letterSpacing: 0.5)),
+            padding: const EdgeInsets.symmetric(horizontal: RatelSpace.sm),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontFamily: RatelFont.display,
+                fontWeight: RatelType.extraBold,
+                fontSize: RatelType.caption,
+                color: c,
+                letterSpacing: 0.5,
+              ),
+            ),
           ),
           Expanded(
-              child: Container(
-                  height: 1.5, color: c.withValues(alpha: 0.5))),
+            child: Container(height: 1.5, color: c.withValues(alpha: 0.5)),
+          ),
         ],
       ),
     );
@@ -386,14 +441,16 @@ class _SoloNote extends StatelessWidget {
           const SizedBox(width: RatelSpace.md),
           Expanded(
             child: Text(
-                "You're the only learner in your group this week. Real rivals "
-                'join as Ratel grows — no bots, no fake leaderboards. Keep '
-                'earning XP to be ready to climb when the week resets.',
-                style: TextStyle(
-                    fontFamily: RatelFont.body,
-                    fontSize: RatelType.small,
-                    color: p.muted,
-                    height: 1.4)),
+              "You're the only learner in your group this week. Real rivals "
+              'join as Ratel grows — no bots, no fake leaderboards. Keep '
+              'earning XP to be ready to climb when the week resets.',
+              style: TextStyle(
+                fontFamily: RatelFont.body,
+                fontSize: RatelType.small,
+                color: p.muted,
+                height: 1.4,
+              ),
+            ),
           ),
         ],
       ),
@@ -409,13 +466,15 @@ class _RulesFootnote extends StatelessWidget {
   Widget build(BuildContext context) {
     final RatelPalette p = context.palette;
     return Text(
-        'Top ${status.rules.promoteTop} promote · bottom '
-        '${status.rules.demoteBottom} relegate when the week ends.',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontFamily: RatelFont.body,
-            fontSize: RatelType.caption,
-            color: p.muted));
+      'Top ${status.rules.promoteTop} promote · bottom '
+      '${status.rules.demoteBottom} relegate when the week ends.',
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        fontFamily: RatelFont.body,
+        fontSize: RatelType.caption,
+        color: p.muted,
+      ),
+    );
   }
 }
 
@@ -431,12 +490,13 @@ class _LadderRow extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: RatelSpace.sm),
       padding: const EdgeInsets.symmetric(
-          horizontal: RatelSpace.md, vertical: RatelSpace.md),
+        horizontal: RatelSpace.md,
+        vertical: RatelSpace.md,
+      ),
       decoration: BoxDecoration(
         color: here ? tc.withValues(alpha: 0.13) : p.white,
         borderRadius: BorderRadius.circular(RatelRadius.card),
-        border:
-            Border.all(color: here ? tc : p.border, width: here ? 2 : 1),
+        border: Border.all(color: here ? tc : p.border, width: here ? 2 : 1),
       ),
       child: Row(
         children: <Widget>[
@@ -445,23 +505,29 @@ class _LadderRow extends StatelessWidget {
             height: 36,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-                color: tc.withValues(alpha: 0.16), shape: BoxShape.circle),
+              color: tc.withValues(alpha: 0.16),
+              shape: BoxShape.circle,
+            ),
             child: Text(tier.emoji, style: const TextStyle(fontSize: 20)),
           ),
           const SizedBox(width: RatelSpace.md),
           Expanded(
-            child: Text('${tier.label} League',
-                style: TextStyle(
-                    fontFamily: RatelFont.display,
-                    fontWeight: RatelType.semiBold,
-                    fontSize: RatelType.body,
-                    color: p.ink)),
+            child: Text(
+              '${tier.label} League',
+              style: TextStyle(
+                fontFamily: RatelFont.display,
+                fontWeight: RatelType.semiBold,
+                fontSize: RatelType.body,
+                color: p.ink,
+              ),
+            ),
           ),
           if (here)
             const RatelChip(
-                label: "You're here",
-                tone: RatelChipTone.teal,
-                filled: true),
+              label: "You're here",
+              tone: RatelChipTone.teal,
+              filled: true,
+            ),
         ],
       ),
     );

@@ -55,6 +55,7 @@ class LeagueSync {
 /// (state stays the empty [LeagueSync]), so the solo baseline shows unchanged.
 class LeaguesSyncController extends Notifier<LeagueSync> {
   bool _disposed = false;
+  Future<void>? _inFlight;
 
   @override
   LeagueSync build() {
@@ -64,9 +65,20 @@ class LeaguesSyncController extends Notifier<LeagueSync> {
     // an unrelated learner-state rebuild. The solo baseline (leagueCohortProvider)
     // independently watches the learner, so the learner's OWN weekly XP still
     // shows live; the durable cross-user cohort refreshes on each leagues open.
-    _sync();
+    _refreshOnce();
     return const LeagueSync();
   }
+
+  /// Re-run the sync on demand (pull-to-refresh): re-persist the learner's own
+  /// weekly standing and re-read the REAL cross-user cohort via the
+  /// `read_league_cohort` SECURITY DEFINER. A guest / in-memory default is an
+  /// honest no-op (uid null) — the future still completes so the RefreshIndicator
+  /// dismisses and the solo baseline is unchanged. Coalesces with any in-flight
+  /// sync so overlapping pulls never double-write.
+  Future<void> refresh() => _refreshOnce();
+
+  Future<void> _refreshOnce() =>
+      _inFlight ??= _sync().whenComplete(() => _inFlight = null);
 
   Future<void> _sync() async {
     final String? uid = ref.read(identityProvider).uid;
@@ -76,8 +88,9 @@ class LeaguesSyncController extends Notifier<LeagueSync> {
     final DateTime now = ref.read(clockProvider)();
     final String week = _weekKey(LeagueWeek.startOf(now));
     final LearnerSnapshot snap = ref.read(learnerControllerProvider);
-    final String name =
-        _displayName(ref.read(appSettingsControllerProvider).displayName);
+    final String name = _displayName(
+      ref.read(appSettingsControllerProvider).displayName,
+    );
 
     // Recover the persisted tier (set by the weekly close) for this week; a brand
     // -new member defaults to the entry tier.
@@ -144,16 +157,17 @@ class LeaguesSyncController extends Notifier<LeagueSync> {
   }
 
   static LeagueMember _memberFrom(Map<String, Object?> r) => LeagueMember(
-        id: (r['member_id'] ?? '').toString(),
-        displayName: (r['display_name'] as String?) ?? 'Learner',
-        avatarEmoji: (r['avatar_emoji'] as String?) ?? '🦡',
-        weeklyXp: (r['weekly_xp'] as num?)?.toInt() ?? 0,
-        isYou: r['is_you'] == true,
-      );
+    id: (r['member_id'] ?? '').toString(),
+    displayName: (r['display_name'] as String?) ?? 'Learner',
+    avatarEmoji: (r['avatar_emoji'] as String?) ?? '🦡',
+    weeklyXp: (r['weekly_xp'] as num?)?.toInt() ?? 0,
+    isYou: r['is_you'] == true,
+  );
 }
 
 final leaguesSyncProvider = NotifierProvider<LeaguesSyncController, LeagueSync>(
-    LeaguesSyncController.new);
+  LeaguesSyncController.new,
+);
 
 /// The ranked standings: the REAL cross-user cohort when signed in, else the
 /// honest solo baseline. A real engine ranking either way.
