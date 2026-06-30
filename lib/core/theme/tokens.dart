@@ -138,6 +138,15 @@ abstract final class RatelColors {
   static const Color spaceBorder = Color(0x33A6B0D8);
   static const Color spaceShadow = Color(0x66000000);
   static const Color spaceScrim = Color(0x99000510);
+
+  /// Galaxy pod hull (R-WT4, G2) — metallic light + shaded hull.
+  static const Color spacePodLight = Color(0xFFE9EDFF);
+
+  /// Galaxy pod hull shade.
+  static const Color spacePodHull = Color(0xFFB9C2E8);
+
+  /// Near-black planet shade (dark side of a galaxy planet).
+  static const Color spacePlanetShade = Color(0xFF04060E);
 }
 
 /// Spacing scale (spec §2: 4 / 8 / 12 / 16 / 20 / 24).

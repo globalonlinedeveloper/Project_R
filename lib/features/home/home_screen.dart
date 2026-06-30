@@ -4,8 +4,10 @@ import 'package:go_router/go_router.dart';
 
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
+import 'package:ratel/features/home/galaxy_path.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/features/notifications/notifications_controller.dart';
+import 'package:ratel/services/preferences/app_settings.dart' show WorldTheme;
 
 /// Home tab (🏠) — the learning path, design spec §4.1. A Duolingo-style winding
 /// path of lesson nodes.
@@ -17,6 +19,11 @@ import 'package:ratel/features/notifications/notifications_controller.dart';
 /// `lessonsCompleted` on the learner snapshot, so a fresh account has node 0
 /// active and everything after it locked. Tapping the active node opens the
 /// lesson-preview sheet (§4.6).
+///
+/// GALAXY HOME (R-WT4, S66 · G2): when the Space [WorldTheme] is active the same
+/// real path re-skins into a galaxy — a [GalaxyPathPainter] orbital backdrop,
+/// each node a [GalaxyPlanet], the current node carrying a [PodTraveller]. Only
+/// the SKIN changes; states + positions are identical to Classic.
 ///
 /// HONESTY (§6 / charter "don't fake depth"): every title + the per-lesson
 /// exercise count is real authored content. If no course is wired (the bundled
@@ -59,6 +66,8 @@ class HomeScreen extends ConsumerWidget {
     // R-L11 inbox surface: the Home top-bar bell + unread badge open the
     // in-app notifications feed (a real, learner-derived count — never faked).
     final int unread = ref.watch(unreadNotificationsCountProvider);
+    // R-WT4 (S66 · G2): re-skin the path as a galaxy when Space is active.
+    final bool galaxy = ref.watch(worldThemeProvider) == WorldTheme.space;
 
     if (spine.isEmpty) {
       return _emptyState(context, snap.streakDays, snap.diamonds, snap.streakFreezes, unread, snap.energy);
@@ -95,7 +104,7 @@ class HomeScreen extends ConsumerWidget {
                         RatelSpace.screen, RatelSpace.lg, RatelSpace.screen, 96),
                     itemCount: nodes.length,
                     itemBuilder: (BuildContext context, int i) =>
-                        _pathRow(context, nodes[i], active),
+                        _pathRow(context, nodes, i, active, galaxy),
                   ),
                 ),
               ],
@@ -223,11 +232,12 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _pathRow(BuildContext context, _Node n, int active) {
+  Widget _pathRow(BuildContext context, List<_Node> nodes, int i, int active,
+      bool galaxy) {
+    final _Node n = nodes[i];
     final bool done = n.globalIndex < active;
     final bool isActive = n.globalIndex == active;
-    final double ax =
-        const <double>[0.0, 0.5, 0.8, 0.5, 0.0, -0.5, -0.8, -0.5][n.inUnit % 8];
+    final double ax = kGalaxyPath[n.inUnit % 8];
 
     final List<Widget> col = <Widget>[];
     if (n.sectionStart) {
@@ -236,14 +246,104 @@ class HomeScreen extends ConsumerWidget {
         child: RatelSectionHeader(label: n.section),
       ));
     }
-    col.add(SizedBox(
-      height: isActive ? 132 : 104,
+    final double nodeSize = isActive ? 84 : 64;
+    // Galaxy planets carry a ring + pod, so their rows get a little more height.
+    final double trackHeight =
+        isActive ? (galaxy ? 140 : 132) : (galaxy ? 110 : 104);
+    Widget track = SizedBox(
+      height: trackHeight,
       child: Align(
         alignment: Alignment(ax, 0),
-        child: _nodeCircle(context, n, done, isActive),
+        child: galaxy
+            ? _galaxyNode(context, n, done, isActive)
+            : _nodeCircle(context, n, done, isActive),
       ),
-    ));
+    );
+    if (galaxy) {
+      // The orbital trail connects this planet to its neighbours; a new section
+      // (with its header) starts a fresh arc, so suppress the trail across a
+      // section boundary.
+      final bool hasPrev = i > 0 && !n.sectionStart;
+      final bool hasNext =
+          i < nodes.length - 1 && !nodes[i + 1].sectionStart;
+      final double prevAx = i > 0 ? kGalaxyPath[nodes[i - 1].inUnit % 8] : ax;
+      final double nextAx =
+          i < nodes.length - 1 ? kGalaxyPath[nodes[i + 1].inUnit % 8] : ax;
+      track = CustomPaint(
+        painter: GalaxyPathPainter(
+          ax: ax,
+          prevAx: prevAx,
+          nextAx: nextAx,
+          hasPrev: hasPrev,
+          hasNext: hasNext,
+          nodeSize: nodeSize,
+          done: done,
+          seed: n.globalIndex + 1,
+        ),
+        child: track,
+      );
+    }
+    col.add(track);
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: col);
+  }
+
+  Widget _startPill() => Container(
+        padding: const EdgeInsets.symmetric(
+            horizontal: RatelSpace.md, vertical: 6),
+        decoration: BoxDecoration(
+            color: RatelColors.amber,
+            borderRadius: BorderRadius.circular(RatelRadius.pill)),
+        child: const Text('START',
+            style: TextStyle(
+                fontFamily: RatelFont.display,
+                fontWeight: RatelType.extraBold,
+                fontSize: RatelType.small,
+                color: RatelColors.onColor)),
+      );
+
+  /// The galaxy-skin node (R-WT4): a [GalaxyPlanet], with the active planet
+  /// carrying the START pill + the [PodTraveller] marker. Same state + tap
+  /// behaviour as [_nodeCircle], only re-skinned.
+  Widget _galaxyNode(
+      BuildContext context, _Node n, bool done, bool isActive) {
+    final double size = isActive ? 84 : 64;
+    final String glyph = done
+        ? '✓'
+        : isActive
+            ? '▶'
+            : '🔒';
+    final Widget planet = GalaxyPlanet(
+      color: galaxyPlanetColor(n.globalIndex),
+      size: size,
+      glyph: glyph,
+      lit: done || isActive,
+    );
+    if (!isActive) {
+      return planet;
+    }
+    return GestureDetector(
+      key: const ValueKey<String>('home-active-node'),
+      onTap: () => _showPreview(context, n),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          _startPill(),
+          const SizedBox(height: RatelSpace.xs),
+          Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.center,
+            children: <Widget>[
+              planet,
+              const Positioned(
+                right: -4,
+                top: -12,
+                child: PodTraveller(),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _nodeCircle(

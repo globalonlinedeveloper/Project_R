@@ -50,8 +50,8 @@
     "R-WT4": {
       "moscow": "Should",
       "phase": "Stage2",
-      "status_override": "Pending 🔒",
-      "notes": "AUDIT 2026-06-30: Galaxy Home (CustomPainter backdrop + planet path + pod traveller) is NOT built — the only CustomPainter in lib is the progress ring and Home is the plain content path. The prior 'Built ✅' override was a stale over-claim. Owner S66: approved to BUILD → Pending (not started)."
+      "status_override": "Built ✅",
+      "notes": "AUDIT 2026-06-30 flagged the prior 'Built ✅' as a stale over-claim → corrected to Pending; owner S66 approved BUILDING it. S66·G2: BUILT for real. When the Space WorldTheme is active the Home learning path re-skins into a galaxy via lib/features/home/galaxy_path.dart — a GalaxyPathPainter CustomPainter backdrop (nebula glow + a dashed orbital planet-path connecting the nodes), each lesson node a ringed GalaxyPlanet, and a PodTraveller (the badger's pod) marker at the learner's REAL current position. Gated on worldThemeProvider==WorldTheme.space (Classic path untouched); a pure VISUAL re-skin of the SAME real path (node states/positions identical — nothing faked). Fully STATIC ⇒ inherently reduce-motion safe; the tier-gated motion FX are R-WT7/G3. Tests: test/features/galaxy_home_test.dart (5 cases). Flipped Pending→Built."
     },
     "R-WT5": {
       "moscow": "Should",
@@ -894,7 +894,7 @@
     "R-WT4": {
       "moscow": "Should",
       "phase": "Stage2",
-      "status": "Pending 🔒"
+      "status": "Built ✅"
     },
     "R-WT5": {
       "moscow": "Should",
