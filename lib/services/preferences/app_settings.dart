@@ -15,6 +15,7 @@ class AppSettings {
     this.dailyGoal = 20,
     this.themeMode = ThemeMode.system,
     this.readNotifications = const <String>{},
+    this.recentSearches = const <String>[],
   });
 
   final bool highContrast;
@@ -31,6 +32,10 @@ class AppSettings {
   /// Device-local read-state; absent ⇒ nothing read yet.
   final Set<String> readNotifications;
 
+  /// The learner's recent search queries, most-recent-first (R-L12 "recent").
+  /// Device-local history; absent ⇒ no searches yet. Order is significant.
+  final List<String> recentSearches;
+
   AppSettings copyWith({
     bool? highContrast,
     bool? sound,
@@ -38,6 +43,7 @@ class AppSettings {
     int? dailyGoal,
     ThemeMode? themeMode,
     Set<String>? readNotifications,
+    List<String>? recentSearches,
   }) =>
       AppSettings(
         highContrast: highContrast ?? this.highContrast,
@@ -46,6 +52,7 @@ class AppSettings {
         dailyGoal: dailyGoal ?? this.dailyGoal,
         themeMode: themeMode ?? this.themeMode,
         readNotifications: readNotifications ?? this.readNotifications,
+        recentSearches: recentSearches ?? this.recentSearches,
       );
 
   Map<String, Object> toMap() => <String, Object>{
@@ -55,6 +62,7 @@ class AppSettings {
         'dailyGoal': dailyGoal,
         'themeMode': themeMode.name,
         'readNotifications': (readNotifications.toList()..sort()).join(','),
+        'recentSearches': recentSearches.map(Uri.encodeComponent).join(','),
       };
 
   static AppSettings fromMap(Map<String, Object?> m) => AppSettings(
@@ -64,6 +72,7 @@ class AppSettings {
         dailyGoal: (m['dailyGoal'] as int?) ?? 20,
         themeMode: _themeModeFromName(m['themeMode'] as String?),
         readNotifications: _readNotifsFromCsv(m['readNotifications'] as String?),
+        recentSearches: _recentsFromCsv(m['recentSearches'] as String?),
       );
 
   @override
@@ -74,18 +83,29 @@ class AppSettings {
       other.haptics == haptics &&
       other.dailyGoal == dailyGoal &&
       other.themeMode == themeMode &&
-      setEquals(other.readNotifications, readNotifications);
+      setEquals(other.readNotifications, readNotifications) &&
+      listEquals(other.recentSearches, recentSearches);
 
   @override
   int get hashCode =>
       Object.hash(highContrast, sound, haptics, dailyGoal, themeMode,
-          Object.hashAllUnordered(readNotifications));
+          Object.hashAllUnordered(readNotifications), Object.hashAll(recentSearches));
 }
 
 /// Parse a persisted read-notifications CSV into a set; null/empty ⇒ none.
 Set<String> _readNotifsFromCsv(String? csv) {
   if (csv == null || csv.isEmpty) return const <String>{};
   return csv.split(',').where((String s) => s.isNotEmpty).toSet();
+}
+
+/// Parse a persisted recent-search CSV (URL-encoded items) into an ordered list;
+/// null/empty ⇒ none. Encoding keeps commas/newlines in a query safe (R-L12).
+List<String> _recentsFromCsv(String? csv) {
+  if (csv == null || csv.isEmpty) return const <String>[];
+  return <String>[
+    for (final String e in csv.split(','))
+      if (e.isNotEmpty) Uri.decodeComponent(e),
+  ];
 }
 
 /// Parse a persisted [ThemeMode] name; unknown/absent ⇒ follow the system.

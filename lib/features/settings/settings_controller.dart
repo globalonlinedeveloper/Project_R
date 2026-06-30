@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show listEquals;
 import 'package:flutter/material.dart' show ThemeMode;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ratel/services/preferences/app_settings.dart';
@@ -46,6 +47,30 @@ class AppSettingsController extends Notifier<AppSettings> {
       return Future<void>.value();
     }
     return _commit(state.copyWith(readNotifications: next));
+  }
+
+  /// Records a search [query] in the device-local recent list (R-L12 "recent").
+  /// Most-recent-first, deduped case-insensitively, capped at 8, and persisted so
+  /// it survives a relaunch; blank queries are ignored.
+  Future<void> addRecentSearch(String query) {
+    final String q = query.trim();
+    if (q.isEmpty) return Future<void>.value();
+    final List<String> next = <String>[
+      q,
+      for (final String s in state.recentSearches)
+        if (s.toLowerCase() != q.toLowerCase()) s,
+    ];
+    const int cap = 8;
+    final List<String> capped =
+        next.length > cap ? next.sublist(0, cap) : next;
+    if (listEquals(capped, state.recentSearches)) return Future<void>.value();
+    return _commit(state.copyWith(recentSearches: capped));
+  }
+
+  /// Clears the device-local recent-search history (R-L12).
+  Future<void> clearRecentSearches() {
+    if (state.recentSearches.isEmpty) return Future<void>.value();
+    return _commit(state.copyWith(recentSearches: const <String>[]));
   }
 }
 

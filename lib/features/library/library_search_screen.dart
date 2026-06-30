@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
-import 'package:ratel/features/saved_words/saved_words_controller.dart';
 import 'package:ratel/services/search/search.dart';
 
 /// Global SEARCH screen (📚 Library → 🔍, R-L12). Searches the learner's REAL
@@ -51,6 +51,21 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
     _debounce?.cancel();
     _controller.clear();
     setState(() => _query = '');
+  }
+
+  /// Persist a genuine search into the device-local recent list (R-L12).
+  void _remember(String q) {
+    if (q.trim().isEmpty) return;
+    ref.read(appSettingsControllerProvider.notifier).addRecentSearch(q);
+  }
+
+  /// Re-run a tapped recent query.
+  void _runRecent(String q) {
+    _debounce?.cancel();
+    _controller.text = q;
+    _controller.selection =
+        TextSelection.collapsed(offset: _controller.text.length);
+    setState(() => _query = q);
   }
 
   /// Project the live providers into the engine's lightweight inputs.
@@ -146,6 +161,7 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
                 controller: _controller,
                 autofocus: true,
                 onChanged: _onChanged,
+                onSubmitted: _remember,
                 textInputAction: TextInputAction.search,
                 style: TextStyle(
                     fontFamily: RatelFont.body,
@@ -185,30 +201,87 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
     );
   }
 
-  Widget _idle(BuildContext context) => ListView(
-        padding: const EdgeInsets.fromLTRB(
-            RatelSpace.screen, 0, RatelSpace.screen, RatelSpace.xl),
-        children: <Widget>[
-          const RatelSectionHeader(label: 'Jump to'),
-          const SizedBox(height: RatelSpace.sm),
-          for (final SearchDestination d in kSearchDestinations.take(6)) ...<Widget>[
-            _row(
-              context,
-              SearchHit(
-                kind: SearchHitKind.destination,
-                title: d.title,
-                subtitle: d.subtitle,
-                route: d.route,
-                tag: 'Page',
-                emoji: d.emoji,
+  Widget _idle(BuildContext context) {
+    final List<String> recents =
+        ref.watch(appSettingsControllerProvider).recentSearches;
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(
+          RatelSpace.screen, 0, RatelSpace.screen, RatelSpace.xl),
+      children: <Widget>[
+        if (recents.isNotEmpty) ...<Widget>[
+          Row(
+            children: <Widget>[
+              const Expanded(child: RatelSectionHeader(label: 'Recent')),
+              GestureDetector(
+                key: const ValueKey<String>('recent-clear'),
+                onTap: () => ref
+                    .read(appSettingsControllerProvider.notifier)
+                    .clearRecentSearches(),
+                child: Text('Clear',
+                    style: TextStyle(
+                        fontFamily: RatelFont.body,
+                        fontSize: RatelType.small,
+                        fontWeight: RatelType.semiBold,
+                        color: context.palette.muted)),
               ),
-            ),
-            const SizedBox(height: RatelSpace.sm),
-          ],
+            ],
+          ),
           const SizedBox(height: RatelSpace.sm),
-          _note(context,
-              'Searching titles + tags across your course lessons, saved words and pages. Full-text search, story/podcast results and recent & trending arrive with the content index (R-L12 fast-follow) — nothing here is faked.'),
+          Wrap(
+            spacing: RatelSpace.sm,
+            runSpacing: RatelSpace.sm,
+            children: <Widget>[
+              for (final String q in recents) _recentChip(context, q),
+            ],
+          ),
+          const SizedBox(height: RatelSpace.lg),
         ],
+        const RatelSectionHeader(label: 'Jump to'),
+        const SizedBox(height: RatelSpace.sm),
+        for (final SearchDestination d in kSearchDestinations.take(6)) ...<Widget>[
+          _row(
+            context,
+            SearchHit(
+              kind: SearchHitKind.destination,
+              title: d.title,
+              subtitle: d.subtitle,
+              route: d.route,
+              tag: 'Page',
+              emoji: d.emoji,
+            ),
+          ),
+          const SizedBox(height: RatelSpace.sm),
+        ],
+        const SizedBox(height: RatelSpace.sm),
+        _note(context,
+            'Searching titles, tags and lesson content across your course, saved words and pages. A server content index and trending are the remaining R-L12 fast-follow — nothing here is faked.'),
+      ],
+    );
+  }
+
+  Widget _recentChip(BuildContext context, String q) => GestureDetector(
+        onTap: () => _runRecent(q),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: RatelSpace.md, vertical: RatelSpace.sm),
+          decoration: BoxDecoration(
+            color: context.palette.cream2,
+            borderRadius: BorderRadius.circular(RatelRadius.pill),
+            border: Border.all(color: context.palette.border),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const Text('🕘', style: TextStyle(fontSize: 13)),
+              const SizedBox(width: RatelSpace.xs),
+              Text(q,
+                  style: TextStyle(
+                      fontFamily: RatelFont.body,
+                      fontSize: RatelType.small,
+                      color: context.palette.ink)),
+            ],
+          ),
+        ),
       );
 
   Widget _noMatch(BuildContext context) => ListView(
@@ -235,7 +308,10 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
       );
 
   Widget _row(BuildContext context, SearchHit h) => GestureDetector(
-        onTap: () => context.push(h.route),
+        onTap: () {
+          _remember(_query);
+          context.push(h.route);
+        },
         child: Container(
           padding: const EdgeInsets.all(RatelSpace.md),
           decoration: BoxDecoration(
