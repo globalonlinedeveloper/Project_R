@@ -29,6 +29,10 @@ class SupabaseFriendsService implements FriendsService {
   /// SECURITY DEFINER RPC: accept / decline, mirroring both sides.
   static const String respondFn = 'respond_to_friend_request';
 
+  /// SECURITY DEFINER RPC: two-sided remove / block (clears the counterparty's
+  /// row too; block leaves the caller's own `'blocked'` row).
+  static const String removeFn = 'remove_friend';
+
   /// The caller's own `profiles` row (own-row RLS; unique index on the handle).
   static const String profilesTable = 'profiles';
 
@@ -64,6 +68,25 @@ class SupabaseFriendsService implements FriendsService {
         params: <String, Object?>{
           'requester_handle': normalizeHandle(requesterHandle),
           'accept': accept,
+        },
+      );
+      return resultFromRpc(res);
+    } on PostgrestException catch (e) {
+      return resultFromError(e);
+    } catch (_) {
+      return _network;
+    }
+  }
+
+  @override
+  Future<FriendDeliveryResult> removeFriend(String otherHandle,
+      {required bool block}) async {
+    try {
+      final Object? res = await _db.rpc(
+        removeFn,
+        params: <String, Object?>{
+          'other_handle': normalizeHandle(otherHandle),
+          'block': block,
         },
       );
       return resultFromRpc(res);
@@ -120,6 +143,9 @@ class SupabaseFriendsService implements FriendsService {
         return FriendDeliveryResult(FriendDeliveryOutcome.friends,
             status: status);
       case 'none':
+      case 'blocked':
+        // Both clear the cross-user friendship; 'blocked' additionally left the
+        // caller's own bookkeeping row (status preserved for the caller).
         return FriendDeliveryResult(FriendDeliveryOutcome.cleared,
             status: status);
       default:

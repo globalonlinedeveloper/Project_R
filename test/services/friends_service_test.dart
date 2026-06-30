@@ -27,6 +27,16 @@ void main() {
       expect((await svc.setHandle('me')).outcome,
           FriendDeliveryOutcome.unavailable);
     });
+
+    test('removeFriend (remove + block) is unavailable, never a fake clear',
+        () async {
+      final FriendDeliveryResult r =
+          await svc.removeFriend('mia', block: false);
+      expect(r.outcome, FriendDeliveryOutcome.unavailable);
+      expect(r.ok, isFalse);
+      expect((await svc.removeFriend('mia', block: true)).outcome,
+          FriendDeliveryOutcome.unavailable);
+    });
   });
 
   group('SupabaseFriendsService.normalizeHandle', () {
@@ -55,6 +65,13 @@ void main() {
                   <String, Object?>{'status': 'none'})
               .outcome,
           FriendDeliveryOutcome.cleared);
+    });
+    test('blocked ⇒ cleared, but keeps the blocked status for the caller', () {
+      final r = SupabaseFriendsService.resultFromRpc(
+          <String, Object?>{'status': 'blocked', 'handle': 'mia'});
+      expect(r.outcome, FriendDeliveryOutcome.cleared);
+      expect(r.status, 'blocked');
+      expect(r.ok, isTrue);
     });
     test('a non-map / missing status still resolves (delivered, no status)', () {
       final r = SupabaseFriendsService.resultFromRpc(null);

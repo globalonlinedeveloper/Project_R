@@ -117,13 +117,23 @@ class FriendsController extends Notifier<FriendsState> {
         ref.read(friendsServiceProvider).respond(userId, accept: false));
   }
 
-  /// Remove a friend or cancel an outgoing request.
-  void remove(String userId) =>
-      _set(engine.applyRemove(state.relationships, userId));
+  /// Remove a friend or cancel an outgoing request. The local row drops
+  /// immediately; on a real session the removal is also PROPAGATED to the other
+  /// account via the cross-user RPC, so they no longer keep a stale row.
+  void remove(String userId) {
+    _set(engine.applyRemove(state.relationships, userId));
+    _deliver(() =>
+        ref.read(friendsServiceProvider).removeFriend(userId, block: false));
+  }
 
-  /// Block a user (hidden; cannot be re-requested).
-  void block(String userId) =>
-      _set(engine.applyBlock(state.relationships, userId));
+  /// Block a user (hidden; cannot be re-requested). Clears the relationship on
+  /// BOTH sides and leaves the caller's own 'blocked' row (delivered server-side
+  /// too, so the blocked user can no longer reach the learner).
+  void block(String userId) {
+    _set(engine.applyBlock(state.relationships, userId));
+    _deliver(() =>
+        ref.read(friendsServiceProvider).removeFriend(userId, block: true));
+  }
 
   /// Report then block a user (R-I9 block/report) — the report routes to
   /// moderation when the durable graph goes live; locally it blocks so the

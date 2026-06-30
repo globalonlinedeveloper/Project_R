@@ -69,6 +69,14 @@ abstract interface class FriendsService {
   /// Claim / change the caller's own public @handle (own-row profile write) so
   /// other learners can add them. Returns the normalized handle on success.
   Future<FriendDeliveryResult> setHandle(String desiredHandle);
+
+  /// Remove a friend / cancel a request — or ([block] = true) block the user.
+  /// The definer RPC mirrors BOTH sides: it deletes the relationship row in the
+  /// caller's AND the counterparty's account (so unfriending no longer leaves
+  /// the other person a stale row), and when blocking additionally leaves the
+  /// caller's own `'blocked'` row so the user cannot be re-requested.
+  Future<FriendDeliveryResult> removeFriend(String otherHandle,
+      {required bool block});
 }
 
 /// Default (local / guest / un-configured build): no backend, so nothing can be
@@ -92,6 +100,11 @@ class UnavailableFriendsService implements FriendsService {
 
   @override
   Future<FriendDeliveryResult> setHandle(String desiredHandle) async =>
+      _unavailable;
+
+  @override
+  Future<FriendDeliveryResult> removeFriend(String otherHandle,
+          {required bool block}) async =>
       _unavailable;
 }
 

@@ -13,6 +13,7 @@ class _RecordingService implements FriendsService {
   final List<String> sent = <String>[];
   final List<(String, bool)> responded = <(String, bool)>[];
   final List<String> handles = <String>[];
+  final List<(String, bool)> removed = <(String, bool)>[];
 
   @override
   Future<FriendDeliveryResult> sendRequest(String targetHandle) async {
@@ -31,6 +32,13 @@ class _RecordingService implements FriendsService {
   Future<FriendDeliveryResult> setHandle(String desiredHandle) async {
     handles.add(desiredHandle);
     return const FriendDeliveryResult(FriendDeliveryOutcome.delivered);
+  }
+
+  @override
+  Future<FriendDeliveryResult> removeFriend(String otherHandle,
+      {required bool block}) async {
+    removed.add((otherHandle, block));
+    return const FriendDeliveryResult(FriendDeliveryOutcome.cleared);
   }
 }
 
@@ -68,9 +76,13 @@ void main() {
     c.sendRequest(_mia);
     c.accept('mia');
     c.decline('bob');
+    c.remove('mia');
+    c.block('bob');
 
     expect(svc.sent, <String>['mia']);
     expect(svc.responded, <(String, bool)>[('mia', true), ('bob', false)]);
+    // remove ⇒ block:false, block ⇒ block:true — both propagate cross-user.
+    expect(svc.removed, <(String, bool)>[('mia', false), ('bob', true)]);
   });
 
   test('a guest routes NOTHING (no session ⇒ delivery is skipped)', () {
@@ -85,10 +97,12 @@ void main() {
     final c = container.read(friendsControllerProvider.notifier);
     c.sendRequest(_mia);
     c.accept('mia');
+    c.remove('mia');
+    c.block('bob');
 
-    // The local optimistic row still exists, but nothing was delivered.
+    // The local optimistic state still updates, but nothing was delivered.
     expect(svc.sent, isEmpty);
     expect(svc.responded, isEmpty);
-    expect(container.read(friendsControllerProvider).relationships, isNotEmpty);
+    expect(svc.removed, isEmpty);
   });
 }

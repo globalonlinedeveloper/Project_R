@@ -78,4 +78,9 @@ class _RecordingFriendsService implements FriendsService {
     handles.add(h);
     return const FriendDeliveryResult(FriendDeliveryOutcome.delivered);
   }
+
+  @override
+  Future<FriendDeliveryResult> removeFriend(String otherHandle,
+          {required bool block}) async =>
+      const FriendDeliveryResult(FriendDeliveryOutcome.unavailable);
 }
