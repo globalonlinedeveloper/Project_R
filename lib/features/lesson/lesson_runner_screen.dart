@@ -452,7 +452,13 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
   // R-D8 (dictation / type-what-you-hear), R-D5 (listen).
   _Item? _buildListenItem(CourseSpine spine, String lessonId) {
     if (!ref.read(speechTtsProvider).isAvailable) return null;
-    for (final CourseLesson l in spine.lessons) {
+    // Prefer a phrase from the CURRENT lesson (relevant + varies per lesson);
+    // fall back to any authored phrase course-wide. Never dummy data.
+    final List<CourseLesson> ordered = <CourseLesson>[
+      for (final CourseLesson l in spine.lessons) if (l.id == lessonId) l,
+      for (final CourseLesson l in spine.lessons) if (l.id != lessonId) l,
+    ];
+    for (final CourseLesson l in ordered) {
       for (final CourseExercise e in l.exercises) {
         final String phrase =
             e.accepted.isNotEmpty ? e.accepted.first.trim() : '';

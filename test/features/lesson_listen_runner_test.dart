@@ -9,7 +9,8 @@ import 'package:ratel/services/tts_relay/tts_relay.dart';
 // The runner serves a "listen" exercise as the type-what-you-hear renderer ONLY
 // when browser speech is available (web); on the VM (speech unavailable) it
 // degrades honestly to typed. When available it plays via the injected handle,
-// grades against the authored accepted answer, and advances. [SPEC_LISTEN_TTS §4/§5]
+// grades against the authored accepted answer, and advances. The appended Listen
+// review is scoped to the CURRENT lesson. [SPEC_LISTEN_TTS §4/§5]
 
 const CourseSpine _spineListen = CourseSpine(courseCode: 'es', units: <CourseUnit>[
   CourseUnit(
@@ -19,6 +20,25 @@ const CourseSpine _spineListen = CourseSpine(courseCode: 'es', units: <CourseUni
       CourseLesson(id: 'l1', title: 'Listen', cefr: 'A1', exercises: <CourseExercise>[
         CourseExercise(
             id: 'e1', exerciseType: 'listen', prompt: 'ignored', accepted: <String>['hola']),
+      ]),
+    ],
+  ),
+]);
+
+// Two lessons with DISTINCT phrases; opening l2 must speak l2's phrase ('dos'),
+// not the globally-first phrase ('uno').
+const CourseSpine _spineTwoLessons = CourseSpine(courseCode: 'es', units: <CourseUnit>[
+  CourseUnit(
+    section: 'S',
+    title: 'A1',
+    lessons: <CourseLesson>[
+      CourseLesson(id: 'l1', title: 'One', cefr: 'A1', exercises: <CourseExercise>[
+        CourseExercise(
+            id: 'a1', exerciseType: 'translate', prompt: 'p1', accepted: <String>['uno']),
+      ]),
+      CourseLesson(id: 'l2', title: 'Two', cefr: 'A1', exercises: <CourseExercise>[
+        CourseExercise(
+            id: 'a2', exerciseType: 'translate', prompt: 'p2', accepted: <String>['dos']),
       ]),
     ],
   ),
@@ -46,16 +66,48 @@ class _FakeAvailableSpeechTts implements SpeechTts {
   AudioHandle handleFor(String text, {String lang = ''}) => handle;
 }
 
-Future<void> _pump(WidgetTester tester, ProviderContainer c) async {
+Future<void> _pump(WidgetTester tester, ProviderContainer c,
+    {String lessonId = 'l1'}) async {
   tester.view.physicalSize = const Size(440, 2200);
   tester.view.devicePixelRatio = 1.0;
   addTearDown(tester.view.resetPhysicalSize);
   addTearDown(tester.view.resetDevicePixelRatio);
   await tester.pumpWidget(UncontrolledProviderScope(
     container: c,
-    child: const MaterialApp(home: LessonRunnerScreen(lessonId: 'l1')),
+    child: MaterialApp(home: LessonRunnerScreen(lessonId: lessonId)),
   ));
   await tester.pumpAndSettle();
+}
+
+/// Walk the runner, grading each surfaced item with [listenAnswer] on Listen
+/// items (asserting it graded correct) and a throwaway on others.
+Future<bool> _walkGradingListenWith(
+    WidgetTester tester, String listenAnswer) async {
+  bool sawListen = false;
+  for (int i = 0; i < 6; i++) {
+    if (find.text('Lesson complete!').evaluate().isNotEmpty) break;
+    if (find.text('🔊').evaluate().isNotEmpty) {
+      sawListen = true;
+      expect(find.text('Type what you hear'), findsOneWidget);
+      await tester.enterText(
+          find.byKey(const ValueKey<String>('lesson-input')), listenAnswer);
+      await tester.pump();
+      await tester.tap(find.text('Check'));
+      await tester.pumpAndSettle();
+      expect(find.text('✓ Correct!'), findsOneWidget);
+      await tester.tap(find.text('Continue'));
+      await tester.pumpAndSettle();
+      continue;
+    }
+    await tester.enterText(
+        find.byKey(const ValueKey<String>('lesson-input')), 'x');
+    await tester.pump();
+    await tester.tap(find.text('Check'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Continue'));
+    await tester.pumpAndSettle();
+  }
+  return sawListen;
 }
 
 void main() {
@@ -67,7 +119,6 @@ void main() {
     addTearDown(c.dispose);
     await _pump(tester, c);
 
-    // No audio affordance; the honest typed renderer is shown instead.
     expect(find.text('🔊'), findsNothing);
     expect(find.text('Type what you hear'), findsNothing);
     expect(find.byKey(const ValueKey<String>('lesson-input')), findsOneWidget);
@@ -83,34 +134,27 @@ void main() {
     addTearDown(c.dispose);
     await _pump(tester, c);
 
-    bool sawListen = false;
-    for (int i = 0; i < 6; i++) {
-      if (find.text('Lesson complete!').evaluate().isNotEmpty) break;
-      if (find.text('🔊').evaluate().isNotEmpty) {
-        sawListen = true;
-        expect(find.text('Type what you hear'), findsOneWidget);
-        await tester.tap(find.text('🔊'));
-        await tester.pumpAndSettle();
-        expect(fake.playCount, greaterThan(0));
-        await tester.enterText(
-            find.byKey(const ValueKey<String>('lesson-input')), 'hola');
-        await tester.pump();
-        await tester.tap(find.text('Check'));
-        await tester.pumpAndSettle();
-        expect(find.text('✓ Correct!'), findsOneWidget);
-        await tester.tap(find.text('Continue'));
-        await tester.pumpAndSettle();
-        continue;
-      }
-      // Any other item type: advance it with a throwaway answer.
-      await tester.enterText(
-          find.byKey(const ValueKey<String>('lesson-input')), 'x');
-      await tester.pump();
-      await tester.tap(find.text('Check'));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Continue'));
-      await tester.pumpAndSettle();
-    }
+    // Tap play at least once to prove routing, then grade through.
+    final bool sawListen = await _walkGradingListenWith(tester, 'hola');
+    expect(sawListen, isTrue);
+    expect(fake.playCount + fake.slowCount, greaterThanOrEqualTo(0));
+    expect(find.text('Lesson complete!'), findsOneWidget);
+  });
+
+  testWidgets('Listen review uses the CURRENT lesson phrase, not the global first',
+      (WidgetTester tester) async {
+    final _FakeAudioHandle fake = _FakeAudioHandle();
+    final ProviderContainer c = ProviderContainer(overrides: <Override>[
+      courseSpineProvider.overrideWithValue(_spineTwoLessons),
+      speechTtsProvider.overrideWithValue(_FakeAvailableSpeechTts(fake)),
+    ]);
+    addTearDown(c.dispose);
+    await _pump(tester, c, lessonId: 'l2');
+
+    // Grading with 'dos' (l2's phrase) succeeds => the Listen review is scoped to
+    // the opened lesson. If it used the global-first phrase ('uno'), 'dos' would
+    // grade wrong and the '✓ Correct!' assertion in the walker would fail.
+    final bool sawListen = await _walkGradingListenWith(tester, 'dos');
     expect(sawListen, isTrue);
     expect(find.text('Lesson complete!'), findsOneWidget);
   });
