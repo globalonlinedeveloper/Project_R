@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:ratel/app/app_providers.dart';
+import 'package:ratel/app/navigation_focus.dart';
 import 'package:ratel/services/data_access/data_access.dart'
     show LeaguesStore, leaguesStoreProvider, kLeagueMembershipKey;
 import 'package:ratel/services/identity/identity.dart';
@@ -60,6 +61,18 @@ class LeaguesSyncController extends Notifier<LeagueSync> {
   @override
   LeagueSync build() {
     ref.onDispose(() => _disposed = true);
+    // Focus-refresh (S77, complements the S76 pull-to-refresh): re-poll the live
+    // cohort when the Leagues tab REGAINS focus — a tab switch back to /leagues,
+    // published by RatelShell via activeTabIndexProvider. Rising-edge only (into
+    // Leagues, not while already here); coalesced via _inFlight; a guest is an
+    // honest no-op. An IndexedStack tab switch is an index change, not a route
+    // push/pop, so this tab-focus signal — not a RouteObserver — is the accurate
+    // realization of "tab regains focus".
+    ref.listen<int>(activeTabIndexProvider, (int? prev, int next) {
+      if (next == RatelTab.leagues && prev != RatelTab.leagues) {
+        _refreshOnce();
+      }
+    });
     // Sync ONCE on build, mirroring FriendsController._rehydrate: read (never
     // watch) the learner snapshot so the in-flight async sync isn't torn down by
     // an unrelated learner-state rebuild. The solo baseline (leagueCohortProvider)

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ratel/core/core.dart';
+import 'package:ratel/app/navigation_focus.dart';
 import 'package:ratel/features/adventures/adventures_screen.dart';
 import 'package:ratel/features/auth/login_screen.dart';
 import 'package:ratel/features/auth/signup_screen.dart';
@@ -191,13 +192,21 @@ final routerProvider = Provider<GoRouter>((ref) => buildRouter());
 
 /// The persistent shell: the tab content + the 5-tab [RatelBottomNav]. Tapping
 /// the active tab re-roots its branch (Duolingo-style).
-class RatelShell extends StatelessWidget {
+class RatelShell extends ConsumerWidget {
   const RatelShell({super.key, required this.navigationShell});
 
   final StatefulNavigationShell navigationShell;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Publish the active bottom-nav branch so a tab can react to REGAINING focus
+    // (Leagues re-polls its live cohort — focus-refresh, complementing the S76
+    // pull-to-refresh). Post-frame: never mutate a provider during build; the
+    // setActive guard makes a redundant publish a no-op.
+    final int activeIndex = navigationShell.currentIndex;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(activeTabIndexProvider.notifier).setActive(activeIndex);
+    });
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: RatelBottomNav(
