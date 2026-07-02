@@ -102,6 +102,54 @@
           "created_at": "2026-06-23T00:00:00Z",
           "updated_at": "2026-06-23T00:00:00Z"
         }
+      },
+      {
+        "vocab_id": "vocab_rojo_es",
+        "locale": "es",
+        "lemma": "rojo",
+        "pos": "adj",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_azul_es",
+        "locale": "es",
+        "lemma": "azul",
+        "pos": "adj",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_verde_es",
+        "locale": "es",
+        "lemma": "verde",
+        "pos": "adj",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
+        }
       }
     ],
     "sense": [
@@ -168,6 +216,45 @@
           "content_version": 1,
           "created_at": "2026-06-23T00:00:00Z",
           "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_rojo",
+        "vocab_id": "vocab_rojo_es",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_azul",
+        "vocab_id": "vocab_azul_es",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_verde",
+        "vocab_id": "vocab_verde_es",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
         }
       }
     ],
@@ -334,6 +421,21 @@
           "content_version": 1,
           "created_at": "2026-06-23T00:00:00Z",
           "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "grammar_id": "skill_es_colors",
+        "locale": "es",
+        "name": "Colores",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
         }
       }
     ],
@@ -732,6 +834,168 @@
           "created_at": "2026-06-23T00:00:00Z",
           "updated_at": "2026-07-02T00:00:00Z"
         }
+      },
+      {
+        "item_id": "item_es_color_1",
+        "locale": "es",
+        "exercise_type": "mcq",
+        "enum_version": 1,
+        "prompt_ref": "prompt_item_es_color_1",
+        "answer_spec": {
+          "accepted": [
+            "rojo"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "strip_diacritics": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_colors"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.3,
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_es_color_2",
+        "locale": "es",
+        "exercise_type": "mcq",
+        "enum_version": 1,
+        "prompt_ref": "prompt_item_es_color_2",
+        "answer_spec": {
+          "accepted": [
+            "azul"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "strip_diacritics": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_colors"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.3,
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_es_color_3",
+        "locale": "es",
+        "exercise_type": "translate",
+        "enum_version": 1,
+        "prompt_ref": "prompt_item_es_color_3",
+        "answer_spec": {
+          "accepted": [
+            "verde"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "strip_diacritics": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_colors"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.0,
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_es_color_4",
+        "locale": "es",
+        "exercise_type": "translate",
+        "enum_version": 1,
+        "prompt_ref": "prompt_item_es_color_4",
+        "answer_spec": {
+          "accepted": [
+            "el libro rojo",
+            "libro rojo"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "strip_diacritics": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_colors"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.4,
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_es_color_listen_1",
+        "locale": "es",
+        "exercise_type": "listen",
+        "enum_version": 1,
+        "prompt_ref": "prompt_item_es_color_listen_1",
+        "answer_spec": {
+          "accepted": [
+            "el libro rojo",
+            "libro rojo"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "strip_diacritics": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_colors"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.4,
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
+        }
       }
     ],
     "gloss": [
@@ -928,6 +1192,111 @@
           "content_version": 1,
           "created_at": "2026-06-23T00:00:00Z",
           "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "sense_rojo",
+        "content_kind": "sense",
+        "ui_locale": "en",
+        "text": "red",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "sense_azul",
+        "content_kind": "sense",
+        "ui_locale": "en",
+        "text": "blue",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "sense_verde",
+        "content_kind": "sense",
+        "ui_locale": "en",
+        "text": "green",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_item_es_color_1",
+        "content_kind": "prompt",
+        "ui_locale": "en",
+        "text": "Which Spanish word means \"red\"?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_item_es_color_2",
+        "content_kind": "prompt",
+        "ui_locale": "en",
+        "text": "Which Spanish word means \"blue\"?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_item_es_color_3",
+        "content_kind": "prompt",
+        "ui_locale": "en",
+        "text": "Translate to Spanish: \"green\"",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_item_es_color_4",
+        "content_kind": "prompt",
+        "ui_locale": "en",
+        "text": "Translate to Spanish: \"the red book\"",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-02T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
         }
       }
     ]

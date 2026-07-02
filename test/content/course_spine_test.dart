@@ -17,8 +17,17 @@ void main() {
     final CourseSpine spine = buildCourseSpine(loadCourse());
     expect(spine.courseCode, 'es');
     // Six authored grammar points → six lesson nodes across A1 + A2.
-    expect(spine.lessonCount, 6);
+    expect(spine.lessonCount, 7); // +Colores (A1, S94)
     expect(spine.units.length, 2);
+    // The authored Colores lesson (S94) projects into the A1 unit.
+    final CourseLesson colors =
+        spine.lessons.firstWhere((CourseLesson l) => l.title == 'Colores');
+    expect(colors.cefr, 'A1');
+    expect(colors.exerciseCount, 5); // 2 mcq + 2 translate + 1 authored listen
+    expect(
+      colors.exercises.any((CourseExercise e) => e.exerciseType == 'listen'),
+      true,
+    );
     expect(spine.units.first.section, 'SECTION 1 · LEVEL A1');
     expect(spine.units.last.title, 'Level A2');
   });
