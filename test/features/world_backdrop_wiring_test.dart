@@ -21,9 +21,9 @@ void main() {
       final ThemeData ocean = RatelTheme.world(kThemeWorlds['ocean']!);
       expect(ocean.scaffoldBackgroundColor.a, lessThan(0.95));
       expect(ocean.appBarTheme.backgroundColor!.a, lessThan(0.95));
-      // forest's 'fireflies' backdrop has no wave-1 painter yet -> opaque bg.
-      final ThemeData forest = RatelTheme.world(kThemeWorlds['forest']!);
-      expect(forest.scaffoldBackgroundColor.a, greaterThan(0.99));
+      // alpine has no ported painter yet (deferred to the final wave) -> opaque.
+      final ThemeData alpine = RatelTheme.world(kThemeWorlds['alpine']!);
+      expect(alpine.scaffoldBackgroundColor.a, greaterThan(0.99));
     });
   });
 
