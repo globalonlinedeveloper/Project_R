@@ -50,10 +50,26 @@ CourseSpine buildCourseSpine(ContentBatch batch) {
     );
   }
 
-  // grammar_id -> its items, preserving authored item order.
+  // Items OWNED by another surface never appear as path exercises: passage
+  // comprehension checks render with their passage, scenario turn items inside
+  // their roleplay (R-D10). Pure data — derived from the refs, no type lists.
+  final Set<String> surfaceOwned = <String>{
+    for (final Passage p in batch.passages) ...?p.checkItemRefs,
+    for (final Scenario sc in batch.scenarios)
+      for (final Map<String, Object?> m in sc.scenes)
+        if (m['turn_item_ref'] is String) m['turn_item_ref']! as String,
+  };
+
+  // grammar_id -> its PATH items, preserving authored item order. Data-driven
+  // gradability rule: only items carrying an answer_spec are servable on the
+  // path today (write items are rubric-graded — they surface via their own
+  // renderer increment, never as a broken typed exercise).
   List<CourseExercise> exercisesFor(String grammarId) => <CourseExercise>[
         for (final Item it in batch.items)
-          if (it.skillIds.contains(grammarId)) toExercise(it),
+          if (it.skillIds.contains(grammarId) &&
+              it.answerSpec != null &&
+              !surfaceOwned.contains(it.itemId))
+            toExercise(it),
       ];
 
   CourseLesson lessonOf(GrammarPoint gp) => CourseLesson(

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ratel/content/loader/content_loader.dart';
+import 'package:ratel/content/models/models.dart';
 import 'package:ratel/content/spine/content_course_spine.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 
@@ -158,7 +159,7 @@ void main() {
   test('EN proof wave: en/course.batch.json loads + projects the authored curriculum', () {
     final ContentBatch en = loader.loadString(
         File('assets/content/en/course.batch.json').readAsStringSync());
-    expect(en.rowCount, 176); // 1 unit + 4 gp + 14 vocab + 14 sense + 12 sent + 27 item + 104 gloss
+    expect(en.rowCount, 233); // +type-sample set (S96): 3 passages + 2 scenarios + write item + checks
     final CourseSpine spine = buildCourseSpine(en);
     expect(spine.courseCode, 'en');
     final CourseUnit u1 = spine.units.first;
@@ -183,6 +184,22 @@ void main() {
           true,
           reason: '${l.id} has an unresolved prompt_ref');
     }
+    // Ownership + gradability: surface-owned items (story checks, roleplay
+    // turns) and rubric-graded write items never leak onto the path.
+    final Set<String> pathItemIds = <String>{
+      for (final CourseLesson l in u1.lessons)
+        for (final CourseExercise e in l.exercises) e.id,
+    };
+    expect(pathItemIds.contains('item_en_a1_s1u1_chk_1'), false);
+    expect(pathItemIds.contains('item_en_a1_s1u1_meet_1'), false);
+    expect(pathItemIds.contains('item_en_a1_s1u1_write_1'), false);
+    expect(
+        <CourseExercise>[
+          for (final CourseLesson l in u1.lessons) ...l.exercises
+        ].every((CourseExercise e) => e.accepted.isNotEmpty),
+        true,
+        reason: 'every PATH exercise must be gradable-as-data');
+
     // Word-bank hygiene: listen phrases tokenize clean (no trailing period tile).
     final Iterable<CourseExercise> listens = <CourseExercise>[
       for (final CourseLesson l in u1.lessons)
@@ -194,5 +211,100 @@ void main() {
         listens.every(
             (CourseExercise e) => e.accepted.first.split(' ').length >= 2),
         true);
+  });
+
+  // ---- S96 type-sample set: ONE of EVERY content type, verified DYNAMICALLY
+  // (loops over whatever rows exist — no hardcoded structure counts). ----
+
+  test('type-sample: every passage/scenario/write row is coherent + all kinds covered', () {
+    final ContentBatch en = loader.loadString(
+        File('assets/content/en/course.batch.json').readAsStringSync());
+    final Set<String> sentenceIds = <String>{
+      for (final Sentence s in en.sentences) s.sentenceId
+    };
+    final Set<String> itemIds = <String>{for (final Item i in en.items) i.itemId};
+    final Map<String, Gloss> glossById = <String, Gloss>{
+      for (final Gloss g in en.glosses) g.contentId: g
+    };
+
+    // (1) Passages: all three kinds authored; EVERY ref resolves.
+    expect({for (final Passage p in en.passages) p.kind},
+        {PassageKind.story, PassageKind.podcast, PassageKind.video});
+    for (final Passage p in en.passages) {
+      expect(glossById.containsKey(p.titleRef), true, reason: p.passageId);
+      for (final String sr in p.sentenceRefs) {
+        expect(sentenceIds.contains(sr), true, reason: '$sr of ${p.passageId}');
+      }
+      for (final String cr in p.checkItemRefs ?? const <String>[]) {
+        expect(itemIds.contains(cr), true, reason: 'check $cr of ${p.passageId}');
+      }
+      final String? er = p.explainRef;
+      if (er != null) expect(glossById.containsKey(er), true);
+      if (p.kind == PassageKind.video) {
+        // Watch: the text-to-video storyline PROMPT is authored data.
+        expect(p.videoPrompt, isNotNull);
+        expect(p.videoPrompt!.trim(), isNotEmpty);
+      }
+      if (p.kind == PassageKind.story) {
+        // R-B4: every story line carries a pre-baked per-line explain gloss.
+        for (final String sr in p.sentenceRefs) {
+          expect(glossById[sr]?.contentKind, ContentKind.explanation,
+              reason: 'per-line explain missing for $sr');
+        }
+        expect(p.checkItemRefs, isNotNull); // 1-3 comprehension checks
+        expect(p.checkItemRefs!.length, inInclusiveRange(1, 3));
+      }
+    }
+
+    // (2) Scenarios: both kinds; scenes fully wired; branching targets exist.
+    expect({for (final Scenario sc in en.scenarios) sc.kind},
+        {ScenarioKind.roleplay, ScenarioKind.adventure});
+    for (final Scenario sc in en.scenarios) {
+      expect(glossById.containsKey(sc.titleRef), true, reason: sc.scenarioId);
+      expect(glossById.containsKey(sc.goalRef), true, reason: sc.scenarioId);
+      final Set<String> sceneIds = <String>{
+        for (final Map<String, Object?> m in sc.scenes) m['scene_id']! as String
+      };
+      for (final Map<String, Object?> m in sc.scenes) {
+        expect(sentenceIds.contains(m['line_sentence_ref']! as String), true);
+        final String? turn = m['turn_item_ref'] as String?;
+        if (turn != null) {
+          expect(itemIds.contains(turn), true,
+              reason: 'R-D10 embedded atomic item $turn');
+        }
+        for (final Object? c in (m['choices'] as List<Object?>? ?? const <Object?>[])) {
+          final Map<String, Object?> cm =
+              Map<String, Object?>.from(c! as Map<Object?, Object?>);
+          expect(glossById.containsKey(cm['label_ref']! as String), true);
+          final String? next = cm['next_scene_id'] as String?;
+          if (next != null) {
+            expect(sceneIds.contains(next), true,
+                reason: 'branch target $next of ${sc.scenarioId}');
+          }
+        }
+      }
+      if (sc.kind == ScenarioKind.roleplay) {
+        // Multi-speaker + a GRADED player turn + a header rubric (R-D10).
+        expect({for (final m in sc.scenes) m['speaker']! as String}.length,
+            greaterThan(1));
+        expect(sc.scenes.any((m) => m['turn_item_ref'] != null), true);
+        expect(sc.rubricRef, isNotNull);
+        expect(glossById[sc.rubricRef!]?.contentKind, ContentKind.rubric);
+      }
+    }
+
+    // (3) Guided Writing: machine rubric + display rubric + explanation.
+    final List<Item> writes = <Item>[
+      for (final Item i in en.items)
+        if (i.exerciseType == ExerciseType.write) i
+    ];
+    expect(writes, isNotEmpty);
+    for (final Item w in writes) {
+      expect(w.rubricSpec, isNotNull, reason: 'R-D11 #45 machine rubric');
+      expect(w.rubricSpec!['min_tokens'], isA<int>());
+      expect(glossById.containsKey(w.promptRef), true);
+    }
+    expect(
+        en.glosses.any((Gloss g) => g.contentKind == ContentKind.rubric), true);
   });
 }

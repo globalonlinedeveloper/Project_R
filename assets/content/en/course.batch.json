@@ -858,6 +858,352 @@
           "created_at": "2026-07-03T00:00:00Z",
           "updated_at": "2026-07-03T00:00:00Z"
         }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_101",
+        "locale": "en",
+        "target_text": "Anna is a new student.",
+        "tokens": [
+          {
+            "surface": "Anna",
+            "lemma_ref": "vocab_anna_en"
+          },
+          {
+            "surface": "is"
+          },
+          {
+            "surface": "a"
+          },
+          {
+            "surface": "new"
+          },
+          {
+            "surface": "student"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_102",
+        "locale": "en",
+        "target_text": "She says hello to her teacher.",
+        "tokens": [
+          {
+            "surface": "She"
+          },
+          {
+            "surface": "says"
+          },
+          {
+            "surface": "hello",
+            "lemma_ref": "vocab_hello_en"
+          },
+          {
+            "surface": "to"
+          },
+          {
+            "surface": "her"
+          },
+          {
+            "surface": "teacher"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_103",
+        "locale": "en",
+        "target_text": "The teacher says good morning.",
+        "tokens": [
+          {
+            "surface": "The"
+          },
+          {
+            "surface": "teacher"
+          },
+          {
+            "surface": "says"
+          },
+          {
+            "surface": "good",
+            "lemma_ref": "vocab_good_en"
+          },
+          {
+            "surface": "morning",
+            "lemma_ref": "vocab_morning_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_104",
+        "locale": "en",
+        "target_text": "A boy asks her name.",
+        "tokens": [
+          {
+            "surface": "A"
+          },
+          {
+            "surface": "boy"
+          },
+          {
+            "surface": "asks"
+          },
+          {
+            "surface": "her"
+          },
+          {
+            "surface": "name",
+            "lemma_ref": "vocab_name_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_105",
+        "locale": "en",
+        "target_text": "Anna says goodbye after school.",
+        "tokens": [
+          {
+            "surface": "Anna",
+            "lemma_ref": "vocab_anna_en"
+          },
+          {
+            "surface": "says"
+          },
+          {
+            "surface": "goodbye"
+          },
+          {
+            "surface": "after"
+          },
+          {
+            "surface": "school"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_106",
+        "locale": "en",
+        "target_text": "Hello, my name is Ben.",
+        "tokens": [
+          {
+            "surface": "Hello",
+            "lemma_ref": "vocab_hello_en"
+          },
+          {
+            "surface": ","
+          },
+          {
+            "surface": "my"
+          },
+          {
+            "surface": "name",
+            "lemma_ref": "vocab_name_en"
+          },
+          {
+            "surface": "is"
+          },
+          {
+            "surface": "Ben"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_107",
+        "locale": "en",
+        "target_text": "Nice to meet you.",
+        "tokens": [
+          {
+            "surface": "Nice",
+            "lemma_ref": "vocab_nice_en"
+          },
+          {
+            "surface": "to"
+          },
+          {
+            "surface": "meet",
+            "lemma_ref": "vocab_meet_en"
+          },
+          {
+            "surface": "you"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_108",
+        "locale": "en",
+        "target_text": "See you later, Ben.",
+        "tokens": [
+          {
+            "surface": "See"
+          },
+          {
+            "surface": "you"
+          },
+          {
+            "surface": "later"
+          },
+          {
+            "surface": ","
+          },
+          {
+            "surface": "Ben"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_109",
+        "locale": "en",
+        "target_text": "Please come in.",
+        "tokens": [
+          {
+            "surface": "Please",
+            "lemma_ref": "vocab_please_en"
+          },
+          {
+            "surface": "come"
+          },
+          {
+            "surface": "in"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_110",
+        "locale": "en",
+        "target_text": "Thank you very much.",
+        "tokens": [
+          {
+            "surface": "Thank",
+            "lemma_ref": "vocab_thank_en"
+          },
+          {
+            "surface": "you"
+          },
+          {
+            "surface": "very"
+          },
+          {
+            "surface": "much"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
       }
     ],
     "item": [
@@ -1966,6 +2312,175 @@
         "cefr_level": "A1",
         "difficulty_band": "core",
         "irt_b": -1.2,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_chk_1",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u1_chk_1",
+        "answer_spec": {
+          "accepted": [
+            "Anna"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "Anna",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u1_chk_1_a"
+          },
+          {
+            "option_id": "b",
+            "text": "Ben",
+            "explain_ref": "expl_en_a1_s1u1_chk_1_b"
+          },
+          {
+            "option_id": "c",
+            "text": "The teacher",
+            "explain_ref": "expl_en_a1_s1u1_chk_1_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u1_l1"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.8,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_chk_2",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u1_chk_2",
+        "answer_spec": {
+          "accepted": [
+            "Good morning."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "Good morning.",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u1_chk_2_a"
+          },
+          {
+            "option_id": "b",
+            "text": "Good night.",
+            "explain_ref": "expl_en_a1_s1u1_chk_2_b"
+          },
+          {
+            "option_id": "c",
+            "text": "Thank you.",
+            "explain_ref": "expl_en_a1_s1u1_chk_2_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u1_l1"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.6,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_meet_1",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u1_meet_1",
+        "answer_spec": {
+          "accepted": [
+            "Nice to meet you."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "Nice to meet you.",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u1_meet_1_a"
+          },
+          {
+            "option_id": "b",
+            "text": "Good night.",
+            "explain_ref": "expl_en_a1_s1u1_meet_1_b"
+          },
+          {
+            "option_id": "c",
+            "text": "Goodbye.",
+            "explain_ref": "expl_en_a1_s1u1_meet_1_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u1_l4"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.7,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_write_1",
+        "locale": "en",
+        "exercise_type": "write",
+        "prompt_ref": "prompt_en_a1_s1u1_write_1",
+        "rubric_spec": {
+          "min_tokens": 6,
+          "required_vocab_refs": [
+            "vocab_hello_en",
+            "vocab_name_en"
+          ],
+          "require_terminal_punct": true
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u1_l4"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.4,
         "provenance": {
           "batch_id": "batch_en_course_0001",
           "provenance": "ai_generated",
@@ -3424,6 +3939,720 @@
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "'Nice to meet you.' is the friendly phrase for meeting someone new.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "passagetitle_en_a1_story_0001",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Anna's First Day",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "passageexpl_en_a1_story_0001",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "This story practices the greetings and introductions from Unit 1: saying hello, good morning, and goodbye at school.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "sentence_en_a1_s1u1_101",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Anna is a new student' — we use 'is' with one person (he, she, Anna).",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "sentence_en_a1_s1u1_102",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Says hello' — 'hello' works at any time of day.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "sentence_en_a1_s1u1_103",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Good morning' is the greeting before midday.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "sentence_en_a1_s1u1_104",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Asks her name' — to ask a name, say: What is your name?",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "sentence_en_a1_s1u1_105",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Goodbye' is for leaving — the opposite of 'hello'.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "passagetitle_en_a1_pod_0001",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Morning Greetings — Episode 1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "passageexpl_en_a1_pod_0001",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "A short listening episode: two people greet each other and introduce themselves.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "passagetitle_en_a1_watch_0001",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Saying Hello at School",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_en_a1_meet",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Meet a New Classmate",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_en_a1_meet",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Greet Ben and introduce yourself politely.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "rubric_en_a1_meet",
+        "content_kind": "rubric",
+        "ui_locale": "en",
+        "text": "Full marks: greet Ben, reply politely, and use a phrase from this unit.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_en_a1_meet_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Nice to meet you.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_en_a1_meet_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Good night.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_en_a1_meet_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Goodbye.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_meet_1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Ben says: 'Hello, my name is Ben.' Choose the polite reply.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_meet_1",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Nice to meet you' is the polite reply when someone tells you their name.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_meet_1_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Correct — 'Nice to meet you' answers an introduction politely.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_meet_1_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Good night' is for bedtime or leaving at night, not for meeting someone.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_meet_1_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Goodbye' ends a conversation — Ben has just introduced himself.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_en_a1_adv",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "First Day Adventure",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_en_a1_adv",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Talk your way through your first morning at school.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_en_a1_adv_1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Say good morning to the teacher",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_en_a1_adv_2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Say hello to the new boy",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_write_1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Introduce yourself in two short sentences. Use 'hello' and your name.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "rubric_en_a1_s1u1_write_1",
+        "content_kind": "rubric",
+        "ui_locale": "en",
+        "text": "Write at least 6 words. Say hello and give your name. End sentences with a full stop.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_write_1",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "A good answer greets and gives a name, e.g.: 'Hello! My name is Anna.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_chk_1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Who is the new student in the story?",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_chk_1",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "The first line says: 'Anna is a new student.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_chk_1_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Correct — the story starts: 'Anna is a new student.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_chk_1_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Ben is the boy Anna meets, not the new student in the story.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_chk_1_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "The teacher greets Anna — the teacher is not new.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_chk_2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "What does the teacher say to Anna?",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_chk_2",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "The teacher greets her in the morning: 'Good morning.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_chk_2_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Correct — the story says the teacher says good morning.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_chk_2_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Good night' is for the evening — the story happens in the morning.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_chk_2_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Thank you' shows thanks — the teacher is greeting, not thanking.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      }
+    ],
+    "passage": [
+      {
+        "passage_id": "passage_en_a1_story_0001",
+        "locale": "en",
+        "kind": "story",
+        "title_ref": "passagetitle_en_a1_story_0001",
+        "cefr_level": "A1",
+        "theme": "first day at school",
+        "collection_id": "collection_en_a1_stories_1",
+        "sentence_refs": [
+          "sentence_en_a1_s1u1_101",
+          "sentence_en_a1_s1u1_102",
+          "sentence_en_a1_s1u1_103",
+          "sentence_en_a1_s1u1_104",
+          "sentence_en_a1_s1u1_105"
+        ],
+        "check_item_refs": [
+          "item_en_a1_s1u1_chk_1",
+          "item_en_a1_s1u1_chk_2"
+        ],
+        "explain_ref": "passageexpl_en_a1_story_0001",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "passage_id": "passage_en_a1_pod_0001",
+        "locale": "en",
+        "kind": "podcast",
+        "title_ref": "passagetitle_en_a1_pod_0001",
+        "cefr_level": "A1",
+        "theme": "greetings",
+        "sentence_refs": [
+          "sentence_en_a1_s1u1_001",
+          "sentence_en_a1_s1u1_002",
+          "sentence_en_a1_s1u1_004"
+        ],
+        "duration_ms": 45000,
+        "explain_ref": "passageexpl_en_a1_pod_0001",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "passage_id": "passage_en_a1_watch_0001",
+        "locale": "en",
+        "kind": "video",
+        "title_ref": "passagetitle_en_a1_watch_0001",
+        "cefr_level": "A1",
+        "theme": "greetings",
+        "sentence_refs": [
+          "sentence_en_a1_s1u1_001",
+          "sentence_en_a1_s1u1_004"
+        ],
+        "video_prompt": "A warm, friendly 2D-animated morning at a small school: a girl named Anna arrives, waves, and says 'Good morning.' to her teacher; a boy asks her name; everyone smiles. Child-friendly, bright colours, slow pacing; each spoken line appears as an on-screen subtitle.",
+        "duration_ms": 30000,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      }
+    ],
+    "scenario": [
+      {
+        "scenario_id": "scenario_en_a1_meet",
+        "locale": "en",
+        "kind": "roleplay",
+        "title_ref": "scenariotitle_en_a1_meet",
+        "cefr_level": "A1",
+        "world": "school hallway",
+        "goal_ref": "goal_en_a1_meet",
+        "rubric_ref": "rubric_en_a1_meet",
+        "skill_ids": [
+          "skill_en_a1_s1u1_l1",
+          "skill_en_a1_s1u1_l4"
+        ],
+        "scenes": [
+          {
+            "scene_id": "sc1",
+            "speaker": "Ben",
+            "line_sentence_ref": "sentence_en_a1_s1u1_106"
+          },
+          {
+            "scene_id": "sc2",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_en_a1_s1u1_107",
+            "turn_item_ref": "item_en_a1_s1u1_meet_1",
+            "choices": [
+              {
+                "label_ref": "choicelabel_en_a1_meet_a",
+                "option_id": "a",
+                "next_scene_id": "sc3",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_en_a1_meet_b",
+                "option_id": "b",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_en_a1_meet_c",
+                "option_id": "c",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc3",
+            "speaker": "Ben",
+            "line_sentence_ref": "sentence_en_a1_s1u1_108"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_en_a1_adv",
+        "locale": "en",
+        "kind": "adventure",
+        "title_ref": "scenariotitle_en_a1_adv",
+        "cefr_level": "A1",
+        "world": "school",
+        "goal_ref": "goal_en_a1_adv",
+        "scenes": [
+          {
+            "scene_id": "a1",
+            "speaker": "narrator",
+            "line_sentence_ref": "sentence_en_a1_s1u1_101",
+            "choices": [
+              {
+                "label_ref": "choicelabel_en_a1_adv_1",
+                "next_scene_id": "a2"
+              },
+              {
+                "label_ref": "choicelabel_en_a1_adv_2",
+                "next_scene_id": "a3"
+              }
+            ]
+          },
+          {
+            "scene_id": "a2",
+            "speaker": "teacher",
+            "line_sentence_ref": "sentence_en_a1_s1u1_103"
+          },
+          {
+            "scene_id": "a3",
+            "speaker": "Ben",
+            "line_sentence_ref": "sentence_en_a1_s1u1_106"
+          }
+        ],
         "provenance": {
           "batch_id": "batch_en_course_0001",
           "provenance": "ai_generated",
