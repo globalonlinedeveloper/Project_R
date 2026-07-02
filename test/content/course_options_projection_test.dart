@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ratel/content/loader/content_loader.dart';
-import 'package:ratel/content/models/models.dart';
 import 'package:ratel/content/spine/content_course_spine.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 
@@ -44,6 +43,26 @@ void main() {
       expect(e.accepted.first,
           e.options.firstWhere((CourseOption o) => o.isCorrect).text,
           reason: e.id);
+    }
+  });
+
+  test('U2 About You wave projects as the 2nd authored unit (S97)', () {
+    final CourseSpine spine = buildCourseSpine(loadEn());
+    expect(spine.units.length, greaterThanOrEqualTo(2));
+    final CourseUnit u2 = spine.units[1];
+    expect(u2.section, 'SECTION 1 · FOUNDATIONS');
+    expect(u2.title, 'About You');
+    expect(u2.guideText, isNotNull);
+    expect(u2.lessons.map((CourseLesson l) => l.id).toList(), <String>[
+      'skill_en_a1_s1u2_l1',
+      'skill_en_a1_s1u2_l2',
+      'skill_en_a1_s1u2_l3',
+      'skill_en_a1_s1u2_l4',
+    ]);
+    for (final CourseLesson l in u2.lessons) {
+      expect(l.exercises.length, 7, reason: l.id);
+      expect(l.exercises.any((CourseExercise e) => e.exerciseType == 'listen'),
+          true, reason: '${l.id} needs a listen exercise');
     }
   });
 

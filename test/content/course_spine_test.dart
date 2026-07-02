@@ -159,7 +159,7 @@ void main() {
   test('EN proof wave: en/course.batch.json loads + projects the authored curriculum', () {
     final ContentBatch en = loader.loadString(
         File('assets/content/en/course.batch.json').readAsStringSync());
-    expect(en.rowCount, 233); // +type-sample set (S96): 3 passages + 2 scenarios + write item + checks
+    expect(en.rowCount, 420); // +U2 'About You' wave (S97: 187 rows, wave integrator)
     final CourseSpine spine = buildCourseSpine(en);
     expect(spine.courseCode, 'en');
     final CourseUnit u1 = spine.units.first;

@@ -25,6 +25,30 @@
           "created_at": "2026-07-03T00:00:00Z",
           "updated_at": "2026-07-03T00:00:00Z"
         }
+      },
+      {
+        "unit_id": "unit_en_a1_s1_u2",
+        "locale": "en",
+        "cefr_level": "A1",
+        "section_order": 1,
+        "section_title_ref": "sectiontitle_en_a1_s1",
+        "unit_order": 2,
+        "title_ref": "unittitle_en_a1_s1_u2",
+        "guide_ref": "guide_en_a1_s1_u2",
+        "objective_descriptor_ids": [
+          "cefr2020_a1_origin",
+          "cefr2020_a1_he_she_be",
+          "cefr2020_a1_numbers",
+          "cefr2020_a1_age"
+        ],
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
       }
     ],
     "grammar_point": [
@@ -85,6 +109,70 @@
         "lesson_order": 4,
         "provenance": {
           "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "grammar_id": "skill_en_a1_s1u2_l1",
+        "locale": "en",
+        "name": "Where Are You From?",
+        "cefr_level": "A1",
+        "unit_id": "unit_en_a1_s1_u2",
+        "lesson_order": 1,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "grammar_id": "skill_en_a1_s1u2_l2",
+        "locale": "en",
+        "name": "He Is / She Is",
+        "cefr_level": "A1",
+        "unit_id": "unit_en_a1_s1_u2",
+        "lesson_order": 2,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "grammar_id": "skill_en_a1_s1u2_l3",
+        "locale": "en",
+        "name": "Numbers 1–10",
+        "cefr_level": "A1",
+        "unit_id": "unit_en_a1_s1_u2",
+        "lesson_order": 3,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "grammar_id": "skill_en_a1_s1u2_l4",
+        "locale": "en",
+        "name": "How Old Are You?",
+        "cefr_level": "A1",
+        "unit_id": "unit_en_a1_s1_u2",
+        "lesson_order": 4,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
           "provenance": "ai_generated",
           "review_status": "auto_certified",
           "content_version": 1,
@@ -303,6 +391,261 @@
           "created_at": "2026-07-03T00:00:00Z",
           "updated_at": "2026-07-03T00:00:00Z"
         }
+      },
+      {
+        "vocab_id": "vocab_japan_en",
+        "locale": "en",
+        "lemma": "Japan",
+        "pos": "propn",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_france_en",
+        "locale": "en",
+        "lemma": "France",
+        "pos": "propn",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_brazil_en",
+        "locale": "en",
+        "lemma": "Brazil",
+        "pos": "propn",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_india_en",
+        "locale": "en",
+        "lemma": "India",
+        "pos": "propn",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_mexico_en",
+        "locale": "en",
+        "lemma": "Mexico",
+        "pos": "propn",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_one_en",
+        "locale": "en",
+        "lemma": "one",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_two_en",
+        "locale": "en",
+        "lemma": "two",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_three_en",
+        "locale": "en",
+        "lemma": "three",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_four_en",
+        "locale": "en",
+        "lemma": "four",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_five_en",
+        "locale": "en",
+        "lemma": "five",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_six_en",
+        "locale": "en",
+        "lemma": "six",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_seven_en",
+        "locale": "en",
+        "lemma": "seven",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_eight_en",
+        "locale": "en",
+        "lemma": "eight",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_nine_en",
+        "locale": "en",
+        "lemma": "nine",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_ten_en",
+        "locale": "en",
+        "lemma": "ten",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_old_en",
+        "locale": "en",
+        "lemma": "old",
+        "pos": "adj",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_year_en",
+        "locale": "en",
+        "lemma": "year",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
       }
     ],
     "sense": [
@@ -481,6 +824,227 @@
         "pos": "verb",
         "provenance": {
           "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_japan_en_1",
+        "vocab_id": "vocab_japan_en",
+        "pos": "propn",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_france_en_1",
+        "vocab_id": "vocab_france_en",
+        "pos": "propn",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_brazil_en_1",
+        "vocab_id": "vocab_brazil_en",
+        "pos": "propn",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_india_en_1",
+        "vocab_id": "vocab_india_en",
+        "pos": "propn",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_mexico_en_1",
+        "vocab_id": "vocab_mexico_en",
+        "pos": "propn",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_one_en_1",
+        "vocab_id": "vocab_one_en",
+        "pos": "noun",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_two_en_1",
+        "vocab_id": "vocab_two_en",
+        "pos": "noun",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_three_en_1",
+        "vocab_id": "vocab_three_en",
+        "pos": "noun",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_four_en_1",
+        "vocab_id": "vocab_four_en",
+        "pos": "noun",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_five_en_1",
+        "vocab_id": "vocab_five_en",
+        "pos": "noun",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_six_en_1",
+        "vocab_id": "vocab_six_en",
+        "pos": "noun",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_seven_en_1",
+        "vocab_id": "vocab_seven_en",
+        "pos": "noun",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_eight_en_1",
+        "vocab_id": "vocab_eight_en",
+        "pos": "noun",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_nine_en_1",
+        "vocab_id": "vocab_nine_en",
+        "pos": "noun",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_ten_en_1",
+        "vocab_id": "vocab_ten_en",
+        "pos": "noun",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_old_en_1",
+        "vocab_id": "vocab_old_en",
+        "pos": "adj",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_year_en_1",
+        "vocab_id": "vocab_year_en",
+        "pos": "noun",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
           "provenance": "ai_generated",
           "review_status": "auto_certified",
           "content_version": 1,
@@ -1198,6 +1762,503 @@
         "cefr_level": "A1",
         "provenance": {
           "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u2_001",
+        "locale": "en",
+        "target_text": "I am from Japan.",
+        "tokens": [
+          {
+            "surface": "I"
+          },
+          {
+            "surface": "am"
+          },
+          {
+            "surface": "from"
+          },
+          {
+            "surface": "Japan",
+            "lemma_ref": "vocab_japan_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u2_002",
+        "locale": "en",
+        "target_text": "Where are you from?",
+        "tokens": [
+          {
+            "surface": "Where"
+          },
+          {
+            "surface": "are"
+          },
+          {
+            "surface": "you"
+          },
+          {
+            "surface": "from"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u2_003",
+        "locale": "en",
+        "target_text": "She is from France.",
+        "tokens": [
+          {
+            "surface": "She"
+          },
+          {
+            "surface": "is"
+          },
+          {
+            "surface": "from"
+          },
+          {
+            "surface": "France",
+            "lemma_ref": "vocab_france_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u2_004",
+        "locale": "en",
+        "target_text": "He is from India.",
+        "tokens": [
+          {
+            "surface": "He"
+          },
+          {
+            "surface": "is"
+          },
+          {
+            "surface": "from"
+          },
+          {
+            "surface": "India",
+            "lemma_ref": "vocab_india_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u2_005",
+        "locale": "en",
+        "target_text": "I am from Brazil.",
+        "tokens": [
+          {
+            "surface": "I"
+          },
+          {
+            "surface": "am"
+          },
+          {
+            "surface": "from"
+          },
+          {
+            "surface": "Brazil",
+            "lemma_ref": "vocab_brazil_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u2_006",
+        "locale": "en",
+        "target_text": "I am from Mexico.",
+        "tokens": [
+          {
+            "surface": "I"
+          },
+          {
+            "surface": "am"
+          },
+          {
+            "surface": "from"
+          },
+          {
+            "surface": "Mexico",
+            "lemma_ref": "vocab_mexico_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u2_007",
+        "locale": "en",
+        "target_text": "He is my friend.",
+        "tokens": [
+          {
+            "surface": "He"
+          },
+          {
+            "surface": "is"
+          },
+          {
+            "surface": "my"
+          },
+          {
+            "surface": "friend",
+            "lemma_ref": "vocab_friend_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u2_008",
+        "locale": "en",
+        "target_text": "She is Anna.",
+        "tokens": [
+          {
+            "surface": "She"
+          },
+          {
+            "surface": "is"
+          },
+          {
+            "surface": "Anna",
+            "lemma_ref": "vocab_anna_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u2_009",
+        "locale": "en",
+        "target_text": "One, two, three, four, five.",
+        "tokens": [
+          {
+            "surface": "One",
+            "lemma_ref": "vocab_one_en"
+          },
+          {
+            "surface": ","
+          },
+          {
+            "surface": "two",
+            "lemma_ref": "vocab_two_en"
+          },
+          {
+            "surface": ","
+          },
+          {
+            "surface": "three",
+            "lemma_ref": "vocab_three_en"
+          },
+          {
+            "surface": ","
+          },
+          {
+            "surface": "four",
+            "lemma_ref": "vocab_four_en"
+          },
+          {
+            "surface": ","
+          },
+          {
+            "surface": "five",
+            "lemma_ref": "vocab_five_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u2_010",
+        "locale": "en",
+        "target_text": "Six, seven, eight, nine, ten.",
+        "tokens": [
+          {
+            "surface": "Six",
+            "lemma_ref": "vocab_six_en"
+          },
+          {
+            "surface": ","
+          },
+          {
+            "surface": "seven",
+            "lemma_ref": "vocab_seven_en"
+          },
+          {
+            "surface": ","
+          },
+          {
+            "surface": "eight",
+            "lemma_ref": "vocab_eight_en"
+          },
+          {
+            "surface": ","
+          },
+          {
+            "surface": "nine",
+            "lemma_ref": "vocab_nine_en"
+          },
+          {
+            "surface": ","
+          },
+          {
+            "surface": "ten",
+            "lemma_ref": "vocab_ten_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u2_011",
+        "locale": "en",
+        "target_text": "How old are you?",
+        "tokens": [
+          {
+            "surface": "How"
+          },
+          {
+            "surface": "old",
+            "lemma_ref": "vocab_old_en"
+          },
+          {
+            "surface": "are"
+          },
+          {
+            "surface": "you"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u2_012",
+        "locale": "en",
+        "target_text": "I am ten years old.",
+        "tokens": [
+          {
+            "surface": "I"
+          },
+          {
+            "surface": "am"
+          },
+          {
+            "surface": "ten",
+            "lemma_ref": "vocab_ten_en"
+          },
+          {
+            "surface": "years",
+            "lemma_ref": "vocab_year_en"
+          },
+          {
+            "surface": "old",
+            "lemma_ref": "vocab_old_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u2_013",
+        "locale": "en",
+        "target_text": "He is seven years old.",
+        "tokens": [
+          {
+            "surface": "He"
+          },
+          {
+            "surface": "is"
+          },
+          {
+            "surface": "seven",
+            "lemma_ref": "vocab_seven_en"
+          },
+          {
+            "surface": "years",
+            "lemma_ref": "vocab_year_en"
+          },
+          {
+            "surface": "old",
+            "lemma_ref": "vocab_old_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u2_014",
+        "locale": "en",
+        "target_text": "She is nine years old.",
+        "tokens": [
+          {
+            "surface": "She"
+          },
+          {
+            "surface": "is"
+          },
+          {
+            "surface": "nine",
+            "lemma_ref": "vocab_nine_en"
+          },
+          {
+            "surface": "years",
+            "lemma_ref": "vocab_year_en"
+          },
+          {
+            "surface": "old",
+            "lemma_ref": "vocab_old_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
           "provenance": "ai_generated",
           "review_status": "auto_certified",
           "content_version": 1,
@@ -2483,6 +3544,1150 @@
         "irt_b": -1.4,
         "provenance": {
           "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l1_1",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u2_l1_1",
+        "answer_spec": {
+          "accepted": [
+            "from"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "is",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l1_1_a"
+          },
+          {
+            "option_id": "b",
+            "text": "from",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u2_l1_1_b"
+          },
+          {
+            "option_id": "c",
+            "text": "old",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l1_1_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u2_l1"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.3,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l1_2",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u2_l1_2",
+        "answer_spec": {
+          "accepted": [
+            "I am from France."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "I am from France.",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u2_l1_2_a"
+          },
+          {
+            "option_id": "b",
+            "text": "Thank you.",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l1_2_b"
+          },
+          {
+            "option_id": "c",
+            "text": "Good morning.",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l1_2_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u2_l1"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.2,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l1_3",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u2_l1_3",
+        "answer_spec": {
+          "accepted": [
+            "I am from Brazil."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "Good night.",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l1_3_a"
+          },
+          {
+            "option_id": "b",
+            "text": "You are welcome.",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l1_3_b"
+          },
+          {
+            "option_id": "c",
+            "text": "I am from Brazil.",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u2_l1_3_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u2_l1"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.1,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l1_4",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u2_l1_4",
+        "answer_spec": {
+          "accepted": [
+            "India"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "old",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l1_4_a"
+          },
+          {
+            "option_id": "b",
+            "text": "India",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u2_l1_4_b"
+          },
+          {
+            "option_id": "c",
+            "text": "am",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l1_4_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u2_l1"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.0,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l1_5",
+        "locale": "en",
+        "exercise_type": "translate",
+        "prompt_ref": "prompt_en_a1_s1u2_l1_5",
+        "answer_spec": {
+          "accepted": [
+            "I am from Japan.",
+            "I am from Japan"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u2_l1"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.9,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l1_6",
+        "locale": "en",
+        "exercise_type": "translate",
+        "prompt_ref": "prompt_en_a1_s1u2_l1_6",
+        "answer_spec": {
+          "accepted": [
+            "Where are you from?",
+            "Where are you from"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u2_l1"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.1,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l1_7",
+        "locale": "en",
+        "exercise_type": "listen",
+        "prompt_ref": "prompt_en_a1_s1u2_l1_7",
+        "answer_spec": {
+          "accepted": [
+            "I am from Mexico",
+            "I am from Mexico."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u2_l1"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.2,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l2_1",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u2_l2_1",
+        "answer_spec": {
+          "accepted": [
+            "is"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "am",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l2_1_a"
+          },
+          {
+            "option_id": "b",
+            "text": "are",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l2_1_b"
+          },
+          {
+            "option_id": "c",
+            "text": "is",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u2_l2_1_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u2_l2"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.1,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l2_2",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u2_l2_2",
+        "answer_spec": {
+          "accepted": [
+            "is"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "is",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u2_l2_2_a"
+          },
+          {
+            "option_id": "b",
+            "text": "are",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l2_2_b"
+          },
+          {
+            "option_id": "c",
+            "text": "am",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l2_2_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u2_l2"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.0,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l2_3",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u2_l2_3",
+        "answer_spec": {
+          "accepted": [
+            "He is my friend."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "He are my friend.",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l2_3_a"
+          },
+          {
+            "option_id": "b",
+            "text": "He is my friend.",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u2_l2_3_b"
+          },
+          {
+            "option_id": "c",
+            "text": "He am my friend.",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l2_3_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u2_l2"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.9,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l2_4",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u2_l2_4",
+        "answer_spec": {
+          "accepted": [
+            "She"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "She",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u2_l2_4_a"
+          },
+          {
+            "option_id": "b",
+            "text": "He",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l2_4_b"
+          },
+          {
+            "option_id": "c",
+            "text": "Am",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l2_4_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u2_l2"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.8,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l2_5",
+        "locale": "en",
+        "exercise_type": "translate",
+        "prompt_ref": "prompt_en_a1_s1u2_l2_5",
+        "answer_spec": {
+          "accepted": [
+            "He is from India.",
+            "He is from India"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u2_l2"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.7,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l2_6",
+        "locale": "en",
+        "exercise_type": "translate",
+        "prompt_ref": "prompt_en_a1_s1u2_l2_6",
+        "answer_spec": {
+          "accepted": [
+            "She is my friend.",
+            "She is my friend"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u2_l2"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.9,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l2_7",
+        "locale": "en",
+        "exercise_type": "listen",
+        "prompt_ref": "prompt_en_a1_s1u2_l2_7",
+        "answer_spec": {
+          "accepted": [
+            "She is Anna",
+            "She is Anna."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u2_l2"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.0,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l3_1",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u2_l3_1",
+        "answer_spec": {
+          "accepted": [
+            "two"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "ten",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l3_1_a"
+          },
+          {
+            "option_id": "b",
+            "text": "two",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u2_l3_1_b"
+          },
+          {
+            "option_id": "c",
+            "text": "three",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l3_1_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u2_l3"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.0,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l3_2",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u2_l3_2",
+        "answer_spec": {
+          "accepted": [
+            "five"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "five",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u2_l3_2_a"
+          },
+          {
+            "option_id": "b",
+            "text": "four",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l3_2_b"
+          },
+          {
+            "option_id": "c",
+            "text": "nine",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l3_2_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u2_l3"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.9,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l3_3",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u2_l3_3",
+        "answer_spec": {
+          "accepted": [
+            "eight"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "six",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l3_3_a"
+          },
+          {
+            "option_id": "b",
+            "text": "ten",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l3_3_b"
+          },
+          {
+            "option_id": "c",
+            "text": "eight",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u2_l3_3_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u2_l3"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.8,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l3_4",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u2_l3_4",
+        "answer_spec": {
+          "accepted": [
+            "ten"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "one",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l3_4_a"
+          },
+          {
+            "option_id": "b",
+            "text": "ten",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u2_l3_4_b"
+          },
+          {
+            "option_id": "c",
+            "text": "seven",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l3_4_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u2_l3"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.6,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l3_5",
+        "locale": "en",
+        "exercise_type": "translate",
+        "prompt_ref": "prompt_en_a1_s1u2_l3_5",
+        "answer_spec": {
+          "accepted": [
+            "three",
+            "three."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u2_l3"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.7,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l3_6",
+        "locale": "en",
+        "exercise_type": "translate",
+        "prompt_ref": "prompt_en_a1_s1u2_l3_6",
+        "answer_spec": {
+          "accepted": [
+            "seven",
+            "seven."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u2_l3"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.5,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l3_7",
+        "locale": "en",
+        "exercise_type": "listen",
+        "prompt_ref": "prompt_en_a1_s1u2_l3_7",
+        "answer_spec": {
+          "accepted": [
+            "one two three",
+            "One, two, three."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u2_l3"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.8,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l4_1",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u2_l4_1",
+        "answer_spec": {
+          "accepted": [
+            "old"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "old",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u2_l4_1_a"
+          },
+          {
+            "option_id": "b",
+            "text": "from",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l4_1_b"
+          },
+          {
+            "option_id": "c",
+            "text": "name",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l4_1_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u2_l4"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.8,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l4_2",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u2_l4_2",
+        "answer_spec": {
+          "accepted": [
+            "I am eight years old."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "I am from Japan.",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l4_2_a"
+          },
+          {
+            "option_id": "b",
+            "text": "Nice to meet you.",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l4_2_b"
+          },
+          {
+            "option_id": "c",
+            "text": "I am eight years old.",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u2_l4_2_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u2_l4"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.7,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l4_3",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u2_l4_3",
+        "answer_spec": {
+          "accepted": [
+            "How old are you?"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "Where are you from?",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l4_3_a"
+          },
+          {
+            "option_id": "b",
+            "text": "How old are you?",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u2_l4_3_b"
+          },
+          {
+            "option_id": "c",
+            "text": "What is your name?",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l4_3_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u2_l4"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.5,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l4_4",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u2_l4_4",
+        "answer_spec": {
+          "accepted": [
+            "years"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "year",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l4_4_a"
+          },
+          {
+            "option_id": "b",
+            "text": "from",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u2_l4_4_b"
+          },
+          {
+            "option_id": "c",
+            "text": "years",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u2_l4_4_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u2_l4"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.4,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l4_5",
+        "locale": "en",
+        "exercise_type": "translate",
+        "prompt_ref": "prompt_en_a1_s1u2_l4_5",
+        "answer_spec": {
+          "accepted": [
+            "I am ten years old.",
+            "I am ten years old"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u2_l4"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.3,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l4_6",
+        "locale": "en",
+        "exercise_type": "translate",
+        "prompt_ref": "prompt_en_a1_s1u2_l4_6",
+        "answer_spec": {
+          "accepted": [
+            "How old are you?",
+            "How old are you"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u2_l4"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.2,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u2_l4_7",
+        "locale": "en",
+        "exercise_type": "listen",
+        "prompt_ref": "prompt_en_a1_s1u2_l4_7",
+        "answer_spec": {
+          "accepted": [
+            "ten years old",
+            "Ten years old."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u2_l4"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.6,
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
           "provenance": "ai_generated",
           "review_status": "auto_certified",
           "content_version": 1,
@@ -4473,6 +6678,1490 @@
         "text": "'Thank you' shows thanks — the teacher is greeting, not thanking.",
         "provenance": {
           "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "unittitle_en_a1_s1_u2",
+        "content_kind": "instruction",
+        "text": "About You",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "guide_en_a1_s1_u2",
+        "content_kind": "grammar_rule",
+        "text": "Welcome to 'About You'! In this unit, you learn to say where you are from, like 'I am from Japan.' You also practice 'he is' and 'she is' to talk about other people. Finally, you count from one to ten and give your age: 'I am ten years old.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l1_1",
+        "content_kind": "instruction",
+        "text": "Choose the correct word: I am ___ Japan.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l1_2",
+        "content_kind": "instruction",
+        "text": "Which sentence tells someone where you are from?",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l1_3",
+        "content_kind": "instruction",
+        "text": "Maria asks: 'Where are you from?' Choose the best answer.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l1_4",
+        "content_kind": "instruction",
+        "text": "Choose the country name to complete the sentence: I am from ___.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l1_5",
+        "content_kind": "instruction",
+        "text": "Tell someone you are from Japan. Write the sentence.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l1_6",
+        "content_kind": "instruction",
+        "text": "Ask someone where they are from. Write the question.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l1_7",
+        "content_kind": "instruction",
+        "text": "Tap what you hear.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l2_1",
+        "content_kind": "instruction",
+        "text": "Choose the correct word: He ___ my friend.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l2_2",
+        "content_kind": "instruction",
+        "text": "Choose the correct word: She ___ from France.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l2_3",
+        "content_kind": "instruction",
+        "text": "Which sentence is correct?",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l2_4",
+        "content_kind": "instruction",
+        "text": "Anna is a woman. Choose the correct word: ___ is from Brazil.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l2_5",
+        "content_kind": "instruction",
+        "text": "Say that he is from India. Write the sentence.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l2_6",
+        "content_kind": "instruction",
+        "text": "Say that she is your friend. Write the sentence.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l2_7",
+        "content_kind": "instruction",
+        "text": "Tap what you hear.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l3_1",
+        "content_kind": "instruction",
+        "text": "Choose the word for the number 2.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l3_2",
+        "content_kind": "instruction",
+        "text": "Choose the word for the number 5.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l3_3",
+        "content_kind": "instruction",
+        "text": "What number comes after seven?",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l3_4",
+        "content_kind": "instruction",
+        "text": "Choose the word for the number 10.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l3_5",
+        "content_kind": "instruction",
+        "text": "Write the number 3 as a word.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l3_6",
+        "content_kind": "instruction",
+        "text": "Write the number 7 as a word.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l3_7",
+        "content_kind": "instruction",
+        "text": "Tap what you hear.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l4_1",
+        "content_kind": "instruction",
+        "text": "Choose the correct word: I am ten years ___.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l4_2",
+        "content_kind": "instruction",
+        "text": "Tom asks: 'How old are you?' Choose the best answer.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l4_3",
+        "content_kind": "instruction",
+        "text": "Choose the correct question to ask about age.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l4_4",
+        "content_kind": "instruction",
+        "text": "Choose the correct word: She is nine ___ old.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l4_5",
+        "content_kind": "instruction",
+        "text": "Say that you are ten years old. Write the sentence.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l4_6",
+        "content_kind": "instruction",
+        "text": "Ask someone how old they are. Write the question.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u2_l4_7",
+        "content_kind": "instruction",
+        "text": "Tap what you hear.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l1_1",
+        "content_kind": "explanation",
+        "text": "We use 'from' plus a country to say where we come from: 'I am from Japan.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l1_2",
+        "content_kind": "explanation",
+        "text": "'I am from France.' follows the pattern 'I am from' plus a country, which tells people where you come from.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l1_3",
+        "content_kind": "explanation",
+        "text": "'Where are you from?' asks about your country, so 'I am from Brazil.' is the answer that fits.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l1_4",
+        "content_kind": "explanation",
+        "text": "Only a country name can complete 'I am from ___', and 'India' is a country.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l1_5",
+        "content_kind": "explanation",
+        "text": "'I am from Japan.' uses the pattern 'I am from' plus a country name.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l1_6",
+        "content_kind": "explanation",
+        "text": "'Where are you from?' is the question we use to ask about someone's country.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l1_7",
+        "content_kind": "explanation",
+        "text": "The audio says 'I am from Mexico.' The speaker is telling you their country.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l2_1",
+        "content_kind": "explanation",
+        "text": "With 'he' and 'she', the verb 'be' becomes 'is': 'He is my friend.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l2_2",
+        "content_kind": "explanation",
+        "text": "'She' takes 'is', so the correct sentence is 'She is from France.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l2_3",
+        "content_kind": "explanation",
+        "text": "'He' always goes with 'is', so 'He is my friend.' is the only correct sentence.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l2_4",
+        "content_kind": "explanation",
+        "text": "Anna is a woman, so we talk about her with 'she': 'She is from Brazil.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l2_5",
+        "content_kind": "explanation",
+        "text": "With 'he', we use 'is': 'He is from India.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l2_6",
+        "content_kind": "explanation",
+        "text": "With 'she', we use 'is': 'She is my friend.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l2_7",
+        "content_kind": "explanation",
+        "text": "The audio says 'She is Anna.' We use 'is' with 'she' to say who someone is.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l3_1",
+        "content_kind": "explanation",
+        "text": "The word for the number 2 is 'two'.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l3_2",
+        "content_kind": "explanation",
+        "text": "The word for the number 5 is 'five'.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l3_3",
+        "content_kind": "explanation",
+        "text": "When we count from one to ten, 'eight' comes right after 'seven'.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l3_4",
+        "content_kind": "explanation",
+        "text": "The word for the number 10 is 'ten'.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l3_5",
+        "content_kind": "explanation",
+        "text": "The number 3 is written as the word 'three'.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l3_6",
+        "content_kind": "explanation",
+        "text": "The number 7 is written as the word 'seven'.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l3_7",
+        "content_kind": "explanation",
+        "text": "The audio counts 'one, two, three', the first three numbers.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l4_1",
+        "content_kind": "explanation",
+        "text": "We give our age with the pattern 'I am ... years old.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l4_2",
+        "content_kind": "explanation",
+        "text": "'How old are you?' asks about age, so the answer gives a number of years: 'I am eight years old.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l4_3",
+        "content_kind": "explanation",
+        "text": "'How old are you?' is the question we use to ask about someone's age.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l4_4",
+        "content_kind": "explanation",
+        "text": "After a number bigger than one, we use the plural 'years': 'She is nine years old.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l4_5",
+        "content_kind": "explanation",
+        "text": "'I am ten years old.' follows the age pattern 'I am ... years old.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l4_6",
+        "content_kind": "explanation",
+        "text": "'How old are you?' is how we ask someone's age.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "item_en_a1_s1u2_l4_7",
+        "content_kind": "explanation",
+        "text": "The audio says 'ten years old', the phrase we use to give an age.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l1_1_a",
+        "content_kind": "explanation",
+        "text": "'Is' does not fit here. It is the form of 'be' we use with 'he' or 'she', and this sentence already has 'am'.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l1_1_b",
+        "content_kind": "explanation",
+        "text": "Correct. 'From' plus a country tells people where you come from: 'I am from Japan.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l1_1_c",
+        "content_kind": "explanation",
+        "text": "'Old' does not fit here. It describes age, as in 'ten years old', not the country you come from.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l1_2_a",
+        "content_kind": "explanation",
+        "text": "Correct. 'I am from France.' uses 'I am from' plus a country to say where you come from.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l1_2_b",
+        "content_kind": "explanation",
+        "text": "'Thank you.' does not tell where you are from. It is a polite phrase you say when someone helps you.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l1_2_c",
+        "content_kind": "explanation",
+        "text": "'Good morning.' does not tell where you are from. It is a greeting you use early in the day.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l1_3_a",
+        "content_kind": "explanation",
+        "text": "'Good night.' does not answer the question. You say it in the evening when you leave or go to bed.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l1_3_b",
+        "content_kind": "explanation",
+        "text": "'You are welcome.' does not answer the question. It is the polite reply to 'Thank you.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l1_3_c",
+        "content_kind": "explanation",
+        "text": "Correct. 'I am from Brazil.' names a country, so it answers 'Where are you from?'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l1_4_a",
+        "content_kind": "explanation",
+        "text": "'Old' is not a country. It describes age, as in 'ten years old'.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l1_4_b",
+        "content_kind": "explanation",
+        "text": "Correct. 'India' is a country name, so 'I am from India.' makes sense.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l1_4_c",
+        "content_kind": "explanation",
+        "text": "'Am' is not a country. It is a form of 'be' and is already in the sentence.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l2_1_a",
+        "content_kind": "explanation",
+        "text": "'Am' does not go with 'he'. We use 'am' only with 'I', as in 'I am'.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l2_1_b",
+        "content_kind": "explanation",
+        "text": "'Are' does not go with 'he'. We use 'are' with 'you', as in 'you are'.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l2_1_c",
+        "content_kind": "explanation",
+        "text": "Correct. With 'he' and 'she', the verb 'be' becomes 'is': 'He is my friend.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l2_2_a",
+        "content_kind": "explanation",
+        "text": "Correct. With 'she', we use 'is': 'She is from France.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l2_2_b",
+        "content_kind": "explanation",
+        "text": "'Are' does not go with 'she'. We use 'are' with 'you', as in 'Where are you from?'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l2_2_c",
+        "content_kind": "explanation",
+        "text": "'Am' does not go with 'she'. We use 'am' only with 'I', as in 'I am from France.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l2_3_a",
+        "content_kind": "explanation",
+        "text": "This sentence is not correct. 'Are' goes with 'you', not with 'he'.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l2_3_b",
+        "content_kind": "explanation",
+        "text": "Correct. 'He' takes 'is', so 'He is my friend.' is the right sentence.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l2_3_c",
+        "content_kind": "explanation",
+        "text": "This sentence is not correct. 'Am' goes only with 'I', not with 'he'.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l2_4_a",
+        "content_kind": "explanation",
+        "text": "Correct. Anna is a woman, so we use 'she': 'She is from Brazil.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l2_4_b",
+        "content_kind": "explanation",
+        "text": "'He' is for a man or a boy. Anna is a woman, so 'he' does not fit.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l2_4_c",
+        "content_kind": "explanation",
+        "text": "'Am' is a form of 'be', not a word for a person. The sentence needs 'she'.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l3_1_a",
+        "content_kind": "explanation",
+        "text": "'Ten' is the word for the number 10, not 2.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l3_1_b",
+        "content_kind": "explanation",
+        "text": "Correct. 'Two' is the word for the number 2.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l3_1_c",
+        "content_kind": "explanation",
+        "text": "'Three' is the word for the number 3, not 2.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l3_2_a",
+        "content_kind": "explanation",
+        "text": "Correct. 'Five' is the word for the number 5.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l3_2_b",
+        "content_kind": "explanation",
+        "text": "'Four' is the word for the number 4, not 5.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l3_2_c",
+        "content_kind": "explanation",
+        "text": "'Nine' is the word for the number 9, not 5.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l3_3_a",
+        "content_kind": "explanation",
+        "text": "'Six' comes before 'seven' when we count, not after it.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l3_3_b",
+        "content_kind": "explanation",
+        "text": "'Ten' comes later. It is the last number when we count from one to ten.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l3_3_c",
+        "content_kind": "explanation",
+        "text": "Correct. 'Eight' comes right after 'seven': seven, eight, nine.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l3_4_a",
+        "content_kind": "explanation",
+        "text": "'One' is the word for the number 1, not 10.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l3_4_b",
+        "content_kind": "explanation",
+        "text": "Correct. 'Ten' is the word for the number 10.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l3_4_c",
+        "content_kind": "explanation",
+        "text": "'Seven' is the word for the number 7, not 10.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l4_1_a",
+        "content_kind": "explanation",
+        "text": "Correct. Age ends with 'old': 'I am ten years old.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l4_1_b",
+        "content_kind": "explanation",
+        "text": "'From' does not fit here. It tells where you come from, as in 'I am from Japan.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l4_1_c",
+        "content_kind": "explanation",
+        "text": "'Name' does not fit here. It is what people call you, as in 'My name is Anna.'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l4_2_a",
+        "content_kind": "explanation",
+        "text": "'I am from Japan.' answers 'Where are you from?', not a question about age.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l4_2_b",
+        "content_kind": "explanation",
+        "text": "'Nice to meet you.' does not give an age. You say it when you meet someone new.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l4_2_c",
+        "content_kind": "explanation",
+        "text": "Correct. 'I am eight years old.' gives an age, so it answers 'How old are you?'",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l4_3_a",
+        "content_kind": "explanation",
+        "text": "'Where are you from?' asks about a person's country, not their age.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l4_3_b",
+        "content_kind": "explanation",
+        "text": "Correct. 'How old are you?' asks how many years old someone is.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l4_3_c",
+        "content_kind": "explanation",
+        "text": "'What is your name?' asks what people call you, not their age.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l4_4_a",
+        "content_kind": "explanation",
+        "text": "'Year' is singular. After the number nine, we need the plural 'years'.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l4_4_b",
+        "content_kind": "explanation",
+        "text": "'From' does not fit here. It tells where someone comes from, not their age.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u2_l4_4_c",
+        "content_kind": "explanation",
+        "text": "Correct. After numbers bigger than one, we use the plural: 'nine years old'.",
+        "ui_locale": "en",
+        "provenance": {
+          "batch_id": "batch_en_course_0002",
           "provenance": "ai_generated",
           "review_status": "auto_certified",
           "content_version": 1,

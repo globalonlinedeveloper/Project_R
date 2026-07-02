@@ -41,7 +41,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-A4 | UI/gloss launch set & any-to-any cell-lighting | Must | Stage1 | Built ✅ | — | — |
 | R-A5 | Hindi/Swahili provisional-promotion rule | Must | Spec | Spec/cross ▫ | — | — |
 | R-A6 | Pilot scope & schema-conformance exit gate | Must | Stage1 | Built ✅ | — | — |
-| R-A7 | Pilot CEFR content scope | Must | Stage1 | Built ✅ | — | `content_course_spine.dart`, `unit.schema.json`, `course_spine_test.dart`, `loader_new_tables_test.dart` |
+| R-A7 | Pilot CEFR content scope | Must | Stage1 | Built ✅ | — | `content_course_spine.dart`, `integrate_wave.py`, `unit.schema.json`, `course_spine_test.dart` +1 |
 | R-A8 | Launch-minimum bar & wave policy | Must | Spec | Spec/cross ▫ | — | — |
 
 ## Part B — Learning model & curriculum
@@ -61,7 +61,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-C1 | Standardization rule + open-container discipline | Must | Stage1 | Built ✅ | — | `schema_loader.py`, `common.schema.json`, `schema.json`, `item.schema.json` +1 |
+| R-C1 | Standardization rule + open-container discipline | Must | Stage1 | Built ✅ | — | `integrate_wave.py`, `schema_loader.py`, `common.schema.json`, `schema.json` +2 |
 | R-C2 | Sentence entity + token model | Must | Stage1 | Built ✅ | — | `common.schema.json`, `sentence.schema.json` |
 | R-C3 | VocabEntry + per-sense model | Must | Stage1 | Built ✅ | — | `sense.schema.json`, `vocab_entry.schema.json` |
 | R-C4 | GrammarPoint entity | Must | Stage1 | Built ✅ | — | `grammar_point.schema.json` |
