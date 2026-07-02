@@ -26,6 +26,7 @@ import 'package:ratel/features/notifications/notifications_screen.dart';
 import 'package:ratel/features/paywall/paywall_screen.dart';
 import 'package:ratel/features/shop/shop_screen.dart';
 import 'package:ratel/features/tutor/ai_tutor_screen.dart';
+import 'package:ratel/features/themes/themes_screen.dart';
 
 /// A not-yet-built destination rendered as an honest [ComingSoonScreen]. The
 /// list is now EMPTY — every navigable destination resolves to a real screen
@@ -97,6 +98,11 @@ GoRouter buildRouter() {
         path: '/settings',
         builder: (BuildContext context, GoRouterState state) =>
             const SettingsScreen(),
+      ),
+      GoRoute(
+        path: '/themes',
+        builder: (BuildContext context, GoRouterState state) =>
+            const ThemesScreen(),
       ),
       GoRoute(
         path: '/edit-profile',
