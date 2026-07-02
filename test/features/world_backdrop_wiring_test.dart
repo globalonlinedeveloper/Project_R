@@ -21,9 +21,10 @@ void main() {
       final ThemeData ocean = RatelTheme.world(kThemeWorlds['ocean']!);
       expect(ocean.scaffoldBackgroundColor.a, lessThan(0.95));
       expect(ocean.appBarTheme.backgroundColor!.a, lessThan(0.95));
-      // alpine has no ported painter yet (deferred to the final wave) -> opaque.
-      final ThemeData alpine = RatelTheme.world(kThemeWorlds['alpine']!);
-      expect(alpine.scaffoldBackgroundColor.a, greaterThan(0.99));
+      // galaxy's 'stars' backdrop is the static StarfieldPainter (not in
+      // kBackdropPainters) -> RatelTheme.world keeps its chrome opaque.
+      final ThemeData galaxy = RatelTheme.world(kThemeWorlds['galaxy']!);
+      expect(galaxy.scaffoldBackgroundColor.a, greaterThan(0.99));
     });
   });
 

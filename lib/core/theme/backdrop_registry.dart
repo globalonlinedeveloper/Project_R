@@ -1,8 +1,10 @@
 import 'backdrop_paint.dart';
 import 'backdrops/abyss.dart';
+import 'backdrops/alpine.dart';
 import 'backdrops/bamboo.dart';
 import 'backdrops/beach.dart';
 import 'backdrops/bubbles.dart';
+import 'backdrops/cherrynight.dart';
 import 'backdrops/cyberrain.dart';
 import 'backdrops/dawn.dart';
 import 'backdrops/dunes.dart';
@@ -14,6 +16,7 @@ import 'backdrops/jungle.dart';
 import 'backdrops/lagoon.dart';
 import 'backdrops/lavender.dart';
 import 'backdrops/leaves.dart';
+import 'backdrops/mars.dart';
 import 'backdrops/meadow.dart';
 import 'backdrops/nebula.dart';
 import 'backdrops/nlights.dart';
@@ -31,7 +34,7 @@ import 'backdrops/thunder.dart';
 /// Wave-1 (dust/bubbles/sprinkles/snow/petals/grid) + Wave-2
 /// (fireflies/rain/leaves/nlights/embers/sunset) + Wave-3 richer moderate
 /// scenes (dunes/meadow/dawn/beach/lavender) + Wave-3B (reef/lagoon/sandstorm) +
-/// Wave-4a (cyberrain/bamboo/nebula) + Wave-4b (jungle/abyss/thunder) animated backdrops, ported from the design engine. Ids not present here have
+/// Wave-4a (cyberrain/bamboo/nebula) + Wave-4b (jungle/abyss/thunder) + Wave-4c (mars/alpine/cherrynight) animated backdrops, ported from the design engine. Ids not present here have
 /// no animated painter yet -- callers (see `WorldBackdrop`) fall back to a solid
 /// `page` fill. `none` (the static `light` world) and `stars` (the existing
 /// static `StarfieldPainter`) are deliberately absent.
@@ -71,4 +74,8 @@ const Map<String, BackdropPaint> kBackdropPainters = <String, BackdropPaint>{
   'jungle': paintJungle,
   'abyss': paintAbyss,
   'thunder': paintThunder,
+  // Wave-4c (complex set, batch 3).
+  'mars': paintMars,
+  'alpine': paintAlpine,
+  'cherrynight': paintCherryNight,
 };
