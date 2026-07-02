@@ -1,0 +1,169 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import 'package:ratel/features/learning_path/course_spine.dart';
+import 'package:ratel/features/lesson/lesson_runner_screen.dart';
+import 'package:ratel/services/tts_relay/tts_relay.dart';
+
+// The runner serves a "listen" exercise as the DESIGNED word-bank ("assemble
+// what you hear") when browser speech is available AND the phrase has >=2
+// tokens. Assembling the correct token order self-grades correct and advances;
+// with speech unavailable the SAME item degrades honestly to the typed
+// renderer. Decoys are REAL single-word tokens from OTHER authored phrases.
+// [SPEC_LISTEN_TTS §4/§5 · owner word-bank decision]
+// R-D5 (listen — word-bank "assemble what you hear" runner integration).
+
+// l1: a multi-token 'listen' phrase -> word-bank. l2: a distinct phrase whose
+// words (ella/bebe/agua) are the REAL decoy source.
+const CourseSpine _spineBank = CourseSpine(courseCode: 'es', units: <CourseUnit>[
+  CourseUnit(
+    section: 'SECTION 1 · LEVEL A1',
+    title: 'Level A1',
+    lessons: <CourseLesson>[
+      CourseLesson(id: 'l1', title: 'Listen', cefr: 'A1', exercises: <CourseExercise>[
+        CourseExercise(
+            id: 'e1',
+            exerciseType: 'listen',
+            prompt: 'ignored',
+            accepted: <String>['yo como pan']),
+      ]),
+      CourseLesson(id: 'l2', title: 'Decoys', cefr: 'A1', exercises: <CourseExercise>[
+        CourseExercise(
+            id: 'e2',
+            exerciseType: 'translate',
+            prompt: 'p',
+            accepted: <String>['ella bebe agua']),
+      ]),
+    ],
+  ),
+]);
+
+class _FakeAudioHandle implements AudioHandle {
+  int playCount = 0;
+  int slowCount = 0;
+  @override
+  bool get isPlaying => false;
+  @override
+  Future<void> play() async => playCount++;
+  @override
+  Future<void> playSlow() async => slowCount++;
+  @override
+  Future<void> dispose() async {}
+}
+
+class _FakeAvailableSpeechTts implements SpeechTts {
+  _FakeAvailableSpeechTts(this.handle);
+  final _FakeAudioHandle handle;
+  @override
+  bool get isAvailable => true;
+  @override
+  AudioHandle handleFor(String text, {String lang = ''}) => handle;
+}
+
+Future<void> _pump(WidgetTester tester, ProviderContainer c,
+    {String lessonId = 'l1'}) async {
+  tester.view.physicalSize = const Size(460, 2600);
+  tester.view.devicePixelRatio = 1.0;
+  addTearDown(tester.view.resetPhysicalSize);
+  addTearDown(tester.view.resetDevicePixelRatio);
+  await tester.pumpWidget(UncontrolledProviderScope(
+    container: c,
+    child: MaterialApp(home: LessonRunnerScreen(lessonId: lessonId)),
+  ));
+  await tester.pumpAndSettle();
+}
+
+/// True when the current item is a word-bank Listen (audio row present, but no
+/// typed input field — the honest distinguisher from type-what-you-hear).
+bool _isWordBank() =>
+    find.text('🔊').evaluate().isNotEmpty &&
+    find.byKey(const ValueKey<String>('lesson-input')).evaluate().isEmpty;
+
+/// Assemble yo/como/pan in order, self-grade via the widget's own Check, assert
+/// correct, and Continue. Walks every surfaced word-bank item to completion.
+Future<void> _walkAssemblingCorrectly(WidgetTester tester) async {
+  for (int i = 0; i < 6; i++) {
+    if (find.text('Lesson complete!').evaluate().isNotEmpty) break;
+    if (!_isWordBank()) break; // this spine serves only word-bank items
+    for (final String w in const <String>['yo', 'como', 'pan']) {
+      await tester.tap(find.text(w));
+      await tester.pump();
+    }
+    await tester.tap(find.text('Check'));
+    await tester.pumpAndSettle();
+    expect(find.text('✓ Correct!'), findsOneWidget);
+    await tester.tap(find.text('Continue'));
+    await tester.pumpAndSettle();
+  }
+}
+
+void main() {
+  testWidgets(
+      'speech AVAILABLE + >=2 tokens: renders the word-bank, grades, advances',
+      (WidgetTester tester) async {
+    final _FakeAudioHandle fake = _FakeAudioHandle();
+    final ProviderContainer c = ProviderContainer(overrides: <Override>[
+      courseSpineProvider.overrideWithValue(_spineBank),
+      speechTtsProvider.overrideWithValue(_FakeAvailableSpeechTts(fake)),
+    ]);
+    addTearDown(c.dispose);
+    await _pump(tester, c);
+
+    // The DESIGNED word-bank shell, not the typed fallback.
+    expect(_isWordBank(), isTrue);
+    expect(find.text('Tap what you hear'), findsWidgets);
+    expect(find.byKey(const ValueKey<String>('lesson-input')), findsNothing);
+    expect(find.text('Type what you hear'), findsNothing);
+    // Target tokens are all present as bank chips…
+    for (final String w in const <String>['yo', 'como', 'pan']) {
+      expect(find.text(w), findsOneWidget);
+    }
+    // …and a REAL decoy from the OTHER authored phrase is mixed in.
+    expect(find.text('ella'), findsOneWidget);
+
+    // Audio routes through the injected handle.
+    await tester.tap(find.text('🔊'));
+    await tester.pumpAndSettle();
+    expect(fake.playCount, greaterThanOrEqualTo(1));
+
+    await _walkAssemblingCorrectly(tester);
+    expect(find.text('Lesson complete!'), findsOneWidget);
+  });
+
+  testWidgets('speech UNAVAILABLE: the same >=2-token listen degrades to typed',
+      (WidgetTester tester) async {
+    final ProviderContainer c = ProviderContainer(overrides: <Override>[
+      courseSpineProvider.overrideWithValue(_spineBank),
+      // no speechTtsProvider override => the default Unavailable stub.
+    ]);
+    addTearDown(c.dispose);
+    await _pump(tester, c);
+
+    expect(find.text('🔊'), findsNothing);
+    expect(find.text('Tap what you hear'), findsNothing);
+    expect(find.byKey(const ValueKey<String>('lesson-input')), findsOneWidget);
+  });
+
+  testWidgets('assembling the WRONG order self-grades incorrect (honest grade)',
+      (WidgetTester tester) async {
+    final _FakeAudioHandle fake = _FakeAudioHandle();
+    final ProviderContainer c = ProviderContainer(overrides: <Override>[
+      courseSpineProvider.overrideWithValue(_spineBank),
+      speechTtsProvider.overrideWithValue(_FakeAvailableSpeechTts(fake)),
+    ]);
+    addTearDown(c.dispose);
+    await _pump(tester, c);
+
+    expect(_isWordBank(), isTrue);
+    for (final String w in const <String>['pan', 'como', 'yo']) {
+      await tester.tap(find.text(w));
+      await tester.pump();
+    }
+    await tester.tap(find.text('Check'));
+    await tester.pumpAndSettle();
+    expect(find.text('✕ Not quite'), findsOneWidget);
+    // The correct assembly is surfaced honestly.
+    expect(find.textContaining('yo como pan'), findsWidgets);
+  });
+}

@@ -7,6 +7,7 @@ import 'package:ratel/core/core.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/features/lesson/renderers/match_exercise.dart';
 import 'package:ratel/features/lesson/renderers/listen_audio_controls.dart';
+import 'package:ratel/features/lesson/renderers/listen_exercise.dart';
 import 'package:ratel/services/learning/learning.dart';
 import 'package:ratel/services/tts_relay/tts_relay.dart';
 
@@ -159,6 +160,30 @@ class _Item {
         pool = const <String>[],
         pairs = const <MatchPair>[];
 
+  /// Word-bank Listen (>=2 tokens): play [phrase] (browser TTS), then assemble
+  /// the answer from [pool] (the target tokens + real single-word decoys drawn
+  /// from OTHER authored course phrases). Self-grades via ListenExercise's
+  /// onGraded (ordered token-join vs [target]) -- mirrors [_Item.match]. Still
+  /// [_ExType.listen]; a non-empty [target] distinguishes it from the typed
+  /// (single-token) Listen fallback above.
+  const _Item.listenBank({
+    required this.id,
+    required this.skill,
+    required this.b,
+    required this.phrase,
+    required this.lang,
+    required this.target,
+    required this.pool,
+  })  : type = _ExType.listen,
+        prompt = 'Tap what you hear',
+        options = const <_Opt>[],
+        saveWord = null,
+        source = null,
+        accepted = const <String>[],
+        foldCase = true,
+        stripDiacritics = false,
+        pairs = const <MatchPair>[];
+
   final _ExType type;
   final String id;
   final String skill;
@@ -295,6 +320,59 @@ bool _seqEq(List<String> a, List<String> b) {
   return true;
 }
 
+/// Whitespace-split a phrase into ordered tokens (drops empties). The word
+/// bank's target order (owner decision: split `accepted.first`).
+List<String> _tokenize(String phrase) => phrase
+    .trim()
+    .split(RegExp(r'\s+'))
+    .where((String s) => s.isNotEmpty)
+    .toList();
+
+/// Build a shuffled word bank for a word-bank Listen item: the [target] tokens
+/// plus a few (<=4) REAL single-word decoys drawn from OTHER authored phrases
+/// across [spine] (never already in [target], de-duplicated case-insensitively;
+/// never fabricated). Fewer decoys is fine on a small course. Deterministically
+/// shuffled (no `dart:math`) so widget tests are stable.
+List<String> _bankFor(CourseSpine spine, List<String> target, String seed) {
+  final Set<String> takenLc = <String>{
+    for (final String t in target) t.toLowerCase(),
+  };
+  final List<String> decoys = <String>[];
+  outer:
+  for (final CourseLesson l in spine.lessons) {
+    for (final CourseExercise e in l.exercises) {
+      final String phrase = e.accepted.isNotEmpty ? e.accepted.first.trim() : '';
+      if (phrase.isEmpty) continue;
+      for (final String w in _tokenize(phrase)) {
+        final String lc = w.toLowerCase();
+        if (takenLc.contains(lc)) continue;
+        takenLc.add(lc);
+        decoys.add(w);
+        if (decoys.length >= 4) break outer;
+      }
+    }
+  }
+  return _stableShuffle(<String>[...target, ...decoys], seed);
+}
+
+/// Deterministic order-shuffle keyed by [seed] (no `dart:math`): a stable hash
+/// per index, so the same item always yields the same bank order in tests.
+List<String> _stableShuffle(List<String> xs, String seed) {
+  int base = 0;
+  for (final int u in seed.runes) {
+    base = (base * 31 + u) & 0x7fffffff;
+  }
+  int keyOf(int i) {
+    int h = (base ^ (i + 1)) & 0x7fffffff;
+    h = (h * 1103515245 + 12345) & 0x7fffffff;
+    h = (h ^ (h >> 16)) & 0x7fffffff;
+    return h;
+  }
+  final List<int> order = <int>[for (int i = 0; i < xs.length; i++) i];
+  order.sort((int a, int b) => keyOf(a).compareTo(keyOf(b)));
+  return <String>[for (final int i in order) xs[i]];
+}
+
 /// Lowercase Latin accents → base letter, for the authored `strip_diacritics`
 /// normalization flag (Spanish: á é í ó ú ü ñ, plus the broader Latin set).
 const Map<String, String> _kDiacritics = <String, String>{
@@ -395,7 +473,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
       for (final CourseLesson l in spine.lessons) {
         if (l.id == id && l.exercises.isNotEmpty) {
           final List<_Item> items = <_Item>[
-            for (final CourseExercise e in l.exercises) _fromExercise(id, e),
+            for (final CourseExercise e in l.exercises) _fromExercise(id, e, spine),
           ];
           // Append a text-Match over REAL authored pairs (a mixed vocabulary
           // review) when the spine carries enough distinct content; else omit.
@@ -463,8 +541,21 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         final String phrase =
             e.accepted.isNotEmpty ? e.accepted.first.trim() : '';
         if (phrase.isEmpty) continue;
+        final List<String> tokens = _tokenize(phrase);
+        final String listenId = 'listen::$lessonId';
+        if (tokens.length >= 2) {
+          return _Item.listenBank(
+            id: listenId,
+            skill: lessonId,
+            b: e.irtB ?? 0.0,
+            phrase: phrase,
+            lang: spine.courseCode,
+            target: tokens,
+            pool: _bankFor(spine, tokens, listenId),
+          );
+        }
         return _Item.listen(
-          id: 'listen::\$lessonId',
+          id: listenId,
           skill: lessonId,
           b: e.irtB ?? 0.0,
           phrase: phrase,
@@ -484,14 +575,27 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
   /// Project one authored [CourseExercise] into a typed runner item. Only a
   /// single-token accepted answer (no spaces) is saved to the practice hub — a
   /// whole-sentence translation never masquerades as a vocabulary "word".
-  _Item _fromExercise(String skill, CourseExercise e) {
-    // Listen/dictation -> the type-what-you-hear renderer, but ONLY when
-    // browser speech is available (web); otherwise fall through to typed.
+  _Item _fromExercise(String skill, CourseExercise e, CourseSpine spine) {
+    // Listen/dictation -> an audio renderer, but ONLY when browser speech is
+    // available (web); otherwise fall through to typed. >=2 tokens -> the
+    // word-bank "assemble what you hear"; a single token -> type-what-you-hear.
     final String listenPhrase =
         e.accepted.isNotEmpty ? e.accepted.first.trim() : '';
     if ((e.exerciseType == 'listen' || e.exerciseType == 'dictation') &&
         listenPhrase.isNotEmpty &&
         ref.read(speechTtsProvider).isAvailable) {
+      final List<String> tokens = _tokenize(listenPhrase);
+      if (tokens.length >= 2) {
+        return _Item.listenBank(
+          id: e.id,
+          skill: skill,
+          b: e.irtB ?? 0.0,
+          phrase: listenPhrase,
+          lang: _courseLang,
+          target: tokens,
+          pool: _bankFor(spine, tokens, e.id),
+        );
+      }
       return _Item.listen(
         id: e.id,
         skill: skill,
@@ -540,7 +644,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         _ExType.pick => _picked != null,
         _ExType.wordBank => _answer.isNotEmpty,
         _ExType.typed => _typedCtrl.text.trim().isNotEmpty,
-        _ExType.listen => _typedCtrl.text.trim().isNotEmpty,
+        _ExType.listen => _item.target.isEmpty && _typedCtrl.text.trim().isNotEmpty,
         _ExType.match => false,
       };
 
@@ -590,6 +694,33 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
   /// match's difficulty, correct iff every pair matched with zero mismatches
   /// (MatchExercise fires [onGraded] exactly once). Mirrors [_check].
   void _gradeMatch(_Item it, bool allCorrect) {
+    if (_checked) return;
+    final double thetaBefore = ref.read(learnerControllerProvider).theta;
+    ref.read(learnerControllerProvider.notifier).recordReview(
+          ReviewLogEntry(
+            itemId: it.id,
+            skill: it.skill,
+            grade: allCorrect ? FsrsRating.good : FsrsRating.again,
+            correct: allCorrect,
+            elapsedMs: 0,
+            thetaBefore: thetaBefore,
+            irtBAtReview: it.b,
+            source: 'lesson',
+          ),
+        );
+    _graded += 1;
+    _seen.add(it.id);
+    if (allCorrect) _correct += 1;
+    setState(() {
+      _checked = true;
+      _wasCorrect = allCorrect;
+    });
+  }
+
+  /// Fold a completed word-bank Listen into the REAL ability engine -- one
+  /// review at the item's difficulty, correct iff the assembled order matched
+  /// (ListenExercise fires [onGraded] once). Mirrors [_gradeMatch].
+  void _gradeListen(_Item it, bool allCorrect) {
     if (_checked) return;
     final double thetaBefore = ref.read(learnerControllerProvider).theta;
     ref.read(learnerControllerProvider.notifier).recordReview(
@@ -908,11 +1039,23 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
       _audio = ref.read(speechTtsProvider).handleFor(it.phrase, lang: it.lang);
       _audioItemId = it.id;
     }
+    // Word-bank Listen (>=2 tokens): assemble what you hear (self-grading, no
+    // footer Check -- mirrors Match). Single-token -> type-what-you-hear.
+    if (it.target.isNotEmpty) {
+      return ListenExercise(
+        key: ValueKey<String>('lesson-listen-bank-${it.id}'),
+        audio: _audio!,
+        tokens: it.pool,
+        target: it.target,
+        reduceMotion: ref.watch(reduceMotionProvider),
+        onGraded: (bool ok) => _gradeListen(it, ok),
+      );
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         ListenAudioControls(
-          key: ValueKey<String>('lesson-listen-\${it.id}'),
+          key: ValueKey<String>('lesson-listen-${it.id}'),
           audio: _audio!,
           reduceMotion: ref.watch(reduceMotionProvider),
         ),
@@ -938,7 +1081,9 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         _ExType.pick => '${it.options[0].emoji}  ${it.options[0].label}',
         _ExType.wordBank => it.target.join(' '),
         _ExType.typed => it.accepted.isNotEmpty ? it.accepted.first : '',
-        _ExType.listen => it.accepted.isNotEmpty ? it.accepted.first : '',
+        _ExType.listen => it.target.isNotEmpty
+            ? it.target.join(' ')
+            : (it.accepted.isNotEmpty ? it.accepted.first : ''),
         _ExType.match => '',
       };
       return Column(
@@ -989,9 +1134,10 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         ],
       );
     }
-    if (it.type == _ExType.match) {
-      // Match auto-grades once every pair resolves; only Skip is offered
-      // (no Check button -- mirrors the design's Match footer).
+    if (it.type == _ExType.match ||
+        (it.type == _ExType.listen && it.target.isNotEmpty)) {
+      // Match + word-bank Listen auto-grade via their own Check (onGraded);
+      // only Skip is offered here (mirrors the design's Match footer).
       return RatelButton(
         label: 'Skip',
         variant: RatelButtonVariant.secondary,
