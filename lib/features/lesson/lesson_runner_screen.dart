@@ -6,7 +6,9 @@ import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/features/lesson/renderers/match_exercise.dart';
+import 'package:ratel/features/lesson/renderers/listen_audio_controls.dart';
 import 'package:ratel/services/learning/learning.dart';
+import 'package:ratel/services/tts_relay/tts_relay.dart';
 
 /// The lesson runner (design spec §4.7 "Lesson exercises").
 ///
@@ -49,7 +51,7 @@ class LessonRunnerScreen extends ConsumerStatefulWidget {
   ConsumerState<LessonRunnerScreen> createState() => _LessonRunnerScreenState();
 }
 
-enum _ExType { pick, wordBank, typed, match }
+enum _ExType { pick, wordBank, typed, match, listen }
 
 /// One pick-the-picture option (emoji + label).
 class _Opt {
@@ -78,7 +80,9 @@ class _Item {
         accepted = const <String>[],
         foldCase = true,
         stripDiacritics = false,
-        pairs = const <MatchPair>[];
+        pairs = const <MatchPair>[],
+        phrase = '',
+        lang = '';
 
   const _Item.wordBank({
     required this.id,
@@ -94,7 +98,9 @@ class _Item {
         accepted = const <String>[],
         foldCase = true,
         stripDiacritics = false,
-        pairs = const <MatchPair>[];
+        pairs = const <MatchPair>[],
+        phrase = '',
+        lang = '';
 
   const _Item.typed({
     required this.id,
@@ -110,7 +116,9 @@ class _Item {
         source = null,
         target = const <String>[],
         pool = const <String>[],
-        pairs = const <MatchPair>[];
+        pairs = const <MatchPair>[],
+        phrase = '',
+        lang = '';
 
   /// A text-Match over >=3 REAL authored (prompt -> answer) pairs.
   const _Item.match({
@@ -127,7 +135,29 @@ class _Item {
         pool = const <String>[],
         accepted = const <String>[],
         foldCase = true,
-        stripDiacritics = false;
+        stripDiacritics = false,
+        phrase = '',
+        lang = '';
+
+  /// Type-what-you-hear Listen: play [phrase] (browser TTS) + a typed answer
+  /// graded against [accepted] (identical grading to [_ExType.typed]).
+  const _Item.listen({
+    required this.id,
+    required this.skill,
+    required this.b,
+    required this.phrase,
+    required this.lang,
+    required this.accepted,
+    required this.foldCase,
+    required this.stripDiacritics,
+  })  : type = _ExType.listen,
+        prompt = 'Type what you hear',
+        options = const <_Opt>[],
+        saveWord = null,
+        source = null,
+        target = const <String>[],
+        pool = const <String>[],
+        pairs = const <MatchPair>[];
 
   final _ExType type;
   final String id;
@@ -147,6 +177,9 @@ class _Item {
   final bool stripDiacritics;
   // text-Match
   final List<MatchPair> pairs;
+  // listen (type-what-you-hear): the phrase to speak + its BCP-47 lang.
+  final String phrase;
+  final String lang;
 }
 
 const int _kLessonXp = 20;
@@ -328,6 +361,8 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
   final TextEditingController _typedCtrl = TextEditingController(); // typed
   bool _checked = false;
   bool _wasCorrect = false;
+  AudioHandle? _audio; // browser-TTS handle for the current Listen item
+  String? _audioItemId;
   bool _done = false;
 
   @override
@@ -346,6 +381,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
   @override
   void dispose() {
     _typedCtrl.dispose();
+    _audio?.dispose();
     super.dispose();
   }
 
@@ -365,6 +401,8 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
           // review) when the spine carries enough distinct content; else omit.
           final _Item? match = _buildMatchItem(spine, id);
           if (match != null) items.add(match);
+          final _Item? listen = _buildListenItem(spine, id);
+          if (listen != null) items.add(listen);
           return items;
         }
       }
@@ -407,10 +445,58 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
     );
   }
 
+  /// Append ONE type-what-you-hear Listen review built from a REAL authored
+  /// phrase (mirrors [_buildMatchItem]) -- surfaced only when browser speech
+  /// is available (web); omitted everywhere else so Listen degrades to typed.
+  /// Uses already-authored content, never dummy data.
+  // R-D8 (dictation / type-what-you-hear), R-D5 (listen).
+  _Item? _buildListenItem(CourseSpine spine, String lessonId) {
+    if (!ref.read(speechTtsProvider).isAvailable) return null;
+    for (final CourseLesson l in spine.lessons) {
+      for (final CourseExercise e in l.exercises) {
+        final String phrase =
+            e.accepted.isNotEmpty ? e.accepted.first.trim() : '';
+        if (phrase.isEmpty) continue;
+        return _Item.listen(
+          id: 'listen::\$lessonId',
+          skill: lessonId,
+          b: e.irtB ?? 0.0,
+          phrase: phrase,
+          lang: spine.courseCode,
+          accepted: e.accepted,
+          foldCase: e.foldCase,
+          stripDiacritics: e.stripDiacritics,
+        );
+      }
+    }
+    return null;
+  }
+
+  /// Target-language BCP-47 code for browser TTS voice selection.
+  String get _courseLang => ref.read(courseSpineProvider).courseCode;
+
   /// Project one authored [CourseExercise] into a typed runner item. Only a
   /// single-token accepted answer (no spaces) is saved to the practice hub — a
   /// whole-sentence translation never masquerades as a vocabulary "word".
   _Item _fromExercise(String skill, CourseExercise e) {
+    // Listen/dictation -> the type-what-you-hear renderer, but ONLY when
+    // browser speech is available (web); otherwise fall through to typed.
+    final String listenPhrase =
+        e.accepted.isNotEmpty ? e.accepted.first.trim() : '';
+    if ((e.exerciseType == 'listen' || e.exerciseType == 'dictation') &&
+        listenPhrase.isNotEmpty &&
+        ref.read(speechTtsProvider).isAvailable) {
+      return _Item.listen(
+        id: e.id,
+        skill: skill,
+        b: e.irtB ?? 0.0,
+        phrase: listenPhrase,
+        lang: _courseLang,
+        accepted: e.accepted,
+        foldCase: e.foldCase,
+        stripDiacritics: e.stripDiacritics,
+      );
+    }
     String? saveWord;
     for (final String a in e.accepted) {
       final String w = a.trim();
@@ -434,6 +520,9 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
   _Item get _item => _byId[_current!.id]!;
 
   void _resetItemState() {
+    _audio?.dispose();
+    _audio = null;
+    _audioItemId = null;
     _picked = null;
     _answer.clear();
     _typedCtrl.clear();
@@ -445,6 +534,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         _ExType.pick => _picked != null,
         _ExType.wordBank => _answer.isNotEmpty,
         _ExType.typed => _typedCtrl.text.trim().isNotEmpty,
+        _ExType.listen => _typedCtrl.text.trim().isNotEmpty,
         _ExType.match => false,
       };
 
@@ -456,6 +546,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
       _ExType.wordBank =>
         _seqEq(<String>[for (final int i in _answer) it.pool[i]], it.target),
       _ExType.typed => _gradeTyped(it, _typedCtrl.text),
+      _ExType.listen => _gradeTyped(it, _typedCtrl.text),
       _ExType.match => false,
     };
 
@@ -605,6 +696,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
                 _ExType.pick => _pick(it),
                 _ExType.wordBank => _wordBank(it),
                 _ExType.typed => _typed(it),
+                _ExType.listen => _listen(it),
                 _ExType.match => _match(it),
               },
             ),
@@ -804,6 +896,26 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
     );
   }
 
+  Widget _listen(_Item it) {
+    if (_audioItemId != it.id) {
+      _audio?.dispose();
+      _audio = ref.read(speechTtsProvider).handleFor(it.phrase, lang: it.lang);
+      _audioItemId = it.id;
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        ListenAudioControls(
+          key: ValueKey<String>('lesson-listen-\${it.id}'),
+          audio: _audio!,
+          reduceMotion: ref.watch(reduceMotionProvider),
+        ),
+        const SizedBox(height: RatelSpace.lg),
+        _typed(it),
+      ],
+    );
+  }
+
   Widget _match(_Item it) {
     return MatchExercise(
       key: ValueKey<String>('lesson-match-${it.id}'),
@@ -820,6 +932,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         _ExType.pick => '${it.options[0].emoji}  ${it.options[0].label}',
         _ExType.wordBank => it.target.join(' '),
         _ExType.typed => it.accepted.isNotEmpty ? it.accepted.first : '',
+        _ExType.listen => it.accepted.isNotEmpty ? it.accepted.first : '',
         _ExType.match => '',
       };
       return Column(

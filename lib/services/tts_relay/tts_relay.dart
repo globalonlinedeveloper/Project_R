@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 export 'edge_tts_relay.dart';
 export 'tts_size_guard.dart';
 export 'audio_handle.dart';
+export 'speech_tts.dart';
 
 /// Portability seam (mirrors [AiRelay]): a text/SSML synthesis request -> playable
 /// audio bytes. ALL Listen audio synthesis routes through this; a fail-closed
