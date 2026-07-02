@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ratel/app/ratel_app.dart';
+import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/features/settings/settings_screen.dart';
 import 'package:ratel/services/billing/billing.dart';
+import 'package:ratel/services/preferences/app_settings.dart';
+import 'package:ratel/services/preferences/settings_store.dart';
 
 class _ProEntitlements implements Entitlements {
   const _ProEntitlements();
@@ -24,6 +27,8 @@ const CourseSpine _spine = CourseSpine(courseCode: 'es', units: <CourseUnit>[
 Widget _homeApp({required bool pro}) => ProviderScope(
       overrides: <Override>[
         courseSpineProvider.overrideWithValue(_spine),
+        settingsStoreProvider.overrideWithValue(
+            InMemorySettingsStore(const AppSettings(reduceMotion: true))),
         if (pro) entitlementsProvider.overrideWithValue(const _ProEntitlements()),
       ],
       child: const RatelApp(),

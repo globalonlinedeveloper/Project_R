@@ -5,6 +5,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ratel/app/router.dart';
 import 'package:ratel/features/common/coming_soon_screen.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
+import 'package:ratel/features/settings/settings_controller.dart';
+import 'package:ratel/services/preferences/app_settings.dart';
+import 'package:ratel/services/preferences/settings_store.dart';
 
 const CourseSpine _spine = CourseSpine(
   courseCode: 'es',
@@ -45,6 +48,8 @@ void main() {
       ProviderScope(
         overrides: <Override>[
           courseSpineProvider.overrideWithValue(_spine),
+          settingsStoreProvider.overrideWithValue(
+              InMemorySettingsStore(const AppSettings(reduceMotion: true))),
         ],
         child: MaterialApp.router(routerConfig: router),
       ),

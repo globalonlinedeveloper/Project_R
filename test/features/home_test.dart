@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ratel/app/ratel_app.dart';
+import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
+import 'package:ratel/services/preferences/app_settings.dart';
+import 'package:ratel/services/preferences/settings_store.dart';
 
 /// A small content-FREE spine standing in for the projected ContentBatch, so the
 /// Home widget test never touches the codegen content layer (it stays in the
@@ -27,7 +30,13 @@ const CourseSpine _testSpine = CourseSpine(courseCode: 'es', units: <CourseUnit>
 ]);
 
 Widget _appWith(CourseSpine spine) => ProviderScope(
-      overrides: <Override>[courseSpineProvider.overrideWithValue(spine)],
+      overrides: <Override>[
+        courseSpineProvider.overrideWithValue(spine),
+        // The new learning path animates (pulse/bob tickers); disable motion so
+        // pumpAndSettle settles (SPEC_HOME_PATH Part C reduce-motion floor).
+        settingsStoreProvider.overrideWithValue(
+            InMemorySettingsStore(const AppSettings(reduceMotion: true))),
+      ],
       child: const RatelApp(),
     );
 

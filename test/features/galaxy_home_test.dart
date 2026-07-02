@@ -92,7 +92,7 @@ void main() {
 
   testWidgets('Classic keeps the original path (no galaxy painter / no pod)',
       (WidgetTester tester) async {
-    await tester.pumpWidget(_app(world: WorldTheme.classic));
+    await tester.pumpWidget(_app(world: WorldTheme.classic, reduceMotion: true));
     await tester.pumpAndSettle();
     expect(_hasGalaxyPath(tester), isFalse);
     expect(

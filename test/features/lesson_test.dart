@@ -7,6 +7,8 @@ import 'package:ratel/app/router.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/lesson/lesson_runner_screen.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
+import 'package:ratel/services/preferences/app_settings.dart';
+import 'package:ratel/services/preferences/settings_store.dart';
 
 // The §4.7 lesson runner. REAL CAT/IRT/θ selection + ability fold; finishing
 // awards real XP + saves real words. (H2) When launched with a lessonId the
@@ -88,7 +90,11 @@ void main() {
   testWidgets('Home → Start lesson opens the REAL runner serving the authored item',
       (WidgetTester tester) async {
     await tester.pumpWidget(ProviderScope(
-      overrides: <Override>[courseSpineProvider.overrideWithValue(_spine)],
+      overrides: <Override>[
+        courseSpineProvider.overrideWithValue(_spine),
+        settingsStoreProvider.overrideWithValue(
+            InMemorySettingsStore(const AppSettings(reduceMotion: true))),
+      ],
       child: const RatelApp(),
     ));
     await tester.pumpAndSettle();

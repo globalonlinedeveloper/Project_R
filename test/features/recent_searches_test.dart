@@ -64,7 +64,7 @@ void main() {
           courseSpineProvider.overrideWithValue(_spine),
           settingsStoreProvider.overrideWithValue(
             InMemorySettingsStore(
-                const AppSettings(recentSearches: <String>['food'])),
+                const AppSettings(recentSearches: <String>['food'], reduceMotion: true)),
           ),
         ],
         child: MaterialApp.router(routerConfig: router),

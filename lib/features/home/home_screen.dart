@@ -6,6 +6,9 @@ import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/home/economy_glyph.dart';
 import 'package:ratel/features/home/galaxy_path.dart';
+import 'package:ratel/features/home/learning_path_view.dart';
+import 'package:ratel/features/home/path_geometry.dart';
+import 'package:ratel/features/home/path_node_state.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/features/notifications/notifications_controller.dart';
 import 'package:ratel/services/preferences/app_settings.dart' show WorldTheme;
@@ -78,6 +81,14 @@ class HomeScreen extends ConsumerWidget {
     final List<_Node> nodes = _flatten(spine);
     final int active = snap.lessonsCompleted;
     final _Node current = nodes[active.clamp(0, nodes.length - 1)];
+    // Honour the reduce-motion HARD floor from BOTH the app-wide MediaQuery
+    // (RatelApp folds OS setting + toggle) AND the provider directly, so the
+    // floor still holds when Home is hosted without RatelApp's MediaQuery
+    // wrapper (e.g. router-only widget tests). SPEC_HOME_PATH Part C.
+    final bool reduceMotion = MediaQuery.of(context).disableAnimations ||
+        ref.watch(reduceMotionProvider);
+    final PathGeometry geom =
+        computePathGeometry(spine: spine, activeIndex: active);
 
     return Container(
       key: const ValueKey<String>('tab-home'),
@@ -100,15 +111,35 @@ class HomeScreen extends ConsumerWidget {
                         snap.streakFreezes > 0 ? snap.streakFreezes : null,
                     unreadNotifications: unread,
                     onNotificationsTap: () => context.push('/notifications')),
-                _unitBanner(context, current),
+                if (galaxy) _unitBanner(context, current),
                 Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.fromLTRB(
-                        RatelSpace.screen, RatelSpace.lg, RatelSpace.screen, 96),
-                    itemCount: nodes.length,
-                    itemBuilder: (BuildContext context, int i) =>
-                        _pathRow(context, nodes, i, active, galaxy),
-                  ),
+                  child: galaxy
+                      ? ListView.builder(
+                          padding: const EdgeInsets.fromLTRB(RatelSpace.screen,
+                              RatelSpace.lg, RatelSpace.screen, 96),
+                          itemCount: nodes.length,
+                          itemBuilder: (BuildContext context, int i) =>
+                              _pathRow(context, nodes, i, active, true),
+                        )
+                      : LearningPathView(
+                          nodes: geom.nodes,
+                          contentHeight: geom.contentHeight,
+                          sectionDividers: <PathSectionDivider>[
+                            for (final PathDivider d in geom.dividers)
+                              PathSectionDivider(label: d.label, y: d.y),
+                          ],
+                          bannerKicker: current.section,
+                          bannerUnitTitle: current.unit,
+                          reduceMotion: reduceMotion,
+                          onGuide: () => context.go('/library'),
+                          onNodeTap: (PathNodeData pd) {
+                            if (pd.state != PathNodeState.locked) {
+                              _showPreview(context, nodes[pd.index]);
+                            }
+                          },
+                          activeNodeKey:
+                              const ValueKey<String>('home-active-node'),
+                        ),
                 ),
               ],
             ),
