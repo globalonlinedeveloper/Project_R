@@ -6,6 +6,9 @@ import 'backdrop_registry.dart';
 
 /// Paints a [ThemeWorld]'s animated backdrop behind [child], full-bleed.
 ///
+/// Realizes the per-theme animated **painter** layer of the world-theme seam
+/// (R-WT1) app-wide, under the OS/in-app reduce-motion HARD FLOOR (R-WT5).
+///
 /// Layering (matching the design's z-0 `<canvas>` behind the app): the world's
 /// solid `page` color, then the animated backdrop, then [child].
 ///

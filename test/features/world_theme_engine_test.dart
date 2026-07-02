@@ -57,7 +57,14 @@ void main() {
     test('scaffold + primary + brightness come from the world palette', () {
       final ThemeWorld ocean = kThemeWorlds['ocean']!;
       final ThemeData t = RatelTheme.world(ocean);
-      expect(t.scaffoldBackgroundColor, ocean.palette.bg);
+      // ocean has the wave-1 'bubbles' backdrop -> the scaffold is the palette
+      // bg made TRANSLUCENT (80%) so the particle field shows through behind
+      // the app; the RGB still comes verbatim from the palette bg.
+      final Color sb = t.scaffoldBackgroundColor;
+      expect(sb.r, ocean.palette.bg.r);
+      expect(sb.g, ocean.palette.bg.g);
+      expect(sb.b, ocean.palette.bg.b);
+      expect(sb.a, lessThan(1.0));
       expect(t.colorScheme.primary, ocean.palette.accent);
       expect(t.brightness, Brightness.dark); // ocean is a dark world
       final RatelPalette? p = t.extension<RatelPalette>();

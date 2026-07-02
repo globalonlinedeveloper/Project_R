@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'palette.dart';
 import 'tokens.dart';
 import 'world_theme.dart';
+import 'backdrop_registry.dart';
 
 export 'palette.dart';
 export 'tokens.dart';
 export 'starfield.dart';
 export 'world_theme.dart';
 export 'world_registry.dart';
+export 'backdrop_registry.dart';
+export 'world_backdrop.dart';
 
 /// Builds the app's [ThemeData] from [RatelColors] / [RatelType] tokens.
 ///
@@ -164,10 +167,18 @@ abstract final class RatelTheme {
   /// Any of the 29 non-shipped design worlds: a full [ThemeData] built from the
   /// world's ported 15-token palette (neutrals + per-world accents). light/space
   /// keep their hand-tuned [light]/[space] builders; this serves the rest.
-  /// Backdrop painters are a later increment — the opaque `bg` scaffold renders
-  /// the world correctly now.
+  /// Worlds with a registered wave-1 backdrop painter render a TRANSLUCENT
+  /// scaffold + app-bar (the ported particle field shows through behind the
+  /// app, wrapped by `WorldBackdrop` in `RatelApp`) — mirroring the Space
+  /// theme's translucent `spaceBg` over the starfield. Worlds with no painter
+  /// yet keep the opaque `bg`.
   static ThemeData world(ThemeWorld w) {
     final WorldPalette wp = w.palette;
+    final bool hasBackdrop = kBackdropPainters.containsKey(w.backdrop);
+    // 20% of the animated backdrop bleeds through the chrome (the proven Space
+    // `spaceBg` alpha); the rest is the world tint, so text stays readable.
+    final Color chromeBg =
+        hasBackdrop ? wp.bg.withValues(alpha: 0.80) : wp.bg;
     final ColorScheme scheme = ColorScheme.fromSeed(
       seedColor: wp.accent,
       brightness: w.isDark ? Brightness.dark : Brightness.light,
@@ -189,14 +200,14 @@ abstract final class RatelTheme {
     return ThemeData(
       useMaterial3: true,
       colorScheme: scheme,
-      scaffoldBackgroundColor: wp.bg,
+      scaffoldBackgroundColor: chromeBg,
       fontFamily: RatelFont.body,
       textTheme: _textTheme(ink: wp.text, muted: wp.muted),
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       extensions: <ThemeExtension<dynamic>>[RatelPalette.fromWorld(w)],
       appBarTheme: AppBarTheme(
-        backgroundColor: wp.bg,
+        backgroundColor: chromeBg,
         foregroundColor: wp.text,
         elevation: 0,
         scrolledUnderElevation: 0,

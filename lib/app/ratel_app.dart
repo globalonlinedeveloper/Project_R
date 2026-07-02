@@ -53,6 +53,7 @@ class _RatelAppState extends ConsumerState<RatelApp>
     final ThemeWorld world = ref.watch(activeWorldProvider);
     final bool isLight = world.id == 'light';
     final bool space = world.id == 'galaxy';
+    final bool hasBackdrop = kBackdropPainters.containsKey(world.backdrop);
     final ThemeData lightTheme = isLight
         ? RatelTheme.light()
         : space
@@ -78,7 +79,14 @@ class _RatelAppState extends ConsumerState<RatelApp>
           data: mq.copyWith(
               disableAnimations:
                   mq.disableAnimations || ref.watch(reduceMotionProvider)),
-          child: child ?? const SizedBox.shrink(),
+          // Backdrop worlds paint their animated field behind the app (the
+          // R-WT1 per-theme painter layer, wired live from the registry); it
+          // lives INSIDE this MediaQuery so WorldBackdrop honors the combined
+          // reduce-motion floor (OS setting OR the in-app toggle).
+          child: hasBackdrop
+              ? WorldBackdrop(
+                  world: world, child: child ?? const SizedBox.shrink())
+              : (child ?? const SizedBox.shrink()),
         );
         if (space) {
           content = Stack(
