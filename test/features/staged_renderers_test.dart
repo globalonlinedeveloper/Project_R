@@ -14,10 +14,11 @@ import 'package:ratel/features/lesson/renderers/match_exercise.dart';
 /// renderer grades real pairs. No dummy data — palettes are the ported design.
 void main() {
   group('WS3-C backdrops', () {
-    test('registry has exactly the 12 wave-1 + wave-2 painters', () {
+    test('registry has exactly the 17 wave-1 + wave-2 + wave-3 painters', () {
       expect(kBackdropPainters.keys.toSet(), <String>{
         'dust', 'bubbles', 'sprinkles', 'snow', 'petals', 'grid', // wave-1
         'fireflies', 'rain', 'leaves', 'nlights', 'embers', 'sunset', // wave-2
+        'dunes', 'meadow', 'dawn', 'beach', 'lavender', // wave-3
       });
     });
 
