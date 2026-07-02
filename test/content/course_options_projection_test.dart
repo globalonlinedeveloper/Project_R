@@ -66,6 +66,37 @@ void main() {
     }
   });
 
+  test('A1 Section 1 complete: 6 authored units project in data order (S97)',
+      () {
+    final CourseSpine spine = buildCourseSpine(loadEn());
+    expect(spine.units.length, 6);
+    expect(spine.units.map((CourseUnit u) => u.title).toList(), <String>[
+      'First Words',
+      'About You',
+      'Family & Friends',
+      'Everyday Things',
+      'Food & Drink',
+      'Days & Time',
+    ]);
+    for (final CourseUnit u in spine.units) {
+      expect(u.section, 'SECTION 1 · FOUNDATIONS', reason: u.title);
+      expect(u.guideText, isNotNull, reason: '${u.title} needs a 📖 Guide');
+      expect(u.lessons.length, 4, reason: u.title);
+      for (final CourseLesson l in u.lessons) {
+        expect(l.exercises.length, inInclusiveRange(6, 7), reason: l.id);
+        expect(
+            l.exercises.any((CourseExercise e) => e.exerciseType == 'listen'),
+            true,
+            reason: '${l.id} needs a listen exercise');
+        expect(
+            l.exercises.every((CourseExercise e) =>
+                e.exerciseType == 'listen' || e.prompt.isNotEmpty),
+            true,
+            reason: '${l.id} has an unresolved prompt_ref');
+      }
+    }
+  });
+
   test('item-level explanations key by the ITEM id (plan §2) and project', () {
     final CourseSpine spine = buildCourseSpine(loadEn());
     final List<CourseExercise> all = pathExercises(spine);

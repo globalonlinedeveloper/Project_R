@@ -59,16 +59,35 @@ def main(draft_path: str, batch_path: str) -> int:
             for e in validate_row(t, r):
                 errs.append(f"{t} {key(t, r)}: {e}")
 
-    # 2. duplicate keys in the MERGED batch
+    # 2. duplicate keys. Parallel wave drafters cannot see each other, so two
+    #    waves may legitimately re-teach a shared word (S97: U4 + U5 both
+    #    taught 'apple'/'egg'): a vocab/sense row SEMANTICALLY IDENTICAL to an
+    #    already-present row is SKIPPED; any other duplicate is a hard FAIL.
+    semantic = {"vocab_entry": ("lemma", "pos", "cefr_level", "locale"),
+                "sense": ("vocab_id", "pos")}
+    existing: dict = {}
+    for t, rows in tables.items():
+        for r in rows:
+            existing[(t, key(t, r))] = r
+    skipped: list[str] = []
+    kept: dict = {}
+    for t, rows in draft.items():
+        kept[t] = []
+        for r in rows:
+            k = (t, key(t, r))
+            prev = existing.get(k)
+            if prev is not None:
+                fields = semantic.get(t)
+                if fields and all(prev.get(f) == r.get(f) for f in fields):
+                    skipped.append(f"{t} {key(t, r)}")
+                    continue
+                errs.append(f"duplicate key {t} {key(t, r)}")
+                continue
+            kept[t].append(r)
+            existing[k] = r
+    draft = kept
     merged = {t: list(tables.get(t, [])) + list(draft.get(t, []))
               for t in set(list(tables) + list(draft))}
-    for t, rows in merged.items():
-        seen: set = set()
-        for r in rows:
-            k = key(t, r)
-            if k in seen:
-                errs.append(f"duplicate key {t} {k}")
-            seen.add(k)
 
     # 3. referential closure over the MERGED batch
     gloss_ids = {g["content_id"] for g in merged.get("gloss", [])}
@@ -152,8 +171,10 @@ def main(draft_path: str, batch_path: str) -> int:
     out = json.dumps(batch, ensure_ascii=False, indent=2) + "\n"
     pathlib.Path(batch_path).write_text(out, encoding="utf-8")
     total = sum(len(v) for v in tables.values())
+    note = f", skipped {len(skipped)} identical dupes" if skipped else ""
     print(f"OK — integrated {sum(len(v) for v in draft.values())} rows "
-          f"({checked} schema-checked, closure verified); batch now {total} rows:")
+          f"({checked} schema-checked, closure verified{note}); "
+          f"batch now {total} rows:")
     print(" ", {t: len(v) for t, v in sorted(tables.items())})
     return 0
 
