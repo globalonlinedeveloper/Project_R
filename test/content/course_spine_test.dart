@@ -28,7 +28,12 @@ void main() {
     final CourseLesson greetings =
         spine.lessons.firstWhere((CourseLesson l) => l.title == 'Saludos');
     expect(greetings.cefr, 'A1');
-    expect(greetings.exerciseCount, 2); // two authored items
+    expect(greetings.exerciseCount, 3); // mcq + translate + authored listen
+    // The authored Listen item (S93) projects into the REAL spine.
+    expect(
+      greetings.exercises.any((CourseExercise e) => e.exerciseType == 'listen'),
+      true,
+    );
     final CourseExercise first = greetings.exercises.first;
     expect(first.prompt.isNotEmpty, true); // prompt_ref resolved via gloss
     expect(first.accepted, contains('hola'));

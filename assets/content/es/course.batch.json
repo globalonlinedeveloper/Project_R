@@ -404,6 +404,39 @@
         }
       },
       {
+        "item_id": "item_es_greet_listen_1",
+        "locale": "es",
+        "exercise_type": "listen",
+        "enum_version": 1,
+        "prompt_ref": "prompt_item_es_greet_listen_1",
+        "answer_spec": {
+          "accepted": [
+            "buenos días",
+            "buenos dias"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "strip_diacritics": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_greetings"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.0,
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 2,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
+        }
+      },
+      {
         "item_id": "item_es_food_1",
         "locale": "es",
         "exercise_type": "mcq",
@@ -467,6 +500,39 @@
           "content_version": 1,
           "created_at": "2026-06-23T00:00:00Z",
           "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_es_food_listen_1",
+        "locale": "es",
+        "exercise_type": "listen",
+        "enum_version": 1,
+        "prompt_ref": "prompt_item_es_food_listen_1",
+        "answer_spec": {
+          "accepted": [
+            "yo como pan",
+            "como pan"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "strip_diacritics": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_food"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.7,
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 2,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
         }
       },
       {
@@ -567,6 +633,39 @@
         }
       },
       {
+        "item_id": "item_es_present_listen_1",
+        "locale": "es",
+        "exercise_type": "listen",
+        "enum_version": 1,
+        "prompt_ref": "prompt_item_es_present_listen_1",
+        "answer_spec": {
+          "accepted": [
+            "ella lee un libro",
+            "lee un libro"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "strip_diacritics": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_present"
+        ],
+        "cefr_level": "A2",
+        "difficulty_band": "core",
+        "irt_b": -0.4,
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 2,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
+        }
+      },
+      {
         "item_id": "item_es_quest_1",
         "locale": "es",
         "exercise_type": "translate",
@@ -598,6 +697,40 @@
           "content_version": 1,
           "created_at": "2026-06-23T00:00:00Z",
           "updated_at": "2026-06-23T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_es_quest_listen_1",
+        "locale": "es",
+        "exercise_type": "listen",
+        "enum_version": 1,
+        "prompt_ref": "prompt_item_es_quest_listen_1",
+        "answer_spec": {
+          "accepted": [
+            "cuánto cuesta",
+            "cuanto cuesta",
+            "¿cuánto cuesta?"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "strip_diacritics": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_es_questions"
+        ],
+        "cefr_level": "A2",
+        "difficulty_band": "core",
+        "irt_b": -0.2,
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "model_version": "subscription/seed-0",
+          "review_status": "auto_certified",
+          "content_version": 2,
+          "created_at": "2026-06-23T00:00:00Z",
+          "updated_at": "2026-07-02T00:00:00Z"
         }
       }
     ],

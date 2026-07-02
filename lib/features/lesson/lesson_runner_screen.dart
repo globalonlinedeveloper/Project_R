@@ -530,6 +530,17 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
   // R-D8 (dictation / type-what-you-hear), R-D5 (listen).
   _Item? _buildListenItem(CourseSpine spine, String lessonId) {
     if (!ref.read(speechTtsProvider).isAvailable) return null;
+    // If the opened lesson already carries an authored listen/dictation
+    // exercise, it surfaces Listen directly (via _fromExercise) -- don't
+    // append a synthesized duplicate on top of it.
+    for (final CourseLesson l in spine.lessons) {
+      if (l.id == lessonId) {
+        final bool hasAuthoredListen = l.exercises.any((CourseExercise e) =>
+            e.exerciseType == 'listen' || e.exerciseType == 'dictation');
+        if (hasAuthoredListen) return null;
+        break;
+      }
+    }
     // Prefer a phrase from the CURRENT lesson (relevant + varies per lesson);
     // fall back to any authored phrase course-wide. Never dummy data.
     final List<CourseLesson> ordered = <CourseLesson>[
