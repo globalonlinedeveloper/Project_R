@@ -74,4 +74,31 @@ void main() {
           isA<SupabaseLearnerStateStore>());
     });
   });
+
+  group('shouldBootAnonSession gate (§2 pre-login durable persistence)', () {
+    test('boots only when configured AND enabled AND no existing session', () {
+      expect(
+          shouldBootAnonSession(
+              configured: true, enabled: true, hasSession: false),
+          isTrue);
+    });
+    test('stays guest when anon boot is disabled (default build-dark)', () {
+      expect(
+          shouldBootAnonSession(
+              configured: true, enabled: false, hasSession: false),
+          isFalse);
+    });
+    test('stays guest when the backend is not configured', () {
+      expect(
+          shouldBootAnonSession(
+              configured: false, enabled: true, hasSession: false),
+          isFalse);
+    });
+    test('never double-boots over an existing session', () {
+      expect(
+          shouldBootAnonSession(
+              configured: true, enabled: true, hasSession: true),
+          isFalse);
+    });
+  });
 }
