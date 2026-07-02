@@ -7,9 +7,12 @@
 /// owner-gated CI step (pass the keys via --dart-define + Pages env).
 library;
 
+import 'dart:convert';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'package:ratel/services/ai_relay/ai_relay.dart';
 import 'package:ratel/services/data_access/data_access.dart';
 import 'package:ratel/services/auth/auth.dart';
 import 'package:ratel/services/data_access/supabase_learner_state_store.dart';
@@ -33,6 +36,34 @@ const String kSupabasePublishableKey =
 /// (1) enable Anonymous Sign-Ins in Supabase -> Auth settings; (2) build with
 /// `--dart-define=RATEL_ANON=true`. Default false => byte-identical guest boot.
 const bool kEnableAnonSession = bool.fromEnvironment('RATEL_ANON');
+
+/// Opt-in (build-dark until go-live): route the AI tutor / adventures through
+/// the SERVER-SIDE `ai-relay` edge function (which holds the model key). Go-
+/// live: (1) the function is deployed — set its `GEMINI_API_KEY` secret; (2)
+/// build with `--dart-define=RATEL_AI_RELAY=true`. Default false => the fail-
+/// closed [UnconfiguredAiRelay] stays the provider (byte-identical build).
+// R-H7 relay go-live gate.
+const bool kEnableAiRelay = bool.fromEnvironment('RATEL_AI_RELAY');
+
+/// The server-side relay endpoint, derived from the Supabase project URL.
+String aiRelayUrl(String supabaseUrl) =>
+    '$supabaseUrl/functions/v1/ai-relay';
+
+/// Real transport for [EdgeAiRelay]: POST through the Supabase Functions
+/// client (which attaches the session JWT + project apikey), adapting its
+/// [FunctionResponse] to the relay layer's dependency-free [HttpLikeResponse].
+/// The model key is NEVER read here — it lives only in the edge function.
+HttpTransport supabaseFunctionsTransport(SupabaseClient client) =>
+    (HttpLikeRequest req) async {
+      final Map<String, dynamic> body =
+          jsonDecode(req.body) as Map<String, dynamic>;
+      final FunctionResponse resp =
+          await client.functions.invoke('ai-relay', body: body);
+      return HttpLikeResponse(
+        statusCode: resp.status,
+        body: jsonEncode(resp.data),
+      );
+    };
 
 /// The ONLY gate that turns on the Supabase-backed seams: both the URL and the
 /// publishable key must be present. Pure + injectable so it is unit-testable.
@@ -68,6 +99,15 @@ List<Override> backendOverridesForClient(SupabaseClient client) => <Override>[
           .overrideWithValue(SupabaseIdentity.fromClient(client)),
       authServiceProvider
           .overrideWithValue(SupabaseAuthService.fromClient(client)),
+      if (kEnableAiRelay)
+        aiRelayProvider.overrideWithValue(
+          RequestSizeLimitedAiRelay(
+            EdgeAiRelay(
+              transport: supabaseFunctionsTransport(client),
+              url: aiRelayUrl(kSupabaseUrl),
+            ),
+          ),
+        ),
     ];
 
 /// Best-effort `main`-side wiring: when [supabaseConfigured], initialise the

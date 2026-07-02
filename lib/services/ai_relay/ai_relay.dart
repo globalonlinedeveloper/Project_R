@@ -6,6 +6,7 @@ export 'relay_text.dart';
 export 'cost_guard.dart';
 export 'moderation.dart';
 export 'gemini_relay.dart';
+export 'edge_relay.dart';
 export 'relay_pipeline.dart';
 export 'request_size_guard.dart';
 
