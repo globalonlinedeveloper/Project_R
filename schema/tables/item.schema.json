@@ -27,6 +27,7 @@
         "additionalProperties": false
       }
     },
+    "rubric_spec": { "type": "object", "description": "R-D11 #45: machine-readable deterministic grading rubric for write items (min_tokens, required_vocab_refs[], required_skill_tags[], ...); open map/jsonb kind (R-C1). The rubric GLOSS (content_kind: rubric) stays the human-readable display." },
     "skill_ids": { "type": "array", "items": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" } },
     "cefr_level": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/cefr_level" },
     "difficulty_band": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/difficulty_band" },

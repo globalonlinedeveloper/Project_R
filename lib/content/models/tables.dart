@@ -68,6 +68,7 @@ abstract class GrammarPoint with _$GrammarPoint {
     @JsonKey(name: 'cefr_level') required CefrLevel cefrLevel,
     @JsonKey(name: 'unit_id') String? unitId,
     @JsonKey(name: 'lesson_order') int? lessonOrder,
+    @JsonKey(name: 'objective_descriptor_ids') List<String>? objectiveDescriptorIds,
     @JsonKey(name: 'concept_refs') List<String>? conceptRefs,
     @JsonKey(name: 'example_refs') List<String>? exampleRefs,
     @JsonKey(name: 'feature_tags') Map<String, Object?>? featureTags,
@@ -99,6 +100,7 @@ abstract class Item with _$Item {
     @JsonKey(name: 'prompt_ref') required String promptRef,
     @JsonKey(name: 'answer_spec') AnswerSpec? answerSpec,
     List<Map<String, Object?>>? options,
+    @JsonKey(name: 'rubric_spec') Map<String, Object?>? rubricSpec,
     @JsonKey(name: 'skill_ids') required List<String> skillIds,
     @JsonKey(name: 'cefr_level') required CefrLevel cefrLevel,
     @JsonKey(name: 'difficulty_band') DifficultyBand? difficultyBand,
@@ -170,6 +172,7 @@ abstract class Unit with _$Unit {
     @JsonKey(name: 'unit_order') required int unitOrder,
     @JsonKey(name: 'title_ref') required String titleRef,
     @JsonKey(name: 'guide_ref') String? guideRef,
+    @JsonKey(name: 'objective_descriptor_ids') List<String>? objectiveDescriptorIds,
     required Provenance provenance,
   }) = _Unit;
   factory Unit.fromJson(Map<String, dynamic> json) => _$UnitFromJson(json);
@@ -191,6 +194,7 @@ abstract class Passage with _$Passage {
     @JsonKey(name: 'video_prompt') String? videoPrompt,
     @JsonKey(name: 'duration_ms') int? durationMs,
     @JsonKey(name: 'explain_ref') String? explainRef,
+    @JsonKey(name: 'check_item_refs') List<String>? checkItemRefs,
     required Provenance provenance,
   }) = _Passage;
   factory Passage.fromJson(Map<String, dynamic> json) => _$PassageFromJson(json);
@@ -206,6 +210,7 @@ abstract class Scenario with _$Scenario {
     @JsonKey(name: 'cefr_level') required CefrLevel cefrLevel,
     String? world,
     @JsonKey(name: 'goal_ref') required String goalRef,
+    @JsonKey(name: 'rubric_ref') String? rubricRef,
     @JsonKey(name: 'skill_ids') List<String>? skillIds,
     required List<Map<String, Object?>> scenes,
     required Provenance provenance,

@@ -12,6 +12,7 @@
     "cefr_level": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/cefr_level" },
     "world": { "type": "string" },
     "goal_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "rubric_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
     "skill_ids": { "type": "array", "items": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" } },
     "scenes": {
       "type": "array",
@@ -23,6 +24,7 @@
           "scene_id": { "type": "string", "minLength": 1 },
           "speaker": { "type": "string", "minLength": 1 },
           "line_sentence_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+          "turn_item_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
           "choices": {
             "type": "array",
             "items": {
@@ -30,6 +32,7 @@
               "required": ["label_ref"],
               "properties": {
                 "label_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+                "option_id": { "type": "string", "minLength": 1 },
                 "next_scene_id": { "type": "string" },
                 "is_correct": { "type": "boolean" }
               },

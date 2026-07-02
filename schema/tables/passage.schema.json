@@ -18,6 +18,7 @@
     "video_prompt": { "type": "string" },
     "duration_ms": { "type": "integer", "minimum": 0 },
     "explain_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "check_item_refs": { "type": "array", "items": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" } },
     "provenance": { "$ref": "https://ratel.dev/schema/common.json#/$defs/provenance" }
   },
   "additionalProperties": false

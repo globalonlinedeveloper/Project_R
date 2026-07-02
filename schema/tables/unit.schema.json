@@ -13,6 +13,7 @@
     "unit_order": { "type": "integer", "minimum": 1 },
     "title_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
     "guide_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "objective_descriptor_ids": { "type": "array", "items": { "type": "string", "minLength": 1 } },
     "provenance": { "$ref": "https://ratel.dev/schema/common.json#/$defs/provenance" }
   },
   "additionalProperties": false

@@ -95,6 +95,7 @@ INVALID = [
                                            {"option_id": "b", "text": "y"}]}, "rows-only: unknown key inside option"),
     ("item", {**VALID["item"], "options": [{"option_id": "a", "text": "x"}]}, "options need >=2 entries"),
     ("item", {**VALID["item"], "options": [{"option_id": "a"}, {"option_id": "b"}]}, "option missing text"),
+    ("item", {**VALID["item"], "rubric_spec": "be nice"}, "rubric_spec must be an object, not prose"),
 ]
 
 
@@ -116,6 +117,21 @@ EXTRA_VALID = [
      "authored MCQ options w/ per-option explain_refs (Explain-this both scenarios)"),
     ("passage", {**VALID["passage"], "collection_id": "collection_en_a2_stories_1"},
      "optional collection_id groups passages into a series (Library UX)"),
+    ("passage", {**VALID["passage"], "check_item_refs": ["item_en_0001", "item_en_0002"]},
+     "R-B4: passages carry 1-3 optional comprehension-check item refs"),
+    ("unit", {**VALID["unit"], "objective_descriptor_ids": ["cefr2020_a1_greet_1"]},
+     "R-B3: containers carry objective_descriptor_ids"),
+    ("grammar_point", {**VALID["grammar_point"], "objective_descriptor_ids": ["cefr2020_a2_teform"]},
+     "R-B3: lessons carry objective_descriptor_ids"),
+    ("item", {**VALID["item"], "rubric_spec": {"min_tokens": 8, "required_vocab_refs": ["vocab_eat_en"]}},
+     "R-D11 #45: write items carry a machine-readable deterministic rubric"),
+    ("scenario", {**VALID["scenario"], "rubric_ref": "rubric_en_a1_cafe",
+                  "scenes": [{"scene_id": "s1", "speaker": "you", "line_sentence_ref": "sentence_en_0001",
+                              "turn_item_ref": "item_en_0001",
+                              "choices": [{"label_ref": "choicelabel_en_a1_cafe_1", "option_id": "a",
+                                           "next_scene_id": "s2", "is_correct": True}]},
+                             {"scene_id": "s2", "speaker": "barista", "line_sentence_ref": "sentence_en_0002"}]},
+     "R-D10: player turns EMBED atomic items (turn_item_ref) + header rubric + option-linked routing"),
     ("grammar_point", {k: v for k, v in VALID["grammar_point"].items() if k not in ("unit_id", "lesson_order")},
      "unit_id/lesson_order stay nullable (legacy CEFR-band batches)"),
 ]
