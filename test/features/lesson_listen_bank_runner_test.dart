@@ -39,6 +39,27 @@ const CourseSpine _spineBank = CourseSpine(courseCode: 'es', units: <CourseUnit>
   ),
 ]);
 
+// A lesson whose FIRST exercise is a single word (hola) but a LATER exercise is
+// a multi-token phrase -> the appended Listen review must PREFER the multi-token
+// phrase and surface the word-bank (not the single-token typed fallback).
+const CourseSpine _spinePrefersMulti = CourseSpine(courseCode: 'es', units: <CourseUnit>[
+  CourseUnit(
+    section: 'S',
+    title: 'A1',
+    lessons: <CourseLesson>[
+      CourseLesson(id: 'l1', title: 'Mixed', cefr: 'A1', exercises: <CourseExercise>[
+        CourseExercise(
+            id: 's1', exerciseType: 'mcq', prompt: 'p', accepted: <String>['hola']),
+        CourseExercise(
+            id: 'm1',
+            exerciseType: 'translate',
+            prompt: 'q',
+            accepted: <String>['yo como pan']),
+      ]),
+    ],
+  ),
+]);
+
 class _FakeAudioHandle implements AudioHandle {
   int playCount = 0;
   int slowCount = 0;
@@ -165,5 +186,45 @@ void main() {
     expect(find.text('✕ Not quite'), findsOneWidget);
     // The correct assembly is surfaced honestly.
     expect(find.textContaining('yo como pan'), findsWidgets);
+  });
+
+  testWidgets(
+      'a lesson opening on a single word still surfaces the word-bank from a '
+      'LATER multi-token phrase (prefers >=2 tokens, stays scoped)',
+      (WidgetTester tester) async {
+    final _FakeAudioHandle fake = _FakeAudioHandle();
+    final ProviderContainer c = ProviderContainer(overrides: <Override>[
+      courseSpineProvider.overrideWithValue(_spinePrefersMulti),
+      speechTtsProvider.overrideWithValue(_FakeAvailableSpeechTts(fake)),
+    ]);
+    addTearDown(c.dispose);
+    await _pump(tester, c);
+
+    // Walk the lesson; a word-bank review MUST appear (if the picker still
+    // returned the single-token 'hola', no word-bank would ever render).
+    bool sawWordBank = false;
+    for (int i = 0; i < 8; i++) {
+      if (find.text('Lesson complete!').evaluate().isNotEmpty) break;
+      if (_isWordBank()) {
+        sawWordBank = true;
+        for (final String w in const <String>['yo', 'como', 'pan']) {
+          await tester.tap(find.text(w));
+          await tester.pump();
+        }
+        await tester.tap(find.text('Check'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Continue'));
+        await tester.pumpAndSettle();
+      } else {
+        await tester.enterText(
+            find.byKey(const ValueKey<String>('lesson-input')), 'x');
+        await tester.pump();
+        await tester.tap(find.text('Check'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Continue'));
+        await tester.pumpAndSettle();
+      }
+    }
+    expect(sawWordBank, isTrue);
   });
 }

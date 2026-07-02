@@ -536,35 +536,44 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
       for (final CourseLesson l in spine.lessons) if (l.id == lessonId) l,
       for (final CourseLesson l in spine.lessons) if (l.id != lessonId) l,
     ];
+    final String listenId = 'listen::$lessonId';
+    // Lock onto the FIRST lesson that carries an authored phrase (keeps the
+    // review scoped to the opened lesson, S90). WITHIN that lesson, PREFER a
+    // >=2-token phrase so the DESIGNED word-bank surfaces even when the lesson's
+    // first exercise is a single word; only fall back to the single-token
+    // type-what-you-hear form when the lesson has no multi-token phrase. Real
+    // authored content only -- never dummy data.
     for (final CourseLesson l in ordered) {
-      for (final CourseExercise e in l.exercises) {
-        final String phrase =
-            e.accepted.isNotEmpty ? e.accepted.first.trim() : '';
-        if (phrase.isEmpty) continue;
-        final List<String> tokens = _tokenize(phrase);
-        final String listenId = 'listen::$lessonId';
+      final List<CourseExercise> withPhrase = <CourseExercise>[
+        for (final CourseExercise e in l.exercises)
+          if (e.accepted.isNotEmpty && e.accepted.first.trim().isNotEmpty) e,
+      ];
+      if (withPhrase.isEmpty) continue;
+      for (final CourseExercise e in withPhrase) {
+        final List<String> tokens = _tokenize(e.accepted.first.trim());
         if (tokens.length >= 2) {
           return _Item.listenBank(
             id: listenId,
             skill: lessonId,
             b: e.irtB ?? 0.0,
-            phrase: phrase,
+            phrase: e.accepted.first.trim(),
             lang: spine.courseCode,
             target: tokens,
             pool: _bankFor(spine, tokens, listenId),
           );
         }
-        return _Item.listen(
-          id: listenId,
-          skill: lessonId,
-          b: e.irtB ?? 0.0,
-          phrase: phrase,
-          lang: spine.courseCode,
-          accepted: e.accepted,
-          foldCase: e.foldCase,
-          stripDiacritics: e.stripDiacritics,
-        );
       }
+      final CourseExercise e = withPhrase.first;
+      return _Item.listen(
+        id: listenId,
+        skill: lessonId,
+        b: e.irtB ?? 0.0,
+        phrase: e.accepted.first.trim(),
+        lang: spine.courseCode,
+        accepted: e.accepted,
+        foldCase: e.foldCase,
+        stripDiacritics: e.stripDiacritics,
+      );
     }
     return null;
   }
