@@ -86,7 +86,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-D4 | translate (one type, with a direction setting) | Must | Stage2 | Built ✅ | — | — |
 | R-D5 | listen (listen and choose) | Must | Stage2 | Built ✅ | — | — |
 | R-D6 | word_order (build the sentence by tapping words) | Must | Stage2 | Built ✅ | — | — |
-| R-D7 | match (matching pairs) | Must | Stage2 | Built ✅ | — | — |
+| R-D7 | match (matching pairs) | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `match_exercise.dart`, `lesson_match_test.dart` |
 | R-D8 | dictation (type exactly what you hear) | Must | Stage2 | Built ✅ | — | — |
 | R-D9 | speak (on-device ASR intelligibility + shadowing, free) | Must | Stage2 | Built ✅ | — | — |
 | R-D9a | Web/desktop on-device ASR is cloud - force shadowing | Must | Stage2 | Built ✅ | — | — |

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
+import 'package:ratel/features/lesson/renderers/match_exercise.dart';
 import 'package:ratel/services/learning/learning.dart';
 
 /// The lesson runner (design spec §4.7 "Lesson exercises").
@@ -19,7 +20,7 @@ import 'package:ratel/services/learning/learning.dart';
 /// CEFR level genuinely move with practice). Finishing awards real XP
 /// ([LearnerController.recordLessonComplete]) and intakes the practised words
 /// through the real dedup engine ([SavedWordsController.save]).
-/// [R-L3 · R-D13 · R-G2 · R-I1 · R-G9 · R-L19 · R-B8]
+/// [R-L3 · R-D7 · R-D13 · R-G2 · R-I1 · R-G9 · R-L19 · R-B8]
 ///
 /// HONEST RENDERER CHOICE: authored items carry NO distractor pool / picture
 /// options (the `answer_spec` is `accepted` + normalization flags only), so the
@@ -48,7 +49,7 @@ class LessonRunnerScreen extends ConsumerStatefulWidget {
   ConsumerState<LessonRunnerScreen> createState() => _LessonRunnerScreenState();
 }
 
-enum _ExType { pick, wordBank, typed }
+enum _ExType { pick, wordBank, typed, match }
 
 /// One pick-the-picture option (emoji + label).
 class _Opt {
@@ -76,7 +77,8 @@ class _Item {
         pool = const <String>[],
         accepted = const <String>[],
         foldCase = true,
-        stripDiacritics = false;
+        stripDiacritics = false,
+        pairs = const <MatchPair>[];
 
   const _Item.wordBank({
     required this.id,
@@ -91,7 +93,8 @@ class _Item {
         saveWord = null,
         accepted = const <String>[],
         foldCase = true,
-        stripDiacritics = false;
+        stripDiacritics = false,
+        pairs = const <MatchPair>[];
 
   const _Item.typed({
     required this.id,
@@ -106,7 +109,25 @@ class _Item {
         options = const <_Opt>[],
         source = null,
         target = const <String>[],
-        pool = const <String>[];
+        pool = const <String>[],
+        pairs = const <MatchPair>[];
+
+  /// A text-Match over >=3 REAL authored (prompt -> answer) pairs.
+  const _Item.match({
+    required this.id,
+    required this.skill,
+    required this.b,
+    required this.pairs,
+  })  : type = _ExType.match,
+        prompt = 'Match the pairs',
+        options = const <_Opt>[],
+        saveWord = null,
+        source = null,
+        target = const <String>[],
+        pool = const <String>[],
+        accepted = const <String>[],
+        foldCase = true,
+        stripDiacritics = false;
 
   final _ExType type;
   final String id;
@@ -124,6 +145,8 @@ class _Item {
   final List<String> accepted;
   final bool foldCase;
   final bool stripDiacritics;
+  // text-Match
+  final List<MatchPair> pairs;
 }
 
 const int _kLessonXp = 20;
@@ -335,13 +358,53 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
       final CourseSpine spine = ref.read(courseSpineProvider);
       for (final CourseLesson l in spine.lessons) {
         if (l.id == id && l.exercises.isNotEmpty) {
-          return <_Item>[
+          final List<_Item> items = <_Item>[
             for (final CourseExercise e in l.exercises) _fromExercise(id, e),
           ];
+          // Append a text-Match over REAL authored pairs (a mixed vocabulary
+          // review) when the spine carries enough distinct content; else omit.
+          final _Item? match = _buildMatchItem(spine, id);
+          if (match != null) items.add(match);
+          return items;
         }
       }
     }
     return _kFallbackItems;
+  }
+
+  /// The design's text-Match shows 3-5 tiles per side.
+  static const int _kMatchMin = 3;
+  static const int _kMatchMax = 5;
+
+  /// Build ONE text-Match item from the course spine's REAL authored
+  /// (prompt -> first-accepted-answer) pairs, gathered in path order,
+  /// de-duplicated by prompt, capped at [_kMatchMax]. Returns null when fewer
+  /// than [_kMatchMin] distinct pairs exist so Match is only ever served over
+  /// genuine content -- never dummy data.
+  _Item? _buildMatchItem(CourseSpine spine, String lessonId) {
+    final List<MatchPair> pairs = <MatchPair>[];
+    final Set<String> seenPrompts = <String>{};
+    double bSum = 0;
+    int bN = 0;
+    outer:
+    for (final CourseLesson l in spine.lessons) {
+      for (final CourseExercise e in l.exercises) {
+        final String pr = e.prompt.trim();
+        final String an = e.accepted.isNotEmpty ? e.accepted.first.trim() : '';
+        if (pr.isEmpty || an.isEmpty || !seenPrompts.add(pr)) continue;
+        pairs.add(MatchPair(pr, an));
+        bSum += e.irtB ?? 0.0;
+        bN += 1;
+        if (pairs.length >= _kMatchMax) break outer;
+      }
+    }
+    if (pairs.length < _kMatchMin) return null;
+    return _Item.match(
+      id: 'match::$lessonId',
+      skill: lessonId,
+      b: bN > 0 ? bSum / bN : 0.0,
+      pairs: pairs,
+    );
   }
 
   /// Project one authored [CourseExercise] into a typed runner item. Only a
@@ -382,6 +445,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         _ExType.pick => _picked != null,
         _ExType.wordBank => _answer.isNotEmpty,
         _ExType.typed => _typedCtrl.text.trim().isNotEmpty,
+        _ExType.match => false,
       };
 
   /// Grade the current item and fold the answer into the REAL ability engine.
@@ -392,6 +456,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
       _ExType.wordBank =>
         _seqEq(<String>[for (final int i in _answer) it.pool[i]], it.target),
       _ExType.typed => _gradeTyped(it, _typedCtrl.text),
+      _ExType.match => false,
     };
 
     final double thetaBefore = ref.read(learnerControllerProvider).theta;
@@ -421,6 +486,33 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
     setState(() {
       _checked = true;
       _wasCorrect = correct;
+    });
+  }
+
+  /// Fold a completed Match into the REAL ability engine -- one review at the
+  /// match's difficulty, correct iff every pair matched with zero mismatches
+  /// (MatchExercise fires [onGraded] exactly once). Mirrors [_check].
+  void _gradeMatch(_Item it, bool allCorrect) {
+    if (_checked) return;
+    final double thetaBefore = ref.read(learnerControllerProvider).theta;
+    ref.read(learnerControllerProvider.notifier).recordReview(
+          ReviewLogEntry(
+            itemId: it.id,
+            skill: it.skill,
+            grade: allCorrect ? FsrsRating.good : FsrsRating.again,
+            correct: allCorrect,
+            elapsedMs: 0,
+            thetaBefore: thetaBefore,
+            irtBAtReview: it.b,
+            source: 'lesson',
+          ),
+        );
+    _graded += 1;
+    _seen.add(it.id);
+    if (allCorrect) _correct += 1;
+    setState(() {
+      _checked = true;
+      _wasCorrect = allCorrect;
     });
   }
 
@@ -513,6 +605,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
                 _ExType.pick => _pick(it),
                 _ExType.wordBank => _wordBank(it),
                 _ExType.typed => _typed(it),
+                _ExType.match => _match(it),
               },
             ),
           ),
@@ -711,6 +804,15 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
     );
   }
 
+  Widget _match(_Item it) {
+    return MatchExercise(
+      key: ValueKey<String>('lesson-match-${it.id}'),
+      pairs: it.pairs,
+      reduceMotion: ref.watch(reduceMotionProvider),
+      onGraded: (bool ok) => _gradeMatch(it, ok),
+    );
+  }
+
   Widget _bottom(_Item it) {
     if (_checked) {
       final Color tint = _wasCorrect ? RatelColors.green : RatelColors.coral;
@@ -718,6 +820,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         _ExType.pick => '${it.options[0].emoji}  ${it.options[0].label}',
         _ExType.wordBank => it.target.join(' '),
         _ExType.typed => it.accepted.isNotEmpty ? it.accepted.first : '',
+        _ExType.match => '',
       };
       return Column(
         mainAxisSize: MainAxisSize.min,
@@ -742,7 +845,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
                     color: tint,
                   ),
                 ),
-                if (!_wasCorrect) ...<Widget>[
+                if (!_wasCorrect && answerText.isNotEmpty) ...<Widget>[
                   const SizedBox(height: 4),
                   Text(
                     'Answer: $answerText',
@@ -765,6 +868,15 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
             onPressed: _next,
           ),
         ],
+      );
+    }
+    if (it.type == _ExType.match) {
+      // Match auto-grades once every pair resolves; only Skip is offered
+      // (no Check button -- mirrors the design's Match footer).
+      return RatelButton(
+        label: 'Skip',
+        variant: RatelButtonVariant.secondary,
+        onPressed: _skip,
       );
     }
     return Row(

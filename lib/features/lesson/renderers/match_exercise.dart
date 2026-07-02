@@ -8,7 +8,8 @@ class MatchPair {
   const MatchPair(this.prompt, this.answer);
 }
 
-/// Text **Match** exercise renderer (design spec §4.7 "Match" — text variant,
+/// Text **Match** exercise renderer — R-D7 (matching pairs). Design spec
+/// §4.7 "Match" (text variant,
 /// mockup `matchTap` L2031–2044 / tile styling L2143–2156).
 ///
 /// Two columns: the left column lists the [MatchPair.prompt]s in authored order;
