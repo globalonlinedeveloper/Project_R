@@ -50,10 +50,10 @@ jobs:
 
       - name: Build web (root base-href for *.pages.dev; no service worker)
         if: steps.cfg.outputs.ready == 'true'
-        # To turn the auth flow ON in production, append: --dart-define=RATEL_AUTH=true
+        # To turn the auth flow ON in production, append: --dart-define=RATEL_AUTH=true --dart-define=RATEL_ANON=true
         # (HELD OFF: the web auth-init crashes at runtime — see main.dart guard /
         # the auth-init bug; re-enable only once that is fixed and verified in a browser).
-        run: flutter build web --release --base-href "/" --pwa-strategy=none --dart-define=RATEL_AUTH=true --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} --dart-define=SUPABASE_PUBLISHABLE_KEY=${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
+        run: flutter build web --release --base-href "/" --pwa-strategy=none --dart-define=RATEL_AUTH=true --dart-define=RATEL_ANON=true --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} --dart-define=SUPABASE_PUBLISHABLE_KEY=${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
 
       - name: Stamp deploy marker (ground-truth verification endpoint, §25)
         if: steps.cfg.outputs.ready == 'true'
