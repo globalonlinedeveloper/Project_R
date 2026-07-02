@@ -37,7 +37,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-A1 | v1 launch shape & scope boundary | Must | Spec | Spec/cross ▫ | — | — |
 | R-A2 | Target platforms & device/OS minimums | Must | Spec | Spec/cross ▫ | — | — |
 | R-A2a | Per-platform capability degradation matrix | Must | Spec | Spec/cross ▫ | — | — |
-| R-A3 | Target-language & tier ratification (52 LTR) | Must | Stage1 | Built ✅ | — | — |
+| R-A3 | Target-language & tier ratification (52 LTR) | Must | Stage1 | Built ✅ | — | `content_wiring.dart`, `course_switch.dart`, `course_switch_test.dart` |
 | R-A4 | UI/gloss launch set & any-to-any cell-lighting | Must | Stage1 | Built ✅ | — | — |
 | R-A5 | Hindi/Swahili provisional-promotion rule | Must | Spec | Spec/cross ▫ | — | — |
 | R-A6 | Pilot scope & schema-conformance exit gate | Must | Stage1 | Built ✅ | — | — |
@@ -50,7 +50,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 |----|-------------|--------|-------|--------|------|----------|
 | R-B1 | CEFR can-do spine ratification | Must | Stage1 | Built ✅ | — | — |
 | R-B2 | Skill/Concept prerequisite graph | Must | Stage1 | Built ✅ | — | — |
-| R-B3 | Course-Section-Unit-Lesson containers & path rendering | Must | Stage1 | Built ✅ | — | `content_wiring.dart`, `content_course_spine.dart`, `home_screen.dart`, `learning_path_view.dart` +5 |
+| R-B3 | Course-Section-Unit-Lesson containers & path rendering | Must | Stage1 | Built ✅ | — | `content_wiring.dart`, `course_switch.dart`, `content_course_spine.dart`, `home_screen.dart` +7 |
 | R-B4 | TBLT task model + tap-to-define | Must | Stage1 | Built ✅ | — | `test_schema.py`, `course_options_projection_test.dart`, `course_spine_test.dart`, `lesson_mcq_authored_test.dart` |
 | R-B5 | Depth-as-data & CEFR-ceiling enforcement | Must | Stage1 | Built ✅ | — | — |
 | R-B6 | Native realization & divergence nodes | Must | Stage1 | Built ✅ | — | — |

@@ -12,7 +12,7 @@ import 'package:ratel/services/economy/prefs_outfits_store.dart';
 
 import 'app/backend_wiring.dart';
 import 'app/content_wiring.dart';
-import 'app/ratel_app.dart';
+import 'app/course_switch.dart';
 import 'features/settings/settings_controller.dart';
 
 /// RATEL entrypoint — boots the design-system theme + the go_router 5-tab shell.
@@ -29,8 +29,9 @@ Future<void> main() async {
   overrides.addAll(await initBackendOverrides());
 
   // (2) On-device settings persistence (best-effort).
+  SharedPreferences? prefs;
   try {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs = await SharedPreferences.getInstance();
     overrides.add(
       settingsStoreProvider.overrideWithValue(PrefsSettingsStore(prefs)),
     );
@@ -47,8 +48,22 @@ Future<void> main() async {
     // keep the in-memory settings default
   }
 
-  // (3) Content-driven learning path: project the bundled course batch.
-  overrides.addAll(await initContentOverrides());
+  // (3) Content-driven learning path: project the SELECTED bundled course
+  // batch (INF-3 — persisted course code; ES default so existing learners
+  // see no change) + the manifest-derived course list for the picker.
+  String courseCode = kDefaultCourseCode;
+  try {
+    courseCode = prefs?.getString(kCoursePrefKey) ?? kDefaultCourseCode;
+  } catch (_) {}
+  final List<Override> content =
+      await initContentOverrides(course: courseCode);
+  final List<String> courses = await availableCourseCodes();
 
-  runApp(ProviderScope(overrides: overrides, child: const RatelApp()));
+  runApp(RatelCourseRoot(
+    baseOverrides: overrides,
+    initialContent: content,
+    initialCourse: courseCode,
+    availableCourses: courses,
+    prefs: prefs,
+  ));
 }

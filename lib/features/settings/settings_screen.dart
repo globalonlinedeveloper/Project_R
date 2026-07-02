@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:ratel/app/app_providers.dart';
+import 'package:ratel/app/course_switch.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/billing/billing.dart';
@@ -123,6 +126,17 @@ class SettingsScreen extends ConsumerWidget {
           const SizedBox(height: RatelSpace.lg),
           const RatelSectionHeader(label: 'Appearance & account'),
           const SizedBox(height: RatelSpace.sm),
+          if (CourseSwitchScope.maybeOf(context)
+              case final CourseSwitchScope course) ...<Widget>[
+            RatelListRow(
+              leadingEmoji: '🌍',
+              leadingColor: RatelColors.green,
+              title: 'Course',
+              subtitle: _courseLabel(course.current),
+              onTap: () => _pickCourse(context, course),
+            ),
+            const SizedBox(height: RatelSpace.sm),
+          ],
           RatelListRow(
             leadingEmoji: '🌙',
             leadingColor: RatelColors.purple,
@@ -296,6 +310,53 @@ class SettingsScreen extends ConsumerWidget {
       ),
     );
   }
+  /// Course picker (INF-3) — mirrors the theme sheet. Choices come from the
+  /// asset manifest via [CourseSwitchScope] (a new language = content rows +
+  /// one asset; the picker grows itself). Selecting persists the code and
+  /// remounts the app onto that course instantly (restart-free).
+  void _pickCourse(BuildContext context, CourseSwitchScope course) {
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: context.palette.white,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+              top: Radius.circular(RatelRadius.featureLg))),
+      builder: (BuildContext sheetContext) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(RatelSpace.lg),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              const Padding(
+                padding:
+                    EdgeInsets.only(left: RatelSpace.sm, bottom: RatelSpace.sm),
+                child: RatelSectionHeader(label: 'Course'),
+              ),
+              for (final String code in course.available) ...<Widget>[
+                RatelListRow(
+                  leadingEmoji: code == course.current ? '✅' : '🌍',
+                  title: _courseLabel(code),
+                  onTap: () {
+                    Navigator.of(sheetContext).pop();
+                    unawaited(course.switchCourse(code));
+                  },
+                ),
+                const SizedBox(height: RatelSpace.xs),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  static String _courseLabel(String code) => switch (code) {
+        'es' => 'Spanish (es)',
+        'en' => 'English (en)',
+        _ => code,
+      };
+
   String _worldLabel(WorldTheme w) =>
       kThemeWorlds[w.name]?.label ?? 'Daylight';
 }
