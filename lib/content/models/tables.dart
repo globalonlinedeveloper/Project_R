@@ -66,6 +66,8 @@ abstract class GrammarPoint with _$GrammarPoint {
     required String name,
     @JsonKey(name: 'rule_text_ref') String? ruleTextRef,
     @JsonKey(name: 'cefr_level') required CefrLevel cefrLevel,
+    @JsonKey(name: 'unit_id') String? unitId,
+    @JsonKey(name: 'lesson_order') int? lessonOrder,
     @JsonKey(name: 'concept_refs') List<String>? conceptRefs,
     @JsonKey(name: 'example_refs') List<String>? exampleRefs,
     @JsonKey(name: 'feature_tags') Map<String, Object?>? featureTags,
@@ -96,6 +98,7 @@ abstract class Item with _$Item {
     @JsonKey(name: 'enum_version') int? enumVersion,
     @JsonKey(name: 'prompt_ref') required String promptRef,
     @JsonKey(name: 'answer_spec') AnswerSpec? answerSpec,
+    List<Map<String, Object?>>? options,
     @JsonKey(name: 'skill_ids') required List<String> skillIds,
     @JsonKey(name: 'cefr_level') required CefrLevel cefrLevel,
     @JsonKey(name: 'difficulty_band') DifficultyBand? difficultyBand,
@@ -154,6 +157,60 @@ abstract class Gloss with _$Gloss {
     required Provenance provenance,
   }) = _Gloss;
   factory Gloss.fromJson(Map<String, dynamic> json) => _$GlossFromJson(json);
+}
+
+@freezed
+abstract class Unit with _$Unit {
+  const factory Unit({
+    @JsonKey(name: 'unit_id') required String unitId,
+    required String locale,
+    @JsonKey(name: 'cefr_level') required CefrLevel cefrLevel,
+    @JsonKey(name: 'section_order') required int sectionOrder,
+    @JsonKey(name: 'section_title_ref') required String sectionTitleRef,
+    @JsonKey(name: 'unit_order') required int unitOrder,
+    @JsonKey(name: 'title_ref') required String titleRef,
+    @JsonKey(name: 'guide_ref') String? guideRef,
+    required Provenance provenance,
+  }) = _Unit;
+  factory Unit.fromJson(Map<String, dynamic> json) => _$UnitFromJson(json);
+}
+
+@freezed
+abstract class Passage with _$Passage {
+  const factory Passage({
+    @JsonKey(name: 'passage_id') required String passageId,
+    required String locale,
+    required PassageKind kind,
+    @JsonKey(name: 'title_ref') required String titleRef,
+    @JsonKey(name: 'cefr_level') required CefrLevel cefrLevel,
+    String? theme,
+    @JsonKey(name: 'collection_id') String? collectionId,
+    @JsonKey(name: 'sentence_refs') required List<String> sentenceRefs,
+    @JsonKey(name: 'audio_ref') String? audioRef,
+    @JsonKey(name: 'video_ref') String? videoRef,
+    @JsonKey(name: 'video_prompt') String? videoPrompt,
+    @JsonKey(name: 'duration_ms') int? durationMs,
+    @JsonKey(name: 'explain_ref') String? explainRef,
+    required Provenance provenance,
+  }) = _Passage;
+  factory Passage.fromJson(Map<String, dynamic> json) => _$PassageFromJson(json);
+}
+
+@freezed
+abstract class Scenario with _$Scenario {
+  const factory Scenario({
+    @JsonKey(name: 'scenario_id') required String scenarioId,
+    required String locale,
+    required ScenarioKind kind,
+    @JsonKey(name: 'title_ref') required String titleRef,
+    @JsonKey(name: 'cefr_level') required CefrLevel cefrLevel,
+    String? world,
+    @JsonKey(name: 'goal_ref') required String goalRef,
+    @JsonKey(name: 'skill_ids') List<String>? skillIds,
+    required List<Map<String, Object?>> scenes,
+    required Provenance provenance,
+  }) = _Scenario;
+  factory Scenario.fromJson(Map<String, dynamic> json) => _$ScenarioFromJson(json);
 }
 
 @freezed

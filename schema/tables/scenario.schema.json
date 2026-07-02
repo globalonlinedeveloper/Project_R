@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/scenario.json",
+  "title": "Scenario — branching dialogue content (Roleplay Drill · Adventures); lines are sentence_refs, labels/goals live in the gloss layer, branching is data (scenes[].choices[].next_scene_id)",
+  "type": "object",
+  "required": ["scenario_id", "locale", "kind", "title_ref", "cefr_level", "goal_ref", "scenes", "provenance"],
+  "properties": {
+    "scenario_id": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "locale": { "$ref": "https://ratel.dev/schema/common.json#/$defs/bcp47" },
+    "kind": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/scenario_kind" },
+    "title_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "cefr_level": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/cefr_level" },
+    "world": { "type": "string" },
+    "goal_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "skill_ids": { "type": "array", "items": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" } },
+    "scenes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["scene_id", "speaker", "line_sentence_ref"],
+        "properties": {
+          "scene_id": { "type": "string", "minLength": 1 },
+          "speaker": { "type": "string", "minLength": 1 },
+          "line_sentence_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+          "choices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["label_ref"],
+              "properties": {
+                "label_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+                "next_scene_id": { "type": "string" },
+                "is_correct": { "type": "boolean" }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "provenance": { "$ref": "https://ratel.dev/schema/common.json#/$defs/provenance" }
+  },
+  "additionalProperties": false
+}

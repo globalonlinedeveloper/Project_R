@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/unit.json",
+  "title": "Unit (R-A7) — curriculum node Level→Section→Unit; titles + the 📖 Guide live in the gloss layer; ordering is data (section_order/unit_order), never a code constant",
+  "type": "object",
+  "required": ["unit_id", "locale", "cefr_level", "section_order", "section_title_ref", "unit_order", "title_ref", "provenance"],
+  "properties": {
+    "unit_id": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "locale": { "$ref": "https://ratel.dev/schema/common.json#/$defs/bcp47" },
+    "cefr_level": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/cefr_level" },
+    "section_order": { "type": "integer", "minimum": 1 },
+    "section_title_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "unit_order": { "type": "integer", "minimum": 1 },
+    "title_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "guide_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "provenance": { "$ref": "https://ratel.dev/schema/common.json#/$defs/provenance" }
+  },
+  "additionalProperties": false
+}

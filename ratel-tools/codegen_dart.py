@@ -16,7 +16,7 @@ SCHEMA = ROOT / "schema"
 OUT = ROOT / "lib" / "content" / "models"
 
 TABLES = ["sentence", "vocab_entry", "sense", "grammar_point", "phoneme",
-          "item", "locale", "media_asset", "gloss",
+          "item", "locale", "media_asset", "gloss", "unit", "passage", "scenario",
           # Stage-3 user/runtime tables (P0-2, L1)
           "user", "user_course", "user_item_state", "user_phoneme_state",
           "placement_session", "review_log", "credit_ledger"]
@@ -56,7 +56,7 @@ ENUM_FORWARD_COMPAT = {
     "text_direction": HARD_REJECT, "item_direction": HARD_REJECT, "contrast_type": HARD_REJECT,
     "media_type": HARD_REJECT, "content_kind": HARD_REJECT, "plural_category": HARD_REJECT,
     "unicode_norm": HARD_REJECT, "fsrs_state": HARD_REJECT, "ledger_entry_type": HARD_REJECT,
-    "grant_source": HARD_REJECT,
+    "grant_source": HARD_REJECT, "passage_kind": HARD_REJECT, "scenario_kind": HARD_REJECT,
 }
 
 

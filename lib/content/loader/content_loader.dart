@@ -26,6 +26,9 @@ class ContentBatch {
     this.locales = const [],
     this.media = const [],
     this.glosses = const [],
+    this.units = const [],
+    this.passages = const [],
+    this.scenarios = const [],
   });
 
   final String batchId;
@@ -39,6 +42,9 @@ class ContentBatch {
   final List<Locale> locales;
   final List<MediaAsset> media;
   final List<Gloss> glosses;
+  final List<Unit> units;
+  final List<Passage> passages;
+  final List<Scenario> scenarios;
 
   int get rowCount =>
       sentences.length +
@@ -49,7 +55,10 @@ class ContentBatch {
       items.length +
       locales.length +
       media.length +
-      glosses.length;
+      glosses.length +
+      units.length +
+      passages.length +
+      scenarios.length;
 }
 
 typedef _FromJson = Object Function(Map<String, dynamic>);
@@ -69,6 +78,9 @@ class ContentLoader {
     'locale': Locale.fromJson,
     'media_asset': MediaAsset.fromJson,
     'gloss': Gloss.fromJson,
+    'unit': Unit.fromJson,
+    'passage': Passage.fromJson,
+    'scenario': Scenario.fromJson,
   };
 
   ContentBatch loadString(String source) {
@@ -106,6 +118,9 @@ class ContentLoader {
       locales: rows<Locale>('locale'),
       media: rows<MediaAsset>('media_asset'),
       glosses: rows<Gloss>('gloss'),
+      units: rows<Unit>('unit'),
+      passages: rows<Passage>('passage'),
+      scenarios: rows<Scenario>('scenario'),
     );
   }
 

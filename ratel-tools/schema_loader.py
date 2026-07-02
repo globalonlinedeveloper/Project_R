@@ -15,7 +15,7 @@ SCHEMA_DIR = pathlib.Path(__file__).resolve().parent.parent / "schema"
 
 TABLES = (
     "sentence", "vocab_entry", "sense", "grammar_point", "phoneme",
-    "item", "locale", "media_asset", "gloss",
+    "item", "locale", "media_asset", "gloss", "unit", "passage", "scenario",
     # Stage-3 user/runtime tables (P0-2, L1) — additive; content tables above stay frozen.
     "user", "user_course", "user_item_state", "user_phoneme_state",
     "placement_session", "review_log", "credit_ledger",

@@ -10,6 +10,8 @@
     "name": { "type": "string", "minLength": 1 },
     "rule_text_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
     "cefr_level": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/cefr_level" },
+    "unit_id": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
+    "lesson_order": { "type": "integer", "minimum": 1 },
     "concept_refs": { "type": "array", "items": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" } },
     "example_refs": { "type": "array", "items": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" } },
     "feature_tags": { "$ref": "https://ratel.dev/schema/common.json#/$defs/features" },

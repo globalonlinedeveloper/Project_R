@@ -11,6 +11,22 @@
     "enum_version": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/enum_version" },
     "prompt_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" },
     "answer_spec": { "$ref": "https://ratel.dev/schema/common.json#/$defs/answer_spec" },
+    "options": {
+      "type": "array",
+      "minItems": 2,
+      "description": "Authored choice options (mcq-family). Per-option explain_ref -> gloss(content_kind: explanation) powers Explain-this for EVERY option, right or wrong (S96 owner steer). Optional: legacy items without options keep synthesized choices.",
+      "items": {
+        "type": "object",
+        "required": ["option_id", "text"],
+        "properties": {
+          "option_id": { "type": "string", "minLength": 1 },
+          "text": { "type": "string", "minLength": 1 },
+          "is_correct": { "type": "boolean" },
+          "explain_ref": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" }
+        },
+        "additionalProperties": false
+      }
+    },
     "skill_ids": { "type": "array", "items": { "$ref": "https://ratel.dev/schema/common.json#/$defs/content_id" } },
     "cefr_level": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/cefr_level" },
     "difficulty_band": { "$ref": "https://ratel.dev/schema/enums.json#/$defs/difficulty_band" },

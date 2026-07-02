@@ -126,7 +126,22 @@ enum ContentKind {
   @JsonValue('prompt') prompt,
   @JsonValue('hint') hint,
   @JsonValue('grammar_rule') grammarRule,
-  @JsonValue('instruction') instruction;
+  @JsonValue('instruction') instruction,
+  @JsonValue('rubric') rubric,
+  @JsonValue('explanation') explanation;
+}
+
+@JsonEnum()
+enum PassageKind {
+  @JsonValue('story') story,
+  @JsonValue('podcast') podcast,
+  @JsonValue('video') video;
+}
+
+@JsonEnum()
+enum ScenarioKind {
+  @JsonValue('roleplay') roleplay,
+  @JsonValue('adventure') adventure;
 }
 
 @JsonEnum()

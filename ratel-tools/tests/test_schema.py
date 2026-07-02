@@ -21,7 +21,7 @@ VALID = {
     "sense": {"sense_id": "sense_bank_finance", "vocab_id": "vocab_bank_en", "pos": "noun",
               "examples": ["sentence_en_0001"], "provenance": PROV},
     "grammar_point": {"grammar_id": "grammar_ja_te_form", "locale": "ja", "name": "te-form",
-                      "cefr_level": "A2", "concept_refs": ["concept_verb_conjugation"],
+                      "cefr_level": "A2", "unit_id": "unit_ja_a2_s1_u1", "lesson_order": 2, "concept_refs": ["concept_verb_conjugation"],
                       "feature_tags": {"aspect": "connective"}, "provenance": PROV},
     "phoneme": {"phoneme_id": "ph_th_05", "locale": "th", "ipa_symbol": "kʰ",
                 "features": {"place": "velar", "manner": "plosive", "aspiration": True}, "provenance": PROV},
@@ -39,6 +39,19 @@ VALID = {
                     "duration_ms": 1840, "provenance": PROV},
     "gloss": {"content_id": "sense_dog_es", "content_kind": "sense", "ui_locale": "ta",
               "text": "நாய்", "provenance": PROV},
+    "unit": {"unit_id": "unit_en_a1_s1_u1", "locale": "en", "cefr_level": "A1", "section_order": 1,
+             "section_title_ref": "sectiontitle_en_a1_s1", "unit_order": 1,
+             "title_ref": "unittitle_en_a1_s1_u1", "guide_ref": "guide_en_a1_s1_u1", "provenance": PROV},
+    "passage": {"passage_id": "passage_en_a1_story_0001", "locale": "en", "kind": "story",
+                "title_ref": "passagetitle_en_a1_0001", "cefr_level": "A1", "theme": "daily life",
+                "sentence_refs": ["sentence_en_0001", "sentence_en_0002"], "duration_ms": 30000, "provenance": PROV},
+    "scenario": {"scenario_id": "scenario_en_a1_cafe", "locale": "en", "kind": "roleplay",
+                 "title_ref": "scenariotitle_en_a1_cafe", "cefr_level": "A1", "world": "cafe",
+                 "goal_ref": "goal_en_a1_cafe", "skill_ids": ["skill_en_greetings"],
+                 "scenes": [{"scene_id": "s1", "speaker": "barista", "line_sentence_ref": "sentence_en_0001",
+                             "choices": [{"label_ref": "choicelabel_en_a1_cafe_1", "next_scene_id": "s2", "is_correct": True}]},
+                            {"scene_id": "s2", "speaker": "you", "line_sentence_ref": "sentence_en_0002"}],
+                 "provenance": PROV},
     "user": {"user_id": "11111111-1111-1111-1111-111111111111", "created_at": "2026-06-23T00:00:00Z", "updated_at": "2026-06-23T00:00:00Z", "pro_until": "2026-12-31T00:00:00Z", "fsrs_weights": [0.4, 0.6, 2.4, 5.8], "ui_locale": "en", "timezone": "Asia/Kolkata", "daily_goal_xp": 30},
     "user_course": {"user_course_id": "22222222-2222-2222-2222-222222222222", "user_id": "11111111-1111-1111-1111-111111111111", "target_locale": "es", "ui_locale": "en", "theta_per_skill": {"skill_es_articles": 0.5}, "cefr_target": "A1", "xp_total": 120, "created_at": "2026-06-23T00:00:00Z", "updated_at": "2026-06-23T00:00:00Z"},
     "user_item_state": {"user_item_state_id": "33333333-3333-3333-3333-333333333333", "user_id": "11111111-1111-1111-1111-111111111111", "item_id": "item_es_0001", "stability": 12.5, "difficulty": 5.0, "due": "2026-06-30T00:00:00Z", "last_review": "2026-06-23T00:00:00Z", "reps": 3, "lapses": 0, "scheduled_days": 7, "state": "review", "created_at": "2026-06-23T00:00:00Z", "updated_at": "2026-06-23T00:00:00Z"},
@@ -70,6 +83,18 @@ INVALID = [
     ("user_item_state", {**VALID["user_item_state"], "state": "mastered"}, "bad fsrs_state enum"),
     ("review_log", {**VALID["review_log"], "rating": 9}, "rating out of 1..4 range"),
     ("credit_ledger", {**VALID["credit_ledger"], "entry_type": "chargeback"}, "bad ledger_entry_type enum"),
+    ("unit", {**VALID["unit"], "extra_col": 1}, "rows-only: unknown column on unit"),
+    ("unit", {k: v for k, v in VALID["unit"].items() if k != "section_order"}, "missing required section_order"),
+    ("passage", {**VALID["passage"], "kind": "movie"}, "bad passage_kind enum"),
+    ("passage", {**VALID["passage"], "sentence_refs": []}, "passage needs >=1 sentence_ref"),
+    ("scenario", {**VALID["scenario"], "kind": "quiz"}, "bad scenario_kind enum"),
+    ("scenario", {**VALID["scenario"], "scenes": [{"scene_id": "s1", "speaker": "x"}]}, "scene missing line_sentence_ref"),
+    ("scenario", {**VALID["scenario"], "scenes": [{**VALID["scenario"]["scenes"][0], "mood": "happy"}]}, "rows-only: unknown key inside scene"),
+    ("grammar_point", {**VALID["grammar_point"], "lesson_order": "first"}, "lesson_order must be an integer"),
+    ("item", {**VALID["item"], "options": [{"option_id": "a", "text": "x", "hint": "no"},
+                                           {"option_id": "b", "text": "y"}]}, "rows-only: unknown key inside option"),
+    ("item", {**VALID["item"], "options": [{"option_id": "a", "text": "x"}]}, "options need >=2 entries"),
+    ("item", {**VALID["item"], "options": [{"option_id": "a"}, {"option_id": "b"}]}, "option missing text"),
 ]
 
 
@@ -82,10 +107,27 @@ def test_every_table_has_a_valid_fixture():
     assert set(VALID) == set(TABLES), "every table needs a valid fixture"
 
 
+EXTRA_VALID = [
+    ("gloss", {**VALID["gloss"], "content_kind": "rubric"}, "rubric is a legal content_kind (Guided Writing criteria)"),
+    ("gloss", {**VALID["gloss"], "content_kind": "explanation"}, "explanation is a legal content_kind (pre-generated Explain-this)"),
+    ("item", {**VALID["item"], "options": [
+        {"option_id": "a", "text": "el bebé", "is_correct": True, "explain_ref": "expl_es_0001_a"},
+        {"option_id": "b", "text": "la bebé", "explain_ref": "expl_es_0001_b"}]},
+     "authored MCQ options w/ per-option explain_refs (Explain-this both scenarios)"),
+    ("passage", {**VALID["passage"], "collection_id": "collection_en_a2_stories_1"},
+     "optional collection_id groups passages into a series (Library UX)"),
+    ("grammar_point", {k: v for k, v in VALID["grammar_point"].items() if k not in ("unit_id", "lesson_order")},
+     "unit_id/lesson_order stay nullable (legacy CEFR-band batches)"),
+]
+
+
 def test_valid_rows_pass():
     for table, row in VALID.items():
         errs = validate_row(table, row)
         assert errs == [], f"{table} valid row rejected: {errs}"
+    for table, row, why in EXTRA_VALID:
+        errs = validate_row(table, row)
+        assert errs == [], f"{table} extra valid ({why}) rejected: {errs}"
 
 
 def test_invalid_rows_rejected():
