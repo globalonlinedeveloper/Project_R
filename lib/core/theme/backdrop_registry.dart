@@ -1,6 +1,8 @@
 import 'backdrop_paint.dart';
+import 'backdrops/bamboo.dart';
 import 'backdrops/beach.dart';
 import 'backdrops/bubbles.dart';
+import 'backdrops/cyberrain.dart';
 import 'backdrops/dawn.dart';
 import 'backdrops/dunes.dart';
 import 'backdrops/dust.dart';
@@ -11,6 +13,7 @@ import 'backdrops/lagoon.dart';
 import 'backdrops/lavender.dart';
 import 'backdrops/leaves.dart';
 import 'backdrops/meadow.dart';
+import 'backdrops/nebula.dart';
 import 'backdrops/nlights.dart';
 import 'backdrops/petals.dart';
 import 'backdrops/rain.dart';
@@ -24,8 +27,8 @@ import 'backdrops/sunset.dart';
 ///
 /// Wave-1 (dust/bubbles/sprinkles/snow/petals/grid) + Wave-2
 /// (fireflies/rain/leaves/nlights/embers/sunset) + Wave-3 richer moderate
-/// scenes (dunes/meadow/dawn/beach/lavender) + Wave-3B (reef/lagoon/sandstorm)
-/// animated backdrops, ported from the design engine. Ids not present here have
+/// scenes (dunes/meadow/dawn/beach/lavender) + Wave-3B (reef/lagoon/sandstorm) +
+/// Wave-4a (cyberrain/bamboo/nebula) animated backdrops, ported from the design engine. Ids not present here have
 /// no animated painter yet -- callers (see `WorldBackdrop`) fall back to a solid
 /// `page` fill. `none` (the static `light` world) and `stars` (the existing
 /// static `StarfieldPainter`) are deliberately absent.
@@ -57,4 +60,8 @@ const Map<String, BackdropPaint> kBackdropPainters = <String, BackdropPaint>{
   'reef': paintReef,
   'lagoon': paintLagoon,
   'sandstorm': paintSandstorm,
+  // Wave-4a (complex set, batch 1).
+  'cyberrain': paintCyberRain,
+  'bamboo': paintBamboo,
+  'nebula': paintNebula,
 };
