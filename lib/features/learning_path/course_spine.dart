@@ -1,5 +1,21 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/// One authored MCQ option (a content `item.options[]` entry) resolved for
+/// the codegen-free feature layer: display [text], authored [isCorrect], and
+/// the per-option "Explain this" [explain] text (its `explain_ref` gloss),
+/// when authored. [INF-2.5]
+class CourseOption {
+  const CourseOption({
+    required this.text,
+    required this.isCorrect,
+    this.explain,
+  });
+
+  final String text;
+  final bool isCorrect;
+  final String? explain;
+}
+
 /// A plain-Dart, codegen-FREE projection of the content layer's `ContentBatch`
 /// into the learning-path shape the Home tab (design spec §4.1) renders.
 ///
@@ -21,6 +37,8 @@ class CourseExercise {
     this.irtB,
     this.foldCase = true,
     this.stripDiacritics = false,
+    this.options = const <CourseOption>[],
+    this.explain,
   });
 
   /// Content `item_id`.
@@ -41,6 +59,18 @@ class CourseExercise {
 
   final bool foldCase;
   final bool stripDiacritics;
+
+  /// Authored MCQ options (content `item.options[]`) in AUTHORED order,
+  /// resolved for the codegen-free feature layer: display text, authored
+  /// correctness, and the per-option "Explain this" text. Empty for items
+  /// without an authored bank (the legacy ES course) -- those keep the typed
+  /// renderer, byte-identical. [INF-2.5]
+  final List<CourseOption> options;
+
+  /// Item-level authored explanation (gloss `content_id == item_id`,
+  /// `content_kind: explanation`) -- the "why this answer is right" text
+  /// behind the "Explain this" button. Null when not authored.
+  final String? explain;
 }
 
 /// One lesson node on the path (a content `skill` / grammar point).

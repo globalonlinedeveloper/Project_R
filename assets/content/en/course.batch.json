@@ -2549,7 +2549,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l1_1",
+        "content_id": "item_en_a1_s1u1_l1_1",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "'Good morning' is the standard greeting from early morning until about midday.",
@@ -2619,7 +2619,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l1_2",
+        "content_id": "item_en_a1_s1u1_l1_2",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "'Goodbye' is the standard word to say when you leave.",
@@ -2703,7 +2703,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l1_3",
+        "content_id": "item_en_a1_s1u1_l1_3",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "'Good night' is what you say before bed or when you leave at night.",
@@ -2773,7 +2773,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l1_4",
+        "content_id": "item_en_a1_s1u1_l1_4",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "'Hi' is a short, friendly, informal version of 'hello'.",
@@ -2843,7 +2843,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l1_5",
+        "content_id": "item_en_a1_s1u1_l1_5",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "'Good morning' is the greeting used in the morning.",
@@ -2871,7 +2871,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l1_6",
+        "content_id": "item_en_a1_s1u1_l1_6",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "You can greet a friend with 'Hello' and add 'my friend' to be warm and friendly.",
@@ -2899,7 +2899,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l1_7",
+        "content_id": "item_en_a1_s1u1_l1_7",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "'Good night' is said at bedtime or when someone leaves at night.",
@@ -2927,7 +2927,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l2_1",
+        "content_id": "item_en_a1_s1u1_l2_1",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "The verb 'be' with 'I' is 'am': 'I am Anna.'",
@@ -2997,7 +2997,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l2_2",
+        "content_id": "item_en_a1_s1u1_l2_2",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "The verb 'be' with 'you' is 'are': 'You are my friend.'",
@@ -3067,7 +3067,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l2_3",
+        "content_id": "item_en_a1_s1u1_l2_3",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "Use 'am' with 'I' and 'are' with 'you'.",
@@ -3137,7 +3137,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l2_4",
+        "content_id": "item_en_a1_s1u1_l2_4",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "To introduce yourself, use 'I am' plus your name: 'I am Anna.'",
@@ -3165,7 +3165,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l2_5",
+        "content_id": "item_en_a1_s1u1_l2_5",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "With 'you', use 'are': 'You are my friend.'",
@@ -3193,7 +3193,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l2_6",
+        "content_id": "item_en_a1_s1u1_l2_6",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "'I am your friend.' uses 'am' because the subject is 'I'.",
@@ -3221,7 +3221,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l3_1",
+        "content_id": "item_en_a1_s1u1_l3_1",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "Say 'Thank you' to show thanks when someone gives you something or helps you.",
@@ -3291,7 +3291,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l3_2",
+        "content_id": "item_en_a1_s1u1_l3_2",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "The polite reply to 'thank you' is 'You are welcome.'",
@@ -3375,7 +3375,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l3_3",
+        "content_id": "item_en_a1_s1u1_l3_3",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "'Excuse me' is the polite phrase to get attention or ask a person to let you pass.",
@@ -3445,7 +3445,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l3_4",
+        "content_id": "item_en_a1_s1u1_l3_4",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "Add 'please' to a request to make it polite: 'Water, please.'",
@@ -3515,7 +3515,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l3_5",
+        "content_id": "item_en_a1_s1u1_l3_5",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "'Thank you' is the standard way to show thanks in English.",
@@ -3543,7 +3543,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l3_6",
+        "content_id": "item_en_a1_s1u1_l3_6",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "'You are welcome' is the polite reply to 'thank you'.",
@@ -3571,7 +3571,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l3_7",
+        "content_id": "item_en_a1_s1u1_l3_7",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "'Yes, please.' is the polite way to say yes to an offer.",
@@ -3599,7 +3599,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l4_1",
+        "content_id": "item_en_a1_s1u1_l4_1",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "'What is your name?' is the question that asks for a person's name.",
@@ -3669,7 +3669,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l4_2",
+        "content_id": "item_en_a1_s1u1_l4_2",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "Answer with 'My name is' plus your name: 'My name is Anna.'",
@@ -3739,7 +3739,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l4_3",
+        "content_id": "item_en_a1_s1u1_l4_3",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "Say 'Nice to meet you.' when you meet a person for the first time.",
@@ -3809,7 +3809,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l4_4",
+        "content_id": "item_en_a1_s1u1_l4_4",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "The correct order is 'My name is Anna.'",
@@ -3879,7 +3879,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l4_5",
+        "content_id": "item_en_a1_s1u1_l4_5",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "'What is your name?' (or 'What's your name?') asks for a person's name.",
@@ -3907,7 +3907,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l4_6",
+        "content_id": "item_en_a1_s1u1_l4_6",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "Use 'My name is' plus your name: 'My name is Anna.'",
@@ -3935,7 +3935,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_l4_7",
+        "content_id": "item_en_a1_s1u1_l4_7",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "'Nice to meet you.' is the friendly phrase for meeting someone new.",
@@ -4187,7 +4187,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_meet_1",
+        "content_id": "item_en_a1_s1u1_meet_1",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "'Nice to meet you' is the polite reply when someone tells you their name.",
@@ -4327,7 +4327,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_write_1",
+        "content_id": "item_en_a1_s1u1_write_1",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "A good answer greets and gives a name, e.g.: 'Hello! My name is Anna.'",
@@ -4355,7 +4355,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_chk_1",
+        "content_id": "item_en_a1_s1u1_chk_1",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "The first line says: 'Anna is a new student.'",
@@ -4425,7 +4425,7 @@
         }
       },
       {
-        "content_id": "expl_en_a1_s1u1_chk_2",
+        "content_id": "item_en_a1_s1u1_chk_2",
         "content_kind": "explanation",
         "ui_locale": "en",
         "text": "The teacher greets her in the morning: 'Good morning.'",

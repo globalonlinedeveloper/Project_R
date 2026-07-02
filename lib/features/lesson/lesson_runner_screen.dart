@@ -83,7 +83,10 @@ class _Item {
         stripDiacritics = false,
         pairs = const <MatchPair>[],
         phrase = '',
-        lang = '';
+        lang = '',
+        mcqOptions = const <CourseOption>[],
+        correctIndex = 0,
+        explain = null;
 
   const _Item.wordBank({
     required this.id,
@@ -101,7 +104,10 @@ class _Item {
         stripDiacritics = false,
         pairs = const <MatchPair>[],
         phrase = '',
-        lang = '';
+        lang = '',
+        mcqOptions = const <CourseOption>[],
+        correctIndex = 0,
+        explain = null;
 
   const _Item.typed({
     required this.id,
@@ -119,7 +125,10 @@ class _Item {
         pool = const <String>[],
         pairs = const <MatchPair>[],
         phrase = '',
-        lang = '';
+        lang = '',
+        mcqOptions = const <CourseOption>[],
+        correctIndex = 0,
+        explain = null;
 
   /// A text-Match over >=3 REAL authored (prompt -> answer) pairs.
   const _Item.match({
@@ -138,7 +147,10 @@ class _Item {
         foldCase = true,
         stripDiacritics = false,
         phrase = '',
-        lang = '';
+        lang = '',
+        mcqOptions = const <CourseOption>[],
+        correctIndex = 0,
+        explain = null;
 
   /// Type-what-you-hear Listen: play [phrase] (browser TTS) + a typed answer
   /// graded against [accepted] (identical grading to [_ExType.typed]).
@@ -158,7 +170,10 @@ class _Item {
         source = null,
         target = const <String>[],
         pool = const <String>[],
-        pairs = const <MatchPair>[];
+        pairs = const <MatchPair>[],
+        mcqOptions = const <CourseOption>[],
+        correctIndex = 0,
+        explain = null;
 
   /// Word-bank Listen (>=2 tokens): play [phrase] (browser TTS), then assemble
   /// the answer from [pool] (the target tokens + real single-word decoys drawn
@@ -182,7 +197,37 @@ class _Item {
         accepted = const <String>[],
         foldCase = true,
         stripDiacritics = false,
-        pairs = const <MatchPair>[];
+        pairs = const <MatchPair>[],
+        mcqOptions = const <CourseOption>[],
+        correctIndex = 0,
+        explain = null;
+
+  /// Authored-options MCQ (INF-2.5): the content batch carries a real
+  /// `item.options[]` bank -> render the AUTHORED texts (stable-shuffled per
+  /// item id so the correct pick is not always first -- authored data lists it
+  /// first), grade by the authored `is_correct` at [correctIndex], and surface
+  /// the authored "Explain this" texts (per-option `explain_ref` glosses +
+  /// the item-level `content_id == item_id` explanation gloss).
+  const _Item.mcqAuthored({
+    required this.id,
+    required this.skill,
+    required this.b,
+    required this.prompt,
+    required this.mcqOptions,
+    required this.correctIndex,
+    required this.explain,
+    required this.saveWord,
+  })  : type = _ExType.pick,
+        options = const <_Opt>[],
+        source = null,
+        target = const <String>[],
+        pool = const <String>[],
+        accepted = const <String>[],
+        foldCase = true,
+        stripDiacritics = false,
+        pairs = const <MatchPair>[],
+        phrase = '',
+        lang = '';
 
   final _ExType type;
   final String id;
@@ -205,6 +250,10 @@ class _Item {
   // listen (type-what-you-hear): the phrase to speak + its BCP-47 lang.
   final String phrase;
   final String lang;
+  // authored-options MCQ (INF-2.5): the REAL authored bank + explain texts.
+  final List<CourseOption> mcqOptions;
+  final int correctIndex;
+  final String? explain;
 }
 
 const int _kLessonXp = 20;
@@ -596,6 +645,39 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
   /// single-token accepted answer (no spaces) is saved to the practice hub — a
   /// whole-sentence translation never masquerades as a vocabulary "word".
   _Item _fromExercise(String skill, CourseExercise e, CourseSpine spine) {
+    // Authored-options MCQ (INF-2.5): the batch carries a real options[] bank
+    // -> serve it. Stable-shuffle (id-keyed) so the authored-first correct
+    // option lands anywhere; grade by the authored is_correct. Items WITHOUT
+    // options (the legacy ES course) keep the typed path below, byte-identical.
+    if (e.exerciseType == 'mcq' &&
+        e.options.length >= 2 &&
+        e.options.where((CourseOption o) => o.isCorrect).length == 1) {
+      final List<String> order = _stableShuffle(
+        <String>[for (int i = 0; i < e.options.length; i++) '$i'],
+        e.id,
+      );
+      final List<CourseOption> shuffled = <CourseOption>[
+        for (final String i in order) e.options[int.parse(i)],
+      ];
+      String? saveWord;
+      for (final String a in e.accepted) {
+        final String w = a.trim();
+        if (w.isNotEmpty && !w.contains(' ')) {
+          saveWord = w;
+          break;
+        }
+      }
+      return _Item.mcqAuthored(
+        id: e.id,
+        skill: skill,
+        b: e.irtB ?? 0.0,
+        prompt: e.prompt,
+        mcqOptions: shuffled,
+        correctIndex: shuffled.indexWhere((CourseOption o) => o.isCorrect),
+        explain: e.explain,
+        saveWord: saveWord,
+      );
+    }
     // Listen/dictation -> an audio renderer, but ONLY when browser speech is
     // available (web); otherwise fall through to typed. >=2 tokens -> the
     // word-bank "assemble what you hear"; a single token -> type-what-you-hear.
@@ -672,7 +754,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
   void _check() {
     final _Item it = _item;
     final bool correct = switch (it.type) {
-      _ExType.pick => _picked == 0,
+      _ExType.pick => _picked == it.correctIndex,
       _ExType.wordBank =>
         _seqEq(<String>[for (final int i in _answer) it.pool[i]], it.target),
       _ExType.typed => _gradeTyped(it, _typedCtrl.text),
@@ -850,7 +932,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
           Expanded(
             child: SingleChildScrollView(
               child: switch (it.type) {
-                _ExType.pick => _pick(it),
+                _ExType.pick => it.mcqOptions.isNotEmpty ? _mcq(it) : _pick(it),
                 _ExType.wordBank => _wordBank(it),
                 _ExType.typed => _typed(it),
                 _ExType.listen => _listen(it),
@@ -862,6 +944,68 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
           const SizedBox(height: RatelSpace.md),
         ],
       ),
+    );
+  }
+
+  /// Authored-options MCQ: a vertical bank of full-width text options (the
+  /// REAL authored texts, stable-shuffled upstream). State accents mirror
+  /// [RatelOptionCard]: teal selected, green correct, coral wrong pick.
+  Widget _mcq(_Item it) {
+    RatelOptionState stateFor(int i) {
+      if (!_checked) {
+        return i == _picked ? RatelOptionState.selected : RatelOptionState.idle;
+      }
+      if (i == it.correctIndex) {
+        return RatelOptionState.correct;
+      }
+      if (i == _picked) {
+        return RatelOptionState.wrong;
+      }
+      return RatelOptionState.idle;
+    }
+
+    Widget tile(int i) {
+      final RatelOptionState st = stateFor(i);
+      final Color accent = switch (st) {
+        RatelOptionState.idle => context.palette.border,
+        RatelOptionState.selected => RatelColors.teal,
+        RatelOptionState.correct => RatelColors.green,
+        RatelOptionState.wrong => RatelColors.coral,
+      };
+      final bool active = st != RatelOptionState.idle;
+      return InkWell(
+        key: ValueKey<String>('lesson-mcq-$i'),
+        borderRadius: BorderRadius.circular(RatelRadius.card),
+        onTap: _checked ? null : () => setState(() => _picked = i),
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(RatelSpace.md),
+          decoration: BoxDecoration(
+            color: active
+                ? accent.withValues(alpha: 0.10)
+                : context.palette.white,
+            borderRadius: BorderRadius.circular(RatelRadius.card),
+            border: Border.all(color: accent, width: active ? 2 : 1),
+          ),
+          child: Text(
+            it.mcqOptions[i].text,
+            style: TextStyle(
+              fontFamily: RatelFont.body,
+              fontSize: RatelType.body,
+              color: context.palette.ink,
+            ),
+          ),
+        ),
+      );
+    }
+
+    return Column(
+      children: <Widget>[
+        for (int i = 0; i < it.mcqOptions.length; i++) ...<Widget>[
+          if (i > 0) const SizedBox(height: RatelSpace.cardGap),
+          tile(i),
+        ],
+      ],
     );
   }
 
@@ -1094,11 +1238,67 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
     );
   }
 
+  /// The authored "Explain this" text for the CURRENT graded state (INF-2.5):
+  /// an authored-mcq pick surfaces the PICKED option's `explain_ref` gloss
+  /// (correct pick -> why it is right; wrong pick -> why THAT distractor is
+  /// wrong), falling back to the item-level explanation; other items surface
+  /// the item-level explanation when authored. Null -> no button rendered.
+  String? _explainFor(_Item it) {
+    if (it.mcqOptions.isNotEmpty && _picked != null) {
+      return it.mcqOptions[_picked!].explain ?? it.explain;
+    }
+    return it.explain;
+  }
+
+  void _showExplainSheet(String text) {
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: context.palette.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(RatelRadius.featureLg),
+        ),
+      ),
+      builder: (BuildContext ctx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(RatelSpace.lg),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                '\u{1F4A1} Explain this',
+                style: TextStyle(
+                  fontFamily: RatelFont.display,
+                  fontWeight: RatelType.extraBold,
+                  fontSize: RatelType.cardTitle,
+                  color: ctx.palette.ink,
+                ),
+              ),
+              const SizedBox(height: RatelSpace.md),
+              Text(
+                text,
+                style: TextStyle(
+                  fontFamily: RatelFont.body,
+                  fontSize: RatelType.body,
+                  height: 1.4,
+                  color: ctx.palette.ink,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _bottom(_Item it) {
     if (_checked) {
       final Color tint = _wasCorrect ? RatelColors.green : RatelColors.coral;
       final String answerText = switch (it.type) {
-        _ExType.pick => '${it.options[0].emoji}  ${it.options[0].label}',
+        _ExType.pick => it.mcqOptions.isNotEmpty
+            ? it.mcqOptions[it.correctIndex].text
+            : '${it.options[0].emoji}  ${it.options[0].label}',
         _ExType.wordBank => it.target.join(' '),
         _ExType.typed => it.accepted.isNotEmpty ? it.accepted.first : '',
         _ExType.listen => it.target.isNotEmpty
@@ -1143,6 +1343,24 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
               ],
             ),
           ),
+          if (_explainFor(it) != null) ...<Widget>[
+            const SizedBox(height: RatelSpace.md),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton(
+                key: const ValueKey<String>('lesson-explain-btn'),
+                onPressed: () => _showExplainSheet(_explainFor(it)!),
+                child: Text(
+                  '\u{1F4A1} Explain this',
+                  style: TextStyle(
+                    fontFamily: RatelFont.body,
+                    fontSize: RatelType.body,
+                    color: context.palette.ink,
+                  ),
+                ),
+              ),
+            ),
+          ],
           const SizedBox(height: RatelSpace.md),
           RatelButton(
             label: 'Continue',

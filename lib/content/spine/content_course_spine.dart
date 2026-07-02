@@ -14,6 +14,10 @@ import '../models/models.dart';
 ///  • its exercises = the `item` rows whose `skill_ids` include that grammar id;
 ///  • an item's prompt = its `prompt_ref` resolved through the `gloss` rows
 ///    (preferring an English UI gloss), accepted answers = `answer_spec.accepted`.
+///  • an item's authored `options[]` (text / is_correct) + its "Explain this"
+///    texts (per-option `explain_ref` glosses + the item-level
+///    `content_id == item_id` gloss, `content_kind: explanation`) project
+///    onto [CourseOption]s (INF-2.5).
 ///
 /// S96 (content-build plan §3.2 — Level→Section→Unit→Lesson): when the batch
 /// carries authored `unit` rows, the path projects the REAL curriculum —
@@ -36,6 +40,18 @@ CourseSpine buildCourseSpine(ContentBatch batch) {
     }
   }
 
+  // content_id -> authored "Explain this" text (content_kind: explanation),
+  // 'en' preferred: item-level texts key by the ITEM id (plan §2) and
+  // per-option texts by the option's `explain_ref` (INF-2.5).
+  final Map<String, String> explainOf = <String, String>{};
+  for (final Gloss g in batch.glosses) {
+    if (g.contentKind != ContentKind.explanation) continue;
+    final bool prefer = g.uiLocale == 'en';
+    if (prefer || !explainOf.containsKey(g.contentId)) {
+      explainOf[g.contentId] = g.text;
+    }
+  }
+
   CourseExercise toExercise(Item it) {
     final AnswerSpec? spec = it.answerSpec;
     final NormalizationFlags? nf = spec?.normalizationFlags;
@@ -47,6 +63,19 @@ CourseSpine buildCourseSpine(ContentBatch batch) {
       irtB: it.irtB,
       foldCase: nf?.foldCase ?? true,
       stripDiacritics: nf?.stripDiacritics ?? false,
+      options: <CourseOption>[
+        for (final Map<String, Object?> m
+            in it.options ?? const <Map<String, Object?>>[])
+          if (m['text'] is String && (m['text']! as String).isNotEmpty)
+            CourseOption(
+              text: m['text']! as String,
+              isCorrect: m['is_correct'] == true,
+              explain: m['explain_ref'] is String
+                  ? explainOf[m['explain_ref']! as String]
+                  : null,
+            ),
+      ],
+      explain: explainOf[it.itemId],
     );
   }
 
