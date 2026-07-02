@@ -1,4 +1,5 @@
 import 'backdrop_paint.dart';
+import 'backdrops/abyss.dart';
 import 'backdrops/bamboo.dart';
 import 'backdrops/beach.dart';
 import 'backdrops/bubbles.dart';
@@ -9,6 +10,7 @@ import 'backdrops/dust.dart';
 import 'backdrops/embers.dart';
 import 'backdrops/fireflies.dart';
 import 'backdrops/grid.dart';
+import 'backdrops/jungle.dart';
 import 'backdrops/lagoon.dart';
 import 'backdrops/lavender.dart';
 import 'backdrops/leaves.dart';
@@ -22,13 +24,14 @@ import 'backdrops/sandstorm.dart';
 import 'backdrops/snow.dart';
 import 'backdrops/sprinkles.dart';
 import 'backdrops/sunset.dart';
+import 'backdrops/thunder.dart';
 
 /// Maps a [ThemeWorld.backdrop] id to its [BackdropPaint] painter.
 ///
 /// Wave-1 (dust/bubbles/sprinkles/snow/petals/grid) + Wave-2
 /// (fireflies/rain/leaves/nlights/embers/sunset) + Wave-3 richer moderate
 /// scenes (dunes/meadow/dawn/beach/lavender) + Wave-3B (reef/lagoon/sandstorm) +
-/// Wave-4a (cyberrain/bamboo/nebula) animated backdrops, ported from the design engine. Ids not present here have
+/// Wave-4a (cyberrain/bamboo/nebula) + Wave-4b (jungle/abyss/thunder) animated backdrops, ported from the design engine. Ids not present here have
 /// no animated painter yet -- callers (see `WorldBackdrop`) fall back to a solid
 /// `page` fill. `none` (the static `light` world) and `stars` (the existing
 /// static `StarfieldPainter`) are deliberately absent.
@@ -64,4 +67,8 @@ const Map<String, BackdropPaint> kBackdropPainters = <String, BackdropPaint>{
   'cyberrain': paintCyberRain,
   'bamboo': paintBamboo,
   'nebula': paintNebula,
+  // Wave-4b (complex set, batch 2).
+  'jungle': paintJungle,
+  'abyss': paintAbyss,
+  'thunder': paintThunder,
 };
