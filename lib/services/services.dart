@@ -6,6 +6,7 @@
 library;
 
 export 'ai_relay/ai_relay.dart';
+export 'tts_relay/tts_relay.dart';
 export 'analytics/analytics.dart';
 export 'billing/billing.dart';
 export 'data_access/data_access.dart';

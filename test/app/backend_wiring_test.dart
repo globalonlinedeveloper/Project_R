@@ -9,6 +9,7 @@ import 'package:ratel/services/data_access/supabase_leagues_store.dart';
 import 'package:ratel/services/data_access/supabase_friends_service.dart';
 import 'package:ratel/services/social/friends_service.dart';
 import 'package:ratel/services/data_access/supabase_learner_state_store.dart';
+import 'package:ratel/services/tts_relay/tts_relay.dart';
 
 void main() {
   group('supabaseConfigured gate (R-M3 / R-K6 seam wiring)', () {
@@ -99,6 +100,36 @@ void main() {
           shouldBootAnonSession(
               configured: true, enabled: true, hasSession: true),
           isFalse);
+    });
+  });
+
+  group('TTS relay wiring (RATEL_TTS gate — twin of ai-relay)', () {
+    test('ttsRelayProvider defaults to fail-closed UnconfiguredTtsRelay (flag off)',
+        () {
+      final container = ProviderContainer();
+      addTearDown(container.dispose);
+      final relay = container.read(ttsRelayProvider);
+      expect(relay, isA<UnconfiguredTtsRelay>());
+      expect(relay.isAvailable, isFalse);
+    });
+
+    test('backend overrides do NOT flip TTS on (kEnableTts defaults false)', () {
+      final client = SupabaseClient(
+        'https://stub.supabase.co',
+        'sb_publishable_stub_key',
+      );
+      addTearDown(() async => client.dispose());
+      final container =
+          ProviderContainer(overrides: backendOverridesForClient(client));
+      addTearDown(container.dispose);
+      // Wiring the Supabase seams must not silently enable TTS — the flag gate
+      // keeps Listen dark (byte-identical) until an explicit go-live build.
+      expect(container.read(ttsRelayProvider), isA<UnconfiguredTtsRelay>());
+    });
+
+    test('ttsRelayUrl derives the functions endpoint', () {
+      expect(ttsRelayUrl('https://abc.supabase.co'),
+          'https://abc.supabase.co/functions/v1/tts-relay');
     });
   });
 }

@@ -13,6 +13,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:ratel/services/ai_relay/ai_relay.dart';
+import 'package:ratel/services/tts_relay/tts_relay.dart';
 import 'package:ratel/services/data_access/data_access.dart';
 import 'package:ratel/services/auth/auth.dart';
 import 'package:ratel/services/data_access/supabase_learner_state_store.dart';
@@ -65,6 +66,34 @@ HttpTransport supabaseFunctionsTransport(SupabaseClient client) =>
       );
     };
 
+/// Opt-in (build-dark until go-live): route Listen audio synthesis through the
+/// SERVER-SIDE `tts-relay` edge function (which holds the GCP_TTS key). Go-live:
+/// (1) the function is deployed — set its `GCP_TTS` secret; (2) build with
+/// `--dart-define=RATEL_TTS=true`. Default false => the fail-closed
+/// [UnconfiguredTtsRelay] stays the provider (byte-identical build; Listen
+/// degrades to typed).
+// R-H7 TTS relay go-live gate (twin of kEnableAiRelay).
+const bool kEnableTts = bool.fromEnvironment('RATEL_TTS');
+
+/// The server-side TTS relay endpoint, derived from the Supabase project URL.
+String ttsRelayUrl(String supabaseUrl) =>
+    '$supabaseUrl/functions/v1/tts-relay';
+
+/// Real transport for [EdgeTtsRelay]: POST through the Supabase Functions client
+/// (which attaches the session JWT + project apikey). The GCP_TTS key is NEVER
+/// read here — it lives only in the edge function.
+HttpTransport supabaseTtsTransport(SupabaseClient client) =>
+    (HttpLikeRequest req) async {
+      final Map<String, dynamic> body =
+          jsonDecode(req.body) as Map<String, dynamic>;
+      final FunctionResponse resp =
+          await client.functions.invoke('tts-relay', body: body);
+      return HttpLikeResponse(
+        statusCode: resp.status,
+        body: jsonEncode(resp.data),
+      );
+    };
+
 /// The ONLY gate that turns on the Supabase-backed seams: both the URL and the
 /// publishable key must be present. Pure + injectable so it is unit-testable.
 bool supabaseConfigured({
@@ -105,6 +134,15 @@ List<Override> backendOverridesForClient(SupabaseClient client) => <Override>[
             EdgeAiRelay(
               transport: supabaseFunctionsTransport(client),
               url: aiRelayUrl(kSupabaseUrl),
+            ),
+          ),
+        ),
+      if (kEnableTts)
+        ttsRelayProvider.overrideWithValue(
+          TtsSizeLimitedTtsRelay(
+            EdgeTtsRelay(
+              transport: supabaseTtsTransport(client),
+              url: ttsRelayUrl(kSupabaseUrl),
             ),
           ),
         ),
