@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
+import 'package:ratel/features/home/economy_glyph.dart';
 import 'package:ratel/features/home/galaxy_path.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/features/notifications/notifications_controller.dart';
@@ -70,7 +71,8 @@ class HomeScreen extends ConsumerWidget {
     final bool galaxy = ref.watch(worldThemeProvider) == WorldTheme.space;
 
     if (spine.isEmpty) {
-      return _emptyState(context, snap.streakDays, snap.diamonds, snap.streakFreezes, unread, snap.energy);
+      return _emptyState(context, snap.streakDays, snap.diamonds,
+          snap.streakFreezes, unread, snap.energy, ref.watch(isProProvider));
     }
 
     final List<_Node> nodes = _flatten(spine);
@@ -91,8 +93,9 @@ class HomeScreen extends ConsumerWidget {
                     flagEmoji: _flagFor(spine.courseCode),
                     langCode: _langFor(spine.courseCode),
                     streak: snap.streakDays,
-                    energy: snap.energy,
-                    diamonds: '${snap.diamonds}',
+                    energyLabel: formatEnergy(snap.energy,
+                        unlimited: ref.watch(isProProvider)),
+                    diamonds: formatCount(snap.diamonds),
                     streakFreeze:
                         snap.streakFreezes > 0 ? snap.streakFreezes : null,
                     unreadNotifications: unread,
@@ -120,7 +123,8 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _emptyState(BuildContext context, int streak, int diamonds, int streakFreezes, int unread, int energy) {
+  Widget _emptyState(BuildContext context, int streak, int diamonds,
+      int streakFreezes, int unread, int energy, bool isPro) {
     return Container(
       key: const ValueKey<String>('tab-home'),
       color: context.palette.cream,
@@ -133,8 +137,8 @@ class HomeScreen extends ConsumerWidget {
                 flagEmoji: '🦡',
                 langCode: '',
                 streak: streak,
-                energy: energy,
-                diamonds: '\$diamonds',
+                energyLabel: formatEnergy(energy, unlimited: isPro),
+                diamonds: formatCount(diamonds),
                 streakFreeze: streakFreezes > 0 ? streakFreezes : null,
                 unreadNotifications: unread,
                 onNotificationsTap: () => context.push('/notifications')),

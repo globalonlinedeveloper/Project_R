@@ -20,6 +20,7 @@ class RatelTopBar extends StatelessWidget {
     this.onLanguageTap,
     this.streak,
     this.energy,
+    this.energyLabel,
     this.diamonds,
     this.streakFreeze,
     this.onNotificationsTap,
@@ -36,6 +37,11 @@ class RatelTopBar extends StatelessWidget {
 
   /// ⚡ energy count (null hides — no engine yet, do not fake).
   final int? energy;
+
+  /// ⚡ energy display-label override (e.g. '∞' for Pro). When non-null it
+  /// replaces [energy] verbatim; null → use [energy]. Lets a caller show the
+  /// design's Pro-infinity glyph without faking a numeric count.
+  final String? energyLabel;
 
   /// 💎 diamonds display string (null hides — no engine yet, do not fake).
   final String? diamonds;
@@ -81,7 +87,10 @@ class RatelTopBar extends StatelessWidget {
                       if (streakFreeze != null)
                         _Stat(emoji: '💪', value: '$streakFreeze'),
                       if (streak != null) _Stat(emoji: '🔥', value: '$streak'),
-                      if (energy != null) _Stat(emoji: '⚡', value: '$energy'),
+                      if (energyLabel != null)
+                        _Stat(emoji: '⚡', value: energyLabel!)
+                      else if (energy != null)
+                        _Stat(emoji: '⚡', value: '$energy'),
                       if (diamonds != null)
                         _Stat(emoji: '💎', value: diamonds!),
                       if (onThemeTap != null)
