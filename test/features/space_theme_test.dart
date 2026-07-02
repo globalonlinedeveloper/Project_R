@@ -10,12 +10,10 @@ import 'package:ratel/services/preferences/app_settings.dart';
 import 'package:ratel/services/preferences/settings_store.dart';
 
 /// G1 evidence — the Space world-theme (R-WT1 / R-WT2 / R-WT3): a persisted
-/// Classic/Space selection + a real app-wide starfield re-skin. Honest: Space
-/// is opt-in and OFF by default; the starfield is a real CustomPainter.
-bool _hasStarfield(WidgetTester tester) => tester
-    .widgetList(find.byType(CustomPaint))
-    .any((Widget w) => (w as CustomPaint).painter is StarfieldPainter);
-
+/// Classic/Space selection + a real app-wide re-skin. Honest: Space is opt-in
+/// and OFF by default. Since wave-4d the galaxy field is the ANIMATED `stars`
+/// painter mounted via `WorldBackdrop` (R-WT7); `StarfieldPainter` remains as
+/// the reduce-motion static frame + is unit-tested below.
 void main() {
   group('WorldTheme persistence', () {
     test('defaults to Classic + round-trips through the map', () {
@@ -52,10 +50,11 @@ void main() {
     });
   });
 
-  testWidgets('Space paints the starfield app-wide; Classic does not',
+  testWidgets('Space mounts the animated galaxy backdrop; Classic does not',
       (WidgetTester tester) async {
+    // reduce-motion ON → WorldBackdrop starts no ticker → pumpAndSettle ends.
     final InMemorySettingsStore store = InMemorySettingsStore(
-        const AppSettings(worldTheme: WorldTheme.space));
+        const AppSettings(worldTheme: WorldTheme.space, reduceMotion: true));
     final ProviderContainer c = ProviderContainer(overrides: <Override>[
       settingsStoreProvider.overrideWithValue(store),
     ]);
@@ -63,14 +62,14 @@ void main() {
     await tester.pumpWidget(
         UncontrolledProviderScope(container: c, child: const RatelApp()));
     await tester.pumpAndSettle();
-    expect(_hasStarfield(tester), isTrue); // Space → starfield present
+    expect(find.byType(WorldBackdrop), findsOneWidget); // Space → animated field
 
-    // Flip to Classic → the starfield is gone (real opt-in, not always-on).
+    // Flip to Classic → no backdrop world (real opt-in, not always-on).
     await c
         .read(appSettingsControllerProvider.notifier)
         .setWorldTheme(WorldTheme.classic);
     await tester.pumpAndSettle();
-    expect(_hasStarfield(tester), isFalse);
+    expect(find.byType(WorldBackdrop), findsNothing);
   });
 
   testWidgets('Settings exposes the World selector', (WidgetTester tester) async {

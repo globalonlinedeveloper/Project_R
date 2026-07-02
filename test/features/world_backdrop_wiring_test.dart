@@ -21,10 +21,12 @@ void main() {
       final ThemeData ocean = RatelTheme.world(kThemeWorlds['ocean']!);
       expect(ocean.scaffoldBackgroundColor.a, lessThan(0.95));
       expect(ocean.appBarTheme.backgroundColor!.a, lessThan(0.95));
-      // galaxy's 'stars' backdrop is the static StarfieldPainter (not in
-      // kBackdropPainters) -> RatelTheme.world keeps its chrome opaque.
-      final ThemeData galaxy = RatelTheme.world(kThemeWorlds['galaxy']!);
-      expect(galaxy.scaffoldBackgroundColor.a, greaterThan(0.99));
+      // light's 'none' backdrop has no painter -> RatelTheme.world keeps its
+      // chrome opaque. (galaxy's 'stars' is now an animated painter, so its
+      // chrome is translucent like every other backdrop world; `light` is the
+      // only remaining non-backdrop world.)
+      final ThemeData light = RatelTheme.world(kThemeWorlds['light']!);
+      expect(light.scaffoldBackgroundColor.a, greaterThan(0.99));
     });
   });
 

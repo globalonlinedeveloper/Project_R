@@ -26,6 +26,7 @@ import 'backdrops/reef.dart';
 import 'backdrops/sandstorm.dart';
 import 'backdrops/snow.dart';
 import 'backdrops/sprinkles.dart';
+import 'backdrops/stars.dart';
 import 'backdrops/sunset.dart';
 import 'backdrops/thunder.dart';
 
@@ -34,10 +35,12 @@ import 'backdrops/thunder.dart';
 /// Wave-1 (dust/bubbles/sprinkles/snow/petals/grid) + Wave-2
 /// (fireflies/rain/leaves/nlights/embers/sunset) + Wave-3 richer moderate
 /// scenes (dunes/meadow/dawn/beach/lavender) + Wave-3B (reef/lagoon/sandstorm) +
-/// Wave-4a (cyberrain/bamboo/nebula) + Wave-4b (jungle/abyss/thunder) + Wave-4c (mars/alpine/cherrynight) animated backdrops, ported from the design engine. Ids not present here have
+/// Wave-4a (cyberrain/bamboo/nebula) + Wave-4b (jungle/abyss/thunder) + Wave-4c (mars/alpine/cherrynight) + Wave-4d (stars) animated backdrops, ported from the design engine. Ids not present here have
 /// no animated painter yet -- callers (see `WorldBackdrop`) fall back to a solid
-/// `page` fill. `none` (the static `light` world) and `stars` (the existing
-/// static `StarfieldPainter`) are deliberately absent.
+/// `page` fill. Only `none` (the static `light` world) is absent now -- every
+/// other world, `stars`/galaxy included, has an animated painter. (The static
+/// `StarfieldPainter` remains as galaxy's reduce-motion-era fallback + its unit
+/// tests; the live app paints the animated field via `WorldBackdrop`.)
 ///
 /// Realizes R-WT1 (the per-theme animated backdrop layer) app-wide; the
 /// reduce-motion HARD floor (R-WT5) is enforced upstream by `WorldBackdrop`.
@@ -78,4 +81,6 @@ const Map<String, BackdropPaint> kBackdropPainters = <String, BackdropPaint>{
   'mars': paintMars,
   'alpine': paintAlpine,
   'cherrynight': paintCherryNight,
+  // Wave-4d (the last backdrop -- the animated galaxy starfield, R-WT7).
+  'stars': paintStars,
 };

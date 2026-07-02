@@ -75,7 +75,7 @@ class _RatelAppState extends ConsumerState<RatelApp>
         // Reduce-motion (HABITS · §4.9): honor the persisted toggle app-wide,
         // with the OS reduce-motion setting as a hard floor on top.
         final MediaQueryData mq = MediaQuery.of(context);
-        Widget content = MediaQuery(
+        final Widget content = MediaQuery(
           data: mq.copyWith(
               disableAnimations:
                   mq.disableAnimations || ref.watch(reduceMotionProvider)),
@@ -88,18 +88,12 @@ class _RatelAppState extends ConsumerState<RatelApp>
                   world: world, child: child ?? const SizedBox.shrink())
               : (child ?? const SizedBox.shrink()),
         );
-        if (space) {
-          content = Stack(
-            children: <Widget>[
-              const Positioned.fill(
-                  child: ColoredBox(color: RatelColors.spaceBackdrop)),
-              const Positioned.fill(
-                  child: RepaintBoundary(
-                      child: CustomPaint(painter: StarfieldPainter()))),
-              content,
-            ],
-          );
-        }
+        // Galaxy ('stars') now has a registered animated painter, so it
+        // renders through the generic `WorldBackdrop` path above -- like every
+        // other world, no special-case starfield Stack. `RatelTheme.space()`
+        // keeps its hand-tuned translucent chrome (spaceBg alpha 0.80) so the
+        // animated field shows through. `StarfieldPainter` is retained as the
+        // reduce-motion static fallback frame (painted by WorldBackdrop at t=0).
         return content;
       },
     );
