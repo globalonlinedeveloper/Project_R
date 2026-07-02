@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'palette.dart';
 import 'tokens.dart';
+import 'world_theme.dart';
 
 export 'palette.dart';
 export 'tokens.dart';
 export 'starfield.dart';
+export 'world_theme.dart';
+export 'world_registry.dart';
 
 /// Builds the app's [ThemeData] from [RatelColors] / [RatelType] tokens.
 ///
@@ -152,6 +155,55 @@ abstract final class RatelTheme {
       ),
       dividerTheme: const DividerThemeData(
         color: RatelColors.spaceBorder,
+        thickness: 1,
+        space: 1,
+      ),
+    );
+  }
+
+  /// Any of the 29 non-shipped design worlds: a full [ThemeData] built from the
+  /// world's ported 15-token palette (neutrals + per-world accents). light/space
+  /// keep their hand-tuned [light]/[space] builders; this serves the rest.
+  /// Backdrop painters are a later increment — the opaque `bg` scaffold renders
+  /// the world correctly now.
+  static ThemeData world(ThemeWorld w) {
+    final WorldPalette wp = w.palette;
+    final ColorScheme scheme = ColorScheme.fromSeed(
+      seedColor: wp.accent,
+      brightness: w.isDark ? Brightness.dark : Brightness.light,
+    ).copyWith(
+      primary: wp.accent,
+      onPrimary: RatelColors.onColor,
+      secondary: wp.gold,
+      onSecondary: RatelColors.onColor,
+      tertiary: wp.good,
+      onTertiary: RatelColors.onColor,
+      error: wp.bad,
+      onError: RatelColors.onColor,
+      surface: wp.surface,
+      onSurface: wp.text,
+      onSurfaceVariant: wp.muted,
+      outline: wp.border,
+      outlineVariant: wp.border,
+    );
+    return ThemeData(
+      useMaterial3: true,
+      colorScheme: scheme,
+      scaffoldBackgroundColor: wp.bg,
+      fontFamily: RatelFont.body,
+      textTheme: _textTheme(ink: wp.text, muted: wp.muted),
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      extensions: <ThemeExtension<dynamic>>[RatelPalette.fromWorld(w)],
+      appBarTheme: AppBarTheme(
+        backgroundColor: wp.bg,
+        foregroundColor: wp.text,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        centerTitle: false,
+      ),
+      dividerTheme: DividerThemeData(
+        color: wp.border,
         thickness: 1,
         space: 1,
       ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart' show ThemeMode;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ratel/services/preferences/app_settings.dart' show WorldTheme;
+import 'package:ratel/core/theme/world_theme.dart';
+import 'package:ratel/core/theme/world_registry.dart';
 import 'package:ratel/features/learner/learner_controller.dart';
 import 'package:ratel/features/settings/settings_controller.dart';
 import 'package:ratel/services/billing/billing.dart';
@@ -52,3 +54,11 @@ final reviewedItemCountProvider = Provider<int>((ref) {
 /// persisted [AppSettings]. Drives the app-wide Space re-skin + starfield.
 final worldThemeProvider = Provider<WorldTheme>(
     (ref) => ref.watch(appSettingsControllerProvider).worldTheme);
+
+/// The resolved active [ThemeWorld] (full 15-token palette + backdrop + Pro
+/// gating) for the persisted selection, looked up in `kThemeWorlds`; falls back
+/// to the light world. Drives the app-wide re-skin in `RatelApp`.
+final activeWorldProvider = Provider<ThemeWorld>((ref) {
+  final WorldTheme w = ref.watch(worldThemeProvider);
+  return kThemeWorlds[w.name] ?? kThemeWorlds['light']!;
+});

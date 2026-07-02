@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'tokens.dart';
+import 'world_theme.dart';
 
 /// Theme-aware semantic NEUTRALS — the only colours that flip between light and
 /// dark. The brand ACCENTS (teal / amber / coral / green / gold / blue / …) stay
@@ -100,6 +101,21 @@ class RatelPalette extends ThemeExtension<RatelPalette> {
     shadow: RatelColors.spaceShadow,
     scrim: RatelColors.spaceScrim,
   );
+
+  /// Build the neutral palette for any [ThemeWorld] (the 29 non-shipped worlds
+  /// route through here; light/space keep their hand-tuned instances). Maps the
+  /// world's 15-token palette onto the app's 9 neutral slots.
+  static RatelPalette fromWorld(ThemeWorld w) => RatelPalette(
+        cream: w.palette.bg,
+        cream2: w.palette.bg2,
+        cream3: w.palette.surface2,
+        white: w.palette.surface,
+        ink: w.palette.text,
+        muted: w.palette.muted,
+        border: w.palette.border,
+        shadow: w.palette.shadow,
+        scrim: w.palette.shadow,
+      );
 
   @override
   RatelPalette copyWith({

@@ -1,9 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show ThemeMode;
 
-/// The selectable WORLD theme (R-WT1/WT2/WT3, S66): the standard Classic skin
-/// or the deep-space Space skin (a starfield re-skin on top of the appearance).
-enum WorldTheme { classic, space }
+/// The selectable WORLD theme — one of the 31 design worlds (`THEMES()`), keyed
+/// by the SAME id as `kThemeWorlds` (lib/core/theme/world_registry.dart). The
+/// design ships 2 free (light, savanna) + 29 Pro. `classic`/`space` remain as
+/// back-compat aliases for the two originally-shipped worlds.
+enum WorldTheme {
+  light, galaxy, savanna, ocean, forest, candy, neon, storm, snow, sakura,
+  autumn, aurora, volcano, sunset, desert, reef, meadow, dawn, beach, mars,
+  jungle, cyberrain, abyss, alpine, lavender, bamboo, lagoon, thunder, nebula,
+  sandstorm, cherrynight;
+
+  /// Back-compat alias: the original "Classic" skin is the `light` world.
+  static const WorldTheme classic = WorldTheme.light;
+
+  /// Back-compat alias: the original "Space" skin is the `galaxy` world.
+  static const WorldTheme space = WorldTheme.galaxy;
+}
 
 /// Minimal, neutral persisted user settings.
 ///
@@ -165,9 +178,17 @@ List<String> _recentsFromCsv(String? csv) {
   ];
 }
 
-/// Parse a persisted [WorldTheme] name; unknown/absent ⇒ Classic.
-WorldTheme _worldThemeFromName(String? name) =>
-    name == 'space' ? WorldTheme.space : WorldTheme.classic;
+/// Parse a persisted [WorldTheme] name; legacy 'classic'/'space' map to the
+/// light/galaxy worlds; an unknown/absent value ⇒ light (the free default).
+WorldTheme _worldThemeFromName(String? name) {
+  if (name == null || name.isEmpty) return WorldTheme.light;
+  if (name == 'classic') return WorldTheme.classic; // == light
+  if (name == 'space') return WorldTheme.space; // == galaxy
+  for (final WorldTheme w in WorldTheme.values) {
+    if (w.name == name) return w;
+  }
+  return WorldTheme.light;
+}
 
 /// Parse a persisted [ThemeMode] name; unknown/absent ⇒ follow the system.
 ThemeMode _themeModeFromName(String? name) {

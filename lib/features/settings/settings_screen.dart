@@ -136,7 +136,7 @@ class SettingsScreen extends ConsumerWidget {
             leadingColor: RatelColors.blue,
             title: 'World',
             subtitle: _worldLabel(s.worldTheme),
-            onTap: () => _pickWorld(context, c, s.worldTheme),
+            onTap: () => _pickWorld(context, c, s.worldTheme, isPro),
           ),
           const SizedBox(height: RatelSpace.sm),
           RatelListRow(
@@ -296,22 +296,18 @@ class SettingsScreen extends ConsumerWidget {
       ),
     );
   }
-  static const List<({String label, WorldTheme world, String emoji})> _worlds =
-      <({String label, WorldTheme world, String emoji})>[
-    (label: 'Classic', world: WorldTheme.classic, emoji: '🌍'),
-    (label: 'Space', world: WorldTheme.space, emoji: '🌌'),
-  ];
-
   String _worldLabel(WorldTheme w) =>
-      w == WorldTheme.space ? 'Space' : 'Classic';
+      kThemeWorlds[w.name]?.label ?? 'Daylight';
 
-  /// World-theme picker (Classic / Space — R-WT1/WT2/WT3, S66). Mirrors the
-  /// theme picker; the choice persists via [AppSettingsController.setWorldTheme]
-  /// and re-skins the whole app (Space adds the starfield).
-  void _pickWorld(
-      BuildContext context, AppSettingsController c, WorldTheme current) {
+  /// World-theme picker — all 31 design worlds (2 free + 29 Pro, from
+  /// `kThemeWorlds`). A free world (or any world when Pro) selects + persists via
+  /// [AppSettingsController.setWorldTheme] and re-skins the whole app; a locked
+  /// Pro world routes to the paywall. Never fakes selection of a locked world.
+  void _pickWorld(BuildContext context, AppSettingsController c,
+      WorldTheme current, bool isPro) {
     showModalBottomSheet<void>(
       context: context,
+      isScrollControlled: true,
       backgroundColor: context.palette.white,
       shape: const RoundedRectangleBorder(
           borderRadius:
@@ -328,21 +324,31 @@ class SettingsScreen extends ConsumerWidget {
                     EdgeInsets.only(left: RatelSpace.sm, bottom: RatelSpace.sm),
                 child: RatelSectionHeader(label: 'World'),
               ),
-              for (final ({String label, WorldTheme world, String emoji}) t
-                  in _worlds) ...<Widget>[
-                RatelListRow(
-                  leadingEmoji: t.world == current ? '✅' : t.emoji,
-                  title: t.label,
-                  subtitle: t.world == WorldTheme.space
-                      ? 'Deep-space skin + starfield'
-                      : 'The standard warm skin',
-                  onTap: () {
-                    c.setWorldTheme(t.world);
-                    Navigator.of(sheetContext).pop();
-                  },
+              SizedBox(
+                height: MediaQuery.of(sheetContext).size.height * 0.6,
+                child: GridView.count(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: RatelSpace.sm,
+                  crossAxisSpacing: RatelSpace.sm,
+                  childAspectRatio: 0.82,
+                  children: <Widget>[
+                    for (final ThemeWorld w in kThemeWorlds.values)
+                      _WorldSwatch(
+                        world: w,
+                        selected: w.id == current.name,
+                        locked: !w.isFree && !isPro,
+                        onTap: () {
+                          Navigator.of(sheetContext).pop();
+                          if (!w.isFree && !isPro) {
+                            context.go('/paywall');
+                          } else {
+                            c.setWorldTheme(WorldTheme.values.byName(w.id));
+                          }
+                        },
+                      ),
+                  ],
                 ),
-                const SizedBox(height: RatelSpace.xs),
-              ],
+              ),
             ],
           ),
         ),
@@ -350,4 +356,75 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
+}
+
+/// A tappable world tile in the picker: the world's own bg + accent/gold dots,
+/// its label, a ✓ when selected and a 🔒 when locked (Pro). Reads the world's
+/// ported palette via field access — no raw color literals (token-lint safe).
+class _WorldSwatch extends StatelessWidget {
+  const _WorldSwatch({
+    required this.world,
+    required this.selected,
+    required this.locked,
+    required this.onTap,
+  });
+
+  final ThemeWorld world;
+  final bool selected;
+  final bool locked;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final WorldPalette p = world.palette;
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(RatelSpace.sm),
+        decoration: BoxDecoration(
+          color: p.bg,
+          borderRadius: BorderRadius.circular(RatelRadius.featureLg),
+          border: Border.all(
+            color: selected ? p.accent : context.palette.border,
+            width: selected ? 3 : 1,
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                _dot(p.accent),
+                const SizedBox(width: 4),
+                _dot(p.gold),
+                const Spacer(),
+                if (selected)
+                  Text('✓',
+                      style: TextStyle(
+                          color: p.accent,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 16))
+                else if (locked)
+                  const Text('🔒', style: TextStyle(fontSize: 13)),
+              ],
+            ),
+            Text(
+              world.label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  color: p.text, fontWeight: FontWeight.w800, fontSize: 13),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _dot(Color c) => Container(
+        width: 18,
+        height: 18,
+        decoration: BoxDecoration(color: c, shape: BoxShape.circle),
+      );
 }

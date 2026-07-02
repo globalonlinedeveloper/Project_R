@@ -3,8 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ratel/core/core.dart';
-import 'package:ratel/services/preferences/app_settings.dart' show WorldTheme;
-
 import 'app_providers.dart';
 import 'router.dart';
 
@@ -49,15 +47,27 @@ class _RatelAppState extends ConsumerState<RatelApp>
   @override
   Widget build(BuildContext context) {
     final GoRouter router = ref.watch(routerProvider);
-    // Space world-theme (R-WT1/WT2, S66 · G1): a deep-space re-skin applied app-
-    // wide regardless of light/dark, with a starfield painted behind the
-    // translucent scaffolds.
-    final bool space = ref.watch(worldThemeProvider) == WorldTheme.space;
+    // Registry-driven world theme (WS3): light/galaxy keep their hand-tuned
+    // builders; the other 29 design worlds build from their ported palette via
+    // RatelTheme.world(). Galaxy (space) also paints the app-wide starfield.
+    final ThemeWorld world = ref.watch(activeWorldProvider);
+    final bool isLight = world.id == 'light';
+    final bool space = world.id == 'galaxy';
+    final ThemeData lightTheme = isLight
+        ? RatelTheme.light()
+        : space
+            ? RatelTheme.space()
+            : RatelTheme.world(world);
+    final ThemeData darkTheme = isLight
+        ? RatelTheme.dark()
+        : space
+            ? RatelTheme.space()
+            : RatelTheme.world(world);
     return MaterialApp.router(
       title: 'Ratel',
       debugShowCheckedModeBanner: false,
-      theme: space ? RatelTheme.space() : RatelTheme.light(),
-      darkTheme: space ? RatelTheme.space() : RatelTheme.dark(),
+      theme: lightTheme,
+      darkTheme: darkTheme,
       themeMode: ref.watch(themeModeProvider),
       routerConfig: router,
       builder: (BuildContext context, Widget? child) {
