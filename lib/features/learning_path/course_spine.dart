@@ -66,11 +66,16 @@ class CourseUnit {
     required this.section,
     required this.title,
     required this.lessons,
+    this.guideText,
   });
 
   final String section; // e.g. 'SECTION 1 · LEVEL A1'
   final String title; // e.g. 'Level A1'
   final List<CourseLesson> lessons;
+
+  /// Authored 📖 Guide text for this unit (`unit.guide_ref` → gloss), when the
+  /// curriculum carries one. Null on legacy CEFR-band units.
+  final String? guideText;
 }
 
 /// The whole authored course, projected for the path UI.

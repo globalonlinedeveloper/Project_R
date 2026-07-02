@@ -50,8 +50,8 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 |----|-------------|--------|-------|--------|------|----------|
 | R-B1 | CEFR can-do spine ratification | Must | Stage1 | Built ✅ | — | — |
 | R-B2 | Skill/Concept prerequisite graph | Must | Stage1 | Built ✅ | — | — |
-| R-B3 | Course-Section-Unit-Lesson containers & path rendering | Must | Stage1 | Built ✅ | — | `content_wiring.dart`, `content_course_spine.dart`, `home_screen.dart`, `learning_path_view.dart` +4 |
-| R-B4 | TBLT task model + tap-to-define | Must | Stage1 | Built ✅ | — | — |
+| R-B3 | Course-Section-Unit-Lesson containers & path rendering | Must | Stage1 | Built ✅ | — | `content_wiring.dart`, `content_course_spine.dart`, `home_screen.dart`, `learning_path_view.dart` +5 |
+| R-B4 | TBLT task model + tap-to-define | Must | Stage1 | Built ✅ | — | `test_schema.py` |
 | R-B5 | Depth-as-data & CEFR-ceiling enforcement | Must | Stage1 | Built ✅ | — | — |
 | R-B6 | Native realization & divergence nodes | Must | Stage1 | Built ✅ | — | — |
 | R-B7 | Pair-specific / contrastive layer | Must | Stage1 | Built ✅ | — | — |
@@ -61,7 +61,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-C1 | Standardization rule + open-container discipline | Must | Stage1 | Built ✅ | — | `schema_loader.py`, `common.schema.json`, `schema.json`, `loader_new_tables_test.dart` |
+| R-C1 | Standardization rule + open-container discipline | Must | Stage1 | Built ✅ | — | `schema_loader.py`, `common.schema.json`, `schema.json`, `item.schema.json` +1 |
 | R-C2 | Sentence entity + token model | Must | Stage1 | Built ✅ | — | `common.schema.json`, `sentence.schema.json` |
 | R-C3 | VocabEntry + per-sense model | Must | Stage1 | Built ✅ | — | `sense.schema.json`, `vocab_entry.schema.json` |
 | R-C4 | GrammarPoint entity | Must | Stage1 | Built ✅ | — | `grammar_point.schema.json` |
@@ -90,8 +90,8 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-D8 | dictation (type exactly what you hear) | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `listen_audio_controls.dart`, `speech_tts.dart` |
 | R-D9 | speak (on-device ASR intelligibility + shadowing, free) | Must | Stage2 | Built ✅ | — | — |
 | R-D9a | Web/desktop on-device ASR is cloud - force shadowing | Must | Stage2 | Built ✅ | — | — |
-| R-D10 | scripted_roleplay (a branching scripted conversation) | Must | Stage2 | Built ✅ | — | `adventures_screen.dart` |
-| R-D11 | Phase-3 scaffolds: write + live_roleplay (scaffolded now) | Should | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
+| R-D10 | scripted_roleplay (a branching scripted conversation) | Must | Stage2 | Built ✅ | — | `adventures_screen.dart`, `test_schema.py` |
+| R-D11 | Phase-3 scaffolds: write + live_roleplay (scaffolded now) | Should | Wave | Deferred ⏭ | 🔒 owner/$$ | `test_schema.py`, `item.schema.json` |
 | R-D12 | tap-to-define reading feature + comprehension-item policy | Must | Stage2 | Built ✅ | — | — |
 | R-D13 | Autoscoring & answer-equivalence rules | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `lesson_test.dart` |
 | R-D14 | Result - signal mapping (proficiency / memory / engagement) | Must | Stage2 | Built ✅ | — | — |

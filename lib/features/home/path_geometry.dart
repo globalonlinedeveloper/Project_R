@@ -68,10 +68,17 @@ PathGeometry computePathGeometry({
   int gi = 0;
   int unitNo = 0;
 
+  // S96: a divider marks a SECTION boundary. With authored curriculum rows
+  // several consecutive units share one section, so emit the divider only when
+  // the label CHANGES (legacy band-units always differ -> behaviour unchanged).
+  String? prevSection;
   for (final unit in spine.units) {
     unitNo++;
-    dividers.add(PathDivider(label: unit.section, y: y));
-    y += _kDividerGap;
+    if (unit.section != prevSection) {
+      dividers.add(PathDivider(label: unit.section, y: y));
+      y += _kDividerGap;
+      prevSection = unit.section;
+    }
 
     final lessons = unit.lessons;
     for (int l = 0; l < lessons.length; l++) {

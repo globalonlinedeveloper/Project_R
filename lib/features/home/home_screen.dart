@@ -41,7 +41,12 @@ class HomeScreen extends ConsumerWidget {
   static List<_Node> _flatten(CourseSpine spine) {
     final List<_Node> out = <_Node>[];
     int gi = 0;
-    for (final CourseUnit u in spine.units) {
+    for (int ui = 0; ui < spine.units.length; ui++) {
+      final CourseUnit u = spine.units[ui];
+      // S96: a section HEADER marks a section boundary; consecutive authored
+      // units share a section, so only the first unit of a section starts one.
+      final bool newSection =
+          ui == 0 || spine.units[ui - 1].section != u.section;
       for (int i = 0; i < u.lessons.length; i++) {
         final CourseLesson l = u.lessons[i];
         out.add(_Node(
@@ -55,7 +60,8 @@ class HomeScreen extends ConsumerWidget {
           lessonNum: i + 1,
           lessonCount: u.lessons.length,
           inUnit: i,
-          sectionStart: i == 0,
+          sectionStart: i == 0 && newSection,
+          guideText: u.guideText,
         ));
         gi++;
       }
@@ -131,7 +137,7 @@ class HomeScreen extends ConsumerWidget {
                           bannerKicker: current.section,
                           bannerUnitTitle: current.unit,
                           reduceMotion: reduceMotion,
-                          onGuide: () => context.go('/library'),
+                          onGuide: () => _onGuide(context, current),
                           onNodeTap: (PathNodeData pd) {
                             if (pd.state != PathNodeState.locked) {
                               _showPreview(context, nodes[pd.index]);
@@ -247,7 +253,7 @@ class HomeScreen extends ConsumerWidget {
             ),
           ),
           GestureDetector(
-            onTap: () => context.go('/library'),
+            onTap: () => _onGuide(context, n),
             child: Container(
               padding: const EdgeInsets.symmetric(
                   horizontal: RatelSpace.md, vertical: RatelSpace.xs),
@@ -459,6 +465,64 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
+  /// 📖 Guide (design §4.1 · plan §3.2): when the CURRENT unit carries an
+  /// authored guide (unit.guide_ref → gloss text — pre-generated content, no
+  /// live AI), open it in a sheet. Units without one keep the historic Library
+  /// fallback, so legacy courses behave exactly as before.
+  void _onGuide(BuildContext context, _Node n) {
+    final String? guide = n.guideText;
+    if (guide == null || guide.isEmpty) {
+      context.go('/library');
+      return;
+    }
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: context.palette.white,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+              top: Radius.circular(RatelRadius.featureLg))),
+      builder: (BuildContext sheetContext) => Padding(
+        padding: const EdgeInsets.all(RatelSpace.xl),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text('📖 UNIT GUIDE',
+                style: TextStyle(
+                    fontFamily: RatelFont.body,
+                    fontSize: RatelType.caption,
+                    fontWeight: RatelType.semiBold,
+                    color: sheetContext.palette.muted)),
+            const SizedBox(height: 4),
+            Text(n.unit,
+                style: TextStyle(
+                    fontFamily: RatelFont.display,
+                    fontWeight: RatelType.extraBold,
+                    fontSize: RatelType.screenTitle,
+                    color: sheetContext.palette.ink)),
+            const SizedBox(height: RatelSpace.md),
+            Flexible(
+              child: SingleChildScrollView(
+                child: Text(guide,
+                    key: const ValueKey<String>('home-guide-text'),
+                    style: TextStyle(
+                        fontFamily: RatelFont.body,
+                        fontSize: RatelType.body,
+                        height: 1.45,
+                        color: sheetContext.palette.ink)),
+              ),
+            ),
+            const SizedBox(height: RatelSpace.lg),
+            RatelButton(
+              label: 'Done',
+              onPressed: () => Navigator.of(sheetContext).pop(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   void _showPreview(BuildContext context, _Node n) {
     final String exLabel =
         n.exercises == 1 ? '1 exercise' : '${n.exercises} exercises';
@@ -575,6 +639,7 @@ class _Node {
     required this.lessonCount,
     required this.inUnit,
     required this.sectionStart,
+    this.guideText,
   });
 
   final String id;
@@ -588,4 +653,5 @@ class _Node {
   final int lessonCount;
   final int inUnit;
   final bool sectionStart;
+  final String? guideText;
 }

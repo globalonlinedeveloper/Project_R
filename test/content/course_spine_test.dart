@@ -54,4 +54,102 @@ void main() {
     expect(spine.units.first.lessons.every((CourseLesson l) => l.cefr == 'A1'), true);
     expect(spine.units.last.lessons.every((CourseLesson l) => l.cefr == 'A2'), true);
   });
+
+  // ---- S96: unit-driven Level→Section→Unit→Lesson projection (plan §3.2) ----
+
+  Map<String, dynamic> prov() => <String, dynamic>{
+        'batch_id': 'batch_en_s96_spine_test',
+        'provenance': 'ai_generated',
+        'review_status': 'auto_certified',
+        'content_version': 1,
+        'created_at': '2026-07-02T00:00:00Z',
+        'updated_at': '2026-07-02T00:00:00Z',
+      };
+  Map<String, dynamic> gp(String id, String cefr, {String? unitId, int? order}) =>
+      <String, dynamic>{
+        'grammar_id': id,
+        'locale': 'en',
+        'name': id,
+        'cefr_level': cefr,
+        'unit_id': ?unitId,
+        'lesson_order': ?order,
+        'provenance': prov(),
+      };
+  Map<String, dynamic> unitRow(String id, int so, int uo, {String? guideRef}) =>
+      <String, dynamic>{
+        'unit_id': id,
+        'locale': 'en',
+        'cefr_level': 'A1',
+        'section_order': so,
+        'section_title_ref': 'sectiontitle_s$so',
+        'unit_order': uo,
+        'title_ref': 'unittitle_$id',
+        'guide_ref': ?guideRef,
+        'provenance': prov(),
+      };
+  Map<String, dynamic> glossRow(String cid, String text) => <String, dynamic>{
+        'content_id': cid,
+        'content_kind': 'instruction',
+        'ui_locale': 'en',
+        'text': text,
+        'provenance': prov(),
+      };
+  ContentBatch unitBatch() => loader.loadMap(<String, dynamic>{
+        'batch_id': 'batch_en_s96_spine_test',
+        'locale': 'en',
+        'tables': <String, dynamic>{
+          // Units authored deliberately OUT of order — projection must follow
+          // (section_order, unit_order), never authored file order.
+          'unit': <Map<String, dynamic>>[
+            unitRow('unit_en_u2', 1, 2),
+            unitRow('unit_en_u1', 1, 1, guideRef: 'guide_en_u1'),
+            unitRow('unit_en_u3', 2, 1),
+          ],
+          'grammar_point': <Map<String, dynamic>>[
+            gp('skill_en_l2', 'A1', unitId: 'unit_en_u1', order: 2),
+            gp('skill_en_l1', 'A1', unitId: 'unit_en_u1', order: 1),
+            gp('skill_en_l3', 'A1', unitId: 'unit_en_u2'),
+            gp('skill_en_l4', 'A1', unitId: 'unit_en_u3'),
+            gp('skill_en_legacy', 'A2'), // NO unit_id → CEFR fallback
+          ],
+          'gloss': <Map<String, dynamic>>[
+            glossRow('sectiontitle_s1', 'SECTION 1 · FOUNDATIONS'),
+            glossRow('sectiontitle_s2', 'SECTION 2 · DAILY LIFE'),
+            glossRow('unittitle_unit_en_u1', 'First Words'),
+            glossRow('unittitle_unit_en_u2', 'People & Things'),
+            glossRow('unittitle_unit_en_u3', 'Around Town'),
+            glossRow('guide_en_u1', 'Welcome! In this unit you learn to greet people.'),
+          ],
+        },
+      });
+
+  test('authored unit rows project the REAL curriculum in pure data order', () {
+    final CourseSpine spine = buildCourseSpine(unitBatch());
+    // 3 authored units + 1 CEFR-fallback unit for the legacy grammar point.
+    expect(spine.units.length, 4);
+    expect(spine.units[0].title, 'First Words'); // unit_order 1 (authored 2nd)
+    expect(spine.units[0].section, 'SECTION 1 · FOUNDATIONS');
+    expect(spine.units[1].title, 'People & Things');
+    expect(spine.units[1].section, 'SECTION 1 · FOUNDATIONS'); // shared section
+    expect(spine.units[2].title, 'Around Town');
+    expect(spine.units[2].section, 'SECTION 2 · DAILY LIFE');
+    // Lessons within a unit follow lesson_order, not authored order.
+    expect(spine.units[0].lessons.map((CourseLesson l) => l.id).toList(),
+        <String>['skill_en_l1', 'skill_en_l2']);
+  });
+
+  test('grammar points w/o unit_id fall back to a CEFR band APPENDED after', () {
+    final CourseSpine spine = buildCourseSpine(unitBatch());
+    final CourseUnit fallback = spine.units.last;
+    expect(fallback.section, 'SECTION 4 · LEVEL A2'); // numbering continues
+    expect(fallback.title, 'Level A2');
+    expect(fallback.lessons.single.id, 'skill_en_legacy');
+    expect(fallback.guideText, isNull);
+  });
+
+  test('the 📖 Guide resolves through the gloss layer (pre-generated content)', () {
+    final CourseSpine spine = buildCourseSpine(unitBatch());
+    expect(spine.units[0].guideText, contains('Welcome!'));
+    expect(spine.units[1].guideText, isNull); // no guide authored on u2
+  });
 }
