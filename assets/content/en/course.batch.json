@@ -1,0 +1,3438 @@
+{
+  "batch_id": "batch_en_course_0001",
+  "schema_version": "2020-12-1",
+  "locale": "en",
+  "tables": {
+    "unit": [
+      {
+        "unit_id": "unit_en_a1_s1_u1",
+        "locale": "en",
+        "cefr_level": "A1",
+        "section_order": 1,
+        "section_title_ref": "sectiontitle_en_a1_s1",
+        "unit_order": 1,
+        "title_ref": "unittitle_en_a1_s1_u1",
+        "guide_ref": "guide_en_a1_s1_u1",
+        "objective_descriptor_ids": [
+          "cefr2020_a1_greetings",
+          "cefr2020_a1_introduce_self"
+        ],
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      }
+    ],
+    "grammar_point": [
+      {
+        "grammar_id": "skill_en_a1_s1u1_l1",
+        "locale": "en",
+        "name": "Greetings & Goodbyes",
+        "cefr_level": "A1",
+        "unit_id": "unit_en_a1_s1_u1",
+        "lesson_order": 1,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "grammar_id": "skill_en_a1_s1u1_l2",
+        "locale": "en",
+        "name": "I am / You are",
+        "cefr_level": "A1",
+        "unit_id": "unit_en_a1_s1_u1",
+        "lesson_order": 2,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "grammar_id": "skill_en_a1_s1u1_l3",
+        "locale": "en",
+        "name": "Please & Thank You",
+        "cefr_level": "A1",
+        "unit_id": "unit_en_a1_s1_u1",
+        "lesson_order": 3,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "grammar_id": "skill_en_a1_s1u1_l4",
+        "locale": "en",
+        "name": "What's Your Name?",
+        "cefr_level": "A1",
+        "unit_id": "unit_en_a1_s1_u1",
+        "lesson_order": 4,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      }
+    ],
+    "vocab_entry": [
+      {
+        "vocab_id": "vocab_hello_en",
+        "locale": "en",
+        "lemma": "hello",
+        "pos": "intj",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_good_en",
+        "locale": "en",
+        "lemma": "good",
+        "pos": "adj",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_morning_en",
+        "locale": "en",
+        "lemma": "morning",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_night_en",
+        "locale": "en",
+        "lemma": "night",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_friend_en",
+        "locale": "en",
+        "lemma": "friend",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_be_en",
+        "locale": "en",
+        "lemma": "be",
+        "pos": "aux",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_anna_en",
+        "locale": "en",
+        "lemma": "Anna",
+        "pos": "propn",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_thank_en",
+        "locale": "en",
+        "lemma": "thank",
+        "pos": "verb",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_welcome_en",
+        "locale": "en",
+        "lemma": "welcome",
+        "pos": "adj",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_please_en",
+        "locale": "en",
+        "lemma": "please",
+        "pos": "intj",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_yes_en",
+        "locale": "en",
+        "lemma": "yes",
+        "pos": "intj",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_name_en",
+        "locale": "en",
+        "lemma": "name",
+        "pos": "noun",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_nice_en",
+        "locale": "en",
+        "lemma": "nice",
+        "pos": "adj",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "vocab_id": "vocab_meet_en",
+        "locale": "en",
+        "lemma": "meet",
+        "pos": "verb",
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      }
+    ],
+    "sense": [
+      {
+        "sense_id": "sense_hello_en_1",
+        "vocab_id": "vocab_hello_en",
+        "pos": "intj",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_good_en_1",
+        "vocab_id": "vocab_good_en",
+        "pos": "adj",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_morning_en_1",
+        "vocab_id": "vocab_morning_en",
+        "pos": "noun",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_night_en_1",
+        "vocab_id": "vocab_night_en",
+        "pos": "noun",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_friend_en_1",
+        "vocab_id": "vocab_friend_en",
+        "pos": "noun",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_be_en_1",
+        "vocab_id": "vocab_be_en",
+        "pos": "aux",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_anna_en_1",
+        "vocab_id": "vocab_anna_en",
+        "pos": "propn",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_thank_en_1",
+        "vocab_id": "vocab_thank_en",
+        "pos": "verb",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_welcome_en_1",
+        "vocab_id": "vocab_welcome_en",
+        "pos": "adj",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_please_en_1",
+        "vocab_id": "vocab_please_en",
+        "pos": "intj",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_yes_en_1",
+        "vocab_id": "vocab_yes_en",
+        "pos": "intj",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_name_en_1",
+        "vocab_id": "vocab_name_en",
+        "pos": "noun",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_nice_en_1",
+        "vocab_id": "vocab_nice_en",
+        "pos": "adj",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sense_id": "sense_meet_en_1",
+        "vocab_id": "vocab_meet_en",
+        "pos": "verb",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      }
+    ],
+    "sentence": [
+      {
+        "sentence_id": "sentence_en_a1_s1u1_001",
+        "locale": "en",
+        "target_text": "Good morning.",
+        "tokens": [
+          {
+            "surface": "Good",
+            "lemma_ref": "vocab_good_en"
+          },
+          {
+            "surface": "morning",
+            "lemma_ref": "vocab_morning_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_002",
+        "locale": "en",
+        "target_text": "Hello, my friend.",
+        "tokens": [
+          {
+            "surface": "Hello",
+            "lemma_ref": "vocab_hello_en"
+          },
+          {
+            "surface": ","
+          },
+          {
+            "surface": "my"
+          },
+          {
+            "surface": "friend",
+            "lemma_ref": "vocab_friend_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_003",
+        "locale": "en",
+        "target_text": "Good night.",
+        "tokens": [
+          {
+            "surface": "Good",
+            "lemma_ref": "vocab_good_en"
+          },
+          {
+            "surface": "night",
+            "lemma_ref": "vocab_night_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_004",
+        "locale": "en",
+        "target_text": "I am Anna.",
+        "tokens": [
+          {
+            "surface": "I"
+          },
+          {
+            "surface": "am",
+            "lemma_ref": "vocab_be_en"
+          },
+          {
+            "surface": "Anna",
+            "lemma_ref": "vocab_anna_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_005",
+        "locale": "en",
+        "target_text": "You are my friend.",
+        "tokens": [
+          {
+            "surface": "You"
+          },
+          {
+            "surface": "are",
+            "lemma_ref": "vocab_be_en"
+          },
+          {
+            "surface": "my"
+          },
+          {
+            "surface": "friend",
+            "lemma_ref": "vocab_friend_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_006",
+        "locale": "en",
+        "target_text": "I am your friend.",
+        "tokens": [
+          {
+            "surface": "I"
+          },
+          {
+            "surface": "am",
+            "lemma_ref": "vocab_be_en"
+          },
+          {
+            "surface": "your"
+          },
+          {
+            "surface": "friend",
+            "lemma_ref": "vocab_friend_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_007",
+        "locale": "en",
+        "target_text": "Thank you.",
+        "tokens": [
+          {
+            "surface": "Thank",
+            "lemma_ref": "vocab_thank_en"
+          },
+          {
+            "surface": "you"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_008",
+        "locale": "en",
+        "target_text": "You are welcome.",
+        "tokens": [
+          {
+            "surface": "You"
+          },
+          {
+            "surface": "are",
+            "lemma_ref": "vocab_be_en"
+          },
+          {
+            "surface": "welcome",
+            "lemma_ref": "vocab_welcome_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_009",
+        "locale": "en",
+        "target_text": "Yes, please.",
+        "tokens": [
+          {
+            "surface": "Yes",
+            "lemma_ref": "vocab_yes_en"
+          },
+          {
+            "surface": ","
+          },
+          {
+            "surface": "please",
+            "lemma_ref": "vocab_please_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_010",
+        "locale": "en",
+        "target_text": "What is your name?",
+        "tokens": [
+          {
+            "surface": "What"
+          },
+          {
+            "surface": "is",
+            "lemma_ref": "vocab_be_en"
+          },
+          {
+            "surface": "your"
+          },
+          {
+            "surface": "name",
+            "lemma_ref": "vocab_name_en"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_011",
+        "locale": "en",
+        "target_text": "My name is Anna.",
+        "tokens": [
+          {
+            "surface": "My"
+          },
+          {
+            "surface": "name",
+            "lemma_ref": "vocab_name_en"
+          },
+          {
+            "surface": "is",
+            "lemma_ref": "vocab_be_en"
+          },
+          {
+            "surface": "Anna",
+            "lemma_ref": "vocab_anna_en"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_en_a1_s1u1_012",
+        "locale": "en",
+        "target_text": "Nice to meet you.",
+        "tokens": [
+          {
+            "surface": "Nice",
+            "lemma_ref": "vocab_nice_en"
+          },
+          {
+            "surface": "to"
+          },
+          {
+            "surface": "meet",
+            "lemma_ref": "vocab_meet_en"
+          },
+          {
+            "surface": "you"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      }
+    ],
+    "item": [
+      {
+        "item_id": "item_en_a1_s1u1_l1_1",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u1_l1_1",
+        "answer_spec": {
+          "accepted": [
+            "Good morning"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "Good morning",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u1_l1_1_a"
+          },
+          {
+            "option_id": "b",
+            "text": "Good night",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l1_1_b"
+          },
+          {
+            "option_id": "c",
+            "text": "Goodbye",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l1_1_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u1_l1"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.4,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l1_2",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u1_l1_2",
+        "answer_spec": {
+          "accepted": [
+            "Goodbye"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "Goodbye",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u1_l1_2_a"
+          },
+          {
+            "option_id": "b",
+            "text": "Hello",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l1_2_b"
+          },
+          {
+            "option_id": "c",
+            "text": "Hi",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l1_2_c"
+          },
+          {
+            "option_id": "d",
+            "text": "Good morning",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l1_2_d"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u1_l1"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.2,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l1_3",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u1_l1_3",
+        "answer_spec": {
+          "accepted": [
+            "Good night"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "Good night",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u1_l1_3_a"
+          },
+          {
+            "option_id": "b",
+            "text": "Good morning",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l1_3_b"
+          },
+          {
+            "option_id": "c",
+            "text": "Hi",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l1_3_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u1_l1"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.0,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l1_4",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u1_l1_4",
+        "answer_spec": {
+          "accepted": [
+            "Hi"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "Hi",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u1_l1_4_a"
+          },
+          {
+            "option_id": "b",
+            "text": "Goodbye",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l1_4_b"
+          },
+          {
+            "option_id": "c",
+            "text": "Good night",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l1_4_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u1_l1"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.8,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l1_5",
+        "locale": "en",
+        "exercise_type": "translate",
+        "prompt_ref": "prompt_en_a1_s1u1_l1_5",
+        "answer_spec": {
+          "accepted": [
+            "Good morning.",
+            "Good morning"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u1_l1"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.1,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l1_6",
+        "locale": "en",
+        "exercise_type": "translate",
+        "prompt_ref": "prompt_en_a1_s1u1_l1_6",
+        "answer_spec": {
+          "accepted": [
+            "Hello, my friend.",
+            "Hello, my friend",
+            "Hello my friend"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u1_l1"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.7,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l1_7",
+        "locale": "en",
+        "exercise_type": "listen",
+        "prompt_ref": "prompt_en_a1_s1u1_l1_7",
+        "answer_spec": {
+          "accepted": [
+            "Good night",
+            "Good night."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u1_l1"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.9,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l2_1",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u1_l2_1",
+        "answer_spec": {
+          "accepted": [
+            "am"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "am",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u1_l2_1_a"
+          },
+          {
+            "option_id": "b",
+            "text": "are",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l2_1_b"
+          },
+          {
+            "option_id": "c",
+            "text": "is",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l2_1_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u1_l2"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.3,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l2_2",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u1_l2_2",
+        "answer_spec": {
+          "accepted": [
+            "are"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "are",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u1_l2_2_a"
+          },
+          {
+            "option_id": "b",
+            "text": "am",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l2_2_b"
+          },
+          {
+            "option_id": "c",
+            "text": "is",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l2_2_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u1_l2"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.1,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l2_3",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u1_l2_3",
+        "answer_spec": {
+          "accepted": [
+            "I am Anna."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "I am Anna.",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u1_l2_3_a"
+          },
+          {
+            "option_id": "b",
+            "text": "I are Anna.",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l2_3_b"
+          },
+          {
+            "option_id": "c",
+            "text": "You am my friend.",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l2_3_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u1_l2"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.6,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l2_4",
+        "locale": "en",
+        "exercise_type": "translate",
+        "prompt_ref": "prompt_en_a1_s1u1_l2_4",
+        "answer_spec": {
+          "accepted": [
+            "I am Anna.",
+            "I am Anna",
+            "I'm Anna."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u1_l2"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.0,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l2_5",
+        "locale": "en",
+        "exercise_type": "translate",
+        "prompt_ref": "prompt_en_a1_s1u1_l2_5",
+        "answer_spec": {
+          "accepted": [
+            "You are my friend.",
+            "You are my friend",
+            "You're my friend."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u1_l2"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.5,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l2_6",
+        "locale": "en",
+        "exercise_type": "listen",
+        "prompt_ref": "prompt_en_a1_s1u1_l2_6",
+        "answer_spec": {
+          "accepted": [
+            "I am your friend",
+            "I am your friend."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u1_l2"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.4,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l3_1",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u1_l3_1",
+        "answer_spec": {
+          "accepted": [
+            "Thank you"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "Thank you",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u1_l3_1_a"
+          },
+          {
+            "option_id": "b",
+            "text": "You are welcome",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l3_1_b"
+          },
+          {
+            "option_id": "c",
+            "text": "Please",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l3_1_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u1_l3"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.4,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l3_2",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u1_l3_2",
+        "answer_spec": {
+          "accepted": [
+            "You are welcome"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "You are welcome",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u1_l3_2_a"
+          },
+          {
+            "option_id": "b",
+            "text": "Please",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l3_2_b"
+          },
+          {
+            "option_id": "c",
+            "text": "Excuse me",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l3_2_c"
+          },
+          {
+            "option_id": "d",
+            "text": "Good night",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l3_2_d"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u1_l3"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.2,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l3_3",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u1_l3_3",
+        "answer_spec": {
+          "accepted": [
+            "Excuse me"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "Excuse me",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u1_l3_3_a"
+          },
+          {
+            "option_id": "b",
+            "text": "Thank you",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l3_3_b"
+          },
+          {
+            "option_id": "c",
+            "text": "You are welcome",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l3_3_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u1_l3"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.9,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l3_4",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u1_l3_4",
+        "answer_spec": {
+          "accepted": [
+            "please"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "please",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u1_l3_4_a"
+          },
+          {
+            "option_id": "b",
+            "text": "goodbye",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l3_4_b"
+          },
+          {
+            "option_id": "c",
+            "text": "hello",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l3_4_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u1_l3"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.7,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l3_5",
+        "locale": "en",
+        "exercise_type": "translate",
+        "prompt_ref": "prompt_en_a1_s1u1_l3_5",
+        "answer_spec": {
+          "accepted": [
+            "Thank you.",
+            "Thank you",
+            "Thanks"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u1_l3"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.3,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l3_6",
+        "locale": "en",
+        "exercise_type": "translate",
+        "prompt_ref": "prompt_en_a1_s1u1_l3_6",
+        "answer_spec": {
+          "accepted": [
+            "You are welcome.",
+            "You are welcome",
+            "You're welcome."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u1_l3"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.6,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l3_7",
+        "locale": "en",
+        "exercise_type": "listen",
+        "prompt_ref": "prompt_en_a1_s1u1_l3_7",
+        "answer_spec": {
+          "accepted": [
+            "Yes, please",
+            "Yes please",
+            "Yes, please."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u1_l3"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.5,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l4_1",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u1_l4_1",
+        "answer_spec": {
+          "accepted": [
+            "What is your name?"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "What is your name?",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u1_l4_1_a"
+          },
+          {
+            "option_id": "b",
+            "text": "How are you?",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l4_1_b"
+          },
+          {
+            "option_id": "c",
+            "text": "Nice to meet you.",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l4_1_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u1_l4"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.4,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l4_2",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u1_l4_2",
+        "answer_spec": {
+          "accepted": [
+            "My"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "My",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u1_l4_2_a"
+          },
+          {
+            "option_id": "b",
+            "text": "You",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l4_2_b"
+          },
+          {
+            "option_id": "c",
+            "text": "I",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l4_2_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u1_l4"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -2.0,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l4_3",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u1_l4_3",
+        "answer_spec": {
+          "accepted": [
+            "Nice to meet you."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "Nice to meet you.",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u1_l4_3_a"
+          },
+          {
+            "option_id": "b",
+            "text": "Good night.",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l4_3_b"
+          },
+          {
+            "option_id": "c",
+            "text": "You are welcome.",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l4_3_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u1_l4"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.8,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l4_4",
+        "locale": "en",
+        "exercise_type": "mcq",
+        "prompt_ref": "prompt_en_a1_s1u1_l4_4",
+        "answer_spec": {
+          "accepted": [
+            "My name is Anna."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "options": [
+          {
+            "option_id": "a",
+            "text": "My name is Anna.",
+            "is_correct": true,
+            "explain_ref": "expl_en_a1_s1u1_l4_4_a"
+          },
+          {
+            "option_id": "b",
+            "text": "My is name Anna.",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l4_4_b"
+          },
+          {
+            "option_id": "c",
+            "text": "Name my is Anna.",
+            "is_correct": false,
+            "explain_ref": "expl_en_a1_s1u1_l4_4_c"
+          }
+        ],
+        "skill_ids": [
+          "skill_en_a1_s1u1_l4"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.3,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l4_5",
+        "locale": "en",
+        "exercise_type": "translate",
+        "prompt_ref": "prompt_en_a1_s1u1_l4_5",
+        "answer_spec": {
+          "accepted": [
+            "What is your name?",
+            "What's your name?",
+            "What is your name"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u1_l4"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.9,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l4_6",
+        "locale": "en",
+        "exercise_type": "translate",
+        "prompt_ref": "prompt_en_a1_s1u1_l4_6",
+        "answer_spec": {
+          "accepted": [
+            "My name is Anna.",
+            "My name is Anna"
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u1_l4"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.4,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "item_id": "item_en_a1_s1u1_l4_7",
+        "locale": "en",
+        "exercise_type": "listen",
+        "prompt_ref": "prompt_en_a1_s1u1_l4_7",
+        "answer_spec": {
+          "accepted": [
+            "Nice to meet you",
+            "Nice to meet you."
+          ],
+          "normalization_flags": {
+            "fold_case": true,
+            "collapse_whitespace": true
+          }
+        },
+        "skill_ids": [
+          "skill_en_a1_s1u1_l4"
+        ],
+        "cefr_level": "A1",
+        "difficulty_band": "core",
+        "irt_b": -1.2,
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      }
+    ],
+    "gloss": [
+      {
+        "content_id": "sectiontitle_en_a1_s1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "SECTION 1 · FOUNDATIONS",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "unittitle_en_a1_s1_u1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "First Words",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "guide_en_a1_s1_u1",
+        "content_kind": "grammar_rule",
+        "ui_locale": "en",
+        "text": "Welcome to your very first English unit! In these lessons you will learn simple greetings like 'hello', 'good morning', and 'goodbye', and you will introduce yourself with 'I am' and 'you are'. You will also practice polite words such as 'please' and 'thank you', and you will ask 'What is your name?'. Tip: say each new phrase out loud two or three times - speaking early makes the words easy to remember. Enjoy your first words in English!",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l1_1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "How do you greet someone in the morning?",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_1",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Good morning' is the standard greeting from early morning until about midday.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_1_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Correct. 'Good morning' is the greeting people use in the morning.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_1_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Good night' is for leaving or bedtime, not for greeting someone.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_1_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Goodbye' is for leaving, not for greeting someone.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l1_2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Which word do you say when you leave?",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_2",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Goodbye' is the standard word to say when you leave.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_2_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Correct. 'Goodbye' is the word people say when they leave.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_2_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Hello' is for meeting someone, not for leaving.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_2_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Hi' is an informal greeting for meeting someone, not for leaving.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_2_d",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Good morning' greets someone at the start of the day; it is not for leaving.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l1_3",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "It is late and you are going to bed. What do you say?",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_3",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Good night' is what you say before bed or when you leave at night.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_3_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Correct. 'Good night' is for bedtime or for leaving at night.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_3_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Good morning' is for the start of the day, not for bedtime.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_3_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Hi' is a greeting for meeting someone, not for bedtime.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l1_4",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Which word is an informal way to say 'hello'?",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_4",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Hi' is a short, friendly, informal version of 'hello'.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_4_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Correct. 'Hi' is a short, informal way to say 'hello'.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_4_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Goodbye' is for leaving; it is not a way to say 'hello'.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_4_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Good night' is for bedtime or leaving at night, not a greeting.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l1_5",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "You meet your teacher at eight in the morning. Write the greeting in English.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_5",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Good morning' is the greeting used in the morning.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l1_6",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "You see your friend. Say hello and call him your friend. Write the full sentence in English.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_6",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "You can greet a friend with 'Hello' and add 'my friend' to be warm and friendly.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l1_7",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l1_7",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Good night' is said at bedtime or when someone leaves at night.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l2_1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Complete the sentence: I ___ Anna.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l2_1",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "The verb 'be' with 'I' is 'am': 'I am Anna.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l2_1_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Correct. With 'I', the verb 'be' is 'am': 'I am Anna.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l2_1_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Are' goes with 'you', not with 'I'. With 'I', use 'am'.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l2_1_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Is' goes with 'he', 'she', or 'it', not with 'I'. With 'I', use 'am'.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l2_2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Complete the sentence: You ___ my friend.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l2_2",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "The verb 'be' with 'you' is 'are': 'You are my friend.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l2_2_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Correct. With 'you', the verb 'be' is 'are': 'You are my friend.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l2_2_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Am' goes with 'I', not with 'you'. With 'you', use 'are'.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l2_2_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Is' goes with 'he', 'she', or 'it', not with 'you'. With 'you', use 'are'.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l2_3",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Which sentence is correct?",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l2_3",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Use 'am' with 'I' and 'are' with 'you'.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l2_3_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Correct. 'I' takes 'am', so 'I am Anna.' is right.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l2_3_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Are' does not go with 'I'. Use 'am': 'I am Anna.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l2_3_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Am' does not go with 'you'. Use 'are': 'You are my friend.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l2_4",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Introduce yourself as Anna. Write the full sentence in English.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l2_4",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "To introduce yourself, use 'I am' plus your name: 'I am Anna.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l2_5",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Tell a person that they are your friend. Write the full sentence in English.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l2_5",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "With 'you', use 'are': 'You are my friend.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l2_6",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l2_6",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'I am your friend.' uses 'am' because the subject is 'I'.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l3_1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "A person gives you a gift. What do you say?",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_1",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Say 'Thank you' to show thanks when someone gives you something or helps you.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_1_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Correct. 'Thank you' shows thanks when you receive something.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_1_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'You are welcome' is the reply to 'thank you', not what you say when you receive a gift.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_1_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Please' makes a request polite; it does not show thanks.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l3_2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "A person says 'Thank you.' What is the polite reply?",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_2",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "The polite reply to 'thank you' is 'You are welcome.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_2_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Correct. 'You are welcome' is the standard reply to 'thank you'.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_2_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Please' makes a request polite; it is not a reply to 'thank you'.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_2_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Excuse me' gets a person's attention; it is not a reply to 'thank you'.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_2_d",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Good night' is for leaving at night or bedtime, not a reply to 'thank you'.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l3_3",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "You want to pass a person in a crowded place. What do you say?",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_3",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Excuse me' is the polite phrase to get attention or ask a person to let you pass.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_3_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Correct. 'Excuse me' politely asks a person to let you pass.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_3_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Thank you' shows thanks; it does not ask a person to let you pass.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_3_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'You are welcome' is a reply to 'thank you', not a way to ask for space.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l3_4",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Which word makes a request polite? 'Water, ___.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_4",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Add 'please' to a request to make it polite: 'Water, please.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_4_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Correct. 'Please' makes a request polite: 'Water, please.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_4_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Goodbye' is for leaving; it does not make a request polite.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_4_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Hello' is a greeting; it does not make a request polite.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l3_5",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "A person helps you. Show your thanks. Write it in English.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_5",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Thank you' is the standard way to show thanks in English.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l3_6",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Reply politely to 'Thank you.' Write the reply in English.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_6",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'You are welcome' is the polite reply to 'thank you'.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l3_7",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l3_7",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Yes, please.' is the polite way to say yes to an offer.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l4_1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "You want to know a person's name. What do you ask?",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_1",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'What is your name?' is the question that asks for a person's name.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_1_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Correct. 'What is your name?' asks for a person's name.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_1_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'How are you?' asks how a person feels, not their name.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_1_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Nice to meet you.' is a friendly phrase after you learn a name; it is not a question.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l4_2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Complete the answer: '___ name is Anna.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_2",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Answer with 'My name is' plus your name: 'My name is Anna.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_2_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Correct. Use 'my' before 'name' to talk about your own name.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_2_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'You' is a subject pronoun; before 'name' you need 'my'.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_2_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'I' is the subject in 'I am Anna.'; before 'name', use 'my'.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l4_3",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "You meet a new person and learn their name. What do you say?",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_3",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Say 'Nice to meet you.' when you meet a person for the first time.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_3_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Correct. 'Nice to meet you.' is the friendly phrase for meeting someone new.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_3_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Good night.' is for bedtime or leaving at night, not for meeting someone.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_3_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'You are welcome.' is a reply to 'thank you', not for meeting someone.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l4_4",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Put the words in the correct order: is / name / My / Anna",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_4",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "The correct order is 'My name is Anna.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_4_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Correct. The order is 'My' + 'name' + 'is' + the name.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_4_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Is' must come after 'name': 'My name is Anna.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_4_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'My' comes before 'name': 'My name is Anna.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l4_5",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Ask for a person's name in English.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_5",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'What is your name?' (or 'What's your name?') asks for a person's name.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l4_6",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Say that your name is Anna. Write the full sentence in English.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_6",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Use 'My name is' plus your name: 'My name is Anna.'",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "prompt_en_a1_s1u1_l4_7",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "expl_en_a1_s1u1_l4_7",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "'Nice to meet you.' is the friendly phrase for meeting someone new.",
+        "provenance": {
+          "batch_id": "batch_en_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-03T00:00:00Z",
+          "updated_at": "2026-07-03T00:00:00Z"
+        }
+      }
+    ]
+  }
+}

@@ -152,4 +152,47 @@ void main() {
     expect(spine.units[0].guideText, contains('Welcome!'));
     expect(spine.units[1].guideText, isNull); // no guide authored on u2
   });
+
+  // ---- S96 PROOF WAVE: the REAL authored EN course batch (A1 S1 U1) ----
+
+  test('EN proof wave: en/course.batch.json loads + projects the authored curriculum', () {
+    final ContentBatch en = loader.loadString(
+        File('assets/content/en/course.batch.json').readAsStringSync());
+    expect(en.rowCount, 176); // 1 unit + 4 gp + 14 vocab + 14 sense + 12 sent + 27 item + 104 gloss
+    final CourseSpine spine = buildCourseSpine(en);
+    expect(spine.courseCode, 'en');
+    final CourseUnit u1 = spine.units.first;
+    expect(u1.section, 'SECTION 1 · FOUNDATIONS'); // authored section title gloss
+    expect(u1.title, 'First Words'); // authored unit title gloss
+    expect(u1.guideText, isNotNull); // 📖 Guide authored (pre-generated)
+    // 4 lessons in lesson_order, every lesson 6-7 exercises incl. a listen.
+    expect(u1.lessons.map((CourseLesson l) => l.id).toList(), <String>[
+      'skill_en_a1_s1u1_l1',
+      'skill_en_a1_s1u1_l2',
+      'skill_en_a1_s1u1_l3',
+      'skill_en_a1_s1u1_l4',
+    ]);
+    for (final CourseLesson l in u1.lessons) {
+      expect(l.exercises.length, inInclusiveRange(6, 7), reason: l.id);
+      expect(l.exercises.any((CourseExercise e) => e.exerciseType == 'listen'),
+          true, reason: '${l.id} needs a listen exercise');
+      // Every non-listen exercise has a resolved, non-empty prompt gloss.
+      expect(
+          l.exercises.every((CourseExercise e) =>
+              e.exerciseType == 'listen' || e.prompt.isNotEmpty),
+          true,
+          reason: '${l.id} has an unresolved prompt_ref');
+    }
+    // Word-bank hygiene: listen phrases tokenize clean (no trailing period tile).
+    final Iterable<CourseExercise> listens = <CourseExercise>[
+      for (final CourseLesson l in u1.lessons)
+        ...l.exercises.where((CourseExercise e) => e.exerciseType == 'listen'),
+    ];
+    expect(listens.every((CourseExercise e) => !e.accepted.first.endsWith('.')),
+        true);
+    expect(
+        listens.every(
+            (CourseExercise e) => e.accepted.first.split(' ').length >= 2),
+        true);
+  });
 }
