@@ -1,8 +1,32 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
+
+// Release signing (graceful-degrade). Values come from a local, gitignored
+// `android/key.properties` OR from `RELEASE_*` environment variables (CI secrets).
+// If ANY value is missing/blank, the release build falls back to DEBUG signing so
+// `flutter run --release`, local builds, and CI (which has no signing secrets) all
+// stay green. The keystore and passwords NEVER live in this (public) repo — only in
+// a local key.properties or GitHub Actions secrets. See .github/workflows/release-android.yml.
+val keystoreProperties = Properties()
+val keystorePropertiesFile = rootProject.file("key.properties")
+if (keystorePropertiesFile.exists()) {
+    FileInputStream(keystorePropertiesFile).use { keystoreProperties.load(it) }
+}
+fun signingValue(propKey: String, envKey: String): String? =
+    (keystoreProperties.getProperty(propKey) ?: System.getenv(envKey))?.takeIf { it.isNotBlank() }
+
+val releaseStoreFile = signingValue("storeFile", "RELEASE_STORE_FILE")
+val releaseStorePassword = signingValue("storePassword", "RELEASE_STORE_PASSWORD")
+val releaseKeyAlias = signingValue("keyAlias", "RELEASE_KEY_ALIAS")
+val releaseKeyPassword = signingValue("keyPassword", "RELEASE_KEY_PASSWORD")
+val hasReleaseSigning = releaseStoreFile != null && releaseStorePassword != null &&
+    releaseKeyAlias != null && releaseKeyPassword != null
 
 android {
     namespace = "com.learnwithratel.ratel"
@@ -15,21 +39,33 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.learnwithratel.ratel"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        if (hasReleaseSigning) {
+            create("release") {
+                storeFile = file(releaseStoreFile!!)
+                storePassword = releaseStorePassword!!
+                keyAlias = releaseKeyAlias!!
+                keyPassword = releaseKeyPassword!!
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            // Real release key when configured (key.properties / CI RELEASE_* secrets),
+            // else fall back to debug so builds still work without secrets.
+            signingConfig = if (hasReleaseSigning) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
     }
 }
