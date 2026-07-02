@@ -130,8 +130,11 @@ class _ThemeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final WorldPalette p = world.palette;
-    return GestureDetector(
-      onTap: onTap,
+    return Semantics(
+      button: true,
+      selected: selected,
+      child: GestureDetector(
+        onTap: onTap,
       child: Container(
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
@@ -217,7 +220,7 @@ class _ThemeCard extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 
   Widget _dot(Color color, double size) => Container(

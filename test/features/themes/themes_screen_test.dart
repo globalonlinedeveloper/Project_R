@@ -143,4 +143,24 @@ void main() {
     expect(find.byType(PaywallScreen), findsNothing);
     expect(container.read(worldThemeProvider), WorldTheme.values.byName('galaxy'));
   });
+
+  testWidgets('cards expose button + selected semantics (a11y, matches the shared-component convention)',
+      (WidgetTester tester) async {
+    final handle = tester.ensureSemantics();
+    await _openThemes(tester);
+    // The active world (default light) is a SELECTED button.
+    expect(
+      tester.getSemantics(
+          find.byKey(const ValueKey<String>('theme-card-light'))),
+      isSemantics(isButton: true, isSelected: true),
+    );
+    // Any other world is a button, not selected (locked worlds are still
+    // tappable — they route to the paywall).
+    expect(
+      tester.getSemantics(
+          find.byKey(const ValueKey<String>('theme-card-galaxy'))),
+      isSemantics(isButton: true, isSelected: false),
+    );
+    handle.dispose();
+  });
 }
