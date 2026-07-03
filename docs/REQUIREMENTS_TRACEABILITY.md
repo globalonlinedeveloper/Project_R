@@ -50,8 +50,8 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 |----|-------------|--------|-------|--------|------|----------|
 | R-B1 | CEFR can-do spine ratification | Must | Stage1 | Built ✅ | — | — |
 | R-B2 | Skill/Concept prerequisite graph | Must | Stage1 | Built ✅ | — | — |
-| R-B3 | Course-Section-Unit-Lesson containers & path rendering | Must | Stage1 | Built ✅ | — | `content_wiring.dart`, `course_switch.dart`, `content_course_spine.dart`, `home_screen.dart` +7 |
-| R-B4 | TBLT task model + tap-to-define | Must | Stage1 | Built ✅ | — | `test_schema.py`, `course_options_projection_test.dart`, `course_spine_test.dart`, `lesson_mcq_authored_test.dart` |
+| R-B3 | Course-Section-Unit-Lesson containers & path rendering | Must | Stage1 | Built ✅ | — | `content_wiring.dart`, `course_switch.dart`, `content_course_spine.dart`, `home_screen.dart` +9 |
+| R-B4 | TBLT task model + tap-to-define | Must | Stage1 | Built ✅ | — | `story_reader_screen.dart`, `test_schema.py`, `course_options_projection_test.dart`, `course_spine_test.dart` +1 |
 | R-B5 | Depth-as-data & CEFR-ceiling enforcement | Must | Stage1 | Built ✅ | — | — |
 | R-B6 | Native realization & divergence nodes | Must | Stage1 | Built ✅ | — | — |
 | R-B7 | Pair-specific / contrastive layer | Must | Stage1 | Built ✅ | — | — |
@@ -84,7 +84,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-D2 | mcq (multiple choice) | Must | Stage2 | Built ✅ | — | — |
 | R-D3 | cloze (fill in the blank) | Must | Stage2 | Built ✅ | — | — |
 | R-D4 | translate (one type, with a direction setting) | Must | Stage2 | Built ✅ | — | — |
-| R-D5 | listen (listen and choose) | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `listen_audio_controls.dart`, `listen_exercise.dart`, `speech_tts.dart` +2 |
+| R-D5 | listen (listen and choose) | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `listen_audio_controls.dart`, `listen_exercise.dart`, `story_reader_screen.dart` +3 |
 | R-D6 | word_order (build the sentence by tapping words) | Must | Stage2 | Built ✅ | — | — |
 | R-D7 | match (matching pairs) | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `match_exercise.dart`, `lesson_match_test.dart` |
 | R-D8 | dictation (type exactly what you hear) | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `listen_audio_controls.dart`, `speech_tts.dart` |

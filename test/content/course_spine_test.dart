@@ -326,4 +326,35 @@ void main() {
     expect(
         en.glosses.any((Gloss g) => g.contentKind == ContentKind.rubric), true);
   });
+
+  test('INF-6: passages(kind=story) project into spine.stories; podcast/video do not', () {
+    final ContentBatch en = loader.loadString(
+        File('assets/content/en/course.batch.json').readAsStringSync());
+    final CourseSpine spine = buildCourseSpine(en);
+
+    // Only kind=story projects (podcasts/video stay the owner-gated media type).
+    final int storyCount =
+        en.passages.where((Passage p) => p.kind == PassageKind.story).length;
+    expect(storyCount, greaterThan(0));
+    expect(spine.stories.length, storyCount);
+
+    final CourseStory st = spine.stories.first;
+    // sentence_refs resolved to their target_text (non-empty, in order).
+    expect(st.sentences, isNotEmpty);
+    expect(st.sentences.every((String s) => s.trim().isNotEmpty), true);
+    expect(st.title.trim(), isNotEmpty);
+    expect(st.cefr, isNotEmpty);
+    // Comprehension checks project as gradable exercises...
+    expect(st.checkExercises, isNotEmpty);
+    // ...and those SAME check items never ALSO leak onto the learning path.
+    final Set<String> pathItemIds = <String>{
+      for (final CourseUnit u in spine.units)
+        for (final CourseLesson l in u.lessons)
+          for (final CourseExercise e in l.exercises) e.id,
+    };
+    for (final CourseExercise e in st.checkExercises) {
+      expect(pathItemIds.contains(e.id), false,
+          reason: 'story check ${e.id} leaked onto the path');
+    }
+  });
 }

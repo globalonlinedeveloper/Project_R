@@ -126,12 +126,49 @@ class CourseUnit {
   final String? guideText;
 }
 
+/// A graded reading passage (content `passage`, kind=story) projected for the
+/// un-gated Read&Listen surface (INF-6): the gloss-resolved [title] + per-
+/// passage [explain], the resolved [sentences] (its `sentence_refs` ->
+/// `sentence.target_text`, in order), and the comprehension [checkExercises]
+/// (its `check_item_refs` -> the SAME [CourseExercise] projection the runner
+/// grades). TEXT-FIRST: `audio_ref` is null today, so the reader renders text +
+/// optional browser read-aloud; real pre-generated audio/video stays owner-gated.
+class CourseStory {
+  const CourseStory({
+    required this.id,
+    required this.title,
+    required this.cefr,
+    required this.sentences,
+    this.theme,
+    this.explain,
+    this.checkExercises = const <CourseExercise>[],
+  });
+
+  final String id; // content passage_id
+  final String title;
+  final String cefr; // 'A1'..'C2'
+  final List<String> sentences; // resolved sentence.target_text, in order
+  final String? theme;
+  final String? explain; // per-passage explain gloss, when authored
+  final List<CourseExercise> checkExercises;
+
+  int get checkCount => checkExercises.length;
+}
+
 /// The whole authored course, projected for the path UI.
 class CourseSpine {
-  const CourseSpine({required this.courseCode, required this.units});
+  const CourseSpine({
+    required this.courseCode,
+    required this.units,
+    this.stories = const <CourseStory>[],
+  });
 
   final String courseCode; // batch locale, e.g. 'es'
   final List<CourseUnit> units;
+
+  /// Graded Read&Listen stories (content `passage`, kind=story) projected for
+  /// the un-gated reading surface (INF-6). Empty when the batch authors none.
+  final List<CourseStory> stories;
 
   bool get isEmpty => units.isEmpty;
 

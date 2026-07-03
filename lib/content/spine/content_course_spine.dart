@@ -209,5 +209,41 @@ CourseSpine buildCourseSpine(ContentBatch batch) {
     ));
   }
 
-  return CourseSpine(courseCode: batch.locale ?? '', units: units);
+  // (3) Graded Read&Listen stories (INF-6): project passages of kind=story into
+  // a TEXT-FIRST reading surface -- resolve sentence_refs -> sentence text, the
+  // title/explain through the gloss layer, and check_item_refs -> the SAME
+  // gradable CourseExercise the runner uses (never a leaked path exercise --
+  // they stay `surfaceOwned`). Podcasts/Watch (audio/video) are owner-gated and
+  // NOT projected. Pure data; audio_ref is null today.
+  final Map<String, String> sentenceText = <String, String>{
+    for (final Sentence s in batch.sentences) s.sentenceId: s.targetText,
+  };
+  final Map<String, Item> itemById = <String, Item>{
+    for (final Item it in batch.items) it.itemId: it,
+  };
+  final List<CourseStory> stories = <CourseStory>[
+    for (final Passage p in batch.passages)
+      if (p.kind == PassageKind.story)
+        CourseStory(
+          id: p.passageId,
+          title: glossText[p.titleRef] ?? p.passageId,
+          cefr: p.cefrLevel.name.toUpperCase(),
+          theme: p.theme,
+          explain: p.explainRef == null ? null : glossText[p.explainRef!],
+          sentences: <String>[
+            for (final String sr in p.sentenceRefs)
+              if (sentenceText[sr] != null) sentenceText[sr]!,
+          ],
+          checkExercises: <CourseExercise>[
+            for (final String cr in p.checkItemRefs ?? const <String>[])
+              if (itemById[cr] != null) toExercise(itemById[cr]!),
+          ],
+        ),
+  ]..sort((CourseStory a, CourseStory b) {
+      final int c = a.cefr.compareTo(b.cefr);
+      return c != 0 ? c : a.id.compareTo(b.id);
+    });
+
+  return CourseSpine(
+      courseCode: batch.locale ?? '', units: units, stories: stories);
 }

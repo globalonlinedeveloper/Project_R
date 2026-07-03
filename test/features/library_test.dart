@@ -22,10 +22,13 @@ void main() {
     expect(find.text('FREE'), findsWidgets);
   });
 
-  testWidgets('the media section is an honest no-engine stub',
+  testWidgets('Read & listen: real Stories tile + honest podcasts/video stub',
       (WidgetTester tester) async {
     await _toLibrary(tester);
-    final Finder stub = find.textContaining('media / audio engine');
+    // INF-6: Stories (text + browser read-aloud) is now a REAL, un-gated tile.
+    expect(find.text('Stories'), findsOneWidget);
+    // Podcasts/video still honestly declare their missing audio/video engine.
+    final Finder stub = find.textContaining('audio / video engine');
     await tester.scrollUntilVisible(stub, 200,
         scrollable: find.byType(Scrollable).first);
     expect(stub, findsOneWidget);

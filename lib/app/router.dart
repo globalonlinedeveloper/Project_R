@@ -14,6 +14,8 @@ import 'package:ratel/features/leagues/leagues_screen.dart';
 import 'package:ratel/features/library/library_search_screen.dart';
 import 'package:ratel/features/lesson/lesson_runner_screen.dart';
 import 'package:ratel/features/library/library_screen.dart';
+import 'package:ratel/features/stories/stories_screen.dart';
+import 'package:ratel/features/stories/story_reader_screen.dart';
 import 'package:ratel/features/onboarding/onboarding_screen.dart';
 import 'package:ratel/features/onboarding/placement_quiz_screen.dart';
 import 'package:ratel/features/practice/practice_hub_screen.dart';
@@ -148,6 +150,16 @@ GoRouter buildRouter() {
         path: '/search',
         builder: (BuildContext context, GoRouterState state) =>
             const LibrarySearchScreen(),
+      ),
+      GoRoute(
+        path: '/stories',
+        builder: (BuildContext context, GoRouterState state) =>
+            const StoriesScreen(),
+      ),
+      GoRoute(
+        path: '/story',
+        builder: (BuildContext context, GoRouterState state) =>
+            StoryReaderScreen(passageId: state.uri.queryParameters['passage']),
       ),
       GoRoute(
         path: '/friends',
