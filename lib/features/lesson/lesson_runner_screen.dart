@@ -532,8 +532,10 @@ bool _gradeTyped(_Item it, String input) {
 
 /// Deterministic, UN-GATED grader for a Guided-Writing item (INF-5): passes iff
 /// the answer meets the minimum word count, ends with terminal punctuation when
-/// required, and contains every required vocab lemma (whole-word, case-fold).
-/// No live AI -- meaning / quality grading is the owner-gated Pro upgrade.
+/// required, and contains every required vocab lemma -- matched case-fold at a
+/// word boundary as a STEM PREFIX so natural inflections count (arrive ->
+/// arrived, client -> clients, ramification -> ramifications). No live AI --
+/// meaning / quality grading is the owner-gated Pro upgrade.
 bool _gradeWrite(_Item it, String input) {
   final String text = input.trim();
   if (text.isEmpty) {
@@ -551,7 +553,7 @@ bool _gradeWrite(_Item it, String input) {
   }
   final String lower = text.toLowerCase();
   for (final String w in it.requiredWords) {
-    if (!RegExp('\\b${RegExp.escape(w.toLowerCase())}\\b').hasMatch(lower)) {
+    if (!RegExp('\\b${RegExp.escape(w.toLowerCase())}').hasMatch(lower)) {
       return false;
     }
   }

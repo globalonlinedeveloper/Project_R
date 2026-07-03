@@ -109,4 +109,22 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('✕ Not quite'), findsOneWidget);
   });
+
+  testWidgets('write required-word check tolerates inflected forms',
+      (WidgetTester tester) async {
+    final ProviderContainer c = ProviderContainer(overrides: <Override>[
+      courseSpineProvider.overrideWithValue(_spineWithWrite()),
+    ]);
+    addTearDown(c.dispose);
+    await _pump(tester, c);
+
+    // 'names' satisfies the required 'name' (stem-prefix at a word boundary).
+    await tester.enterText(
+        find.byKey(const ValueKey<String>('lesson-write-input')),
+        'Hello, these are the names people call me here.');
+    await tester.pump();
+    await tester.tap(find.text('Check'));
+    await tester.pumpAndSettle();
+    expect(find.text('✓ Correct!'), findsOneWidget);
+  });
 }
