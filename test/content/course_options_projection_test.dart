@@ -66,10 +66,10 @@ void main() {
     }
   });
 
-  test('A1+A2+B1+B2+C1 S1: 54 authored units project in data order (S99)',
+  test('A1+A2+B1+B2+C1: 60 authored units project in data order (S99)',
       () {
     final CourseSpine spine = buildCourseSpine(loadEn());
-    expect(spine.units.length, 54);
+    expect(spine.units.length, 60);
     expect(spine.units.map((CourseUnit u) => u.title).toList(), <String>[
       'First Words',
       'About You',
@@ -125,6 +125,12 @@ void main() {
       "It's Essential That",
       'It Was Then That',
       "You Needn't Have",
+      'In Other Words',
+      'Less Is More',
+      'Furthermore',
+      'It Would Seem',
+      "Much As I'd Like",
+      'It Depends On',
     ]);
     for (int i = 0; i < spine.units.length; i++) {
       final CourseUnit u = spine.units[i];
@@ -146,7 +152,9 @@ void main() {
                                       ? 'SECTION 7 · B2 · SHADES OF MEANING'
                                       : i < 48
                                           ? 'SECTION 8 · B2 · PUTTING IT TOGETHER'
-                                          : 'SECTION 9 · C1 · THE FINER POINTS',
+                                          : i < 54
+                                              ? 'SECTION 9 · C1 · THE FINER POINTS'
+                                              : 'SECTION 10 · C1 · STYLE & COHESION',
           reason: u.title);
       expect(u.guideText, isNotNull, reason: '${u.title} needs a 📖 Guide');
       expect(u.lessons.length, 4, reason: u.title);
