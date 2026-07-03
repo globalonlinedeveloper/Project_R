@@ -26,7 +26,12 @@ void main() {
       (WidgetTester tester) async {
     await _toLibrary(tester);
     // INF-6: Stories (text + browser read-aloud) is a REAL, un-gated tile.
-    expect(find.text('Stories'), findsOneWidget);
+    // INF-8 added a Roleplay tile above Read & listen, so Stories can start
+    // below the fold — scroll to it (mirrors the Podcasts/video-stub checks).
+    final Finder stories = find.text('Stories');
+    await tester.scrollUntilVisible(stories, 200,
+        scrollable: find.byType(Scrollable).first);
+    expect(stories, findsOneWidget);
     // INF-7: Podcasts (real audio + transcript) is now a REAL, un-gated tile.
     final Finder podcasts = find.text('Podcasts');
     await tester.scrollUntilVisible(podcasts, 200,

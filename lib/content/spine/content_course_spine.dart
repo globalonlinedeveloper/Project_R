@@ -280,9 +280,65 @@ CourseSpine buildCourseSpine(ContentBatch batch) {
       return c != 0 ? c : a.id.compareTo(b.id);
     });
 
+  // (5) Pre-generated Roleplay + Adventures (INF-8): project `scenario` rows into
+  // dialogue view-models. Lines resolve `line_sentence_ref` -> sentence text;
+  // title/goal + each choice `label_ref` resolve through the gloss layer; the
+  // per-choice "Explain this" is the choice `label_ref` explanation gloss (when
+  // authored). Branching is pure authored DATA (`choices[].next_scene_id`) -- no
+  // live AI. Roleplay choices carry `is_correct` (graded); adventure choices do
+  // not (pure branch). Turn items stay `surfaceOwned` (excluded above), never
+  // leaking onto the path.
+  List<CourseScenario> scenariosOfKind(ScenarioKind want) => <CourseScenario>[
+        for (final Scenario sc in batch.scenarios)
+          if (sc.kind == want)
+            CourseScenario(
+              id: sc.scenarioId,
+              kind: sc.kind.name,
+              title: glossText[sc.titleRef] ?? sc.scenarioId,
+              cefr: sc.cefrLevel.name.toUpperCase(),
+              world: sc.world,
+              goal: glossText[sc.goalRef],
+              scenes: <CourseScene>[
+                for (final Map<String, Object?> m in sc.scenes)
+                  CourseScene(
+                    sceneId: (m['scene_id'] as String?) ?? '',
+                    speaker: (m['speaker'] as String?) ?? '',
+                    line: sentenceText[m['line_sentence_ref']] ?? '',
+                    choices: <CourseChoice>[
+                      for (final Object? c
+                          in (m['choices'] as List<Object?>? ??
+                              const <Object?>[]))
+                        if (c is Map)
+                          CourseChoice(
+                            label: (c['label_ref'] is String
+                                    ? glossText[c['label_ref'] as String]
+                                    : null) ??
+                                '',
+                            optionId: c['option_id'] as String?,
+                            nextSceneId: c['next_scene_id'] as String?,
+                            isCorrect: c['is_correct'] as bool?,
+                            explain: c['label_ref'] is String
+                                ? explainOf[c['label_ref'] as String]
+                                : null,
+                          ),
+                    ],
+                  ),
+              ],
+            ),
+      ]..sort((CourseScenario a, CourseScenario b) {
+          final int c = a.cefr.compareTo(b.cefr);
+          return c != 0 ? c : a.id.compareTo(b.id);
+        });
+  final List<CourseScenario> roleplays =
+      scenariosOfKind(ScenarioKind.roleplay);
+  final List<CourseScenario> adventures =
+      scenariosOfKind(ScenarioKind.adventure);
+
   return CourseSpine(
       courseCode: batch.locale ?? '',
       units: units,
       stories: stories,
-      podcasts: podcasts);
+      podcasts: podcasts,
+      roleplays: roleplays,
+      adventures: adventures);
 }

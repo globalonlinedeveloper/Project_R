@@ -5,19 +5,17 @@ import 'package:go_router/go_router.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 
-/// Adventures (🗺️, INF-8) -- the FREE branching-dialogue library. Lists the
-/// pre-generated adventures the current course authors (content `scenario`,
-/// kind=adventure), grouped by CEFR level in data order, each opening the
-/// branching [AdventurePlayerScreen]. Pure authored content (choose-your-path, no
-/// wrong answers) -- NO live AI, no fabricated conversation. A course with none
-/// yet shows an HONEST empty state. [R-D10 - R-B3 - R-J1]
-class AdventuresScreen extends ConsumerWidget {
-  const AdventuresScreen({super.key});
+/// Roleplay (INF-8) -- the un-gated pre-generated roleplay library. Lists the
+/// graded roleplay drills the current course authors (content `scenario`,
+/// kind=roleplay), grouped by CEFR level in data order, each opening the
+/// [RoleplayPlayerScreen]. A course with none yet shows an HONEST empty state --
+/// never a fabricated list. [R-D10 - R-B3]
+class RoleplayScreen extends ConsumerWidget {
+  const RoleplayScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<CourseScenario> items =
-        ref.watch(courseSpineProvider).adventures;
+    final List<CourseScenario> items = ref.watch(courseSpineProvider).roleplays;
     final List<String> levels = <String>[];
     final Map<String, List<CourseScenario>> byLevel =
         <String, List<CourseScenario>>{};
@@ -37,32 +35,25 @@ class AdventuresScreen extends ConsumerWidget {
           icon: Icon(RatelIcons.arrowBack, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: Text('Adventures',
+        title: Text('Roleplay',
             style: TextStyle(
                 fontFamily: RatelFont.display,
                 fontWeight: RatelType.extraBold,
                 color: context.palette.ink,
                 fontSize: RatelType.cardTitle)),
-        actions: const <Widget>[
-          Padding(
-            padding: EdgeInsets.only(right: RatelSpace.lg),
-            child:
-                Center(child: RatelChip(label: 'FREE', tone: RatelChipTone.green)),
-          ),
-        ],
       ),
       body: items.isEmpty
           ? _empty(context)
           : ListView(
-              key: const ValueKey<String>('screen-adventures'),
+              key: const ValueKey<String>('screen-roleplay'),
               padding: const EdgeInsets.fromLTRB(RatelSpace.screen,
                   RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
               children: <Widget>[
                 Text(
-                  'Choose your path -- every choice branches the story. No wrong answers, always free.',
+                  'Practice real conversations -- pick the right reply, get instant feedback.',
                   style: TextStyle(
                       fontFamily: RatelFont.body,
-                      fontSize: RatelType.body,
+                      fontSize: RatelType.small,
                       color: context.palette.muted),
                 ),
                 const SizedBox(height: RatelSpace.lg),
@@ -71,15 +62,15 @@ class AdventuresScreen extends ConsumerWidget {
                   const SizedBox(height: RatelSpace.sm),
                   for (final CourseScenario s in byLevel[level]!) ...<Widget>[
                     RatelListRow(
-                      key: ValueKey<String>('adventure-row-${s.id}'),
-                      leadingEmoji: '🗺️',
-                      leadingColor: RatelColors.blue,
+                      key: ValueKey<String>('roleplay-row-${s.id}'),
+                      leadingEmoji: '🎭',
+                      leadingColor: RatelColors.purple,
                       title: s.title,
                       subtitle: s.goal == null || s.goal!.isEmpty
-                          ? (s.world ?? 'Adventure')
+                          ? (s.world ?? 'Roleplay')
                           : s.goal!,
                       onTap: () => context.push(
-                          '/adventure?scenario=${Uri.encodeComponent(s.id)}'),
+                          '/roleplay-play?scenario=${Uri.encodeComponent(s.id)}'),
                     ),
                     const SizedBox(height: RatelSpace.sm),
                   ],
@@ -94,12 +85,11 @@ class AdventuresScreen extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.all(RatelSpace.xl),
           child: Column(
-            key: const ValueKey<String>('screen-adventures'),
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              const Text('🗺️', style: TextStyle(fontSize: 56)),
+              const Text('🎭', style: TextStyle(fontSize: 56)),
               const SizedBox(height: RatelSpace.md),
-              Text('No adventures in this course yet.',
+              Text('No roleplays in this course yet.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontFamily: RatelFont.body,

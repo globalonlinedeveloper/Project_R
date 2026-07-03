@@ -168,6 +168,8 @@ class CourseSpine {
     required this.units,
     this.stories = const <CourseStory>[],
     this.podcasts = const <CourseStory>[],
+    this.roleplays = const <CourseScenario>[],
+    this.adventures = const <CourseScenario>[],
   });
 
   final String courseCode; // batch locale, e.g. 'es'
@@ -182,6 +184,14 @@ class CourseSpine {
   /// as [stories] but each carries a non-null [CourseStory.audioUrl]. Empty when
   /// the batch authors none.
   final List<CourseStory> podcasts;
+
+  /// Pre-generated Roleplay drills (content `scenario`, kind=roleplay): a graded
+  /// pick-the-right-reply branching dialogue (INF-8). Empty when none authored.
+  final List<CourseScenario> roleplays;
+
+  /// Pre-generated branching Adventures (content `scenario`, kind=adventure): a
+  /// choose-your-path dialogue with no wrong answers (INF-8). Empty when none.
+  final List<CourseScenario> adventures;
 
   bool get isEmpty => units.isEmpty;
 
@@ -202,3 +212,78 @@ class CourseSpine {
 /// (honest unconfigured). `main` overrides it with the bundled-batch projection
 /// via `initContentOverrides()` (the CI-only content seam).
 final courseSpineProvider = Provider<CourseSpine>((ref) => CourseSpine.empty);
+
+
+/// One authored choice at a scenario scene (`scenario.scenes[].choices[]`),
+/// resolved for the codegen-free feature layer. [label] = its `label_ref` gloss;
+/// [isCorrect] grades a ROLEPLAY turn (null for an ADVENTURE branch — no wrong
+/// answer); [nextSceneId] is the authored branch target; [explain] = the optional
+/// per-choice "Explain this" gloss. [INF-8]
+class CourseChoice {
+  const CourseChoice({
+    required this.label,
+    this.optionId,
+    this.nextSceneId,
+    this.isCorrect,
+    this.explain,
+  });
+
+  final String label;
+  final String? optionId;
+  final String? nextSceneId;
+  final bool? isCorrect;
+  final String? explain;
+}
+
+/// One scene/turn of a scenario (`scenario.scenes[]`): the [speaker] label, the
+/// resolved [line] (`line_sentence_ref` -> `sentence.target_text`) and, at a
+/// decision point, the authored [choices]. A scene with no choices is a plain
+/// line (roleplay advances linearly; adventure ends). [INF-8]
+class CourseScene {
+  const CourseScene({
+    required this.sceneId,
+    required this.speaker,
+    required this.line,
+    this.choices = const <CourseChoice>[],
+  });
+
+  final String sceneId;
+  final String speaker;
+  final String line;
+  final List<CourseChoice> choices;
+
+  bool get isDecision => choices.isNotEmpty;
+}
+
+/// A pre-generated dialogue scenario (content `scenario`) projected for the
+/// un-gated Roleplay/Adventures surfaces (INF-8). [kind] is 'roleplay' (graded
+/// pick-the-right-reply) or 'adventure' (branching choose-your-path). Branching
+/// is pure authored DATA (`scenes[].choices[].next_scene_id`) — NO live AI.
+class CourseScenario {
+  const CourseScenario({
+    required this.id,
+    required this.kind,
+    required this.title,
+    required this.cefr,
+    required this.scenes,
+    this.world,
+    this.goal,
+  });
+
+  final String id; // content scenario_id
+  final String kind; // 'roleplay' | 'adventure'
+  final String title;
+  final String cefr; // 'A1'..'C2'
+  final List<CourseScene> scenes;
+  final String? world;
+  final String? goal; // goal_ref gloss (the objective)
+
+  bool get isRoleplay => kind == 'roleplay';
+
+  int indexOf(String sceneId) {
+    for (int i = 0; i < scenes.length; i++) {
+      if (scenes[i].sceneId == sceneId) return i;
+    }
+    return -1;
+  }
+}

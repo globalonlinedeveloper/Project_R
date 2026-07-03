@@ -5,6 +5,9 @@ import 'package:go_router/go_router.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/app/navigation_focus.dart';
 import 'package:ratel/features/adventures/adventures_screen.dart';
+import 'package:ratel/features/adventures/adventure_player_screen.dart';
+import 'package:ratel/features/roleplay/roleplay_screen.dart';
+import 'package:ratel/features/roleplay/roleplay_player_screen.dart';
 import 'package:ratel/features/auth/login_screen.dart';
 import 'package:ratel/features/auth/signup_screen.dart';
 import 'package:ratel/features/common/coming_soon_screen.dart';
@@ -172,6 +175,23 @@ GoRouter buildRouter() {
         path: '/podcast',
         builder: (BuildContext context, GoRouterState state) =>
             PodcastPlayerScreen(passageId: state.uri.queryParameters['passage']),
+      ),
+      GoRoute(
+        path: '/roleplay',
+        builder: (BuildContext context, GoRouterState state) =>
+            const RoleplayScreen(),
+      ),
+      GoRoute(
+        path: '/roleplay-play',
+        builder: (BuildContext context, GoRouterState state) =>
+            RoleplayPlayerScreen(
+                scenarioId: state.uri.queryParameters['scenario']),
+      ),
+      GoRoute(
+        path: '/adventure',
+        builder: (BuildContext context, GoRouterState state) =>
+            AdventurePlayerScreen(
+                scenarioId: state.uri.queryParameters['scenario']),
       ),
       GoRoute(
         path: '/friends',
