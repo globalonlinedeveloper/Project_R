@@ -51,7 +51,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-B1 | CEFR can-do spine ratification | Must | Stage1 | Built ✅ | — | — |
 | R-B2 | Skill/Concept prerequisite graph | Must | Stage1 | Built ✅ | — | — |
 | R-B3 | Course-Section-Unit-Lesson containers & path rendering | Must | Stage1 | Built ✅ | — | `content_wiring.dart`, `course_switch.dart`, `content_course_spine.dart`, `home_screen.dart` +9 |
-| R-B4 | TBLT task model + tap-to-define | Must | Stage1 | Built ✅ | — | `story_reader_screen.dart`, `test_schema.py`, `course_options_projection_test.dart`, `course_spine_test.dart` +1 |
+| R-B4 | TBLT task model + tap-to-define | Must | Stage1 | Built ✅ | — | `story_reader_screen.dart`, `gen_stories_wave.py`, `test_schema.py`, `course_options_projection_test.dart` +2 |
 | R-B5 | Depth-as-data & CEFR-ceiling enforcement | Must | Stage1 | Built ✅ | — | — |
 | R-B6 | Native realization & divergence nodes | Must | Stage1 | Built ✅ | — | — |
 | R-B7 | Pair-specific / contrastive layer | Must | Stage1 | Built ✅ | — | — |
