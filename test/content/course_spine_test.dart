@@ -174,8 +174,14 @@ void main() {
       'skill_en_a1_s1u1_l4',
     ]);
     for (final CourseLesson l in u1.lessons) {
-      expect(l.exercises.length, inInclusiveRange(6, 7), reason: l.id);
-      expect(l.exercises.any((CourseExercise e) => e.exerciseType == 'listen'),
+      // Graded drill exercises are 6-7 per lesson + 1 listen; Guided-Writing
+      // (`write`) items are ADDITIONAL and exempt from these invariants (INF-5).
+      final List<CourseExercise> drill = <CourseExercise>[
+        for (final CourseExercise e in l.exercises)
+          if (e.exerciseType != 'write') e,
+      ];
+      expect(drill.length, inInclusiveRange(6, 7), reason: l.id);
+      expect(drill.any((CourseExercise e) => e.exerciseType == 'listen'),
           true, reason: '${l.id} needs a listen exercise');
       // Every non-listen exercise has a resolved, non-empty prompt gloss.
       expect(
@@ -184,21 +190,34 @@ void main() {
           true,
           reason: '${l.id} has an unresolved prompt_ref');
     }
-    // Ownership + gradability: surface-owned items (story checks, roleplay
-    // turns) and rubric-graded write items never leak onto the path.
+    // Ownership: surface-owned items (story checks, roleplay turns) never leak
+    // onto the path. Guided-Writing `write` items DO now surface via their own
+    // renderer (INF-5) -- graded by rubric_spec, not answer_spec.accepted.
     final Set<String> pathItemIds = <String>{
       for (final CourseLesson l in u1.lessons)
         for (final CourseExercise e in l.exercises) e.id,
     };
     expect(pathItemIds.contains('item_en_a1_s1u1_chk_1'), false);
     expect(pathItemIds.contains('item_en_a1_s1u1_meet_1'), false);
-    expect(pathItemIds.contains('item_en_a1_s1u1_write_1'), false);
+    expect(pathItemIds.contains('item_en_a1_s1u1_write_1'), true);
+    // The write item projects with its display rubric + resolved required words.
+    final CourseExercise writeEx = <CourseExercise>[
+      for (final CourseLesson l in u1.lessons)
+        for (final CourseExercise e in l.exercises)
+          if (e.id == 'item_en_a1_s1u1_write_1') e,
+    ].single;
+    expect(writeEx.exerciseType, 'write');
+    expect(writeEx.rubric, isNotNull);
+    expect(writeEx.requiredWords, containsAll(<String>['hello', 'name']));
+    // Every NON-write path exercise is gradable-as-data (accepted answers).
     expect(
         <CourseExercise>[
           for (final CourseLesson l in u1.lessons) ...l.exercises
-        ].every((CourseExercise e) => e.accepted.isNotEmpty),
+        ]
+            .where((CourseExercise e) => e.exerciseType != 'write')
+            .every((CourseExercise e) => e.accepted.isNotEmpty),
         true,
-        reason: 'every PATH exercise must be gradable-as-data');
+        reason: 'every non-write PATH exercise must be gradable-as-data');
 
     // Word-bank hygiene: listen phrases tokenize clean (no trailing period tile).
     final Iterable<CourseExercise> listens = <CourseExercise>[

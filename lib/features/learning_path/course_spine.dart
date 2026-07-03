@@ -39,6 +39,10 @@ class CourseExercise {
     this.stripDiacritics = false,
     this.options = const <CourseOption>[],
     this.explain,
+    this.rubric,
+    this.minTokens,
+    this.requiredWords = const <String>[],
+    this.requireTerminalPunct = false,
   });
 
   /// Content `item_id`.
@@ -71,6 +75,20 @@ class CourseExercise {
   /// `content_kind: explanation`) -- the "why this answer is right" text
   /// behind the "Explain this" button. Null when not authored.
   final String? explain;
+
+  /// Guided-Writing display rubric (gloss `content_id == item_id`,
+  /// `content_kind: rubric`) -- the human-readable "what full marks looks
+  /// like". Null for non-write items. [INF-5]
+  final String? rubric;
+
+  /// Deterministic, UN-GATED rubric checks projected from `item.rubric_spec`
+  /// (no live AI): [minTokens] = minimum word count, [requiredWords] = the
+  /// resolved vocab lemmas the answer must contain, [requireTerminalPunct] =
+  /// whether a terminal `.`/`!`/`?` is required. Null/empty for non-write
+  /// items. [INF-5]
+  final int? minTokens;
+  final List<String> requiredWords;
+  final bool requireTerminalPunct;
 }
 
 /// One lesson node on the path (a content `skill` / grammar point).

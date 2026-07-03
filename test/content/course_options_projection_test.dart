@@ -60,8 +60,12 @@ void main() {
       'skill_en_a1_s1u2_l4',
     ]);
     for (final CourseLesson l in u2.lessons) {
-      expect(l.exercises.length, 7, reason: l.id);
-      expect(l.exercises.any((CourseExercise e) => e.exerciseType == 'listen'),
+      final List<CourseExercise> drill = <CourseExercise>[
+        for (final CourseExercise e in l.exercises)
+          if (e.exerciseType != 'write') e,
+      ];
+      expect(drill.length, 7, reason: l.id);
+      expect(drill.any((CourseExercise e) => e.exerciseType == 'listen'),
           true, reason: '${l.id} needs a listen exercise');
     }
   });
@@ -175,9 +179,15 @@ void main() {
       expect(u.guideText, isNotNull, reason: '${u.title} needs a 📖 Guide');
       expect(u.lessons.length, 4, reason: u.title);
       for (final CourseLesson l in u.lessons) {
-        expect(l.exercises.length, inInclusiveRange(6, 7), reason: l.id);
+        // `write` items (Guided Writing, INF-5) are exempt from the drill-count
+        // + listen invariants; they surface additionally, graded by rubric.
+        final List<CourseExercise> drill = <CourseExercise>[
+          for (final CourseExercise e in l.exercises)
+            if (e.exerciseType != 'write') e,
+        ];
+        expect(drill.length, inInclusiveRange(6, 7), reason: l.id);
         expect(
-            l.exercises.any((CourseExercise e) => e.exerciseType == 'listen'),
+            drill.any((CourseExercise e) => e.exerciseType == 'listen'),
             true,
             reason: '${l.id} needs a listen exercise');
         expect(

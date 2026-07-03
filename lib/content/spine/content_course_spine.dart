@@ -52,9 +52,36 @@ CourseSpine buildCourseSpine(ContentBatch batch) {
     }
   }
 
+  // content_id -> Guided-Writing display rubric (content_kind: rubric), keyed
+  // by the ITEM id (parallel to the explanation layer, INF-5). 'en' preferred.
+  final Map<String, String> rubricOf = <String, String>{};
+  for (final Gloss g in batch.glosses) {
+    if (g.contentKind != ContentKind.rubric) continue;
+    final bool prefer = g.uiLocale == 'en';
+    if (prefer || !rubricOf.containsKey(g.contentId)) {
+      rubricOf[g.contentId] = g.text;
+    }
+  }
+  // vocab_id -> lemma: resolves a write item's rubric_spec.required_vocab_refs
+  // into the surface words the answer must contain (deterministic, un-gated).
+  final Map<String, String> vocabLemmaOf = <String, String>{
+    for (final VocabEntry v in batch.vocab) v.vocabId: v.lemma,
+  };
+
   CourseExercise toExercise(Item it) {
     final AnswerSpec? spec = it.answerSpec;
     final NormalizationFlags? nf = spec?.normalizationFlags;
+    // Guided-Writing (INF-5): project the machine `rubric_spec` into the
+    // un-gated deterministic checks (no live AI) + the display rubric gloss.
+    final Map<String, Object?> rspec =
+        it.rubricSpec ?? const <String, Object?>{};
+    final Object? minTok = rspec['min_tokens'];
+    final List<String> reqWords = <String>[
+      for (final Object? r
+          in (rspec['required_vocab_refs'] as List<Object?>? ??
+              const <Object?>[]))
+        if (r is String && vocabLemmaOf[r] != null) vocabLemmaOf[r]!,
+    ];
     return CourseExercise(
       id: it.itemId,
       exerciseType: it.exerciseType.name,
@@ -76,6 +103,11 @@ CourseSpine buildCourseSpine(ContentBatch batch) {
             ),
       ],
       explain: explainOf[it.itemId],
+      rubric: rubricOf[it.itemId],
+      minTokens:
+          minTok is int ? minTok : (minTok is num ? minTok.toInt() : null),
+      requiredWords: reqWords,
+      requireTerminalPunct: rspec['require_terminal_punct'] == true,
     );
   }
 
@@ -96,7 +128,9 @@ CourseSpine buildCourseSpine(ContentBatch batch) {
   List<CourseExercise> exercisesFor(String grammarId) => <CourseExercise>[
         for (final Item it in batch.items)
           if (it.skillIds.contains(grammarId) &&
-              it.answerSpec != null &&
+              (it.answerSpec != null ||
+                  (it.exerciseType == ExerciseType.write &&
+                      it.rubricSpec != null)) &&
               !surfaceOwned.contains(it.itemId))
             toExercise(it),
       ];

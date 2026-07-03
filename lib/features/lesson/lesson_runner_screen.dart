@@ -52,7 +52,7 @@ class LessonRunnerScreen extends ConsumerStatefulWidget {
   ConsumerState<LessonRunnerScreen> createState() => _LessonRunnerScreenState();
 }
 
-enum _ExType { pick, wordBank, typed, match, listen }
+enum _ExType { pick, wordBank, typed, match, listen, write }
 
 /// One pick-the-picture option (emoji + label).
 class _Opt {
@@ -86,7 +86,11 @@ class _Item {
         lang = '',
         mcqOptions = const <CourseOption>[],
         correctIndex = 0,
-        explain = null;
+        explain = null,
+        rubric = null,
+        minTokens = 0,
+        requiredWords = const <String>[],
+        requireTerminalPunct = false;
 
   const _Item.wordBank({
     required this.id,
@@ -107,7 +111,11 @@ class _Item {
         lang = '',
         mcqOptions = const <CourseOption>[],
         correctIndex = 0,
-        explain = null;
+        explain = null,
+        rubric = null,
+        minTokens = 0,
+        requiredWords = const <String>[],
+        requireTerminalPunct = false;
 
   const _Item.typed({
     required this.id,
@@ -128,7 +136,11 @@ class _Item {
         lang = '',
         mcqOptions = const <CourseOption>[],
         correctIndex = 0,
-        explain = null;
+        explain = null,
+        rubric = null,
+        minTokens = 0,
+        requiredWords = const <String>[],
+        requireTerminalPunct = false;
 
   /// A text-Match over >=3 REAL authored (prompt -> answer) pairs.
   const _Item.match({
@@ -150,7 +162,11 @@ class _Item {
         lang = '',
         mcqOptions = const <CourseOption>[],
         correctIndex = 0,
-        explain = null;
+        explain = null,
+        rubric = null,
+        minTokens = 0,
+        requiredWords = const <String>[],
+        requireTerminalPunct = false;
 
   /// Type-what-you-hear Listen: play [phrase] (browser TTS) + a typed answer
   /// graded against [accepted] (identical grading to [_ExType.typed]).
@@ -173,7 +189,11 @@ class _Item {
         pairs = const <MatchPair>[],
         mcqOptions = const <CourseOption>[],
         correctIndex = 0,
-        explain = null;
+        explain = null,
+        rubric = null,
+        minTokens = 0,
+        requiredWords = const <String>[],
+        requireTerminalPunct = false;
 
   /// Word-bank Listen (>=2 tokens): play [phrase] (browser TTS), then assemble
   /// the answer from [pool] (the target tokens + real single-word decoys drawn
@@ -200,7 +220,11 @@ class _Item {
         pairs = const <MatchPair>[],
         mcqOptions = const <CourseOption>[],
         correctIndex = 0,
-        explain = null;
+        explain = null,
+        rubric = null,
+        minTokens = 0,
+        requiredWords = const <String>[],
+        requireTerminalPunct = false;
 
   /// Authored-options MCQ (INF-2.5): the content batch carries a real
   /// `item.options[]` bank -> render the AUTHORED texts (stable-shuffled per
@@ -227,7 +251,40 @@ class _Item {
         stripDiacritics = false,
         pairs = const <MatchPair>[],
         phrase = '',
-        lang = '';
+        lang = '',
+        rubric = null,
+        minTokens = 0,
+        requiredWords = const <String>[],
+        requireTerminalPunct = false;
+
+  /// Guided-Writing (INF-5): render the writing [prompt] + the display
+  /// [rubric], take a free-text answer, and self-grade it DETERMINISTICALLY
+  /// (un-gated -- no live AI) against [minTokens] / [requiredWords] /
+  /// [requireTerminalPunct], projected from the item's `rubric_spec`.
+  const _Item.write({
+    required this.id,
+    required this.skill,
+    required this.b,
+    required this.prompt,
+    required this.rubric,
+    required this.minTokens,
+    required this.requiredWords,
+    required this.requireTerminalPunct,
+    required this.explain,
+  })  : type = _ExType.write,
+        options = const <_Opt>[],
+        saveWord = null,
+        source = null,
+        target = const <String>[],
+        pool = const <String>[],
+        accepted = const <String>[],
+        foldCase = true,
+        stripDiacritics = false,
+        pairs = const <MatchPair>[],
+        phrase = '',
+        lang = '',
+        mcqOptions = const <CourseOption>[],
+        correctIndex = 0;
 
   final _ExType type;
   final String id;
@@ -254,6 +311,11 @@ class _Item {
   final List<CourseOption> mcqOptions;
   final int correctIndex;
   final String? explain;
+  // guided-writing (INF-5): display rubric + deterministic un-gated checks.
+  final String? rubric;
+  final int minTokens;
+  final List<String> requiredWords;
+  final bool requireTerminalPunct;
 }
 
 const int _kLessonXp = 20;
@@ -468,6 +530,34 @@ bool _gradeTyped(_Item it, String input) {
   return false;
 }
 
+/// Deterministic, UN-GATED grader for a Guided-Writing item (INF-5): passes iff
+/// the answer meets the minimum word count, ends with terminal punctuation when
+/// required, and contains every required vocab lemma (whole-word, case-fold).
+/// No live AI -- meaning / quality grading is the owner-gated Pro upgrade.
+bool _gradeWrite(_Item it, String input) {
+  final String text = input.trim();
+  if (text.isEmpty) {
+    return false;
+  }
+  final List<String> words = text
+      .split(RegExp(r'\s+'))
+      .where((String w) => w.isNotEmpty)
+      .toList();
+  if (words.length < it.minTokens) {
+    return false;
+  }
+  if (it.requireTerminalPunct && !RegExp(r'[.!?]$').hasMatch(text)) {
+    return false;
+  }
+  final String lower = text.toLowerCase();
+  for (final String w in it.requiredWords) {
+    if (!RegExp('\\b${RegExp.escape(w.toLowerCase())}\\b').hasMatch(lower)) {
+      return false;
+    }
+  }
+  return true;
+}
+
 class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
   final CatModel _cat = const CatModel();
 
@@ -645,6 +735,22 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
   /// single-token accepted answer (no spaces) is saved to the practice hub — a
   /// whole-sentence translation never masquerades as a vocabulary "word".
   _Item _fromExercise(String skill, CourseExercise e, CourseSpine spine) {
+    // Guided-Writing (INF-5): a `write` item has no accepted answer -- render
+    // the writing prompt + display rubric + a free-text box, self-graded
+    // DETERMINISTICALLY against the projected rubric_spec checks (un-gated).
+    if (e.exerciseType == 'write') {
+      return _Item.write(
+        id: e.id,
+        skill: skill,
+        b: e.irtB ?? 0.0,
+        prompt: e.prompt,
+        rubric: e.rubric,
+        minTokens: e.minTokens ?? 0,
+        requiredWords: e.requiredWords,
+        requireTerminalPunct: e.requireTerminalPunct,
+        explain: e.explain,
+      );
+    }
     // Authored-options MCQ (INF-2.5): the batch carries a real options[] bank
     // -> serve it. Stable-shuffle (id-keyed) so the authored-first correct
     // option lands anywhere; grade by the authored is_correct. Items WITHOUT
@@ -747,6 +853,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         _ExType.wordBank => _answer.isNotEmpty,
         _ExType.typed => _typedCtrl.text.trim().isNotEmpty,
         _ExType.listen => _item.target.isEmpty && _typedCtrl.text.trim().isNotEmpty,
+        _ExType.write => _typedCtrl.text.trim().isNotEmpty,
         _ExType.match => false,
       };
 
@@ -759,6 +866,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         _seqEq(<String>[for (final int i in _answer) it.pool[i]], it.target),
       _ExType.typed => _gradeTyped(it, _typedCtrl.text),
       _ExType.listen => _gradeTyped(it, _typedCtrl.text),
+      _ExType.write => _gradeWrite(it, _typedCtrl.text),
       _ExType.match => false,
     };
 
@@ -936,6 +1044,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
                 _ExType.wordBank => _wordBank(it),
                 _ExType.typed => _typed(it),
                 _ExType.listen => _listen(it),
+                _ExType.write => _write(it),
                 _ExType.match => _match(it),
               },
             ),
@@ -1197,6 +1306,104 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
     );
   }
 
+  /// Guided-Writing (INF-5): the writing task shows as the item prompt (title
+  /// above); here we surface the display rubric as guidance, a multi-line
+  /// free-text box, and the deterministic criteria hints. Grading is un-gated
+  /// (see [_gradeWrite]) -- meaning grading is the owner-gated Pro upgrade.
+  Widget _write(_Item it) {
+    final Color borderColor = _checked
+        ? (_wasCorrect ? RatelColors.green : RatelColors.coral)
+        : context.palette.border;
+    final List<String> hints = <String>[
+      if (it.minTokens > 0) 'at least ${it.minTokens} words',
+      if (it.requiredWords.isNotEmpty) 'use: ${it.requiredWords.join(', ')}',
+      if (it.requireTerminalPunct) 'end with . ! or ?',
+    ];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        if (it.rubric != null) ...<Widget>[
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(RatelSpace.md),
+            decoration: BoxDecoration(
+              color: RatelColors.teal.withValues(alpha: 0.10),
+              borderRadius: BorderRadius.circular(RatelRadius.card),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Text('🎯', style: TextStyle(fontSize: 20)),
+                const SizedBox(width: RatelSpace.sm),
+                Expanded(
+                  child: Text(
+                    it.rubric!,
+                    key: const ValueKey<String>('lesson-write-rubric'),
+                    style: TextStyle(
+                      fontFamily: RatelFont.body,
+                      fontSize: RatelType.small,
+                      color: context.palette.ink,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: RatelSpace.md),
+        ],
+        Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: RatelSpace.lg, vertical: RatelSpace.xs),
+          decoration: BoxDecoration(
+            color: context.palette.white,
+            border: Border.all(color: borderColor, width: 1.5),
+            borderRadius: BorderRadius.circular(RatelRadius.card),
+          ),
+          child: TextField(
+            key: const ValueKey<String>('lesson-write-input'),
+            controller: _typedCtrl,
+            enabled: !_checked,
+            autocorrect: false,
+            enableSuggestions: false,
+            minLines: 3,
+            maxLines: 6,
+            keyboardType: TextInputType.multiline,
+            onChanged: (_) => setState(() {}),
+            style: TextStyle(
+              fontFamily: RatelFont.body,
+              fontWeight: RatelType.medium,
+              fontSize: RatelType.body,
+              color: context.palette.ink,
+            ),
+            decoration: InputDecoration(
+              isCollapsed: true,
+              border: InputBorder.none,
+              contentPadding: const EdgeInsets.symmetric(vertical: RatelSpace.md),
+              hintText: 'Write your answer…',
+              hintStyle: TextStyle(
+                fontFamily: RatelFont.body,
+                fontWeight: RatelType.medium,
+                fontSize: RatelType.body,
+                color: context.palette.muted,
+              ),
+            ),
+          ),
+        ),
+        if (hints.isNotEmpty) ...<Widget>[
+          const SizedBox(height: RatelSpace.sm),
+          Text(
+            '🦡  ${hints.join('  ·  ')}',
+            style: TextStyle(
+              fontFamily: RatelFont.body,
+              fontSize: RatelType.small,
+              color: context.palette.muted,
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
   Widget _listen(_Item it) {
     if (_audioItemId != it.id) {
       _audio?.dispose();
@@ -1304,6 +1511,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         _ExType.listen => it.target.isNotEmpty
             ? it.target.join(' ')
             : (it.accepted.isNotEmpty ? it.accepted.first : ''),
+        _ExType.write => '',
         _ExType.match => '',
       };
       return Column(
@@ -1333,6 +1541,17 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
                   const SizedBox(height: 4),
                   Text(
                     'Answer: $answerText',
+                    style: TextStyle(
+                      fontFamily: RatelFont.body,
+                      fontSize: RatelType.body,
+                      color: context.palette.ink,
+                    ),
+                  ),
+                ],
+                if (it.type == _ExType.write && it.rubric != null) ...<Widget>[
+                  const SizedBox(height: 4),
+                  Text(
+                    it.rubric!,
                     style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.body,
