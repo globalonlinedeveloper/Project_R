@@ -66,10 +66,10 @@ void main() {
     }
   });
 
-  test('A1+A2+B1 S1: 30 authored units project in data order (S98)',
+  test('A1+A2+B1: 36 authored units project in data order (S99)',
       () {
     final CourseSpine spine = buildCourseSpine(loadEn());
-    expect(spine.units.length, 30);
+    expect(spine.units.length, 36);
     expect(spine.units.map((CourseUnit u) => u.title).toList(), <String>[
       'First Words',
       'About You',
@@ -101,6 +101,12 @@ void main() {
       'If...',
       'Describing People',
       'Making Plans',
+      'Growing Up',
+      "How It's Made",
+      'Pass It On',
+      'Keeping At It',
+      'Rules & Guesses',
+      'Getting Things Done',
     ]);
     for (int i = 0; i < spine.units.length; i++) {
       final CourseUnit u = spine.units[i];
@@ -114,7 +120,9 @@ void main() {
                       ? 'SECTION 3 · A2 · EVERYDAY SITUATIONS'
                       : i < 24
                           ? 'SECTION 4 · A2 · PEOPLE & PLANS'
-                          : 'SECTION 5 · B1 · EXPERIENCES & STORIES',
+                          : i < 30
+                              ? 'SECTION 5 · B1 · EXPERIENCES & STORIES'
+                              : 'SECTION 6 · B1 · THE WIDER WORLD',
           reason: u.title);
       expect(u.guideText, isNotNull, reason: '${u.title} needs a 📖 Guide');
       expect(u.lessons.length, 4, reason: u.title);
