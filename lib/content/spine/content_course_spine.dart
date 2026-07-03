@@ -244,6 +244,45 @@ CourseSpine buildCourseSpine(ContentBatch batch) {
       return c != 0 ? c : a.id.compareTo(b.id);
     });
 
+  // (4) Graded Podcasts (INF-7): project passages of kind=podcast that carry a
+  // REAL audio_ref into a NEW audio-first surface. audio_ref is a CONTENT-ID ref
+  // (NOT a URL) -> resolve it through the media_asset rows to the playable R2
+  // uri. The check_item_refs stay `surfaceOwned` (never leak onto the path),
+  // exactly like stories. A podcast with no audio_ref (or one that resolves to
+  // no media_asset) is NOT projected -- honest: the audio surface only lists
+  // what can actually play. Watch (kind=video) stays owner-gated, not projected.
+  final Map<String, MediaAsset> mediaById = <String, MediaAsset>{
+    for (final MediaAsset m in batch.media) m.assetId: m,
+  };
+  final List<CourseStory> podcasts = <CourseStory>[
+    for (final Passage p in batch.passages)
+      if (p.kind == PassageKind.podcast &&
+          p.audioRef != null &&
+          mediaById[p.audioRef!]?.uri != null)
+        CourseStory(
+          id: p.passageId,
+          title: glossText[p.titleRef] ?? p.passageId,
+          cefr: p.cefrLevel.name.toUpperCase(),
+          theme: p.theme,
+          explain: p.explainRef == null ? null : glossText[p.explainRef!],
+          audioUrl: mediaById[p.audioRef!]!.uri,
+          sentences: <String>[
+            for (final String sr in p.sentenceRefs)
+              if (sentenceText[sr] != null) sentenceText[sr]!,
+          ],
+          checkExercises: <CourseExercise>[
+            for (final String cr in p.checkItemRefs ?? const <String>[])
+              if (itemById[cr] != null) toExercise(itemById[cr]!),
+          ],
+        ),
+  ]..sort((CourseStory a, CourseStory b) {
+      final int c = a.cefr.compareTo(b.cefr);
+      return c != 0 ? c : a.id.compareTo(b.id);
+    });
+
   return CourseSpine(
-      courseCode: batch.locale ?? '', units: units, stories: stories);
+      courseCode: batch.locale ?? '',
+      units: units,
+      stories: stories,
+      podcasts: podcasts);
 }

@@ -357,4 +357,120 @@ void main() {
           reason: 'story check ${e.id} leaked onto the path');
     }
   });
+
+  test('INF-7: podcasts(kind=podcast + audio_ref) project into spine.podcasts '
+      'with the audio_ref resolved to a media_asset uri', () {
+    Map<String, dynamic> sentRow(String id, String text) => <String, dynamic>{
+          'sentence_id': id,
+          'locale': 'en',
+          'target_text': text,
+          'tokens': <dynamic>[],
+          'cefr_level': 'A1',
+          'provenance': prov(),
+        };
+    final ContentBatch b = loader.loadMap(<String, dynamic>{
+      'batch_id': 'batch_en_inf7_spine_test',
+      'locale': 'en',
+      'tables': <String, dynamic>{
+        'media_asset': <Map<String, dynamic>>[
+          <String, dynamic>{
+            'asset_id': 'aud_a1',
+            'type': 'audio',
+            'uri': 'https://pub-xyz.r2.dev/podcasts/a1.mp3',
+            'tts_tier': 'hd',
+            'duration_ms': 14000,
+            'provenance': prov(),
+          },
+        ],
+        'sentence': <Map<String, dynamic>>[
+          sentRow('sen_a1_1', 'I wake up at seven.'),
+          sentRow('sen_a1_2', 'I drink coffee.'),
+          sentRow('sen_story', 'She walks to school.'),
+        ],
+        'item': <Map<String, dynamic>>[
+          <String, dynamic>{
+            'item_id': 'it_a1',
+            'locale': 'en',
+            'exercise_type': 'mcq',
+            'prompt_ref': 'prm_a1',
+            'skill_ids': <String>['none'],
+            'cefr_level': 'A1',
+            'options': <Map<String, dynamic>>[
+              <String, dynamic>{'text': 'Seven', 'is_correct': true},
+              <String, dynamic>{'text': 'Nine', 'is_correct': false},
+            ],
+            'provenance': prov(),
+          },
+        ],
+        'gloss': <Map<String, dynamic>>[
+          glossRow('pt_a1', 'My Morning'),
+          glossRow('prm_a1', 'When does she wake up?'),
+          glossRow('stt', 'Her First Day'),
+        ],
+        'passage': <Map<String, dynamic>>[
+          <String, dynamic>{
+            'passage_id': 'pod_a1',
+            'locale': 'en',
+            'kind': 'podcast',
+            'title_ref': 'pt_a1',
+            'cefr_level': 'A1',
+            'theme': 'a daily routine',
+            'sentence_refs': <String>['sen_a1_1', 'sen_a1_2'],
+            'audio_ref': 'aud_a1',
+            'check_item_refs': <String>['it_a1'],
+            'provenance': prov(),
+          },
+          // A podcast with NO audio_ref -> honestly NOT projected (can't play).
+          <String, dynamic>{
+            'passage_id': 'pod_noaudio',
+            'locale': 'en',
+            'kind': 'podcast',
+            'title_ref': 'pt_a1',
+            'cefr_level': 'A1',
+            'sentence_refs': <String>['sen_a1_1'],
+            'provenance': prov(),
+          },
+          // A story -> projects into spine.stories, NEVER spine.podcasts.
+          <String, dynamic>{
+            'passage_id': 'story_a1',
+            'locale': 'en',
+            'kind': 'story',
+            'title_ref': 'stt',
+            'cefr_level': 'A1',
+            'sentence_refs': <String>['sen_story'],
+            'provenance': prov(),
+          },
+        ],
+      },
+    });
+    final CourseSpine spine = buildCourseSpine(b);
+
+    // Exactly the ONE podcast carrying a resolvable audio_ref projects.
+    expect(spine.podcasts.length, 1);
+    final CourseStory pod = spine.podcasts.single;
+    expect(pod.id, 'pod_a1');
+    expect(pod.title, 'My Morning');
+    // audio_ref -> media_asset.uri: a real playable URL, NEVER the content-id.
+    expect(pod.audioUrl, 'https://pub-xyz.r2.dev/podcasts/a1.mp3');
+    expect(pod.audioUrl, isNot('aud_a1'));
+    // Transcript sentences resolved in order.
+    expect(pod.sentences, <String>['I wake up at seven.', 'I drink coffee.']);
+    // Comprehension check projects as a gradable exercise.
+    expect(pod.checkExercises.length, 1);
+    expect(pod.checkExercises.single.options.length, 2);
+    // INVARIANT: every projected podcast has a non-null audioUrl.
+    expect(spine.podcasts.every((CourseStory p) => p.audioUrl != null), true);
+    // Kinds stay in their own surface (podcast never leaks into stories).
+    expect(spine.stories.map((CourseStory s) => s.id).toList(),
+        <String>['story_a1']);
+    expect(spine.podcasts.map((CourseStory p) => p.id).toList(),
+        <String>['pod_a1']);
+    // The podcast's check item never leaks onto the learning path.
+    final Set<String> pathIds = <String>{
+      for (final CourseUnit u in spine.units)
+        for (final CourseLesson l in u.lessons)
+          for (final CourseExercise e in l.exercises) e.id,
+    };
+    expect(pathIds.contains('it_a1'), false);
+  });
 }

@@ -16,6 +16,8 @@ import 'package:ratel/features/lesson/lesson_runner_screen.dart';
 import 'package:ratel/features/library/library_screen.dart';
 import 'package:ratel/features/stories/stories_screen.dart';
 import 'package:ratel/features/stories/story_reader_screen.dart';
+import 'package:ratel/features/podcasts/podcasts_screen.dart';
+import 'package:ratel/features/podcasts/podcast_player_screen.dart';
 import 'package:ratel/features/onboarding/onboarding_screen.dart';
 import 'package:ratel/features/onboarding/placement_quiz_screen.dart';
 import 'package:ratel/features/practice/practice_hub_screen.dart';
@@ -160,6 +162,16 @@ GoRouter buildRouter() {
         path: '/story',
         builder: (BuildContext context, GoRouterState state) =>
             StoryReaderScreen(passageId: state.uri.queryParameters['passage']),
+      ),
+      GoRoute(
+        path: '/podcasts',
+        builder: (BuildContext context, GoRouterState state) =>
+            const PodcastsScreen(),
+      ),
+      GoRoute(
+        path: '/podcast',
+        builder: (BuildContext context, GoRouterState state) =>
+            PodcastPlayerScreen(passageId: state.uri.queryParameters['passage']),
       ),
       GoRoute(
         path: '/friends',

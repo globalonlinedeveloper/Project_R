@@ -141,6 +141,7 @@ class CourseStory {
     required this.sentences,
     this.theme,
     this.explain,
+    this.audioUrl,
     this.checkExercises = const <CourseExercise>[],
   });
 
@@ -150,6 +151,11 @@ class CourseStory {
   final List<String> sentences; // resolved sentence.target_text, in order
   final String? theme;
   final String? explain; // per-passage explain gloss, when authored
+
+  /// For a PODCAST (kind=podcast) the resolved audio URL: its `audio_ref` ->
+  /// `media_asset.uri` (a real pre-generated MP3 on R2). Null for a text-first
+  /// story (kind=story). [INF-7]
+  final String? audioUrl;
   final List<CourseExercise> checkExercises;
 
   int get checkCount => checkExercises.length;
@@ -161,6 +167,7 @@ class CourseSpine {
     required this.courseCode,
     required this.units,
     this.stories = const <CourseStory>[],
+    this.podcasts = const <CourseStory>[],
   });
 
   final String courseCode; // batch locale, e.g. 'es'
@@ -169,6 +176,12 @@ class CourseSpine {
   /// Graded Read&Listen stories (content `passage`, kind=story) projected for
   /// the un-gated reading surface (INF-6). Empty when the batch authors none.
   final List<CourseStory> stories;
+
+  /// Graded Podcasts (content `passage`, kind=podcast, with a real `audio_ref`)
+  /// projected for the un-gated audio surface (INF-7). Same [CourseStory] shape
+  /// as [stories] but each carries a non-null [CourseStory.audioUrl]. Empty when
+  /// the batch authors none.
+  final List<CourseStory> podcasts;
 
   bool get isEmpty => units.isEmpty;
 
