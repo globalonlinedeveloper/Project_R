@@ -42,7 +42,7 @@ void main() {
     addTearDown(c.dispose);
     final CourseSpine spine = c.read(courseSpineProvider);
     expect(spine.courseCode, 'en');
-    expect(spine.units.length, 66); // A1 + A2 + B1 + B2 + C1 (all S1+S2) + C2 S1 authored curriculum (S100)
+    expect(spine.units.length, 72); // A1..C2 all S1+S2 = complete 6-level core (S100)
   });
 
   test('unknown course falls back to the ES beachhead (fail-closed ladder)',
@@ -79,8 +79,8 @@ void main() {
     await tester.pump();
     await tester.pump();
 
-    // The scope remounted onto the EN spine — 66 authored units, no restart.
-    expect(find.text('course:en units:66'), findsOneWidget);
+    // The scope remounted onto the EN spine — 72 authored units, no restart.
+    expect(find.text('course:en units:72'), findsOneWidget);
     final CourseSwitchScope after = CourseSwitchScope.maybeOf(
         tester.element(find.byType(_SpineProbe)))!;
     expect(after.current, 'en');
