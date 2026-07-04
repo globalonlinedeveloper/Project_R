@@ -1,0 +1,73 @@
+{
+  "level": "A2",
+  "clips": [
+    {
+      "n": "w1",
+      "slug": "watch_a2_w1",
+      "title": "Leaving for the Day",
+      "theme": "Morning routine",
+      "about": "Describe a person getting ready and leaving the house on a sunny morning.",
+      "lines": [
+        ["It is a bright morning, and a person stands near the front door.", "'It is' describes the weather and time of day."],
+        ["First, the person puts on a light jacket.", "'First' shows the beginning of the sequence; 'put on' means to wear clothes."],
+        ["Then he picks up a bag and some keys from the table.", "'Then' links to the next action; 'pick up' means to lift something in your hand."],
+        ["After that, he looks up at the round clock on the wall.", "'After that' continues the sequence; 'look up at' means to raise your eyes toward something."],
+        ["Finally, he opens the door and steps out into the sunny street.", "'Finally' shows the last action; 'step out' means to go outside."]
+      ],
+      "checks": [
+        {
+          "q": "What does the person put on first?",
+          "opts": [
+            ["a light jacket", true, "The narration says he puts on a light jacket first."],
+            ["a warm hat", false, "There is no hat in the scene."],
+            ["a pair of shoes", false, "Shoes are not mentioned in the narration."]
+          ],
+          "why": "The first action after standing by the door is putting on a light jacket."
+        },
+        {
+          "q": "What does he do at the end of the clip?",
+          "opts": [
+            ["He opens the door and goes outside.", true, "The last line says he opens the door and steps out into the street."],
+            ["He sits down on a chair.", false, "He leaves the house; he does not sit down."],
+            ["He puts the keys back on the table.", false, "He picks up the keys; he does not put them back."]
+          ],
+          "why": "In the final action he opens the door and steps out into the sunny street."
+        }
+      ]
+    },
+    {
+      "n": "w2",
+      "slug": "watch_a2_w2",
+      "title": "A Table at the Café",
+      "theme": "At the café",
+      "about": "Describe a person receiving and enjoying a coffee at a cozy café.",
+      "lines": [
+        ["A person sits at a small table in a warm, cozy café.", "'Sits at' describes where someone is; present tense shows what is happening now."],
+        ["First, a waiter gently sets down a cup of coffee.", "'First' begins the sequence; 'set down' means to put something on a surface."],
+        ["Then the waiter puts a small plate with a pastry next to the cup.", "'Then' adds the next step; 'next to' shows position."],
+        ["After that, the person nods to say thank you and stirs the coffee.", "'After that' continues the sequence; 'nod' means to move your head up and down."],
+        ["Finally, she looks around the room and enjoys the quiet café.", "'Finally' marks the last action; 'look around' means to turn and see many things."]
+      ],
+      "checks": [
+        {
+          "q": "What does the waiter bring to the table?",
+          "opts": [
+            ["a coffee and a pastry", true, "The waiter sets down a cup of coffee and a small plate with a pastry."],
+            ["a glass of water", false, "No water is shown in the scene."],
+            ["a bowl of soup", false, "There is no soup in the narration."]
+          ],
+          "why": "The waiter brings a cup of coffee and a small plate with a pastry."
+        },
+        {
+          "q": "How does the person say thank you?",
+          "opts": [
+            ["She nods her head.", true, "The narration says the person nods to say thank you."],
+            ["She waves goodbye.", false, "She nods; she does not wave goodbye."],
+            ["She claps her hands.", false, "Clapping is not shown in the scene."]
+          ],
+          "why": "The person nods to thank the waiter, because no one speaks in the clip."
+        }
+      ]
+    }
+  ]
+}

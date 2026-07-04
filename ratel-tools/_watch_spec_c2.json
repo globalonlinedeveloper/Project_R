@@ -1,0 +1,77 @@
+{
+  "level": "C2",
+  "clips": [
+    {
+      "n": "w1",
+      "slug": "watch_c2_w1",
+      "title": "The Train Not Taken",
+      "theme": "Choice and hesitation",
+      "about": "To describe a wordless moment of indecision on a platform and the quiet weight of the road not taken.",
+      "lines": [
+        ["On a platform washed in soft, oblique light, a solitary figure waits, a modest bag hanging from one hand.", "'Oblique light' names light falling at a slant; the adjective lends a painterly, ambiguous atmosphere."],
+        ["A train glides in without haste, and its doors part with an almost ceremonial hush.", "'Without haste' and 'ceremonial hush' personify the machine, investing an ordinary arrival with gravity."],
+        ["The traveller steps forward, drawn by the open threshold that momentarily promises departure.", "'Drawn by' implies an external pull; 'the open threshold' works metaphorically as a doorway between two futures."],
+        ["Then comes the hesitation, a stillness in which the whole decision seems suspended.", "The cleft-like 'Then comes...' foregrounds the pause; 'suspended' captures decision held in abeyance."],
+        ["A backward glance travels down the empty platform, as though weighing some unspoken tie left behind.", "'Weighing some unspoken tie' renders inner deliberation through an outward gesture rather than words."],
+        ["The doors slide shut on the offered passage, and the choice is quietly, irrevocably made.", "'The offered passage' echoes the earlier threshold; 'irrevocably' underscores a decision beyond recall."],
+        ["The train withdraws into the light, leaving the figure alone with the road not taken.", "'The road not taken' alludes to Frost, freighting the image with the melancholy of forgone possibility."]
+      ],
+      "checks": [
+        {
+          "q": "What does the traveller ultimately do when the doors open?",
+          "opts": [
+            ["Stays on the platform", true, "The narration states the doors slide shut while the figure remains still and is left alone."],
+            ["Boards the train", false, "The traveller steps forward but never actually crosses onto the train before the doors close."],
+            ["Chases the departing train", false, "No pursuit occurs; the figure remains motionless as the train pulls away."]
+          ],
+          "why": "The clip turns on the traveller stepping forward, hesitating, and then staying put as the train leaves."
+        },
+        {
+          "q": "Which mood best captures the closing image?",
+          "opts": [
+            ["Wistful regret", true, "The Frost allusion to 'the road not taken' and the solitary figure in soft light evoke quiet, reflective regret."],
+            ["Triumphant relief", false, "Nothing signals victory or release; the tone is contemplative and faintly melancholy, not celebratory."],
+            ["Frantic panic", false, "The pacing is slow and still, with no urgency or alarm anywhere in the scene."]
+          ],
+          "why": "Solitude, soft directional light, and the allusion to forgone possibility together produce a wistful, reflective mood."
+        }
+      ]
+    },
+    {
+      "n": "w2",
+      "slug": "watch_c2_w2",
+      "title": "At the Threshold",
+      "theme": "Anticipation before entering",
+      "about": "To describe an observer pausing on the edge of a candlelit gathering and the poised moment before committing to it.",
+      "lines": [
+        ["In an elegant room aglow with candlelight, well-dressed guests drift and mingle in unhurried slow motion.", "'Aglow with candlelight' and 'unhurried slow motion' fuse setting and tempo into a single luxuriant impression."],
+        ["Glasses catch the flame and scatter it, so the whole gathering seems to shimmer with muted expectancy.", "'Scatter it' extends the light metaphor; 'muted expectancy' names an atmosphere charged yet restrained."],
+        ["At the doorway, one figure pauses, held for a moment on the very edge of the occasion.", "'On the very edge of the occasion' reads spatially and figuratively, poising the person between outside and in."],
+        ["Their gaze moves quietly across the room, reading its currents before entrusting itself to them.", "'Reading its currents' casts the social scene as water; the metaphor frames observation as a kind of navigation."],
+        ["In that suspended interval, anticipation and reticence appear to hold one another in delicate balance.", "The abstract pairing 'anticipation and reticence' nominalises two feelings held in poised equilibrium."],
+        ["Then a breath is drawn, slow and deliberate, as resolve gathers behind the stillness.", "The passive 'a breath is drawn' universalises the gesture; 'resolve gathers' locates decision within composure."],
+        ["And with that, the figure steps across the threshold and gives itself over to the room's warm current.", "The inversion 'And with that' marks a turning point; 'gives itself over' signals surrender to the gathering."]
+      ],
+      "checks": [
+        {
+          "q": "What does the figure at the doorway do before entering?",
+          "opts": [
+            ["Observes the room", true, "The narration describes the gaze moving across the room, reading its currents before the figure steps in."],
+            ["Greets a friend", false, "No specific person is acknowledged; the figure watches the gathering as a whole before entering."],
+            ["Pours a drink", false, "The glasses belong to the mingling guests; the observer performs no such action at the threshold."]
+          ],
+          "why": "The clip shows the figure pausing to survey the room's social currents before committing to enter."
+        },
+        {
+          "q": "What tension does the pause at the threshold most convey?",
+          "opts": [
+            ["Eagerness held in check", true, "Anticipation and reticence are described holding one another in balance, so desire to enter is tempered by restraint."],
+            ["Open hostility toward the guests", false, "Nothing suggests antagonism; the figure ultimately yields willingly to the room's warm current."],
+            ["Complete indifference", false, "The careful observation and gathered resolve signal keen investment, not detachment."]
+          ],
+          "why": "The narration explicitly balances anticipation against reticence, dramatising eagerness restrained by hesitation."
+        }
+      ]
+    }
+  ]
+}

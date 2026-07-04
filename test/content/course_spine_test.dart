@@ -260,9 +260,12 @@ void main() {
       final String? er = p.explainRef;
       if (er != null) expect(glossById.containsKey(er), true);
       if (p.kind == PassageKind.video) {
-        // Watch: the text-to-video storyline PROMPT is authored data.
-        expect(p.videoPrompt, isNotNull);
-        expect(p.videoPrompt!.trim(), isNotEmpty);
+        // Watch (INF-9): a video passage carries EITHER the legacy storyline
+        // PROMPT (the S96 sample) OR a real video_ref -> media_asset MP4 (the
+        // authored Watch lessons). At least one must be present.
+        final bool hasPrompt =
+            p.videoPrompt != null && p.videoPrompt!.trim().isNotEmpty;
+        expect(hasPrompt || p.videoRef != null, true, reason: p.passageId);
       }
       if (p.kind == PassageKind.story) {
         // R-B4: every story line carries a pre-baked per-line explain gloss.
@@ -472,5 +475,177 @@ void main() {
           for (final CourseExercise e in l.exercises) e.id,
     };
     expect(pathIds.contains('it_a1'), false);
+  });
+
+  test('INF-9: passages(kind=video + video_ref) project into spine.watch '
+      'with the video_ref resolved to a media_asset uri', () {
+    Map<String, dynamic> sentRow(String id, String text) => <String, dynamic>{
+          'sentence_id': id,
+          'locale': 'en',
+          'target_text': text,
+          'tokens': <dynamic>[],
+          'cefr_level': 'A1',
+          'provenance': prov(),
+        };
+    final ContentBatch b = loader.loadMap(<String, dynamic>{
+      'batch_id': 'batch_en_inf9_spine_test',
+      'locale': 'en',
+      'tables': <String, dynamic>{
+        'media_asset': <Map<String, dynamic>>[
+          <String, dynamic>{
+            'asset_id': 'vid_asset_a1',
+            'type': 'video',
+            'uri': 'https://pub-xyz.r2.dev/videos/a1.mp4',
+            'duration_ms': 10006,
+            'provenance': prov(),
+          },
+        ],
+        'sentence': <Map<String, dynamic>>[
+          sentRow('sen_a1_1', 'A woman pours coffee.'),
+          sentRow('sen_a1_2', 'She takes a slow sip.'),
+          sentRow('sen_story', 'She walks to school.'),
+        ],
+        'item': <Map<String, dynamic>>[
+          <String, dynamic>{
+            'item_id': 'it_a1',
+            'locale': 'en',
+            'exercise_type': 'mcq',
+            'prompt_ref': 'prm_a1',
+            'skill_ids': <String>['none'],
+            'cefr_level': 'A1',
+            'options': <Map<String, dynamic>>[
+              <String, dynamic>{'text': 'Coffee', 'is_correct': true},
+              <String, dynamic>{'text': 'Tea', 'is_correct': false},
+            ],
+            'provenance': prov(),
+          },
+        ],
+        'gloss': <Map<String, dynamic>>[
+          glossRow('pt_a1', 'Morning Coffee'),
+          glossRow('prm_a1', 'What does she make?'),
+          glossRow('stt', 'Her First Day'),
+        ],
+        'passage': <Map<String, dynamic>>[
+          <String, dynamic>{
+            'passage_id': 'vid_a1',
+            'locale': 'en',
+            'kind': 'video',
+            'title_ref': 'pt_a1',
+            'cefr_level': 'A1',
+            'theme': 'daily routines',
+            'sentence_refs': <String>['sen_a1_1', 'sen_a1_2'],
+            'video_ref': 'vid_asset_a1',
+            'check_item_refs': <String>['it_a1'],
+            'provenance': prov(),
+          },
+          // A video with NO video_ref -> honestly NOT projected (can't play).
+          <String, dynamic>{
+            'passage_id': 'vid_noref',
+            'locale': 'en',
+            'kind': 'video',
+            'title_ref': 'pt_a1',
+            'cefr_level': 'A1',
+            'sentence_refs': <String>['sen_a1_1'],
+            'video_prompt': 'a legacy storyline prompt',
+            'provenance': prov(),
+          },
+          // A video whose video_ref resolves to NO media_asset -> NOT projected.
+          <String, dynamic>{
+            'passage_id': 'vid_dangling',
+            'locale': 'en',
+            'kind': 'video',
+            'title_ref': 'pt_a1',
+            'cefr_level': 'A1',
+            'sentence_refs': <String>['sen_a1_1'],
+            'video_ref': 'missing_asset',
+            'provenance': prov(),
+          },
+          // A story -> projects into spine.stories, NEVER spine.watch.
+          <String, dynamic>{
+            'passage_id': 'story_a1',
+            'locale': 'en',
+            'kind': 'story',
+            'title_ref': 'stt',
+            'cefr_level': 'A1',
+            'sentence_refs': <String>['sen_story'],
+            'provenance': prov(),
+          },
+        ],
+      },
+    });
+    final CourseSpine spine = buildCourseSpine(b);
+
+    // Exactly the ONE video carrying a RESOLVABLE video_ref projects.
+    expect(spine.watch.length, 1);
+    final CourseStory w = spine.watch.single;
+    expect(w.id, 'vid_a1');
+    expect(w.title, 'Morning Coffee');
+    // video_ref -> media_asset.uri: a real playable URL, NEVER the content-id.
+    expect(w.videoUrl, 'https://pub-xyz.r2.dev/videos/a1.mp4');
+    expect(w.videoUrl, isNot('vid_asset_a1'));
+    // Narration transcript resolved in order.
+    expect(w.sentences,
+        <String>['A woman pours coffee.', 'She takes a slow sip.']);
+    // Comprehension check projects as a gradable exercise.
+    expect(w.checkExercises.length, 1);
+    expect(w.checkExercises.single.options.length, 2);
+    // INVARIANT: every projected Watch lesson has a non-null videoUrl.
+    expect(spine.watch.every((CourseStory p) => p.videoUrl != null), true);
+    // Kinds stay in their own surface (video never leaks into stories/podcasts;
+    // story never leaks into watch).
+    expect(spine.watch.map((CourseStory p) => p.id).toList(),
+        <String>['vid_a1']);
+    expect(spine.stories.map((CourseStory s) => s.id).toList(),
+        <String>['story_a1']);
+    expect(spine.podcasts, isEmpty);
+    // The video's check item never leaks onto the learning path.
+    final Set<String> pathIds = <String>{
+      for (final CourseUnit u in spine.units)
+        for (final CourseLesson l in u.lessons)
+          for (final CourseExercise e in l.exercises) e.id,
+    };
+    expect(pathIds.contains('it_a1'), false);
+  });
+
+  test('INF-9: the real en batch projects exactly 12 Watch lessons, each with '
+      'a resolvable R2 video and no path leak', () {
+    final ContentBatch en = loader.loadString(
+        File('assets/content/en/course.batch.json').readAsStringSync());
+    final CourseSpine spine = buildCourseSpine(en);
+    // 12 authored Watch lessons (2 per level A1..C2); the legacy video-sample
+    // (video_prompt only, no video_ref) is honestly excluded.
+    expect(spine.watch.length, 12);
+    for (final CourseStory w in spine.watch) {
+      expect(w.videoUrl, isNotNull);
+      expect(w.videoUrl!.startsWith('https://'), true, reason: w.id);
+      expect(w.videoUrl!.endsWith('.mp4'), true, reason: w.id);
+      expect(w.sentences, isNotEmpty, reason: w.id);
+      expect(w.checkExercises, isNotEmpty, reason: w.id);
+    }
+    // 2 per CEFR level.
+    final Map<String, int> byLevel = <String, int>{};
+    for (final CourseStory w in spine.watch) {
+      byLevel[w.cefr] = (byLevel[w.cefr] ?? 0) + 1;
+    }
+    expect(byLevel, <String, int>{
+      'A1': 2,
+      'A2': 2,
+      'B1': 2,
+      'B2': 2,
+      'C1': 2,
+      'C2': 2,
+    });
+    // The Watch comprehension checks never leak onto the learning path.
+    final Set<String> pathIds = <String>{
+      for (final CourseUnit u in spine.units)
+        for (final CourseLesson l in u.lessons)
+          for (final CourseExercise e in l.exercises) e.id,
+    };
+    for (final CourseStory w in spine.watch) {
+      for (final CourseExercise e in w.checkExercises) {
+        expect(pathIds.contains(e.id), false,
+            reason: 'watch check ${e.id} leaked onto the path');
+      }
+    }
   });
 }

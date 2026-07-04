@@ -21,6 +21,8 @@ import 'package:ratel/features/stories/stories_screen.dart';
 import 'package:ratel/features/stories/story_reader_screen.dart';
 import 'package:ratel/features/podcasts/podcasts_screen.dart';
 import 'package:ratel/features/podcasts/podcast_player_screen.dart';
+import 'package:ratel/features/watch/watch_screen.dart';
+import 'package:ratel/features/watch/watch_player_screen.dart';
 import 'package:ratel/features/onboarding/onboarding_screen.dart';
 import 'package:ratel/features/onboarding/placement_quiz_screen.dart';
 import 'package:ratel/features/practice/practice_hub_screen.dart';
@@ -175,6 +177,16 @@ GoRouter buildRouter() {
         path: '/podcast',
         builder: (BuildContext context, GoRouterState state) =>
             PodcastPlayerScreen(passageId: state.uri.queryParameters['passage']),
+      ),
+      GoRoute(
+        path: '/watch',
+        builder: (BuildContext context, GoRouterState state) =>
+            const WatchScreen(),
+      ),
+      GoRoute(
+        path: '/watch-play',
+        builder: (BuildContext context, GoRouterState state) =>
+            WatchPlayerScreen(passageId: state.uri.queryParameters['passage']),
       ),
       GoRoute(
         path: '/roleplay',

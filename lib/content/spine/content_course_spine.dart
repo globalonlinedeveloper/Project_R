@@ -280,6 +280,39 @@ CourseSpine buildCourseSpine(ContentBatch batch) {
       return c != 0 ? c : a.id.compareTo(b.id);
     });
 
+  // (6) Watch (INF-9): project passages of kind=video that carry a REAL
+  // video_ref into a NEW video-first surface, mirroring podcasts exactly but
+  // resolving video_ref -> media_asset.uri (a language-neutral MP4 on R2,
+  // shared across all 52 languages). The check_item_refs stay `surfaceOwned`
+  // (never leak onto the path). A video passage with no video_ref (or one that
+  // resolves to no media_asset) is NOT projected -- the legacy video-sample
+  // stub (video_prompt only, no video_ref) is honestly excluded.
+  final List<CourseStory> watch = <CourseStory>[
+    for (final Passage p in batch.passages)
+      if (p.kind == PassageKind.video &&
+          p.videoRef != null &&
+          mediaById[p.videoRef!]?.uri != null)
+        CourseStory(
+          id: p.passageId,
+          title: glossText[p.titleRef] ?? p.passageId,
+          cefr: p.cefrLevel.name.toUpperCase(),
+          theme: p.theme,
+          explain: p.explainRef == null ? null : glossText[p.explainRef!],
+          videoUrl: mediaById[p.videoRef!]!.uri,
+          sentences: <String>[
+            for (final String sr in p.sentenceRefs)
+              if (sentenceText[sr] != null) sentenceText[sr]!,
+          ],
+          checkExercises: <CourseExercise>[
+            for (final String cr in p.checkItemRefs ?? const <String>[])
+              if (itemById[cr] != null) toExercise(itemById[cr]!),
+          ],
+        ),
+  ]..sort((CourseStory a, CourseStory b) {
+      final int c = a.cefr.compareTo(b.cefr);
+      return c != 0 ? c : a.id.compareTo(b.id);
+    });
+
   // (5) Pre-generated Roleplay + Adventures (INF-8): project `scenario` rows into
   // dialogue view-models. Lines resolve `line_sentence_ref` -> sentence text;
   // title/goal + each choice `label_ref` resolve through the gloss layer; the
@@ -339,6 +372,7 @@ CourseSpine buildCourseSpine(ContentBatch batch) {
       units: units,
       stories: stories,
       podcasts: podcasts,
+      watch: watch,
       roleplays: roleplays,
       adventures: adventures);
 }

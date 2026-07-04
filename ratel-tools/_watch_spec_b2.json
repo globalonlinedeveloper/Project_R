@@ -1,0 +1,75 @@
+{
+  "level": "B2",
+  "clips": [
+    {
+      "n": "w1",
+      "slug": "watch_b2_w1",
+      "title": "The Presentation",
+      "theme": "Business presentation",
+      "about": "Describe a confident speaker presenting data to an attentive audience.",
+      "lines": [
+        ["A modern, brightly lit office sets the scene for what appears to be an important meeting.", "'Brightly lit' is a compound adjective; 'appears to be' softens a claim about something we cannot be certain of."],
+        ["A woman in smart-casual clothes stands beside a large screen, ready to begin.", "'Smart-casual' describes a dress code that is neither formal nor fully relaxed."],
+        ["The screen displays an abstract chart whose colored curves and shapes carry no words.", "'Whose' introduces a relative clause describing the chart."],
+        ["She gestures confidently towards the data, guiding her colleagues through each section.", "'Gestures' means moving the hands to communicate; the phrasal verb 'guiding through' means leading someone step by step."],
+        ["Seated at the table, a small audience follows her explanation with visible interest.", "'Audience' is the collective noun for the people watching and listening."],
+        ["Several of them nod, a gesture that suggests they agree with the points being made.", "'That suggests' introduces an inference; a nod typically signals agreement or understanding."]
+      ],
+      "checks": [
+        {
+          "q": "What is the woman doing beside the screen?",
+          "opts": [
+            ["Presenting a chart", true, "She stands by the screen and gestures towards the data as she explains it."],
+            ["Repairing the screen", false, "Nothing indicates the screen is broken or being fixed."],
+            ["Leaving the room", false, "She remains at the front, actively presenting to the group."]
+          ],
+          "why": "She stands beside the screen and gestures towards the chart while explaining it to her colleagues."
+        },
+        {
+          "q": "Why do the seated colleagues nod?",
+          "opts": [
+            ["They seem to agree", true, "A nod is a gesture that generally signals agreement or understanding with what is being said."],
+            ["They feel bored", false, "Their visible interest points to engagement, not boredom."],
+            ["They are falling asleep", false, "They are following the explanation attentively, not dozing off."]
+          ],
+          "why": "Nodding while following a speaker with interest suggests the colleagues agree with or understand her points."
+        }
+      ]
+    },
+    {
+      "n": "w2",
+      "slug": "watch_b2_w2",
+      "title": "Weather on the Ridge",
+      "theme": "Mountain weather change",
+      "about": "Describe two hikers reacting to a sudden change in weather on a high ridge.",
+      "lines": [
+        ["Two hikers stand on a high mountain ridge that stretches dramatically across the frame.", "'That stretches' begins a relative clause describing the ridge."],
+        ["Behind them, fast-moving grey clouds are rolling in and gradually darkening the sky.", "The phrasal verb 'roll in' describes clouds arriving quickly; 'darkening' shows an ongoing change."],
+        ["A strong wind stirs their jackets, hinting at the worsening conditions around them.", "'Stirs' means to move gently; 'hinting at' suggests something without stating it directly."],
+        ["One of them glances up at the gathering storm, his expression turning noticeably tense.", "'Gathering storm' is a common collocation for a storm that is building; 'glances' means a quick look."],
+        ["The two exchange a look, which seems to signal that they share the same concern.", "'Exchange a look' means to look at each other meaningfully; 'which seems to' introduces an inference."],
+        ["They turn and begin carefully descending the narrow trail before the weather closes in.", "'Descending' is a more precise verb than 'going down'; 'closes in' means to surround threateningly."]
+      ],
+      "checks": [
+        {
+          "q": "What is happening to the weather behind the hikers?",
+          "opts": [
+            ["Clouds are gathering", true, "Fast-moving grey clouds roll in and darken the sky behind them."],
+            ["The sky is clearing", false, "The sky is darkening, not brightening."],
+            ["Snow is melting", false, "Nothing about melting snow is shown; the change is in the clouds and wind."]
+          ],
+          "why": "Grey clouds roll in and darken the sky, and the wind picks up as the weather worsens."
+        },
+        {
+          "q": "Why do the hikers begin to descend?",
+          "opts": [
+            ["To avoid the storm", true, "They react to the darkening sky and turn back before the weather closes in."],
+            ["To reach the summit", false, "They turn away from the ridge and head down, not up."],
+            ["To rest and eat", false, "There is no sign of stopping to rest; they move down because of the weather."]
+          ],
+          "why": "Seeing the storm gather and feeling the wind rise, they turn back to get off the ridge safely."
+        }
+      ]
+    }
+  ]
+}

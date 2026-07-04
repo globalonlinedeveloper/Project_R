@@ -1,0 +1,71 @@
+{
+  "level": "A1",
+  "clips": [
+    {
+      "n": "w1",
+      "slug": "watch_a1_w1",
+      "title": "Morning Coffee",
+      "theme": "daily routines",
+      "about": "The clip shows a person making a cup of coffee in the morning, to teach simple present-tense action verbs for everyday routines.",
+      "lines": [
+        ["A woman pours coffee into a white mug.", "'pours' is present simple, third person, so it ends in -s."],
+        ["She adds a little milk to the cup.", "'a little' goes before an uncountable noun like 'milk'."],
+        ["She lifts the warm mug with her hand.", "'warm' is an adjective and comes before the noun 'mug'."],
+        ["She takes a slow sip and smiles.", "'and' joins two actions in one sentence."]
+      ],
+      "checks": [
+        {
+          "q": "What does the woman pour into the mug?",
+          "opts": [
+            ["Coffee", true, "She pours coffee from the pot into the mug."],
+            ["Water", false, "She pours coffee, not water."],
+            ["Tea", false, "The drink is coffee, not tea."]
+          ],
+          "why": "The first line clearly says she pours coffee into the mug."
+        },
+        {
+          "q": "What does the woman do at the end?",
+          "opts": [
+            ["Smiles", true, "She takes a sip and then smiles."],
+            ["Cries", false, "She smiles; she does not cry."],
+            ["Sleeps", false, "She is awake and drinking coffee, not sleeping."]
+          ],
+          "why": "The last line shows her taking a sip and smiling."
+        }
+      ]
+    },
+    {
+      "n": "w2",
+      "slug": "watch_a1_w2",
+      "title": "Buying an Apple",
+      "theme": "shopping",
+      "about": "The clip shows a person buying one apple at a fruit stall, to teach simple present-tense verbs and everyday shopping words.",
+      "lines": [
+        ["A man picks up one red apple.", "'one' shows the number, so 'apple' is singular."],
+        ["He gives a coin to the vendor.", "'gives' is present simple, third person, ending in -s."],
+        ["He puts the apple into a bag.", "'into' shows movement to the inside of the bag."],
+        ["He waves to the vendor and leaves.", "'waves' is a friendly action with the hand."]
+      ],
+      "checks": [
+        {
+          "q": "What fruit does the man buy?",
+          "opts": [
+            ["Apple", true, "He picks up and buys one red apple."],
+            ["Banana", false, "He buys an apple, not a banana."],
+            ["Orange", false, "The fruit is a red apple, not an orange."]
+          ],
+          "why": "The clip shows the man choosing and buying a red apple."
+        },
+        {
+          "q": "What does the man give to the vendor?",
+          "opts": [
+            ["A coin", true, "He hands a coin to the vendor to pay."],
+            ["A book", false, "He gives money, not a book."],
+            ["A flower", false, "He gives a coin, not a flower."]
+          ],
+          "why": "The man pays the vendor by giving a coin."
+        }
+      ]
+    }
+  ]
+}

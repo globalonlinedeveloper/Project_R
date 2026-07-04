@@ -1,0 +1,75 @@
+{
+  "level": "B1",
+  "clips": [
+    {
+      "n": "w1",
+      "slug": "watch_b1_w1",
+      "title": "Missing the Bus",
+      "theme": "Everyday city travel",
+      "about": "Follow a commuter who just misses the bus but gets an unexpected lift from a friend.",
+      "lines": [
+        ["On a bright city street, a person jogs quickly toward the bus stop.", "'jogs' means runs at a slow, steady pace; the present tense narrates the action as it happens."],
+        ["Just as they arrive, the bus pulls away from the kerb.", "'Just as' introduces two things that happen at almost the same moment."],
+        ["They stop and catch their breath because they have been running hard.", "'because' gives the reason; 'catch their breath' means rest until breathing is normal again."],
+        ["Looking a little annoyed, the person takes out a phone and checks the time.", "The '-ing' clause 'Looking...' describes how they feel while doing the main action."],
+        ["Then a small car slows down and pulls over beside them.", "'pulls over' is a phrasal verb meaning to move to the side of the road and stop."],
+        ["When they see their friend at the wheel, they smile with relief and climb in.", "'When' marks the moment something happens; 'relief' is the good feeling after worry ends."]
+      ],
+      "checks": [
+        {
+          "q": "What happens to the bus as the person reaches the stop?",
+          "opts": [
+            ["It pulls away", true, "The narration says the bus pulls away from the kerb just as they arrive."],
+            ["It waits for them", false, "The bus does not wait; the person misses it."],
+            ["It breaks down", false, "Nothing in the clip shows the bus breaking down."]
+          ],
+          "why": "The person arrives at the exact moment the bus is already leaving."
+        },
+        {
+          "q": "Why does the person smile at the end?",
+          "opts": [
+            ["A friend arrives to help", true, "Their friend pulls over in a car, so they no longer need the bus."],
+            ["The bus comes back", false, "The bus does not return in the clip."],
+            ["They find money on the ground", false, "Nothing about money appears on screen."]
+          ],
+          "why": "Seeing their friend's car means they still have a way to travel, which brings relief."
+        }
+      ]
+    },
+    {
+      "n": "w2",
+      "slug": "watch_b1_w2",
+      "title": "Moving Day",
+      "theme": "Starting a new home",
+      "about": "Watch someone bring the first box into an empty apartment and imagine their new life there.",
+      "lines": [
+        ["An empty apartment stands quiet, with sunlight resting on the bare floor.", "'bare' means with nothing on it; the scene sets a calm, fresh mood."],
+        ["A person walks in slowly, carrying a large cardboard box in both arms.", "The '-ing' clause 'carrying...' adds detail about what the person is doing at the same time."],
+        ["They set the box down carefully in the middle of the room.", "'set down' is a phrasal verb meaning to place something on a surface; 'carefully' shows the manner."],
+        ["Then they walk to the window and open the curtains wide.", "'wide' here describes how far the curtains are opened, letting in more light."],
+        ["Bright light floods in because the curtains are now fully open.", "'floods in' is a strong image meaning light enters quickly and fills the space."],
+        ["The person turns, looks around the bright room, and smiles with hope.", "'with hope' names the feeling shown; the smile suggests they are excited about the future."]
+      ],
+      "checks": [
+        {
+          "q": "What does the person do after setting the box down?",
+          "opts": [
+            ["Opens the curtains", true, "They walk to the window and open the curtains wide to let light in."],
+            ["Leaves the apartment", false, "They stay and look around the room instead of leaving."],
+            ["Turns on a television", false, "No television appears in the empty apartment."]
+          ],
+          "why": "The next action after the box is placed is opening the curtains at the window."
+        },
+        {
+          "q": "How does the person most likely feel about the new apartment?",
+          "opts": [
+            ["Hopeful and positive", true, "They smile with hope while looking around the bright, sunlit space."],
+            ["Bored and tired", false, "Their hopeful smile shows interest, not boredom."],
+            ["Frightened", false, "Nothing in the calm, bright scene suggests fear."]
+          ],
+          "why": "The bright room and hopeful smile show they feel good about their fresh start."
+        }
+      ]
+    }
+  ]
+}

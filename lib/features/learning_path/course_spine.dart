@@ -142,6 +142,7 @@ class CourseStory {
     this.theme,
     this.explain,
     this.audioUrl,
+    this.videoUrl,
     this.checkExercises = const <CourseExercise>[],
   });
 
@@ -156,6 +157,11 @@ class CourseStory {
   /// `media_asset.uri` (a real pre-generated MP3 on R2). Null for a text-first
   /// story (kind=story). [INF-7]
   final String? audioUrl;
+
+  /// For a WATCH lesson (kind=video) the resolved video URL: its `video_ref`
+  /// -> `media_asset.uri` (a real pre-generated, language-neutral MP4 on R2).
+  /// Null for a story/podcast. [INF-9]
+  final String? videoUrl;
   final List<CourseExercise> checkExercises;
 
   int get checkCount => checkExercises.length;
@@ -168,6 +174,7 @@ class CourseSpine {
     required this.units,
     this.stories = const <CourseStory>[],
     this.podcasts = const <CourseStory>[],
+    this.watch = const <CourseStory>[],
     this.roleplays = const <CourseScenario>[],
     this.adventures = const <CourseScenario>[],
   });
@@ -184,6 +191,13 @@ class CourseSpine {
   /// as [stories] but each carries a non-null [CourseStory.audioUrl]. Empty when
   /// the batch authors none.
   final List<CourseStory> podcasts;
+
+  /// Graded Watch lessons (content `passage`, kind=video, with a real
+  /// `video_ref`) projected for the un-gated video surface (INF-9). Same
+  /// [CourseStory] shape as [stories]/[podcasts] but each carries a non-null
+  /// [CourseStory.videoUrl] (a language-neutral MP4 on R2, shared across all
+  /// languages). Empty when the batch authors none.
+  final List<CourseStory> watch;
 
   /// Pre-generated Roleplay drills (content `scenario`, kind=roleplay): a graded
   /// pick-the-right-reply branching dialogue (INF-8). Empty when none authored.

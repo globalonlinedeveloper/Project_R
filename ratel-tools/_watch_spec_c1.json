@@ -1,0 +1,77 @@
+{
+  "level": "C1",
+  "clips": [
+    {
+      "n": "w1",
+      "slug": "watch_c1_w1",
+      "title": "The Potter's Hands",
+      "theme": "Shaping wet clay",
+      "about": "Describe the patient, meditative craft of throwing a pot on the wheel.",
+      "lines": [
+        ["A pair of hands, glistening with slip, cradles a mound of clay as the wheel spins beneath it.", "'Glistening with slip' pairs a vivid participle with a craft term; 'slip' is the watery clay that coats the hands."],
+        ["With unhurried precision, the thumbs press into the centre and coax a hollow into being.", "'Coax ... into being' is an elevated collocation suggesting patient, gentle persuasion rather than force."],
+        ["Water trickles down the sides, and the surface takes on a sleek, mirror-like sheen.", "'Take on a sheen' means to gradually acquire a glossy quality; note the hyphenated compound adjective 'mirror-like'."],
+        ["Little by little, the walls climb, thinning as they rise between finger and thumb.", "The present participle 'thinning' compresses a simultaneous action; 'little by little' signals gradual, incremental change."],
+        ["The vessel swells outward at its belly, then draws inward again towards a slender neck.", "Antithetical verbs 'swells outward' and 'draws inward' mirror the vessel's changing contour in balanced phrasing."],
+        ["Each subtle adjustment leaves a faint spiral traced into the damp, yielding clay.", "'Yielding' here means soft and easily shaped; the passive-flavoured 'traced into' foregrounds the mark over the maker."],
+        ["When the hands finally withdraw, the form stands poised and still, quietly complete.", "'Poised' connotes graceful, balanced readiness; the trio of adjectives closes the sequence on a note of calm resolution."]
+      ],
+      "checks": [
+        {
+          "q": "What overall mood does the clip convey?",
+          "opts": [
+            ["Calm and meditative", true, "The unhurried pace, soft focus and gentle gestures all cultivate a tranquil, contemplative atmosphere."],
+            ["Tense and frantic", false, "Nothing is rushed or anxious; the movements are deliberate and serene."],
+            ["Cold and clinical", false, "The warm workshop and intimate close-ups feel tactile and human, not detached."]
+          ],
+          "why": "The slow rhythm, warm light and delicate handling establish a meditative, unhurried tone."
+        },
+        {
+          "q": "As the potter works, what happens to the walls of the vessel?",
+          "opts": [
+            ["They rise and grow thinner", true, "The narration states the walls climb while thinning between finger and thumb."],
+            ["They collapse inward", false, "The clay is being raised and shaped upward, not allowed to fall."],
+            ["They stay a fixed height", false, "The walls visibly climb higher as the clay is drawn upward."]
+          ],
+          "why": "The clay is progressively raised, so the walls both rise and become thinner."
+        }
+      ]
+    },
+    {
+      "n": "w2",
+      "slug": "watch_c1_w2",
+      "title": "The City Wakes",
+      "theme": "City at dawn",
+      "about": "Capture the gradual stirring of a city as the first golden light arrives.",
+      "lines": [
+        ["The first light of dawn spills across empty streets, gilding rooftops and quiet facades.", "'Gilding' figuratively lends a golden coating; 'spills across' conveys light flooding gently and unstoppably."],
+        ["A market vendor heaves a metal shutter upward, and the clatter breaks the morning hush.", "'Heaves ... upward' implies effortful lifting; 'breaks the hush' is an idiomatic way to say a sound interrupts silence."],
+        ["Steam curls lazily from a food cart, dissolving into the cool, amber-tinted air.", "The adverb 'lazily' personifies the steam's unhurried drift; 'dissolving into' marks a gradual fading from view."],
+        ["Long shadows stretch across a wide plaza still glazed with the sheen of the night's damp.", "'Glazed with' evokes a thin reflective coating; 'still' underlines that traces of night linger into morning."],
+        ["The earliest commuters cross the open square, their footsteps echoing off the stone.", "Superlative 'earliest' marks them as the vanguard; 'echoing off' captures sound rebounding in an emptyish space."],
+        ["As the sun climbs higher, warmth seeps into the corners the shadows had claimed.", "'Seeps into' suggests slow, gradual spreading; the past perfect 'had claimed' sequences the shade before the light."],
+        ["Little by little, the streets fill, and the city shrugs off the last of its slumber.", "'Shrugs off ... slumber' personifies the city casting off sleep, a figurative flourish that rounds off the montage."]
+      ],
+      "checks": [
+        {
+          "q": "Which detail is shown early in the montage?",
+          "opts": [
+            ["A vendor raising a stall shutter", true, "The narration describes a market vendor heaving a metal shutter upward."],
+            ["Fireworks over the plaza", false, "There are no fireworks; the light comes only from the rising sun."],
+            ["A crowded evening market", false, "The scene is set at dawn with near-empty streets, not a busy evening."]
+          ],
+          "why": "Among the opening images, a market vendor lifts a shutter as the day begins."
+        },
+        {
+          "q": "What does the closing line 'the city shrugs off the last of its slumber' most strongly suggest?",
+          "opts": [
+            ["The city is gradually coming to life", true, "The personified image of casting off sleep signals the city awakening and growing active."],
+            ["The city is settling down for the night", false, "It is dawn and activity is increasing, the opposite of winding down."],
+            ["The city is being abandoned", false, "Streets are filling with people, indicating renewed life rather than desertion."]
+          ],
+          "why": "Shrugging off slumber is a figurative way of saying the city is waking and stirring into activity."
+        }
+      ]
+    }
+  ]
+}

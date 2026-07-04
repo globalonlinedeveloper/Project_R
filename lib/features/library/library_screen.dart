@@ -8,9 +8,10 @@ import 'package:ratel/features/notifications/notifications_controller.dart';
 
 /// Library tab (📚) — design spec §4.2. REAL where an engine exists: the PRO
 /// badges are driven by the actual billing entitlement (`isProProvider`, free by
-/// default), and Practice routes to the real review queue. Story / podcast /
-/// video players have NO media engine (§6) and are honest "coming soon" stubs —
-/// never a faked player.
+/// default), and Practice routes to the real review queue. Stories, Podcasts
+/// and Watch are REAL surfaces: text + browser read-aloud (stories), streamed R2
+/// audio (podcasts) and streamed R2 video (watch) on the web, degrading honestly
+/// off-web. Nothing here is a faked player.
 class LibraryScreen extends ConsumerWidget {
   const LibraryScreen({super.key});
 
@@ -127,8 +128,18 @@ class LibraryScreen extends ConsumerWidget {
                     route: '/podcasts',
                   ),
                   const SizedBox(height: RatelSpace.cardGap),
-                  _comingSoonCard(context, '🎬',
-                      'Watch (video) needs a real video engine -- coming as an owner decision (S6). Nothing here is faked.'),
+                  _featureCard(
+                    context,
+                    gradient: const LinearGradient(
+                        colors: <Color>[RatelColors.coral, RatelColors.purple],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight),
+                    emoji: '🎬',
+                    title: 'Watch',
+                    subtitle: 'Short video clips -- watch with a transcript',
+                    badge: RatelChip.free(),
+                    route: '/watch',
+                  ),
                 ],
               ),
             ),
@@ -206,21 +217,4 @@ class LibraryScreen extends ConsumerWidget {
         ),
       );
 
-  Widget _comingSoonCard(BuildContext context, String emoji, String text) => RatelCard(
-        color: context.palette.cream2,
-        child: Row(
-          children: <Widget>[
-            Text(emoji, style: const TextStyle(fontSize: 22)),
-            const SizedBox(width: RatelSpace.md),
-            Expanded(
-              child: Text(text,
-                  style: TextStyle(
-                      fontFamily: RatelFont.body,
-                      fontSize: RatelType.body,
-                      color: context.palette.muted)),
-            ),
-            const RatelChip(label: 'Soon', tone: RatelChipTone.neutral),
-          ],
-        ),
-      );
 }

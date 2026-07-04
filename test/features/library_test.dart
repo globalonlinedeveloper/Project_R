@@ -22,7 +22,7 @@ void main() {
     expect(find.text('FREE'), findsWidgets);
   });
 
-  testWidgets('Read & listen: real Stories + Podcasts tiles + honest video stub',
+  testWidgets('Read & listen: real Stories + Podcasts + Watch tiles',
       (WidgetTester tester) async {
     await _toLibrary(tester);
     // INF-6: Stories (text + browser read-aloud) is a REAL, un-gated tile.
@@ -37,11 +37,13 @@ void main() {
     await tester.scrollUntilVisible(podcasts, 200,
         scrollable: find.byType(Scrollable).first);
     expect(podcasts, findsOneWidget);
-    // Watch (video) still honestly declares its missing video engine.
-    final Finder stub = find.textContaining('video engine');
-    await tester.scrollUntilVisible(stub, 200,
+    // INF-9: Watch (real R2 video + transcript) is now a REAL, un-gated tile
+    // (replaced the honest "coming soon" video stub).
+    final Finder watch = find.text('Watch');
+    await tester.scrollUntilVisible(watch, 200,
         scrollable: find.byType(Scrollable).first);
-    expect(stub, findsOneWidget);
+    expect(watch, findsOneWidget);
+    expect(find.textContaining('video engine'), findsNothing);
   });
 
   testWidgets('Library top bar shows the 🔔 bell that opens the REAL inbox',
