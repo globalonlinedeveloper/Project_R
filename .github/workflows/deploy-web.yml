@@ -33,6 +33,21 @@ jobs:
             echo "ready=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Publish course content to R2 (C-2; graceful skip without R2_* secrets)
+        if: steps.cfg.outputs.ready == 'true'
+        env:
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        run: |
+          if [ -z "$R2_ACCESS_KEY_ID" ]; then
+            echo "::notice::R2 secrets not set — content publish skipped (app falls back to bundled content)."
+          else
+            pip install -q boto3
+            python3 ratel-tools/publish_content_r2.py
+          fi
+
       - uses: subosito/flutter-action@v2
         if: steps.cfg.outputs.ready == 'true'
         with:
@@ -53,7 +68,7 @@ jobs:
         # To turn the auth flow ON in production, append: --dart-define=RATEL_AUTH=true --dart-define=RATEL_ANON=true
         # (HELD OFF: the web auth-init crashes at runtime — see main.dart guard /
         # the auth-init bug; re-enable only once that is fixed and verified in a browser).
-        run: flutter build web --release --base-href "/" --pwa-strategy=none --dart-define=RATEL_AUTH=true --dart-define=RATEL_ANON=true --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} --dart-define=SUPABASE_PUBLISHABLE_KEY=${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
+        run: flutter build web --release --base-href "/" --pwa-strategy=none --dart-define=RATEL_AUTH=true --dart-define=RATEL_ANON=true --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} --dart-define=SUPABASE_PUBLISHABLE_KEY=${{ secrets.SUPABASE_PUBLISHABLE_KEY }} --dart-define=RATEL_REMOTE_CONTENT=true --dart-define=RATEL_CONTENT_URL=https://pub-506169294d394678b41c2fcd4792375f.r2.dev/content
 
       - name: Stamp deploy marker (ground-truth verification endpoint, §25)
         if: steps.cfg.outputs.ready == 'true'
