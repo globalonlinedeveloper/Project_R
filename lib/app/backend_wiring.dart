@@ -17,6 +17,10 @@ import 'package:ratel/services/tts_relay/tts_relay.dart';
 import 'package:ratel/services/data_access/data_access.dart';
 import 'package:ratel/services/auth/auth.dart';
 import 'package:ratel/services/data_access/supabase_learner_state_store.dart';
+import 'package:ratel/services/data_access/supabase_review_log_sink.dart';
+import 'package:ratel/services/data_access/supabase_saved_words_store.dart';
+import 'package:ratel/services/learning/review_log_sink.dart';
+import 'package:ratel/services/learning/saved_words_store.dart';
 import 'package:ratel/services/data_access/supabase_friends_store.dart';
 import 'package:ratel/services/data_access/supabase_leagues_store.dart';
 import 'package:ratel/services/data_access/supabase_friends_service.dart';
@@ -126,6 +130,10 @@ List<Override> backendOverridesForClient(SupabaseClient client) => <Override>[
           .overrideWithValue(SupabaseFriendsService.fromClient(client)),
       identityProvider
           .overrideWithValue(SupabaseIdentity.fromClient(client)),
+      reviewLogSinkProvider
+          .overrideWithValue(SupabaseReviewLogSink.fromClient(client)),
+      savedWordsStoreProvider
+          .overrideWithValue(SupabaseSavedWordsStore.fromClient(client)),
       authServiceProvider
           .overrideWithValue(SupabaseAuthService.fromClient(client)),
       if (kEnableAiRelay)

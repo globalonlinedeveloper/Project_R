@@ -19,5 +19,7 @@ export 'fsrs.dart';
 export 'irt.dart';
 export 'learner_state.dart';
 export 'path_serving.dart';
+export 'review_log_sink.dart';
 export 'saved_words.dart';
+export 'saved_words_store.dart';
 export 'streak.dart';

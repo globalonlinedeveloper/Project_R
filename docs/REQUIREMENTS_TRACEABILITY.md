@@ -50,8 +50,8 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 |----|-------------|--------|-------|--------|------|----------|
 | R-B1 | CEFR can-do spine ratification | Must | Stage1 | Built ✅ | — | — |
 | R-B2 | Skill/Concept prerequisite graph | Must | Stage1 | Built ✅ | — | — |
-| R-B3 | Course-Section-Unit-Lesson containers & path rendering | Must | Stage1 | Built ✅ | — | `content_wiring.dart`, `course_switch.dart`, `content_course_spine.dart`, `home_screen.dart` +9 |
-| R-B4 | TBLT task model + tap-to-define | Must | Stage1 | Built ✅ | — | `story_reader_screen.dart`, `gen_stories_wave.py`, `test_schema.py`, `course_options_projection_test.dart` +2 |
+| R-B3 | Course-Section-Unit-Lesson containers & path rendering | Must | Stage1 | Built ✅ | — | `content_wiring.dart`, `course_switch.dart`, `content_course_spine.dart`, `adventure_player_screen.dart` +19 |
+| R-B4 | TBLT task model + tap-to-define | Must | Stage1 | Built ✅ | — | `story_reader_screen.dart`, `gen_podcasts_wave.py`, `gen_stories_wave.py`, `gen_watch_wave.py` +4 |
 | R-B5 | Depth-as-data & CEFR-ceiling enforcement | Must | Stage1 | Built ✅ | — | — |
 | R-B6 | Native realization & divergence nodes | Must | Stage1 | Built ✅ | — | — |
 | R-B7 | Pair-specific / contrastive layer | Must | Stage1 | Built ✅ | — | — |
@@ -84,13 +84,13 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-D2 | mcq (multiple choice) | Must | Stage2 | Built ✅ | — | — |
 | R-D3 | cloze (fill in the blank) | Must | Stage2 | Built ✅ | — | — |
 | R-D4 | translate (one type, with a direction setting) | Must | Stage2 | Built ✅ | — | — |
-| R-D5 | listen (listen and choose) | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `listen_audio_controls.dart`, `listen_exercise.dart`, `story_reader_screen.dart` +3 |
+| R-D5 | listen (listen and choose) | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `listen_audio_controls.dart`, `listen_exercise.dart`, `podcast_player_screen.dart` +7 |
 | R-D6 | word_order (build the sentence by tapping words) | Must | Stage2 | Built ✅ | — | — |
 | R-D7 | match (matching pairs) | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `match_exercise.dart`, `lesson_match_test.dart` |
 | R-D8 | dictation (type exactly what you hear) | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `listen_audio_controls.dart`, `speech_tts.dart` |
 | R-D9 | speak (on-device ASR intelligibility + shadowing, free) | Must | Stage2 | Built ✅ | — | — |
 | R-D9a | Web/desktop on-device ASR is cloud - force shadowing | Must | Stage2 | Built ✅ | — | — |
-| R-D10 | scripted_roleplay (a branching scripted conversation) | Must | Stage2 | Built ✅ | — | `content_course_spine.dart`, `adventures_screen.dart`, `test_schema.py`, `course_options_projection_test.dart` +2 |
+| R-D10 | scripted_roleplay (a branching scripted conversation) | Must | Stage2 | Built ✅ | — | `content_course_spine.dart`, `adventure_player_screen.dart`, `adventures_screen.dart`, `roleplay_player_screen.dart` +5 |
 | R-D11 | Phase-3 scaffolds: write + live_roleplay (scaffolded now) | Should | Wave | Deferred ⏭ | 🔒 owner/$$ | `test_schema.py`, `item.schema.json`, `course_spine_test.dart` |
 | R-D12 | tap-to-define reading feature + comprehension-item policy | Must | Stage2 | Built ✅ | — | — |
 | R-D13 | Autoscoring & answer-equivalence rules | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `lesson_test.dart` |
@@ -136,7 +136,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-G3 | IRT calibration (how hard each item is) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `irt.dart`, `irt_test.dart` |
 | R-G4 | CAT placement test | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `learner_controller.dart`, `onboarding_screen.dart`, `placement_quiz_screen.dart`, `cat.dart` +3 |
 | R-G5 | FSRS spaced-repetition scheduling | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `app_providers.dart`, `learner_controller.dart`, `practice_hub_screen.dart`, `saved_words_controller.dart` +4 |
-| R-G6 | Learner-state entities (what gets stored) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `learner_controller.dart`, `progress_screen.dart`, `study_stats_controller.dart`, `xp_history_controller.dart` +14 |
+| R-G6 | Learner-state entities (what gets stored) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `learner_controller.dart`, `progress_screen.dart`, `study_stats_controller.dart`, `xp_history_controller.dart` +16 |
 | R-G7 | Cold-start strategy (works from day one) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `learner_controller.dart`, `onboarding_screen.dart`, `placement_quiz_screen.dart`, `cold_start.dart` +3 |
 | R-G8 | Launch path-serving (how lessons are sequenced) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `path_serving.dart`, `path_serving_test.dart` |
 | R-G9 | Saved words - flashcards - graded review | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `lesson_runner_screen.dart`, `practice_hub_screen.dart`, `progress_screen.dart`, `saved_words_controller.dart` +5 |
@@ -150,8 +150,8 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-H3 | Launch pronunciation UX (shadowing, free) | Must | Stage2 | Built ✅ | — | — |
 | R-H4 | Advanced pronunciation scoring - REMOVED | Won't | Cut | Removed ✖ | — | — |
 | R-H5 | Grading written answers (later)<br>_Owner S28: Must priority; spec schedules the LLM-grading engine in R-O3 Wave C (later)._ | Must | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
-| R-H6 | Open-ended roleplay conversations (later)<br>_Owner S28: Must priority; spec schedules open-roleplay engine in R-O3 Wave C (later)._ | Must | Wave | Deferred ⏭ | 🔒 owner/$$ | `adventures_screen.dart`, `ai_tutor_screen.dart` |
-| R-H7 | Runtime key mgmt, relay, rate-limit & abuse | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `backend_wiring.dart`, `adventures_screen.dart`, `ai_tutor_screen.dart`, `ai_relay.dart` +17 |
+| R-H6 | Open-ended roleplay conversations (later)<br>_Owner S28: Must priority; spec schedules open-roleplay engine in R-O3 Wave C (later)._ | Must | Wave | Deferred ⏭ | 🔒 owner/$$ | `ai_tutor_screen.dart` |
+| R-H7 | Runtime key mgmt, relay, rate-limit & abuse | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `backend_wiring.dart`, `ai_tutor_screen.dart`, `ai_relay.dart`, `cost_guard.dart` +16 |
 | R-H8 | Reusable scaffolds (Scenario + GradingRubric) | Should | Stage2 | Built ✅ | — | — |
 
 ## Part I — Gamification, economy & social
@@ -172,7 +172,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-J1 | Free vs Pro feature split (exact) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `adventures_screen.dart`, `paywall_screen.dart`, `ai_tutor_screen.dart`, `monetization_polish_test.dart` +1 |
+| R-J1 | Free vs Pro feature split (exact) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `adventure_player_screen.dart`, `adventures_screen.dart`, `paywall_screen.dart`, `ai_tutor_screen.dart` +2 |
 | R-J2 | Pro price point(s) + billing (regional/PPP, trial) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `paywall_screen.dart`, `pricing.dart`, `paywall_screen_test.dart` |
 | R-J3 | AI access policy - Pro-only live AI, metered by credits | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `ai_tutor_screen.dart`, `play_receipt_verify.dart`, `user.schema.json` |
 | R-J4 | Ad strategy + network/mediation | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
@@ -229,7 +229,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 |----|-------------|--------|-------|--------|------|----------|
 | R-M1 | Analytics event taxonomy & core KPIs | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `paywall_screen.dart`, `analytics.dart`, `analytics_identity.dart`, `taxonomy.dart` +5 |
 | R-M2 | Experimentation & feature flags (dark-launch, A/B, wave gating) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `feature_flags.dart`, `feature_flags_test.dart` |
-| R-M3 | Backend infrastructure (Supabase: Postgres, RLS, Edge, Storage/CDN) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `content_providers.dart`, `content_repository.dart`, `learner_controller.dart`, `saved_words_controller.dart` +15 |
+| R-M3 | Backend infrastructure (Supabase: Postgres, RLS, Edge, Storage/CDN) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `content_providers.dart`, `content_repository.dart`, `learner_controller.dart`, `saved_words_controller.dart` +17 |
 | R-M4 | Content build/upload ops (batch tooling, staging-prod) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-M5 | Observability (logging & error tracking) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `audit_sink.dart`, `crash_telemetry.dart`, `observability.dart`, `test_audit_log.py` +3 |
 | R-M6 | CI/CD & store-release process | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
@@ -263,7 +263,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-O1 | Phase-2 deliverables (local content model - NO DB) | Process | Stage1 | Built ✅ | — | `friends_screen.dart`, `learner_controller.dart`, `practice_hub_screen.dart`, `progress_screen.dart` +16 |
+| R-O1 | Phase-2 deliverables (local content model - NO DB) | Process | Stage1 | Built ✅ | — | `friends_screen.dart`, `learner_controller.dart`, `practice_hub_screen.dart`, `progress_screen.dart` +19 |
 | R-O2 | Phase-3 deliverables (DB + runtime + payments - gated, MONEY) | Process | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-O3 | Post-launch waves (tier climb, write/live-roleplay, RTL re-add) | Process | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
 | R-O4 | Risk register & mitigations | Process | Program | Spec/cross ▫ | — | — |

@@ -238,6 +238,10 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   void recordReview(ReviewLogEntry entry) {
     final CefrLevel levelBefore = state.level;
     _log.add(entry);
+    // Durable answer spine (R-G6): fire-and-forget append to the sink seam —
+    // a no-op for guests/keyless boots, the own-row `review_log` INSERT when
+    // the backend is wired. Never blocks or throws into grading.
+    ref.read(reviewLogSinkProvider).append(targetLocale, entry);
     state = _derive();
     _persist();
     _maybeEmitLevelUp(levelBefore, state.level);

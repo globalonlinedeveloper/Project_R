@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'package:ratel/services/data_access/supabase_user_state_stores.dart';
 import 'package:ratel/services/preferences/prefs_settings_store.dart';
+import 'package:ratel/services/preferences/settings_store.dart';
 import 'package:ratel/services/progress/prefs_xp_history_store.dart';
 import 'package:ratel/services/progress/xp_history_store.dart';
 import 'package:ratel/services/progress/prefs_study_stats_store.dart';
@@ -28,22 +31,48 @@ Future<void> main() async {
   // (1) Backend seams: live Supabase when configured, else local defaults.
   overrides.addAll(await initBackendOverrides());
 
-  // (2) On-device settings persistence (best-effort).
+  // (2) On-device settings persistence (best-effort) — wrapped by the U-lane
+  // cross-device sync decorators when the backend is configured (S110): the
+  // device store stays the instant boot cache, every save write-throughs to
+  // the own-row Supabase tables, and hydration below pulls + merges the
+  // durable rows. Guests and keyless boots stay byte-identical to plain prefs.
   SharedPreferences? prefs;
+  final List<Future<void>> hydrations = <Future<void>>[];
   try {
     prefs = await SharedPreferences.getInstance();
-    overrides.add(
-      settingsStoreProvider.overrideWithValue(PrefsSettingsStore(prefs)),
-    );
-    overrides.add(
-      xpHistoryStoreProvider.overrideWithValue(PrefsXpHistoryStore(prefs)),
-    );
-    overrides.add(
-      studyStatsStoreProvider.overrideWithValue(PrefsStudyStatsStore(prefs)),
-    );
-    overrides.add(
-      outfitsStoreProvider.overrideWithValue(PrefsOutfitsStore(prefs)),
-    );
+    SettingsStore settings = PrefsSettingsStore(prefs);
+    XpHistoryStore xpHistory = PrefsXpHistoryStore(prefs);
+    StudyStatsStore studyStats = PrefsStudyStatsStore(prefs);
+    OutfitsStore outfits = PrefsOutfitsStore(prefs);
+    if (supabaseConfigured()) {
+      try {
+        final SupabaseClient client = Supabase.instance.client;
+        final SupabaseSettingsStore syncedSettings =
+            SupabaseSettingsStore(client, settings);
+        final SupabaseXpHistoryStore syncedXp =
+            SupabaseXpHistoryStore(client, xpHistory);
+        final SupabaseStudyStatsStore syncedStats =
+            SupabaseStudyStatsStore(client, studyStats);
+        final SupabaseOutfitsStore syncedOutfits =
+            SupabaseOutfitsStore(client, outfits);
+        hydrations.addAll(<Future<void>>[
+          syncedSettings.hydrate(),
+          syncedXp.hydrate(),
+          syncedStats.hydrate(),
+          syncedOutfits.hydrate(),
+        ]);
+        settings = syncedSettings;
+        xpHistory = syncedXp;
+        studyStats = syncedStats;
+        outfits = syncedOutfits;
+      } catch (_) {
+        // backend unavailable: keep the plain device stores
+      }
+    }
+    overrides.add(settingsStoreProvider.overrideWithValue(settings));
+    overrides.add(xpHistoryStoreProvider.overrideWithValue(xpHistory));
+    overrides.add(studyStatsStoreProvider.overrideWithValue(studyStats));
+    overrides.add(outfitsStoreProvider.overrideWithValue(outfits));
   } catch (_) {
     // keep the in-memory settings default
   }
@@ -58,6 +87,16 @@ Future<void> main() async {
   final List<Override> content =
       await initContentOverrides(course: courseCode);
   final List<String> courses = await availableCourseCodes();
+
+  // U-lane hydration (S110): pull the durable user-state rows ONCE before the
+  // first frame so controllers boot on the merged truth — hard-capped so a
+  // slow network can never hold boot hostage (fail-open to device state).
+  if (hydrations.isNotEmpty) {
+    try {
+      await Future.wait(hydrations)
+          .timeout(const Duration(milliseconds: 2500));
+    } catch (_) {/* fail-open: device state boots, sync rides later saves */}
+  }
 
   runApp(RatelCourseRoot(
     baseOverrides: overrides,
