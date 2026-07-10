@@ -50,6 +50,9 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
   bool _starting = false;
   bool _muted = false;
   bool _ended = false;
+  // LV-1: transcription streams as incremental deltas; a phase change
+  // seals the open bubble so the next delta opens a fresh one.
+  bool _sealOpenTurn = false;
 
   @override
   void initState() {
@@ -81,6 +84,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
       _starting = true;
       _ended = false;
       _turns.clear();
+      _sealOpenTurn = false;
     });
     try {
       // The AudioContexts + mic prompt live inside start() — this call MUST
@@ -102,6 +106,9 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
       _phaseSub = session.phases.listen((LiveSessionPhase p) {
         if (!mounted) return;
         setState(() {
+          // A phase change is a turn boundary — seal the open transcript
+          // bubble so the next delta (even same speaker) starts fresh (LV-1).
+          if (p != _phase) _sealOpenTurn = true;
           _phase = p;
           if (p == LiveSessionPhase.closed) {
             _ended = true;
@@ -111,7 +118,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
       });
       _turnSub = session.transcript.listen((LiveTurn t) {
         if (!mounted) return;
-        setState(() => _turns.add(t));
+        setState(() => _appendTurn(t));
       });
     } on LiveSessionUnavailable catch (e) {
       if (mounted) {
@@ -128,6 +135,23 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
       }
     } finally {
       if (mounted) setState(() => _starting = false);
+    }
+  }
+
+  // LV-1: coalesce consecutive same-speaker deltas into ONE bubble; a new
+  // bubble starts on speaker change or after a phase boundary sealed the
+  // open turn. Gemini streams many partial fragments per turn — the old
+  // `_turns.add` produced a bubble per word.
+  void _appendTurn(LiveTurn t) {
+    if (!_sealOpenTurn &&
+        _turns.isNotEmpty &&
+        _turns.last.speaker == t.speaker) {
+      final LiveTurn prev = _turns.last;
+      _turns[_turns.length - 1] =
+          LiveTurn(speaker: prev.speaker, text: prev.text + t.text);
+    } else {
+      _turns.add(t);
+      _sealOpenTurn = false;
     }
   }
 
@@ -260,8 +284,10 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
         else if (!engine.isAvailable)
           _notEnabled(context)
         else ...<Widget>[
-          _phaseCard(context),
-          const SizedBox(height: RatelSpace.md),
+          if (!_ended) ...<Widget>[
+            _phaseCard(context),
+            const SizedBox(height: RatelSpace.md),
+          ],
           if (_session == null && !_ended)
             RatelButton(
               key: const ValueKey<String>('live-roleplay-start'),

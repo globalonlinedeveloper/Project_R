@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ratel/app/ratel_app.dart';
+import 'package:ratel/features/notifications/notifications_controller.dart';
 
 Future<void> _toProfile(WidgetTester tester) async {
   await tester.pumpWidget(const ProviderScope(child: RatelApp()));
@@ -52,6 +53,26 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Coming soon'), findsNothing);
     expect(find.text('No notifications yet'), findsOneWidget);
+  });
+
+  testWidgets('E-1: the notifications unread badge shows the real count',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(ProviderScope(
+      overrides: <Override>[
+        unreadNotificationsCountProvider.overrideWithValue(3),
+      ],
+      child: const RatelApp(),
+    ));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Profile'));
+    await tester.pumpAndSettle();
+    final Finder notif = find.text('Notifications');
+    await tester.scrollUntilVisible(notif, 150,
+        scrollable: find.byType(Scrollable).first);
+    await tester.pumpAndSettle();
+    // Before the fix the coral chip rendered the literal "\$count".
+    expect(find.text(r'$count'), findsNothing);
+    expect(find.text('3'), findsWidgets);
   });
 
   testWidgets('the Shop row opens the REAL streak-freeze spend sink',

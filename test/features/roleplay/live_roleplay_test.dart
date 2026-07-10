@@ -239,11 +239,46 @@ void main() {
       await tester.tap(find.byKey(const ValueKey<String>('live-roleplay-end')));
       await tester.pumpAndSettle();
       expect(session.closed, isTrue);
-      expect(find.textContaining('Scene ended'), findsWidgets);
+      expect(find.textContaining('Scene ended'), findsOneWidget,
+          reason: 'LV-2: exactly one ended card (phase card suppressed)');
       expect(find.byKey(const ValueKey<String>('live-roleplay-again')),
           findsOneWidget);
       // The transcript survives the scene end.
       expect(find.textContaining('You: Hello'), findsOneWidget);
+    });
+
+    testWidgets(
+        'LV-1: consecutive same-speaker deltas coalesce into one bubble; '
+        'a speaker change splits',
+        (WidgetTester tester) async {
+      final _FakeSession session = _FakeSession();
+      final _FakeEngine engine = _FakeEngine(session);
+      await _pump(tester, scenarioId: 'rp1', pro: true, engine: engine);
+      await tester
+          .tap(find.byKey(const ValueKey<String>('live-roleplay-start')));
+      await tester.pumpAndSettle();
+
+      // The learner's turn streams word-by-word (no phase change between the
+      // fragments) — they must MERGE into a single bubble, not one per word.
+      session.emitTurn(const LiveTurn(speaker: LiveSpeaker.you, text: 'Hai'));
+      session.emitTurn(const LiveTurn(speaker: LiveSpeaker.you, text: ' ini'));
+      session
+          .emitTurn(const LiveTurn(speaker: LiveSpeaker.you, text: ' ke mana'));
+      await tester.pumpAndSettle();
+      expect(find.textContaining('You: Hai ini ke mana'), findsOneWidget,
+          reason: 'fragments accumulate into one bubble');
+      expect(find.textContaining('You: Hai'), findsOneWidget,
+          reason: 'not one bubble per fragment');
+
+      // A different speaker opens a fresh bubble; its fragments also merge.
+      session
+          .emitTurn(const LiveTurn(speaker: LiveSpeaker.tutor, text: 'Hola'));
+      session
+          .emitTurn(const LiveTurn(speaker: LiveSpeaker.tutor, text: ' amigo'));
+      await tester.pumpAndSettle();
+      expect(find.textContaining('Ratel: Hola amigo'), findsOneWidget);
+      expect(find.textContaining('You: Hai ini ke mana'), findsOneWidget,
+          reason: 'the learner bubble is untouched by the tutor turn');
     });
 
     testWidgets('picker: free conversation + authored scenes; picking scaffolds',

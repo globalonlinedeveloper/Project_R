@@ -363,7 +363,7 @@ class ProfileScreen extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           RatelChip(
-              label: '\$count', tone: RatelChipTone.coral, filled: true),
+              label: '$count', tone: RatelChipTone.coral, filled: true),
           const SizedBox(width: RatelSpace.sm),
           Text('›',
               style: TextStyle(
