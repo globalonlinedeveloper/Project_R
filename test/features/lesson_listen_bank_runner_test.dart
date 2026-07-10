@@ -227,4 +227,54 @@ void main() {
     }
     expect(sawWordBank, isTrue);
   });
+
+  testWidgets(
+      'C-7: the word-bank Listen Check lives in the FIXED footer, not the '
+      'scroll body', (WidgetTester tester) async {
+    final _FakeAudioHandle fake = _FakeAudioHandle();
+    final ProviderContainer c = ProviderContainer(overrides: <Override>[
+      courseSpineProvider.overrideWithValue(_spineBank),
+      speechTtsProvider.overrideWithValue(_FakeAvailableSpeechTts(fake)),
+    ]);
+    addTearDown(c.dispose);
+    await _pump(tester, c);
+
+    expect(_isWordBank(), isTrue);
+    // Place a token so the footer Check is enabled.
+    await tester.tap(find.text('yo'));
+    await tester.pump();
+
+    // The Check is the runner's fixed footer button (paired with Skip), like
+    // every other exercise type -- NOT a second button inside the scroll body.
+    expect(find.text('Check'), findsOneWidget);
+    expect(find.text('Skip'), findsOneWidget);
+    expect(
+      find.descendant(
+        of: find.byType(SingleChildScrollView),
+        matching: find.text('Check'),
+      ),
+      findsNothing,
+    );
+  });
+
+  testWidgets('C-7: word-bank Listen renders without overflow @800',
+      (WidgetTester tester) async {
+    final _FakeAudioHandle fake = _FakeAudioHandle();
+    final ProviderContainer c = ProviderContainer(overrides: <Override>[
+      courseSpineProvider.overrideWithValue(_spineBank),
+      speechTtsProvider.overrideWithValue(_FakeAvailableSpeechTts(fake)),
+    ]);
+    addTearDown(c.dispose);
+    tester.view.physicalSize = const Size(800, 2600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await tester.pumpWidget(UncontrolledProviderScope(
+      container: c,
+      child: const MaterialApp(home: LessonRunnerScreen(lessonId: 'l1')),
+    ));
+    await tester.pumpAndSettle();
+    expect(_isWordBank(), isTrue);
+    expect(tester.takeException(), isNull);
+  });
 }

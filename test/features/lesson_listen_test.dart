@@ -4,12 +4,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ratel/features/lesson/renderers/listen_exercise.dart';
 import 'package:ratel/services/tts_relay/tts_relay.dart' show AudioHandle;
 
-// Widget tests for the Listen renderer (mirror lesson_match_test.dart). The
-// widget is PURE: audio is injected as an AudioHandle, so a FakeAudioHandle
-// backs every test — no audio plugin, no network. Proves the honest posture:
-// play/slow route to the handle, grading is ordered token-join, reduce-motion
-// schedules no pulse timer, no overflow at 360px, and a handle throw degrades
-// to a non-blocking hint while the bank + Check stay usable. [R-H7 / SPEC §2/§5]
+// Widget tests for the CONTROLLED Listen renderer (C-7). The widget is PURE
+// presentation: audio is injected as an AudioHandle and the picked-order state
+// lives in the PARENT (the runner's `_answer`), so there is NO Check button
+// here — the runner's FIXED footer Check grades (see
+// lesson_listen_bank_runner_test.dart). Proves: play/slow route to the handle,
+// bank/tray taps report via onPlace/onRemove, `checked` locks the bank,
+// reduce-motion schedules no pulse timer, no overflow at 360px, and a handle
+// throw degrades to a non-blocking hint while the bank stays usable.
+// [R-D5 / SPEC §2/§5]
 
 class FakeAudioHandle implements AudioHandle {
   FakeAudioHandle({this.throwOnPlay = false});
@@ -54,21 +57,25 @@ Future<void> _pump(
 }
 
 void main() {
-  testWidgets('renders play + slow + bank; taps route to the handle',
-      (WidgetTester tester) async {
+  testWidgets('renders play + slow + bank; no in-widget Check (C-7); taps route '
+      'to the handle', (WidgetTester tester) async {
     final FakeAudioHandle fake = FakeAudioHandle();
     await _pump(
       tester,
       ListenExercise(
         audio: fake,
         tokens: const <String>['yo', 'como', 'estas'],
-        target: const <String>['yo', 'como', 'estas'],
-        onGraded: (_) {},
+        picked: const <int>[],
+        checked: false,
+        onPlace: (_) {},
+        onRemove: (_) {},
       ),
     );
     expect(find.text('🔊'), findsOneWidget);
     expect(find.text('🐢'), findsOneWidget);
     expect(find.text('yo'), findsOneWidget);
+    // The Check lives in the runner's fixed footer now, not this widget.
+    expect(find.text('Check'), findsNothing);
 
     await tester.tap(find.text('🔊'));
     await tester.pumpAndSettle();
@@ -79,44 +86,62 @@ void main() {
     expect(fake.slowCount, 1);
   });
 
-  testWidgets('correct order -> onGraded(true)', (WidgetTester tester) async {
-    bool? result;
+  testWidgets('tapping a bank chip reports onPlace(index)',
+      (WidgetTester tester) async {
+    final List<int> placed = <int>[];
     await _pump(
       tester,
       ListenExercise(
         audio: FakeAudioHandle(),
         tokens: const <String>['alpha', 'bravo', 'charlie'],
-        target: const <String>['alpha', 'bravo', 'charlie'],
-        onGraded: (bool ok) => result = ok,
+        picked: const <int>[],
+        checked: false,
+        onPlace: placed.add,
+        onRemove: (_) {},
       ),
     );
-    for (final String w in const <String>['alpha', 'bravo', 'charlie']) {
-      await tester.tap(find.text(w));
-      await tester.pump();
-    }
-    await tester.tap(find.text('Check'));
-    await tester.pumpAndSettle();
-    expect(result, isTrue);
+    await tester.tap(find.text('bravo'));
+    await tester.pump();
+    expect(placed, <int>[1]);
   });
 
-  testWidgets('wrong order -> onGraded(false)', (WidgetTester tester) async {
-    bool? result;
+  testWidgets('tapping a tray chip reports onRemove(index)',
+      (WidgetTester tester) async {
+    final List<int> removed = <int>[];
     await _pump(
       tester,
       ListenExercise(
         audio: FakeAudioHandle(),
         tokens: const <String>['alpha', 'bravo', 'charlie'],
-        target: const <String>['alpha', 'bravo', 'charlie'],
-        onGraded: (bool ok) => result = ok,
+        picked: const <int>[0],
+        checked: false,
+        onPlace: (_) {},
+        onRemove: removed.add,
       ),
     );
-    for (final String w in const <String>['charlie', 'bravo', 'alpha']) {
-      await tester.tap(find.text(w));
-      await tester.pump();
-    }
-    await tester.tap(find.text('Check'));
-    await tester.pumpAndSettle();
-    expect(result, isFalse);
+    // The tray tile (index 0) renders before the bank; tap it to remove.
+    await tester.tap(find.text('alpha').first);
+    await tester.pump();
+    expect(removed, <int>[0]);
+  });
+
+  testWidgets('checked:true locks the bank (no onPlace)',
+      (WidgetTester tester) async {
+    final List<int> placed = <int>[];
+    await _pump(
+      tester,
+      ListenExercise(
+        audio: FakeAudioHandle(),
+        tokens: const <String>['alpha', 'bravo'],
+        picked: const <int>[],
+        checked: true,
+        onPlace: placed.add,
+        onRemove: (_) {},
+      ),
+    );
+    await tester.tap(find.text('alpha'));
+    await tester.pump();
+    expect(placed, isEmpty);
   });
 
   testWidgets('reduceMotion: tapping play schedules NO pending pulse timer',
@@ -127,8 +152,10 @@ void main() {
       ListenExercise(
         audio: fake,
         tokens: const <String>['a', 'b'],
-        target: const <String>['a', 'b'],
-        onGraded: (_) {},
+        picked: const <int>[],
+        checked: false,
+        onPlace: (_) {},
+        onRemove: (_) {},
         reduceMotion: true,
       ),
     );
@@ -144,37 +171,37 @@ void main() {
       ListenExercise(
         audio: FakeAudioHandle(),
         tokens: const <String>['uno', 'dos', 'tres', 'cuatro', 'cinco'],
-        target: const <String>['uno', 'dos', 'tres', 'cuatro', 'cinco'],
-        onGraded: (_) {},
+        picked: const <int>[],
+        checked: false,
+        onPlace: (_) {},
+        onRemove: (_) {},
       ),
       size: const Size(360, 1400),
     );
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('audio error is non-blocking: hint shows, bank + Check still work',
+  testWidgets('audio error is non-blocking: hint shows, bank still reports taps',
       (WidgetTester tester) async {
-    bool? result;
+    final List<int> placed = <int>[];
     final FakeAudioHandle fake = FakeAudioHandle(throwOnPlay: true);
     await _pump(
       tester,
       ListenExercise(
         audio: fake,
         tokens: const <String>['alpha', 'bravo'],
-        target: const <String>['alpha', 'bravo'],
-        onGraded: (bool ok) => result = ok,
+        picked: const <int>[],
+        checked: false,
+        onPlace: placed.add,
+        onRemove: (_) {},
       ),
     );
     await tester.tap(find.text('🔊'));
     await tester.pumpAndSettle();
     expect(find.textContaining('Audio unavailable'), findsOneWidget);
 
-    for (final String w in const <String>['alpha', 'bravo']) {
-      await tester.tap(find.text(w));
-      await tester.pump();
-    }
-    await tester.tap(find.text('Check'));
-    await tester.pumpAndSettle();
-    expect(result, isTrue);
+    await tester.tap(find.text('alpha'));
+    await tester.pump();
+    expect(placed, <int>[0]);
   });
 }

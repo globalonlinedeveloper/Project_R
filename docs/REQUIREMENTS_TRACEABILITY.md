@@ -84,7 +84,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-D2 | mcq (multiple choice) | Must | Stage2 | Built ✅ | — | — |
 | R-D3 | cloze (fill in the blank) | Must | Stage2 | Built ✅ | — | — |
 | R-D4 | translate (one type, with a direction setting) | Must | Stage2 | Built ✅ | — | — |
-| R-D5 | listen (listen and choose) | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `listen_audio_controls.dart`, `listen_exercise.dart`, `podcast_player_screen.dart` +7 |
+| R-D5 | listen (listen and choose) | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `listen_audio_controls.dart`, `listen_exercise.dart`, `podcast_player_screen.dart` +8 |
 | R-D6 | word_order (build the sentence by tapping words) | Must | Stage2 | Built ✅ | — | — |
 | R-D7 | match (matching pairs) | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `match_exercise.dart`, `lesson_match_test.dart` |
 | R-D8 | dictation (type exactly what you hear) | Must | Stage2 | Built ✅ | — | `lesson_runner_screen.dart`, `listen_audio_controls.dart`, `speech_tts.dart` |
@@ -151,7 +151,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-H4 | Advanced pronunciation scoring - REMOVED | Won't | Cut | Removed ✖ | — | — |
 | R-H5 | Grading written answers (later)<br>_Owner S28: Must priority; spec schedules the LLM-grading engine in R-O3 Wave C (later)._ | Must | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
 | R-H6 | Open-ended roleplay conversations (later)<br>_Owner S28: Must priority; spec schedules open-roleplay engine in R-O3 Wave C (later)._ | Must | Wave | Deferred ⏭ | 🔒 owner/$$ | `live_roleplay_scaffold.dart`, `live_roleplay_screen.dart`, `roleplay_screen.dart`, `ai_tutor_screen.dart` +2 |
-| R-H7 | Runtime key mgmt, relay, rate-limit & abuse | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `backend_wiring.dart`, `live_roleplay_screen.dart`, `ai_tutor_screen.dart`, `ai_relay.dart` +19 |
+| R-H7 | Runtime key mgmt, relay, rate-limit & abuse | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `backend_wiring.dart`, `live_roleplay_screen.dart`, `ai_tutor_screen.dart`, `ai_relay.dart` +18 |
 | R-H8 | Reusable scaffolds (Scenario + GradingRubric) | Should | Stage2 | Built ✅ | — | — |
 
 ## Part I — Gamification, economy & social

@@ -197,10 +197,10 @@ class _Item {
 
   /// Word-bank Listen (>=2 tokens): play [phrase] (browser TTS), then assemble
   /// the answer from [pool] (the target tokens + real single-word decoys drawn
-  /// from OTHER authored course phrases). Self-grades via ListenExercise's
-  /// onGraded (ordered token-join vs [target]) -- mirrors [_Item.match]. Still
-  /// [_ExType.listen]; a non-empty [target] distinguishes it from the typed
-  /// (single-token) Listen fallback above.
+  /// from OTHER authored course phrases). Graded (ordered token-join vs
+  /// [target]) by the runner's fixed footer Check -- like the Build word-bank
+  /// (C-7). Still [_ExType.listen]; a non-empty [target] distinguishes it from
+  /// the typed (single-token) Listen fallback above.
   const _Item.listenBank({
     required this.id,
     required this.skill,
@@ -854,7 +854,9 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         _ExType.pick => _picked != null,
         _ExType.wordBank => _answer.isNotEmpty,
         _ExType.typed => _typedCtrl.text.trim().isNotEmpty,
-        _ExType.listen => _item.target.isEmpty && _typedCtrl.text.trim().isNotEmpty,
+        _ExType.listen => _item.target.isEmpty
+            ? _typedCtrl.text.trim().isNotEmpty
+            : _answer.isNotEmpty,
         _ExType.write => _typedCtrl.text.trim().isNotEmpty,
         _ExType.match => false,
       };
@@ -867,7 +869,9 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
       _ExType.wordBank =>
         _seqEq(<String>[for (final int i in _answer) it.pool[i]], it.target),
       _ExType.typed => _gradeTyped(it, _typedCtrl.text),
-      _ExType.listen => _gradeTyped(it, _typedCtrl.text),
+      _ExType.listen => it.target.isEmpty
+          ? _gradeTyped(it, _typedCtrl.text)
+          : _seqEq(<String>[for (final int i in _answer) it.pool[i]], it.target),
       _ExType.write => _gradeWrite(it, _typedCtrl.text),
       _ExType.match => false,
     };
@@ -906,33 +910,6 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
   /// match's difficulty, correct iff every pair matched with zero mismatches
   /// (MatchExercise fires [onGraded] exactly once). Mirrors [_check].
   void _gradeMatch(_Item it, bool allCorrect) {
-    if (_checked) return;
-    final double thetaBefore = ref.read(learnerControllerProvider).theta;
-    ref.read(learnerControllerProvider.notifier).recordReview(
-          ReviewLogEntry(
-            itemId: it.id,
-            skill: it.skill,
-            grade: allCorrect ? FsrsRating.good : FsrsRating.again,
-            correct: allCorrect,
-            elapsedMs: 0,
-            thetaBefore: thetaBefore,
-            irtBAtReview: it.b,
-            source: 'lesson',
-          ),
-        );
-    _graded += 1;
-    _seen.add(it.id);
-    if (allCorrect) _correct += 1;
-    setState(() {
-      _checked = true;
-      _wasCorrect = allCorrect;
-    });
-  }
-
-  /// Fold a completed word-bank Listen into the REAL ability engine -- one
-  /// review at the item's difficulty, correct iff the assembled order matched
-  /// (ListenExercise fires [onGraded] once). Mirrors [_gradeMatch].
-  void _gradeListen(_Item it, bool allCorrect) {
     if (_checked) return;
     final double thetaBefore = ref.read(learnerControllerProvider).theta;
     ref.read(learnerControllerProvider.notifier).recordReview(
@@ -1413,16 +1390,22 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
       _audio = ref.read(speechTtsProvider).handleFor(it.phrase, lang: it.lang);
       _audioItemId = it.id;
     }
-    // Word-bank Listen (>=2 tokens): assemble what you hear (self-grading, no
-    // footer Check -- mirrors Match). Single-token -> type-what-you-hear.
+    // Word-bank Listen (>=2 tokens): assemble what you hear. C-7 — the picked
+    // order lives in the runner's `_answer` (like Build) so the FIXED footer
+    // Check (`_bottom`) grades it, instead of a Check buried in the scroll body.
+    // Single-token -> type-what-you-hear (below).
     if (it.target.isNotEmpty) {
       return ListenExercise(
         key: ValueKey<String>('lesson-listen-bank-${it.id}'),
         audio: _audio!,
         tokens: it.pool,
-        target: it.target,
+        picked: _answer,
+        checked: _checked,
+        onPlace: (int i) => setState(() {
+          if (!_answer.contains(i)) _answer.add(i);
+        }),
+        onRemove: (int i) => setState(() => _answer.remove(i)),
         reduceMotion: ref.watch(reduceMotionProvider),
-        onGraded: (bool ok) => _gradeListen(it, ok),
       );
     }
     return Column(
@@ -1594,10 +1577,10 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         ],
       );
     }
-    if (it.type == _ExType.match ||
-        (it.type == _ExType.listen && it.target.isNotEmpty)) {
-      // Match + word-bank Listen auto-grade via their own Check (onGraded);
-      // only Skip is offered here (mirrors the design's Match footer).
+    if (it.type == _ExType.match) {
+      // Match auto-grades via its own live pairing (no Check); only Skip here
+      // (mirrors the design's Match footer). Word-bank Listen (C-7) now uses
+      // the standard Skip+Check footer below, like the Build word-bank.
       return RatelButton(
         label: 'Skip',
         variant: RatelButtonVariant.secondary,
