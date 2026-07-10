@@ -92,7 +92,7 @@ class _NavItem extends StatelessWidget {
               ),
               decoration: BoxDecoration(
                 color: active
-                    ? RatelColors.teal.withValues(alpha: 0.14)
+                    ? RatelColors.teal.withValues(alpha: 0.16)
                     : Colors.transparent,
                 borderRadius: BorderRadius.circular(RatelRadius.pill),
               ),
@@ -101,6 +101,9 @@ class _NavItem extends StatelessWidget {
             const SizedBox(height: 2),
             Text(
               tab.label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: RatelFont.display,
                 fontSize: 10,

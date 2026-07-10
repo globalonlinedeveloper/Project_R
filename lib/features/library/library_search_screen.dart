@@ -170,7 +170,7 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
                 decoration: InputDecoration(
                   isDense: true,
                   border: InputBorder.none,
-                  hintText: 'Search lessons, words, pages…',
+                  hintText: 'Search lessons, words, stories…',
                   hintStyle: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.body,

@@ -126,17 +126,22 @@ class _AdventurePlayerScreenState extends ConsumerState<AdventurePlayerScreen> {
                     fontSize: RatelType.bodyLg,
                     color: context.palette.ink)),
             const SizedBox(height: RatelSpace.sm),
-            Row(children: <Widget>[
-              RatelButton(
-                  label: 'Start over',
-                  variant: RatelButtonVariant.secondary,
-                  expand: false,
-                  onPressed: () =>
-                      setState(() => _sceneId = s.scenes.first.sceneId)),
-              const SizedBox(width: RatelSpace.sm),
-              RatelButton(
-                  label: 'Done', expand: false, onPressed: () => context.pop()),
-            ]),
+            Wrap(
+              spacing: RatelSpace.sm,
+              runSpacing: RatelSpace.sm,
+              children: <Widget>[
+                RatelButton(
+                    label: 'Start over',
+                    variant: RatelButtonVariant.secondary,
+                    expand: false,
+                    onPressed: () =>
+                        setState(() => _sceneId = s.scenes.first.sceneId)),
+                RatelButton(
+                    label: 'Done',
+                    expand: false,
+                    onPressed: () => context.pop()),
+              ],
+            ),
           ],
         ),
       );

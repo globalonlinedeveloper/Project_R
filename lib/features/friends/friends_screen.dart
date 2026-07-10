@@ -216,6 +216,9 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
             ),
             const SizedBox(width: RatelSpace.xs),
             IconButton(
+              padding: EdgeInsets.zero,
+              visualDensity: VisualDensity.compact,
+              constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
               icon: Icon(RatelIcons.close, color: context.palette.muted),
               onPressed: () =>
                   ref.read(friendsControllerProvider.notifier).decline(r.userId),
@@ -237,6 +240,8 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
               const SizedBox(width: RatelSpace.xs),
             ],
             PopupMenuButton<String>(
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
               icon: Text('⋯',
                   style: TextStyle(
                       fontSize: 22, height: 1.0, color: context.palette.muted)),
