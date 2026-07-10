@@ -53,7 +53,11 @@ class WebLiveSessionEngine implements LiveSessionEngine {
 /// QA can tune the endpoint without hunting.
 const String _kLiveHost = 'generativelanguage.googleapis.com';
 const String _kLivePath =
-    '/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent';
+    // S114 QA fix: ephemeral tokens authenticate ONLY on the *Constrained*
+    // bidi method (SDK live.ts: auth_tokens/ => BidiGenerateContentConstrained
+    // + ?access_token=); plain BidiGenerateContent accepts API keys only
+    // ("unregistered callers" close 1008 otherwise — sandbox-probed).
+    '/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContentConstrained';
 
 class _WebLiveSession implements LiveSession {
   final LiveSessionStateMachine _machine = LiveSessionStateMachine();
