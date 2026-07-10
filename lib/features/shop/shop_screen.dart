@@ -116,12 +116,11 @@ class ShopScreen extends ConsumerWidget {
                           label: 'Owned ${snap.streakFreezes}/$max',
                           tone: RatelChipTone.teal),
                       const Spacer(),
-                      Text('$cost 💎',
-                          style: TextStyle(
-                              fontFamily: RatelFont.display,
-                              fontWeight: RatelType.extraBold,
-                              fontSize: RatelType.body,
-                              color: context.palette.ink)),
+                      RatelChip(
+                          label: '$cost',
+                          leadingEmoji: '💎',
+                          tone: RatelChipTone.green,
+                          filled: true),
                     ],
                   ),
                   const SizedBox(height: RatelSpace.md),
@@ -359,8 +358,8 @@ class ShopScreen extends ConsumerWidget {
     } else {
       trailing = _pill(
         context,
-        '${o.cost} 💎',
-        canAfford ? RatelColors.teal : context.palette.cream3,
+        '💎 ${o.cost}',
+        canAfford ? RatelColors.green : context.palette.cream3,
         canAfford ? RatelColors.onColor : context.palette.muted,
         canAfford
             ? () {

@@ -51,7 +51,12 @@ class ProfileScreen extends ConsumerWidget {
             const SizedBox(height: RatelSpace.cardGap),
             _progressBanner(context, level, snap, settings),
             const SizedBox(height: RatelSpace.lg),
-            const RatelSectionHeader(label: 'Achievements'),
+            Text('Achievements',
+                style: TextStyle(
+                    fontFamily: RatelFont.display,
+                    fontWeight: RatelType.extraBold,
+                    fontSize: RatelType.cardTitle,
+                    color: context.palette.ink)),
             const SizedBox(height: RatelSpace.xs),
             Text(
               '$unlockedAch of ${achievements.length} unlocked · real progress',
@@ -63,13 +68,11 @@ class ProfileScreen extends ConsumerWidget {
             const SizedBox(height: RatelSpace.sm),
             _achievementsGrid(context, achievements),
             const SizedBox(height: RatelSpace.lg),
-            const RatelSectionHeader(label: 'Account'),
-            const SizedBox(height: RatelSpace.sm),
             RatelListRow(
-                leadingEmoji: '⚙️',
-                leadingColor: context.palette.muted,
-                title: 'Settings',
-                onTap: () => context.push('/settings')),
+                leadingEmoji: '👥',
+                leadingColor: RatelColors.purple,
+                title: 'Friends',
+                onTap: () => context.push('/friends')),
             const SizedBox(height: RatelSpace.sm),
             RatelListRow(
                 leadingEmoji: '💎',
@@ -87,10 +90,10 @@ class ProfileScreen extends ConsumerWidget {
                 onTap: () => context.push('/notifications')),
             const SizedBox(height: RatelSpace.sm),
             RatelListRow(
-                leadingEmoji: '👥',
-                leadingColor: RatelColors.purple,
-                title: 'Friends',
-                onTap: () => context.push('/friends')),
+                leadingEmoji: '⚙️',
+                leadingColor: context.palette.muted,
+                title: 'Settings',
+                onTap: () => context.push('/settings')),
             const SizedBox(height: RatelSpace.lg),
             RatelButton(
                 label: 'See onboarding flow ↗',
@@ -120,8 +123,6 @@ class ProfileScreen extends ConsumerWidget {
     final String name = displayName.trim().isNotEmpty
         ? displayName.trim()
         : (authed ? 'Learner' : 'Guest');
-    final String sub =
-        authed ? '🇪🇸 Spanish · Level $level' : 'Not signed in · 🇪🇸 Spanish';
     return RatelCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,18 +150,26 @@ class ProfileScreen extends ConsumerWidget {
                             fontWeight: RatelType.extraBold,
                             fontSize: RatelType.screenTitle,
                             color: context.palette.ink)),
-                    const SizedBox(height: 2),
-                    Text(sub,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontFamily: RatelFont.body,
-                            fontSize: RatelType.small,
-                            color: context.palette.muted)),
+                    if (!authed) ...<Widget>[
+                      const SizedBox(height: 2),
+                      Text('Not signed in',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontFamily: RatelFont.body,
+                              fontSize: RatelType.small,
+                              color: context.palette.muted)),
+                    ],
+                    const SizedBox(height: RatelSpace.xs),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: RatelChip(
+                          label: '🇪🇸 Spanish · Level $level',
+                          tone: RatelChipTone.teal),
+                    ),
                   ],
                 ),
               ),
-              RatelChip.level(level),
             ],
           ),
           if (!authed) ...<Widget>[

@@ -18,8 +18,9 @@ void main() {
     expect(find.byKey(const ValueKey<String>('tab-profile')), findsOneWidget);
     // Honest identity: a fresh install is a guest, NOT the mockup's "Alex Rivera".
     expect(find.text('Guest'), findsOneWidget);
-    // Real cold-start CEFR level pill (A1, not the mockup's A2).
-    expect(find.text('A1'), findsWidgets);
+    // Real cold-start CEFR level pill — now "🇪🇸 Spanish · Level A1" (E-2), so the
+    // real level lives inside the pill text rather than as a bare "A1" chip.
+    expect(find.textContaining('A1'), findsWidgets);
     // Real engine-derived stat labels.
     expect(find.text('Day streak'), findsOneWidget);
     expect(find.text('Saved words'), findsOneWidget);

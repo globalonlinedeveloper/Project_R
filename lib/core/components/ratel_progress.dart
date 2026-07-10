@@ -73,7 +73,14 @@ class RatelProgressRing extends StatelessWidget {
           color: color,
           track: context.palette.border,
         ),
-        child: center == null ? null : Center(child: center),
+        child: center == null
+            ? null
+            : Center(
+                child: Padding(
+                  padding: EdgeInsets.all(stroke),
+                  child: FittedBox(fit: BoxFit.scaleDown, child: center),
+                ),
+              ),
       ),
     );
   }

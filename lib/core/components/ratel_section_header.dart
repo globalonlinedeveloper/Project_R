@@ -19,7 +19,8 @@ class RatelSectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextStyle labelStyle =
-        Theme.of(context).textTheme.labelSmall ?? const TextStyle();
+        (Theme.of(context).textTheme.labelSmall ?? const TextStyle())
+            .copyWith(fontWeight: RatelType.semiBold, letterSpacing: 1.3);
     return Row(
       children: <Widget>[
         Expanded(
