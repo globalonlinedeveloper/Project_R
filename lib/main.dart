@@ -13,6 +13,7 @@ import 'package:ratel/services/progress/study_stats_store.dart';
 import 'package:ratel/services/economy/outfits_store.dart';
 import 'package:ratel/services/economy/prefs_outfits_store.dart';
 
+import 'app/auth_gate.dart';
 import 'app/backend_wiring.dart';
 import 'app/content_wiring.dart';
 import 'app/course_switch.dart';
@@ -24,57 +25,106 @@ import 'features/settings/settings_controller.dart';
 /// carries the publishable config (else in-memory / guest); (2) on-device
 /// settings persistence (else in-memory settings); (3) the authored course
 /// spine projected from the bundled content batch (else an honest empty path).
+///
+/// AUTH-1 (S112): the first launch of a configured build shows the Welcome
+/// gate (Register / Log in / Continue as guest) — the anonymous session now
+/// starts on the persisted guest CHOICE instead of unconditionally at boot;
+/// returning users (live session or persisted choice) skip straight in.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final List<Override> overrides = <Override>[];
 
+  // (0) Device prefs first (AUTH-1): the persisted first-launch choice decides
+  // whether the anonymous session may auto-resume (returning guest) and
+  // whether the Welcome gate must show (first configured launch).
+  SharedPreferences? prefs;
+  try {
+    prefs = await SharedPreferences.getInstance();
+  } catch (_) {
+    // keep null: every consumer below falls back to its in-memory default
+  }
+  String? authChoice;
+  try {
+    authChoice = prefs?.getString(kAuthChoicePrefKey);
+  } catch (_) {}
+
   // (1) Backend seams: live Supabase when configured, else local defaults.
-  overrides.addAll(await initBackendOverrides());
+  overrides.addAll(await initBackendOverrides(
+      guestChosen: authChoice == kAuthChoiceGuest));
+
+  // (1b) AUTH-1 Welcome gate: compute the boot decision + wire persistence.
+  bool welcomeGate = false;
+  if (supabaseConfigured()) {
+    bool hasSession = false;
+    try {
+      hasSession = Supabase.instance.client.auth.currentSession != null;
+    } catch (_) {
+      // Backend init failed above -> no session; the gate still only shows on
+      // configured builds and every entry action stays best-effort.
+    }
+    welcomeGate = shouldShowWelcomeGate(
+      configured: true,
+      hasSession: hasSession,
+      choiceMade: authChoice != null,
+    );
+  }
+  overrides.add(welcomeGateNeededProvider.overrideWith((ref) => welcomeGate));
+  final SharedPreferences? choicePrefs = prefs;
+  if (choicePrefs != null) {
+    overrides.add(
+        authChoicePersisterProvider.overrideWithValue((String choice) async {
+      try {
+        await choicePrefs.setString(kAuthChoicePrefKey, choice);
+      } catch (_) {
+        // best-effort: worst case the gate re-shows next launch
+      }
+    }));
+  }
 
   // (2) On-device settings persistence (best-effort) — wrapped by the U-lane
   // cross-device sync decorators when the backend is configured (S110): the
   // device store stays the instant boot cache, every save write-throughs to
   // the own-row Supabase tables, and hydration below pulls + merges the
   // durable rows. Guests and keyless boots stay byte-identical to plain prefs.
-  SharedPreferences? prefs;
   final List<Future<void>> hydrations = <Future<void>>[];
-  try {
-    prefs = await SharedPreferences.getInstance();
-    SettingsStore settings = PrefsSettingsStore(prefs);
-    XpHistoryStore xpHistory = PrefsXpHistoryStore(prefs);
-    StudyStatsStore studyStats = PrefsStudyStatsStore(prefs);
-    OutfitsStore outfits = PrefsOutfitsStore(prefs);
-    if (supabaseConfigured()) {
-      try {
-        final SupabaseClient client = Supabase.instance.client;
-        final SupabaseSettingsStore syncedSettings =
-            SupabaseSettingsStore(client, settings);
-        final SupabaseXpHistoryStore syncedXp =
-            SupabaseXpHistoryStore(client, xpHistory);
-        final SupabaseStudyStatsStore syncedStats =
-            SupabaseStudyStatsStore(client, studyStats);
-        final SupabaseOutfitsStore syncedOutfits =
-            SupabaseOutfitsStore(client, outfits);
-        hydrations.addAll(<Future<void>>[
-          syncedSettings.hydrate(),
-          syncedXp.hydrate(),
-          syncedStats.hydrate(),
-          syncedOutfits.hydrate(),
-        ]);
-        settings = syncedSettings;
-        xpHistory = syncedXp;
-        studyStats = syncedStats;
-        outfits = syncedOutfits;
-      } catch (_) {
-        // backend unavailable: keep the plain device stores
+  if (prefs != null) {
+    try {
+      SettingsStore settings = PrefsSettingsStore(prefs);
+      XpHistoryStore xpHistory = PrefsXpHistoryStore(prefs);
+      StudyStatsStore studyStats = PrefsStudyStatsStore(prefs);
+      OutfitsStore outfits = PrefsOutfitsStore(prefs);
+      if (supabaseConfigured()) {
+        try {
+          final SupabaseClient client = Supabase.instance.client;
+          final SupabaseSettingsStore syncedSettings =
+              SupabaseSettingsStore(client, settings);
+          final SupabaseXpHistoryStore syncedXp =
+              SupabaseXpHistoryStore(client, xpHistory);
+          final SupabaseStudyStatsStore syncedStats =
+              SupabaseStudyStatsStore(client, studyStats);
+          final SupabaseOutfitsStore syncedOutfits =
+              SupabaseOutfitsStore(client, outfits);
+          hydrations.addAll(<Future<void>>[
+            syncedSettings.hydrate(),
+            syncedXp.hydrate(),
+            syncedStats.hydrate(),
+            syncedOutfits.hydrate(),
+          ]);
+          settings = syncedSettings;
+          xpHistory = syncedXp;
+          studyStats = syncedStats;
+          outfits = syncedOutfits;
+        } catch (_) {
+          // backend unavailable: keep the plain device stores
+        }
       }
+      overrides.add(settingsStoreProvider.overrideWithValue(settings));
+      overrides.add(xpHistoryStoreProvider.overrideWithValue(xpHistory));
+      overrides.add(studyStatsStoreProvider.overrideWithValue(studyStats));
+      overrides.add(outfitsStoreProvider.overrideWithValue(outfits));
+    } catch (_) {
+      // keep the in-memory settings default
     }
-    overrides.add(settingsStoreProvider.overrideWithValue(settings));
-    overrides.add(xpHistoryStoreProvider.overrideWithValue(xpHistory));
-    overrides.add(studyStatsStoreProvider.overrideWithValue(studyStats));
-    overrides.add(outfitsStoreProvider.overrideWithValue(outfits));
-  } catch (_) {
-    // keep the in-memory settings default
   }
 
   // (3) Content-driven learning path: project the SELECTED bundled course

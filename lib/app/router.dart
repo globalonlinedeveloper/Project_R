@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ratel/core/core.dart';
+import 'package:ratel/app/auth_gate.dart';
 import 'package:ratel/app/navigation_focus.dart';
 import 'package:ratel/features/adventures/adventures_screen.dart';
 import 'package:ratel/features/adventures/adventure_player_screen.dart';
@@ -10,6 +11,7 @@ import 'package:ratel/features/roleplay/roleplay_screen.dart';
 import 'package:ratel/features/roleplay/roleplay_player_screen.dart';
 import 'package:ratel/features/auth/login_screen.dart';
 import 'package:ratel/features/auth/signup_screen.dart';
+import 'package:ratel/features/auth/welcome_screen.dart';
 import 'package:ratel/features/common/coming_soon_screen.dart';
 import 'package:ratel/features/friends/friends_screen.dart';
 import 'package:ratel/features/home/home_screen.dart';
@@ -56,9 +58,22 @@ const List<ComingSoonRoute> kComingSoonRoutes = <ComingSoonRoute>[];
 /// keeps its own navigation state in an IndexedStack so tab switches preserve
 /// scroll position. Sub-screens are TOP-LEVEL routes pushed over the shell
 /// (full-screen, own back arrow). Provided per-scope (below) for test isolation.
-GoRouter buildRouter() {
+GoRouter buildRouter({
+  bool Function()? welcomeGateNeeded,
+  VoidCallback? onSessionEntered,
+}) {
   return GoRouter(
     initialLocation: '/home',
+    // AUTH-1 (S112): first-launch Welcome gate. While the gate is needed,
+    // every location except the gate + the account-entry screens redirects to
+    // /welcome; both hooks default null/off so pre-gate tests (and keyless
+    // builds) stay byte-identical.
+    redirect: (BuildContext context, GoRouterState state) {
+      if (!(welcomeGateNeeded?.call() ?? false)) return null;
+      final String loc = state.matchedLocation;
+      const Set<String> open = <String>{'/welcome', '/login', '/signup'};
+      return open.contains(loc) ? null : '/welcome';
+    },
     routes: <RouteBase>[
       StatefulShellRoute.indexedStack(
         builder: (
@@ -226,16 +241,30 @@ GoRouter buildRouter() {
             const PracticeHubScreen(),
       ),
       GoRoute(
+        path: '/welcome',
+        builder: (BuildContext context, GoRouterState state) => WelcomeScreen(
+          onRegister: () => context.push('/signup'),
+          onLogin: () => context.push('/login'),
+          onEntered: () => context.go('/home'),
+        ),
+      ),
+      GoRoute(
         path: '/login',
         builder: (BuildContext context, GoRouterState state) => LoginScreen(
-          onAuthenticated: () => context.go('/home'),
+          onAuthenticated: () {
+            onSessionEntered?.call();
+            context.go('/home');
+          },
           onSignUpInstead: () => context.pushReplacement('/signup'),
         ),
       ),
       GoRoute(
         path: '/signup',
         builder: (BuildContext context, GoRouterState state) => SignupScreen(
-          onAuthenticated: () => context.go('/home'),
+          onAuthenticated: () {
+            onSessionEntered?.call();
+            context.go('/home');
+          },
           onSignInInstead: () => context.pushReplacement('/login'),
         ),
       ),
@@ -250,7 +279,16 @@ GoRouter buildRouter() {
 }
 
 /// One [GoRouter] per provider scope (test isolation).
-final routerProvider = Provider<GoRouter>((ref) => buildRouter());
+final routerProvider = Provider<GoRouter>((ref) => buildRouter(
+      welcomeGateNeeded: () => ref.read(welcomeGateNeededProvider),
+      onSessionEntered: () {
+        // A session was established from the gate: drop it now and persist
+        // the choice (best-effort) so later signed-out boots skip the gate
+        // too (Settings keeps its sign-in entry).
+        ref.read(welcomeGateNeededProvider.notifier).state = false;
+        ref.read(authChoicePersisterProvider)(kAuthChoiceAccount).ignore();
+      },
+    ));
 
 /// The persistent shell: the tab content + the 5-tab [RatelBottomNav]. Tapping
 /// the active tab re-roots its branch (Duolingo-style).

@@ -28,6 +28,8 @@ import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/social/friends_service.dart';
 import 'package:ratel/services/identity/supabase_identity.dart';
 
+import 'auth_gate.dart';
+
 /// Compile-time, client-SAFE Supabase config, injected at build via
 /// `--dart-define` (the publishable key is public by design; the service-role
 /// key is NEVER in client code — see [ServiceRoleKeyContract]). Both default to
@@ -40,6 +42,8 @@ const String kSupabasePublishableKey =
 /// launch so durable persistence works BEFORE login. Two-step go-live (§2):
 /// (1) enable Anonymous Sign-Ins in Supabase -> Auth settings; (2) build with
 /// `--dart-define=RATEL_ANON=true`. Default false => byte-identical guest boot.
+/// AUTH-1 (S112): the session now starts on the persisted guest CHOICE
+/// (Welcome gate / returning guest) — no longer unconditionally at launch.
 const bool kEnableAnonSession = bool.fromEnvironment('RATEL_ANON');
 
 /// Opt-in (build-dark until go-live): route the AI tutor / adventures through
@@ -107,14 +111,19 @@ bool supabaseConfigured({
     url.isNotEmpty && publishableKey.isNotEmpty;
 
 /// Pure gate for booting an anonymous session: only when the backend is
-/// configured, anon boot is enabled, and there is no existing session. Kept
-/// pure + injectable so the policy is unit-testable without a live client.
+/// configured, anon boot is enabled, there is no existing session, AND the
+/// user has previously chosen "Continue as guest" (AUTH-1, S112 — the anon
+/// session is an explicit choice now: the first launch shows the Welcome gate
+/// and [guestEntryProvider] runs the sign-in; later boots auto-resume it via
+/// the persisted choice). Kept pure + injectable so the policy stays
+/// unit-testable without a live client.
 bool shouldBootAnonSession({
   required bool configured,
   required bool enabled,
   required bool hasSession,
+  required bool guestChosen,
 }) =>
-    configured && enabled && !hasSession;
+    configured && enabled && !hasSession && guestChosen;
 
 /// Pure (no network): build the Riverpod overrides that plug an already-created
 /// [client] behind the data-access + identity seams. `main` supplies the live
@@ -159,7 +168,7 @@ List<Override> backendOverridesForClient(SupabaseClient client) => <Override>[
 /// Best-effort `main`-side wiring: when [supabaseConfigured], initialise the
 /// Supabase singleton and return the seam overrides; otherwise — or on ANY
 /// failure — return none, so the app keeps the local defaults and always boots.
-Future<List<Override>> initBackendOverrides() async {
+Future<List<Override>> initBackendOverrides({bool guestChosen = false}) async {
   if (!supabaseConfigured()) return const <Override>[];
   try {
     await Supabase.initialize(
@@ -173,6 +182,7 @@ Future<List<Override>> initBackendOverrides() async {
       configured: true,
       enabled: kEnableAnonSession,
       hasSession: client.auth.currentSession != null,
+      guestChosen: guestChosen,
     )) {
       try {
         await client.auth.signInAnonymously();
@@ -180,7 +190,22 @@ Future<List<Override>> initBackendOverrides() async {
         // Anonymous sign-in disabled in the project (or offline) -> stay guest.
       }
     }
-    return backendOverridesForClient(client);
+    return <Override>[
+      ...backendOverridesForClient(client),
+      // AUTH-1 (S112): the explicit "Continue as guest" action — the SAME
+      // anonymous-session boot pre-gate builds ran automatically, now fired
+      // only from the Welcome screen. Best-effort: offline / anon-disabled
+      // stays a local guest, never an error surfaced to the gate.
+      if (kEnableAnonSession)
+        guestEntryProvider.overrideWithValue(() async {
+          if (client.auth.currentSession != null) return;
+          try {
+            await client.auth.signInAnonymously();
+          } catch (_) {
+            // Anonymous sign-in disabled (or offline) -> stay a local guest.
+          }
+        }),
+    ];
   } catch (_) {
     return const <Override>[]; // never block boot on a backend init failure
   }

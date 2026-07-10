@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'package:ratel/app/auth_gate.dart';
 import 'package:ratel/app/backend_wiring.dart';
 import 'package:ratel/services/data_access/data_access.dart';
 import 'package:ratel/services/data_access/supabase_friends_store.dart';
@@ -77,28 +78,80 @@ void main() {
   });
 
   group('shouldBootAnonSession gate (§2 pre-login durable persistence)', () {
-    test('boots only when configured AND enabled AND no existing session', () {
+    test(
+        'auto-resumes only when configured AND enabled AND no session '
+        'AND the guest choice was persisted (AUTH-1)', () {
       expect(
           shouldBootAnonSession(
-              configured: true, enabled: true, hasSession: false),
+              configured: true,
+              enabled: true,
+              hasSession: false,
+              guestChosen: true),
           isTrue);
     });
     test('stays guest when anon boot is disabled (default build-dark)', () {
       expect(
           shouldBootAnonSession(
-              configured: true, enabled: false, hasSession: false),
+              configured: true,
+              enabled: false,
+              hasSession: false,
+              guestChosen: true),
           isFalse);
     });
     test('stays guest when the backend is not configured', () {
       expect(
           shouldBootAnonSession(
-              configured: false, enabled: true, hasSession: false),
+              configured: false,
+              enabled: true,
+              hasSession: false,
+              guestChosen: true),
           isFalse);
     });
     test('never double-boots over an existing session', () {
       expect(
           shouldBootAnonSession(
-              configured: true, enabled: true, hasSession: true),
+              configured: true,
+              enabled: true,
+              hasSession: true,
+              guestChosen: true),
+          isFalse);
+    });
+    test(
+        'AUTH-1: never auto-boots before the user chose "Continue as guest" '
+        '(first launch shows the Welcome gate instead)', () {
+      expect(
+          shouldBootAnonSession(
+              configured: true,
+              enabled: true,
+              hasSession: false,
+              guestChosen: false),
+          isFalse);
+    });
+  });
+
+  group('shouldShowWelcomeGate policy (AUTH-1, S112)', () {
+    test('first configured launch (no session, no choice) shows the gate', () {
+      expect(
+          shouldShowWelcomeGate(
+              configured: true, hasSession: false, choiceMade: false),
+          isTrue);
+    });
+    test('keyless/local builds never gate (tests stay byte-identical)', () {
+      expect(
+          shouldShowWelcomeGate(
+              configured: false, hasSession: false, choiceMade: false),
+          isFalse);
+    });
+    test('a live session skips the gate (returning user)', () {
+      expect(
+          shouldShowWelcomeGate(
+              configured: true, hasSession: true, choiceMade: false),
+          isFalse);
+    });
+    test('a persisted choice skips the gate (returning guest)', () {
+      expect(
+          shouldShowWelcomeGate(
+              configured: true, hasSession: false, choiceMade: true),
           isFalse);
     });
   });
