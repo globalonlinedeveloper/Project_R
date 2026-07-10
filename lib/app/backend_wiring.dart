@@ -27,6 +27,7 @@ import 'package:ratel/services/data_access/supabase_friends_service.dart';
 import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/social/friends_service.dart';
 import 'package:ratel/services/identity/supabase_identity.dart';
+import 'package:ratel/services/live_session/live_session.dart';
 
 import 'auth_gate.dart';
 
@@ -102,6 +103,46 @@ HttpTransport supabaseTtsTransport(SupabaseClient client) =>
       );
     };
 
+/// L-2 (S112): mint a live-session ephemeral token via the `live-token` edge
+/// function (deployed + E2E-verified at L-1). The Functions client attaches
+/// the user JWT; the SERVER enforces the Pro entitlement + voice budgets and
+/// LOCKS the model + system prompt into the single-use token
+/// (liveConnectConstraints) — no model key, model name, or prompt ships in
+/// client code. 403/429 surface as honest [LiveSessionUnavailable] reasons.
+LiveTokenFetcher supabaseLiveTokenFetcher(SupabaseClient client) => () async {
+      try {
+        final FunctionResponse resp =
+            await client.functions.invoke('live-token');
+        final dynamic data = resp.data;
+        final String? token = data is Map
+            ? (data['token'] ?? data['name']) as String?
+            : null;
+        if (token == null || token.isEmpty) {
+          throw const LiveSessionUnavailable(
+              'live AI is unavailable right now.');
+        }
+        return LiveTokenGrant(
+          token: token,
+          wssHost: data is Map ? data['wss_host'] as String? : null,
+        );
+      } on LiveSessionUnavailable {
+        rethrow;
+      } on FunctionException catch (e) {
+        final dynamic det = e.details;
+        final String reason = det is Map && det['error'] is String
+            ? det['error'] as String
+            : (e.status == 403
+                ? 'Live AI is part of RATEL PRO.'
+                : e.status == 429
+                    ? "You've used this month's live minutes."
+                    : 'live AI is unavailable right now.');
+        throw LiveSessionUnavailable(reason);
+      } catch (_) {
+        throw const LiveSessionUnavailable(
+            'live AI is unavailable right now.');
+      }
+    };
+
 /// The ONLY gate that turns on the Supabase-backed seams: both the URL and the
 /// publishable key must be present. Pure + injectable so it is unit-testable.
 bool supabaseConfigured({
@@ -161,6 +202,15 @@ List<Override> backendOverridesForClient(SupabaseClient client) => <Override>[
               transport: supabaseTtsTransport(client),
               url: ttsRelayUrl(kSupabaseUrl),
             ),
+          ),
+        ),
+      // L-2 (S112): DORMANT live-AI seam — flag off => this override is absent
+      // and the engine stays the honest Unavailable default (byte-identical
+      // build; the Tutor two-signal gate stays false). Flip = L-5.
+      if (kEnableLiveAi)
+        liveSessionEngineProvider.overrideWithValue(
+          createLiveSessionEngine(
+            tokenFetcher: supabaseLiveTokenFetcher(client),
           ),
         ),
     ];
