@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/app/auth_gate.dart';
 import 'package:ratel/app/navigation_focus.dart';
+import 'package:ratel/services/billing/billing.dart';
 import 'package:ratel/features/adventures/adventures_screen.dart';
 import 'package:ratel/features/adventures/adventure_player_screen.dart';
 import 'package:ratel/features/roleplay/roleplay_screen.dart';
@@ -295,6 +296,9 @@ final routerProvider = Provider<GoRouter>((ref) => buildRouter(
         // too (Settings keeps its sign-in entry).
         ref.read(welcomeGateNeededProvider.notifier).state = false;
         ref.read(authChoicePersisterProvider)(kAuthChoiceAccount).ignore();
+        // L-5b (S114): pull the fresh pro flag so PRO surfaces unlock
+        // immediately after login (no reboot needed). Best-effort.
+        ref.read(proStatusRefresherProvider)().ignore();
       },
     ));
 

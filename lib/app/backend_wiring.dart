@@ -28,6 +28,7 @@ import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/social/friends_service.dart';
 import 'package:ratel/services/identity/supabase_identity.dart';
 import 'package:ratel/services/live_session/live_session.dart';
+import 'package:ratel/services/billing/billing.dart';
 
 import 'auth_gate.dart';
 
@@ -170,6 +171,25 @@ bool shouldBootAnonSession({
 /// Pure (no network): build the Riverpod overrides that plug an already-created
 /// [client] behind the data-access + identity seams. `main` supplies the live
 /// client via [initBackendOverrides]; tests can supply any client.
+/// L-5b (S114): read the signed-in user's own `profiles.is_pro` row (own-row
+/// RLS + the S114 SELECT grant; anon-guest rows are trigger-created with
+/// is_pro=false). ANY failure => false — the client flag only drives honest UI
+/// gating; real spend stays fail-closed server-side at the token mint.
+Future<bool> fetchIsPro(SupabaseClient client) async {
+  try {
+    final String? uid = client.auth.currentUser?.id;
+    if (uid == null) return false;
+    final Map<String, dynamic>? row = await client
+        .from('profiles')
+        .select('is_pro')
+        .eq('id', uid)
+        .maybeSingle();
+    return row?['is_pro'] == true;
+  } catch (_) {
+    return false;
+  }
+}
+
 List<Override> backendOverridesForClient(SupabaseClient client) => <Override>[
       learnerStateStoreProvider
           .overrideWithValue(SupabaseLearnerStateStore.fromClient(client)),
@@ -187,6 +207,14 @@ List<Override> backendOverridesForClient(SupabaseClient client) => <Override>[
           .overrideWithValue(SupabaseSavedWordsStore.fromClient(client)),
       authServiceProvider
           .overrideWithValue(SupabaseAuthService.fromClient(client)),
+      // L-5b (S114): PRO entitlements follow profiles.is_pro — reactive via
+      // proStatusProvider (boot-seeded in main; refreshed on session entry).
+      entitlementsProvider.overrideWith(
+          (ref) => StaticEntitlements(isPro: ref.watch(proStatusProvider))),
+      proStatusRefresherProvider.overrideWith((ref) => () async {
+        final bool isPro = await fetchIsPro(client);
+        ref.read(proStatusProvider.notifier).state = isPro;
+      }),
       if (kEnableAiRelay)
         aiRelayProvider.overrideWithValue(
           RequestSizeLimitedAiRelay(

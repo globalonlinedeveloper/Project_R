@@ -25,3 +25,22 @@ class FreeTierEntitlements implements Entitlements {
 
 final entitlementsProvider =
     Provider<Entitlements>((ref) => const FreeTierEntitlements());
+
+/// L-5b (S114): a fixed entitlements snapshot. The wired override in
+/// `backend_wiring.dart` rebuilds one from the reactive [proStatusProvider]
+/// (seeded at boot from the own `profiles.is_pro` row, refreshed on session
+/// entry). Real spend stays fail-closed SERVER-side at the `live-token` mint.
+class StaticEntitlements implements Entitlements {
+  const StaticEntitlements({required this.isPro});
+  @override
+  final bool isPro;
+}
+
+/// Reactive pro flag behind the wired [entitlementsProvider]. Default false =>
+/// free tier; keyless/guest builds never touch it (byte-identical defaults).
+final proStatusProvider = StateProvider<bool>((_) => false);
+
+/// Re-reads the pro flag from the backend — fired on session entry (login /
+/// signup) so PRO unlocks without a reboot. No-op by default.
+final proStatusRefresherProvider =
+    Provider<Future<void> Function()>((_) => () async {});

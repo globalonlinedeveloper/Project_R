@@ -12,6 +12,7 @@ import 'package:ratel/services/progress/prefs_study_stats_store.dart';
 import 'package:ratel/services/progress/study_stats_store.dart';
 import 'package:ratel/services/economy/outfits_store.dart';
 import 'package:ratel/services/economy/prefs_outfits_store.dart';
+import 'package:ratel/services/billing/billing.dart';
 
 import 'app/auth_gate.dart';
 import 'app/backend_wiring.dart';
@@ -138,6 +139,16 @@ Future<void> main() async {
       await initContentOverrides(course: courseCode);
   final List<String> courses = await availableCourseCodes();
 
+  // (3b) L-5b entitlements seed (S114): read own profiles.is_pro once at boot
+  // (rides the capped wait below); any failure leaves the free default.
+  bool bootIsPro = false;
+  if (supabaseConfigured()) {
+    try {
+      hydrations.add(fetchIsPro(Supabase.instance.client)
+          .then((bool v) => bootIsPro = v));
+    } catch (_) {}
+  }
+
   // U-lane hydration (S110): pull the durable user-state rows ONCE before the
   // first frame so controllers boot on the merged truth — hard-capped so a
   // slow network can never hold boot hostage (fail-open to device state).
@@ -147,6 +158,10 @@ Future<void> main() async {
           .timeout(const Duration(milliseconds: 2500));
     } catch (_) {/* fail-open: device state boots, sync rides later saves */}
   }
+
+  // L-5b: seed the reactive pro flag with the boot fetch result (false when
+  // keyless / signed-out / fetch failed — free tier).
+  overrides.add(proStatusProvider.overrideWith((ref) => bootIsPro));
 
   runApp(RatelCourseRoot(
     baseOverrides: overrides,
