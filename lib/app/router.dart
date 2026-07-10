@@ -219,7 +219,8 @@ GoRouter buildRouter({
         path: '/roleplay-live',
         builder: (BuildContext context, GoRouterState state) =>
             LiveRoleplayScreen(
-                scenarioId: state.uri.queryParameters['scenario']),
+                scenarioId: state.uri.queryParameters['scenario'],
+                freeForm: state.uri.queryParameters['mode'] == 'free'),
       ),
       GoRoute(
         path: '/adventure',

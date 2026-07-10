@@ -163,11 +163,18 @@ class LibraryScreen extends ConsumerWidget {
             children: <Widget>[
               Text('🔍', style: TextStyle(fontSize: 16)),
               SizedBox(width: RatelSpace.sm),
-              Text('Search lessons, words, stories…',
-                  style: TextStyle(
-                      fontFamily: RatelFont.body,
-                      fontSize: RatelType.body,
-                      color: context.palette.muted)),
+              // S113: Expanded + ellipsis — the fixed label overflowed the
+              // pill at narrow widths (caught by the L-4 460px router tour;
+              // layout gauntlet rule: overflow = red).
+              Expanded(
+                child: Text('Search lessons, words, stories…',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontFamily: RatelFont.body,
+                        fontSize: RatelType.body,
+                        color: context.palette.muted)),
+              ),
             ],
           ),
         ),

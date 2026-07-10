@@ -11,7 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:ratel/app/ratel_app.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
+import 'package:ratel/services/preferences/app_settings.dart';
+import 'package:ratel/services/preferences/settings_store.dart';
+import 'package:ratel/features/settings/settings_controller.dart';
 import 'package:ratel/features/roleplay/live_roleplay_scaffold.dart';
 import 'package:ratel/features/roleplay/live_roleplay_screen.dart';
 import 'package:ratel/features/roleplay/roleplay_screen.dart';
@@ -293,6 +297,88 @@ void main() {
       expect(find.byKey(const ValueKey<String>('roleplay-row-rp1')),
           findsOneWidget,
           reason: 'the pre-generated surface is untouched (anti-goal §D)');
+    });
+  });
+
+  // ---- L-4 (S113): Tutor "Talk" wiring over the REAL router ----------------
+  group('L-4: Tutor Talk wiring (real router)', () {
+    Future<void> pumpApp(WidgetTester tester, _FakeEngine engine) async {
+      tester.view.physicalSize = const Size(460, 2600);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      await tester.pumpWidget(ProviderScope(
+        overrides: <Override>[
+          courseSpineProvider.overrideWithValue(_spine()),
+          settingsStoreProvider.overrideWithValue(
+              InMemorySettingsStore(const AppSettings(reduceMotion: true))),
+          entitlementsProvider.overrideWithValue(const _ProEntitlements()),
+          liveSessionEngineProvider.overrideWithValue(engine),
+        ],
+        child: const RatelApp(),
+      ));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Library'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('AI Tutor'));
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets(
+        'PRO + live engine: Talk to Ratel goes straight to a free conversation',
+        (WidgetTester tester) async {
+      final _FakeEngine engine = _FakeEngine(_FakeSession());
+      await pumpApp(tester, engine);
+      await tester.tap(find.text('Talk to Ratel'));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const ValueKey<String>('screen-live-roleplay')),
+          findsOneWidget,
+          reason: 'free-form skips the picker');
+      expect(find.byKey(const ValueKey<String>('live-roleplay-start')),
+          findsOneWidget);
+    });
+
+    testWidgets('PRO + live engine: Roleplay scenes opens the live picker',
+        (WidgetTester tester) async {
+      final _FakeEngine engine = _FakeEngine(_FakeSession());
+      await pumpApp(tester, engine);
+      await tester.tap(find.text('Roleplay scenes'));
+      await tester.pumpAndSettle();
+      expect(
+          find.byKey(const ValueKey<String>('screen-live-roleplay-picker')),
+          findsOneWidget);
+      expect(find.text('Free conversation'), findsOneWidget);
+    });
+
+    testWidgets(
+        'PRO but flag-off (default engine): tap stays the honest announce',
+        (WidgetTester tester) async {
+      tester.view.physicalSize = const Size(460, 2600);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      await tester.pumpWidget(ProviderScope(
+        overrides: <Override>[
+          courseSpineProvider.overrideWithValue(_spine()),
+          settingsStoreProvider.overrideWithValue(
+              InMemorySettingsStore(const AppSettings(reduceMotion: true))),
+          entitlementsProvider.overrideWithValue(const _ProEntitlements()),
+        ],
+        child: const RatelApp(),
+      ));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Library'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('AI Tutor'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Talk to Ratel'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(find.textContaining('connects once the moderated relay'),
+          findsOneWidget,
+          reason: 'no navigation, no fake session — honest announce');
+      expect(find.byKey(const ValueKey<String>('screen-live-roleplay')),
+          findsNothing);
     });
   });
 }

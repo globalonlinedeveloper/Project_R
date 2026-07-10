@@ -25,10 +25,14 @@ import 'package:ratel/services/live_session/live_session.dart';
 /// rides the token mint; the system prompt is built SERVER-side by
 /// `live-token` v2. [R-H2 · R-H6 · R-H7 · R-D11 · R-J1 · R-J3]
 class LiveRoleplayScreen extends ConsumerStatefulWidget {
-  const LiveRoleplayScreen({super.key, this.scenarioId});
+  const LiveRoleplayScreen({super.key, this.scenarioId, this.freeForm = false});
 
   /// Optional authored scenario to scaffold the scene (null => picker).
   final String? scenarioId;
+
+  /// Skip the picker straight into a free conversation (L-4: the Tutor
+  /// screen's "Talk to Ratel" entry — no scenario scaffold, lang only).
+  final bool freeForm;
 
   @override
   ConsumerState<LiveRoleplayScreen> createState() => _LiveRoleplayScreenState();
@@ -51,6 +55,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
   void initState() {
     super.initState();
     _selectedId = widget.scenarioId;
+    _freeForm = widget.freeForm;
   }
 
   @override

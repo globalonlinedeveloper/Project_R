@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/services/ai_relay/ai_relay.dart';
+import 'package:ratel/services/live_session/live_session.dart';
 
 /// AI Tutor (🦡) — design spec §4.8 (`/tutor`). Built HONESTLY around two REAL
 /// signals: the billing PRO entitlement (`isProProvider`, free by default) and
@@ -22,6 +23,11 @@ class AiTutorScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final bool isPro = ref.watch(isProProvider);
     final bool relayReady = ref.watch(aiRelayProvider).isAvailable;
+    // L-4 (S113): live VOICE rides the live_session seam (not the text relay).
+    // Two-signal honesty: the Talk/Roleplay cards NAVIGATE only when the
+    // learner is PRO and the live engine is really available; otherwise the
+    // tap stays the honest announce below. [R-H2 · R-H6 · R-J1]
+    final bool liveReady = ref.watch(liveSessionEngineProvider).isAvailable;
 
     return Scaffold(
       backgroundColor: context.palette.cream,
@@ -82,6 +88,9 @@ class AiTutorScreen extends ConsumerWidget {
               subtitle: 'Live voice & video',
               isPro: isPro,
               relayReady: relayReady,
+              onStart: isPro && liveReady
+                  ? () => context.push('/roleplay-live?mode=free')
+                  : null,
             ),
             const SizedBox(height: RatelSpace.cardGap),
             _modeCard(
@@ -108,6 +117,9 @@ class AiTutorScreen extends ConsumerWidget {
               subtitle: 'Guided roleplay conversations',
               isPro: isPro,
               relayReady: relayReady,
+              onStart: isPro && liveReady
+                  ? () => context.push('/roleplay-live')
+                  : null,
             ),
             const SizedBox(height: RatelSpace.lg),
             if (!isPro)
@@ -168,10 +180,11 @@ class AiTutorScreen extends ConsumerWidget {
     required String subtitle,
     required bool isPro,
     required bool relayReady,
+    VoidCallback? onStart,
   }) =>
       RatelCard(
         gradient: gradient,
-        onTap: () => _announce(context, isPro, relayReady),
+        onTap: onStart ?? () => _announce(context, isPro, relayReady),
         child: Row(
           children: <Widget>[
             Text(emoji, style: const TextStyle(fontSize: 30)),
