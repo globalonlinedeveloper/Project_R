@@ -1024,6 +1024,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
                 child: RatelProgressBar(
                   value: _seen.length / _items.length,
                   color: RatelColors.green,
+                  height: 15,
                 ),
               ),
             ],
@@ -1507,7 +1508,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
       final String answerText = switch (it.type) {
         _ExType.pick => it.mcqOptions.isNotEmpty
             ? it.mcqOptions[it.correctIndex].text
-            : '${it.options[0].emoji}  ${it.options[0].label}',
+            : it.options[0].emoji,
         _ExType.wordBank => it.target.join(' '),
         _ExType.typed => it.accepted.isNotEmpty ? it.accepted.first : '',
         _ExType.listen => it.target.isNotEmpty

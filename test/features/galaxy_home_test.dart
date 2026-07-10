@@ -107,7 +107,7 @@ void main() {
     await tester.tap(find.byKey(const ValueKey<String>('home-active-node')));
     await tester.pumpAndSettle();
     expect(find.text('Saludos'), findsOneWidget); // real first lesson title
-    expect(find.textContaining('1 exercise'), findsOneWidget);
+    expect(find.textContaining('1 quick exercise'), findsOneWidget);
     expect(find.text('Start lesson'), findsOneWidget);
   });
 }

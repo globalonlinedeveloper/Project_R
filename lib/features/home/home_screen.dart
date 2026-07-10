@@ -525,7 +525,7 @@ class HomeScreen extends ConsumerWidget {
 
   void _showPreview(BuildContext context, _Node n) {
     final String exLabel =
-        n.exercises == 1 ? '1 exercise' : '${n.exercises} exercises';
+        n.exercises == 1 ? '1 quick exercise' : '${n.exercises} quick exercises';
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: context.palette.white,
@@ -552,14 +552,13 @@ class HomeScreen extends ConsumerWidget {
                     fontSize: RatelType.screenTitle,
                     color: context.palette.ink)),
             const SizedBox(height: 4),
-            Text('Lesson ${n.lessonNum} of ${n.lessonCount} · $exLabel · ${n.cefr}.',
+            Text('Lesson ${n.lessonNum} of ${n.lessonCount} · $exLabel.',
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.body,
                     color: context.palette.muted)),
             const SizedBox(height: RatelSpace.md),
-            const RatelChip(
-                label: '+20 XP', tone: RatelChipTone.green, filled: true),
+            const RatelChip(label: '+20 XP'),
             const SizedBox(height: RatelSpace.lg),
             RatelButton(
               label: 'Start lesson',
