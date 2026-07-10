@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/leagues/leagues_controller.dart';
+import 'package:ratel/features/home/economy_glyph.dart';
 import 'package:ratel/features/notifications/notifications_controller.dart';
 import 'package:ratel/services/leagues/leagues.dart';
 
@@ -40,6 +41,8 @@ class LeaguesScreen extends ConsumerWidget {
               langCode: 'ES',
               streak: snap.streakDays,
               energy: snap.energy,
+              diamonds: formatCount(snap.diamonds),
+              streakFreeze: snap.streakFreezes > 0 ? snap.streakFreezes : null,
               unreadNotifications: unread,
               onNotificationsTap: () => context.push('/notifications'),
             ),
@@ -219,12 +222,7 @@ class _TierHeaderCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: RatelSpace.md),
-          RatelButton(
-            label: '🏆 View all 10 tiers',
-            variant: RatelButtonVariant.secondary,
-            expand: false,
-            onPressed: () => _showTierLadder(context, tier),
-          ),
+          _TierLadderPill(onTap: () => _showTierLadder(context, tier)),
         ],
       ),
     );
@@ -529,6 +527,45 @@ class _LadderRow extends StatelessWidget {
               filled: true,
             ),
         ],
+      ),
+    );
+  }
+}
+
+
+/// D-9 — the "View all 10 tiers" affordance as a soft teal-tinted tappable pill
+/// (design_spec/shots/Leagues_full.png shows a tonal pill + chevron, not a bare
+/// secondary text link). Token-only tint (RatelColors.teal α0.14, pill radius).
+class _TierLadderPill extends StatelessWidget {
+  const _TierLadderPill({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(RatelRadius.pill),
+        child: Container(
+          key: const ValueKey<String>('leagues-tier-pill'),
+          padding: const EdgeInsets.symmetric(
+              horizontal: RatelSpace.lg, vertical: RatelSpace.sm),
+          decoration: BoxDecoration(
+            color: RatelColors.teal.withValues(alpha: 0.14),
+            borderRadius: BorderRadius.circular(RatelRadius.pill),
+          ),
+          child: const Text(
+            '🏆 View all 10 tiers ›',
+            style: TextStyle(
+              fontFamily: RatelFont.body,
+              fontWeight: RatelType.semiBold,
+              fontSize: RatelType.small,
+              color: RatelColors.teal,
+            ),
+          ),
+        ),
       ),
     );
   }

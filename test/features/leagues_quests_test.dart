@@ -30,7 +30,7 @@ void main() {
   testWidgets('Leagues ladder sheet lists all ten tiers',
       (WidgetTester tester) async {
     await _toTab(tester, 'Leagues');
-    await tester.tap(find.text('🏆 View all 10 tiers'));
+    await tester.tap(find.text('🏆 View all 10 tiers ›'));
     await tester.pumpAndSettle();
     expect(find.text('League tiers'), findsOneWidget);
     expect(find.text('Diamond League'), findsOneWidget);

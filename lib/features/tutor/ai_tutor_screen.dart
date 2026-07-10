@@ -45,9 +45,17 @@ class AiTutorScreen extends ConsumerWidget {
         backgroundColor: context.palette.cream,
         surfaceTintColor: context.palette.cream,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(RatelIcons.arrowBack, color: context.palette.ink),
-          onPressed: () => context.pop(),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: RatelSpace.md),
+          child: GestureDetector(
+            onTap: () => context.pop(),
+            child: CircleAvatar(
+              radius: 18,
+              backgroundColor: context.palette.white,
+              child: Icon(RatelIcons.arrowBack,
+                  color: context.palette.ink, size: 20),
+            ),
+          ),
         ),
         title: Text('AI Tutor',
             style: TextStyle(
@@ -110,7 +118,7 @@ class AiTutorScreen extends ConsumerWidget {
               accent: RatelColors.teal,
               emoji: '🎙️',
               title: 'Talk to Ratel',
-              subtitle: 'Live voice & video',
+              subtitle: 'Live voice & video speaking practice',
               isPro: isPro,
               relayReady: relayReady,
               onStart: isPro && liveReady

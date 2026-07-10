@@ -47,7 +47,7 @@ class ThemesScreen extends ConsumerWidget {
                 fontFamily: RatelFont.display,
                 fontWeight: RatelType.extraBold,
                 color: context.palette.ink,
-                fontSize: RatelType.cardTitle)),
+                fontSize: RatelType.screenTitle)),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

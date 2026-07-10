@@ -114,7 +114,7 @@ class _WatchPlayerScreenState extends ConsumerState<WatchPlayerScreen> {
                 // VIDEO-FIRST: the real MP4 where the platform can render it;
                 // otherwise the honest poster + transcript + read-aloud fallback.
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(RatelSpace.md),
+                  borderRadius: BorderRadius.circular(RatelRadius.chip),
                   child: AspectRatio(
                     aspectRatio: 16 / 9,
                     child: canPlay
@@ -367,7 +367,7 @@ class _CheckQuestionState extends State<_CheckQuestion> {
           padding: const EdgeInsets.all(RatelSpace.md),
           decoration: BoxDecoration(
             color: bg,
-            borderRadius: BorderRadius.circular(RatelSpace.md),
+            borderRadius: BorderRadius.circular(RatelRadius.chip),
             border: Border.all(color: line),
           ),
           child: Text(

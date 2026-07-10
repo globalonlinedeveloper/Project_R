@@ -6,6 +6,7 @@ import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/notifications/notifications_controller.dart';
 import 'package:ratel/features/quests/quests_controller.dart';
+import 'package:ratel/features/home/economy_glyph.dart';
 import 'package:ratel/services/quests/quests.dart';
 
 /// Pure, clockless helper (design §4.4, finding D-2): time until the DAILY
@@ -60,6 +61,8 @@ class QuestsScreen extends ConsumerWidget {
                 langCode: 'ES',
                 streak: snap.streakDays,
                 energy: snap.energy,
+                diamonds: formatCount(snap.diamonds),
+                streakFreeze: snap.streakFreezes > 0 ? snap.streakFreezes : null,
                 unreadNotifications: unread,
                 onNotificationsTap: () => context.push('/notifications')),
             Expanded(

@@ -196,7 +196,7 @@ class _RoleplayPlayerScreenState extends ConsumerState<RoleplayPlayerScreen> {
           padding: const EdgeInsets.all(RatelSpace.md),
           decoration: BoxDecoration(
             color: bg,
-            borderRadius: BorderRadius.circular(RatelSpace.md),
+            borderRadius: BorderRadius.circular(RatelRadius.chip),
             border: Border.all(color: line),
           ),
           child: Text(c.label,
