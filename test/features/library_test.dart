@@ -22,27 +22,29 @@ void main() {
     expect(find.text('FREE'), findsWidgets);
   });
 
-  testWidgets('Read & listen: real Stories + Podcasts + Watch tiles',
+  testWidgets('Read & listen: dense section headers + honest browse rows',
       (WidgetTester tester) async {
     await _toLibrary(tester);
-    // INF-6: Stories (text + browser read-aloud) is a REAL, un-gated tile.
-    // INF-8 added a Roleplay tile above Read & listen, so Stories can start
-    // below the fold — scroll to it (mirrors the Podcasts/video-stub checks).
-    final Finder stories = find.text('Stories');
-    await tester.scrollUntilVisible(stories, 200,
+    // Owner-approved dense rebuild (UXA S115-L5): READ & LISTEN is now three
+    // REAL sections. With the default empty course each shows its header + an
+    // honest "all …" browse row — never a fabricated item list.
+    final Finder graded = find.text('GRADED STORIES');
+    await tester.scrollUntilVisible(graded, 200,
         scrollable: find.byType(Scrollable).first);
-    expect(stories, findsOneWidget);
-    // INF-7: Podcasts (real audio + transcript) is now a REAL, un-gated tile.
-    final Finder podcasts = find.text('Podcasts');
-    await tester.scrollUntilVisible(podcasts, 200,
+    expect(graded, findsOneWidget);
+    final Finder allStories = find.text('All stories');
+    await tester.scrollUntilVisible(allStories, 200,
         scrollable: find.byType(Scrollable).first);
-    expect(podcasts, findsOneWidget);
-    // INF-9: Watch (real R2 video + transcript) is now a REAL, un-gated tile
-    // (replaced the honest "coming soon" video stub).
-    final Finder watch = find.text('Watch');
-    await tester.scrollUntilVisible(watch, 200,
+    expect(allStories, findsOneWidget);
+    final Finder allPods = find.text('All podcasts');
+    await tester.scrollUntilVisible(allPods, 200,
         scrollable: find.byType(Scrollable).first);
-    expect(watch, findsOneWidget);
+    expect(allPods, findsOneWidget);
+    final Finder allVids = find.text('All videos');
+    await tester.scrollUntilVisible(allVids, 200,
+        scrollable: find.byType(Scrollable).first);
+    expect(allVids, findsOneWidget);
+    // Honest: no fabricated video-engine stub, no faked Continue card (§E).
     expect(find.textContaining('video engine'), findsNothing);
   });
 
