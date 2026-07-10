@@ -4,18 +4,26 @@ import 'package:go_router/go_router.dart';
 
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
+import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/services/ai_relay/ai_relay.dart';
 import 'package:ratel/services/live_session/live_session.dart';
 
-/// AI Tutor (🦡) — design spec §4.8 (`/tutor`). Built HONESTLY around two REAL
-/// signals: the billing PRO entitlement (`isProProvider`, free by default) and
-/// the AI-relay availability (`aiRelayProvider.isAvailable` — the portability
-/// seam R-H7, which is the fail-closed `UnconfiguredAiRelay` in this build, so
-/// `isAvailable == false`). The three modes (Talk / Chat / Roleplay) are
-/// presented with their real PRO gate; tapping one states plainly WHY it can't
-/// start yet (PRO required, or the moderated relay isn't connected) — it NEVER
-/// fabricates an AI reply (the relay's `complete()` fails closed, design spec
-/// §6 "don't fake depth"). [R-H1 · R-H2 · R-H6 · R-H7 · R-J1 · R-J3]
+/// AI Tutor (🦡) — design spec §4.8 (`/tutor`). Built HONESTLY around REAL
+/// signals: the billing PRO entitlement (`isProProvider`, free by default), the
+/// AI-relay availability (`aiRelayProvider.isAvailable` — the text-chat seam
+/// R-H7, fail-closed `UnconfiguredAiRelay`, so `false` in this build) and the
+/// live-voice engine (`liveSessionEngineProvider.isAvailable` — the seam Talk /
+/// Roleplay actually gate on). The three modes (Talk / Chat / Roleplay) show
+/// their real PRO gate; tapping one states plainly WHY it can't start yet — it
+/// NEVER fabricates an AI reply (design spec §6 "don't fake depth").
+///
+/// UXA S115 inc2 (§4.8 conformance): Talk stays the dark-teal feature card;
+/// Chat + Roleplay are white cards with a tinted emoji medallion + ink text +
+/// trailing PRO (F-1). The mascot carries its subtitle (F-3). Roleplay shows
+/// the REAL authored scene count (F-2 — `courseSpineProvider.roleplays.length`,
+/// honest empty fallback, never a mock "18"). The status card keys off the
+/// live-voice signal the cards gate on (F-6).
+/// [R-H1 · R-H2 · R-H6 · R-H7 · R-J1 · R-J3]
 class AiTutorScreen extends ConsumerWidget {
   const AiTutorScreen({super.key});
 
@@ -24,10 +32,12 @@ class AiTutorScreen extends ConsumerWidget {
     final bool isPro = ref.watch(isProProvider);
     final bool relayReady = ref.watch(aiRelayProvider).isAvailable;
     // L-4 (S113): live VOICE rides the live_session seam (not the text relay).
-    // Two-signal honesty: the Talk/Roleplay cards NAVIGATE only when the
-    // learner is PRO and the live engine is really available; otherwise the
-    // tap stays the honest announce below. [R-H2 · R-H6 · R-J1]
+    // Talk/Roleplay NAVIGATE only when the learner is PRO and the live engine is
+    // really available; otherwise the tap stays the honest announce below.
     final bool liveReady = ref.watch(liveSessionEngineProvider).isAvailable;
+    // F-2: honest roleplay scene count from the authored course spine (0 until
+    // backend_wiring injects the bundled batch — never a fabricated number).
+    final int roleplayCount = ref.watch(courseSpineProvider).roleplays.length;
 
     return Scaffold(
       backgroundColor: context.palette.cream,
@@ -65,17 +75,31 @@ class AiTutorScreen extends ConsumerWidget {
                 ),
                 const SizedBox(width: RatelSpace.md),
                 Expanded(
-                  child: Text('Practice a real conversation',
-                      style: TextStyle(
-                          fontFamily: RatelFont.display,
-                          fontWeight: RatelType.extraBold,
-                          fontSize: RatelType.cardTitle,
-                          color: context.palette.ink)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text('Practice a real conversation',
+                          style: TextStyle(
+                              fontFamily: RatelFont.display,
+                              fontWeight: RatelType.extraBold,
+                              fontSize: RatelType.cardTitle,
+                              color: context.palette.ink)),
+                      const SizedBox(height: 2),
+                      Text(
+                          'Pick a scene and chat with Ratel — no wrong answers, '
+                          'just practice.',
+                          style: TextStyle(
+                              fontFamily: RatelFont.body,
+                              fontSize: RatelType.small,
+                              height: 1.3,
+                              color: context.palette.muted)),
+                    ],
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: RatelSpace.lg),
-            _statusCard(context, isPro, relayReady),
+            _statusCard(context, isPro, liveReady),
             const SizedBox(height: RatelSpace.lg),
             _modeCard(
               context,
@@ -83,6 +107,7 @@ class AiTutorScreen extends ConsumerWidget {
                   colors: <Color>[RatelColors.teal, RatelColors.tealDark],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight),
+              accent: RatelColors.teal,
               emoji: '🎙️',
               title: 'Talk to Ratel',
               subtitle: 'Live voice & video',
@@ -95,10 +120,7 @@ class AiTutorScreen extends ConsumerWidget {
             const SizedBox(height: RatelSpace.cardGap),
             _modeCard(
               context,
-              gradient: const LinearGradient(
-                  colors: <Color>[RatelColors.blue, RatelColors.navy],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight),
+              accent: RatelColors.blue,
               emoji: '💬',
               title: 'Chat with Ratel',
               subtitle: 'AI chat · writing feedback',
@@ -108,13 +130,12 @@ class AiTutorScreen extends ConsumerWidget {
             const SizedBox(height: RatelSpace.cardGap),
             _modeCard(
               context,
-              gradient: const LinearGradient(
-                  colors: <Color>[RatelColors.purple, RatelColors.navy],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight),
+              accent: RatelColors.purple,
               emoji: '🎭',
               title: 'Roleplay scenes',
-              subtitle: 'Guided roleplay conversations',
+              subtitle: roleplayCount > 0
+                  ? '$roleplayCount scenes'
+                  : 'Guided roleplay conversations',
               isPro: isPro,
               relayReady: relayReady,
               onStart: isPro && liveReady
@@ -147,18 +168,18 @@ class AiTutorScreen extends ConsumerWidget {
     );
   }
 
-  Widget _statusCard(BuildContext context, bool isPro, bool relayReady) {
-    final String text = relayReady
+  Widget _statusCard(BuildContext context, bool isPro, bool liveReady) {
+    final String text = liveReady
         ? (isPro
-            ? 'PRO active and the AI relay is connected — pick a mode to begin.'
-            : 'The AI relay is connected. Live tutoring is a RATEL PRO feature.')
-        : 'The moderated AI relay is not connected in this build yet — live '
+            ? 'PRO active and the live tutor is connected — pick a mode to begin.'
+            : 'The live tutor is connected. Live tutoring is a RATEL PRO feature.')
+        : 'The moderated live tutor is not connected in this build yet — live '
             'tutoring turns on in a later step. Nothing below is simulated.';
     return RatelCard(
       color: context.palette.cream2,
       child: Row(
         children: <Widget>[
-          Text(relayReady ? '✅' : '🔌', style: const TextStyle(fontSize: 22)),
+          Text(liveReady ? '✅' : '🔌', style: const TextStyle(fontSize: 22)),
           const SizedBox(width: RatelSpace.md),
           Expanded(
             child: Text(text,
@@ -174,48 +195,65 @@ class AiTutorScreen extends ConsumerWidget {
 
   Widget _modeCard(
     BuildContext context, {
-    required Gradient gradient,
+    Gradient? gradient,
+    required Color accent,
     required String emoji,
     required String title,
     required String subtitle,
     required bool isPro,
     required bool relayReady,
     VoidCallback? onStart,
-  }) =>
-      RatelCard(
-        gradient: gradient,
-        onTap: onStart ?? () => _announce(context, isPro, relayReady),
-        child: Row(
-          children: <Widget>[
-            Text(emoji, style: const TextStyle(fontSize: 30)),
-            const SizedBox(width: RatelSpace.md),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(title,
-                      style: const TextStyle(
-                          fontFamily: RatelFont.display,
-                          fontWeight: RatelType.extraBold,
-                          fontSize: RatelType.cardTitle,
-                          color: RatelColors.onColor)),
-                  Text(subtitle,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontFamily: RatelFont.body,
-                          fontSize: RatelType.small,
-                          color: RatelColors.onColor)),
-                ],
-              ),
+  }) {
+    final bool dark = gradient != null;
+    final Color titleColor = dark ? RatelColors.onColor : context.palette.ink;
+    final Color subColor = dark ? RatelColors.onColor : context.palette.muted;
+    final Widget medallion = dark
+        ? Text(emoji, style: const TextStyle(fontSize: 30))
+        : Container(
+            width: 40,
+            height: 40,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: accent.withValues(alpha: 0.16),
+              shape: BoxShape.circle,
             ),
-            if (!isPro) ...<Widget>[
-              const SizedBox(width: RatelSpace.sm),
-              RatelChip.pro(),
-            ],
+            child: Text(emoji, style: const TextStyle(fontSize: 20)),
+          );
+    return RatelCard(
+      gradient: gradient,
+      onTap: onStart ?? () => _announce(context, isPro, relayReady),
+      child: Row(
+        children: <Widget>[
+          medallion,
+          const SizedBox(width: RatelSpace.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(title,
+                    style: TextStyle(
+                        fontFamily: RatelFont.display,
+                        fontWeight: RatelType.extraBold,
+                        fontSize: RatelType.cardTitle,
+                        color: titleColor)),
+                Text(subtitle,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontFamily: RatelFont.body,
+                        fontSize: RatelType.small,
+                        color: subColor)),
+              ],
+            ),
+          ),
+          if (!isPro) ...<Widget>[
+            const SizedBox(width: RatelSpace.sm),
+            RatelChip.pro(),
           ],
-        ),
-      );
+        ],
+      ),
+    );
+  }
 
   void _announce(BuildContext context, bool isPro, bool relayReady) {
     final String msg = !isPro
