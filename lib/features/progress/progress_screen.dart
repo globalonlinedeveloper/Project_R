@@ -133,53 +133,95 @@ class ProgressScreen extends ConsumerWidget {
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('Level $level · ${_levelName(snap.level)}',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text('Level $level · ${_levelName(snap.level)}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontFamily: RatelFont.display,
+                            fontWeight: RatelType.extraBold,
+                            fontSize: RatelType.screenTitle,
+                            color: RatelColors.onColor)),
+                    const SizedBox(height: 4),
+                    Text('Ability θ ${snap.theta.toStringAsFixed(2)} · real estimate',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontFamily: RatelFont.body,
+                            fontSize: RatelType.small,
+                            color: RatelColors.onColor)),
+                    const SizedBox(height: RatelSpace.sm),
+                    Text("Today's goal · ${snap.xpToday}/$goal XP${met ? ' ✓' : ''}",
+                        style: const TextStyle(
+                            fontFamily: RatelFont.body,
+                            fontSize: RatelType.small,
+                            color: RatelColors.onColor)),
+                  ],
+                ),
+              ),
+              const SizedBox(width: RatelSpace.md),
+              RatelProgressRing(
+                value: ringVal,
+                size: 76,
+                stroke: 9,
+                color: RatelColors.onColor,
+                center: Text('${snap.xpToday}/$goal',
                     style: const TextStyle(
                         fontFamily: RatelFont.display,
                         fontWeight: RatelType.extraBold,
-                        fontSize: RatelType.screenTitle,
-                        color: RatelColors.onColor)),
-                const SizedBox(height: 4),
-                Text('Ability θ ${snap.theta.toStringAsFixed(2)} · real estimate',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontFamily: RatelFont.body,
                         fontSize: RatelType.small,
                         color: RatelColors.onColor)),
-                const SizedBox(height: RatelSpace.sm),
-                Text("Today's goal · ${snap.xpToday}/$goal XP${met ? ' ✓' : ''}",
-                    style: const TextStyle(
-                        fontFamily: RatelFont.body,
-                        fontSize: RatelType.small,
-                        color: RatelColors.onColor)),
-              ],
-            ),
+              ),
+            ],
           ),
-          const SizedBox(width: RatelSpace.md),
-          RatelProgressRing(
-            value: ringVal,
-            size: 76,
-            stroke: 9,
-            color: RatelColors.onColor,
-            center: Text('${snap.xpToday}/$goal',
-                style: const TextStyle(
-                    fontFamily: RatelFont.display,
-                    fontWeight: RatelType.extraBold,
-                    fontSize: RatelType.small,
-                    color: RatelColors.onColor)),
-          ),
+          const SizedBox(height: RatelSpace.md),
+          // D-11: CEFR ladder strip (A1…C2) — highlights the learner's REAL
+          // current level; an honest position on the scale, no invented data.
+          _cefrLadder(snap.level),
         ],
       ),
     );
+  }
+
+  /// D-11: horizontal CEFR ladder (A1 A2 B1 B2 C1 C2). The learner's current
+  /// level is filled bright; the rest are dimmed. Theme tokens only (onColor
+  /// with alpha over the blue hero gradient) — token_lint stays green.
+  Widget _cefrLadder(CefrLevel current) {
+    final List<Widget> pills = <Widget>[];
+    for (int i = 0; i < CefrLevel.values.length; i++) {
+      final CefrLevel l = CefrLevel.values[i];
+      final bool active = l == current;
+      pills.add(Expanded(
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 6),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: active
+                ? RatelColors.onColor
+                : RatelColors.onColor.withValues(alpha: 0.18),
+            borderRadius: BorderRadius.circular(RatelRadius.chip),
+          ),
+          child: Text(l.name.toUpperCase(),
+              style: TextStyle(
+                  fontFamily: RatelFont.display,
+                  fontWeight: active ? RatelType.extraBold : RatelType.semiBold,
+                  fontSize: RatelType.caption,
+                  color: active ? RatelColors.navy : RatelColors.onColor)),
+        ),
+      ));
+      if (i != CefrLevel.values.length - 1) {
+        pills.add(const SizedBox(width: 6));
+      }
+    }
+    return Row(children: pills);
   }
 
   Widget _stats(BuildContext context, LearnerSnapshot snap, int words, int goal, String level) {

@@ -8,6 +8,21 @@ import 'package:ratel/features/notifications/notifications_controller.dart';
 import 'package:ratel/features/quests/quests_controller.dart';
 import 'package:ratel/services/quests/quests.dart';
 
+/// Pure, clockless helper (design §4.4, finding D-2): time until the DAILY
+/// REFRESH resets at the next LOCAL midnight — the honest day boundary (the
+/// reset itself stays an owner decision, see `DailyGoalStatus` doc). Rendered
+/// "Resets in Xh Ym". Computed once at build from `DateTime.now()` — NOT a
+/// periodic Timer, which would hang widget `pumpAndSettle` (§11).
+String refreshResetsLabel(DateTime now) {
+  final DateTime nextMidnight =
+      DateTime(now.year, now.month, now.day).add(const Duration(days: 1));
+  Duration left = nextMidnight.difference(now);
+  if (left.isNegative) left = Duration.zero;
+  final int h = left.inHours;
+  final int m = left.inMinutes % 60;
+  return 'Resets in ${h}h ${m}m';
+}
+
 /// Quests tab (🎯) — design spec §4.4 [R-I7]. REAL: the DAILY GOAL (today's XP
 /// toward the persisted goal) and the DAILY QUEST board are pure-engine state
 /// (`QuestsEngine`), measured from the learner's real XP-today / streak — a
@@ -25,6 +40,8 @@ class QuestsScreen extends ConsumerWidget {
     final DailyGoalStatus goalStatus = ref.watch(dailyGoalProvider);
     final int goal = goalStatus.goal;
     final double goalVal = goalStatus.fraction;
+    final int remaining =
+        (goal - snap.xpToday) < 0 ? 0 : (goal - snap.xpToday);
     final List<QuestProgress> quests = ref.watch(questsProvider);
     final int questsDone =
         quests.where((QuestProgress p) => p.done).length;
@@ -50,32 +67,7 @@ class QuestsScreen extends ConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(RatelSpace.screen,
                     RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
                 children: <Widget>[
-                  const RatelSectionHeader(label: 'Daily goal'),
-                  const SizedBox(height: RatelSpace.sm),
-                  RatelCard(
-                    color: RatelColors.amber,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(goalStatus.met ? 'Daily goal reached! 🎉' : 'Reach $goal XP today',
-                            style: const TextStyle(
-                                fontFamily: RatelFont.display,
-                                fontWeight: RatelType.extraBold,
-                                fontSize: RatelType.cardTitle,
-                                color: RatelColors.onColor)),
-                        const SizedBox(height: 2),
-                        Text('${snap.xpToday}/$goal XP today',
-                            style: const TextStyle(
-                                fontFamily: RatelFont.body,
-                                fontSize: RatelType.small,
-                                color: RatelColors.onColor)),
-                        const SizedBox(height: RatelSpace.sm),
-                        RatelProgressBar(
-                            value: goalVal, color: RatelColors.onColor),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: RatelSpace.lg),
+                  // D-1: DAILY REFRESH first (design order Refresh → Goal).
                   const RatelSectionHeader(label: 'Daily refresh'),
                   const SizedBox(height: RatelSpace.sm),
                   RatelCard(
@@ -86,26 +78,94 @@ class QuestsScreen extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        const Text('A fresh 5-question mix',
-                            style: TextStyle(
+                        Row(
+                          children: <Widget>[
+                            const Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text('A fresh 5-question mix',
+                                      style: TextStyle(
+                                          fontFamily: RatelFont.display,
+                                          fontWeight: RatelType.extraBold,
+                                          fontSize: RatelType.cardTitle,
+                                          color: RatelColors.onColor)),
+                                  SizedBox(height: 2),
+                                  Text(
+                                      'Served from your real review queue — earns real XP.',
+                                      style: TextStyle(
+                                          fontFamily: RatelFont.body,
+                                          fontSize: RatelType.small,
+                                          color: RatelColors.onColor)),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: RatelSpace.md),
+                            // D-3: Start CTA inline-right (white pill on teal).
+                            _StartPill(onTap: () => context.push('/daily-quiz')),
+                          ],
+                        ),
+                        const SizedBox(height: RatelSpace.sm),
+                        // D-2: real day-boundary reset countdown.
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            const Text('⏳', style: TextStyle(fontSize: 13)),
+                            const SizedBox(width: 6),
+                            Text(refreshResetsLabel(DateTime.now()),
+                                style: const TextStyle(
+                                    fontFamily: RatelFont.body,
+                                    fontSize: RatelType.small,
+                                    color: RatelColors.onColor)),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: RatelSpace.lg),
+                  // D-1: DAILY GOAL second.
+                  const RatelSectionHeader(label: 'Daily goal'),
+                  const SizedBox(height: RatelSpace.sm),
+                  RatelCard(
+                    // D-4: amber gradient (was a solid amber fill).
+                    gradient: const LinearGradient(
+                        colors: <Color>[
+                          RatelColors.amber,
+                          RatelColors.amberDark
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                            goalStatus.met
+                                ? 'Daily goal reached! 🎉'
+                                : 'Reach $goal XP today',
+                            style: const TextStyle(
                                 fontFamily: RatelFont.display,
                                 fontWeight: RatelType.extraBold,
                                 fontSize: RatelType.cardTitle,
                                 color: RatelColors.onColor)),
-                        const SizedBox(height: 2),
-                        const Text(
-                            'Served from your real review queue — earns real XP.',
-                            style: TextStyle(
+                        const SizedBox(height: RatelSpace.sm),
+                        RatelProgressBar(
+                            value: goalVal, color: RatelColors.onColor),
+                        const SizedBox(height: RatelSpace.sm),
+                        // D-5: honest remaining fragment. Design shows "· N
+                        // lesson to go", but per-lesson XP is VARIABLE (no fixed
+                        // award), so a lessons count can't be honest — we show
+                        // the real remaining XP instead (anti-goal §E).
+                        Text(
+                            goalStatus.met
+                                ? '${snap.xpToday} / $goal XP · goal reached'
+                                : '${snap.xpToday} / $goal XP · $remaining XP to go',
+                            style: const TextStyle(
                                 fontFamily: RatelFont.body,
                                 fontSize: RatelType.small,
                                 color: RatelColors.onColor)),
                       ],
                     ),
                   ),
-                  const SizedBox(height: RatelSpace.sm),
-                  RatelButton(
-                      label: 'Start the daily refresh',
-                      onPressed: () => context.push('/daily-quiz')),
                   const SizedBox(height: RatelSpace.lg),
                   RatelSectionHeader(
                       label: 'Daily quests · $questsDone/${quests.length}'),
@@ -118,8 +178,8 @@ class QuestsScreen extends ConsumerWidget {
                     color: context.palette.cream2,
                     child: Row(
                       children: <Widget>[
-                        Text('🎁', style: TextStyle(fontSize: 22)),
-                        SizedBox(width: RatelSpace.md),
+                        const Text('🎁', style: TextStyle(fontSize: 22)),
+                        const SizedBox(width: RatelSpace.md),
                         Expanded(
                             child: Text(
                                 'Quests track your real daily progress. Reward '
@@ -137,6 +197,43 @@ class QuestsScreen extends ConsumerWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// D-3: the inline "Start" pill on the DAILY REFRESH card — a white pill with a
+/// teal label (design §4.4), replacing the old full-width button below the card.
+class _StartPill extends StatelessWidget {
+  const _StartPill({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      label: 'Start the daily refresh',
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(RatelRadius.pill),
+          onTap: onTap,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+                horizontal: RatelSpace.lg, vertical: RatelSpace.sm),
+            decoration: BoxDecoration(
+              color: RatelColors.onColor,
+              borderRadius: BorderRadius.circular(RatelRadius.pill),
+            ),
+            child: const Text('Start',
+                style: TextStyle(
+                    fontFamily: RatelFont.display,
+                    fontWeight: RatelType.extraBold,
+                    fontSize: RatelType.bodyLg,
+                    color: RatelColors.teal)),
+          ),
         ),
       ),
     );

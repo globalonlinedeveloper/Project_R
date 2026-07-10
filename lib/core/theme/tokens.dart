@@ -28,6 +28,9 @@ abstract final class RatelColors {
   /// Accent, PRO, daily-goal card, gold/rewards, wordmark.
   static const Color amber = Color(0xFFE0972B);
 
+  /// Darker amber for the DAILY GOAL gradient (design §4.4). Theme-only.
+  static const Color amberDark = Color(0xFFC17E1F);
+
   /// Wrong answer, error, streak flame, demotion, destructive.
   static const Color coral = Color(0xFFE5573F);
 
