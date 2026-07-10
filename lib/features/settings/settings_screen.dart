@@ -58,60 +58,53 @@ class SettingsScreen extends ConsumerWidget {
         padding: const EdgeInsets.fromLTRB(
             RatelSpace.screen, RatelSpace.sm, RatelSpace.screen, RatelSpace.xl),
         children: <Widget>[
-          const RatelSectionHeader(label: 'Learning'),
-          const SizedBox(height: RatelSpace.sm),
-          RatelListRow(
-            leadingEmoji: '🎯',
-            leadingColor: RatelColors.teal,
-            title: 'Daily goal',
-            subtitle: goalStatus.met
-                ? '${s.dailyGoal} XP per day · ✓ reached today'
-                : '${s.dailyGoal} XP per day',
-            onTap: () => _pickGoal(context, c, s.dailyGoal),
-          ),
-          const SizedBox(height: RatelSpace.sm),
-          _toggle(context, '🔊', 'Sound effects', s.sound, c.setSound),
+          _section(context, 'Learning', <Widget>[
+            RatelListRow(
+              title: 'Daily goal',
+              subtitle: goalStatus.met
+                  ? '${s.dailyGoal} XP per day · ✓ reached today'
+                  : '${s.dailyGoal} XP per day',
+              onTap: () => _pickGoal(context, c, s.dailyGoal),
+            ),
+            _switchRow('Sound effects', s.sound, c.setSound),
+            _switchRow('Haptics', s.haptics, c.setHaptics),
+          ]),
           const SizedBox(height: RatelSpace.lg),
-          const RatelSectionHeader(label: 'Habits'),
-          const SizedBox(height: RatelSpace.sm),
-          RatelListRow(
-            leadingEmoji: '💳',
-            leadingColor: RatelColors.amber,
-            title: 'Manage subscription',
-            subtitle: isPro ? 'RATEL PRO active' : 'Free plan',
-            onTap: () {
-              if (isPro) {
-                ref.read(manageSubscriptionProvider).open().then((ManageResult r) {
-                  if (!context.mounted) return;
-                  ScaffoldMessenger.of(context)
-                    ..hideCurrentSnackBar()
-                    ..showSnackBar(SnackBar(content: Text(r.message)));
-                });
-              } else {
-                context.push('/paywall?source=settings');
-              }
-            },
-          ),
-          const SizedBox(height: RatelSpace.sm),
-          _toggle(context, '🌀', 'Reduce motion', s.reduceMotion, c.setReduceMotion),
-          const SizedBox(height: RatelSpace.sm),
-          _toggle(context, '🎨', 'High contrast', s.highContrast, c.setHighContrast),
-          const SizedBox(height: RatelSpace.sm),
-          _toggle(context, '📳', 'Haptics', s.haptics, c.setHaptics),
+          _section(context, 'Subscription', <Widget>[
+            RatelListRow(
+              title: 'Manage subscription',
+              subtitle: isPro ? 'RATEL PRO active' : 'Free plan',
+              onTap: () {
+                if (isPro) {
+                  ref.read(manageSubscriptionProvider).open().then((ManageResult r) {
+                    if (!context.mounted) return;
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(SnackBar(content: Text(r.message)));
+                  });
+                } else {
+                  context.push('/paywall?source=settings');
+                }
+              },
+            ),
+          ]),
           const SizedBox(height: RatelSpace.lg),
-          const RatelSectionHeader(label: 'Notifications'),
-          const SizedBox(height: RatelSpace.sm),
-          _toggle(context, '🔔', 'Push notifications', s.notifyEnabled('push'),
-              (bool v) => c.setNotification('push', v)),
-          const SizedBox(height: RatelSpace.sm),
-          _toggle(context, '🔥', 'Streak reminders', s.notifyEnabled('streak'),
-              (bool v) => c.setNotification('streak', v)),
-          const SizedBox(height: RatelSpace.sm),
-          _toggle(context, '🏆', 'League updates', s.notifyEnabled('league'),
-              (bool v) => c.setNotification('league', v)),
-          const SizedBox(height: RatelSpace.sm),
-          _toggle(context, '👥', 'Friend activity', s.notifyEnabled('friend'),
-              (bool v) => c.setNotification('friend', v)),
+          _section(context, 'Accessibility', <Widget>[
+            _switchRow('Reduce motion', s.reduceMotion, c.setReduceMotion,
+                subtitle: 'Master switch — turns off every animation'),
+            _switchRow('High contrast', s.highContrast, c.setHighContrast),
+          ]),
+          const SizedBox(height: RatelSpace.lg),
+          _section(context, 'Notifications', <Widget>[
+            _switchRow('Push notifications', s.notifyEnabled('push'),
+                (bool v) => c.setNotification('push', v)),
+            _switchRow('Streak reminders', s.notifyEnabled('streak'),
+                (bool v) => c.setNotification('streak', v)),
+            _switchRow('League updates', s.notifyEnabled('league'),
+                (bool v) => c.setNotification('league', v)),
+            _switchRow('Friend activity', s.notifyEnabled('friend'),
+                (bool v) => c.setNotification('friend', v)),
+          ]),
           const SizedBox(height: RatelSpace.sm),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: RatelSpace.xs),
@@ -124,67 +117,60 @@ class SettingsScreen extends ConsumerWidget {
                     color: context.palette.muted)),
           ),
           const SizedBox(height: RatelSpace.lg),
-          const RatelSectionHeader(label: 'Appearance & account'),
-          const SizedBox(height: RatelSpace.sm),
-          if (CourseSwitchScope.maybeOf(context)
-              case final CourseSwitchScope course) ...<Widget>[
+          _section(context, 'Appearance & account', <Widget>[
+            if (CourseSwitchScope.maybeOf(context)
+                case final CourseSwitchScope course)
+              RatelListRow(
+                leadingEmoji: '🌍',
+                leadingColor: RatelColors.green,
+                title: 'Course',
+                subtitle: _courseLabel(course.current),
+                onTap: () => _pickCourse(context, course),
+              ),
             RatelListRow(
-              leadingEmoji: '🌍',
-              leadingColor: RatelColors.green,
-              title: 'Course',
-              subtitle: _courseLabel(course.current),
-              onTap: () => _pickCourse(context, course),
+              leadingEmoji: '🌙',
+              leadingColor: RatelColors.purple,
+              title: 'Theme',
+              subtitle: _themeLabel(s.themeMode),
+              onTap: () => _pickTheme(context, c, s.themeMode),
             ),
-            const SizedBox(height: RatelSpace.sm),
-          ],
-          RatelListRow(
-            leadingEmoji: '🌙',
-            leadingColor: RatelColors.purple,
-            title: 'Theme',
-            subtitle: _themeLabel(s.themeMode),
-            onTap: () => _pickTheme(context, c, s.themeMode),
-          ),
-          const SizedBox(height: RatelSpace.sm),
-          RatelListRow(
-            leadingEmoji: '🌌',
-            leadingColor: RatelColors.blue,
-            title: 'World',
-            subtitle: _worldLabel(s.worldTheme),
-            onTap: () => context.push('/themes'),
-          ),
-          const SizedBox(height: RatelSpace.sm),
-          RatelListRow(
-            leadingEmoji: '👤',
-            leadingColor: RatelColors.blue,
-            title: 'Edit profile',
-            onTap: () => context.push('/edit-profile'),
-          ),
-          const SizedBox(height: RatelSpace.sm),
-          RatelListRow(
-            leadingEmoji: '🔒',
-            leadingColor: RatelColors.teal,
-            title: 'Privacy & data',
-            subtitle: 'learnwithratel.com/privacy',
-            onTap: () => _openUrl(context, 'https://learnwithratel.com/privacy'),
-          ),
-          const SizedBox(height: RatelSpace.sm),
-          RatelListRow(
-            leadingEmoji: '❓',
-            leadingColor: RatelColors.green,
-            title: 'Help & support',
-            subtitle: 'learnwithratel.com/help',
-            onTap: () => _openUrl(context, 'https://learnwithratel.com/help'),
-          ),
-          const SizedBox(height: RatelSpace.sm),
-          RatelListRow(
-            leadingEmoji: identity.isAuthenticated ? '🚪' : '✨',
-            leadingColor: RatelColors.coral,
-            title: identity.isAuthenticated ? 'Log out' : 'Create a free account',
-            subtitle: identity.isAuthenticated
-                ? null
-                : 'You are learning as a guest — sign up to save progress',
-            onTap: () => context.push('/onboarding'),
-          ),
+            RatelListRow(
+              leadingEmoji: '🌌',
+              leadingColor: RatelColors.blue,
+              title: 'World',
+              subtitle: _worldLabel(s.worldTheme),
+              onTap: () => context.push('/themes'),
+            ),
+            RatelListRow(
+              leadingEmoji: '👤',
+              leadingColor: RatelColors.blue,
+              title: 'Edit profile',
+              onTap: () => context.push('/edit-profile'),
+            ),
+            RatelListRow(
+              leadingEmoji: '🔒',
+              leadingColor: RatelColors.teal,
+              title: 'Privacy & data',
+              subtitle: 'learnwithratel.com/privacy',
+              onTap: () => _openUrl(context, 'https://learnwithratel.com/privacy'),
+            ),
+            RatelListRow(
+              leadingEmoji: '❓',
+              leadingColor: RatelColors.green,
+              title: 'Help & support',
+              subtitle: 'learnwithratel.com/help',
+              onTap: () => _openUrl(context, 'https://learnwithratel.com/help'),
+            ),
+            RatelListRow(
+              leadingEmoji: identity.isAuthenticated ? '🚪' : '✨',
+              leadingColor: RatelColors.coral,
+              title: identity.isAuthenticated ? 'Log out' : 'Create a free account',
+              subtitle: identity.isAuthenticated
+                  ? null
+                  : 'You are learning as a guest — sign up to save progress',
+              onTap: () => context.push('/onboarding'),
+            ),
+          ]),
         ],
       ),
     );
@@ -199,23 +185,43 @@ class SettingsScreen extends ConsumerWidget {
       ..showSnackBar(SnackBar(content: Text('Could not open $url')));
   }
 
-  Widget _toggle(BuildContext context,
-          String emoji, String title, bool value, ValueChanged<bool> onChanged) =>
-      RatelCard(
-        child: Row(
-          children: <Widget>[
-            Text(emoji, style: const TextStyle(fontSize: 20)),
-            const SizedBox(width: RatelSpace.md),
-            Expanded(
-              child: Text(title,
-                  style: TextStyle(
-                      fontFamily: RatelFont.body,
-                      fontSize: RatelType.bodyLg,
-                      color: context.palette.ink)),
-            ),
-            RatelToggle(value: value, onChanged: onChanged),
-          ],
+  /// One settings section (E-8): a small-caps header + a single grouped
+  /// [RatelCard] whose rows are separated by hairline dividers (design §4.9).
+  /// Honest/additive rows (World, Course) stay (§D-4).
+  Widget _section(BuildContext context, String label, List<Widget> rows) {
+    final List<Widget> children = <Widget>[];
+    for (int i = 0; i < rows.length; i++) {
+      if (i > 0) {
+        children.add(Divider(
+            height: 1, thickness: 1, color: context.palette.border));
+      }
+      children.add(rows[i]);
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        RatelSectionHeader(label: label),
+        const SizedBox(height: RatelSpace.sm),
+        RatelCard(
+          padding: const EdgeInsets.symmetric(horizontal: RatelSpace.cardPad),
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: children),
         ),
+      ],
+    );
+  }
+
+  /// A plain toggle row for inside a section card — no leading emoji (design
+  /// §4.9 toggle rows are plain): title (+ optional [subtitle]) + a trailing
+  /// [RatelToggle].
+  Widget _switchRow(String title, bool value, ValueChanged<bool> onChanged,
+          {String? subtitle}) =>
+      RatelListRow(
+        title: title,
+        subtitle: subtitle,
+        trailing: RatelToggle(value: value, onChanged: onChanged),
       );
 
   void _pickGoal(
