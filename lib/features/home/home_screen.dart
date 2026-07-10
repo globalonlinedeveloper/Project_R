@@ -125,7 +125,7 @@ class HomeScreen extends ConsumerWidget {
                               RatelSpace.lg, RatelSpace.screen, 96),
                           itemCount: nodes.length,
                           itemBuilder: (BuildContext context, int i) =>
-                              _pathRow(context, nodes, i, active, true),
+                              _pathRow(context, nodes, i, active),
                         )
                       : LearningPathView(
                           nodes: geom.nodes,
@@ -273,8 +273,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _pathRow(BuildContext context, List<_Node> nodes, int i, int active,
-      bool galaxy) {
+  Widget _pathRow(BuildContext context, List<_Node> nodes, int i, int active) {
     final _Node n = nodes[i];
     final bool done = n.globalIndex < active;
     final bool isActive = n.globalIndex == active;
@@ -287,20 +286,20 @@ class HomeScreen extends ConsumerWidget {
         child: RatelSectionHeader(label: n.section),
       ));
     }
-    final double nodeSize = isActive ? 84 : 64;
+    // Node proportions match the ported LearningPathView / design
+    // (active 64, others 56 - SPEC_HOME_PATH A2/D5) so Classic + Space
+    // read identically.
+    final double nodeSize = isActive ? 64 : 56;
     // Galaxy planets carry a ring + pod, so their rows get a little more height.
-    final double trackHeight =
-        isActive ? (galaxy ? 140 : 132) : (galaxy ? 110 : 104);
+    final double trackHeight = isActive ? 140 : 110;
     Widget track = SizedBox(
       height: trackHeight,
       child: Align(
         alignment: Alignment(ax, 0),
-        child: galaxy
-            ? _galaxyNode(context, n, done, isActive)
-            : _nodeCircle(context, n, done, isActive),
+        child: _galaxyNode(context, n, done, isActive),
       ),
     );
-    if (galaxy) {
+    {
       // The orbital trail connects this planet to its neighbours; a new section
       // (with its header) starts a fresh arc, so suppress the trail across a
       // section boundary.
@@ -332,7 +331,7 @@ class HomeScreen extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(
             horizontal: RatelSpace.md, vertical: 6),
         decoration: BoxDecoration(
-            color: RatelColors.amber,
+            color: RatelColors.teal,
             borderRadius: BorderRadius.circular(RatelRadius.pill)),
         child: const Text('START',
             style: TextStyle(
@@ -344,10 +343,10 @@ class HomeScreen extends ConsumerWidget {
 
   /// The galaxy-skin node (R-WT4): a [GalaxyPlanet], with the active planet
   /// carrying the START pill + the [PodTraveller] marker. Same state + tap
-  /// behaviour as [_nodeCircle], only re-skinned.
+  /// behaviour as the classic node circle, only re-skinned.
   Widget _galaxyNode(
       BuildContext context, _Node n, bool done, bool isActive) {
-    final double size = isActive ? 84 : 64;
+    final double size = isActive ? 64 : 56;
     // R-WT7 (G3): animate the pod only when the reduce-motion HARD FLOOR allows
     // it — MediaQuery.disableAnimations folds the OS setting + the in-app toggle.
     final bool motion = !MediaQuery.of(context).disableAnimations;
@@ -390,80 +389,6 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _nodeCircle(
-      BuildContext context, _Node n, bool done, bool isActive) {
-    final double size = isActive ? 84 : 64;
-    final Color fill = done
-        ? RatelColors.teal
-        : isActive
-            ? RatelColors.teal
-            : context.palette.cream3;
-    final String glyph = done
-        ? '✓'
-        : isActive
-            ? '▶'
-            : '🔒';
-    final Widget circle = Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: fill,
-        shape: BoxShape.circle,
-        border: Border.all(
-            color: isActive || done ? RatelColors.tealDark : context.palette.border,
-            width: 3),
-        boxShadow: <BoxShadow>[
-          BoxShadow(color: context.palette.shadow, blurRadius: 8, offset: Offset(0, 3)),
-        ],
-      ),
-      alignment: Alignment.center,
-      child: Text(glyph,
-          style: TextStyle(
-              fontSize: isActive ? 30 : 24,
-              fontFamily: RatelFont.display,
-              fontWeight: RatelType.extraBold,
-              color: done || isActive ? RatelColors.onColor : context.palette.muted)),
-    );
-
-    if (!isActive) {
-      return Opacity(opacity: done ? 1 : 0.85, child: circle);
-    }
-
-    return GestureDetector(
-      key: const ValueKey<String>('home-active-node'),
-      onTap: () => _showPreview(context, n),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: RatelSpace.md, vertical: 6),
-            decoration: BoxDecoration(
-                color: RatelColors.amber,
-                borderRadius: BorderRadius.circular(RatelRadius.pill)),
-            child: const Text('START',
-                style: TextStyle(
-                    fontFamily: RatelFont.display,
-                    fontWeight: RatelType.extraBold,
-                    fontSize: RatelType.small,
-                    color: RatelColors.onColor)),
-          ),
-          const SizedBox(height: RatelSpace.xs),
-          Stack(
-            clipBehavior: Clip.none,
-            children: <Widget>[
-              circle,
-              const Positioned(
-                right: -10,
-                top: -6,
-                child: Text('🦡', style: TextStyle(fontSize: 22)),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
 
   /// 📖 Guide (design §4.1 · plan §3.2): when the CURRENT unit carries an
   /// authored guide (unit.guide_ref → gloss text — pre-generated content, no
