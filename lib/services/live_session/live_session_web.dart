@@ -32,10 +32,10 @@ class WebLiveSessionEngine implements LiveSessionEngine {
   bool get isAvailable => true;
 
   @override
-  Future<LiveSession> start() async {
+  Future<LiveSession> start({Map<String, Object?>? payload}) async {
     final LiveTokenGrant grant;
     try {
-      grant = await _mintToken();
+      grant = await _mintToken(payload: payload);
     } on LiveSessionUnavailable {
       rethrow;
     } catch (_) {

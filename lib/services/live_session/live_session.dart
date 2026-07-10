@@ -48,7 +48,12 @@ class LiveTokenGrant {
 
 /// Injected by `backend_wiring` (Supabase functions invoke, which attaches the
 /// user JWT). The seam itself never imports a backend type (R-K6 portability).
-typedef LiveTokenFetcher = Future<LiveTokenGrant> Function();
+/// L-3 (S113): [payload] is an OPAQUE scenario-scaffold body forwarded to the
+/// `live-token` mint — the server clamps every field and builds the system
+/// prompt there (plan §B/§E); null => free-form practice. No prompt text is
+/// ever composed client-side.
+typedef LiveTokenFetcher = Future<LiveTokenGrant> Function(
+    {Map<String, Object?>? payload});
 
 /// Session phases (plan §B): idle -> connecting -> listening <-> speaking ->
 /// closed. `listening` = the learner may talk (mic streaming); `speaking` =
@@ -160,8 +165,9 @@ abstract interface class LiveSessionEngine {
 
   /// Mint a token (server enforces Pro + budgets; 403/429 surface as
   /// [LiveSessionUnavailable] with the server's honest reason) and open the
-  /// session. Only meaningful when [isAvailable].
-  Future<LiveSession> start();
+  /// session. Only meaningful when [isAvailable]. [payload] = the optional
+  /// scenario scaffold forwarded to the mint (see [LiveTokenFetcher]).
+  Future<LiveSession> start({Map<String, Object?>? payload});
 }
 
 /// Default (non-web / flag off / unwired): honest fail-closed engine.
@@ -170,8 +176,8 @@ class UnavailableLiveSessionEngine implements LiveSessionEngine {
   @override
   bool get isAvailable => false;
   @override
-  Future<LiveSession> start() async => throw const LiveSessionUnavailable(
-      'live AI is not enabled in this build.');
+  Future<LiveSession> start({Map<String, Object?>? payload}) async =>
+      throw const LiveSessionUnavailable('live AI is not enabled in this build.');
 }
 
 /// Thrown on start/transport failure — carries an honest, user-presentable

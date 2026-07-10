@@ -109,10 +109,11 @@ HttpTransport supabaseTtsTransport(SupabaseClient client) =>
 /// LOCKS the model + system prompt into the single-use token
 /// (liveConnectConstraints) — no model key, model name, or prompt ships in
 /// client code. 403/429 surface as honest [LiveSessionUnavailable] reasons.
-LiveTokenFetcher supabaseLiveTokenFetcher(SupabaseClient client) => () async {
+LiveTokenFetcher supabaseLiveTokenFetcher(SupabaseClient client) =>
+    ({Map<String, Object?>? payload}) async {
       try {
-        final FunctionResponse resp =
-            await client.functions.invoke('live-token');
+        final FunctionResponse resp = await client.functions
+            .invoke('live-token', body: payload);
         final dynamic data = resp.data;
         final String? token = data is Map
             ? (data['token'] ?? data['name']) as String?

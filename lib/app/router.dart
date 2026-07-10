@@ -8,6 +8,7 @@ import 'package:ratel/app/navigation_focus.dart';
 import 'package:ratel/features/adventures/adventures_screen.dart';
 import 'package:ratel/features/adventures/adventure_player_screen.dart';
 import 'package:ratel/features/roleplay/roleplay_screen.dart';
+import 'package:ratel/features/roleplay/live_roleplay_screen.dart';
 import 'package:ratel/features/roleplay/roleplay_player_screen.dart';
 import 'package:ratel/features/auth/login_screen.dart';
 import 'package:ratel/features/auth/signup_screen.dart';
@@ -212,6 +213,12 @@ GoRouter buildRouter({
         path: '/roleplay-play',
         builder: (BuildContext context, GoRouterState state) =>
             RoleplayPlayerScreen(
+                scenarioId: state.uri.queryParameters['scenario']),
+      ),
+      GoRoute(
+        path: '/roleplay-live',
+        builder: (BuildContext context, GoRouterState state) =>
+            LiveRoleplayScreen(
                 scenarioId: state.uri.queryParameters['scenario']),
       ),
       GoRoute(

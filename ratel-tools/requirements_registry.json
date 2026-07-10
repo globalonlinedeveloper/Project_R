@@ -469,7 +469,7 @@
     "R-H2": {
       "moscow": "Must",
       "phase": "Stage3",
-      "status": "Partial 🟨"
+      "status": "Build-ahead 🟦"
     },
     "R-H3": {
       "moscow": "Must",

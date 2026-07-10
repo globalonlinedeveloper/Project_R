@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 
@@ -16,6 +17,7 @@ class RoleplayScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final List<CourseScenario> items = ref.watch(courseSpineProvider).roleplays;
+    final bool isPro = ref.watch(isProProvider);
     final List<String> levels = <String>[];
     final Map<String, List<CourseScenario>> byLevel =
         <String, List<CourseScenario>>{};
@@ -55,6 +57,49 @@ class RoleplayScreen extends ConsumerWidget {
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.small,
                       color: context.palette.muted),
+                ),
+                const SizedBox(height: RatelSpace.lg),
+                // L-3 (S113): the LIVE variant entry — ADDITIVE beside the
+                // pre-generated list (plan §B; anti-goal §D: this screen's
+                // authored surface is untouched). Two-signal honesty lives on
+                // the LiveRoleplayScreen itself. [R-H6 · R-J1]
+                RatelCard(
+                  key: const ValueKey<String>('live-roleplay-entry'),
+                  gradient: const LinearGradient(
+                      colors: <Color>[RatelColors.teal, RatelColors.tealDark],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight),
+                  onTap: () => context.push('/roleplay-live'),
+                  child: Row(
+                    children: <Widget>[
+                      const Text('🎙️', style: TextStyle(fontSize: 30)),
+                      const SizedBox(width: RatelSpace.md),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            const Text('Live Roleplay',
+                                style: TextStyle(
+                                    fontFamily: RatelFont.display,
+                                    fontWeight: RatelType.extraBold,
+                                    fontSize: RatelType.cardTitle,
+                                    color: RatelColors.onColor)),
+                            Text('Talk it out with Ratel — real voice',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    fontFamily: RatelFont.body,
+                                    fontSize: RatelType.small,
+                                    color: RatelColors.onColor)),
+                          ],
+                        ),
+                      ),
+                      if (!isPro) ...<Widget>[
+                        const SizedBox(width: RatelSpace.sm),
+                        RatelChip.pro(),
+                      ],
+                    ],
+                  ),
                 ),
                 const SizedBox(height: RatelSpace.lg),
                 for (final String level in levels) ...<Widget>[
