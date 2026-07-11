@@ -195,6 +195,228 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'System default'**
   String get settingsAppLanguageSystem;
+
+  /// No description provided for @homeCourseLoadingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your course is getting ready'**
+  String get homeCourseLoadingTitle;
+
+  /// No description provided for @homeCourseLoadingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Lessons will appear here once your course content loads.'**
+  String get homeCourseLoadingBody;
+
+  /// No description provided for @homeGuideChip.
+  ///
+  /// In en, this message translates to:
+  /// **'Guide'**
+  String get homeGuideChip;
+
+  /// No description provided for @homeStartNode.
+  ///
+  /// In en, this message translates to:
+  /// **'START'**
+  String get homeStartNode;
+
+  /// No description provided for @homeUnitGuideHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'UNIT GUIDE'**
+  String get homeUnitGuideHeader;
+
+  /// No description provided for @commonDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get commonDone;
+
+  /// No description provided for @homeUnitKicker.
+  ///
+  /// In en, this message translates to:
+  /// **'UNIT · {unit}'**
+  String homeUnitKicker(String unit);
+
+  /// No description provided for @homeLessonMeta.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson {num} of {count} · {exercises}.'**
+  String homeLessonMeta(int num, int count, String exercises);
+
+  /// No description provided for @homeQuickExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} quick exercise} other{{count} quick exercises}}'**
+  String homeQuickExercises(int count);
+
+  /// No description provided for @homeEnergyChip.
+  ///
+  /// In en, this message translates to:
+  /// **'−1 ⚡ energy'**
+  String get homeEnergyChip;
+
+  /// No description provided for @homeXpChip.
+  ///
+  /// In en, this message translates to:
+  /// **'+20 XP'**
+  String get homeXpChip;
+
+  /// No description provided for @homeStartLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Start lesson'**
+  String get homeStartLesson;
+
+  /// No description provided for @homeTutorChip.
+  ///
+  /// In en, this message translates to:
+  /// **'Tutor'**
+  String get homeTutorChip;
+
+  /// No description provided for @libraryAiTutor.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Tutor'**
+  String get libraryAiTutor;
+
+  /// No description provided for @libraryAiTutorSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk, chat & roleplay — writing feedback'**
+  String get libraryAiTutorSub;
+
+  /// No description provided for @libraryRoleplay.
+  ///
+  /// In en, this message translates to:
+  /// **'Roleplay'**
+  String get libraryRoleplay;
+
+  /// No description provided for @libraryRoleplaySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice replies — graded, always free'**
+  String get libraryRoleplaySub;
+
+  /// No description provided for @librarySectionPractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice'**
+  String get librarySectionPractice;
+
+  /// No description provided for @libraryPracticeHub.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice hub'**
+  String get libraryPracticeHub;
+
+  /// No description provided for @libraryPracticeHubSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Mistakes, weak words & drills · FREE'**
+  String get libraryPracticeHubSub;
+
+  /// No description provided for @librarySectionReadListen.
+  ///
+  /// In en, this message translates to:
+  /// **'Read & listen'**
+  String get librarySectionReadListen;
+
+  /// No description provided for @libraryGradedStories.
+  ///
+  /// In en, this message translates to:
+  /// **'Graded stories'**
+  String get libraryGradedStories;
+
+  /// No description provided for @libraryPodcasts.
+  ///
+  /// In en, this message translates to:
+  /// **'Podcasts'**
+  String get libraryPodcasts;
+
+  /// No description provided for @libraryWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch'**
+  String get libraryWatch;
+
+  /// No description provided for @librarySearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search lessons, words, stories…'**
+  String get librarySearchHint;
+
+  /// No description provided for @libraryFeaturedStory.
+  ///
+  /// In en, this message translates to:
+  /// **'FEATURED · STORY'**
+  String get libraryFeaturedStory;
+
+  /// No description provided for @commonLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Level {cefr}'**
+  String commonLevel(String cefr);
+
+  /// No description provided for @libraryReadNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Read now'**
+  String get libraryReadNow;
+
+  /// No description provided for @libraryNewExplore.
+  ///
+  /// In en, this message translates to:
+  /// **'NEW · EXPLORE'**
+  String get libraryNewExplore;
+
+  /// No description provided for @libraryAdventures.
+  ///
+  /// In en, this message translates to:
+  /// **'Adventures'**
+  String get libraryAdventures;
+
+  /// No description provided for @libraryStartExploring.
+  ///
+  /// In en, this message translates to:
+  /// **'Start exploring →'**
+  String get libraryStartExploring;
+
+  /// No description provided for @libraryKindStory.
+  ///
+  /// In en, this message translates to:
+  /// **'Story'**
+  String get libraryKindStory;
+
+  /// No description provided for @libraryKindPodcast.
+  ///
+  /// In en, this message translates to:
+  /// **'Podcast'**
+  String get libraryKindPodcast;
+
+  /// No description provided for @libraryKindVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Video'**
+  String get libraryKindVideo;
+
+  /// No description provided for @libraryAllStories.
+  ///
+  /// In en, this message translates to:
+  /// **'All stories'**
+  String get libraryAllStories;
+
+  /// No description provided for @libraryAllPodcasts.
+  ///
+  /// In en, this message translates to:
+  /// **'All podcasts'**
+  String get libraryAllPodcasts;
+
+  /// No description provided for @libraryAllVideos.
+  ///
+  /// In en, this message translates to:
+  /// **'All videos'**
+  String get libraryAllVideos;
 }
 
 class _AppLocalizationsDelegate

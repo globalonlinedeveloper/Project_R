@@ -46,4 +46,132 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get settingsAppLanguageSystem => 'Systemstandard';
+
+  @override
+  String get homeCourseLoadingTitle => 'Dein Kurs wird vorbereitet';
+
+  @override
+  String get homeCourseLoadingBody =>
+      'Lektionen erscheinen hier, sobald die Kursinhalte geladen sind.';
+
+  @override
+  String get homeGuideChip => 'Guide';
+
+  @override
+  String get homeStartNode => 'START';
+
+  @override
+  String get homeUnitGuideHeader => 'EINHEITEN-GUIDE';
+
+  @override
+  String get commonDone => 'Fertig';
+
+  @override
+  String homeUnitKicker(String unit) {
+    return 'EINHEIT · $unit';
+  }
+
+  @override
+  String homeLessonMeta(int num, int count, String exercises) {
+    return 'Lektion $num von $count · $exercises.';
+  }
+
+  @override
+  String homeQuickExercises(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count schnelle Übungen',
+      one: '$count schnelle Übung',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeEnergyChip => '−1 ⚡ Energie';
+
+  @override
+  String get homeXpChip => '+20 XP';
+
+  @override
+  String get homeStartLesson => 'Lektion starten';
+
+  @override
+  String get homeTutorChip => 'Tutor';
+
+  @override
+  String get libraryAiTutor => 'KI-Tutor';
+
+  @override
+  String get libraryAiTutorSub =>
+      'Sprechen, chatten & Rollenspiel — Schreib-Feedback';
+
+  @override
+  String get libraryRoleplay => 'Rollenspiel';
+
+  @override
+  String get libraryRoleplaySub => 'Antworten üben — bewertet, immer kostenlos';
+
+  @override
+  String get librarySectionPractice => 'Üben';
+
+  @override
+  String get libraryPracticeHub => 'Übungszentrum';
+
+  @override
+  String get libraryPracticeHubSub =>
+      'Fehler, schwache Wörter & Drills · KOSTENLOS';
+
+  @override
+  String get librarySectionReadListen => 'Lesen & Hören';
+
+  @override
+  String get libraryGradedStories => 'Abgestufte Geschichten';
+
+  @override
+  String get libraryPodcasts => 'Podcasts';
+
+  @override
+  String get libraryWatch => 'Ansehen';
+
+  @override
+  String get librarySearchHint => 'Lektionen, Wörter, Geschichten suchen…';
+
+  @override
+  String get libraryFeaturedStory => 'EMPFOHLEN · GESCHICHTE';
+
+  @override
+  String commonLevel(String cefr) {
+    return 'Niveau $cefr';
+  }
+
+  @override
+  String get libraryReadNow => 'Jetzt lesen';
+
+  @override
+  String get libraryNewExplore => 'NEU · ENTDECKEN';
+
+  @override
+  String get libraryAdventures => 'Abenteuer';
+
+  @override
+  String get libraryStartExploring => 'Jetzt entdecken →';
+
+  @override
+  String get libraryKindStory => 'Geschichte';
+
+  @override
+  String get libraryKindPodcast => 'Podcast';
+
+  @override
+  String get libraryKindVideo => 'Video';
+
+  @override
+  String get libraryAllStories => 'Alle Geschichten';
+
+  @override
+  String get libraryAllPodcasts => 'Alle Podcasts';
+
+  @override
+  String get libraryAllVideos => 'Alle Videos';
 }

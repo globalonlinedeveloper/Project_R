@@ -46,4 +46,135 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get settingsAppLanguageSystem => 'Как в системе';
+
+  @override
+  String get homeCourseLoadingTitle => 'Ваш курс готовится';
+
+  @override
+  String get homeCourseLoadingBody =>
+      'Уроки появятся здесь, когда загрузится содержимое курса.';
+
+  @override
+  String get homeGuideChip => 'Гид';
+
+  @override
+  String get homeStartNode => 'НАЧАТЬ';
+
+  @override
+  String get homeUnitGuideHeader => 'ГИД ПО РАЗДЕЛУ';
+
+  @override
+  String get commonDone => 'Готово';
+
+  @override
+  String homeUnitKicker(String unit) {
+    return 'РАЗДЕЛ · $unit';
+  }
+
+  @override
+  String homeLessonMeta(int num, int count, String exercises) {
+    return 'Урок $num из $count · $exercises.';
+  }
+
+  @override
+  String homeQuickExercises(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count быстрого упражнения',
+      many: '$count быстрых упражнений',
+      few: '$count быстрых упражнения',
+      one: '$count быстрое упражнение',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeEnergyChip => '−1 ⚡ энергия';
+
+  @override
+  String get homeXpChip => '+20 XP';
+
+  @override
+  String get homeStartLesson => 'Начать урок';
+
+  @override
+  String get homeTutorChip => 'Наставник';
+
+  @override
+  String get libraryAiTutor => 'ИИ-наставник';
+
+  @override
+  String get libraryAiTutorSub =>
+      'Говорите, общайтесь, разыгрывайте сценки — разбор письма';
+
+  @override
+  String get libraryRoleplay => 'Ролевая игра';
+
+  @override
+  String get libraryRoleplaySub =>
+      'Отрабатывайте ответы — с оценкой, всегда бесплатно';
+
+  @override
+  String get librarySectionPractice => 'Практика';
+
+  @override
+  String get libraryPracticeHub => 'Центр практики';
+
+  @override
+  String get libraryPracticeHubSub =>
+      'Ошибки, слабые слова и упражнения · БЕСПЛАТНО';
+
+  @override
+  String get librarySectionReadListen => 'Читать и слушать';
+
+  @override
+  String get libraryGradedStories => 'Адаптированные истории';
+
+  @override
+  String get libraryPodcasts => 'Подкасты';
+
+  @override
+  String get libraryWatch => 'Смотреть';
+
+  @override
+  String get librarySearchHint => 'Ищите уроки, слова, истории…';
+
+  @override
+  String get libraryFeaturedStory => 'ИЗБРАННОЕ · ИСТОРИЯ';
+
+  @override
+  String commonLevel(String cefr) {
+    return 'Уровень $cefr';
+  }
+
+  @override
+  String get libraryReadNow => 'Читать сейчас';
+
+  @override
+  String get libraryNewExplore => 'НОВОЕ · ИССЛЕДУЙ';
+
+  @override
+  String get libraryAdventures => 'Приключения';
+
+  @override
+  String get libraryStartExploring => 'Начать исследовать →';
+
+  @override
+  String get libraryKindStory => 'История';
+
+  @override
+  String get libraryKindPodcast => 'Подкаст';
+
+  @override
+  String get libraryKindVideo => 'Видео';
+
+  @override
+  String get libraryAllStories => 'Все истории';
+
+  @override
+  String get libraryAllPodcasts => 'Все подкасты';
+
+  @override
+  String get libraryAllVideos => 'Все видео';
 }

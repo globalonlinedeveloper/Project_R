@@ -46,4 +46,128 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get settingsAppLanguageSystem => '跟随系统';
+
+  @override
+  String get homeCourseLoadingTitle => '你的课程正在准备中';
+
+  @override
+  String get homeCourseLoadingBody => '课程内容加载后,课程将显示在这里。';
+
+  @override
+  String get homeGuideChip => '指南';
+
+  @override
+  String get homeStartNode => '开始';
+
+  @override
+  String get homeUnitGuideHeader => '单元指南';
+
+  @override
+  String get commonDone => '完成';
+
+  @override
+  String homeUnitKicker(String unit) {
+    return '单元 · $unit';
+  }
+
+  @override
+  String homeLessonMeta(int num, int count, String exercises) {
+    return '第 $num 课,共 $count 课 · $exercises。';
+  }
+
+  @override
+  String homeQuickExercises(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 个快速练习',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeEnergyChip => '−1 ⚡ 能量';
+
+  @override
+  String get homeXpChip => '+20 XP';
+
+  @override
+  String get homeStartLesson => '开始课程';
+
+  @override
+  String get homeTutorChip => '导师';
+
+  @override
+  String get libraryAiTutor => 'AI 导师';
+
+  @override
+  String get libraryAiTutorSub => '对话、聊天与角色扮演 — 写作反馈';
+
+  @override
+  String get libraryRoleplay => '角色扮演';
+
+  @override
+  String get libraryRoleplaySub => '练习回答 — 有评分,永久免费';
+
+  @override
+  String get librarySectionPractice => '练习';
+
+  @override
+  String get libraryPracticeHub => '练习中心';
+
+  @override
+  String get libraryPracticeHubSub => '错题、薄弱词汇与训练 · 免费';
+
+  @override
+  String get librarySectionReadListen => '读与听';
+
+  @override
+  String get libraryGradedStories => '分级故事';
+
+  @override
+  String get libraryPodcasts => '播客';
+
+  @override
+  String get libraryWatch => '观看';
+
+  @override
+  String get librarySearchHint => '搜索课程、单词、故事…';
+
+  @override
+  String get libraryFeaturedStory => '精选 · 故事';
+
+  @override
+  String commonLevel(String cefr) {
+    return '$cefr 级';
+  }
+
+  @override
+  String get libraryReadNow => '立即阅读';
+
+  @override
+  String get libraryNewExplore => '新 · 探索';
+
+  @override
+  String get libraryAdventures => '冒险';
+
+  @override
+  String get libraryStartExploring => '开始探索 →';
+
+  @override
+  String get libraryKindStory => '故事';
+
+  @override
+  String get libraryKindPodcast => '播客';
+
+  @override
+  String get libraryKindVideo => '视频';
+
+  @override
+  String get libraryAllStories => '全部故事';
+
+  @override
+  String get libraryAllPodcasts => '全部播客';
+
+  @override
+  String get libraryAllVideos => '全部视频';
 }

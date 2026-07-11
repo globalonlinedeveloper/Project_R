@@ -12,5 +12,76 @@
   "settingsSectionNotifications": "Notifications",
   "settingsSectionAppearanceAccount": "Appearance & account",
   "settingsAppLanguage": "App language",
-  "settingsAppLanguageSystem": "System default"
+  "settingsAppLanguageSystem": "System default",
+  "homeCourseLoadingTitle": "Your course is getting ready",
+  "homeCourseLoadingBody": "Lessons will appear here once your course content loads.",
+  "homeGuideChip": "Guide",
+  "homeStartNode": "START",
+  "homeUnitGuideHeader": "UNIT GUIDE",
+  "commonDone": "Done",
+  "homeUnitKicker": "UNIT · {unit}",
+  "homeLessonMeta": "Lesson {num} of {count} · {exercises}.",
+  "homeQuickExercises": "{count, plural, one{{count} quick exercise} other{{count} quick exercises}}",
+  "homeEnergyChip": "−1 ⚡ energy",
+  "homeXpChip": "+20 XP",
+  "homeStartLesson": "Start lesson",
+  "homeTutorChip": "Tutor",
+  "libraryAiTutor": "AI Tutor",
+  "libraryAiTutorSub": "Talk, chat & roleplay — writing feedback",
+  "libraryRoleplay": "Roleplay",
+  "libraryRoleplaySub": "Practice replies — graded, always free",
+  "librarySectionPractice": "Practice",
+  "libraryPracticeHub": "Practice hub",
+  "libraryPracticeHubSub": "Mistakes, weak words & drills · FREE",
+  "librarySectionReadListen": "Read & listen",
+  "libraryGradedStories": "Graded stories",
+  "libraryPodcasts": "Podcasts",
+  "libraryWatch": "Watch",
+  "librarySearchHint": "Search lessons, words, stories…",
+  "libraryFeaturedStory": "FEATURED · STORY",
+  "commonLevel": "Level {cefr}",
+  "libraryReadNow": "Read now",
+  "libraryNewExplore": "NEW · EXPLORE",
+  "libraryAdventures": "Adventures",
+  "libraryStartExploring": "Start exploring →",
+  "libraryKindStory": "Story",
+  "libraryKindPodcast": "Podcast",
+  "libraryKindVideo": "Video",
+  "libraryAllStories": "All stories",
+  "libraryAllPodcasts": "All podcasts",
+  "libraryAllVideos": "All videos",
+  "@homeUnitKicker": {
+    "placeholders": {
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "@homeLessonMeta": {
+    "placeholders": {
+      "num": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      },
+      "exercises": {
+        "type": "String"
+      }
+    }
+  },
+  "@homeQuickExercises": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@commonLevel": {
+    "placeholders": {
+      "cefr": {
+        "type": "String"
+      }
+    }
+  }
 }

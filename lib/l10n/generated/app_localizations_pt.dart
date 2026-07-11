@@ -46,4 +46,133 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get settingsAppLanguageSystem => 'Padrão do sistema';
+
+  @override
+  String get homeCourseLoadingTitle => 'Seu curso está sendo preparado';
+
+  @override
+  String get homeCourseLoadingBody =>
+      'As lições aparecerão aqui quando o conteúdo do curso carregar.';
+
+  @override
+  String get homeGuideChip => 'Guia';
+
+  @override
+  String get homeStartNode => 'COMEÇAR';
+
+  @override
+  String get homeUnitGuideHeader => 'GUIA DA UNIDADE';
+
+  @override
+  String get commonDone => 'Concluído';
+
+  @override
+  String homeUnitKicker(String unit) {
+    return 'UNIDADE · $unit';
+  }
+
+  @override
+  String homeLessonMeta(int num, int count, String exercises) {
+    return 'Lição $num de $count · $exercises.';
+  }
+
+  @override
+  String homeQuickExercises(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count exercícios rápidos',
+      one: '$count exercício rápido',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeEnergyChip => '−1 ⚡ energia';
+
+  @override
+  String get homeXpChip => '+20 XP';
+
+  @override
+  String get homeStartLesson => 'Começar lição';
+
+  @override
+  String get homeTutorChip => 'Tutor';
+
+  @override
+  String get libraryAiTutor => 'Tutor de IA';
+
+  @override
+  String get libraryAiTutorSub =>
+      'Fale, converse e encene — feedback de escrita';
+
+  @override
+  String get libraryRoleplay => 'Roleplay';
+
+  @override
+  String get libraryRoleplaySub =>
+      'Pratique respostas — avaliado, sempre grátis';
+
+  @override
+  String get librarySectionPractice => 'Prática';
+
+  @override
+  String get libraryPracticeHub => 'Central de prática';
+
+  @override
+  String get libraryPracticeHubSub =>
+      'Erros, palavras fracas e exercícios · GRÁTIS';
+
+  @override
+  String get librarySectionReadListen => 'Ler e ouvir';
+
+  @override
+  String get libraryGradedStories => 'Histórias graduadas';
+
+  @override
+  String get libraryPodcasts => 'Podcasts';
+
+  @override
+  String get libraryWatch => 'Assistir';
+
+  @override
+  String get librarySearchHint => 'Busque lições, palavras, histórias…';
+
+  @override
+  String get libraryFeaturedStory => 'DESTAQUE · HISTÓRIA';
+
+  @override
+  String commonLevel(String cefr) {
+    return 'Nível $cefr';
+  }
+
+  @override
+  String get libraryReadNow => 'Ler agora';
+
+  @override
+  String get libraryNewExplore => 'NOVO · EXPLORAR';
+
+  @override
+  String get libraryAdventures => 'Aventuras';
+
+  @override
+  String get libraryStartExploring => 'Comece a explorar →';
+
+  @override
+  String get libraryKindStory => 'História';
+
+  @override
+  String get libraryKindPodcast => 'Podcast';
+
+  @override
+  String get libraryKindVideo => 'Vídeo';
+
+  @override
+  String get libraryAllStories => 'Todas as histórias';
+
+  @override
+  String get libraryAllPodcasts => 'Todos os podcasts';
+
+  @override
+  String get libraryAllVideos => 'Todos os vídeos';
 }

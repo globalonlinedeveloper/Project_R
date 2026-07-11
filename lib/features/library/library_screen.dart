@@ -51,7 +51,7 @@ class LibraryScreen extends ConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(RatelSpace.screen,
                     RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
                 children: <Widget>[
-                  Text('Library',
+                  Text(context.l10n.navLibrary,
                       style: TextStyle(
                           fontFamily: RatelFont.display,
                           fontWeight: RatelType.extraBold,
@@ -68,8 +68,8 @@ class LibraryScreen extends ConsumerWidget {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight),
                     emoji: '🦡',
-                    title: 'AI Tutor',
-                    subtitle: 'Talk, chat & roleplay — writing feedback',
+                    title: context.l10n.libraryAiTutor,
+                    subtitle: context.l10n.libraryAiTutorSub,
                     badge: isPro ? null : RatelChip.pro(),
                     route: '/tutor',
                   ),
@@ -90,62 +90,62 @@ class LibraryScreen extends ConsumerWidget {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight),
                     emoji: '🎭',
-                    title: 'Roleplay',
-                    subtitle: 'Practice replies — graded, always free',
+                    title: context.l10n.libraryRoleplay,
+                    subtitle: context.l10n.libraryRoleplaySub,
                     badge: RatelChip.free(),
                     route: '/roleplay',
                   ),
                   const SizedBox(height: RatelSpace.lg),
-                  const RatelSectionHeader(label: 'Practice'),
+                  RatelSectionHeader(label: context.l10n.librarySectionPractice),
                   const SizedBox(height: RatelSpace.sm),
                   RatelListRow(
                     leadingEmoji: '🎯',
                     leadingColor: RatelColors.green,
-                    title: 'Practice hub',
-                    subtitle: 'Mistakes, weak words & drills · FREE',
+                    title: context.l10n.libraryPracticeHub,
+                    subtitle: context.l10n.libraryPracticeHubSub,
                     onTap: () => context.push('/practice'),
                   ),
                   const SizedBox(height: RatelSpace.lg),
-                  const RatelSectionHeader(label: 'Read & listen'),
+                  RatelSectionHeader(label: context.l10n.librarySectionReadListen),
                   const SizedBox(height: RatelSpace.md),
                   // B-3 dense inline rows from the REAL authored course. The
                   // Featured card is stories.first, so Graded stories skips it.
                   ..._mediaSection(
                     context,
-                    label: 'Graded stories',
+                    label: context.l10n.libraryGradedStories,
                     items: spine.stories.length > 1
                         ? spine.stories.sublist(1)
                         : const <CourseStory>[],
-                    kindLabel: 'Story',
+                    kindLabel: context.l10n.libraryKindStory,
                     emoji: '📖',
                     color: RatelColors.teal,
                     rowRoute: '/story',
                     allRoute: '/stories',
-                    allLabel: 'All stories',
+                    allLabel: context.l10n.libraryAllStories,
                     play: false,
                   ),
                   ..._mediaSection(
                     context,
-                    label: 'Podcasts',
+                    label: context.l10n.libraryPodcasts,
                     items: spine.podcasts,
-                    kindLabel: 'Podcast',
+                    kindLabel: context.l10n.libraryKindPodcast,
                     emoji: '🎧',
                     color: RatelColors.purple,
                     rowRoute: '/podcast',
                     allRoute: '/podcasts',
-                    allLabel: 'All podcasts',
+                    allLabel: context.l10n.libraryAllPodcasts,
                     play: true,
                   ),
                   ..._mediaSection(
                     context,
-                    label: 'Watch',
+                    label: context.l10n.libraryWatch,
                     items: spine.watch,
-                    kindLabel: 'Video',
+                    kindLabel: context.l10n.libraryKindVideo,
                     emoji: '🎬',
                     color: RatelColors.coral,
                     rowRoute: '/watch-play',
                     allRoute: '/watch',
-                    allLabel: 'All videos',
+                    allLabel: context.l10n.libraryAllVideos,
                     play: true,
                   ),
                 ],
@@ -172,7 +172,7 @@ class LibraryScreen extends ConsumerWidget {
               const Text('🔍', style: TextStyle(fontSize: 16)),
               const SizedBox(width: RatelSpace.sm),
               Expanded(
-                child: Text('Search lessons, words, stories…',
+                child: Text(context.l10n.librarySearchHint,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -200,7 +200,7 @@ class LibraryScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Text('FEATURED · STORY',
+                  Text(context.l10n.libraryFeaturedStory,
                       style: TextStyle(
                           fontFamily: RatelFont.body,
                           fontWeight: RatelType.extraBold,
@@ -217,7 +217,7 @@ class LibraryScreen extends ConsumerWidget {
                           fontSize: RatelType.cardTitle,
                           color: RatelColors.onColor)),
                   const SizedBox(height: RatelSpace.xs),
-                  Text('Level ${story.cefr}',
+                  Text(context.l10n.commonLevel(story.cefr),
                       style: const TextStyle(
                           fontFamily: RatelFont.body,
                           fontSize: RatelType.small,
@@ -230,7 +230,7 @@ class LibraryScreen extends ConsumerWidget {
                       color: RatelColors.onColor,
                       borderRadius: BorderRadius.circular(RatelRadius.pill),
                     ),
-                    child: const Text('Read now',
+                    child: Text(context.l10n.libraryReadNow,
                         style: TextStyle(
                             fontFamily: RatelFont.body,
                             fontWeight: RatelType.extraBold,
@@ -258,8 +258,8 @@ class LibraryScreen extends ConsumerWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                const Expanded(
-                  child: Text('NEW · EXPLORE',
+                Expanded(
+                  child: Text(context.l10n.libraryNewExplore,
                       style: TextStyle(
                           fontFamily: RatelFont.body,
                           fontWeight: RatelType.extraBold,
@@ -272,7 +272,7 @@ class LibraryScreen extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: RatelSpace.sm),
-            const Text('Adventures',
+            Text(context.l10n.libraryAdventures,
                 style: TextStyle(
                     fontFamily: RatelFont.display,
                     fontWeight: RatelType.extraBold,
@@ -293,7 +293,7 @@ class LibraryScreen extends ConsumerWidget {
                 color: RatelColors.onColor,
                 borderRadius: BorderRadius.circular(RatelRadius.pill),
               ),
-              child: const Text('Start exploring →',
+              child: Text(context.l10n.libraryStartExploring,
                   style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontWeight: RatelType.extraBold,

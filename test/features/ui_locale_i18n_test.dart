@@ -8,6 +8,7 @@ import 'package:ratel/app/ratel_app.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/features/settings/settings_screen.dart';
+import 'package:ratel/features/library/library_screen.dart';
 import 'package:ratel/services/preferences/app_settings.dart';
 import 'package:ratel/services/preferences/prefs_ui_locale_store.dart';
 import 'package:ratel/services/preferences/settings_store.dart';
@@ -137,6 +138,7 @@ void main() {
     expect(find.text('Biblioteca'), findsOneWidget);
     expect(find.text('Misiones'), findsOneWidget);
 
+
     final ProviderContainer container =
         ProviderScope.containerOf(tester.element(find.byType(RatelApp)));
     await container
@@ -194,6 +196,53 @@ void main() {
     await tester.tap(find.text('System default'));
     await tester.pumpAndSettle();
     expect(store.current, isNull);
+  });
+
+  test('ICU plurals + placeholders resolve per locale (I2)', () {
+    final AppLocalizations en = lookupAppLocalizations(const Locale('en'));
+    expect(en.homeQuickExercises(1), '1 quick exercise');
+    expect(en.homeQuickExercises(3), '3 quick exercises');
+    expect(en.homeLessonMeta(2, 5, '3 quick exercises'),
+        'Lesson 2 of 5 · 3 quick exercises.');
+    expect(en.commonLevel('A1'), 'Level A1');
+    final AppLocalizations ru = lookupAppLocalizations(const Locale('ru'));
+    expect(ru.homeQuickExercises(1), contains('быстрое'));
+    expect(ru.homeQuickExercises(3), contains('быстрых'));
+    final AppLocalizations ar = lookupAppLocalizations(const Locale('ar'));
+    expect(ar.homeQuickExercises(2), isNotEmpty);
+  });
+
+  testWidgets('Library in Spanish (delegates installed): chrome localized',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(ProviderScope(
+      overrides: <Override>[
+        courseSpineProvider.overrideWithValue(_testSpine),
+      ],
+      child: const MaterialApp(
+        locale: Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: LibraryScreen(),
+      ),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.text('Biblioteca'), findsOneWidget);
+    expect(find.text('Tutor de IA'), findsOneWidget);
+    expect(find.text('Centro de práctica'), findsOneWidget);
+  });
+
+  testWidgets('Library English fallback: bare MaterialApp renders English',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(ProviderScope(
+      overrides: <Override>[
+        courseSpineProvider.overrideWithValue(_testSpine),
+      ],
+      child: const MaterialApp(home: LibraryScreen()),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.text('Library'), findsOneWidget);
+    expect(find.text('AI Tutor'), findsOneWidget);
+    expect(find.text('Practice hub'), findsOneWidget);
   });
 
   testWidgets('Arabic: app renders RTL with localized nav — 360 gauntlet',

@@ -189,7 +189,7 @@ class HomeScreen extends ConsumerWidget {
                     children: <Widget>[
                       Text('🦡', style: TextStyle(fontSize: 48)),
                       SizedBox(height: RatelSpace.md),
-                      Text('Your course is getting ready',
+                      Text(context.l10n.homeCourseLoadingTitle,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontFamily: RatelFont.display,
@@ -197,7 +197,7 @@ class HomeScreen extends ConsumerWidget {
                               fontSize: RatelType.screenTitle,
                               color: context.palette.ink)),
                       SizedBox(height: RatelSpace.xs),
-                      Text('Lessons will appear here once your course content loads.',
+                      Text(context.l10n.homeCourseLoadingBody,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontFamily: RatelFont.body,
@@ -260,7 +260,7 @@ class HomeScreen extends ConsumerWidget {
               decoration: BoxDecoration(
                   color: RatelColors.onColor,
                   borderRadius: BorderRadius.circular(RatelRadius.pill)),
-              child: const Text('📖 Guide',
+              child: Text('📖 ${context.l10n.homeGuideChip}',
                   style: TextStyle(
                       fontFamily: RatelFont.display,
                       fontWeight: RatelType.semiBold,
@@ -327,13 +327,13 @@ class HomeScreen extends ConsumerWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: col);
   }
 
-  Widget _startPill() => Container(
+  Widget _startPill(BuildContext context) => Container(
         padding: const EdgeInsets.symmetric(
             horizontal: RatelSpace.md, vertical: 6),
         decoration: BoxDecoration(
             color: RatelColors.teal,
             borderRadius: BorderRadius.circular(RatelRadius.pill)),
-        child: const Text('START',
+        child: Text(context.l10n.homeStartNode,
             style: TextStyle(
                 fontFamily: RatelFont.display,
                 fontWeight: RatelType.extraBold,
@@ -370,7 +370,7 @@ class HomeScreen extends ConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          _startPill(),
+          _startPill(context),
           const SizedBox(height: RatelSpace.xs),
           Stack(
             clipBehavior: Clip.none,
@@ -412,7 +412,7 @@ class HomeScreen extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('📖 UNIT GUIDE',
+            Text('📖 ${context.l10n.homeUnitGuideHeader}',
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.caption,
@@ -439,7 +439,7 @@ class HomeScreen extends ConsumerWidget {
             ),
             const SizedBox(height: RatelSpace.lg),
             RatelButton(
-              label: 'Done',
+              label: context.l10n.commonDone,
               onPressed: () => Navigator.of(sheetContext).pop(),
             ),
           ],
@@ -449,8 +449,7 @@ class HomeScreen extends ConsumerWidget {
   }
 
   void _showPreview(BuildContext context, _Node n) {
-    final String exLabel =
-        n.exercises == 1 ? '1 quick exercise' : '${n.exercises} quick exercises';
+    final String exLabel = context.l10n.homeQuickExercises(n.exercises);
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: context.palette.white,
@@ -463,7 +462,7 @@ class HomeScreen extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('UNIT · ${n.unit.toUpperCase()}',
+            Text(context.l10n.homeUnitKicker(n.unit.toUpperCase()),
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.caption,
@@ -477,20 +476,20 @@ class HomeScreen extends ConsumerWidget {
                     fontSize: RatelType.screenTitle,
                     color: context.palette.ink)),
             const SizedBox(height: 4),
-            Text('Lesson ${n.lessonNum} of ${n.lessonCount} · $exLabel.',
+            Text(context.l10n.homeLessonMeta(n.lessonNum, n.lessonCount, exLabel),
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.body,
                     color: context.palette.muted)),
             const SizedBox(height: RatelSpace.md),
-            const Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
-              RatelChip(label: '−1 ⚡ energy'),
-              SizedBox(width: RatelSpace.sm),
-              RatelChip(label: '+20 XP'),
+            Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              RatelChip(label: context.l10n.homeEnergyChip),
+              const SizedBox(width: RatelSpace.sm),
+              RatelChip(label: context.l10n.homeXpChip),
             ]),
             const SizedBox(height: RatelSpace.lg),
             RatelButton(
-              label: 'Start lesson',
+              label: context.l10n.homeStartLesson,
               onPressed: () {
                 Navigator.of(sheetContext).pop();
                 context.push('/daily-quiz?lesson=${Uri.encodeComponent(n.id)}');
@@ -519,7 +518,7 @@ class HomeScreen extends ConsumerWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const Text('🦡 Tutor',
+            Text('🦡 ${context.l10n.homeTutorChip}',
                 style: TextStyle(
                     fontFamily: RatelFont.display,
                     fontWeight: RatelType.extraBold,
