@@ -7,6 +7,8 @@ import 'package:ratel/services/preferences/settings_store.dart';
 import 'package:ratel/services/progress/study_stats.dart';
 import 'package:ratel/services/progress/study_stats_store.dart';
 import 'package:ratel/services/progress/xp_history_store.dart';
+import 'package:ratel/services/adventures/adventure_progress_store.dart';
+import 'package:ratel/services/notifications/earned_stamps_store.dart';
 
 /// Stage-3 cross-device SYNC decorators (U-lane, S110). Each wraps the existing
 /// device-local store (SharedPreferences in `main`, in-memory in tests) and
@@ -25,6 +27,9 @@ import 'package:ratel/services/progress/xp_history_store.dart';
 ///   a row exists;
 /// - xp history: per-day MAX;
 /// - study stats: per-counter MAX (cumulative floors, never double-counted).
+/// - earned stamps: per-id EARLIEST (the first genuine crossing is the earn
+///   moment; later devices never overwrite it);
+/// - adventure progress: UNION (explored anywhere = explored).
 
 // ---------------------------------------------------------------- settings
 
@@ -382,4 +387,214 @@ class SupabaseStudyStatsStore implements StudyStatsStore {
         total: (row['total'] as num?)?.toInt() ?? 0,
         studySeconds: (row['study_seconds'] as num?)?.toInt() ?? 0,
       );
+}
+
+// ------------------------------------------------------- earned stamps (L-3)
+
+/// Own-row `user_earned_stamps` sync decorator (S131d — L-3). Mirrors
+/// [SupabaseXpHistoryStore]: local always, remote best-effort, boot [hydrate]
+/// converges both sides. Merge = per-id EARLIEST stamp (the first genuine
+/// crossing IS the earn moment — a second device that re-derives the milestone
+/// later never overwrites history; honesty rule from D-13/S126).
+class SupabaseEarnedStampsStore implements EarnedStampsStore {
+  SupabaseEarnedStampsStore(this._db, this._local);
+
+  final SupabaseClient? _db;
+  final EarnedStampsStore _local;
+
+  static const String table = 'user_earned_stamps';
+
+  final Map<String, DateTime> _pushed = <String, DateTime>{};
+
+  String? get _uid => _db?.auth.currentUser?.id;
+
+  @override
+  Map<String, DateTime> load() => _local.load();
+
+  @override
+  Future<void> save(Map<String, DateTime> stamps) async {
+    await _local.save(stamps);
+    final SupabaseClient? db = _db;
+    final String? uid = _uid;
+    if (db == null || uid == null) return;
+    final List<Map<String, Object?>> rows =
+        stampRowsFor(changedStamps(previous: _pushed, next: stamps), uid);
+    if (rows.isEmpty) return;
+    try {
+      await db
+          .from(table)
+          .upsert(rows, onConflict: 'user_id,notification_id');
+      _pushed
+        ..clear()
+        ..addAll(stamps);
+    } catch (_) {/* offline-tolerant: retry rides the next save */}
+  }
+
+  /// Boot-time pull: EARLIEST-wins merge of device + durable stamps, written
+  /// back to both sides so they converge.
+  Future<void> hydrate() async {
+    final SupabaseClient? db = _db;
+    final String? uid = _uid;
+    if (db == null || uid == null) return;
+    try {
+      final List<Map<String, dynamic>> rows = await db
+          .from(table)
+          .select('notification_id, earned_at')
+          .eq('user_id', uid);
+      final Map<String, DateTime> remote = stampsFromRows(rows);
+      final Map<String, DateTime> merged =
+          mergeStamps(_local.load(), remote);
+      await _local.save(merged);
+      final Map<String, DateTime> toPush =
+          changedStamps(previous: remote, next: merged);
+      if (toPush.isNotEmpty) {
+        await db
+            .from(table)
+            .upsert(stampRowsFor(toPush, uid),
+                onConflict: 'user_id,notification_id');
+      }
+      _pushed
+        ..clear()
+        ..addAll(merged);
+    } catch (_) {/* offline-tolerant */}
+  }
+
+  /// Pure: per-id EARLIEST (the first genuine crossing wins forever).
+  static Map<String, DateTime> mergeStamps(
+      Map<String, DateTime> a, Map<String, DateTime> b) {
+    final Map<String, DateTime> out = <String, DateTime>{...a};
+    b.forEach((String id, DateTime at) {
+      final DateTime? have = out[id];
+      out[id] = have == null || at.isBefore(have) ? at : have;
+    });
+    return out;
+  }
+
+  /// Pure: the subset of [next] whose value differs from [previous].
+  static Map<String, DateTime> changedStamps(
+      {required Map<String, DateTime> previous,
+      required Map<String, DateTime> next}) {
+    final Map<String, DateTime> out = <String, DateTime>{};
+    next.forEach((String id, DateTime at) {
+      if (previous[id] != at) out[id] = at;
+    });
+    return out;
+  }
+
+  /// Pure: id->moment entries as own-row `user_earned_stamps` rows.
+  static List<Map<String, Object?>> stampRowsFor(
+          Map<String, DateTime> stamps, String userId) =>
+      <Map<String, Object?>>[
+        for (final MapEntry<String, DateTime> e in stamps.entries)
+          <String, Object?>{
+            'user_id': userId,
+            'notification_id': e.key,
+            'earned_at': e.value.toUtc().toIso8601String(),
+            'updated_at': DateTime.now().toUtc().toIso8601String(),
+          },
+      ];
+
+  /// Pure: rows back into the id->moment map; malformed rows are skipped,
+  /// never faked (mirrors the Prefs store's posture).
+  static Map<String, DateTime> stampsFromRows(
+      List<Map<String, dynamic>> rows) {
+    final Map<String, DateTime> out = <String, DateTime>{};
+    for (final Map<String, dynamic> r in rows) {
+      final Object? id = r['notification_id'];
+      final Object? at = r['earned_at'];
+      if (id is! String || id.isEmpty || at is! String) continue;
+      final DateTime? parsed = DateTime.tryParse(at);
+      if (parsed == null) continue;
+      out[id] = parsed.toUtc();
+    }
+    return out;
+  }
+}
+
+// -------------------------------------------- adventure exploration (L-3/L-4)
+
+/// Own-row `user_adventure_progress` sync decorator (S131d — closes L-4's
+/// sync tail). Merge = UNION: an adventure genuinely explored on ANY device
+/// stays explored (ids are only ever added by reaching a real ending; nothing
+/// is fabricated by merging).
+class SupabaseAdventureProgressStore implements AdventureProgressStore {
+  SupabaseAdventureProgressStore(this._db, this._local);
+
+  final SupabaseClient? _db;
+  final AdventureProgressStore _local;
+
+  static const String table = 'user_adventure_progress';
+
+  final Set<String> _pushed = <String>{};
+
+  String? get _uid => _db?.auth.currentUser?.id;
+
+  @override
+  Set<String> load() => _local.load();
+
+  @override
+  Future<void> save(Set<String> explored) async {
+    await _local.save(explored);
+    final SupabaseClient? db = _db;
+    final String? uid = _uid;
+    if (db == null || uid == null) return;
+    final List<Map<String, Object?>> rows =
+        exploredRowsFor(explored.difference(_pushed), uid);
+    if (rows.isEmpty) return;
+    try {
+      await db
+          .from(table)
+          .upsert(rows, onConflict: 'user_id,scenario_id');
+      _pushed
+        ..clear()
+        ..addAll(explored);
+    } catch (_) {/* offline-tolerant: retry rides the next save */}
+  }
+
+  /// Boot-time pull: UNION of device + durable explored sets, written back
+  /// to both sides so they converge.
+  Future<void> hydrate() async {
+    final SupabaseClient? db = _db;
+    final String? uid = _uid;
+    if (db == null || uid == null) return;
+    try {
+      final List<Map<String, dynamic>> rows = await db
+          .from(table)
+          .select('scenario_id')
+          .eq('user_id', uid);
+      final Set<String> remote = exploredFromRows(rows);
+      final Set<String> merged = _local.load().union(remote);
+      await _local.save(merged);
+      final Set<String> toPush = merged.difference(remote);
+      if (toPush.isNotEmpty) {
+        await db
+            .from(table)
+            .upsert(exploredRowsFor(toPush, uid),
+                onConflict: 'user_id,scenario_id');
+      }
+      _pushed
+        ..clear()
+        ..addAll(merged);
+    } catch (_) {/* offline-tolerant */}
+  }
+
+  /// Pure: explored ids as own-row `user_adventure_progress` rows.
+  static List<Map<String, Object?>> exploredRowsFor(
+          Set<String> ids, String userId) =>
+      <Map<String, Object?>>[
+        for (final String id in ids.toList()..sort())
+          <String, Object?>{
+            'user_id': userId,
+            'scenario_id': id,
+          },
+      ];
+
+  /// Pure: rows back into the explored-id set; malformed rows skipped.
+  static Set<String> exploredFromRows(List<Map<String, dynamic>> rows) =>
+      <String>{
+        for (final Map<String, dynamic> r in rows)
+          if (r['scenario_id'] is String &&
+              (r['scenario_id'] as String).isNotEmpty)
+            r['scenario_id'] as String,
+      };
 }

@@ -102,10 +102,10 @@ Future<void> main() async {
       OutfitsStore outfits = PrefsOutfitsStore(prefs);
       // D-13 earn stamps: device-local only (like the pre-S110 stores) — a
       // cross-device synced column is a future owner-gated migration.
-      final EarnedStampsStore earnedStamps = PrefsEarnedStampsStore(prefs);
+      EarnedStampsStore earnedStamps = PrefsEarnedStampsStore(prefs);
       // L-4 adventure exploration: device-local only (same owner-gated
       // cross-device-migration posture as xpHistory/earnedAt, S126/S131).
-      final AdventureProgressStore adventureProgress =
+      AdventureProgressStore adventureProgress =
           PrefsAdventureProgressStore(prefs);
       // L-2 app-shell language override: device-local only (the synced
       // user_settings row is fixed-column — a cross-device column is an
@@ -122,16 +122,25 @@ Future<void> main() async {
               SupabaseStudyStatsStore(client, studyStats);
           final SupabaseOutfitsStore syncedOutfits =
               SupabaseOutfitsStore(client, outfits);
+          // S131d (L-3): the two remaining device-local stores go synced.
+          final SupabaseEarnedStampsStore syncedStamps =
+              SupabaseEarnedStampsStore(client, earnedStamps);
+          final SupabaseAdventureProgressStore syncedAdventures =
+              SupabaseAdventureProgressStore(client, adventureProgress);
           hydrations.addAll(<Future<void>>[
             syncedSettings.hydrate(),
             syncedXp.hydrate(),
             syncedStats.hydrate(),
             syncedOutfits.hydrate(),
+            syncedStamps.hydrate(),
+            syncedAdventures.hydrate(),
           ]);
           settings = syncedSettings;
           xpHistory = syncedXp;
           studyStats = syncedStats;
           outfits = syncedOutfits;
+          earnedStamps = syncedStamps;
+          adventureProgress = syncedAdventures;
         } catch (_) {
           // backend unavailable: keep the plain device stores
         }
