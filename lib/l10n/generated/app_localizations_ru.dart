@@ -379,4 +379,115 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get profileUnlocked => 'Открыто';
+
+  @override
+  String questsResetsIn(int h, int m) {
+    return 'Сброс через $hч $mмин';
+  }
+
+  @override
+  String get questsDailyRefresh => 'Ежедневное обновление';
+
+  @override
+  String get questsFreshMix => 'Свежая подборка из 5 вопросов';
+
+  @override
+  String get questsServedFromQueue =>
+      'Из вашей реальной очереди повторения — даёт настоящий XP.';
+
+  @override
+  String get questsGoalReached => 'Дневная цель достигнута! 🎉';
+
+  @override
+  String questsReachGoal(int goal) {
+    return 'Наберите $goal XP сегодня';
+  }
+
+  @override
+  String questsDailyQuests(int done, int total) {
+    return 'Ежедневные задания · $done/$total';
+  }
+
+  @override
+  String get questsInfoNote =>
+      'Задания отслеживают ваш реальный ежедневный прогресс. Сундуки наград, задания с друзьями и недельный рейтинг требуют серверной экономики — решение владельца (§6). Фальшивые награды не показываются.';
+
+  @override
+  String get questsStartRefresh => 'Начать ежедневное обновление';
+
+  @override
+  String get questsStart => 'Начать';
+
+  @override
+  String get questsPractisedToday =>
+      'Сегодня занимались — серия в безопасности';
+
+  @override
+  String get questsEarnAnyXp => 'Получите любой XP сегодня';
+
+  @override
+  String questsXpToday(int current, int target) {
+    return '$current/$target XP сегодня';
+  }
+
+  @override
+  String get leaguesYourGroup => 'ВАША ГРУППА';
+
+  @override
+  String leaguesThisWeek(int size) {
+    return 'ЭТА НЕДЕЛЯ · УЧАЩИХСЯ: $size';
+  }
+
+  @override
+  String get leaguesTiers => 'Лиги';
+
+  @override
+  String leaguesTopClimb(int top, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days дня',
+      many: '$days дней',
+      few: '$days дня',
+      one: '$days день',
+    );
+    return 'Топ-$top поднимаются каждую неделю · конец через $_temp0';
+  }
+
+  @override
+  String get leaguesDemotionZone => 'Зона вылета';
+
+  @override
+  String get leaguesPromotionZone => 'Зона повышения';
+
+  @override
+  String get leaguesSafeZone => 'Безопасная зона';
+
+  @override
+  String get leaguesYou => 'Вы';
+
+  @override
+  String leaguesPromoteRelegate(int top, int bottom) {
+    return 'Топ-$top поднимаются · последние $bottom выбывают в конце недели.';
+  }
+
+  @override
+  String get leaguesYouAreHere => 'Вы здесь';
+
+  @override
+  String get leaguesViewAllTiers => '🏆 Все 10 лиг ›';
+
+  @override
+  String get notifMarkAllRead => 'Отметить всё прочитанным';
+
+  @override
+  String get notifEmptyTitle => 'Пока нет уведомлений';
+
+  @override
+  String get notifEmptyBody =>
+      'Проходите уроки, копите серию и повышайте уровень — ваши достижения появятся здесь, как только вы их действительно заработаете.';
+
+  @override
+  String get notifPushNote =>
+      'Это внутренние вехи приложения, они появляются в момент достижения. Пуш-уведомления и напоминания — решение владельца, пока не включены. Здесь ничего не подделано.';
 }

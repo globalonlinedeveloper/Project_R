@@ -65,8 +65,8 @@ class LeaguesScreen extends ConsumerWidget {
                     const SizedBox(height: RatelSpace.lg),
                     RatelSectionHeader(
                       label: status.isSolo
-                          ? 'YOUR GROUP'
-                          : 'THIS WEEK · ${status.cohortSize} LEARNERS',
+                          ? context.l10n.leaguesYourGroup
+                          : context.l10n.leaguesThisWeek(status.cohortSize),
                     ),
                     const SizedBox(height: RatelSpace.sm),
                     ..._standings(status),
@@ -149,7 +149,7 @@ void _showTierLadder(BuildContext context, LeagueTier current) {
               Padding(
                 padding: const EdgeInsets.only(bottom: 2),
                 child: Text(
-                  'League tiers',
+                  context.l10n.leaguesTiers,
                   style: TextStyle(
                     fontFamily: RatelFont.display,
                     fontWeight: RatelType.extraBold,
@@ -212,8 +212,7 @@ class _TierHeaderCard extends StatelessWidget {
           ),
           const SizedBox(height: 2),
           Text(
-            'Top ${status.rules.promoteTop} climb each week · ends in '
-            '$days ${days == 1 ? 'day' : 'days'}',
+            context.l10n.leaguesTopClimb(status.rules.promoteTop, days),
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: RatelFont.body,
@@ -243,10 +242,10 @@ class _StatusCard extends StatelessWidget {
         ? RatelColors.green
         : p.muted;
     final String zoneLabel = you.isDemotion
-        ? 'Demotion zone'
+        ? context.l10n.leaguesDemotionZone
         : you.isPromotion
-        ? 'Promotion zone'
-        : 'Safe zone';
+        ? context.l10n.leaguesPromotionZone
+        : context.l10n.leaguesSafeZone;
     return RatelCard(
       child: Row(
         children: <Widget>[
@@ -360,7 +359,7 @@ class _StandingRow extends StatelessWidget {
           const SizedBox(width: RatelSpace.md),
           Expanded(
             child: Text(
-              you ? 'You' : m.displayName,
+              you ? context.l10n.leaguesYou : m.displayName,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
@@ -464,8 +463,8 @@ class _RulesFootnote extends StatelessWidget {
   Widget build(BuildContext context) {
     final RatelPalette p = context.palette;
     return Text(
-      'Top ${status.rules.promoteTop} promote · bottom '
-      '${status.rules.demoteBottom} relegate when the week ends.',
+      context.l10n.leaguesPromoteRelegate(
+          status.rules.promoteTop, status.rules.demoteBottom),
       textAlign: TextAlign.center,
       style: TextStyle(
         fontFamily: RatelFont.body,
@@ -521,8 +520,8 @@ class _LadderRow extends StatelessWidget {
             ),
           ),
           if (here)
-            const RatelChip(
-              label: "You're here",
+            RatelChip(
+              label: context.l10n.leaguesYouAreHere,
               tone: RatelChipTone.teal,
               filled: true,
             ),
@@ -556,8 +555,8 @@ class _TierLadderPill extends StatelessWidget {
             color: RatelColors.teal.withValues(alpha: 0.14),
             borderRadius: BorderRadius.circular(RatelRadius.pill),
           ),
-          child: const Text(
-            '🏆 View all 10 tiers ›',
+          child: Text(
+            context.l10n.leaguesViewAllTiers,
             style: TextStyle(
               fontFamily: RatelFont.body,
               fontWeight: RatelType.semiBold,

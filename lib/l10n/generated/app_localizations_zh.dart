@@ -371,4 +371,109 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get profileUnlocked => '已解锁';
+
+  @override
+  String questsResetsIn(int h, int m) {
+    return '$h 小时 $m 分钟后重置';
+  }
+
+  @override
+  String get questsDailyRefresh => '每日刷新';
+
+  @override
+  String get questsFreshMix => '全新 5 题混合练习';
+
+  @override
+  String get questsServedFromQueue => '来自你真实的复习队列 — 获得真实 XP。';
+
+  @override
+  String get questsGoalReached => '已达成每日目标!🎉';
+
+  @override
+  String questsReachGoal(int goal) {
+    return '今天获得 $goal XP';
+  }
+
+  @override
+  String questsDailyQuests(int done, int total) {
+    return '每日任务 · $done/$total';
+  }
+
+  @override
+  String get questsInfoNote =>
+      '任务追踪你真实的每日进度。奖励宝箱、好友任务和每周排行榜需要后端经济系统 — 由所有者决定(§6)。不展示虚假奖励。';
+
+  @override
+  String get questsStartRefresh => '开始每日刷新';
+
+  @override
+  String get questsStart => '开始';
+
+  @override
+  String get questsPractisedToday => '今天已练习 — 连胜安全';
+
+  @override
+  String get questsEarnAnyXp => '今天获得任意 XP';
+
+  @override
+  String questsXpToday(int current, int target) {
+    return '今天 $current/$target XP';
+  }
+
+  @override
+  String get leaguesYourGroup => '你的小组';
+
+  @override
+  String leaguesThisWeek(int size) {
+    return '本周 · $size 名学习者';
+  }
+
+  @override
+  String get leaguesTiers => '联赛等级';
+
+  @override
+  String leaguesTopClimb(int top, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days 天',
+    );
+    return '每周前 $top 名晋级 · $_temp0后结束';
+  }
+
+  @override
+  String get leaguesDemotionZone => '降级区';
+
+  @override
+  String get leaguesPromotionZone => '晋级区';
+
+  @override
+  String get leaguesSafeZone => '安全区';
+
+  @override
+  String get leaguesYou => '你';
+
+  @override
+  String leaguesPromoteRelegate(int top, int bottom) {
+    return '周末时前 $top 名晋级 · 后 $bottom 名降级。';
+  }
+
+  @override
+  String get leaguesYouAreHere => '你在这里';
+
+  @override
+  String get leaguesViewAllTiers => '🏆 查看全部 10 个等级 ›';
+
+  @override
+  String get notifMarkAllRead => '全部标为已读';
+
+  @override
+  String get notifEmptyTitle => '暂无通知';
+
+  @override
+  String get notifEmptyBody => '完成课程、保持连胜、提升等级 — 你的里程碑会在真正达成的那一刻出现在这里。';
+
+  @override
+  String get notifPushNote =>
+      '这些是应用内里程碑,在你达成时立即显示。推送通知和提醒由所有者决定,尚未启用 — 这里没有任何虚假内容。';
 }

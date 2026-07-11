@@ -372,4 +372,110 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get profileUnlocked => '잠금 해제';
+
+  @override
+  String questsResetsIn(int h, int m) {
+    return '$h시간 $m분 후 초기화';
+  }
+
+  @override
+  String get questsDailyRefresh => '데일리 리프레시';
+
+  @override
+  String get questsFreshMix => '새로운 5문제 믹스';
+
+  @override
+  String get questsServedFromQueue => '실제 복습 대기열에서 출제 — 진짜 XP 획득.';
+
+  @override
+  String get questsGoalReached => '일일 목표 달성! 🎉';
+
+  @override
+  String questsReachGoal(int goal) {
+    return '오늘 $goal XP 모으기';
+  }
+
+  @override
+  String questsDailyQuests(int done, int total) {
+    return '일일 퀘스트 · $done/$total';
+  }
+
+  @override
+  String get questsInfoNote =>
+      '퀘스트는 실제 일일 진행 상황을 추적해요. 보상 상자, 친구 퀘스트, 주간 리더보드에는 백엔드 경제가 필요해요 — 소유자의 결정(§6). 가짜 보상은 표시하지 않아요.';
+
+  @override
+  String get questsStartRefresh => '데일리 리프레시 시작';
+
+  @override
+  String get questsStart => '시작';
+
+  @override
+  String get questsPractisedToday => '오늘 연습 완료 — 스트릭 안전';
+
+  @override
+  String get questsEarnAnyXp => '오늘 아무 XP나 획득';
+
+  @override
+  String questsXpToday(int current, int target) {
+    return '오늘 $current/$target XP';
+  }
+
+  @override
+  String get leaguesYourGroup => '내 그룹';
+
+  @override
+  String leaguesThisWeek(int size) {
+    return '이번 주 · 학습자 $size명';
+  }
+
+  @override
+  String get leaguesTiers => '리그 티어';
+
+  @override
+  String leaguesTopClimb(int top, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days일',
+    );
+    return '매주 상위 $top명 승급 · $_temp0 후 종료';
+  }
+
+  @override
+  String get leaguesDemotionZone => '강등권';
+
+  @override
+  String get leaguesPromotionZone => '승급권';
+
+  @override
+  String get leaguesSafeZone => '안전권';
+
+  @override
+  String get leaguesYou => '나';
+
+  @override
+  String leaguesPromoteRelegate(int top, int bottom) {
+    return '주가 끝나면 상위 $top명 승급 · 하위 $bottom명 강등.';
+  }
+
+  @override
+  String get leaguesYouAreHere => '현재 위치';
+
+  @override
+  String get leaguesViewAllTiers => '🏆 전체 10개 티어 보기 ›';
+
+  @override
+  String get notifMarkAllRead => '모두 읽음으로 표시';
+
+  @override
+  String get notifEmptyTitle => '아직 알림이 없어요';
+
+  @override
+  String get notifEmptyBody =>
+      '레슨을 끝내고, 스트릭을 쌓고, 레벨을 올리세요 — 진짜로 달성하는 순간 마일스톤이 여기에 표시돼요.';
+
+  @override
+  String get notifPushNote =>
+      '이것은 앱 내 마일스톤으로, 달성하는 순간 표시돼요. 푸시 알림과 리마인더는 소유자의 결정이며 아직 활성화되지 않았어요 — 여기 가짜는 없어요.';
 }

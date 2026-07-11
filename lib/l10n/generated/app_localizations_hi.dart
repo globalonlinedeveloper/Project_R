@@ -374,4 +374,112 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get profileUnlocked => 'अनलॉक';
+
+  @override
+  String questsResetsIn(int h, int m) {
+    return '$hघं $mमि में रीसेट';
+  }
+
+  @override
+  String get questsDailyRefresh => 'दैनिक रिफ़्रेश';
+
+  @override
+  String get questsFreshMix => '5 सवालों का ताज़ा मिश्रण';
+
+  @override
+  String get questsServedFromQueue =>
+      'आपकी असली रिवीज़न कतार से — असली XP मिलता है।';
+
+  @override
+  String get questsGoalReached => 'दैनिक लक्ष्य पूरा! 🎉';
+
+  @override
+  String questsReachGoal(int goal) {
+    return 'आज $goal XP पाएँ';
+  }
+
+  @override
+  String questsDailyQuests(int done, int total) {
+    return 'दैनिक क्वेस्ट · $done/$total';
+  }
+
+  @override
+  String get questsInfoNote =>
+      'क्वेस्ट आपकी असली दैनिक प्रगति दिखाते हैं। रिवॉर्ड चेस्ट, फ्रेंड क्वेस्ट और साप्ताहिक लीडरबोर्ड के लिए बैकएंड इकॉनमी चाहिए — मालिक का निर्णय (§6)। कोई नकली इनाम नहीं दिखाया जाता।';
+
+  @override
+  String get questsStartRefresh => 'दैनिक रिफ़्रेश शुरू करें';
+
+  @override
+  String get questsStart => 'शुरू';
+
+  @override
+  String get questsPractisedToday => 'आज अभ्यास हुआ — स्ट्रीक सुरक्षित';
+
+  @override
+  String get questsEarnAnyXp => 'आज कोई भी XP कमाएँ';
+
+  @override
+  String questsXpToday(int current, int target) {
+    return 'आज $current/$target XP';
+  }
+
+  @override
+  String get leaguesYourGroup => 'आपका समूह';
+
+  @override
+  String leaguesThisWeek(int size) {
+    return 'इस सप्ताह · $size शिक्षार्थी';
+  }
+
+  @override
+  String get leaguesTiers => 'लीग स्तर';
+
+  @override
+  String leaguesTopClimb(int top, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days दिन',
+      one: '$days दिन',
+    );
+    return 'हर हफ़्ते शीर्ष $top ऊपर जाते हैं · समाप्ति $_temp0 में';
+  }
+
+  @override
+  String get leaguesDemotionZone => 'अवनति क्षेत्र';
+
+  @override
+  String get leaguesPromotionZone => 'पदोन्नति क्षेत्र';
+
+  @override
+  String get leaguesSafeZone => 'सुरक्षित क्षेत्र';
+
+  @override
+  String get leaguesYou => 'आप';
+
+  @override
+  String leaguesPromoteRelegate(int top, int bottom) {
+    return 'सप्ताह के अंत में शीर्ष $top ऊपर · नीचे के $bottom नीचे जाते हैं।';
+  }
+
+  @override
+  String get leaguesYouAreHere => 'आप यहाँ हैं';
+
+  @override
+  String get leaguesViewAllTiers => '🏆 सभी 10 स्तर देखें ›';
+
+  @override
+  String get notifMarkAllRead => 'सभी को पढ़ा हुआ चिह्नित करें';
+
+  @override
+  String get notifEmptyTitle => 'अभी कोई सूचना नहीं';
+
+  @override
+  String get notifEmptyBody =>
+      'पाठ पूरे करें, स्ट्रीक बनाएँ और स्तर बढ़ाएँ — आपकी उपलब्धियाँ सच में हासिल होते ही यहाँ दिखेंगी।';
+
+  @override
+  String get notifPushNote =>
+      'ये ऐप के अंदर की उपलब्धियाँ हैं, कमाते ही दिखाई देती हैं। पुश सूचनाएँ और रिमाइंडर मालिक का निर्णय हैं और अभी चालू नहीं — यहाँ कुछ भी नकली नहीं है।';
 }

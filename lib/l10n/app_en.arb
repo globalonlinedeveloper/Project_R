@@ -200,5 +200,97 @@
         "type": "int"
       }
     }
+  },
+  "questsResetsIn": "Resets in {h}h {m}m",
+  "questsDailyRefresh": "Daily refresh",
+  "questsFreshMix": "A fresh 5-question mix",
+  "questsServedFromQueue": "Served from your real review queue — earns real XP.",
+  "questsGoalReached": "Daily goal reached! 🎉",
+  "questsReachGoal": "Reach {goal} XP today",
+  "questsDailyQuests": "Daily quests · {done}/{total}",
+  "questsInfoNote": "Quests track your real daily progress. Reward chests, friend quests and a weekly leaderboard need a backend economy — an owner decision (§6). No fake rewards are shown.",
+  "questsStartRefresh": "Start the daily refresh",
+  "questsStart": "Start",
+  "questsPractisedToday": "Practised today — streak safe",
+  "questsEarnAnyXp": "Earn any XP today",
+  "questsXpToday": "{current}/{target} XP today",
+  "leaguesYourGroup": "YOUR GROUP",
+  "leaguesThisWeek": "THIS WEEK · {size} LEARNERS",
+  "leaguesTiers": "League tiers",
+  "leaguesTopClimb": "Top {top} climb each week · ends in {days, plural, one{{days} day} other{{days} days}}",
+  "leaguesDemotionZone": "Demotion zone",
+  "leaguesPromotionZone": "Promotion zone",
+  "leaguesSafeZone": "Safe zone",
+  "leaguesYou": "You",
+  "leaguesPromoteRelegate": "Top {top} promote · bottom {bottom} relegate when the week ends.",
+  "leaguesYouAreHere": "You're here",
+  "leaguesViewAllTiers": "🏆 View all 10 tiers ›",
+  "notifMarkAllRead": "Mark all read",
+  "notifEmptyTitle": "No notifications yet",
+  "notifEmptyBody": "Finish lessons, build a streak and level up — your milestones will appear here the moment you genuinely earn them.",
+  "notifPushNote": "These are in-app milestones, surfaced the moment you earn them. Push notifications and reminders are an owner decision and not enabled yet — nothing here is faked.",
+  "@questsResetsIn": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      },
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "@questsReachGoal": {
+    "placeholders": {
+      "goal": {
+        "type": "int"
+      }
+    }
+  },
+  "@questsDailyQuests": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "@questsXpToday": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "@leaguesThisWeek": {
+    "placeholders": {
+      "size": {
+        "type": "int"
+      }
+    }
+  },
+  "@leaguesTopClimb": {
+    "placeholders": {
+      "top": {
+        "type": "int"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "@leaguesPromoteRelegate": {
+    "placeholders": {
+      "top": {
+        "type": "int"
+      },
+      "bottom": {
+        "type": "int"
+      }
+    }
   }
 }

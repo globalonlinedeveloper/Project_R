@@ -276,6 +276,22 @@ void main() {
         'New to Spanish, or do you know some already?');
   });
 
+  test('I6 en byte-identity pins (quests/leagues/notifications)', () {
+    final AppLocalizations en = lookupAppLocalizations(const Locale('en'));
+    expect(en.questsResetsIn(10, 53), 'Resets in 10h 53m');
+    expect(en.questsDailyQuests(1, 2), 'Daily quests · 1/2');
+    expect(en.questsXpToday(15, 20), '15/20 XP today');
+    expect(en.leaguesTopClimb(7, 3), 'Top 7 climb each week · ends in 3 days');
+    expect(en.leaguesTopClimb(7, 1), 'Top 7 climb each week · ends in 1 day');
+    expect(en.leaguesPromoteRelegate(7, 5),
+        'Top 7 promote · bottom 5 relegate when the week ends.');
+    expect(en.leaguesYouAreHere, "You're here");
+    expect(en.leaguesViewAllTiers, '🏆 View all 10 tiers ›');
+    final AppLocalizations es = lookupAppLocalizations(const Locale('es'));
+    expect(es.leaguesTopClimb(7, 1), contains('1 día'));
+    expect(es.questsGoalReached, contains('🎉'));
+  });
+
   testWidgets('Onboarding in Spanish: welcome step localized',
       (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(

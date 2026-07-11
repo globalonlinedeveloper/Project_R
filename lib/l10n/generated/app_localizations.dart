@@ -795,6 +795,174 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unlocked'**
   String get profileUnlocked;
+
+  /// No description provided for @questsResetsIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Resets in {h}h {m}m'**
+  String questsResetsIn(int h, int m);
+
+  /// No description provided for @questsDailyRefresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily refresh'**
+  String get questsDailyRefresh;
+
+  /// No description provided for @questsFreshMix.
+  ///
+  /// In en, this message translates to:
+  /// **'A fresh 5-question mix'**
+  String get questsFreshMix;
+
+  /// No description provided for @questsServedFromQueue.
+  ///
+  /// In en, this message translates to:
+  /// **'Served from your real review queue — earns real XP.'**
+  String get questsServedFromQueue;
+
+  /// No description provided for @questsGoalReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily goal reached! 🎉'**
+  String get questsGoalReached;
+
+  /// No description provided for @questsReachGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach {goal} XP today'**
+  String questsReachGoal(int goal);
+
+  /// No description provided for @questsDailyQuests.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily quests · {done}/{total}'**
+  String questsDailyQuests(int done, int total);
+
+  /// No description provided for @questsInfoNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Quests track your real daily progress. Reward chests, friend quests and a weekly leaderboard need a backend economy — an owner decision (§6). No fake rewards are shown.'**
+  String get questsInfoNote;
+
+  /// No description provided for @questsStartRefresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Start the daily refresh'**
+  String get questsStartRefresh;
+
+  /// No description provided for @questsStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get questsStart;
+
+  /// No description provided for @questsPractisedToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Practised today — streak safe'**
+  String get questsPractisedToday;
+
+  /// No description provided for @questsEarnAnyXp.
+  ///
+  /// In en, this message translates to:
+  /// **'Earn any XP today'**
+  String get questsEarnAnyXp;
+
+  /// No description provided for @questsXpToday.
+  ///
+  /// In en, this message translates to:
+  /// **'{current}/{target} XP today'**
+  String questsXpToday(int current, int target);
+
+  /// No description provided for @leaguesYourGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'YOUR GROUP'**
+  String get leaguesYourGroup;
+
+  /// No description provided for @leaguesThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'THIS WEEK · {size} LEARNERS'**
+  String leaguesThisWeek(int size);
+
+  /// No description provided for @leaguesTiers.
+  ///
+  /// In en, this message translates to:
+  /// **'League tiers'**
+  String get leaguesTiers;
+
+  /// No description provided for @leaguesTopClimb.
+  ///
+  /// In en, this message translates to:
+  /// **'Top {top} climb each week · ends in {days, plural, one{{days} day} other{{days} days}}'**
+  String leaguesTopClimb(int top, int days);
+
+  /// No description provided for @leaguesDemotionZone.
+  ///
+  /// In en, this message translates to:
+  /// **'Demotion zone'**
+  String get leaguesDemotionZone;
+
+  /// No description provided for @leaguesPromotionZone.
+  ///
+  /// In en, this message translates to:
+  /// **'Promotion zone'**
+  String get leaguesPromotionZone;
+
+  /// No description provided for @leaguesSafeZone.
+  ///
+  /// In en, this message translates to:
+  /// **'Safe zone'**
+  String get leaguesSafeZone;
+
+  /// No description provided for @leaguesYou.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get leaguesYou;
+
+  /// No description provided for @leaguesPromoteRelegate.
+  ///
+  /// In en, this message translates to:
+  /// **'Top {top} promote · bottom {bottom} relegate when the week ends.'**
+  String leaguesPromoteRelegate(int top, int bottom);
+
+  /// No description provided for @leaguesYouAreHere.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re here'**
+  String get leaguesYouAreHere;
+
+  /// No description provided for @leaguesViewAllTiers.
+  ///
+  /// In en, this message translates to:
+  /// **'🏆 View all 10 tiers ›'**
+  String get leaguesViewAllTiers;
+
+  /// No description provided for @notifMarkAllRead.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark all read'**
+  String get notifMarkAllRead;
+
+  /// No description provided for @notifEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications yet'**
+  String get notifEmptyTitle;
+
+  /// No description provided for @notifEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish lessons, build a streak and level up — your milestones will appear here the moment you genuinely earn them.'**
+  String get notifEmptyBody;
+
+  /// No description provided for @notifPushNote.
+  ///
+  /// In en, this message translates to:
+  /// **'These are in-app milestones, surfaced the moment you earn them. Push notifications and reminders are an owner decision and not enabled yet — nothing here is faked.'**
+  String get notifPushNote;
 }
 
 class _AppLocalizationsDelegate

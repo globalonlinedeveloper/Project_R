@@ -380,4 +380,116 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get profileUnlocked => 'مفتوح';
+
+  @override
+  String questsResetsIn(int h, int m) {
+    return 'يُعاد الضبط خلال $hس $mد';
+  }
+
+  @override
+  String get questsDailyRefresh => 'التحديث اليومي';
+
+  @override
+  String get questsFreshMix => 'مزيج جديد من 5 أسئلة';
+
+  @override
+  String get questsServedFromQueue =>
+      'يُقدَّم من قائمة مراجعتك الحقيقية — يمنح XP حقيقيًا.';
+
+  @override
+  String get questsGoalReached => 'تحقق الهدف اليومي! 🎉';
+
+  @override
+  String questsReachGoal(int goal) {
+    return 'اجمع $goal XP اليوم';
+  }
+
+  @override
+  String questsDailyQuests(int done, int total) {
+    return 'المهام اليومية · $done/$total';
+  }
+
+  @override
+  String get questsInfoNote =>
+      'تتتبّع المهام تقدّمك اليومي الحقيقي. صناديق المكافآت ومهام الأصدقاء ولوحة الصدارة الأسبوعية تحتاج اقتصاد خلفية — قرار المالك (§6). لا تُعرض مكافآت زائفة.';
+
+  @override
+  String get questsStartRefresh => 'ابدأ التحديث اليومي';
+
+  @override
+  String get questsStart => 'ابدأ';
+
+  @override
+  String get questsPractisedToday => 'تدرّبت اليوم — السلسلة بأمان';
+
+  @override
+  String get questsEarnAnyXp => 'اجمع أي XP اليوم';
+
+  @override
+  String questsXpToday(int current, int target) {
+    return '$current/$target XP اليوم';
+  }
+
+  @override
+  String get leaguesYourGroup => 'مجموعتك';
+
+  @override
+  String leaguesThisWeek(int size) {
+    return 'هذا الأسبوع · $size متعلّمًا';
+  }
+
+  @override
+  String get leaguesTiers => 'مستويات الدوري';
+
+  @override
+  String leaguesTopClimb(int top, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days يوم',
+      many: '$days يومًا',
+      few: '$days أيام',
+      two: 'يومين',
+      one: 'يوم واحد',
+      zero: '$days يوم',
+    );
+    return 'يصعد أفضل $top كل أسبوع · ينتهي خلال $_temp0';
+  }
+
+  @override
+  String get leaguesDemotionZone => 'منطقة الهبوط';
+
+  @override
+  String get leaguesPromotionZone => 'منطقة الصعود';
+
+  @override
+  String get leaguesSafeZone => 'منطقة آمنة';
+
+  @override
+  String get leaguesYou => 'أنت';
+
+  @override
+  String leaguesPromoteRelegate(int top, int bottom) {
+    return 'يصعد أفضل $top · ويهبط آخر $bottom عند نهاية الأسبوع.';
+  }
+
+  @override
+  String get leaguesYouAreHere => 'أنت هنا';
+
+  @override
+  String get leaguesViewAllTiers => '🏆 عرض المستويات العشرة ‹';
+
+  @override
+  String get notifMarkAllRead => 'تحديد الكل كمقروء';
+
+  @override
+  String get notifEmptyTitle => 'لا إشعارات بعد';
+
+  @override
+  String get notifEmptyBody =>
+      'أنهِ الدروس وابنِ سلسلة وارفع مستواك — ستظهر إنجازاتك هنا لحظة تحقيقها فعلًا.';
+
+  @override
+  String get notifPushNote =>
+      'هذه إنجازات داخل التطبيق تظهر لحظة تحقيقها. إشعارات الدفع والتذكيرات قرار المالك وغير مفعّلة بعد — لا شيء هنا مزيّف.';
 }

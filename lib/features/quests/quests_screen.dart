@@ -15,13 +15,23 @@ import 'package:ratel/services/quests/quests.dart';
 /// "Resets in Xh Ym". Computed once at build from `DateTime.now()` — NOT a
 /// periodic Timer, which would hang widget `pumpAndSettle` (§11).
 String refreshResetsLabel(DateTime now) {
+  final ({int h, int m}) p = refreshResetsParts(now);
+  return 'Resets in ${p.h}h ${p.m}m';
+}
+
+/// The countdown parts — pure, so the widget can compose a LOCALIZED label
+/// (L-2) while [refreshResetsLabel] stays the test-pinned English form.
+({int h, int m}) refreshResetsParts(DateTime now) {
   final DateTime nextMidnight =
       DateTime(now.year, now.month, now.day).add(const Duration(days: 1));
   Duration left = nextMidnight.difference(now);
   if (left.isNegative) left = Duration.zero;
-  final int h = left.inHours;
-  final int m = left.inMinutes % 60;
-  return 'Resets in ${h}h ${m}m';
+  return (h: left.inHours, m: left.inMinutes % 60);
+}
+
+String _localizedResetsLabel(BuildContext context) {
+  final ({int h, int m}) p = refreshResetsParts(DateTime.now());
+  return context.l10n.questsResetsIn(p.h, p.m);
 }
 
 /// Quests tab (🎯) — design spec §4.4 [R-I7]. REAL: the DAILY GOAL (today's XP
@@ -71,7 +81,7 @@ class QuestsScreen extends ConsumerWidget {
                     RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
                 children: <Widget>[
                   // D-1: DAILY REFRESH first (design order Refresh → Goal).
-                  const RatelSectionHeader(label: 'Daily refresh'),
+                  RatelSectionHeader(label: context.l10n.questsDailyRefresh),
                   const SizedBox(height: RatelSpace.sm),
                   RatelCard(
                     gradient: const LinearGradient(
@@ -83,11 +93,11 @@ class QuestsScreen extends ConsumerWidget {
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            const Expanded(
+                            Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text('A fresh 5-question mix',
+                                  Text(context.l10n.questsFreshMix,
                                       style: TextStyle(
                                           fontFamily: RatelFont.display,
                                           fontWeight: RatelType.extraBold,
@@ -95,7 +105,7 @@ class QuestsScreen extends ConsumerWidget {
                                           color: RatelColors.onColor)),
                                   SizedBox(height: 2),
                                   Text(
-                                      'Served from your real review queue — earns real XP.',
+                                      context.l10n.questsServedFromQueue,
                                       style: TextStyle(
                                           fontFamily: RatelFont.body,
                                           fontSize: RatelType.small,
@@ -115,7 +125,7 @@ class QuestsScreen extends ConsumerWidget {
                           children: <Widget>[
                             const Text('⏳', style: TextStyle(fontSize: 13)),
                             const SizedBox(width: 6),
-                            Text(refreshResetsLabel(DateTime.now()),
+                            Text(_localizedResetsLabel(context),
                                 style: const TextStyle(
                                     fontFamily: RatelFont.body,
                                     fontSize: RatelType.small,
@@ -127,7 +137,7 @@ class QuestsScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: RatelSpace.lg),
                   // D-1: DAILY GOAL second.
-                  const RatelSectionHeader(label: 'Daily goal'),
+                  RatelSectionHeader(label: context.l10n.settingsDailyGoal),
                   const SizedBox(height: RatelSpace.sm),
                   RatelCard(
                     // D-4: amber gradient (was a solid amber fill).
@@ -143,8 +153,8 @@ class QuestsScreen extends ConsumerWidget {
                       children: <Widget>[
                         Text(
                             goalStatus.met
-                                ? 'Daily goal reached! 🎉'
-                                : 'Reach $goal XP today',
+                                ? context.l10n.questsGoalReached
+                                : context.l10n.questsReachGoal(goal),
                             style: const TextStyle(
                                 fontFamily: RatelFont.display,
                                 fontWeight: RatelType.extraBold,
@@ -171,7 +181,8 @@ class QuestsScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: RatelSpace.lg),
                   RatelSectionHeader(
-                      label: 'Daily quests · $questsDone/${quests.length}'),
+                      label: context.l10n.questsDailyQuests(
+                          questsDone, quests.length)),
                   const SizedBox(height: RatelSpace.sm),
                   for (final QuestProgress q in quests) ...<Widget>[
                     _QuestTile(progress: q),
@@ -185,10 +196,7 @@ class QuestsScreen extends ConsumerWidget {
                         const SizedBox(width: RatelSpace.md),
                         Expanded(
                             child: Text(
-                                'Quests track your real daily progress. Reward '
-                                'chests, friend quests and a weekly leaderboard '
-                                'need a backend economy — an owner decision (§6). '
-                                'No fake rewards are shown.',
+                                context.l10n.questsInfoNote,
                                 style: TextStyle(
                                     fontFamily: RatelFont.body,
                                     fontSize: RatelType.small,
@@ -217,7 +225,7 @@ class _StartPill extends StatelessWidget {
   Widget build(BuildContext context) {
     return Semantics(
       button: true,
-      label: 'Start the daily refresh',
+      label: context.l10n.questsStartRefresh,
       child: Material(
         color: Colors.transparent,
         child: InkWell(
@@ -230,7 +238,7 @@ class _StartPill extends StatelessWidget {
               color: RatelColors.onColor,
               borderRadius: BorderRadius.circular(RatelRadius.pill),
             ),
-            child: const Text('Start',
+            child: Text(context.l10n.questsStart,
                 style: TextStyle(
                     fontFamily: RatelFont.display,
                     fontWeight: RatelType.extraBold,
@@ -254,8 +262,10 @@ class _QuestTile extends StatelessWidget {
     final bool done = progress.done;
     final Quest q = progress.quest;
     final String detail = q.metric == QuestMetric.practicedToday
-        ? (done ? 'Practised today — streak safe' : 'Earn any XP today')
-        : '${progress.current}/${progress.target} XP today';
+        ? (done
+            ? context.l10n.questsPractisedToday
+            : context.l10n.questsEarnAnyXp)
+        : context.l10n.questsXpToday(progress.current, progress.target);
     return RatelCard(
       child: Row(
         children: <Widget>[

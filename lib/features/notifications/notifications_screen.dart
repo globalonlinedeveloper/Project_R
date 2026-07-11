@@ -46,7 +46,7 @@ class NotificationsScreen extends ConsumerWidget {
           onPressed: () => context.pop(),
         ),
         title: Text(
-          'Notifications',
+          context.l10n.profileNotifications,
           style: TextStyle(
             fontFamily: RatelFont.display,
             fontWeight: RatelType.extraBold,
@@ -60,8 +60,8 @@ class NotificationsScreen extends ConsumerWidget {
               onPressed: () => ref
                   .read(appSettingsControllerProvider.notifier)
                   .addReadNotifications(earned),
-              child: const Text(
-                'Mark all read',
+              child: Text(
+                context.l10n.notifMarkAllRead,
                 style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.small,
@@ -174,7 +174,7 @@ class NotificationsScreen extends ConsumerWidget {
             children: <Widget>[
               const Text('🔔', style: TextStyle(fontSize: 56)),
               const SizedBox(height: RatelSpace.md),
-              Text('No notifications yet',
+              Text(context.l10n.notifEmptyTitle,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontFamily: RatelFont.display,
@@ -183,8 +183,7 @@ class NotificationsScreen extends ConsumerWidget {
                       color: context.palette.ink)),
               const SizedBox(height: RatelSpace.xs),
               Text(
-                  'Finish lessons, build a streak and level up — your milestones '
-                  'will appear here the moment you genuinely earn them.',
+                  context.l10n.notifEmptyBody,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontFamily: RatelFont.body,
@@ -197,9 +196,7 @@ class NotificationsScreen extends ConsumerWidget {
       );
 
   Widget _pushNote(BuildContext context) => Text(
-        'These are in-app milestones, surfaced the moment you earn them. Push '
-        'notifications and reminders are an owner decision and not enabled yet '
-        '— nothing here is faked.',
+        context.l10n.notifPushNote,
         style: TextStyle(
             fontFamily: RatelFont.body,
             fontSize: RatelType.caption,

@@ -377,4 +377,112 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get profileUnlocked => 'Freigeschaltet';
+
+  @override
+  String questsResetsIn(int h, int m) {
+    return 'Zurücksetzung in ${h}h ${m}min';
+  }
+
+  @override
+  String get questsDailyRefresh => 'Tägliche Auffrischung';
+
+  @override
+  String get questsFreshMix => 'Ein frischer 5-Fragen-Mix';
+
+  @override
+  String get questsServedFromQueue =>
+      'Aus deiner echten Wiederholungs-Warteschlange — bringt echtes XP.';
+
+  @override
+  String get questsGoalReached => 'Tagesziel erreicht! 🎉';
+
+  @override
+  String questsReachGoal(int goal) {
+    return 'Erreiche heute $goal XP';
+  }
+
+  @override
+  String questsDailyQuests(int done, int total) {
+    return 'Tägliche Quests · $done/$total';
+  }
+
+  @override
+  String get questsInfoNote =>
+      'Quests verfolgen deinen echten Tagesfortschritt. Belohnungstruhen, Freundes-Quests und eine Wochen-Rangliste brauchen eine Backend-Ökonomie — Entscheidung des Eigentümers (§6). Keine falschen Belohnungen.';
+
+  @override
+  String get questsStartRefresh => 'Tägliche Auffrischung starten';
+
+  @override
+  String get questsStart => 'Start';
+
+  @override
+  String get questsPractisedToday => 'Heute geübt — Serie sicher';
+
+  @override
+  String get questsEarnAnyXp => 'Verdiene heute beliebiges XP';
+
+  @override
+  String questsXpToday(int current, int target) {
+    return '$current/$target XP heute';
+  }
+
+  @override
+  String get leaguesYourGroup => 'DEINE GRUPPE';
+
+  @override
+  String leaguesThisWeek(int size) {
+    return 'DIESE WOCHE · $size LERNENDE';
+  }
+
+  @override
+  String get leaguesTiers => 'Liga-Stufen';
+
+  @override
+  String leaguesTopClimb(int top, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days Tagen',
+      one: '$days Tag',
+    );
+    return 'Die Top $top steigen jede Woche auf · endet in $_temp0';
+  }
+
+  @override
+  String get leaguesDemotionZone => 'Abstiegszone';
+
+  @override
+  String get leaguesPromotionZone => 'Aufstiegszone';
+
+  @override
+  String get leaguesSafeZone => 'Sichere Zone';
+
+  @override
+  String get leaguesYou => 'Du';
+
+  @override
+  String leaguesPromoteRelegate(int top, int bottom) {
+    return 'Die Top $top steigen auf · die letzten $bottom steigen ab, wenn die Woche endet.';
+  }
+
+  @override
+  String get leaguesYouAreHere => 'Du bist hier';
+
+  @override
+  String get leaguesViewAllTiers => '🏆 Alle 10 Stufen ansehen ›';
+
+  @override
+  String get notifMarkAllRead => 'Alle als gelesen markieren';
+
+  @override
+  String get notifEmptyTitle => 'Noch keine Benachrichtigungen';
+
+  @override
+  String get notifEmptyBody =>
+      'Schließe Lektionen ab, baue eine Serie auf und steige auf — deine Meilensteine erscheinen hier, sobald du sie wirklich erreichst.';
+
+  @override
+  String get notifPushNote =>
+      'Das sind In-App-Meilensteine, angezeigt in dem Moment, in dem du sie erreichst. Push-Benachrichtigungen und Erinnerungen sind Eigentümer-Entscheidung und noch nicht aktiviert — nichts hier ist gefälscht.';
 }

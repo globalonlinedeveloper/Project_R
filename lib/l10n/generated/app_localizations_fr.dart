@@ -379,4 +379,113 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get profileUnlocked => 'Débloqué';
+
+  @override
+  String questsResetsIn(int h, int m) {
+    return 'Réinitialisation dans ${h}h ${m}min';
+  }
+
+  @override
+  String get questsDailyRefresh => 'Rafraîchissement quotidien';
+
+  @override
+  String get questsFreshMix => 'Un mix tout frais de 5 questions';
+
+  @override
+  String get questsServedFromQueue =>
+      'Servi depuis ta vraie file de révision — rapporte du vrai XP.';
+
+  @override
+  String get questsGoalReached => 'Objectif du jour atteint ! 🎉';
+
+  @override
+  String questsReachGoal(int goal) {
+    return 'Atteins $goal XP aujourd\'hui';
+  }
+
+  @override
+  String questsDailyQuests(int done, int total) {
+    return 'Quêtes quotidiennes · $done/$total';
+  }
+
+  @override
+  String get questsInfoNote =>
+      'Les quêtes suivent ta vraie progression quotidienne. Coffres de récompense, quêtes entre amis et classement hebdomadaire nécessitent une économie backend — décision du propriétaire (§6). Aucune fausse récompense n\'est affichée.';
+
+  @override
+  String get questsStartRefresh => 'Lancer le rafraîchissement quotidien';
+
+  @override
+  String get questsStart => 'Démarrer';
+
+  @override
+  String get questsPractisedToday =>
+      'Pratiqué aujourd\'hui — série en sécurité';
+
+  @override
+  String get questsEarnAnyXp => 'Gagne du XP aujourd\'hui';
+
+  @override
+  String questsXpToday(int current, int target) {
+    return '$current/$target XP aujourd\'hui';
+  }
+
+  @override
+  String get leaguesYourGroup => 'TON GROUPE';
+
+  @override
+  String leaguesThisWeek(int size) {
+    return 'CETTE SEMAINE · $size APPRENANTS';
+  }
+
+  @override
+  String get leaguesTiers => 'Divisions de la ligue';
+
+  @override
+  String leaguesTopClimb(int top, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days jours',
+      one: '$days jour',
+    );
+    return 'Le top $top monte chaque semaine · fin dans $_temp0';
+  }
+
+  @override
+  String get leaguesDemotionZone => 'Zone de relégation';
+
+  @override
+  String get leaguesPromotionZone => 'Zone de promotion';
+
+  @override
+  String get leaguesSafeZone => 'Zone sûre';
+
+  @override
+  String get leaguesYou => 'Toi';
+
+  @override
+  String leaguesPromoteRelegate(int top, int bottom) {
+    return 'Le top $top monte · les $bottom derniers descendent à la fin de la semaine.';
+  }
+
+  @override
+  String get leaguesYouAreHere => 'Tu es ici';
+
+  @override
+  String get leaguesViewAllTiers => '🏆 Voir les 10 divisions ›';
+
+  @override
+  String get notifMarkAllRead => 'Tout marquer comme lu';
+
+  @override
+  String get notifEmptyTitle => 'Pas encore de notifications';
+
+  @override
+  String get notifEmptyBody =>
+      'Termine des leçons, construis une série et monte de niveau — tes jalons apparaîtront ici dès que tu les auras vraiment atteints.';
+
+  @override
+  String get notifPushNote =>
+      'Ce sont des jalons in-app, affichés au moment où tu les gagnes. Les notifications push et les rappels sont une décision du propriétaire et pas encore activés — rien ici n\'est truqué.';
 }

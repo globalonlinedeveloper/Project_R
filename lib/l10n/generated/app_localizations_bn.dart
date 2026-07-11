@@ -374,4 +374,112 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get profileUnlocked => 'আনলকড';
+
+  @override
+  String questsResetsIn(int h, int m) {
+    return '$hঘণ্টা $mমিনিটে রিসেট';
+  }
+
+  @override
+  String get questsDailyRefresh => 'দৈনিক রিফ্রেশ';
+
+  @override
+  String get questsFreshMix => '৫টি প্রশ্নের নতুন মিশ্রণ';
+
+  @override
+  String get questsServedFromQueue =>
+      'আপনার আসল রিভিউ সারি থেকে — আসল XP দেয়।';
+
+  @override
+  String get questsGoalReached => 'দৈনিক লক্ষ্য অর্জিত! 🎉';
+
+  @override
+  String questsReachGoal(int goal) {
+    return 'আজ $goal XP অর্জন করুন';
+  }
+
+  @override
+  String questsDailyQuests(int done, int total) {
+    return 'দৈনিক কোয়েস্ট · $done/$total';
+  }
+
+  @override
+  String get questsInfoNote =>
+      'কোয়েস্ট আপনার আসল দৈনিক অগ্রগতি অনুসরণ করে। রিওয়ার্ড চেস্ট, বন্ধু কোয়েস্ট ও সাপ্তাহিক লিডারবোর্ডের জন্য ব্যাকএন্ড ইকোনমি দরকার — মালিকের সিদ্ধান্ত (§6)। কোনো নকল পুরস্কার দেখানো হয় না।';
+
+  @override
+  String get questsStartRefresh => 'দৈনিক রিফ্রেশ শুরু করুন';
+
+  @override
+  String get questsStart => 'শুরু';
+
+  @override
+  String get questsPractisedToday => 'আজ অনুশীলন হয়েছে — স্ট্রিক নিরাপদ';
+
+  @override
+  String get questsEarnAnyXp => 'আজ যেকোনো XP অর্জন করুন';
+
+  @override
+  String questsXpToday(int current, int target) {
+    return 'আজ $current/$target XP';
+  }
+
+  @override
+  String get leaguesYourGroup => 'আপনার দল';
+
+  @override
+  String leaguesThisWeek(int size) {
+    return 'এই সপ্তাহ · $size জন শিক্ষার্থী';
+  }
+
+  @override
+  String get leaguesTiers => 'লিগ স্তর';
+
+  @override
+  String leaguesTopClimb(int top, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days দিনে',
+      one: '$days দিনে',
+    );
+    return 'প্রতি সপ্তাহে সেরা $top জন ওপরে ওঠে · শেষ হবে $_temp0';
+  }
+
+  @override
+  String get leaguesDemotionZone => 'অবনমন অঞ্চল';
+
+  @override
+  String get leaguesPromotionZone => 'পদোন্নতি অঞ্চল';
+
+  @override
+  String get leaguesSafeZone => 'নিরাপদ অঞ্চল';
+
+  @override
+  String get leaguesYou => 'আপনি';
+
+  @override
+  String leaguesPromoteRelegate(int top, int bottom) {
+    return 'সপ্তাহ শেষে সেরা $top ওপরে · শেষের $bottom নিচে নামে।';
+  }
+
+  @override
+  String get leaguesYouAreHere => 'আপনি এখানে';
+
+  @override
+  String get leaguesViewAllTiers => '🏆 সব ১০টি স্তর দেখুন ›';
+
+  @override
+  String get notifMarkAllRead => 'সব পঠিত হিসেবে চিহ্নিত করুন';
+
+  @override
+  String get notifEmptyTitle => 'এখনো কোনো বিজ্ঞপ্তি নেই';
+
+  @override
+  String get notifEmptyBody =>
+      'পাঠ শেষ করুন, স্ট্রিক গড়ুন ও স্তর বাড়ান — সত্যিই অর্জনের মুহূর্তে আপনার মাইলফলক এখানে দেখা যাবে।';
+
+  @override
+  String get notifPushNote =>
+      'এগুলো অ্যাপের ভেতরের মাইলফলক, অর্জনের মুহূর্তেই দেখানো হয়। পুশ বিজ্ঞপ্তি ও রিমাইন্ডার মালিকের সিদ্ধান্ত, এখনো চালু হয়নি — এখানে কিছুই নকল নয়।';
 }
