@@ -1671,6 +1671,1839 @@
           "created_at": "2026-07-11T00:00:00Z",
           "updated_at": "2026-07-11T00:00:00Z"
         }
+      },
+      {
+        "sentence_id": "sentence_es_rp_saludos1_sc1",
+        "locale": "es",
+        "target_text": "¡Hola! Buenos días. Soy Marta.",
+        "tokens": [
+          {
+            "surface": "¡Hola"
+          },
+          {
+            "surface": "!"
+          },
+          {
+            "surface": "Buenos"
+          },
+          {
+            "surface": "días"
+          },
+          {
+            "surface": "."
+          },
+          {
+            "surface": "Soy"
+          },
+          {
+            "surface": "Marta"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_saludos1_sc2",
+        "locale": "es",
+        "target_text": "¿Qué respondes?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "respondes"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_saludos1_sc3",
+        "locale": "es",
+        "target_text": "Muy bien, gracias. ¿Y tú?",
+        "tokens": [
+          {
+            "surface": "Muy"
+          },
+          {
+            "surface": "bien,"
+          },
+          {
+            "surface": "gracias"
+          },
+          {
+            "surface": "."
+          },
+          {
+            "surface": "¿Y"
+          },
+          {
+            "surface": "tú"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_saludos1_sc4",
+        "locale": "es",
+        "target_text": "¿Qué dices ahora?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "dices"
+          },
+          {
+            "surface": "ahora"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_saludos1_sc5",
+        "locale": "es",
+        "target_text": "¡Hasta luego, vecino!",
+        "tokens": [
+          {
+            "surface": "¡Hasta"
+          },
+          {
+            "surface": "luego,"
+          },
+          {
+            "surface": "vecino"
+          },
+          {
+            "surface": "!"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_cafe1_sc1",
+        "locale": "es",
+        "target_text": "Buenos días. ¿Qué desea?",
+        "tokens": [
+          {
+            "surface": "Buenos"
+          },
+          {
+            "surface": "días"
+          },
+          {
+            "surface": "."
+          },
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "desea"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_cafe1_sc2",
+        "locale": "es",
+        "target_text": "¿Qué respondes?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "respondes"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_cafe1_sc3",
+        "locale": "es",
+        "target_text": "Muy bien. ¿Algo más?",
+        "tokens": [
+          {
+            "surface": "Muy"
+          },
+          {
+            "surface": "bien"
+          },
+          {
+            "surface": "."
+          },
+          {
+            "surface": "¿Algo"
+          },
+          {
+            "surface": "más"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_cafe1_sc4",
+        "locale": "es",
+        "target_text": "¿Qué dices ahora?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "dices"
+          },
+          {
+            "surface": "ahora"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_cafe1_sc5",
+        "locale": "es",
+        "target_text": "Son dos euros.",
+        "tokens": [
+          {
+            "surface": "Son"
+          },
+          {
+            "surface": "dos"
+          },
+          {
+            "surface": "euros"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_pan1_sc1",
+        "locale": "es",
+        "target_text": "¡Hola! ¿Qué le pongo?",
+        "tokens": [
+          {
+            "surface": "¡Hola"
+          },
+          {
+            "surface": "!"
+          },
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "le"
+          },
+          {
+            "surface": "pongo"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_pan1_sc2",
+        "locale": "es",
+        "target_text": "¿Qué respondes?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "respondes"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_pan1_sc3",
+        "locale": "es",
+        "target_text": "Aquí tiene. ¿Algo más?",
+        "tokens": [
+          {
+            "surface": "Aquí"
+          },
+          {
+            "surface": "tiene"
+          },
+          {
+            "surface": "."
+          },
+          {
+            "surface": "¿Algo"
+          },
+          {
+            "surface": "más"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_pan1_sc4",
+        "locale": "es",
+        "target_text": "¿Qué dices ahora?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "dices"
+          },
+          {
+            "surface": "ahora"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_pan1_sc5",
+        "locale": "es",
+        "target_text": "Son tres euros. ¡Gracias!",
+        "tokens": [
+          {
+            "surface": "Son"
+          },
+          {
+            "surface": "tres"
+          },
+          {
+            "surface": "euros"
+          },
+          {
+            "surface": "."
+          },
+          {
+            "surface": "¡Gracias"
+          },
+          {
+            "surface": "!"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_colores1_sc1",
+        "locale": "es",
+        "target_text": "¿Le gusta la camisa roja?",
+        "tokens": [
+          {
+            "surface": "¿Le"
+          },
+          {
+            "surface": "gusta"
+          },
+          {
+            "surface": "la"
+          },
+          {
+            "surface": "camisa"
+          },
+          {
+            "surface": "roja"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_colores1_sc2",
+        "locale": "es",
+        "target_text": "¿Qué respondes?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "respondes"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_colores1_sc3",
+        "locale": "es",
+        "target_text": "La azul es muy bonita. ¿Se la lleva?",
+        "tokens": [
+          {
+            "surface": "La"
+          },
+          {
+            "surface": "azul"
+          },
+          {
+            "surface": "es"
+          },
+          {
+            "surface": "muy"
+          },
+          {
+            "surface": "bonita"
+          },
+          {
+            "surface": "."
+          },
+          {
+            "surface": "¿Se"
+          },
+          {
+            "surface": "la"
+          },
+          {
+            "surface": "lleva"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_colores1_sc4",
+        "locale": "es",
+        "target_text": "¿Qué dices ahora?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "dices"
+          },
+          {
+            "surface": "ahora"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_colores1_sc5",
+        "locale": "es",
+        "target_text": "¡Buena elección!",
+        "tokens": [
+          {
+            "surface": "¡Buena"
+          },
+          {
+            "surface": "elección"
+          },
+          {
+            "surface": "!"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_numeros1_sc1",
+        "locale": "es",
+        "target_text": "Son cuatro euros.",
+        "tokens": [
+          {
+            "surface": "Son"
+          },
+          {
+            "surface": "cuatro"
+          },
+          {
+            "surface": "euros"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_numeros1_sc2",
+        "locale": "es",
+        "target_text": "¿Qué respondes?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "respondes"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_numeros1_sc3",
+        "locale": "es",
+        "target_text": "Gracias. ¿Quiere una bolsa?",
+        "tokens": [
+          {
+            "surface": "Gracias"
+          },
+          {
+            "surface": "."
+          },
+          {
+            "surface": "¿Quiere"
+          },
+          {
+            "surface": "una"
+          },
+          {
+            "surface": "bolsa"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_numeros1_sc4",
+        "locale": "es",
+        "target_text": "¿Qué dices ahora?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "dices"
+          },
+          {
+            "surface": "ahora"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_numeros1_sc5",
+        "locale": "es",
+        "target_text": "¡Que tenga buen día!",
+        "tokens": [
+          {
+            "surface": "¡Que"
+          },
+          {
+            "surface": "tenga"
+          },
+          {
+            "surface": "buen"
+          },
+          {
+            "surface": "día"
+          },
+          {
+            "surface": "!"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_articulos1_sc1",
+        "locale": "es",
+        "target_text": "¿Qué necesitas?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "necesitas"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_articulos1_sc2",
+        "locale": "es",
+        "target_text": "¿Qué respondes?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "respondes"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_articulos1_sc3",
+        "locale": "es",
+        "target_text": "Aquí está el libro. ¿Algo más?",
+        "tokens": [
+          {
+            "surface": "Aquí"
+          },
+          {
+            "surface": "está"
+          },
+          {
+            "surface": "el"
+          },
+          {
+            "surface": "libro"
+          },
+          {
+            "surface": "."
+          },
+          {
+            "surface": "¿Algo"
+          },
+          {
+            "surface": "más"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_articulos1_sc4",
+        "locale": "es",
+        "target_text": "¿Qué dices ahora?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "dices"
+          },
+          {
+            "surface": "ahora"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_articulos1_sc5",
+        "locale": "es",
+        "target_text": "¡Perfecto! Aquí la tienes.",
+        "tokens": [
+          {
+            "surface": "¡Perfecto"
+          },
+          {
+            "surface": "!"
+          },
+          {
+            "surface": "Aquí"
+          },
+          {
+            "surface": "la"
+          },
+          {
+            "surface": "tienes"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_presente1_sc1",
+        "locale": "es",
+        "target_text": "¿Qué haces por la mañana?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "haces"
+          },
+          {
+            "surface": "por"
+          },
+          {
+            "surface": "la"
+          },
+          {
+            "surface": "mañana"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_presente1_sc2",
+        "locale": "es",
+        "target_text": "¿Qué respondes?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "respondes"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_presente1_sc3",
+        "locale": "es",
+        "target_text": "¿Y qué hace tu hermana?",
+        "tokens": [
+          {
+            "surface": "¿Y"
+          },
+          {
+            "surface": "qué"
+          },
+          {
+            "surface": "hace"
+          },
+          {
+            "surface": "tu"
+          },
+          {
+            "surface": "hermana"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_presente1_sc4",
+        "locale": "es",
+        "target_text": "¿Qué dices ahora?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "dices"
+          },
+          {
+            "surface": "ahora"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_presente1_sc5",
+        "locale": "es",
+        "target_text": "¡Qué familia tan tranquila!",
+        "tokens": [
+          {
+            "surface": "¡Qué"
+          },
+          {
+            "surface": "familia"
+          },
+          {
+            "surface": "tan"
+          },
+          {
+            "surface": "tranquila"
+          },
+          {
+            "surface": "!"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_preguntas1_sc1",
+        "locale": "es",
+        "target_text": "¡Hola! Soy nueva en la clase.",
+        "tokens": [
+          {
+            "surface": "¡Hola"
+          },
+          {
+            "surface": "!"
+          },
+          {
+            "surface": "Soy"
+          },
+          {
+            "surface": "nueva"
+          },
+          {
+            "surface": "en"
+          },
+          {
+            "surface": "la"
+          },
+          {
+            "surface": "clase"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_preguntas1_sc2",
+        "locale": "es",
+        "target_text": "¿Qué preguntas?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "preguntas"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_preguntas1_sc3",
+        "locale": "es",
+        "target_text": "Me llamo Sofía. ¿Qué estudias?",
+        "tokens": [
+          {
+            "surface": "Me"
+          },
+          {
+            "surface": "llamo"
+          },
+          {
+            "surface": "Sofía"
+          },
+          {
+            "surface": "."
+          },
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "estudias"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_preguntas1_sc4",
+        "locale": "es",
+        "target_text": "¿Qué dices ahora?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "dices"
+          },
+          {
+            "surface": "ahora"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_preguntas1_sc5",
+        "locale": "es",
+        "target_text": "¡Yo también!",
+        "tokens": [
+          {
+            "surface": "¡Yo"
+          },
+          {
+            "surface": "también"
+          },
+          {
+            "surface": "!"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_mercado1_sc1",
+        "locale": "es",
+        "target_text": "¡Buenos días! Tenemos fruta fresca.",
+        "tokens": [
+          {
+            "surface": "¡Buenos"
+          },
+          {
+            "surface": "días"
+          },
+          {
+            "surface": "!"
+          },
+          {
+            "surface": "Tenemos"
+          },
+          {
+            "surface": "fruta"
+          },
+          {
+            "surface": "fresca"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_mercado1_sc2",
+        "locale": "es",
+        "target_text": "¿Qué preguntas?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "preguntas"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_mercado1_sc3",
+        "locale": "es",
+        "target_text": "Dos euros el kilo.",
+        "tokens": [
+          {
+            "surface": "Dos"
+          },
+          {
+            "surface": "euros"
+          },
+          {
+            "surface": "el"
+          },
+          {
+            "surface": "kilo"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_mercado1_sc4",
+        "locale": "es",
+        "target_text": "¿Qué dices ahora?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "dices"
+          },
+          {
+            "surface": "ahora"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_mercado1_sc5",
+        "locale": "es",
+        "target_text": "Aquí tiene. ¡Gracias!",
+        "tokens": [
+          {
+            "surface": "Aquí"
+          },
+          {
+            "surface": "tiene"
+          },
+          {
+            "surface": "."
+          },
+          {
+            "surface": "¡Gracias"
+          },
+          {
+            "surface": "!"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_planes1_sc1",
+        "locale": "es",
+        "target_text": "¿Qué haces el sábado?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "haces"
+          },
+          {
+            "surface": "el"
+          },
+          {
+            "surface": "sábado"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_planes1_sc2",
+        "locale": "es",
+        "target_text": "¿Qué respondes?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "respondes"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_planes1_sc3",
+        "locale": "es",
+        "target_text": "¿Vienes al cine conmigo?",
+        "tokens": [
+          {
+            "surface": "¿Vienes"
+          },
+          {
+            "surface": "al"
+          },
+          {
+            "surface": "cine"
+          },
+          {
+            "surface": "conmigo"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_planes1_sc4",
+        "locale": "es",
+        "target_text": "¿Qué dices ahora?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "dices"
+          },
+          {
+            "surface": "ahora"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_planes1_sc5",
+        "locale": "es",
+        "target_text": "A las cinco. ¡Hasta el sábado!",
+        "tokens": [
+          {
+            "surface": "A"
+          },
+          {
+            "surface": "las"
+          },
+          {
+            "surface": "cinco"
+          },
+          {
+            "surface": "."
+          },
+          {
+            "surface": "¡Hasta"
+          },
+          {
+            "surface": "el"
+          },
+          {
+            "surface": "sábado"
+          },
+          {
+            "surface": "!"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_comida1_sc1",
+        "locale": "es",
+        "target_text": "¿Qué comes normalmente?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "comes"
+          },
+          {
+            "surface": "normalmente"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_comida1_sc2",
+        "locale": "es",
+        "target_text": "¿Qué respondes?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "respondes"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_comida1_sc3",
+        "locale": "es",
+        "target_text": "¿Y tu hermano come pescado?",
+        "tokens": [
+          {
+            "surface": "¿Y"
+          },
+          {
+            "surface": "tu"
+          },
+          {
+            "surface": "hermano"
+          },
+          {
+            "surface": "come"
+          },
+          {
+            "surface": "pescado"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_comida1_sc4",
+        "locale": "es",
+        "target_text": "¿Qué dices ahora?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "dices"
+          },
+          {
+            "surface": "ahora"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_comida1_sc5",
+        "locale": "es",
+        "target_text": "¡Qué bien coméis en casa!",
+        "tokens": [
+          {
+            "surface": "¡Qué"
+          },
+          {
+            "surface": "bien"
+          },
+          {
+            "surface": "coméis"
+          },
+          {
+            "surface": "en"
+          },
+          {
+            "surface": "casa"
+          },
+          {
+            "surface": "!"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_biblioteca1_sc1",
+        "locale": "es",
+        "target_text": "¿Puedo ayudarte?",
+        "tokens": [
+          {
+            "surface": "¿Puedo"
+          },
+          {
+            "surface": "ayudarte"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_biblioteca1_sc2",
+        "locale": "es",
+        "target_text": "¿Qué preguntas?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "preguntas"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_biblioteca1_sc3",
+        "locale": "es",
+        "target_text": "Está en la mesa verde.",
+        "tokens": [
+          {
+            "surface": "Está"
+          },
+          {
+            "surface": "en"
+          },
+          {
+            "surface": "la"
+          },
+          {
+            "surface": "mesa"
+          },
+          {
+            "surface": "verde"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_biblioteca1_sc4",
+        "locale": "es",
+        "target_text": "¿Qué dices ahora?",
+        "tokens": [
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "dices"
+          },
+          {
+            "surface": "ahora"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_rp_biblioteca1_sc5",
+        "locale": "es",
+        "target_text": "Sí, a las nueve. ¡Hasta mañana!",
+        "tokens": [
+          {
+            "surface": "Sí,"
+          },
+          {
+            "surface": "a"
+          },
+          {
+            "surface": "las"
+          },
+          {
+            "surface": "nueve"
+          },
+          {
+            "surface": "."
+          },
+          {
+            "surface": "¡Hasta"
+          },
+          {
+            "surface": "mañana"
+          },
+          {
+            "surface": "!"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
       }
     ],
     "grammar_point": [
@@ -2816,6 +4649,1060 @@
           "created_at": "2026-07-11T00:00:00Z",
           "updated_at": "2026-07-11T00:00:00Z"
         }
+      },
+      {
+        "scenario_id": "scenario_es_rp_saludos1",
+        "locale": "es",
+        "kind": "roleplay",
+        "title_ref": "scenariotitle_es_rp_saludos1",
+        "cefr_level": "A1",
+        "world": "the apartment stairwell",
+        "goal_ref": "goal_es_rp_saludos1",
+        "skill_ids": [
+          "skill_es_greetings"
+        ],
+        "scenes": [
+          {
+            "scene_id": "sc1",
+            "speaker": "Marta",
+            "line_sentence_ref": "sentence_es_rp_saludos1_sc1"
+          },
+          {
+            "scene_id": "sc2",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_saludos1_sc2",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_saludos1_t1_a",
+                "option_id": "a",
+                "next_scene_id": "sc3",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_saludos1_t1_b",
+                "option_id": "b",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_saludos1_t1_c",
+                "option_id": "c",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc3",
+            "speaker": "Marta",
+            "line_sentence_ref": "sentence_es_rp_saludos1_sc3"
+          },
+          {
+            "scene_id": "sc4",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_saludos1_sc4",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_saludos1_t2_a",
+                "option_id": "a",
+                "next_scene_id": "sc5",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_saludos1_t2_b",
+                "option_id": "b",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_saludos1_t2_c",
+                "option_id": "c",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc5",
+            "speaker": "Marta",
+            "line_sentence_ref": "sentence_es_rp_saludos1_sc5"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_rp_cafe1",
+        "locale": "es",
+        "kind": "roleplay",
+        "title_ref": "scenariotitle_es_rp_cafe1",
+        "cefr_level": "A1",
+        "world": "a neighbourhood café",
+        "goal_ref": "goal_es_rp_cafe1",
+        "skill_ids": [
+          "skill_es_food",
+          "skill_es_greetings"
+        ],
+        "scenes": [
+          {
+            "scene_id": "sc1",
+            "speaker": "camarero",
+            "line_sentence_ref": "sentence_es_rp_cafe1_sc1"
+          },
+          {
+            "scene_id": "sc2",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_cafe1_sc2",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_cafe1_t1_a",
+                "option_id": "a",
+                "next_scene_id": "sc3",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_cafe1_t1_b",
+                "option_id": "b",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_cafe1_t1_c",
+                "option_id": "c",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc3",
+            "speaker": "camarero",
+            "line_sentence_ref": "sentence_es_rp_cafe1_sc3"
+          },
+          {
+            "scene_id": "sc4",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_cafe1_sc4",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_cafe1_t2_a",
+                "option_id": "a",
+                "next_scene_id": "sc5",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_cafe1_t2_b",
+                "option_id": "b",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_cafe1_t2_c",
+                "option_id": "c",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc5",
+            "speaker": "camarero",
+            "line_sentence_ref": "sentence_es_rp_cafe1_sc5"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_rp_pan1",
+        "locale": "es",
+        "kind": "roleplay",
+        "title_ref": "scenariotitle_es_rp_pan1",
+        "cefr_level": "A1",
+        "world": "the corner bakery",
+        "goal_ref": "goal_es_rp_pan1",
+        "skill_ids": [
+          "skill_es_food",
+          "skill_es_numbers"
+        ],
+        "scenes": [
+          {
+            "scene_id": "sc1",
+            "speaker": "panadera",
+            "line_sentence_ref": "sentence_es_rp_pan1_sc1"
+          },
+          {
+            "scene_id": "sc2",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_pan1_sc2",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_pan1_t1_a",
+                "option_id": "a",
+                "next_scene_id": "sc3",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_pan1_t1_b",
+                "option_id": "b",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_pan1_t1_c",
+                "option_id": "c",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc3",
+            "speaker": "panadera",
+            "line_sentence_ref": "sentence_es_rp_pan1_sc3"
+          },
+          {
+            "scene_id": "sc4",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_pan1_sc4",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_pan1_t2_a",
+                "option_id": "a",
+                "next_scene_id": "sc5",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_pan1_t2_b",
+                "option_id": "b",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_pan1_t2_c",
+                "option_id": "c",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc5",
+            "speaker": "panadera",
+            "line_sentence_ref": "sentence_es_rp_pan1_sc5"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_rp_colores1",
+        "locale": "es",
+        "kind": "roleplay",
+        "title_ref": "scenariotitle_es_rp_colores1",
+        "cefr_level": "A1",
+        "world": "a clothes shop",
+        "goal_ref": "goal_es_rp_colores1",
+        "skill_ids": [
+          "skill_es_colors",
+          "skill_es_articles"
+        ],
+        "scenes": [
+          {
+            "scene_id": "sc1",
+            "speaker": "dependienta",
+            "line_sentence_ref": "sentence_es_rp_colores1_sc1"
+          },
+          {
+            "scene_id": "sc2",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_colores1_sc2",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_colores1_t1_a",
+                "option_id": "a",
+                "next_scene_id": "sc3",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_colores1_t1_b",
+                "option_id": "b",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_colores1_t1_c",
+                "option_id": "c",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc3",
+            "speaker": "dependienta",
+            "line_sentence_ref": "sentence_es_rp_colores1_sc3"
+          },
+          {
+            "scene_id": "sc4",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_colores1_sc4",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_colores1_t2_a",
+                "option_id": "a",
+                "next_scene_id": "sc5",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_colores1_t2_b",
+                "option_id": "b",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_colores1_t2_c",
+                "option_id": "c",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc5",
+            "speaker": "dependienta",
+            "line_sentence_ref": "sentence_es_rp_colores1_sc5"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_rp_numeros1",
+        "locale": "es",
+        "kind": "roleplay",
+        "title_ref": "scenariotitle_es_rp_numeros1",
+        "cefr_level": "A1",
+        "world": "a street kiosk",
+        "goal_ref": "goal_es_rp_numeros1",
+        "skill_ids": [
+          "skill_es_numbers",
+          "skill_es_food"
+        ],
+        "scenes": [
+          {
+            "scene_id": "sc1",
+            "speaker": "vendedor",
+            "line_sentence_ref": "sentence_es_rp_numeros1_sc1"
+          },
+          {
+            "scene_id": "sc2",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_numeros1_sc2",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_numeros1_t1_a",
+                "option_id": "a",
+                "next_scene_id": "sc3",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_numeros1_t1_b",
+                "option_id": "b",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_numeros1_t1_c",
+                "option_id": "c",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc3",
+            "speaker": "vendedor",
+            "line_sentence_ref": "sentence_es_rp_numeros1_sc3"
+          },
+          {
+            "scene_id": "sc4",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_numeros1_sc4",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_numeros1_t2_a",
+                "option_id": "a",
+                "next_scene_id": "sc5",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_numeros1_t2_b",
+                "option_id": "b",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_numeros1_t2_c",
+                "option_id": "c",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc5",
+            "speaker": "vendedor",
+            "line_sentence_ref": "sentence_es_rp_numeros1_sc5"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_rp_articulos1",
+        "locale": "es",
+        "kind": "roleplay",
+        "title_ref": "scenariotitle_es_rp_articulos1",
+        "cefr_level": "A1",
+        "world": "the classroom",
+        "goal_ref": "goal_es_rp_articulos1",
+        "skill_ids": [
+          "skill_es_articles",
+          "skill_es_colors"
+        ],
+        "scenes": [
+          {
+            "scene_id": "sc1",
+            "speaker": "profesora",
+            "line_sentence_ref": "sentence_es_rp_articulos1_sc1"
+          },
+          {
+            "scene_id": "sc2",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_articulos1_sc2",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_articulos1_t1_a",
+                "option_id": "a",
+                "next_scene_id": "sc3",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_articulos1_t1_b",
+                "option_id": "b",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_articulos1_t1_c",
+                "option_id": "c",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc3",
+            "speaker": "profesora",
+            "line_sentence_ref": "sentence_es_rp_articulos1_sc3"
+          },
+          {
+            "scene_id": "sc4",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_articulos1_sc4",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_articulos1_t2_a",
+                "option_id": "a",
+                "next_scene_id": "sc5",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_articulos1_t2_b",
+                "option_id": "b",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_articulos1_t2_c",
+                "option_id": "c",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc5",
+            "speaker": "profesora",
+            "line_sentence_ref": "sentence_es_rp_articulos1_sc5"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_rp_presente1",
+        "locale": "es",
+        "kind": "roleplay",
+        "title_ref": "scenariotitle_es_rp_presente1",
+        "cefr_level": "A2",
+        "world": "a park bench",
+        "goal_ref": "goal_es_rp_presente1",
+        "skill_ids": [
+          "skill_es_present"
+        ],
+        "scenes": [
+          {
+            "scene_id": "sc1",
+            "speaker": "Luis",
+            "line_sentence_ref": "sentence_es_rp_presente1_sc1"
+          },
+          {
+            "scene_id": "sc2",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_presente1_sc2",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_presente1_t1_a",
+                "option_id": "a",
+                "next_scene_id": "sc3",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_presente1_t1_b",
+                "option_id": "b",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_presente1_t1_c",
+                "option_id": "c",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc3",
+            "speaker": "Luis",
+            "line_sentence_ref": "sentence_es_rp_presente1_sc3"
+          },
+          {
+            "scene_id": "sc4",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_presente1_sc4",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_presente1_t2_a",
+                "option_id": "a",
+                "next_scene_id": "sc5",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_presente1_t2_b",
+                "option_id": "b",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_presente1_t2_c",
+                "option_id": "c",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc5",
+            "speaker": "Luis",
+            "line_sentence_ref": "sentence_es_rp_presente1_sc5"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_rp_preguntas1",
+        "locale": "es",
+        "kind": "roleplay",
+        "title_ref": "scenariotitle_es_rp_preguntas1",
+        "cefr_level": "A2",
+        "world": "the school patio",
+        "goal_ref": "goal_es_rp_preguntas1",
+        "skill_ids": [
+          "skill_es_questions"
+        ],
+        "scenes": [
+          {
+            "scene_id": "sc1",
+            "speaker": "Sofía",
+            "line_sentence_ref": "sentence_es_rp_preguntas1_sc1"
+          },
+          {
+            "scene_id": "sc2",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_preguntas1_sc2",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_preguntas1_t1_a",
+                "option_id": "a",
+                "next_scene_id": "sc3",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_preguntas1_t1_b",
+                "option_id": "b",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_preguntas1_t1_c",
+                "option_id": "c",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc3",
+            "speaker": "Sofía",
+            "line_sentence_ref": "sentence_es_rp_preguntas1_sc3"
+          },
+          {
+            "scene_id": "sc4",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_preguntas1_sc4",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_preguntas1_t2_a",
+                "option_id": "a",
+                "next_scene_id": "sc5",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_preguntas1_t2_b",
+                "option_id": "b",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_preguntas1_t2_c",
+                "option_id": "c",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc5",
+            "speaker": "Sofía",
+            "line_sentence_ref": "sentence_es_rp_preguntas1_sc5"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_rp_mercado1",
+        "locale": "es",
+        "kind": "roleplay",
+        "title_ref": "scenariotitle_es_rp_mercado1",
+        "cefr_level": "A2",
+        "world": "the market square",
+        "goal_ref": "goal_es_rp_mercado1",
+        "skill_ids": [
+          "skill_es_questions",
+          "skill_es_numbers"
+        ],
+        "scenes": [
+          {
+            "scene_id": "sc1",
+            "speaker": "frutero",
+            "line_sentence_ref": "sentence_es_rp_mercado1_sc1"
+          },
+          {
+            "scene_id": "sc2",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_mercado1_sc2",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_mercado1_t1_a",
+                "option_id": "a",
+                "next_scene_id": "sc3",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_mercado1_t1_b",
+                "option_id": "b",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_mercado1_t1_c",
+                "option_id": "c",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc3",
+            "speaker": "frutero",
+            "line_sentence_ref": "sentence_es_rp_mercado1_sc3"
+          },
+          {
+            "scene_id": "sc4",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_mercado1_sc4",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_mercado1_t2_a",
+                "option_id": "a",
+                "next_scene_id": "sc5",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_mercado1_t2_b",
+                "option_id": "b",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_mercado1_t2_c",
+                "option_id": "c",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc5",
+            "speaker": "frutero",
+            "line_sentence_ref": "sentence_es_rp_mercado1_sc5"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_rp_planes1",
+        "locale": "es",
+        "kind": "roleplay",
+        "title_ref": "scenariotitle_es_rp_planes1",
+        "cefr_level": "A2",
+        "world": "outside the cinema",
+        "goal_ref": "goal_es_rp_planes1",
+        "skill_ids": [
+          "skill_es_present",
+          "skill_es_questions"
+        ],
+        "scenes": [
+          {
+            "scene_id": "sc1",
+            "speaker": "Carmen",
+            "line_sentence_ref": "sentence_es_rp_planes1_sc1"
+          },
+          {
+            "scene_id": "sc2",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_planes1_sc2",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_planes1_t1_a",
+                "option_id": "a",
+                "next_scene_id": "sc3",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_planes1_t1_b",
+                "option_id": "b",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_planes1_t1_c",
+                "option_id": "c",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc3",
+            "speaker": "Carmen",
+            "line_sentence_ref": "sentence_es_rp_planes1_sc3"
+          },
+          {
+            "scene_id": "sc4",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_planes1_sc4",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_planes1_t2_a",
+                "option_id": "a",
+                "next_scene_id": "sc5",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_planes1_t2_b",
+                "option_id": "b",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_planes1_t2_c",
+                "option_id": "c",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc5",
+            "speaker": "Carmen",
+            "line_sentence_ref": "sentence_es_rp_planes1_sc5"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_rp_comida1",
+        "locale": "es",
+        "kind": "roleplay",
+        "title_ref": "scenariotitle_es_rp_comida1",
+        "cefr_level": "A2",
+        "world": "grandma's kitchen",
+        "goal_ref": "goal_es_rp_comida1",
+        "skill_ids": [
+          "skill_es_present",
+          "skill_es_food"
+        ],
+        "scenes": [
+          {
+            "scene_id": "sc1",
+            "speaker": "abuela",
+            "line_sentence_ref": "sentence_es_rp_comida1_sc1"
+          },
+          {
+            "scene_id": "sc2",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_comida1_sc2",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_comida1_t1_a",
+                "option_id": "a",
+                "next_scene_id": "sc3",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_comida1_t1_b",
+                "option_id": "b",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_comida1_t1_c",
+                "option_id": "c",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc3",
+            "speaker": "abuela",
+            "line_sentence_ref": "sentence_es_rp_comida1_sc3"
+          },
+          {
+            "scene_id": "sc4",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_comida1_sc4",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_comida1_t2_a",
+                "option_id": "a",
+                "next_scene_id": "sc5",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_comida1_t2_b",
+                "option_id": "b",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_comida1_t2_c",
+                "option_id": "c",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc5",
+            "speaker": "abuela",
+            "line_sentence_ref": "sentence_es_rp_comida1_sc5"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_rp_biblioteca1",
+        "locale": "es",
+        "kind": "roleplay",
+        "title_ref": "scenariotitle_es_rp_biblioteca1",
+        "cefr_level": "A2",
+        "world": "the town library",
+        "goal_ref": "goal_es_rp_biblioteca1",
+        "skill_ids": [
+          "skill_es_questions",
+          "skill_es_articles",
+          "skill_es_colors"
+        ],
+        "scenes": [
+          {
+            "scene_id": "sc1",
+            "speaker": "bibliotecaria",
+            "line_sentence_ref": "sentence_es_rp_biblioteca1_sc1"
+          },
+          {
+            "scene_id": "sc2",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_biblioteca1_sc2",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_biblioteca1_t1_a",
+                "option_id": "a",
+                "next_scene_id": "sc3",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_biblioteca1_t1_b",
+                "option_id": "b",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_biblioteca1_t1_c",
+                "option_id": "c",
+                "next_scene_id": "sc3",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc3",
+            "speaker": "bibliotecaria",
+            "line_sentence_ref": "sentence_es_rp_biblioteca1_sc3"
+          },
+          {
+            "scene_id": "sc4",
+            "speaker": "you",
+            "line_sentence_ref": "sentence_es_rp_biblioteca1_sc4",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_rp_biblioteca1_t2_a",
+                "option_id": "a",
+                "next_scene_id": "sc5",
+                "is_correct": true
+              },
+              {
+                "label_ref": "choicelabel_es_rp_biblioteca1_t2_b",
+                "option_id": "b",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              },
+              {
+                "label_ref": "choicelabel_es_rp_biblioteca1_t2_c",
+                "option_id": "c",
+                "next_scene_id": "sc5",
+                "is_correct": false
+              }
+            ]
+          },
+          {
+            "scene_id": "sc5",
+            "speaker": "bibliotecaria",
+            "line_sentence_ref": "sentence_es_rp_biblioteca1_sc5"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
       }
     ],
     "gloss": [
@@ -3740,6 +6627,2358 @@
         "content_kind": "instruction",
         "ui_locale": "en",
         "text": "La cuenta, por favor",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_rp_saludos1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Greet your new neighbour",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_rp_saludos1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Say hello and answer politely",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_saludos1_t1_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "A greeting plus a friendly question — exactly how you answer a hello.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_saludos1_t1_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Buenos días, Marta. ¿Cómo estás?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_saludos1_t1_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Buenas noches is for night-time — this is a morning greeting.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_saludos1_t1_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Buenas noches, Marta.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_saludos1_t1_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Adiós says goodbye — Marta just said hello.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_saludos1_t1_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Adiós, Marta.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_saludos1_t2_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Short and polite — the standard reply to ¿y tú?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_saludos1_t2_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Bien, gracias.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_saludos1_t2_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "That answers nothing here — she asked how you are.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_saludos1_t2_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "El libro rojo.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_saludos1_t2_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "That's what a waiter says to take an order, not a reply to a greeting.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_saludos1_t2_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Qué te pongo?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_rp_cafe1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Order a coffee politely",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_rp_cafe1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Ask for your drink the polite way",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_cafe1_t1_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Por favor makes the order polite — the natural way to ask.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_cafe1_t1_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Un café con leche, por favor.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_cafe1_t1_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Dame with no por favor sounds like a command — too blunt for a café.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_cafe1_t1_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Dame un café.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_cafe1_t1_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "A greeting, not an order — and the wrong time of day.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_cafe1_t1_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Buenas noches.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_cafe1_t2_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Decline politely and ask the price — two useful phrases together.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_cafe1_t2_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "No, gracias. ¿Cuánto es?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_cafe1_t2_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Just 'no' sounds curt — add gracias to keep it friendly.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_cafe1_t2_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "No.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_cafe1_t2_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "That mixes words up — it says the coffee is a book.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_cafe1_t2_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "El café es un libro.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_rp_pan1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Buy bread at the bakery",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_rp_pan1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Order with numbers and thank the baker",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_pan1_t1_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Number + noun + por favor — a complete, polite order.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_pan1_t1_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Dos panes, por favor.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_pan1_t1_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Rápido makes it rude — drop it and add por favor.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_pan1_t1_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Quiero pan, rápido.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_pan1_t1_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Asking for a table doesn't order bread.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_pan1_t1_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Dónde está la mesa?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_pan1_t2_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Politely close the order and ask the total.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_pan1_t2_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "No, gracias. ¿Cuánto es?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_pan1_t2_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Numbers alone don't answer ¿algo más? — say no, gracias or order something.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_pan1_t2_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Cuatro. Cinco. Tres.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_pan1_t2_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Bread isn't blue — that names a colour instead of answering.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_pan1_t2_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "El pan es azul.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_rp_colores1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Pick the right colour",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_rp_colores1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Choose a shirt using la and el correctly",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_colores1_t1_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Camisa is feminine — la camisa azul is right.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_colores1_t1_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "No, prefiero la camisa azul.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_colores1_t1_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Camisa is feminine: la camisa, not el camisa.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_colores1_t1_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "No, prefiero el camisa azul.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_colores1_t1_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "The extra es breaks the sentence — prefiero la camisa azul is complete.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_colores1_t1_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "No, prefiero la camisa azul es.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_colores1_t2_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Confirm with the article and colour — clear and polite.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_colores1_t2_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Sí, la camisa azul, por favor.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_colores1_t2_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Wrong article and word order — colour follows the noun: la camisa azul.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_colores1_t2_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Sí, el azul camisa.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_colores1_t2_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "That says good night instead of confirming the shirt.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_colores1_t2_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Sí, buenas noches.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_rp_numeros1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Pay at the kiosk",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_rp_numeros1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Handle euros with the numbers you know",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_numeros1_t1_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Repeat the number as you hand it over — clear and natural.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_numeros1_t1_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Aquí tiene cuatro euros.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_numeros1_t1_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Rojo is a colour — the price needs a number: cuatro euros.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_numeros1_t1_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Aquí tiene rojo euros.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_numeros1_t1_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "He just told you the price — cuatro euros.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_numeros1_t1_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Cuánto cuesta?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_numeros1_t2_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Sí + por favor — accept politely.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_numeros1_t2_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Sí, una bolsa, por favor.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_numeros1_t2_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Cinco needs a plural: cinco bolsas — and you only need one!",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_numeros1_t2_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Sí, cinco bolsa.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_numeros1_t2_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Talking about reading doesn't answer the question about a bag.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_numeros1_t2_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Yo leo un libro.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_rp_articulos1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Ask for classroom things",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_rp_articulos1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Use el and la with the right objects",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_articulos1_t1_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Libro is masculine — el libro rojo.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_articulos1_t1_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "El libro rojo, por favor.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_articulos1_t1_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Libro is masculine: el libro, not la libro.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_articulos1_t1_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "La libro rojo, por favor.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_articulos1_t1_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "The words are shuffled — article first: el libro rojo, por favor.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_articulos1_t1_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Libro el rojo favor.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_articulos1_t2_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Mesa is feminine — la mesa verde.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_articulos1_t2_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Sí, la mesa verde, por favor.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_articulos1_t2_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Mesa is feminine: la mesa, not el mesa.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_articulos1_t2_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Sí, el mesa verde, por favor.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_articulos1_t2_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Scrambled — keep it as la mesa verde, por favor.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_articulos1_t2_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Sí, verde la mesa favor por.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_rp_presente1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Talk about your morning",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_rp_presente1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Use the simple present for daily actions",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_presente1_t1_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Simple present, first person: como, bebo.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_presente1_t1_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Como pan y bebo café.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_presente1_t1_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Those are infinitives — conjugate them: como, bebo.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_presente1_t1_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Comer pan y beber café.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_presente1_t1_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Mañana means tomorrow — the question is about your usual morning.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_presente1_t1_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Mañana como pan.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_presente1_t2_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Third person: ella lee — the -e ending marks she.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_presente1_t2_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Ella lee un libro.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_presente1_t2_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Leer is the infinitive — with ella it is lee.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_presente1_t2_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Ella leer un libro.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_presente1_t2_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "The question is about your sister — use ella, not yo.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_presente1_t2_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Yo leo un libro.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_rp_preguntas1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Meet a new classmate",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_rp_preguntas1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Ask basic questions to get to know her",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_preguntas1_t1_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "The natural first question — ¿cómo te llamas?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_preguntas1_t1_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¡Hola! ¿Cómo te llamas?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_preguntas1_t1_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "That asks a price — not a way to meet someone.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_preguntas1_t1_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Cuánto cuesta?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_preguntas1_t1_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Missing the question word and marks — ask ¿cómo te llamas?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_preguntas1_t1_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Te llamas.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_preguntas1_t2_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Answer, then bounce the question back with ¿y tú?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_preguntas1_t2_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Estudio español. ¿Y tú?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_preguntas1_t2_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Conjugate it: estudio español.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_preguntas1_t2_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Estudiar español.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_preguntas1_t2_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Asking where the bread is changes the subject entirely.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_preguntas1_t2_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Dónde está el pan?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_rp_mercado1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Ask prices at the market",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_rp_mercado1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Use question words to shop",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_mercado1_t1_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "¿Cuánto cuestan...? asks the price of plural things.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_mercado1_t1_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Cuánto cuestan las manzanas?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_mercado1_t1_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "That asks his age — not the price of fruit!",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_mercado1_t1_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Cuántos años tienes?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_mercado1_t1_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Question word first, with marks: ¿cuánto cuestan las manzanas?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_mercado1_t1_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Manzanas cuestan cuánto.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_mercado1_t2_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Quantity + por favor — a complete polite request.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_mercado1_t2_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Un kilo, por favor.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_mercado1_t2_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "¿Y tú? bounces a personal question — it does not order fruit.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_mercado1_t2_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Dos euros, ¿y tú?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_mercado1_t2_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Articles alone do not make a request — say un kilo, por favor.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_mercado1_t2_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "La manzana el kilo.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_rp_planes1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Plan the weekend",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_rp_planes1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Ask and answer about plans",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_planes1_t1_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Answer in the present and ask why — natural conversation flow.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_planes1_t1_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "No tengo planes. ¿Por qué?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_planes1_t1_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Conjugate: no tengo planes.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_planes1_t1_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "No tener planes.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_planes1_t1_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Saturday is not a colour — answer with your plans.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_planes1_t1_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "El sábado es verde.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_planes1_t2_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Accept and ask the time — ¿a qué hora?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_planes1_t2_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Sí, ¿a qué hora?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_planes1_t2_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "The book's price has nothing to do with the movie plan.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_planes1_t2_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Sí, ¿cuánto cuesta el libro?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_planes1_t2_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "It is a question — it needs the marks: ¿a qué hora?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_planes1_t2_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Sí, a qué hora.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_rp_comida1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Dinner-table questions",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_rp_comida1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Talk about what people eat",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_comida1_t1_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "First-person present: como, bebo — a full answer about habits.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_comida1_t1_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Como pan con queso y bebo agua.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_comida1_t1_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Ayer means yesterday — normalmente wants the present: como pan.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_comida1_t1_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Como pan ayer.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_comida1_t1_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Conjugate comer: como pan y bebo agua.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_comida1_t1_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Comer pan y agua.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_comida1_t2_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Third person él come + a time phrase — perfect habit talk.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_comida1_t2_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Sí, él come pescado los viernes.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_comida1_t2_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Comes is the tú form — with él it is come.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_comida1_t2_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Sí, él comes pescado.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_comida1_t2_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "She asked about your brother — answer with él, not yo.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_comida1_t2_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Sí, yo como pescado.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_rp_biblioteca1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Find a book at the library",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_rp_biblioteca1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Ask where things are",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_biblioteca1_t1_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "¿Dónde está...? + el libro (masculine) — the right question.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_biblioteca1_t1_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Sí, ¿dónde está el libro azul?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_biblioteca1_t1_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Libro is masculine: el libro azul.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_biblioteca1_t1_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Sí, ¿dónde está la libro azul?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_biblioteca1_t1_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Put the question word first, with marks: ¿dónde está el libro azul?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_biblioteca1_t1_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Sí, el libro azul está dónde.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_biblioteca1_t2_a",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "A polite thanks plus a yes/no question in the present.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_biblioteca1_t2_a",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Gracias. ¿Abre la biblioteca mañana?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_biblioteca1_t2_b",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "Biblioteca is feminine: la biblioteca.",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_biblioteca1_t2_b",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Gracias. ¿Abre el biblioteca mañana?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_biblioteca1_t2_c",
+        "content_kind": "explanation",
+        "ui_locale": "en",
+        "text": "As a question it needs marks: ¿abre la biblioteca mañana?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_rp_biblioteca1_t2_c",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Gracias. Biblioteca abre mañana.",
         "provenance": {
           "batch_id": "batch_es_course_0001",
           "provenance": "ai_generated",

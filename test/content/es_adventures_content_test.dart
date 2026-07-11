@@ -62,7 +62,7 @@ void main() {
         'Un café con leche, por favor');
   });
 
-  test('roleplays remain honestly absent for ES (none authored yet)', () {
-    expect(spine().roleplays, isEmpty);
+  test('ES roleplays are now authored: 12 (S132; see es_roleplays test)', () {
+    expect(spine().roleplays.length, 12);
   });
 }
