@@ -872,4 +872,266 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get profileRealStateNote => '等级、XP、课程、连胜和收藏的单词都是真实的引擎状态 — 新账户从零开始。';
+
+  @override
+  String get practiceTitle => '练习';
+
+  @override
+  String practiceReviewWords(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '复习 $count 个单词',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get practiceYourWords => '你的单词';
+
+  @override
+  String practiceSavedWordsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '已收藏 $count 个单词',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String practiceDueForReview(int count) {
+    return '$count 个待间隔复习';
+  }
+
+  @override
+  String get practiceAllUpToDate => '所有复习都已完成';
+
+  @override
+  String practiceCaughtUp(String tail) {
+    return '全部完成 — 目前没有待复习$tail。';
+  }
+
+  @override
+  String practiceNextTail(String when) {
+    return ' · 下次 $when';
+  }
+
+  @override
+  String get practiceZeroDue => '0 待复习';
+
+  @override
+  String get practiceDueNow => '现在到期';
+
+  @override
+  String practiceDueWhen(String when) {
+    return '到期：$when';
+  }
+
+  @override
+  String get practiceChipDue => '到期';
+
+  @override
+  String get practiceChipScheduled => '已安排';
+
+  @override
+  String get practiceScheduleNote =>
+      '复习由真实的 FSRS-6 间隔重复引擎安排。到期日期在本次会话内有效；跨重启保存是上线步骤 — 这里没有任何虚构。';
+
+  @override
+  String get practiceNoSavedWords => '还没有收藏的单词';
+
+  @override
+  String get practiceSaveWordHint =>
+      '在练习课程时收藏一个单词，它会以闪卡形式出现在这里。之后由真实的 FSRS 间隔重复引擎安排复习 — 没有任何预填内容。';
+
+  @override
+  String get practiceStartLesson => '开始一节课';
+
+  @override
+  String practiceWordOf(int n, int total) {
+    return '第 $n/$total 个单词';
+  }
+
+  @override
+  String get practiceShowAnswer => '显示答案';
+
+  @override
+  String get practiceRecallHint => '回想词义，然后评价你记得如何。';
+
+  @override
+  String get practiceGradeAgain => '重来';
+
+  @override
+  String get practiceGradeHard => '困难';
+
+  @override
+  String get practiceGradeGood => '良好';
+
+  @override
+  String get practiceGradeEasy => '简单';
+
+  @override
+  String get practiceFsrsGradeNote => 'FSRS-6 根据你的评分安排下次复习';
+
+  @override
+  String get practiceReviewComplete => '复习完成';
+
+  @override
+  String practiceReviewedSummary(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '你复习了 $count 个单词。FSRS 已重新安排它们。',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get practiceDone => '完成';
+
+  @override
+  String get practiceRelTomorrow => '明天';
+
+  @override
+  String practiceRelInDays(int days) {
+    return '$days 天后';
+  }
+
+  @override
+  String practiceRelInHours(int hours) {
+    return '$hours 小时后';
+  }
+
+  @override
+  String practiceRelInMinutes(int minutes) {
+    return '$minutes 分钟后';
+  }
+
+  @override
+  String get practiceRelSoon => '很快';
+
+  @override
+  String get progressTitle => '进度';
+
+  @override
+  String get progressShareMilestone => '分享里程碑';
+
+  @override
+  String get progressLast7Days => '最近 7 天';
+
+  @override
+  String get progressAccuracyRetention => '准确率与记忆保持';
+
+  @override
+  String get progressHonestyNote =>
+      '这里的一切都是真实记录的状态 — 等级、能力、收藏的单词、XP、课程、连胜、7 天历史、准确率和学习时间都从零开始，随学习增长。记忆保持是本次会话的预测回忆（跨会话调度器属于上线工作）；没有任何虚构。';
+
+  @override
+  String progressShareText(
+    String level,
+    String levelName,
+    int streak,
+    int xp,
+    int lessons,
+  ) {
+    return '🦡 RATEL · 等级 $level（$levelName）\n🔥 连胜 $streak 天 · ⚡ $xp XP · 📘 $lessons 节课\n在 learnwithratel.com 学习中';
+  }
+
+  @override
+  String get progressShareCopied => '里程碑已复制到剪贴板 — 随处分享！';
+
+  @override
+  String progressAbilityLine(String theta) {
+    return '能力 θ $theta · 真实估计';
+  }
+
+  @override
+  String get progressStatSavedWords => '收藏单词';
+
+  @override
+  String get progressStatLessons => '课程';
+
+  @override
+  String get progressStatDayStreak => '连胜天数';
+
+  @override
+  String get progressStatTotalXp => '总 XP';
+
+  @override
+  String get progressStatTodaysXp => '今日 XP';
+
+  @override
+  String get progressStatCefrLevel => 'CEFR 等级';
+
+  @override
+  String get progressAccuracy => '准确率';
+
+  @override
+  String get progressStudyTime => '学习时间';
+
+  @override
+  String get progressRetention => '记忆保持';
+
+  @override
+  String get progressNoData => '暂无数据';
+
+  @override
+  String get progressAccuracyEmpty => '完成计分练习后开始统计';
+
+  @override
+  String progressAccuracyDetail(int correct, int total) {
+    return '$total 题中 $correct 题正确';
+  }
+
+  @override
+  String get progressTimeEmpty => '课程时间会累计在这里';
+
+  @override
+  String get progressTimeDetail => '来自你的所有课程';
+
+  @override
+  String get progressRetentionEmpty => '复习后可查看预测回忆';
+
+  @override
+  String progressRetentionDetail(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '预测 1 天回忆 · 本次会话 $count 项',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String progressWeekTotal(int xp) {
+    return '$xp XP · 最近 7 天';
+  }
+
+  @override
+  String get progressNoXpYet => '尚未记录 XP';
+
+  @override
+  String get progressChartEmptyNote => '完成一节课即可开始 7 天历史 — 未活跃的日子保持为零，没有任何虚构。';
+
+  @override
+  String get commonDowMon => '一';
+
+  @override
+  String get commonDowTue => '二';
+
+  @override
+  String get commonDowWed => '三';
+
+  @override
+  String get commonDowThu => '四';
+
+  @override
+  String get commonDowFri => '五';
+
+  @override
+  String get commonDowSat => '六';
+
+  @override
+  String get commonDowSun => '日';
 }

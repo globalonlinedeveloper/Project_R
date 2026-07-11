@@ -1701,6 +1701,414 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Level, XP, lessons, streak and saved words are real engine state — they start at zero on a fresh account.'**
   String get profileRealStateNote;
+
+  /// No description provided for @practiceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice'**
+  String get practiceTitle;
+
+  /// No description provided for @practiceReviewWords.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{Review 1 word} other{Review {count} words}}'**
+  String practiceReviewWords(int count);
+
+  /// No description provided for @practiceYourWords.
+  ///
+  /// In en, this message translates to:
+  /// **'Your words'**
+  String get practiceYourWords;
+
+  /// No description provided for @practiceSavedWordsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} saved word} other{{count} saved words}}'**
+  String practiceSavedWordsCount(int count);
+
+  /// No description provided for @practiceDueForReview.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} due for spaced review'**
+  String practiceDueForReview(int count);
+
+  /// No description provided for @practiceAllUpToDate.
+  ///
+  /// In en, this message translates to:
+  /// **'All reviews up to date'**
+  String get practiceAllUpToDate;
+
+  /// No description provided for @practiceCaughtUp.
+  ///
+  /// In en, this message translates to:
+  /// **'All caught up — nothing due right now{tail}.'**
+  String practiceCaughtUp(String tail);
+
+  /// No description provided for @practiceNextTail.
+  ///
+  /// In en, this message translates to:
+  /// **' · next {when}'**
+  String practiceNextTail(String when);
+
+  /// No description provided for @practiceZeroDue.
+  ///
+  /// In en, this message translates to:
+  /// **'0 due'**
+  String get practiceZeroDue;
+
+  /// No description provided for @practiceDueNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Due now'**
+  String get practiceDueNow;
+
+  /// No description provided for @practiceDueWhen.
+  ///
+  /// In en, this message translates to:
+  /// **'Due {when}'**
+  String practiceDueWhen(String when);
+
+  /// No description provided for @practiceChipDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Due'**
+  String get practiceChipDue;
+
+  /// No description provided for @practiceChipScheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'Scheduled'**
+  String get practiceChipScheduled;
+
+  /// No description provided for @practiceScheduleNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviews are scheduled by the real FSRS-6 spaced-repetition engine. Due dates persist for this session; saving them across restarts is a go-live step — nothing here is invented.'**
+  String get practiceScheduleNote;
+
+  /// No description provided for @practiceNoSavedWords.
+  ///
+  /// In en, this message translates to:
+  /// **'No saved words yet'**
+  String get practiceNoSavedWords;
+
+  /// No description provided for @practiceSaveWordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Save a word while you practice a lesson and it lands here as a flashcard. Reviews are then scheduled by the real FSRS spaced-repetition engine — nothing is pre-filled.'**
+  String get practiceSaveWordHint;
+
+  /// No description provided for @practiceStartLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a lesson'**
+  String get practiceStartLesson;
+
+  /// No description provided for @practiceWordOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Word {n} of {total}'**
+  String practiceWordOf(int n, int total);
+
+  /// No description provided for @practiceShowAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Show answer'**
+  String get practiceShowAnswer;
+
+  /// No description provided for @practiceRecallHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Recall the meaning, then grade how well you remembered.'**
+  String get practiceRecallHint;
+
+  /// No description provided for @practiceGradeAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Again'**
+  String get practiceGradeAgain;
+
+  /// No description provided for @practiceGradeHard.
+  ///
+  /// In en, this message translates to:
+  /// **'Hard'**
+  String get practiceGradeHard;
+
+  /// No description provided for @practiceGradeGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get practiceGradeGood;
+
+  /// No description provided for @practiceGradeEasy.
+  ///
+  /// In en, this message translates to:
+  /// **'Easy'**
+  String get practiceGradeEasy;
+
+  /// No description provided for @practiceFsrsGradeNote.
+  ///
+  /// In en, this message translates to:
+  /// **'FSRS-6 schedules the next review from your grade'**
+  String get practiceFsrsGradeNote;
+
+  /// No description provided for @practiceReviewComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Review complete'**
+  String get practiceReviewComplete;
+
+  /// No description provided for @practiceReviewedSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{You reviewed 1 word. They are rescheduled by FSRS.} other{You reviewed {count} words. They are rescheduled by FSRS.}}'**
+  String practiceReviewedSummary(int count);
+
+  /// No description provided for @practiceDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get practiceDone;
+
+  /// No description provided for @practiceRelTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'tomorrow'**
+  String get practiceRelTomorrow;
+
+  /// No description provided for @practiceRelInDays.
+  ///
+  /// In en, this message translates to:
+  /// **'in {days} days'**
+  String practiceRelInDays(int days);
+
+  /// No description provided for @practiceRelInHours.
+  ///
+  /// In en, this message translates to:
+  /// **'in {hours}h'**
+  String practiceRelInHours(int hours);
+
+  /// No description provided for @practiceRelInMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'in {minutes}m'**
+  String practiceRelInMinutes(int minutes);
+
+  /// No description provided for @practiceRelSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'soon'**
+  String get practiceRelSoon;
+
+  /// No description provided for @progressTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get progressTitle;
+
+  /// No description provided for @progressShareMilestone.
+  ///
+  /// In en, this message translates to:
+  /// **'Share milestone'**
+  String get progressShareMilestone;
+
+  /// No description provided for @progressLast7Days.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 7 days'**
+  String get progressLast7Days;
+
+  /// No description provided for @progressAccuracyRetention.
+  ///
+  /// In en, this message translates to:
+  /// **'Accuracy & retention'**
+  String get progressAccuracyRetention;
+
+  /// No description provided for @progressHonestyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything here is real recorded state — level, ability, saved words, XP, lessons, streak, your 7-day history, accuracy and study time all start at zero and grow as you learn. Retention is this session\'s predicted recall (the durable cross-session scheduler is go-live wiring); nothing is invented.'**
+  String get progressHonestyNote;
+
+  /// No description provided for @progressShareText.
+  ///
+  /// In en, this message translates to:
+  /// **'🦡 RATEL · Level {level} ({levelName})\n🔥 {streak}-day streak · ⚡ {xp} XP · 📘 {lessons} lessons\nLearning at learnwithratel.com'**
+  String progressShareText(
+    String level,
+    String levelName,
+    int streak,
+    int xp,
+    int lessons,
+  );
+
+  /// No description provided for @progressShareCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Milestone copied to clipboard — share it anywhere!'**
+  String get progressShareCopied;
+
+  /// No description provided for @progressAbilityLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Ability θ {theta} · real estimate'**
+  String progressAbilityLine(String theta);
+
+  /// No description provided for @progressStatSavedWords.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved words'**
+  String get progressStatSavedWords;
+
+  /// No description provided for @progressStatLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Lessons'**
+  String get progressStatLessons;
+
+  /// No description provided for @progressStatDayStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Day streak'**
+  String get progressStatDayStreak;
+
+  /// No description provided for @progressStatTotalXp.
+  ///
+  /// In en, this message translates to:
+  /// **'Total XP'**
+  String get progressStatTotalXp;
+
+  /// No description provided for @progressStatTodaysXp.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s XP'**
+  String get progressStatTodaysXp;
+
+  /// No description provided for @progressStatCefrLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'CEFR level'**
+  String get progressStatCefrLevel;
+
+  /// No description provided for @progressAccuracy.
+  ///
+  /// In en, this message translates to:
+  /// **'Accuracy'**
+  String get progressAccuracy;
+
+  /// No description provided for @progressStudyTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Study time'**
+  String get progressStudyTime;
+
+  /// No description provided for @progressRetention.
+  ///
+  /// In en, this message translates to:
+  /// **'Retention'**
+  String get progressRetention;
+
+  /// No description provided for @progressNoData.
+  ///
+  /// In en, this message translates to:
+  /// **'No data yet'**
+  String get progressNoData;
+
+  /// No description provided for @progressAccuracyEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer graded exercises to start'**
+  String get progressAccuracyEmpty;
+
+  /// No description provided for @progressAccuracyDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'{correct} of {total} correct'**
+  String progressAccuracyDetail(int correct, int total);
+
+  /// No description provided for @progressTimeEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Time in lessons adds up here'**
+  String get progressTimeEmpty;
+
+  /// No description provided for @progressTimeDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'across all your lessons'**
+  String get progressTimeDetail;
+
+  /// No description provided for @progressRetentionEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Review items to see predicted recall'**
+  String get progressRetentionEmpty;
+
+  /// No description provided for @progressRetentionDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{predicted 1-day recall · 1 item this session} other{predicted 1-day recall · {count} items this session}}'**
+  String progressRetentionDetail(int count);
+
+  /// No description provided for @progressWeekTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'{xp} XP · last 7 days'**
+  String progressWeekTotal(int xp);
+
+  /// No description provided for @progressNoXpYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No XP recorded yet'**
+  String get progressNoXpYet;
+
+  /// No description provided for @progressChartEmptyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish a lesson to start your 7-day history — inactive days stay at zero, nothing is invented.'**
+  String get progressChartEmptyNote;
+
+  /// No description provided for @commonDowMon.
+  ///
+  /// In en, this message translates to:
+  /// **'Mo'**
+  String get commonDowMon;
+
+  /// No description provided for @commonDowTue.
+  ///
+  /// In en, this message translates to:
+  /// **'Tu'**
+  String get commonDowTue;
+
+  /// No description provided for @commonDowWed.
+  ///
+  /// In en, this message translates to:
+  /// **'We'**
+  String get commonDowWed;
+
+  /// No description provided for @commonDowThu.
+  ///
+  /// In en, this message translates to:
+  /// **'Th'**
+  String get commonDowThu;
+
+  /// No description provided for @commonDowFri.
+  ///
+  /// In en, this message translates to:
+  /// **'Fr'**
+  String get commonDowFri;
+
+  /// No description provided for @commonDowSat.
+  ///
+  /// In en, this message translates to:
+  /// **'Sa'**
+  String get commonDowSat;
+
+  /// No description provided for @commonDowSun.
+  ///
+  /// In en, this message translates to:
+  /// **'Su'**
+  String get commonDowSun;
 }
 
 class _AppLocalizationsDelegate

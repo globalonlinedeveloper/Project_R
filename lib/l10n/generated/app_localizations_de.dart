@@ -902,4 +902,276 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get profileRealStateNote =>
       'Niveau, XP, Lektionen, Serie und gespeicherte Wörter sind echter Engine-Zustand — sie starten bei null auf einem neuen Konto.';
+
+  @override
+  String get practiceTitle => 'Üben';
+
+  @override
+  String practiceReviewWords(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Wörter wiederholen',
+      one: '1 Wort wiederholen',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get practiceYourWords => 'Deine Wörter';
+
+  @override
+  String practiceSavedWordsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count gespeicherte Wörter',
+      one: '$count gespeichertes Wort',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String practiceDueForReview(int count) {
+    return '$count fällig zur verteilten Wiederholung';
+  }
+
+  @override
+  String get practiceAllUpToDate => 'Alle Wiederholungen aktuell';
+
+  @override
+  String practiceCaughtUp(String tail) {
+    return 'Alles erledigt — gerade ist nichts fällig$tail.';
+  }
+
+  @override
+  String practiceNextTail(String when) {
+    return ' · nächste $when';
+  }
+
+  @override
+  String get practiceZeroDue => '0 fällig';
+
+  @override
+  String get practiceDueNow => 'Jetzt fällig';
+
+  @override
+  String practiceDueWhen(String when) {
+    return 'Fällig $when';
+  }
+
+  @override
+  String get practiceChipDue => 'Fällig';
+
+  @override
+  String get practiceChipScheduled => 'Geplant';
+
+  @override
+  String get practiceScheduleNote =>
+      'Wiederholungen plant die echte FSRS-6-Engine für verteilte Wiederholung. Termine gelten für diese Sitzung; das Speichern über Neustarts hinweg ist ein Go-live-Schritt — nichts hier ist erfunden.';
+
+  @override
+  String get practiceNoSavedWords => 'Noch keine gespeicherten Wörter';
+
+  @override
+  String get practiceSaveWordHint =>
+      'Speichere ein Wort während einer Lektion und es landet hier als Karteikarte. Die Wiederholungen plant dann die echte FSRS-Engine — nichts ist vorausgefüllt.';
+
+  @override
+  String get practiceStartLesson => 'Eine Lektion starten';
+
+  @override
+  String practiceWordOf(int n, int total) {
+    return 'Wort $n von $total';
+  }
+
+  @override
+  String get practiceShowAnswer => 'Antwort zeigen';
+
+  @override
+  String get practiceRecallHint =>
+      'Rufe die Bedeutung ab und bewerte dann, wie gut du dich erinnert hast.';
+
+  @override
+  String get practiceGradeAgain => 'Nochmal';
+
+  @override
+  String get practiceGradeHard => 'Schwer';
+
+  @override
+  String get practiceGradeGood => 'Gut';
+
+  @override
+  String get practiceGradeEasy => 'Leicht';
+
+  @override
+  String get practiceFsrsGradeNote =>
+      'FSRS-6 plant die nächste Wiederholung nach deiner Bewertung';
+
+  @override
+  String get practiceReviewComplete => 'Wiederholung abgeschlossen';
+
+  @override
+  String practiceReviewedSummary(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Du hast $count Wörter wiederholt. FSRS hat sie neu eingeplant.',
+      one: 'Du hast 1 Wort wiederholt. FSRS hat es neu eingeplant.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get practiceDone => 'Fertig';
+
+  @override
+  String get practiceRelTomorrow => 'morgen';
+
+  @override
+  String practiceRelInDays(int days) {
+    return 'in $days Tagen';
+  }
+
+  @override
+  String practiceRelInHours(int hours) {
+    return 'in $hours Std.';
+  }
+
+  @override
+  String practiceRelInMinutes(int minutes) {
+    return 'in $minutes Min.';
+  }
+
+  @override
+  String get practiceRelSoon => 'bald';
+
+  @override
+  String get progressTitle => 'Fortschritt';
+
+  @override
+  String get progressShareMilestone => 'Meilenstein teilen';
+
+  @override
+  String get progressLast7Days => 'Letzte 7 Tage';
+
+  @override
+  String get progressAccuracyRetention => 'Genauigkeit & Behalten';
+
+  @override
+  String get progressHonestyNote =>
+      'Alles hier ist echter aufgezeichneter Zustand — Niveau, Können, gespeicherte Wörter, XP, Lektionen, Serie, deine 7-Tage-Historie, Genauigkeit und Lernzeit starten bei null und wachsen beim Lernen. Behalten ist der vorhergesagte Abruf dieser Sitzung (der sitzungsübergreifende Planer ist Go-live-Arbeit); nichts ist erfunden.';
+
+  @override
+  String progressShareText(
+    String level,
+    String levelName,
+    int streak,
+    int xp,
+    int lessons,
+  ) {
+    return '🦡 RATEL · Niveau $level ($levelName)\n🔥 $streak-Tage-Serie · ⚡ $xp XP · 📘 $lessons Lektionen\nLernt auf learnwithratel.com';
+  }
+
+  @override
+  String get progressShareCopied =>
+      'Meilenstein in die Zwischenablage kopiert — teile ihn überall!';
+
+  @override
+  String progressAbilityLine(String theta) {
+    return 'Können θ $theta · echte Schätzung';
+  }
+
+  @override
+  String get progressStatSavedWords => 'Gespeicherte Wörter';
+
+  @override
+  String get progressStatLessons => 'Lektionen';
+
+  @override
+  String get progressStatDayStreak => 'Serientage';
+
+  @override
+  String get progressStatTotalXp => 'Gesamt-XP';
+
+  @override
+  String get progressStatTodaysXp => 'Heutiges XP';
+
+  @override
+  String get progressStatCefrLevel => 'CEFR-Niveau';
+
+  @override
+  String get progressAccuracy => 'Genauigkeit';
+
+  @override
+  String get progressStudyTime => 'Lernzeit';
+
+  @override
+  String get progressRetention => 'Behalten';
+
+  @override
+  String get progressNoData => 'Noch keine Daten';
+
+  @override
+  String get progressAccuracyEmpty =>
+      'Beantworte bewertete Übungen, um zu starten';
+
+  @override
+  String progressAccuracyDetail(int correct, int total) {
+    return '$correct von $total richtig';
+  }
+
+  @override
+  String get progressTimeEmpty => 'Lektionszeit summiert sich hier';
+
+  @override
+  String get progressTimeDetail => 'über alle deine Lektionen';
+
+  @override
+  String get progressRetentionEmpty =>
+      'Wiederhole Einträge, um den vorhergesagten Abruf zu sehen';
+
+  @override
+  String progressRetentionDetail(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'vorhergesagter 1-Tages-Abruf · $count Einträge in dieser Sitzung',
+      one: 'vorhergesagter 1-Tages-Abruf · 1 Eintrag in dieser Sitzung',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String progressWeekTotal(int xp) {
+    return '$xp XP · letzte 7 Tage';
+  }
+
+  @override
+  String get progressNoXpYet => 'Noch kein XP erfasst';
+
+  @override
+  String get progressChartEmptyNote =>
+      'Beende eine Lektion, um deine 7-Tage-Historie zu starten — inaktive Tage bleiben bei null, nichts ist erfunden.';
+
+  @override
+  String get commonDowMon => 'Mo';
+
+  @override
+  String get commonDowTue => 'Di';
+
+  @override
+  String get commonDowWed => 'Mi';
+
+  @override
+  String get commonDowThu => 'Do';
+
+  @override
+  String get commonDowFri => 'Fr';
+
+  @override
+  String get commonDowSat => 'Sa';
+
+  @override
+  String get commonDowSun => 'So';
 }

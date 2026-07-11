@@ -876,4 +876,267 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get profileRealStateNote =>
       'レベル・XP・レッスン・連続記録・保存した単語は実際のエンジン状態です — 新しいアカウントではゼロから始まります。';
+
+  @override
+  String get practiceTitle => '練習';
+
+  @override
+  String practiceReviewWords(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count語を復習',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get practiceYourWords => 'あなたの単語';
+
+  @override
+  String practiceSavedWordsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '保存した単語 $count語',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String practiceDueForReview(int count) {
+    return '$count語が間隔復習の期限';
+  }
+
+  @override
+  String get practiceAllUpToDate => 'すべての復習が最新';
+
+  @override
+  String practiceCaughtUp(String tail) {
+    return 'すべて完了 — 今は復習するものがありません$tail。';
+  }
+
+  @override
+  String practiceNextTail(String when) {
+    return ' · 次は$when';
+  }
+
+  @override
+  String get practiceZeroDue => '期限 0';
+
+  @override
+  String get practiceDueNow => '今が期限';
+
+  @override
+  String practiceDueWhen(String when) {
+    return '期限: $when';
+  }
+
+  @override
+  String get practiceChipDue => '期限';
+
+  @override
+  String get practiceChipScheduled => '予定済み';
+
+  @override
+  String get practiceScheduleNote =>
+      '復習は本物のFSRS-6間隔反復エンジンが予定します。期限はこのセッション内で保持され、再起動をまたぐ保存はリリース時の作業です — ここに作り物はありません。';
+
+  @override
+  String get practiceNoSavedWords => '保存した単語はまだありません';
+
+  @override
+  String get practiceSaveWordHint =>
+      'レッスン中に単語を保存すると、ここにフラッシュカードとして届きます。復習は本物のFSRS間隔反復エンジンが予定します — 事前入力はありません。';
+
+  @override
+  String get practiceStartLesson => 'レッスンを始める';
+
+  @override
+  String practiceWordOf(int n, int total) {
+    return '単語 $n/$total';
+  }
+
+  @override
+  String get practiceShowAnswer => '答えを見る';
+
+  @override
+  String get practiceRecallHint => '意味を思い出してから、どれだけ覚えていたか評価しましょう。';
+
+  @override
+  String get practiceGradeAgain => 'もう一度';
+
+  @override
+  String get practiceGradeHard => '難しい';
+
+  @override
+  String get practiceGradeGood => '良い';
+
+  @override
+  String get practiceGradeEasy => '簡単';
+
+  @override
+  String get practiceFsrsGradeNote => 'FSRS-6があなたの評価から次の復習を予定します';
+
+  @override
+  String get practiceReviewComplete => '復習完了';
+
+  @override
+  String practiceReviewedSummary(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count語を復習しました。FSRSが再予定しました。',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get practiceDone => '完了';
+
+  @override
+  String get practiceRelTomorrow => '明日';
+
+  @override
+  String practiceRelInDays(int days) {
+    return '$days日後';
+  }
+
+  @override
+  String practiceRelInHours(int hours) {
+    return '$hours時間後';
+  }
+
+  @override
+  String practiceRelInMinutes(int minutes) {
+    return '$minutes分後';
+  }
+
+  @override
+  String get practiceRelSoon => 'まもなく';
+
+  @override
+  String get progressTitle => '進捗';
+
+  @override
+  String get progressShareMilestone => 'マイルストーンを共有';
+
+  @override
+  String get progressLast7Days => '過去7日間';
+
+  @override
+  String get progressAccuracyRetention => '正答率と記憶保持';
+
+  @override
+  String get progressHonestyNote =>
+      'ここにあるものはすべて実際に記録された状態です — レベル・能力・保存した単語・XP・レッスン・連続記録・7日間の履歴・正答率・学習時間はゼロから始まり、学ぶほど増えます。記憶保持はこのセッションの予測想起です(セッションをまたぐスケジューラはリリース時の作業)。作り物はありません。';
+
+  @override
+  String progressShareText(
+    String level,
+    String levelName,
+    int streak,
+    int xp,
+    int lessons,
+  ) {
+    return '🦡 RATEL · レベル$level($levelName)\n🔥 $streak日連続 · ⚡ $xp XP · 📘 レッスン$lessons回\nlearnwithratel.comで学習中';
+  }
+
+  @override
+  String get progressShareCopied => 'マイルストーンをクリップボードにコピーしました — どこでも共有できます!';
+
+  @override
+  String progressAbilityLine(String theta) {
+    return '能力 θ $theta · 実際の推定';
+  }
+
+  @override
+  String get progressStatSavedWords => '保存した単語';
+
+  @override
+  String get progressStatLessons => 'レッスン';
+
+  @override
+  String get progressStatDayStreak => '連続日数';
+
+  @override
+  String get progressStatTotalXp => '合計XP';
+
+  @override
+  String get progressStatTodaysXp => '今日のXP';
+
+  @override
+  String get progressStatCefrLevel => 'CEFRレベル';
+
+  @override
+  String get progressAccuracy => '正答率';
+
+  @override
+  String get progressStudyTime => '学習時間';
+
+  @override
+  String get progressRetention => '記憶保持';
+
+  @override
+  String get progressNoData => 'まだデータなし';
+
+  @override
+  String get progressAccuracyEmpty => '採点ありの問題に答えると始まります';
+
+  @override
+  String progressAccuracyDetail(int correct, int total) {
+    return '$total問中$correct問正解';
+  }
+
+  @override
+  String get progressTimeEmpty => 'レッスンの時間がここに積み上がります';
+
+  @override
+  String get progressTimeDetail => 'すべてのレッスンの合計';
+
+  @override
+  String get progressRetentionEmpty => '復習すると予測想起が表示されます';
+
+  @override
+  String progressRetentionDetail(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '1日後の予測想起 · このセッションで$count項目',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String progressWeekTotal(int xp) {
+    return '$xp XP · 過去7日間';
+  }
+
+  @override
+  String get progressNoXpYet => 'まだXPの記録がありません';
+
+  @override
+  String get progressChartEmptyNote =>
+      'レッスンを終えると7日間の履歴が始まります — 活動のない日はゼロのまま、作り物はありません。';
+
+  @override
+  String get commonDowMon => '月';
+
+  @override
+  String get commonDowTue => '火';
+
+  @override
+  String get commonDowWed => '水';
+
+  @override
+  String get commonDowThu => '木';
+
+  @override
+  String get commonDowFri => '金';
+
+  @override
+  String get commonDowSat => '土';
+
+  @override
+  String get commonDowSun => '日';
 }

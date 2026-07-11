@@ -889,4 +889,274 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get profileRealStateNote =>
       'स्तर, XP, पाठ, स्ट्रीक और सहेजे गए शब्द असली इंजन स्थिति हैं — नए खाते में ये शून्य से शुरू होते हैं।';
+
+  @override
+  String get practiceTitle => 'अभ्यास';
+
+  @override
+  String practiceReviewWords(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count शब्द दोहराएँ',
+      one: '1 शब्द दोहराएँ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get practiceYourWords => 'आपके शब्द';
+
+  @override
+  String practiceSavedWordsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count सहेजे गए शब्द',
+      one: '$count सहेजा गया शब्द',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String practiceDueForReview(int count) {
+    return '$count स्पेस्ड दोहराव के लिए बाकी';
+  }
+
+  @override
+  String get practiceAllUpToDate => 'सभी दोहराव अप-टू-डेट';
+
+  @override
+  String practiceCaughtUp(String tail) {
+    return 'सब पूरा — अभी कुछ बाकी नहीं$tail।';
+  }
+
+  @override
+  String practiceNextTail(String when) {
+    return ' · अगला $when';
+  }
+
+  @override
+  String get practiceZeroDue => '0 बाकी';
+
+  @override
+  String get practiceDueNow => 'अभी बाकी';
+
+  @override
+  String practiceDueWhen(String when) {
+    return 'बाकी $when';
+  }
+
+  @override
+  String get practiceChipDue => 'बाकी';
+
+  @override
+  String get practiceChipScheduled => 'निर्धारित';
+
+  @override
+  String get practiceScheduleNote =>
+      'दोहराव असली FSRS-6 स्पेस्ड-रिपीटिशन इंजन तय करता है। तिथियाँ इस सत्र तक रहती हैं; इन्हें रीस्टार्ट के बाद सहेजना गो-लाइव का चरण है — यहाँ कुछ भी गढ़ा हुआ नहीं है।';
+
+  @override
+  String get practiceNoSavedWords => 'अभी कोई सहेजा शब्द नहीं';
+
+  @override
+  String get practiceSaveWordHint =>
+      'पाठ का अभ्यास करते हुए कोई शब्द सहेजें और वह यहाँ फ़्लैशकार्ड बनकर आएगा। फिर असली FSRS स्पेस्ड-रिपीटिशन इंजन दोहराव तय करेगा — कुछ भी पहले से भरा नहीं है।';
+
+  @override
+  String get practiceStartLesson => 'पाठ शुरू करें';
+
+  @override
+  String practiceWordOf(int n, int total) {
+    return 'शब्द $n / $total';
+  }
+
+  @override
+  String get practiceShowAnswer => 'उत्तर दिखाएँ';
+
+  @override
+  String get practiceRecallHint =>
+      'अर्थ याद करें, फिर आँकें कि कितना अच्छा याद रहा।';
+
+  @override
+  String get practiceGradeAgain => 'फिर से';
+
+  @override
+  String get practiceGradeHard => 'कठिन';
+
+  @override
+  String get practiceGradeGood => 'अच्छा';
+
+  @override
+  String get practiceGradeEasy => 'आसान';
+
+  @override
+  String get practiceFsrsGradeNote =>
+      'आपकी रेटिंग से FSRS-6 अगला दोहराव तय करता है';
+
+  @override
+  String get practiceReviewComplete => 'दोहराव पूरा';
+
+  @override
+  String practiceReviewedSummary(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'आपने $count शब्द दोहराए। FSRS ने उन्हें फिर निर्धारित किया।',
+      one: 'आपने 1 शब्द दोहराया। FSRS ने उसे फिर निर्धारित किया।',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get practiceDone => 'हो गया';
+
+  @override
+  String get practiceRelTomorrow => 'कल';
+
+  @override
+  String practiceRelInDays(int days) {
+    return '$days दिन में';
+  }
+
+  @override
+  String practiceRelInHours(int hours) {
+    return '$hours घं. में';
+  }
+
+  @override
+  String practiceRelInMinutes(int minutes) {
+    return '$minutes मि. में';
+  }
+
+  @override
+  String get practiceRelSoon => 'जल्द';
+
+  @override
+  String get progressTitle => 'प्रगति';
+
+  @override
+  String get progressShareMilestone => 'उपलब्धि साझा करें';
+
+  @override
+  String get progressLast7Days => 'पिछले 7 दिन';
+
+  @override
+  String get progressAccuracyRetention => 'सटीकता और स्मरण';
+
+  @override
+  String get progressHonestyNote =>
+      'यहाँ सब कुछ वास्तविक दर्ज स्थिति है — स्तर, क्षमता, सहेजे शब्द, XP, पाठ, स्ट्रीक, 7-दिन का इतिहास, सटीकता और अध्ययन समय शून्य से शुरू होकर सीखने के साथ बढ़ते हैं। स्मरण इस सत्र का अनुमानित रिकॉल है (सत्रों के बीच का शेड्यूलर गो-लाइव कार्य है); कुछ भी गढ़ा नहीं गया।';
+
+  @override
+  String progressShareText(
+    String level,
+    String levelName,
+    int streak,
+    int xp,
+    int lessons,
+  ) {
+    return '🦡 RATEL · स्तर $level ($levelName)\n🔥 $streak दिन की स्ट्रीक · ⚡ $xp XP · 📘 $lessons पाठ\nlearnwithratel.com पर सीख रहे हैं';
+  }
+
+  @override
+  String get progressShareCopied =>
+      'उपलब्धि क्लिपबोर्ड पर कॉपी हुई — कहीं भी साझा करें!';
+
+  @override
+  String progressAbilityLine(String theta) {
+    return 'क्षमता θ $theta · वास्तविक अनुमान';
+  }
+
+  @override
+  String get progressStatSavedWords => 'सहेजे शब्द';
+
+  @override
+  String get progressStatLessons => 'पाठ';
+
+  @override
+  String get progressStatDayStreak => 'दिन की स्ट्रीक';
+
+  @override
+  String get progressStatTotalXp => 'कुल XP';
+
+  @override
+  String get progressStatTodaysXp => 'आज का XP';
+
+  @override
+  String get progressStatCefrLevel => 'CEFR स्तर';
+
+  @override
+  String get progressAccuracy => 'सटीकता';
+
+  @override
+  String get progressStudyTime => 'अध्ययन समय';
+
+  @override
+  String get progressRetention => 'स्मरण';
+
+  @override
+  String get progressNoData => 'अभी डेटा नहीं';
+
+  @override
+  String get progressAccuracyEmpty => 'शुरू करने के लिए आँके गए अभ्यास हल करें';
+
+  @override
+  String progressAccuracyDetail(int correct, int total) {
+    return '$total में से $correct सही';
+  }
+
+  @override
+  String get progressTimeEmpty => 'पाठों का समय यहाँ जुड़ता है';
+
+  @override
+  String get progressTimeDetail => 'आपके सभी पाठों में';
+
+  @override
+  String get progressRetentionEmpty => 'अनुमानित रिकॉल देखने के लिए दोहराएँ';
+
+  @override
+  String progressRetentionDetail(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '1-दिन का अनुमानित रिकॉल · इस सत्र में $count आइटम',
+      one: '1-दिन का अनुमानित रिकॉल · इस सत्र में 1 आइटम',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String progressWeekTotal(int xp) {
+    return '$xp XP · पिछले 7 दिन';
+  }
+
+  @override
+  String get progressNoXpYet => 'अभी कोई XP दर्ज नहीं';
+
+  @override
+  String get progressChartEmptyNote =>
+      '7-दिन का इतिहास शुरू करने के लिए एक पाठ पूरा करें — निष्क्रिय दिन शून्य रहते हैं, कुछ भी गढ़ा नहीं जाता।';
+
+  @override
+  String get commonDowMon => 'सो';
+
+  @override
+  String get commonDowTue => 'मं';
+
+  @override
+  String get commonDowWed => 'बु';
+
+  @override
+  String get commonDowThu => 'गु';
+
+  @override
+  String get commonDowFri => 'शु';
+
+  @override
+  String get commonDowSat => 'श';
+
+  @override
+  String get commonDowSun => 'र';
 }

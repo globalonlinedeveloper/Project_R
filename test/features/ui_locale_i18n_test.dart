@@ -12,6 +12,8 @@ import 'package:ratel/features/library/library_screen.dart';
 import 'package:ratel/features/onboarding/onboarding_screen.dart';
 import 'package:ratel/features/profile/profile_screen.dart';
 import 'package:ratel/features/quests/quests_screen.dart';
+import 'package:ratel/features/practice/practice_hub_screen.dart';
+import 'package:ratel/features/progress/progress_screen.dart';
 import 'package:ratel/services/achievements/achievements.dart';
 import 'package:ratel/services/leagues/leagues.dart';
 import 'package:ratel/services/notifications/notifications.dart';
@@ -446,5 +448,76 @@ void main() {
     await tester.scrollUntilVisible(find.text('Sesión intensa'), 200);
     expect(find.text('Sesión intensa'), findsOneWidget);
     expect(find.text('Power session'), findsNothing);
+  });
+
+  // ── S130 · practice + progress chrome ─────────────────────────────────────
+
+  test('practice/progress keys: en byte-pins (plurals + composed tails)', () {
+    final AppLocalizations en = lookupAppLocalizations(const Locale('en'));
+    expect(en.practiceReviewWords(1), 'Review 1 word');
+    expect(en.practiceReviewWords(2), 'Review 2 words');
+    expect(en.practiceSavedWordsCount(2), '2 saved words');
+    expect(en.practiceCaughtUp(''), 'All caught up — nothing due right now.');
+    expect(en.practiceCaughtUp(en.practiceNextTail(en.practiceRelTomorrow)),
+        'All caught up — nothing due right now · next tomorrow.');
+    expect(en.practiceWordOf(1, 2), 'Word 1 of 2');
+    expect(en.practiceReviewedSummary(2),
+        'You reviewed 2 words. They are rescheduled by FSRS.');
+    expect(en.practiceRelInDays(3), 'in 3 days');
+    expect(en.practiceRelInHours(5), 'in 5h');
+    expect(en.progressWeekTotal(20), '20 XP · last 7 days');
+    expect(en.progressRetentionDetail(1),
+        'predicted 1-day recall · 1 item this session');
+    expect(en.progressRetentionDetail(3),
+        'predicted 1-day recall · 3 items this session');
+    expect(en.progressAbilityLine('0.00'), 'Ability θ 0.00 · real estimate');
+    expect(
+        en.progressShareText('A1', 'Beginner', 3, 120, 4),
+        '🦡 RATEL · Level A1 (Beginner)\n'
+        '🔥 3-day streak · ⚡ 120 XP · 📘 4 lessons\n'
+        'Learning at learnwithratel.com');
+    expect(en.commonDowMon, 'Mo');
+  });
+
+  test('practice/progress keys: es spot-checks', () {
+    final AppLocalizations es = lookupAppLocalizations(const Locale('es'));
+    expect(es.practiceTitle, 'Práctica');
+    expect(es.practiceReviewWords(2), 'Repasar 2 palabras');
+    expect(es.practiceGradeEasy, 'Fácil');
+    expect(es.progressTitle, 'Progreso');
+    expect(es.progressStatSavedWords, 'Palabras guardadas');
+    expect(es.commonDowMon, 'Lu');
+  });
+
+  testWidgets('Practice hub in Spanish: empty state localized',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const ProviderScope(
+      child: MaterialApp(
+        locale: Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: PracticeHubScreen(),
+      ),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.text('Práctica'), findsOneWidget);
+    expect(find.text('Aún no hay palabras guardadas'), findsOneWidget);
+    expect(find.text('No saved words yet'), findsNothing);
+  });
+
+  testWidgets('Progress in Spanish: hero + stats localized (zero state)',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const ProviderScope(
+      child: MaterialApp(
+        locale: Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: ProgressScreen(),
+      ),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.text('Progreso'), findsOneWidget);
+    expect(find.text('Nivel A1 · Principiante'), findsOneWidget);
+    expect(find.text('Palabras guardadas'), findsOneWidget);
   });
 }

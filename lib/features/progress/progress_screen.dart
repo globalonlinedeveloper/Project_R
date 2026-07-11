@@ -54,7 +54,7 @@ class ProgressScreen extends ConsumerWidget {
           onPressed: () => context.pop(),
         ),
         title: Text(
-          'Progress',
+          context.l10n.progressTitle,
           style: TextStyle(
             fontFamily: RatelFont.display,
             fontWeight: RatelType.extraBold,
@@ -70,32 +70,28 @@ class ProgressScreen extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(
               RatelSpace.screen, RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
           children: <Widget>[
-            _hero(level, snap, goal, ringVal, goalStatus.met),
+            _hero(context, level, snap, goal, ringVal, goalStatus.met),
             const SizedBox(height: RatelSpace.cardGap),
             _stats(context, snap, words, goal, level),
             const SizedBox(height: RatelSpace.cardGap),
             RatelButton(
-              label: 'Share milestone',
+              label: context.l10n.progressShareMilestone,
               variant: RatelButtonVariant.secondary,
               leading: const Text('📤', style: TextStyle(fontSize: 18)),
               onPressed: () => _shareMilestone(context, snap, level),
             ),
             const SizedBox(height: RatelSpace.lg),
-            const RatelSectionHeader(label: 'Last 7 days'),
+            RatelSectionHeader(label: context.l10n.progressLast7Days),
             const SizedBox(height: RatelSpace.sm),
             _HistoryChart(days: last7, weekTotal: weekTotal),
             const SizedBox(height: RatelSpace.lg),
-            const RatelSectionHeader(label: 'Accuracy & retention'),
+            RatelSectionHeader(label: context.l10n.progressAccuracyRetention),
             const SizedBox(height: RatelSpace.sm),
             _statsCard(context, stats, retention, reviewed),
             const SizedBox(height: RatelSpace.lg),
             Center(
               child: Text(
-                'Everything here is real recorded state — level, ability, saved '
-                'words, XP, lessons, streak, your 7-day history, accuracy and '
-                'study time all start at zero and grow as you learn. Retention is '
-                "this session's predicted recall (the durable cross-session "
-                'scheduler is go-live wiring); nothing is invented.',
+                context.l10n.progressHonestyNote,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: RatelFont.body,
@@ -114,19 +110,22 @@ class ProgressScreen extends ConsumerWidget {
   /// milestone"). No `share_plus` dependency — a clipboard copy works on every
   /// platform incl. web, and is honest about what it does (the SnackBar says so).
   void _shareMilestone(BuildContext context, LearnerSnapshot snap, String level) {
-    final String text = '🦡 RATEL · Level $level (${_levelName(snap.level)})\n'
-        '🔥 ${snap.streakDays}-day streak · ⚡ ${snap.xpTotal} XP · '
-        '📘 ${snap.lessonsCompleted} lessons\n'
-        'Learning at learnwithratel.com';
+    final String text = context.l10n.progressShareText(
+        level,
+        ratelCefrLevelDisplayName(context, _levelName(snap.level)),
+        snap.streakDays,
+        snap.xpTotal,
+        snap.lessonsCompleted);
     Clipboard.setData(ClipboardData(text: text));
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Milestone copied to clipboard — share it anywhere!'),
+      SnackBar(
+        content: Text(context.l10n.progressShareCopied),
       ),
     );
   }
 
-  Widget _hero(String level, LearnerSnapshot snap, int goal, double ringVal, bool met) {
+  Widget _hero(BuildContext context, String level, LearnerSnapshot snap,
+      int goal, double ringVal, bool met) {
     return RatelCard(
       gradient: const LinearGradient(
         colors: <Color>[RatelColors.blue, RatelColors.navy],
@@ -142,7 +141,8 @@ class ProgressScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text('Level $level · ${_levelName(snap.level)}',
+                    Text(
+                        '${context.l10n.commonLevel(level)} · ${ratelCefrLevelDisplayName(context, _levelName(snap.level))}',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -151,7 +151,9 @@ class ProgressScreen extends ConsumerWidget {
                             fontSize: RatelType.screenTitle,
                             color: RatelColors.onColor)),
                     const SizedBox(height: 4),
-                    Text('Ability θ ${snap.theta.toStringAsFixed(2)} · real estimate',
+                    Text(
+                        context.l10n.progressAbilityLine(
+                            snap.theta.toStringAsFixed(2)),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -159,7 +161,8 @@ class ProgressScreen extends ConsumerWidget {
                             fontSize: RatelType.small,
                             color: RatelColors.onColor)),
                     const SizedBox(height: RatelSpace.sm),
-                    Text("Today's goal · ${snap.xpToday}/$goal XP${met ? ' ✓' : ''}",
+                    Text(
+                        '${context.l10n.profileTodaysGoal(snap.xpToday, goal)}${met ? ' ✓' : ''}',
                         style: const TextStyle(
                             fontFamily: RatelFont.body,
                             fontSize: RatelType.small,
@@ -229,28 +232,32 @@ class ProgressScreen extends ConsumerWidget {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Expanded(child: _statCard(context, '🔖', '$words', 'Saved words')),
+            Expanded(child: _statCard(context, '🔖', '$words', context.l10n.progressStatSavedWords)),
             const SizedBox(width: RatelSpace.cardGap),
             Expanded(
-                child: _statCard(context, '📘', '${snap.lessonsCompleted}', 'Lessons')),
+                child: _statCard(context, '📘', '${snap.lessonsCompleted}',
+                    context.l10n.progressStatLessons)),
           ],
         ),
         const SizedBox(height: RatelSpace.cardGap),
         Row(
           children: <Widget>[
             Expanded(
-                child: _statCard(context, '🔥', '${snap.streakDays}', 'Day streak')),
+                child: _statCard(context, '🔥', '${snap.streakDays}',
+                    context.l10n.progressStatDayStreak)),
             const SizedBox(width: RatelSpace.cardGap),
-            Expanded(child: _statCard(context, '⚡', '${snap.xpTotal}', 'Total XP')),
+            Expanded(child: _statCard(context, '⚡', '${snap.xpTotal}', context.l10n.progressStatTotalXp)),
           ],
         ),
         const SizedBox(height: RatelSpace.cardGap),
         Row(
           children: <Widget>[
             Expanded(
-                child: _statCard(context, '🎯', '${snap.xpToday}/$goal', "Today's XP")),
+                child: _statCard(context, '🎯', '${snap.xpToday}/$goal',
+                    context.l10n.progressStatTodaysXp)),
             const SizedBox(width: RatelSpace.cardGap),
-            Expanded(child: _statCard(context, '📈', level, 'CEFR level')),
+            Expanded(child: _statCard(context, '📈', level,
+                    context.l10n.progressStatCefrLevel)),
           ],
         ),
       ],
@@ -303,32 +310,32 @@ class ProgressScreen extends ConsumerWidget {
           _metric(
             context,
             '🎯',
-            'Accuracy',
+            context.l10n.progressAccuracy,
             acc == null ? null : '${(acc * 100).round()}%',
             acc == null
-                ? 'Answer graded exercises to start'
-                : '${stats.correct} of ${stats.total} correct',
+                ? context.l10n.progressAccuracyEmpty
+                : context.l10n
+                    .progressAccuracyDetail(stats.correct, stats.total),
           ),
           Divider(height: RatelSpace.lg, color: context.palette.border),
           _metric(
             context,
             '⏱️',
-            'Study time',
+            context.l10n.progressStudyTime,
             stats.studySeconds == 0 ? null : _fmtDuration(stats.studySeconds),
             stats.studySeconds == 0
-                ? 'Time in lessons adds up here'
-                : 'across all your lessons',
+                ? context.l10n.progressTimeEmpty
+                : context.l10n.progressTimeDetail,
           ),
           Divider(height: RatelSpace.lg, color: context.palette.border),
           _metric(
             context,
             '🧠',
-            'Retention',
+            context.l10n.progressRetention,
             retention == null ? null : '${(retention * 100).round()}%',
             retention == null
-                ? 'Review items to see predicted recall'
-                : 'predicted 1-day recall · $reviewed '
-                    'item${reviewed == 1 ? '' : 's'} this session',
+                ? context.l10n.progressRetentionEmpty
+                : context.l10n.progressRetentionDetail(reviewed),
           ),
         ],
       ),
@@ -365,7 +372,8 @@ class ProgressScreen extends ConsumerWidget {
           ),
           const SizedBox(width: RatelSpace.sm),
           if (value == null)
-            const RatelChip(label: 'No data yet', tone: RatelChipTone.neutral)
+            RatelChip(
+                label: context.l10n.progressNoData, tone: RatelChipTone.neutral)
           else
             Text(value,
                 maxLines: 1,
@@ -416,9 +424,16 @@ class _HistoryChart extends StatelessWidget {
   final List<DayXp> days;
   final int weekTotal;
 
-  static const List<String> _dow = <String>[
-    '', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su',
-  ];
+  static String _dowLabel(BuildContext context, int weekday) =>
+      switch (weekday) {
+        DateTime.monday => context.l10n.commonDowMon,
+        DateTime.tuesday => context.l10n.commonDowTue,
+        DateTime.wednesday => context.l10n.commonDowWed,
+        DateTime.thursday => context.l10n.commonDowThu,
+        DateTime.friday => context.l10n.commonDowFri,
+        DateTime.saturday => context.l10n.commonDowSat,
+        _ => context.l10n.commonDowSun,
+      };
 
   @override
   Widget build(BuildContext context) {
@@ -436,8 +451,8 @@ class _HistoryChart extends StatelessWidget {
               Expanded(
                 child: Text(
                   weekTotal > 0
-                      ? '$weekTotal XP · last 7 days'
-                      : 'No XP recorded yet',
+                      ? context.l10n.progressWeekTotal(weekTotal)
+                      : context.l10n.progressNoXpYet,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -448,8 +463,9 @@ class _HistoryChart extends StatelessWidget {
                 ),
               ),
               if (weekTotal == 0)
-                const RatelChip(
-                    label: 'No data yet', tone: RatelChipTone.neutral),
+                RatelChip(
+                    label: context.l10n.progressNoData,
+                    tone: RatelChipTone.neutral),
             ],
           ),
           const SizedBox(height: RatelSpace.md),
@@ -466,8 +482,7 @@ class _HistoryChart extends StatelessWidget {
           if (weekTotal == 0) ...<Widget>[
             const SizedBox(height: RatelSpace.sm),
             Text(
-              'Finish a lesson to start your 7-day history — inactive days stay '
-              'at zero, nothing is invented.',
+              context.l10n.progressChartEmptyNote,
               style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.small,
@@ -505,7 +520,7 @@ class _HistoryChart extends StatelessWidget {
         ),
         const SizedBox(height: 6),
         Text(
-          _dow[d.date.weekday],
+          _dowLabel(context, d.date.weekday),
           maxLines: 1,
           style: TextStyle(
               fontFamily: RatelFont.body,

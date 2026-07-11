@@ -902,4 +902,284 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get profileRealStateNote =>
       'Уровень, XP, уроки, серия и сохранённые слова — реальное состояние движка; на новом аккаунте они начинаются с нуля.';
+
+  @override
+  String get practiceTitle => 'Практика';
+
+  @override
+  String practiceReviewWords(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Повторить $count слова',
+      many: 'Повторить $count слов',
+      few: 'Повторить $count слова',
+      one: 'Повторить $count слово',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get practiceYourWords => 'Ваши слова';
+
+  @override
+  String practiceSavedWordsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count сохранённого слова',
+      many: '$count сохранённых слов',
+      few: '$count сохранённых слова',
+      one: '$count сохранённое слово',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String practiceDueForReview(int count) {
+    return '$count к интервальному повторению';
+  }
+
+  @override
+  String get practiceAllUpToDate => 'Все повторения выполнены';
+
+  @override
+  String practiceCaughtUp(String tail) {
+    return 'Всё выполнено — сейчас ничего не ожидает$tail.';
+  }
+
+  @override
+  String practiceNextTail(String when) {
+    return ' · следующее $when';
+  }
+
+  @override
+  String get practiceZeroDue => '0 к повторению';
+
+  @override
+  String get practiceDueNow => 'Пора повторить';
+
+  @override
+  String practiceDueWhen(String when) {
+    return 'Повторение $when';
+  }
+
+  @override
+  String get practiceChipDue => 'Пора';
+
+  @override
+  String get practiceChipScheduled => 'Запланировано';
+
+  @override
+  String get practiceScheduleNote =>
+      'Повторения планирует настоящий движок интервальных повторений FSRS-6. Даты действуют в этой сессии; сохранение между перезапусками — шаг перед запуском. Здесь ничего не выдумано.';
+
+  @override
+  String get practiceNoSavedWords => 'Пока нет сохранённых слов';
+
+  @override
+  String get practiceSaveWordHint =>
+      'Сохраните слово во время урока, и оно появится здесь как карточка. Затем настоящий движок FSRS запланирует повторения — ничего не заполнено заранее.';
+
+  @override
+  String get practiceStartLesson => 'Начать урок';
+
+  @override
+  String practiceWordOf(int n, int total) {
+    return 'Слово $n из $total';
+  }
+
+  @override
+  String get practiceShowAnswer => 'Показать ответ';
+
+  @override
+  String get practiceRecallHint =>
+      'Вспомните значение, затем оцените, насколько хорошо вспомнили.';
+
+  @override
+  String get practiceGradeAgain => 'Снова';
+
+  @override
+  String get practiceGradeHard => 'Трудно';
+
+  @override
+  String get practiceGradeGood => 'Хорошо';
+
+  @override
+  String get practiceGradeEasy => 'Легко';
+
+  @override
+  String get practiceFsrsGradeNote =>
+      'FSRS-6 планирует следующее повторение по вашей оценке';
+
+  @override
+  String get practiceReviewComplete => 'Повторение завершено';
+
+  @override
+  String practiceReviewedSummary(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Вы повторили $count слова. FSRS перепланировал их.',
+      many: 'Вы повторили $count слов. FSRS перепланировал их.',
+      few: 'Вы повторили $count слова. FSRS перепланировал их.',
+      one: 'Вы повторили $count слово. FSRS перепланировал его.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get practiceDone => 'Готово';
+
+  @override
+  String get practiceRelTomorrow => 'завтра';
+
+  @override
+  String practiceRelInDays(int days) {
+    return 'через $days дн.';
+  }
+
+  @override
+  String practiceRelInHours(int hours) {
+    return 'через $hours ч';
+  }
+
+  @override
+  String practiceRelInMinutes(int minutes) {
+    return 'через $minutes мин';
+  }
+
+  @override
+  String get practiceRelSoon => 'скоро';
+
+  @override
+  String get progressTitle => 'Прогресс';
+
+  @override
+  String get progressShareMilestone => 'Поделиться вехой';
+
+  @override
+  String get progressLast7Days => 'Последние 7 дней';
+
+  @override
+  String get progressAccuracyRetention => 'Точность и удержание';
+
+  @override
+  String get progressHonestyNote =>
+      'Всё здесь — реальное записанное состояние: уровень, способность, сохранённые слова, XP, уроки, серия, история за 7 дней, точность и время занятий начинаются с нуля и растут по мере обучения. Удержание — прогноз воспоминания этой сессии (межсессионный планировщик — работа к запуску); ничего не выдумано.';
+
+  @override
+  String progressShareText(
+    String level,
+    String levelName,
+    int streak,
+    int xp,
+    int lessons,
+  ) {
+    return '🦡 RATEL · Уровень $level ($levelName)\n🔥 Серия $streak дн. · ⚡ $xp XP · 📘 $lessons уроков\nУчусь на learnwithratel.com';
+  }
+
+  @override
+  String get progressShareCopied =>
+      'Веха скопирована в буфер обмена — делитесь где угодно!';
+
+  @override
+  String progressAbilityLine(String theta) {
+    return 'Способность θ $theta · реальная оценка';
+  }
+
+  @override
+  String get progressStatSavedWords => 'Сохранённые слова';
+
+  @override
+  String get progressStatLessons => 'Уроки';
+
+  @override
+  String get progressStatDayStreak => 'Дней серии';
+
+  @override
+  String get progressStatTotalXp => 'Всего XP';
+
+  @override
+  String get progressStatTodaysXp => 'XP сегодня';
+
+  @override
+  String get progressStatCefrLevel => 'Уровень CEFR';
+
+  @override
+  String get progressAccuracy => 'Точность';
+
+  @override
+  String get progressStudyTime => 'Время занятий';
+
+  @override
+  String get progressRetention => 'Удержание';
+
+  @override
+  String get progressNoData => 'Пока нет данных';
+
+  @override
+  String get progressAccuracyEmpty =>
+      'Отвечайте на оцениваемые задания, чтобы начать';
+
+  @override
+  String progressAccuracyDetail(int correct, int total) {
+    return '$correct из $total верно';
+  }
+
+  @override
+  String get progressTimeEmpty => 'Время уроков суммируется здесь';
+
+  @override
+  String get progressTimeDetail => 'по всем вашим урокам';
+
+  @override
+  String get progressRetentionEmpty =>
+      'Повторяйте, чтобы увидеть прогноз воспоминания';
+
+  @override
+  String progressRetentionDetail(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'прогноз воспоминания на 1 день · $count элемента за сессию',
+      many: 'прогноз воспоминания на 1 день · $count элементов за сессию',
+      few: 'прогноз воспоминания на 1 день · $count элемента за сессию',
+      one: 'прогноз воспоминания на 1 день · $count элемент за сессию',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String progressWeekTotal(int xp) {
+    return '$xp XP · последние 7 дней';
+  }
+
+  @override
+  String get progressNoXpYet => 'XP ещё не записан';
+
+  @override
+  String get progressChartEmptyNote =>
+      'Закончите урок, чтобы начать историю за 7 дней — неактивные дни остаются на нуле, ничего не выдумано.';
+
+  @override
+  String get commonDowMon => 'Пн';
+
+  @override
+  String get commonDowTue => 'Вт';
+
+  @override
+  String get commonDowWed => 'Ср';
+
+  @override
+  String get commonDowThu => 'Чт';
+
+  @override
+  String get commonDowFri => 'Пт';
+
+  @override
+  String get commonDowSat => 'Сб';
+
+  @override
+  String get commonDowSun => 'Вс';
 }
