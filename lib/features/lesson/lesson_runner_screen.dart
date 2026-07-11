@@ -1064,26 +1064,34 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         RatelOptionState.wrong => RatelColors.coral,
       };
       final bool active = st != RatelOptionState.idle;
-      return InkWell(
-        key: ValueKey<String>('lesson-mcq-$i'),
-        borderRadius: BorderRadius.circular(RatelRadius.card),
-        onTap: _checked ? null : () => setState(() => _picked = i),
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(RatelSpace.md),
-          decoration: BoxDecoration(
-            color: active
-                ? accent.withValues(alpha: 0.10)
-                : context.palette.white,
-            borderRadius: BorderRadius.circular(RatelRadius.card),
-            border: Border.all(color: accent, width: active ? 2 : 1),
-          ),
-          child: Text(
-            it.mcqOptions[i].text,
-            style: TextStyle(
-              fontFamily: RatelFont.body,
-              fontSize: RatelType.body,
-              color: context.palette.ink,
+      // Q-4: announce each authored-MCQ option as a labelled button with
+      // its selection state (mirrors [RatelOptionCard]'s Semantics).
+      // Flags-only wrapper (button + selected): the child Text supplies
+      // the single label, the InkWell the tap action.
+      return Semantics(
+        button: true,
+        selected: st == RatelOptionState.selected,
+        child: InkWell(
+          key: ValueKey<String>('lesson-mcq-$i'),
+          borderRadius: BorderRadius.circular(RatelRadius.card),
+          onTap: _checked ? null : () => setState(() => _picked = i),
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(RatelSpace.md),
+            decoration: BoxDecoration(
+              color: active
+                  ? accent.withValues(alpha: 0.10)
+                  : context.palette.white,
+              borderRadius: BorderRadius.circular(RatelRadius.card),
+              border: Border.all(color: accent, width: active ? 2 : 1),
+            ),
+            child: Text(
+              it.mcqOptions[i].text,
+              style: TextStyle(
+                fontFamily: RatelFont.body,
+                fontSize: RatelType.body,
+                color: context.palette.ink,
+              ),
             ),
           ),
         ),

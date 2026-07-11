@@ -89,28 +89,36 @@ class RatelWordTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Opacity(
-      opacity: used ? 0.35 : 1,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: used ? null : onTap,
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: RatelSpace.lg,
-            vertical: RatelSpace.md,
-          ),
-          decoration: BoxDecoration(
-            color: context.palette.white,
-            borderRadius: BorderRadius.circular(RatelRadius.chip),
-            border: Border.all(color: context.palette.border),
-          ),
-          child: Text(
-            word,
-            style: TextStyle(
-              fontFamily: RatelFont.display,
-              fontSize: RatelType.body,
-              fontWeight: RatelType.semiBold,
-              color: context.palette.ink,
+    // Q-4: screen-reader parity with [RatelOptionCard] — every word-bank
+    // tile announces as a labelled button (repo Semantics convention).
+    // Flags-only wrapper: the child Text supplies the (single) label and
+    // the GestureDetector supplies the tap action — adding a label here
+    // would double-announce, excluding children would strip activation.
+    return Semantics(
+      button: true,
+      child: Opacity(
+        opacity: used ? 0.35 : 1,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: used ? null : onTap,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: RatelSpace.lg,
+              vertical: RatelSpace.md,
+            ),
+            decoration: BoxDecoration(
+              color: context.palette.white,
+              borderRadius: BorderRadius.circular(RatelRadius.chip),
+              border: Border.all(color: context.palette.border),
+            ),
+            child: Text(
+              word,
+              style: TextStyle(
+                fontFamily: RatelFont.display,
+                fontSize: RatelType.body,
+                fontWeight: RatelType.semiBold,
+                color: context.palette.ink,
+              ),
             ),
           ),
         ),
