@@ -1530,4 +1530,29 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get liveUnmute => 'Ativar som';
+
+  @override
+  String commonDurSeconds(int s) {
+    return '$s s';
+  }
+
+  @override
+  String commonDurMinutes(int m) {
+    return '$m min';
+  }
+
+  @override
+  String commonDurHours(int h) {
+    return '$h h';
+  }
+
+  @override
+  String commonDurHoursMinutes(int h, int m) {
+    return '$h h $m min';
+  }
+
+  @override
+  String practiceGradeInterval(String label, int days) {
+    return '$label · $days d';
+  }
 }

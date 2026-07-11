@@ -436,5 +436,10 @@
   "authOr": "または",
   "authUnavailableNote": "このビルドではまだアカウントを利用できません — ゲストとして学習を続けられます。バックエンド設定後にサインインが有効になります。",
   "liveMute": "ミュート",
-  "liveUnmute": "ミュート解除"
+  "liveUnmute": "ミュート解除",
+  "commonDurSeconds": "{s}秒",
+  "commonDurMinutes": "{m}分",
+  "commonDurHours": "{h}時間",
+  "commonDurHoursMinutes": "{h}時間{m}分",
+  "practiceGradeInterval": "{label} · {days}日"
 }

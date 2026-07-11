@@ -436,5 +436,10 @@
   "authOr": "ou",
   "authUnavailableNote": "Contas ainda não estão disponíveis nesta versão — você pode continuar aprendendo como convidado. O login será ativado quando o backend for configurado.",
   "liveMute": "Silenciar",
-  "liveUnmute": "Ativar som"
+  "liveUnmute": "Ativar som",
+  "commonDurSeconds": "{s} s",
+  "commonDurMinutes": "{m} min",
+  "commonDurHours": "{h} h",
+  "commonDurHoursMinutes": "{h} h {m} min",
+  "practiceGradeInterval": "{label} · {days} d"
 }

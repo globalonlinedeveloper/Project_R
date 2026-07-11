@@ -1516,4 +1516,29 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get liveUnmute => 'আনমিউট';
+
+  @override
+  String commonDurSeconds(int s) {
+    return '$s সে.';
+  }
+
+  @override
+  String commonDurMinutes(int m) {
+    return '$m মি.';
+  }
+
+  @override
+  String commonDurHours(int h) {
+    return '$h ঘ.';
+  }
+
+  @override
+  String commonDurHoursMinutes(int h, int m) {
+    return '$h ঘ. $m মি.';
+  }
+
+  @override
+  String practiceGradeInterval(String label, int days) {
+    return '$label · $days দিন';
+  }
 }

@@ -1520,4 +1520,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get liveUnmute => 'Unmute';
+
+  @override
+  String commonDurSeconds(int s) {
+    return '${s}s';
+  }
+
+  @override
+  String commonDurMinutes(int m) {
+    return '${m}m';
+  }
+
+  @override
+  String commonDurHours(int h) {
+    return '${h}h';
+  }
+
+  @override
+  String commonDurHoursMinutes(int h, int m) {
+    return '${h}h ${m}m';
+  }
+
+  @override
+  String practiceGradeInterval(String label, int days) {
+    return '$label · ${days}d';
+  }
 }

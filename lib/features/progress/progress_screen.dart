@@ -322,7 +322,9 @@ class ProgressScreen extends ConsumerWidget {
             context,
             '⏱️',
             context.l10n.progressStudyTime,
-            stats.studySeconds == 0 ? null : _fmtDuration(stats.studySeconds),
+            stats.studySeconds == 0
+                ? null
+                : _fmtDuration(context, stats.studySeconds),
             stats.studySeconds == 0
                 ? context.l10n.progressTimeEmpty
                 : context.l10n.progressTimeDetail,
@@ -386,13 +388,15 @@ class ProgressScreen extends ConsumerWidget {
       );
 
   /// Compact human duration: `45s` / `12m` / `2h` / `1h 23m`.
-  String _fmtDuration(int seconds) {
-    if (seconds < 60) return '${seconds}s';
+  String _fmtDuration(BuildContext context, int seconds) {
+    if (seconds < 60) return context.l10n.commonDurSeconds(seconds);
     final int m = seconds ~/ 60;
-    if (m < 60) return '${m}m';
+    if (m < 60) return context.l10n.commonDurMinutes(m);
     final int h = m ~/ 60;
     final int rem = m % 60;
-    return rem == 0 ? '${h}h' : '${h}h ${rem}m';
+    return rem == 0
+        ? context.l10n.commonDurHours(h)
+        : context.l10n.commonDurHoursMinutes(h, rem);
   }
 
   String _levelName(CefrLevel l) {

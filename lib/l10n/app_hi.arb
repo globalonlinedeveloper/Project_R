@@ -436,5 +436,10 @@
   "authOr": "या",
   "authUnavailableNote": "इस बिल्ड में खाते अभी उपलब्ध नहीं हैं — आप अतिथि के रूप में सीखते रह सकते हैं। बैकएंड कॉन्फ़िगर होते ही साइन-इन चालू होगा।",
   "liveMute": "म्यूट",
-  "liveUnmute": "अनम्यूट"
+  "liveUnmute": "अनम्यूट",
+  "commonDurSeconds": "{s} से.",
+  "commonDurMinutes": "{m} मि.",
+  "commonDurHours": "{h} घं.",
+  "commonDurHoursMinutes": "{h} घं. {m} मि.",
+  "practiceGradeInterval": "{label} · {days} दिन"
 }

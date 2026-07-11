@@ -613,4 +613,15 @@ void main() {
     expect(find.text('Continuar como invitado'), findsOneWidget);
     expect(find.text('Welcome to Ratel'), findsNothing);
   });
+
+  test('micro-unit keys: en byte-pins + es spot-check', () {
+    final AppLocalizations en = lookupAppLocalizations(const Locale('en'));
+    expect(en.commonDurSeconds(45), '45s');
+    expect(en.commonDurMinutes(5), '5m');
+    expect(en.commonDurHours(2), '2h');
+    expect(en.commonDurHoursMinutes(2, 5), '2h 5m');
+    expect(en.practiceGradeInterval('Easy', 4), 'Easy · 4d');
+    final AppLocalizations es = lookupAppLocalizations(const Locale('es'));
+    expect(es.practiceGradeInterval('Fácil', 4), 'Fácil · 4 d');
+  });
 }

@@ -1479,4 +1479,29 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get liveUnmute => '取消静音';
+
+  @override
+  String commonDurSeconds(int s) {
+    return '$s 秒';
+  }
+
+  @override
+  String commonDurMinutes(int m) {
+    return '$m 分钟';
+  }
+
+  @override
+  String commonDurHours(int h) {
+    return '$h 小时';
+  }
+
+  @override
+  String commonDurHoursMinutes(int h, int m) {
+    return '$h 小时 $m 分钟';
+  }
+
+  @override
+  String practiceGradeInterval(String label, int days) {
+    return '$label · $days 天';
+  }
 }

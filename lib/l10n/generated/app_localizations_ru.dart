@@ -1544,4 +1544,29 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get liveUnmute => 'Вкл. звук';
+
+  @override
+  String commonDurSeconds(int s) {
+    return '$s с';
+  }
+
+  @override
+  String commonDurMinutes(int m) {
+    return '$m мин';
+  }
+
+  @override
+  String commonDurHours(int h) {
+    return '$h ч';
+  }
+
+  @override
+  String commonDurHoursMinutes(int h, int m) {
+    return '$h ч $m мин';
+  }
+
+  @override
+  String practiceGradeInterval(String label, int days) {
+    return '$label · $days дн.';
+  }
 }

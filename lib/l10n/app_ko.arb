@@ -436,5 +436,10 @@
   "authOr": "또는",
   "authUnavailableNote": "이 빌드에서는 아직 계정을 쓸 수 없어요 — 게스트로 계속 배울 수 있어요. 백엔드가 구성되면 로그인이 켜져요.",
   "liveMute": "음소거",
-  "liveUnmute": "음소거 해제"
+  "liveUnmute": "음소거 해제",
+  "commonDurSeconds": "{s}초",
+  "commonDurMinutes": "{m}분",
+  "commonDurHours": "{h}시간",
+  "commonDurHoursMinutes": "{h}시간 {m}분",
+  "practiceGradeInterval": "{label} · {days}일"
 }

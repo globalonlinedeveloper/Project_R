@@ -436,5 +436,10 @@
   "authOr": "或",
   "authUnavailableNote": "此版本暂不支持账户 — 你可以继续以访客身份学习。后端配置好后登录即会开启。",
   "liveMute": "静音",
-  "liveUnmute": "取消静音"
+  "liveUnmute": "取消静音",
+  "commonDurSeconds": "{s} 秒",
+  "commonDurMinutes": "{m} 分钟",
+  "commonDurHours": "{h} 小时",
+  "commonDurHoursMinutes": "{h} 小时 {m} 分钟",
+  "practiceGradeInterval": "{label} · {days} 天"
 }

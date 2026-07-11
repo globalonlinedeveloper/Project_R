@@ -1489,4 +1489,29 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get liveUnmute => '음소거 해제';
+
+  @override
+  String commonDurSeconds(int s) {
+    return '$s초';
+  }
+
+  @override
+  String commonDurMinutes(int m) {
+    return '$m분';
+  }
+
+  @override
+  String commonDurHours(int h) {
+    return '$h시간';
+  }
+
+  @override
+  String commonDurHoursMinutes(int h, int m) {
+    return '$h시간 $m분';
+  }
+
+  @override
+  String practiceGradeInterval(String label, int days) {
+    return '$label · $days일';
+  }
 }

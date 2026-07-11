@@ -369,7 +369,8 @@ class _PracticeHubScreenState extends ConsumerState<PracticeHubScreen> {
     final SavedWordsController ctrl =
         ref.read(savedWordsControllerProvider.notifier);
     Widget btn(FsrsRating r, String label, RatelButtonVariant v) => RatelButton(
-          label: '$label · ${ctrl.projectedIntervalDays(card, r)}d',
+          label: context.l10n
+              .practiceGradeInterval(label, ctrl.projectedIntervalDays(card, r)),
           variant: v,
           onPressed: () => _grade(r),
         );

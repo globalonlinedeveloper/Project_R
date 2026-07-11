@@ -436,5 +436,10 @@
   "authOr": "ou",
   "authUnavailableNote": "Les comptes ne sont pas encore disponibles dans cette version — tu peux continuer à apprendre en invité. La connexion s'activera quand le backend sera configuré.",
   "liveMute": "Couper le micro",
-  "liveUnmute": "Réactiver le micro"
+  "liveUnmute": "Réactiver le micro",
+  "commonDurSeconds": "{s} s",
+  "commonDurMinutes": "{m} min",
+  "commonDurHours": "{h} h",
+  "commonDurHoursMinutes": "{h} h {m} min",
+  "practiceGradeInterval": "{label} · {days} j"
 }

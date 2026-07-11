@@ -436,5 +436,10 @@
   "authOr": "o",
   "authUnavailableNote": "Las cuentas aún no están disponibles en esta versión — puedes seguir aprendiendo como invitado. El acceso se activará cuando el backend esté configurado.",
   "liveMute": "Silenciar",
-  "liveUnmute": "Activar sonido"
+  "liveUnmute": "Activar sonido",
+  "commonDurSeconds": "{s} s",
+  "commonDurMinutes": "{m} min",
+  "commonDurHours": "{h} h",
+  "commonDurHoursMinutes": "{h} h {m} min",
+  "practiceGradeInterval": "{label} · {days} d"
 }

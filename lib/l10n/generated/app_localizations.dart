@@ -2745,6 +2745,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unmute'**
   String get liveUnmute;
+
+  /// No description provided for @commonDurSeconds.
+  ///
+  /// In en, this message translates to:
+  /// **'{s}s'**
+  String commonDurSeconds(int s);
+
+  /// No description provided for @commonDurMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{m}m'**
+  String commonDurMinutes(int m);
+
+  /// No description provided for @commonDurHours.
+  ///
+  /// In en, this message translates to:
+  /// **'{h}h'**
+  String commonDurHours(int h);
+
+  /// No description provided for @commonDurHoursMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{h}h {m}m'**
+  String commonDurHoursMinutes(int h, int m);
+
+  /// No description provided for @practiceGradeInterval.
+  ///
+  /// In en, this message translates to:
+  /// **'{label} · {days}d'**
+  String practiceGradeInterval(String label, int days);
 }
 
 class _AppLocalizationsDelegate

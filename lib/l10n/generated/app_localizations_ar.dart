@@ -1544,4 +1544,29 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get liveUnmute => 'إلغاء الكتم';
+
+  @override
+  String commonDurSeconds(int s) {
+    return '$s ث';
+  }
+
+  @override
+  String commonDurMinutes(int m) {
+    return '$m د';
+  }
+
+  @override
+  String commonDurHours(int h) {
+    return '$h س';
+  }
+
+  @override
+  String commonDurHoursMinutes(int h, int m) {
+    return '$h س $m د';
+  }
+
+  @override
+  String practiceGradeInterval(String label, int days) {
+    return '$label · $days ي';
+  }
 }

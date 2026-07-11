@@ -436,5 +436,10 @@
   "authOr": "অথবা",
   "authUnavailableNote": "এই বিল্ডে অ্যাকাউন্ট এখনো চালু হয়নি — অতিথি হিসেবে শেখা চালিয়ে যেতে পারেন। ব্যাকএন্ড কনফিগার হলে সাইন-ইন চালু হবে।",
   "liveMute": "মিউট",
-  "liveUnmute": "আনমিউট"
+  "liveUnmute": "আনমিউট",
+  "commonDurSeconds": "{s} সে.",
+  "commonDurMinutes": "{m} মি.",
+  "commonDurHours": "{h} ঘ.",
+  "commonDurHoursMinutes": "{h} ঘ. {m} মি.",
+  "practiceGradeInterval": "{label} · {days} দিন"
 }

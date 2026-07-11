@@ -1487,4 +1487,29 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get liveUnmute => 'ミュート解除';
+
+  @override
+  String commonDurSeconds(int s) {
+    return '$s秒';
+  }
+
+  @override
+  String commonDurMinutes(int m) {
+    return '$m分';
+  }
+
+  @override
+  String commonDurHours(int h) {
+    return '$h時間';
+  }
+
+  @override
+  String commonDurHoursMinutes(int h, int m) {
+    return '$h時間$m分';
+  }
+
+  @override
+  String practiceGradeInterval(String label, int days) {
+    return '$label · $days日';
+  }
 }

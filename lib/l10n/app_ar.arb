@@ -436,5 +436,10 @@
   "authOr": "أو",
   "authUnavailableNote": "الحسابات غير متاحة في هذا الإصدار بعد — يمكنك مواصلة التعلم كضيف. سيُفعّل تسجيل الدخول عند تهيئة الخادم.",
   "liveMute": "كتم",
-  "liveUnmute": "إلغاء الكتم"
+  "liveUnmute": "إلغاء الكتم",
+  "commonDurSeconds": "{s} ث",
+  "commonDurMinutes": "{m} د",
+  "commonDurHours": "{h} س",
+  "commonDurHoursMinutes": "{h} س {m} د",
+  "practiceGradeInterval": "{label} · {days} ي"
 }

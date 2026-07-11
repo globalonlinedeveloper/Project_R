@@ -689,5 +689,15 @@
   "liveMute": "Mute",
   "liveUnmute": "Unmute",
   "@authResetSent": {"placeholders": {"email": {"type": "String"}}},
-  "@authConfirmSent": {"placeholders": {"email": {"type": "String"}}}
+  "@authConfirmSent": {"placeholders": {"email": {"type": "String"}}},
+  "commonDurSeconds": "{s}s",
+  "commonDurMinutes": "{m}m",
+  "commonDurHours": "{h}h",
+  "commonDurHoursMinutes": "{h}h {m}m",
+  "practiceGradeInterval": "{label} · {days}d",
+  "@commonDurSeconds": {"placeholders": {"s": {"type": "int"}}},
+  "@commonDurMinutes": {"placeholders": {"m": {"type": "int"}}},
+  "@commonDurHours": {"placeholders": {"h": {"type": "int"}}},
+  "@commonDurHoursMinutes": {"placeholders": {"h": {"type": "int"}, "m": {"type": "int"}}},
+  "@practiceGradeInterval": {"placeholders": {"label": {"type": "String"}, "days": {"type": "int"}}}
 }

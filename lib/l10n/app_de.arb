@@ -436,5 +436,10 @@
   "authOr": "oder",
   "authUnavailableNote": "Konten sind in diesem Build noch nicht verfügbar — du kannst als Gast weiterlernen. Die Anmeldung wird aktiviert, sobald das Backend konfiguriert ist.",
   "liveMute": "Stumm",
-  "liveUnmute": "Ton an"
+  "liveUnmute": "Ton an",
+  "commonDurSeconds": "{s} s",
+  "commonDurMinutes": "{m} Min.",
+  "commonDurHours": "{h} Std.",
+  "commonDurHoursMinutes": "{h} Std. {m} Min.",
+  "practiceGradeInterval": "{label} · {days} T."
 }

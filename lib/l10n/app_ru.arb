@@ -436,5 +436,10 @@
   "authOr": "или",
   "authUnavailableNote": "Аккаунты в этой сборке пока недоступны — можно продолжать учиться как гость. Вход включится после настройки бэкенда.",
   "liveMute": "Выкл. звук",
-  "liveUnmute": "Вкл. звук"
+  "liveUnmute": "Вкл. звук",
+  "commonDurSeconds": "{s} с",
+  "commonDurMinutes": "{m} мин",
+  "commonDurHours": "{h} ч",
+  "commonDurHoursMinutes": "{h} ч {m} мин",
+  "practiceGradeInterval": "{label} · {days} дн."
 }
