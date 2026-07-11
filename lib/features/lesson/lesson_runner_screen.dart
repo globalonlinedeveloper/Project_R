@@ -573,6 +573,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
   int _correct = 0;
   int _graded = 0; // graded answers this session (accuracy denominator)
   late final DateTime _sessionStart; // D2 study-time clock anchor
+  Duration _sessionDuration = Duration.zero; // captured at _finish (result TIME stat)
 
   CatItem? _current;
   int? _picked; // pick-the-picture selected option index
@@ -958,6 +959,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
     // D2: record graded accuracy + the real lesson session duration.
     final Duration session =
         ref.read(clockProvider)().difference(_sessionStart);
+    _sessionDuration = session;
     ref.read(studyStatsControllerProvider.notifier).recordLesson(
           correct: _correct,
           total: _graded,
@@ -1606,16 +1608,59 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
     );
   }
 
+  /// Q-1: the design's lesson-complete celebration (owner HTML "LESSON
+  /// COMPLETE" overlay) — gold kicker · tiered emoji hero with a pop-in
+  /// entry that is SKIPPED entirely under reduce-motion ([MatchExercise]
+  /// convention) · the TOTAL XP / ACCURACY / TIME stat-card row. Accuracy
+  /// uses the REAL graded denominator [_graded] (what study-stats records),
+  /// never the served-item count. Display-only: awarded XP stays
+  /// [_kLessonXp] — no economy change.
   Widget _result(BuildContext context) {
     final LearnerSnapshot snap = ref.watch(learnerControllerProvider);
+    final bool reduceMotion = ref.watch(reduceMotionProvider);
+    final int accuracy =
+        _graded == 0 ? 100 : ((_correct * 100) / _graded).round();
+    final String emoji = accuracy == 100
+        ? '\u{1F3C6}'
+        : accuracy >= 80
+            ? '\u{1F389}'
+            : accuracy >= 50
+                ? '\u{1F4AA}'
+                : '\u{1F4DA}';
+    final Widget hero = Text(
+      emoji,
+      textAlign: TextAlign.center,
+      style: const TextStyle(fontSize: 72),
+    );
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: RatelSpace.screen),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           const Spacer(),
-          const Text('🎉', textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 72)),
+          Text(
+            'LESSON COMPLETE',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: RatelFont.display,
+              fontWeight: RatelType.extraBold,
+              fontSize: RatelType.small,
+              letterSpacing: 2,
+              color: RatelColors.amber,
+            ),
+          ),
+          const SizedBox(height: RatelSpace.md),
+          if (reduceMotion)
+            hero
+          else
+            TweenAnimationBuilder<double>(
+              tween: Tween<double>(begin: 0.6, end: 1),
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.elasticOut,
+              builder: (BuildContext context, double scale, Widget? child) =>
+                  Transform.scale(scale: scale, child: child),
+              child: hero,
+            ),
           const SizedBox(height: RatelSpace.lg),
           Text(
             'Lesson complete!',
@@ -1627,17 +1672,9 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
               color: context.palette.ink,
             ),
           ),
-          const SizedBox(height: RatelSpace.lg),
-          Center(
-            child: RatelChip(
-              label: '+$_kLessonXp XP',
-              tone: RatelChipTone.green,
-              filled: true,
-            ),
-          ),
-          const SizedBox(height: RatelSpace.md),
+          const SizedBox(height: RatelSpace.sm),
           Text(
-            '$_correct of ${_items.length} correct · now '
+            '$_correct of $_graded correct \u00b7 now '
             '${snap.level.name.toUpperCase()}',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -1646,11 +1683,101 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
               color: context.palette.muted,
             ),
           ),
+          const SizedBox(height: RatelSpace.lg),
+          Row(
+            children: <Widget>[
+              _resultStat(
+                context,
+                label: 'TOTAL XP',
+                value: '\u26a1 +$_kLessonXp',
+                color: RatelColors.amber,
+              ),
+              const SizedBox(width: RatelSpace.md),
+              _resultStat(
+                context,
+                label: 'ACCURACY',
+                value: '\u{1F3AF} $accuracy%',
+                color: RatelColors.teal,
+              ),
+              const SizedBox(width: RatelSpace.md),
+              _resultStat(
+                context,
+                label: 'TIME',
+                value: '\u23f1 ${_fmtSession(_sessionDuration)}',
+                color: context.palette.muted,
+                valueColor: context.palette.ink,
+              ),
+            ],
+          ),
           const Spacer(),
           RatelButton(label: 'Continue', onPressed: () => context.go('/home')),
           const SizedBox(height: RatelSpace.lg),
         ],
       ),
     );
+  }
+
+  /// One stat card of the design's complete-screen row: a colored header
+  /// band over a white value face, 2px border in the same color.
+  Widget _resultStat(
+    BuildContext context, {
+    required String label,
+    required String value,
+    required Color color,
+    Color? valueColor,
+  }) {
+    return Expanded(
+      child: Container(
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          color: context.palette.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: color, width: 2),
+        ),
+        child: Column(
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              color: color,
+              padding: const EdgeInsets.all(5),
+              child: Text(
+                label,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: RatelFont.display,
+                  fontWeight: RatelType.extraBold,
+                  fontSize: RatelType.caption,
+                  letterSpacing: 1,
+                  color: RatelColors.white,
+                ),
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 11, horizontal: 4),
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  value,
+                  style: TextStyle(
+                    fontFamily: RatelFont.display,
+                    fontWeight: RatelType.extraBold,
+                    fontSize: RatelType.cardTitle,
+                    color: valueColor ?? color,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// m:ss study-time label from the real session clock (D2 anchor).
+  static String _fmtSession(Duration d) {
+    final int m = d.inMinutes;
+    final int s = d.inSeconds % 60;
+    return "$m:${s.toString().padLeft(2, '0')}";
   }
 }
