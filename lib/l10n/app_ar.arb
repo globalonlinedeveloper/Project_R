@@ -1,0 +1,16 @@
+{
+  "@@locale": "ar",
+  "navHome": "الرئيسية",
+  "navLibrary": "المكتبة",
+  "navLeagues": "الدوريات",
+  "navQuests": "المهام",
+  "navProfile": "الملف الشخصي",
+  "settingsTitle": "الإعدادات",
+  "settingsSectionLearning": "التعلّم",
+  "settingsSectionSubscription": "الاشتراك",
+  "settingsSectionAccessibility": "إمكانية الوصول",
+  "settingsSectionNotifications": "الإشعارات",
+  "settingsSectionAppearanceAccount": "المظهر والحساب",
+  "settingsAppLanguage": "لغة التطبيق",
+  "settingsAppLanguageSystem": "افتراضي النظام"
+}

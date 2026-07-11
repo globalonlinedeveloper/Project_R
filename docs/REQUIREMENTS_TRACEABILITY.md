@@ -73,7 +73,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-C10 | Provenance / versioning on every row | Must | Stage1 | Built ✅ | — | `common.schema.json` |
 | R-C11 | Stable language-neutral ID scheme | Must | Stage1 | Built ✅ | — | — |
 | R-C12 | Shared controlled vocabularies / enums | Must | Stage1 | Built ✅ | — | `codegen_dart.py`, `test_enum_forward_compat.py`, `enums.schema.json`, `schema.json` |
-| R-C13 | App-shell strings vs DB gloss boundary | Must | Stage1 | Built ✅ | — | — |
+| R-C13 | App-shell strings vs DB gloss boundary | Must | Stage1 | Built ✅ | — | `ratel_app.dart`, `l10n.dart`, `ui_locale.dart`, `ui_locale_store.dart` +1 |
 | R-C14 | Schema-conformance gate | Must | Stage1 | Built ✅ | — | `content_loader.dart`, `axis_gate.py`, `schema.json` |
 
 ## Part D — Exercise types & grading

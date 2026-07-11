@@ -1,0 +1,16 @@
+{
+  "@@locale": "ko",
+  "navHome": "홈",
+  "navLibrary": "라이브러리",
+  "navLeagues": "리그",
+  "navQuests": "퀘스트",
+  "navProfile": "프로필",
+  "settingsTitle": "설정",
+  "settingsSectionLearning": "학습",
+  "settingsSectionSubscription": "구독",
+  "settingsSectionAccessibility": "접근성",
+  "settingsSectionNotifications": "알림",
+  "settingsSectionAppearanceAccount": "모양 및 계정",
+  "settingsAppLanguage": "앱 언어",
+  "settingsAppLanguageSystem": "시스템 기본값"
+}

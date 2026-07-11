@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ratel/core/core.dart';
+import 'package:ratel/services/preferences/ui_locale.dart';
 import 'app_providers.dart';
 import 'router.dart';
 
@@ -64,9 +65,27 @@ class _RatelAppState extends ConsumerState<RatelApp>
         : space
             ? RatelTheme.space()
             : RatelTheme.world(world);
+    // L-2 / R-C13: app-shell chrome is localized via the generated ARB
+    // layer; the learner's explicit override (null = follow the device)
+    // comes from the device-local UiLocaleStore. Unsupported device
+    // locales resolve to English — supportedLocales is alphabetical, so
+    // never let list order pick the fallback.
+    final Locale? uiLocale = ref.watch(uiLocaleControllerProvider);
     return MaterialApp.router(
       title: 'Ratel',
       debugShowCheckedModeBanner: false,
+      locale: uiLocale,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      localeResolutionCallback: (Locale? device, Iterable<Locale> supported) {
+        final Locale want = uiLocale ?? device ?? const Locale('en');
+        for (final Locale s in supported) {
+          if (s.languageCode == want.languageCode) {
+            return s;
+          }
+        }
+        return const Locale('en');
+      },
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ref.watch(themeModeProvider),

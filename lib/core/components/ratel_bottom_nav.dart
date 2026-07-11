@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:ratel/l10n/generated/app_localizations.dart';
+
 import '../theme/theme.dart';
 
 /// One bottom-nav destination.
@@ -32,6 +34,18 @@ class RatelBottomNav extends StatelessWidget {
     RatelNavTab(emoji: '🎯', label: 'Quests'),
     RatelNavTab(emoji: '🦡', label: 'Profile'),
   ];
+
+  /// The default spine with LOCALIZED labels (L-2) — emojis are pictograms
+  /// and stay fixed; [defaultTabs] remains the English fallback so hosts
+  /// without localization delegates render byte-identical chrome.
+  static List<RatelNavTab> localizedTabs(AppLocalizations l10n) =>
+      <RatelNavTab>[
+        RatelNavTab(emoji: '🏠', label: l10n.navHome),
+        RatelNavTab(emoji: '📚', label: l10n.navLibrary),
+        RatelNavTab(emoji: '🏆', label: l10n.navLeagues),
+        RatelNavTab(emoji: '🎯', label: l10n.navQuests),
+        RatelNavTab(emoji: '🦡', label: l10n.navProfile),
+      ];
 
   @override
   Widget build(BuildContext context) {

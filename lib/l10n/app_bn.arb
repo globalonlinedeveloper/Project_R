@@ -1,0 +1,16 @@
+{
+  "@@locale": "bn",
+  "navHome": "হোম",
+  "navLibrary": "লাইব্রেরি",
+  "navLeagues": "লিগ",
+  "navQuests": "কোয়েস্ট",
+  "navProfile": "প্রোফাইল",
+  "settingsTitle": "সেটিংস",
+  "settingsSectionLearning": "শেখা",
+  "settingsSectionSubscription": "সাবস্ক্রিপশন",
+  "settingsSectionAccessibility": "অ্যাক্সেসিবিলিটি",
+  "settingsSectionNotifications": "বিজ্ঞপ্তি",
+  "settingsSectionAppearanceAccount": "চেহারা ও অ্যাকাউন্ট",
+  "settingsAppLanguage": "অ্যাপের ভাষা",
+  "settingsAppLanguageSystem": "সিস্টেম ডিফল্ট"
+}

@@ -1,0 +1,16 @@
+{
+  "@@locale": "ru",
+  "navHome": "Главная",
+  "navLibrary": "Библиотека",
+  "navLeagues": "Лиги",
+  "navQuests": "Задания",
+  "navProfile": "Профиль",
+  "settingsTitle": "Настройки",
+  "settingsSectionLearning": "Обучение",
+  "settingsSectionSubscription": "Подписка",
+  "settingsSectionAccessibility": "Специальные возможности",
+  "settingsSectionNotifications": "Уведомления",
+  "settingsSectionAppearanceAccount": "Внешний вид и аккаунт",
+  "settingsAppLanguage": "Язык приложения",
+  "settingsAppLanguageSystem": "Как в системе"
+}

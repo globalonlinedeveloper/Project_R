@@ -322,6 +322,7 @@ class RatelShell extends ConsumerWidget {
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: RatelBottomNav(
+        tabs: RatelBottomNav.localizedTabs(context.l10n),
         currentIndex: navigationShell.currentIndex,
         onTap: (int index) => navigationShell.goBranch(
           index,

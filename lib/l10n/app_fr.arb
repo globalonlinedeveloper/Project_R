@@ -1,0 +1,16 @@
+{
+  "@@locale": "fr",
+  "navHome": "Accueil",
+  "navLibrary": "Bibliothèque",
+  "navLeagues": "Ligues",
+  "navQuests": "Quêtes",
+  "navProfile": "Profil",
+  "settingsTitle": "Paramètres",
+  "settingsSectionLearning": "Apprentissage",
+  "settingsSectionSubscription": "Abonnement",
+  "settingsSectionAccessibility": "Accessibilité",
+  "settingsSectionNotifications": "Notifications",
+  "settingsSectionAppearanceAccount": "Apparence et compte",
+  "settingsAppLanguage": "Langue de l'application",
+  "settingsAppLanguageSystem": "Par défaut du système"
+}

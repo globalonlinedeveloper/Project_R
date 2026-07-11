@@ -11,6 +11,7 @@ import 'package:ratel/core/core.dart';
 import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/billing/billing.dart';
 import 'package:ratel/services/preferences/app_settings.dart';
+import 'package:ratel/services/preferences/ui_locale.dart';
 
 /// Settings (design spec §4.9) — REAL where an engine exists: daily goal, sound,
 /// high contrast and haptics are read from and written back through the
@@ -47,7 +48,7 @@ class SettingsScreen extends ConsumerWidget {
           icon: Icon(RatelIcons.arrowBack, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: Text('Settings',
+        title: Text(context.l10n.settingsTitle,
             style: TextStyle(
                 fontFamily: RatelFont.display,
                 fontWeight: RatelType.extraBold,
@@ -58,7 +59,7 @@ class SettingsScreen extends ConsumerWidget {
         padding: const EdgeInsets.fromLTRB(
             RatelSpace.screen, RatelSpace.sm, RatelSpace.screen, RatelSpace.xl),
         children: <Widget>[
-          _section(context, 'Learning', <Widget>[
+          _section(context, context.l10n.settingsSectionLearning, <Widget>[
             RatelListRow(
               title: 'Daily goal',
               subtitle: goalStatus.met
@@ -70,7 +71,7 @@ class SettingsScreen extends ConsumerWidget {
             _switchRow('Haptics', s.haptics, c.setHaptics),
           ]),
           const SizedBox(height: RatelSpace.lg),
-          _section(context, 'Subscription', <Widget>[
+          _section(context, context.l10n.settingsSectionSubscription, <Widget>[
             RatelListRow(
               title: 'Manage subscription',
               subtitle: isPro ? 'RATEL PRO active' : 'Free plan',
@@ -89,13 +90,13 @@ class SettingsScreen extends ConsumerWidget {
             ),
           ]),
           const SizedBox(height: RatelSpace.lg),
-          _section(context, 'Accessibility', <Widget>[
+          _section(context, context.l10n.settingsSectionAccessibility, <Widget>[
             _switchRow('Reduce motion', s.reduceMotion, c.setReduceMotion,
                 subtitle: 'Master switch — turns off every animation'),
             _switchRow('High contrast', s.highContrast, c.setHighContrast),
           ]),
           const SizedBox(height: RatelSpace.lg),
-          _section(context, 'Notifications', <Widget>[
+          _section(context, context.l10n.settingsSectionNotifications, <Widget>[
             _switchRow('Push notifications', s.notifyEnabled('push'),
                 (bool v) => c.setNotification('push', v)),
             _switchRow('Streak reminders', s.notifyEnabled('streak'),
@@ -117,7 +118,7 @@ class SettingsScreen extends ConsumerWidget {
                     color: context.palette.muted)),
           ),
           const SizedBox(height: RatelSpace.lg),
-          _section(context, 'Appearance & account', <Widget>[
+          _section(context, context.l10n.settingsSectionAppearanceAccount, <Widget>[
             if (CourseSwitchScope.maybeOf(context)
                 case final CourseSwitchScope course)
               RatelListRow(
@@ -127,6 +128,15 @@ class SettingsScreen extends ConsumerWidget {
                 subtitle: _courseLabel(course.current),
                 onTap: () => _pickCourse(context, course),
               ),
+            // L-2: app-shell (chrome) language — separate concept from the
+            // Course (target language) row above; device-local override.
+            RatelListRow(
+              leadingEmoji: '🗣️',
+              leadingColor: RatelColors.teal,
+              title: context.l10n.settingsAppLanguage,
+              subtitle: _appLanguageLabel(context, ref),
+              onTap: () => _pickAppLanguage(context, ref),
+            ),
             RatelListRow(
               leadingEmoji: '🌙',
               leadingColor: RatelColors.purple,
@@ -255,6 +265,70 @@ class SettingsScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: RatelSpace.xs),
               ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  static String _appLanguageLabel(BuildContext context, WidgetRef ref) {
+    final Locale? l = ref.watch(uiLocaleControllerProvider);
+    return l == null
+        ? context.l10n.settingsAppLanguageSystem
+        : (kUiLanguageEndonyms[l.languageCode] ?? l.languageCode);
+  }
+
+  void _pickAppLanguage(BuildContext context, WidgetRef ref) {
+    final UiLocaleController c = ref.read(uiLocaleControllerProvider.notifier);
+    final String? current = ref.read(uiLocaleControllerProvider)?.languageCode;
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: context.palette.white,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+              top: Radius.circular(RatelRadius.featureLg))),
+      builder: (BuildContext sheetContext) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(RatelSpace.lg),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: RatelSpace.sm, bottom: RatelSpace.sm),
+                child: RatelSectionHeader(
+                    label: context.l10n.settingsAppLanguage),
+              ),
+              Flexible(
+                child: ListView(
+                  shrinkWrap: true,
+                  children: <Widget>[
+                    RatelListRow(
+                      leadingEmoji: current == null ? '✅' : '⚪',
+                      title: context.l10n.settingsAppLanguageSystem,
+                      onTap: () {
+                        c.setLocale(null);
+                        Navigator.of(sheetContext).pop();
+                      },
+                    ),
+                    const SizedBox(height: RatelSpace.xs),
+                    for (final MapEntry<String, String> e
+                        in kUiLanguageEndonyms.entries) ...<Widget>[
+                      RatelListRow(
+                        leadingEmoji: e.key == current ? '✅' : '⚪',
+                        title: e.value,
+                        onTap: () {
+                          c.setLocale(Locale(e.key));
+                          Navigator.of(sheetContext).pop();
+                        },
+                      ),
+                      const SizedBox(height: RatelSpace.xs),
+                    ],
+                  ],
+                ),
+              ),
             ],
           ),
         ),

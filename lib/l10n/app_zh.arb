@@ -1,0 +1,16 @@
+{
+  "@@locale": "zh",
+  "navHome": "首页",
+  "navLibrary": "资料库",
+  "navLeagues": "联赛",
+  "navQuests": "任务",
+  "navProfile": "个人资料",
+  "settingsTitle": "设置",
+  "settingsSectionLearning": "学习",
+  "settingsSectionSubscription": "订阅",
+  "settingsSectionAccessibility": "无障碍",
+  "settingsSectionNotifications": "通知",
+  "settingsSectionAppearanceAccount": "外观与账户",
+  "settingsAppLanguage": "应用语言",
+  "settingsAppLanguageSystem": "跟随系统"
+}

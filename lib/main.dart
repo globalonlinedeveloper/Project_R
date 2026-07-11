@@ -7,6 +7,8 @@ import 'package:ratel/services/data_access/supabase_user_state_stores.dart';
 import 'package:ratel/services/notifications/earned_stamps_store.dart';
 import 'package:ratel/services/notifications/prefs_earned_stamps_store.dart';
 import 'package:ratel/services/preferences/prefs_settings_store.dart';
+import 'package:ratel/services/preferences/prefs_ui_locale_store.dart';
+import 'package:ratel/services/preferences/ui_locale_store.dart';
 import 'package:ratel/services/preferences/settings_store.dart';
 import 'package:ratel/services/progress/prefs_xp_history_store.dart';
 import 'package:ratel/services/progress/xp_history_store.dart';
@@ -99,6 +101,10 @@ Future<void> main() async {
       // D-13 earn stamps: device-local only (like the pre-S110 stores) — a
       // cross-device synced column is a future owner-gated migration.
       final EarnedStampsStore earnedStamps = PrefsEarnedStampsStore(prefs);
+      // L-2 app-shell language override: device-local only (the synced
+      // user_settings row is fixed-column — a cross-device column is an
+      // owner-gated migration, S126 precedent).
+      final UiLocaleStore uiLocale = PrefsUiLocaleStore(prefs);
       if (supabaseConfigured()) {
         try {
           final SupabaseClient client = Supabase.instance.client;
@@ -130,6 +136,7 @@ Future<void> main() async {
       overrides.add(outfitsStoreProvider.overrideWithValue(outfits));
       overrides.add(
           earnedStampsStoreProvider.overrideWithValue(earnedStamps));
+      overrides.add(uiLocaleStoreProvider.overrideWithValue(uiLocale));
     } catch (_) {
       // keep the in-memory settings default
     }

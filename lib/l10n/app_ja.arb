@@ -1,0 +1,16 @@
+{
+  "@@locale": "ja",
+  "navHome": "ホーム",
+  "navLibrary": "ライブラリ",
+  "navLeagues": "リーグ",
+  "navQuests": "クエスト",
+  "navProfile": "プロフィール",
+  "settingsTitle": "設定",
+  "settingsSectionLearning": "学習",
+  "settingsSectionSubscription": "サブスクリプション",
+  "settingsSectionAccessibility": "アクセシビリティ",
+  "settingsSectionNotifications": "通知",
+  "settingsSectionAppearanceAccount": "外観とアカウント",
+  "settingsAppLanguage": "アプリの言語",
+  "settingsAppLanguageSystem": "システムのデフォルト"
+}

@@ -1,0 +1,16 @@
+{
+  "@@locale": "hi",
+  "navHome": "होम",
+  "navLibrary": "लाइब्रेरी",
+  "navLeagues": "लीग",
+  "navQuests": "क्वेस्ट",
+  "navProfile": "प्रोफ़ाइल",
+  "settingsTitle": "सेटिंग्स",
+  "settingsSectionLearning": "सीखना",
+  "settingsSectionSubscription": "सदस्यता",
+  "settingsSectionAccessibility": "सुलभता",
+  "settingsSectionNotifications": "सूचनाएँ",
+  "settingsSectionAppearanceAccount": "रूप और खाता",
+  "settingsAppLanguage": "ऐप की भाषा",
+  "settingsAppLanguageSystem": "सिस्टम डिफ़ॉल्ट"
+}
