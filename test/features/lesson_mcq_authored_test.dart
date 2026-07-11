@@ -98,7 +98,7 @@ void main() {
     await tester.pump();
     await tester.tap(find.text('Check'));
     await tester.pumpAndSettle();
-    expect(find.text('✓ Correct!'), findsOneWidget);
+    expect(find.text('✓ Nicely done!'), findsOneWidget);
 
     // Explain this -> the picked (correct) option's authored explanation.
     await tester.tap(find.byKey(const ValueKey<String>('lesson-explain-btn')));
@@ -139,7 +139,7 @@ void main() {
     await tester.pump();
     await tester.tap(find.text('Check'));
     await tester.pumpAndSettle();
-    expect(find.text('✓ Correct!'), findsOneWidget);
+    expect(find.text('✓ Nicely done!'), findsOneWidget);
     // No authored explanation -> no Explain button.
     expect(find.byKey(const ValueKey<String>('lesson-explain-btn')),
         findsNothing);

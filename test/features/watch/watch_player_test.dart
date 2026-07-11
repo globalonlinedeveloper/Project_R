@@ -163,7 +163,7 @@ void main() {
     await _pump(tester, c);
     await tester.tap(find.byKey(const ValueKey<String>('watch-opt-chk1-0')));
     await tester.pumpAndSettle();
-    expect(find.text('✓ Correct!'), findsOneWidget);
+    expect(find.text('✓ Nicely done!'), findsOneWidget);
     await tester
         .tap(find.byKey(const ValueKey<String>('watch-explain-toggle-chk1')));
     await tester.pumpAndSettle();

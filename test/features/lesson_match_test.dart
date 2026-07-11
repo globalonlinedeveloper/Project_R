@@ -82,7 +82,7 @@ void main() {
           await tester.pump();
         }
         await tester.pumpAndSettle();
-        expect(find.text('✓ Correct!'), findsOneWidget); // graded all-correct
+        expect(find.text('✓ Nicely done!'), findsOneWidget); // graded all-correct
         await tester.tap(find.text('Continue'));
         await tester.pumpAndSettle();
         continue;

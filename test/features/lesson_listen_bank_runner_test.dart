@@ -113,7 +113,7 @@ Future<void> _walkAssemblingCorrectly(WidgetTester tester) async {
     }
     await tester.tap(find.text('Check'));
     await tester.pumpAndSettle();
-    expect(find.text('✓ Correct!'), findsOneWidget);
+    expect(find.text('✓ Nicely done!'), findsOneWidget);
     await tester.tap(find.text('Continue'));
     await tester.pumpAndSettle();
   }

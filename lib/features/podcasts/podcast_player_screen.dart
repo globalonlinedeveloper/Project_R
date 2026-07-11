@@ -314,7 +314,7 @@ class _CheckQuestionState extends State<_CheckQuestion> {
           if (_correct != null) ...<Widget>[
             const SizedBox(height: RatelSpace.sm),
             Text(
-              _correct! ? '✓ Correct!' : '✕ Not quite',
+              _correct! ? '✓ Nicely done!' : '✕ Not quite',
               style: TextStyle(
                   fontFamily: RatelFont.display,
                   fontWeight: RatelType.extraBold,

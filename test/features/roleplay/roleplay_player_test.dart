@@ -81,7 +81,7 @@ void main() {
     expect(find.text('How do you reply?'), findsOneWidget);
     await tester.tap(find.byKey(const ValueKey<String>('roleplay-opt-0')));
     await tester.pumpAndSettle();
-    expect(find.text('✓ Correct!'), findsOneWidget);
+    expect(find.text('✓ Nicely done!'), findsOneWidget);
     await tester
         .tap(find.byKey(const ValueKey<String>('roleplay-explain-toggle')));
     await tester.pumpAndSettle();

@@ -1515,7 +1515,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  _wasCorrect ? '✓ Correct!' : '✕ Not quite',
+                  _wasCorrect ? '✓ Nicely done!' : '✕ Not quite',
                   style: TextStyle(
                     fontFamily: RatelFont.display,
                     fontWeight: RatelType.extraBold,

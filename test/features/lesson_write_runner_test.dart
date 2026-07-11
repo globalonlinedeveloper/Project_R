@@ -89,7 +89,7 @@ void main() {
     await tester.pump();
     await tester.tap(find.text('Check'));
     await tester.pumpAndSettle();
-    expect(find.text('✓ Correct!'), findsOneWidget);
+    expect(find.text('✓ Nicely done!'), findsOneWidget);
   });
 
   testWidgets('write self-grades NOT-QUITE when too short / missing a lemma',
@@ -125,6 +125,6 @@ void main() {
     await tester.pump();
     await tester.tap(find.text('Check'));
     await tester.pumpAndSettle();
-    expect(find.text('✓ Correct!'), findsOneWidget);
+    expect(find.text('✓ Nicely done!'), findsOneWidget);
   });
 }

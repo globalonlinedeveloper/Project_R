@@ -94,7 +94,7 @@ Future<bool> _walkGradingListenWith(
       await tester.pump();
       await tester.tap(find.text('Check'));
       await tester.pumpAndSettle();
-      expect(find.text('✓ Correct!'), findsOneWidget);
+      expect(find.text('✓ Nicely done!'), findsOneWidget);
       await tester.tap(find.text('Continue'));
       await tester.pumpAndSettle();
       continue;
@@ -153,7 +153,7 @@ void main() {
 
     // Grading with 'dos' (l2's phrase) succeeds => the Listen review is scoped to
     // the opened lesson. If it used the global-first phrase ('uno'), 'dos' would
-    // grade wrong and the '✓ Correct!' assertion in the walker would fail.
+    // grade wrong and the '✓ Nicely done!' assertion in the walker would fail.
     final bool sawListen = await _walkGradingListenWith(tester, 'dos');
     expect(sawListen, isTrue);
     expect(find.text('Lesson complete!'), findsOneWidget);

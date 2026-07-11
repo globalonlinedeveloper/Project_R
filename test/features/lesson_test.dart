@@ -113,7 +113,7 @@ void main() {
     expect(find.text('hi'), findsOneWidget);
   });
 
-  testWidgets('a correct pick shows the green "Correct!" feedback (fallback bank)',
+  testWidgets('a correct pick shows the green "Nicely done!" feedback (fallback bank)',
       (WidgetTester tester) async {
     final ProviderContainer c = ProviderContainer();
     addTearDown(c.dispose);
@@ -125,7 +125,7 @@ void main() {
     await tester.tap(find.text('Check'));
     await tester.pumpAndSettle();
 
-    expect(find.text('✓ Correct!'), findsOneWidget);
+    expect(find.text('✓ Nicely done!'), findsOneWidget);
     expect(find.text('✕ Not quite'), findsNothing);
   });
 
@@ -204,7 +204,7 @@ void main() {
     await tester.tap(find.text('Check'));
     await tester.pumpAndSettle();
 
-    expect(find.text('✓ Correct!'), findsOneWidget);
+    expect(find.text('✓ Nicely done!'), findsOneWidget);
     expect(find.text('✕ Not quite'), findsNothing);
   });
 

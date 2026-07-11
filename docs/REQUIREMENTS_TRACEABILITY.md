@@ -160,7 +160,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 |----|-------------|--------|-------|--------|------|----------|
 | R-I1 | XP model (sources & amounts) | Should | Stage2 | Built ✅ | — | `learner_controller.dart`, `lesson_runner_screen.dart`, `progress_screen.dart`, `power_ups.dart` +2 |
 | R-I2 | Streak + streak-freeze + Society tiers | Should | Stage2 | Built ✅ | — | `learner_controller.dart`, `progress_screen.dart`, `shop_screen.dart`, `diamonds.dart` +6 |
-| R-I3 | Energy model (lesson cost, regen, caps) | Should | Stage2 | Built ✅ | — | `learner_controller.dart`, `energy.dart`, `power_ups.dart`, `energy_test.dart` +2 |
+| R-I3 | Energy model (lesson cost, regen, caps) | Should | Stage2 | Built ✅ | — | `learner_controller.dart`, `energy.dart`, `power_ups.dart`, `energy_test.dart` +3 |
 | R-I4 | Gems soft-currency (earn / spend sinks) | Should | Stage2 | Built ✅ | — | `learner_controller.dart`, `outfits_controller.dart`, `shop_screen.dart`, `diamonds.dart` +8 |
 | R-I5 | Rewarded-ads - energy / gems design | Should | Stage2 | Built ✅ | — | — |
 | R-I6 | Leagues / leaderboards (global, weekly reset) | Should | Stage2 | Built ✅ | — | `leagues_controller.dart`, `leagues_screen.dart`, `learner_controller.dart`, `data_access.dart` +10 |

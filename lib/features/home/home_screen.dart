@@ -483,7 +483,11 @@ class HomeScreen extends ConsumerWidget {
                     fontSize: RatelType.body,
                     color: context.palette.muted)),
             const SizedBox(height: RatelSpace.md),
-            const RatelChip(label: '+20 XP'),
+            const Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              RatelChip(label: '−1 ⚡ energy'),
+              SizedBox(width: RatelSpace.sm),
+              RatelChip(label: '+20 XP'),
+            ]),
             const SizedBox(height: RatelSpace.lg),
             RatelButton(
               label: 'Start lesson',

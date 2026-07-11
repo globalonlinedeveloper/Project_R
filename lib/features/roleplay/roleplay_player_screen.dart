@@ -214,7 +214,7 @@ class _RoleplayPlayerScreenState extends ConsumerState<RoleplayPlayerScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(correct ? '✓ Correct!' : '✕ Not quite',
+        Text(correct ? '✓ Nicely done!' : '✕ Not quite',
             style: TextStyle(
                 fontFamily: RatelFont.display,
                 fontWeight: RatelType.extraBold,
