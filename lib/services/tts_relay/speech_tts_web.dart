@@ -34,7 +34,7 @@ class WebSpeechTts implements SpeechTts {
       _WebSpeechAudioHandle(text, lang);
 }
 
-class _WebSpeechAudioHandle implements AudioHandle {
+class _WebSpeechAudioHandle implements AudioHandle, RateControlledAudio {
   _WebSpeechAudioHandle(this.text, this.lang);
   final String text;
   final String lang;
@@ -47,6 +47,9 @@ class _WebSpeechAudioHandle implements AudioHandle {
 
   @override
   Future<void> playSlow() async => _speak(0.6);
+
+  @override
+  Future<void> playAt(double rate) async => _speak(rate);
 
   void _speak(double rate) {
     final _SpeechSynthesis? synth = _speechSynthesis;

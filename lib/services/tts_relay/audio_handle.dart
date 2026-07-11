@@ -25,6 +25,17 @@ abstract interface class AudioHandle {
   Future<void> dispose();
 }
 
+/// Q-6: OPTIONAL rate capability — a handle that can speak at an arbitrary
+/// playback rate (browser TTS `rate`). Kept as a SEPARATE interface so the
+/// base [AudioHandle] seam (and every existing fake) stays untouched:
+/// renderers feature-detect with `is RateControlledAudio` and degrade to
+/// plain [AudioHandle.play] where rate control does not exist.
+abstract interface class RateControlledAudio {
+  /// Play at [rate] (1.0 = normal). Throws like [AudioHandle.play] when no
+  /// real audio backend is wired.
+  Future<void> playAt(double rate);
+}
+
 /// Fail-closed default: no audio-player dependency is wired (owner Option B).
 /// Every play call throws so a renderer degrades honestly — it NEVER pretends to
 /// play silence.
