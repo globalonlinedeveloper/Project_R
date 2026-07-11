@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:ratel/features/settings/settings_controller.dart';
+import 'package:ratel/services/preferences/app_settings.dart';
+import 'package:ratel/services/preferences/settings_store.dart';
 import 'package:ratel/app/ratel_app.dart';
 import 'package:ratel/features/adventures/adventures_screen.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
@@ -78,9 +81,12 @@ void main() {
   testWidgets('Adventures lists authored branching scenarios (no live AI)',
       (WidgetTester tester) async {
     await _pumpTall(tester, const AdventuresScreen(), overrides: <Override>[
+      settingsStoreProvider.overrideWithValue(
+          InMemorySettingsStore(const AppSettings(reduceMotion: true))),
       courseSpineProvider.overrideWithValue(_spineWithAdventure()),
     ]);
     expect(find.text('The market'), findsOneWidget);
-    expect(find.textContaining('No wrong answers'), findsOneWidget);
+    // S131b: the invented intro was replaced by the design 4.12 hero copy.
+    expect(find.textContaining('no wrong answers'), findsOneWidget);
   });
 }

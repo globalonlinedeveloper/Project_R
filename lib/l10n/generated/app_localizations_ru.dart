@@ -1367,8 +1367,14 @@ class AppLocalizationsRu extends AppLocalizations {
   String get adventuresFreeChip => 'БЕСПЛАТНО';
 
   @override
-  String get adventuresIntro =>
-      'Выбирайте свой путь — каждый выбор ветвит историю. Неправильных ответов нет, всегда бесплатно.';
+  String get adventuresHeaderSub => 'Исследуйте мир · говорите по-своему';
+
+  @override
+  String get adventuresHeroTitle => 'Выберите место и вперёд';
+
+  @override
+  String get adventuresHeroSub =>
+      'Каждая сцена — настоящий разговор: без неправильных ответов и всегда бесплатно.';
 
   @override
   String get adventuresFallbackWorld => 'Приключение';

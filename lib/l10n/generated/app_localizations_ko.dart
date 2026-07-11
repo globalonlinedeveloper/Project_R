@@ -1320,8 +1320,13 @@ class AppLocalizationsKo extends AppLocalizations {
   String get adventuresFreeChip => '무료';
 
   @override
-  String get adventuresIntro =>
-      '길을 선택하세요 — 선택마다 이야기가 갈라져요. 틀린 답은 없고, 언제나 무료예요.';
+  String get adventuresHeaderSub => '세계를 탐험 · 대화로 헤쳐 나가요';
+
+  @override
+  String get adventuresHeroTitle => '장소를 골라 뛰어들어 보세요';
+
+  @override
+  String get adventuresHeroSub => '모든 장면은 진짜 대화예요 — 오답도 없고, 언제나 무료입니다.';
 
   @override
   String get adventuresFallbackWorld => '어드벤처';

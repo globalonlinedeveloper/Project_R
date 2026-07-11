@@ -1344,8 +1344,15 @@ class AppLocalizationsBn extends AppLocalizations {
   String get adventuresFreeChip => 'ফ্রি';
 
   @override
-  String get adventuresIntro =>
-      'নিজের পথ বেছে নিন — প্রতিটি পছন্দ গল্পকে নতুন শাখায় নেয়। ভুল উত্তর নেই, সবসময় বিনামূল্যে।';
+  String get adventuresHeaderSub =>
+      'একটি জগৎ এক্সপ্লোর করুন · কথা বলে এগিয়ে যান';
+
+  @override
+  String get adventuresHeroTitle => 'একটি জায়গা বেছে নিয়ে শুরু করুন';
+
+  @override
+  String get adventuresHeroSub =>
+      'প্রতিটি দৃশ্য একটি সত্যিকারের কথোপকথন — ভুল উত্তর নেই, আর সবসময় বিনামূল্যে।';
 
   @override
   String get adventuresFallbackWorld => 'অ্যাডভেঞ্চার';

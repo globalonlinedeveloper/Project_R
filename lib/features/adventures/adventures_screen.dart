@@ -1,7 +1,10 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/adventures/adventure_progress_controller.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
@@ -25,6 +28,9 @@ class AdventuresScreen extends ConsumerWidget {
         ref.watch(courseSpineProvider).adventures;
     final Set<String> explored =
         ref.watch(adventureProgressControllerProvider);
+    // Reduce-motion double-floor (toggle + OS), the home_screen expression.
+    final bool reduceMotion = MediaQuery.of(context).disableAnimations ||
+        ref.watch(reduceMotionProvider);
     final Map<String, CourseScenario> byId = <String, CourseScenario>{
       for (final CourseScenario s in items) s.id: s,
     };
@@ -47,12 +53,26 @@ class AdventuresScreen extends ConsumerWidget {
           icon: Icon(RatelIcons.arrowBack, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: Text(context.l10n.adventuresTitle,
-            style: TextStyle(
-                fontFamily: RatelFont.display,
-                fontWeight: RatelType.extraBold,
-                color: context.palette.ink,
-                fontSize: RatelType.cardTitle)),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(context.l10n.adventuresTitle,
+                style: TextStyle(
+                    fontFamily: RatelFont.display,
+                    fontWeight: RatelType.extraBold,
+                    color: context.palette.ink,
+                    fontSize: RatelType.cardTitle)),
+            Text(context.l10n.adventuresHeaderSub,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    fontFamily: RatelFont.body,
+                    fontSize: RatelType.caption,
+                    fontWeight: RatelType.semiBold,
+                    color: context.palette.muted)),
+          ],
+        ),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: RatelSpace.lg),
@@ -70,16 +90,48 @@ class AdventuresScreen extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(RatelSpace.screen,
                   RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
               children: <Widget>[
-                Text(
-                  context.l10n.adventuresIntro,
-                  style: TextStyle(
-                      fontFamily: RatelFont.body,
-                      fontSize: RatelType.body,
-                      color: context.palette.muted),
+                Container(
+                  key: const ValueKey<String>('adventures-hero'),
+                  padding: const EdgeInsets.all(RatelSpace.md),
+                  decoration: BoxDecoration(
+                    color: context.palette.white,
+                    borderRadius: BorderRadius.circular(RatelRadius.featureLg),
+                    border:
+                        Border.all(color: context.palette.border, width: 1.5),
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      _BobbingMascot(
+                          size: 42,
+                          period: const Duration(milliseconds: 2800),
+                          reduceMotion: reduceMotion),
+                      const SizedBox(width: RatelSpace.md),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(context.l10n.adventuresHeroTitle,
+                                style: TextStyle(
+                                    fontFamily: RatelFont.display,
+                                    fontWeight: RatelType.extraBold,
+                                    fontSize: 15,
+                                    color: context.palette.ink)),
+                            Text(context.l10n.adventuresHeroSub,
+                                style: TextStyle(
+                                    fontFamily: RatelFont.body,
+                                    fontSize: 12.5,
+                                    fontWeight: RatelType.semiBold,
+                                    color: context.palette.muted)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: RatelSpace.lg),
                 for (final AdventureDistrict d in districts) ...<Widget>[
-                  _districtCard(context, d, byId, explored),
+                  _districtCard(context, d, byId, explored,
+                      reduceMotion: reduceMotion),
                   const SizedBox(height: RatelSpace.lg),
                 ],
               ],
@@ -91,10 +143,12 @@ class AdventuresScreen extends ConsumerWidget {
   /// name · `n/m explored`) + the design's current-district mascot / ✓ Done
   /// pill, over the district's scene tiles. Tints for the first four bands
   /// are the design's own district pairs; C1/C2 derive from the design accent
-  /// set with the same darken treatment (noted S131). The mascot is STATIC —
-  /// no looping animation (reduce-motion floor + the 11 pumpAndSettle trap).
+  /// set with the same darken treatment (noted S131). The current-district
+  /// mascot bobs (design rbob 2.4s) via [_BobbingMascot], static under the
+  /// reduce-motion double-floor.
   Widget _districtCard(BuildContext context, AdventureDistrict d,
-      Map<String, CourseScenario> byId, Set<String> explored) {
+      Map<String, CourseScenario> byId, Set<String> explored,
+      {required bool reduceMotion}) {
     final _DistrictStyle style = _kDistrictStyles[d.band] ??
         const _DistrictStyle(
             '🗺️', RatelColors.blue, RatelColors.districtMoveDark, null);
@@ -151,10 +205,14 @@ class AdventuresScreen extends ConsumerWidget {
                   ),
                 ),
                 if (d.isCurrent)
-                  Text('🦡',
-                      key: ValueKey<String>(
-                          'adventure-district-current-${d.band}'),
-                      style: const TextStyle(fontSize: 28)),
+                  KeyedSubtree(
+                    key: ValueKey<String>(
+                        'adventure-district-current-${d.band}'),
+                    child: _BobbingMascot(
+                        size: 28,
+                        period: const Duration(milliseconds: 2400),
+                        reduceMotion: reduceMotion),
+                  ),
                 if (d.allDone)
                   Container(
                     key: ValueKey<String>('adventure-district-done-${d.band}'),
@@ -366,7 +424,13 @@ class AdventuresScreen extends ConsumerWidget {
                       ? RatelColors.green
                       : tint.withValues(alpha: 0.16),
                 ),
-                child: Text(explored ? '✓' : '▶',
+                child: Text(
+                    explored
+                        ? '✓'
+                        // ▶ is a directional pictogram: mirror it in RTL.
+                        : (Directionality.of(context) == TextDirection.rtl
+                            ? '◀'
+                            : '▶'),
                     style: TextStyle(
                         fontFamily: RatelFont.body,
                         fontSize: 12,
@@ -430,3 +494,74 @@ const Map<String, _DistrictStyle> _kDistrictStyles = <String, _DistrictStyle>{
   'C2': _DistrictStyle('🏛️', RatelColors.districtNavy,
       RatelColors.districtNavyDark, 'Proficient'),
 };
+
+
+/// The design's `rbob` idle bounce for the 🦡 mascot glyph (translateY
+/// 0 → -7 → 0, ease-in-out, infinite), mirroring the `PathTraveller`
+/// controller lifecycle: no controller is even created under reduce-motion —
+/// the emoji renders static (the a11y double-floor, and the §11 harness rule:
+/// suites that pumpAndSettle this screen set `reduceMotion: true`).
+class _BobbingMascot extends StatefulWidget {
+  const _BobbingMascot({
+    required this.size,
+    required this.period,
+    required this.reduceMotion,
+  });
+
+  final double size;
+  final Duration period;
+  final bool reduceMotion;
+
+  @override
+  State<_BobbingMascot> createState() => _BobbingMascotState();
+}
+
+class _BobbingMascotState extends State<_BobbingMascot>
+    with SingleTickerProviderStateMixin {
+  AnimationController? _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    if (!widget.reduceMotion) _start();
+  }
+
+  void _start() {
+    _controller = AnimationController(vsync: this, duration: widget.period)
+      ..repeat();
+  }
+
+  @override
+  void didUpdateWidget(covariant _BobbingMascot oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.reduceMotion && _controller != null) {
+      _controller!.dispose();
+      _controller = null;
+    } else if (!widget.reduceMotion && _controller == null) {
+      _start();
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final Widget glyph =
+        Text('🦡', style: TextStyle(fontSize: widget.size));
+    final AnimationController? c = _controller;
+    if (c == null) return glyph;
+    return AnimatedBuilder(
+      animation: c,
+      builder: (BuildContext context, Widget? child) => Transform.translate(
+        // One sine arc per period: 0 at the loop seam (calm), -7 mid-loop.
+        offset: Offset(0, -7 * math.sin(math.pi * c.value)),
+        child: child,
+      ),
+      child: glyph,
+    );
+  }
+}

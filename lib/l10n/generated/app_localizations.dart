@@ -2440,11 +2440,23 @@ abstract class AppLocalizations {
   /// **'FREE'**
   String get adventuresFreeChip;
 
-  /// No description provided for @adventuresIntro.
+  /// No description provided for @adventuresHeaderSub.
   ///
   /// In en, this message translates to:
-  /// **'Choose your path -- every choice branches the story. No wrong answers, always free.'**
-  String get adventuresIntro;
+  /// **'Explore a world · talk your way through'**
+  String get adventuresHeaderSub;
+
+  /// No description provided for @adventuresHeroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a place and dive in'**
+  String get adventuresHeroTitle;
+
+  /// No description provided for @adventuresHeroSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Every scene is a real conversation — no wrong answers, and it\'s always free.'**
+  String get adventuresHeroSub;
 
   /// No description provided for @adventuresFallbackWorld.
   ///

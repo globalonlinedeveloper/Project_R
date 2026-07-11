@@ -1319,7 +1319,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get adventuresFreeChip => '無料';
 
   @override
-  String get adventuresIntro => '道を選ぼう — 選択のたびに物語が分岐します。間違いはなく、いつでも無料。';
+  String get adventuresHeaderSub => '世界を探索 · 会話で進もう';
+
+  @override
+  String get adventuresHeroTitle => '場所を選んで飛び込もう';
+
+  @override
+  String get adventuresHeroSub => 'どのシーンも本物の会話 — 間違いはなく、いつでも無料です。';
 
   @override
   String get adventuresFallbackWorld => 'アドベンチャー';

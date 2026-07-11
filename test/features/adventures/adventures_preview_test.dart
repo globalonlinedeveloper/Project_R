@@ -7,6 +7,9 @@ import 'package:ratel/features/adventures/adventures_screen.dart';
 import 'package:ratel/features/adventures/adventure_player_screen.dart';
 import 'package:ratel/features/common/content_unavailable_card.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
+import 'package:ratel/features/settings/settings_controller.dart';
+import 'package:ratel/services/preferences/app_settings.dart';
+import 'package:ratel/services/preferences/settings_store.dart';
 import 'package:ratel/features/roleplay/roleplay_player_screen.dart';
 
 // M-3 (screen review 2026-07 §2): Adventures scene-preview sheet — long-press
@@ -63,6 +66,8 @@ Future<void> _pumpList(WidgetTester tester) async {
   ]);
   await tester.pumpWidget(ProviderScope(
     overrides: <Override>[
+      settingsStoreProvider.overrideWithValue(
+          InMemorySettingsStore(const AppSettings(reduceMotion: true))),
       courseSpineProvider.overrideWithValue(_spine()),
     ],
     child: MaterialApp.router(routerConfig: router),
@@ -113,6 +118,8 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(ProviderScope(
       overrides: <Override>[
+      settingsStoreProvider.overrideWithValue(
+          InMemorySettingsStore(const AppSettings(reduceMotion: true))),
         courseSpineProvider.overrideWithValue(_spine()),
       ],
       child: const MaterialApp(
@@ -129,6 +136,8 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(ProviderScope(
       overrides: <Override>[
+      settingsStoreProvider.overrideWithValue(
+          InMemorySettingsStore(const AppSettings(reduceMotion: true))),
         courseSpineProvider.overrideWithValue(_spine()),
       ],
       child: const MaterialApp(

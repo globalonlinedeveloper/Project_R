@@ -6,6 +6,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ratel/features/adventures/adventure_progress_controller.dart';
 import 'package:ratel/features/adventures/adventures_screen.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
+import 'package:ratel/features/settings/settings_controller.dart';
+import 'package:ratel/services/preferences/app_settings.dart';
+import 'package:ratel/services/preferences/settings_store.dart';
 import 'package:ratel/l10n/generated/app_localizations.dart';
 
 // L-4 (design 4.12, B-10): the Adventures screen renders CEFR-band DISTRICT
@@ -36,6 +39,10 @@ CourseSpine _spine() => CourseSpine(
 ProviderContainer _c({Set<String>? explored}) =>
     ProviderContainer(overrides: <Override>[
       courseSpineProvider.overrideWithValue(_spine()),
+      // Motion-clean harness (repo convention): the current-district mascot
+      // bobs under real settings; suites that pumpAndSettle set the floor.
+      settingsStoreProvider.overrideWithValue(
+          InMemorySettingsStore(const AppSettings(reduceMotion: true))),
       adventureProgressStoreProvider.overrideWithValue(
           InMemoryAdventureProgressStore(explored ?? <String>{})),
     ]);
@@ -177,5 +184,93 @@ void main() {
       await _pump(tester, c, size: Size(w, 2600));
       c.dispose();
     }
+  });
+
+  testWidgets('design hero card + header sub render en byte-identical',
+      (WidgetTester tester) async {
+    final ProviderContainer c = _c();
+    addTearDown(c.dispose);
+    await _pump(tester, c);
+    expect(find.byKey(const ValueKey<String>('adventures-hero')),
+        findsOneWidget);
+    expect(find.text('Pick a place and dive in'), findsOneWidget);
+    expect(
+        find.text('Every scene is a real conversation — no wrong answers, '
+            "and it's always free."),
+        findsOneWidget);
+    expect(find.text('Explore a world · talk your way through'),
+        findsOneWidget);
+    // The superseded invented intro copy is retired.
+    expect(find.textContaining('Choose your path'), findsNothing);
+    // LTR play glyph on unexplored rows.
+    expect(find.text('▶'), findsNWidgets(3));
+    expect(find.text('◀'), findsNothing);
+  });
+
+  testWidgets('reduce-motion floor: mascots render static (no bob wiring)',
+      (WidgetTester tester) async {
+    final ProviderContainer c = _c(); // harness sets reduceMotion: true
+    addTearDown(c.dispose);
+    await _pump(tester, c);
+    expect(
+        find.descendant(
+            of: find.byKey(
+                const ValueKey<String>('adventure-district-current-A1')),
+            matching: find.byType(AnimatedBuilder)),
+        findsNothing);
+    expect(
+        find.descendant(
+            of: find.byKey(const ValueKey<String>('adventures-hero')),
+            matching: find.byType(AnimatedBuilder)),
+        findsNothing);
+    // The glyphs themselves are still there.
+    expect(
+        find.descendant(
+            of: find.byKey(const ValueKey<String>('adventures-hero')),
+            matching: find.text('🦡')),
+        findsOneWidget);
+  });
+
+  testWidgets('motion enabled: the current-district mascot genuinely bobs',
+      (WidgetTester tester) async {
+    // NO settings override: reduceMotion defaults false -> the bob runs, so
+    // this test only ever pump()s fixed slices (NEVER pumpAndSettle, 11).
+    final ProviderContainer c = ProviderContainer(overrides: <Override>[
+      courseSpineProvider.overrideWithValue(_spine()),
+      adventureProgressStoreProvider
+          .overrideWithValue(InMemoryAdventureProgressStore(<String>{})),
+    ]);
+    addTearDown(c.dispose);
+    tester.view.physicalSize = const Size(430, 2600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await tester.pumpWidget(UncontrolledProviderScope(
+      container: c,
+      child: const MaterialApp(home: AdventuresScreen()),
+    ));
+    await tester.pump();
+    final Finder bob = find.descendant(
+        of: find
+            .byKey(const ValueKey<String>('adventure-district-current-A1')),
+        matching: find.byType(AnimatedBuilder));
+    expect(bob, findsOneWidget);
+    // Mid-arc (600ms of the 2400ms period) the translate is visibly nonzero.
+    await tester.pump(const Duration(milliseconds: 600));
+    final Transform t = tester.widget<Transform>(find.descendant(
+        of: find
+            .byKey(const ValueKey<String>('adventure-district-current-A1')),
+        matching: find.byType(Transform)));
+    expect(t.transform.getTranslation().y, lessThan(-1.0));
+  });
+
+  testWidgets('ar RTL mirrors the play pictogram (◀, never ▶)',
+      (WidgetTester tester) async {
+    final ProviderContainer c = _c(explored: <String>{'a1x'});
+    addTearDown(c.dispose);
+    await _pump(tester, c, locale: const Locale('ar'));
+    expect(find.text('◀'), findsNWidgets(2)); // the two unexplored rows
+    expect(find.text('▶'), findsNothing);
+    expect(find.text('✓'), findsOneWidget); // explored keeps the check
   });
 }

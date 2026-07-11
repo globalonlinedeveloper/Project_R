@@ -1313,7 +1313,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get adventuresFreeChip => '免费';
 
   @override
-  String get adventuresIntro => '选择你的道路 — 每个选择都会让故事产生分支。没有错误答案，永远免费。';
+  String get adventuresHeaderSub => '探索世界 · 用对话闯关';
+
+  @override
+  String get adventuresHeroTitle => '选个地方，开始吧';
+
+  @override
+  String get adventuresHeroSub => '每个场景都是真实对话 — 没有错误答案，而且永远免费。';
 
   @override
   String get adventuresFallbackWorld => '冒险';

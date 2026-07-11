@@ -1345,8 +1345,15 @@ class AppLocalizationsHi extends AppLocalizations {
   String get adventuresFreeChip => 'मुफ़्त';
 
   @override
-  String get adventuresIntro =>
-      'अपना रास्ता चुनें — हर चुनाव कहानी की नई शाखा खोलता है। कोई गलत जवाब नहीं, हमेशा मुफ़्त।';
+  String get adventuresHeaderSub =>
+      'एक दुनिया एक्सप्लोर करें · बातचीत से आगे बढ़ें';
+
+  @override
+  String get adventuresHeroTitle => 'कोई जगह चुनें और शुरू करें';
+
+  @override
+  String get adventuresHeroSub =>
+      'हर दृश्य एक असली बातचीत है — कोई गलत जवाब नहीं, और हमेशा मुफ़्त।';
 
   @override
   String get adventuresFallbackWorld => 'एडवेंचर';
