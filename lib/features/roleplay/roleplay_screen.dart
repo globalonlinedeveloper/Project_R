@@ -79,6 +79,8 @@ class RoleplayScreen extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             const Text('Live Roleplay',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                     fontFamily: RatelFont.display,
                                     fontWeight: RatelType.extraBold,

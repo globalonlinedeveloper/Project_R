@@ -263,10 +263,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         const SizedBox(height: RatelSpace.lg),
         Expanded(
           child: GridView.count(
-            crossAxisCount: 2,
+            crossAxisCount: 3,
             mainAxisSpacing: RatelSpace.cardGap,
             crossAxisSpacing: RatelSpace.cardGap,
-            childAspectRatio: 2.4,
+            childAspectRatio: 0.78,
             children: <Widget>[
               for (final _Language l in _kLanguages)
                 RatelOptionCard(
