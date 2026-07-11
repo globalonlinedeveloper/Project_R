@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ratel/core/core.dart';
+import 'package:ratel/features/common/content_unavailable_card.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/services/tts_relay/tts_relay.dart';
 import 'package:ratel/services/video_relay/video_player.dart';
@@ -85,7 +86,7 @@ class _WatchPlayerScreenState extends ConsumerState<WatchPlayerScreen> {
         ),
       ),
       body: watch == null
-          ? _notFound(context)
+          ? const ContentUnavailableCard(noun: 'video')
           : ListView(
               padding: const EdgeInsets.fromLTRB(RatelSpace.screen,
                   RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
@@ -198,19 +199,6 @@ class _WatchPlayerScreenState extends ConsumerState<WatchPlayerScreen> {
         ),
       );
 
-  Widget _notFound(BuildContext context) => Center(
-        child: Padding(
-          padding: const EdgeInsets.all(RatelSpace.xl),
-          child: Text(
-            'This video is not available.',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontFamily: RatelFont.body,
-                fontSize: RatelType.bodyLg,
-                color: context.palette.muted),
-          ),
-        ),
-      );
 }
 
 /// One comprehension check for a Watch lesson: an authored MCQ (tap an option ->

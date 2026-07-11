@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ratel/core/core.dart';
+import 'package:ratel/features/common/content_unavailable_card.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/services/tts_relay/tts_relay.dart';
 
@@ -85,7 +86,7 @@ class _StoryReaderScreenState extends ConsumerState<StoryReaderScreen> {
         ),
       ),
       body: story == null
-          ? _notFound(context)
+          ? const ContentUnavailableCard(noun: 'story')
           : ListView(
               padding: const EdgeInsets.fromLTRB(RatelSpace.screen,
                   RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
@@ -158,19 +159,6 @@ class _StoryReaderScreenState extends ConsumerState<StoryReaderScreen> {
     );
   }
 
-  Widget _notFound(BuildContext context) => Center(
-        child: Padding(
-          padding: const EdgeInsets.all(RatelSpace.xl),
-          child: Text(
-            'This story is not available.',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontFamily: RatelFont.body,
-                fontSize: RatelType.bodyLg,
-                color: context.palette.muted),
-          ),
-        ),
-      );
 }
 
 /// One comprehension check for a story: an authored MCQ (tap an option → graded

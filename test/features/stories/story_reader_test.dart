@@ -154,6 +154,7 @@ void main() {
       child: const MaterialApp(home: StoryReaderScreen(passageId: 'nope')),
     ));
     await tester.pumpAndSettle();
-    expect(find.text('This story is not available.'), findsOneWidget);
+    expect(find.text('Content unavailable'), findsOneWidget);
+    expect(find.text('Go back'), findsOneWidget);
   });
 }

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ratel/core/core.dart';
+import 'package:ratel/features/common/content_unavailable_card.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/services/audio_relay/audio_player.dart';
 import 'package:ratel/services/tts_relay/tts_relay.dart';
@@ -32,6 +33,7 @@ class _PodcastPlayerScreenState extends ConsumerState<PodcastPlayerScreen> {
   AudioHandle? _voice; // the browser read-aloud fallback
   bool _playing = false;
   bool _audioFailed = false; // a failed play() -> degrade to transcript/voice
+  bool _pendingPlay = false; // play() in flight (the real remote MP3 wait)
 
   @override
   void dispose() {
@@ -49,21 +51,30 @@ class _PodcastPlayerScreenState extends ConsumerState<PodcastPlayerScreen> {
 
   Future<void> _togglePlay(String url) async {
     final PodcastAudio audio = ref.read(podcastAudioProvider);
-    if (!audio.isAvailable || url.isEmpty) return;
+    if (!audio.isAvailable || url.isEmpty || _pendingPlay) return;
     _audio ??= audio.handleFor(url);
     try {
       if (_playing) {
         await _audio!.pause();
         if (mounted) setState(() => _playing = false);
       } else {
+        // Q-2: the MP3 is a REMOTE fetch — surface the in-flight wait
+        // honestly instead of a button that silently does nothing.
+        setState(() => _pendingPlay = true);
         await _audio!.play();
-        if (mounted) setState(() => _playing = true);
+        if (mounted) {
+          setState(() {
+            _playing = true;
+            _pendingPlay = false;
+          });
+        }
       }
     } catch (_) {
       // Honest degrade: a failed player never blocks reading the transcript.
       if (mounted) {
         setState(() {
           _playing = false;
+          _pendingPlay = false;
           _audioFailed = true;
         });
       }
@@ -114,7 +125,7 @@ class _PodcastPlayerScreenState extends ConsumerState<PodcastPlayerScreen> {
         ),
       ),
       body: podcast == null
-          ? _notFound(context)
+          ? const ContentUnavailableCard(noun: 'podcast')
           : ListView(
               padding: const EdgeInsets.fromLTRB(RatelSpace.screen,
                   RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
@@ -147,12 +158,23 @@ class _PodcastPlayerScreenState extends ConsumerState<PodcastPlayerScreen> {
                     padding: const EdgeInsets.only(bottom: RatelSpace.md),
                     child: RatelButton(
                       key: const ValueKey<String>('podcast-play-toggle'),
-                      label: _playing ? 'Pause' : 'Play episode',
+                      label: _pendingPlay
+                          ? 'Loading\u2026'
+                          : _playing
+                              ? 'Pause'
+                              : 'Play episode',
                       variant: RatelButtonVariant.primary,
                       expand: false,
-                      leading: Text(_playing ? '⏸' : '▶',
+                      leading: Text(
+                          _pendingPlay
+                              ? '\u23f3'
+                              : _playing
+                                  ? '⏸'
+                                  : '▶',
                           style: const TextStyle(fontSize: 18)),
-                      onPressed: () => _togglePlay(podcast.audioUrl!),
+                      onPressed: _pendingPlay
+                          ? null
+                          : () => _togglePlay(podcast.audioUrl!),
                     ),
                   )
                 else if (canRead)
@@ -205,19 +227,6 @@ class _PodcastPlayerScreenState extends ConsumerState<PodcastPlayerScreen> {
     );
   }
 
-  Widget _notFound(BuildContext context) => Center(
-        child: Padding(
-          padding: const EdgeInsets.all(RatelSpace.xl),
-          child: Text(
-            'This podcast is not available.',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontFamily: RatelFont.body,
-                fontSize: RatelType.bodyLg,
-                color: context.palette.muted),
-          ),
-        ),
-      );
 }
 
 /// One comprehension check for a podcast: an authored MCQ (tap an option ->

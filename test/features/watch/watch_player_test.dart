@@ -189,6 +189,7 @@ void main() {
     ]);
     addTearDown(c.dispose);
     await _pump(tester, c, passageId: 'nope');
-    expect(find.text('This video is not available.'), findsOneWidget);
+    expect(find.text('Content unavailable'), findsOneWidget);
+    expect(find.text('Go back'), findsOneWidget);
   });
 }
