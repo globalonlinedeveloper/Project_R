@@ -58,8 +58,8 @@ void main() {
           expect(s.indexOf(c.nextSceneId!), greaterThanOrEqualTo(0),
               reason: '${s.id} branch resolves');
           // The honest-prompt rule: a you-turn's line is a prompt, never a
-          // leaked answer (the EN catalogue leaks the correct reply there —
-          // logged QA finding; the ES catalogue does not).
+          // leaked answer. Both catalogues honour this — S133 fixed the one EN
+          // scene that leaked (see en_roleplays_content_test.dart).
           expect(sc.line == c.label, isFalse,
               reason: '${s.id} prompt must not leak a choice');
         }
