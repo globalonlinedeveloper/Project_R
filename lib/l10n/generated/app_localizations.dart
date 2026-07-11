@@ -519,6 +519,282 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'TIME'**
   String get lessonStatTime;
+
+  /// No description provided for @onboardingWelcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi, I\'m Ratel!'**
+  String get onboardingWelcomeTitle;
+
+  /// No description provided for @onboardingWelcomeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn a language the fearless way — bite-sized, fun, and free. Ready to dig in?'**
+  String get onboardingWelcomeBody;
+
+  /// No description provided for @onboardingHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'I already have an account'**
+  String get onboardingHaveAccount;
+
+  /// No description provided for @onboardingTryWithoutAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Try without an account →'**
+  String get onboardingTryWithoutAccount;
+
+  /// No description provided for @onboardingGetStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Get started'**
+  String get onboardingGetStarted;
+
+  /// No description provided for @onboardingStartLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Start learning'**
+  String get onboardingStartLearning;
+
+  /// No description provided for @onboardingLanguageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What do you want to learn?'**
+  String get onboardingLanguageTitle;
+
+  /// No description provided for @onboardingLanguageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'52 languages available'**
+  String get onboardingLanguageSubtitle;
+
+  /// No description provided for @onboardingReasonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Why are you learning?'**
+  String get onboardingReasonTitle;
+
+  /// No description provided for @onboardingGoalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a daily goal'**
+  String get onboardingGoalTitle;
+
+  /// No description provided for @onboardingPlacementTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Find your starting point'**
+  String get onboardingPlacementTitle;
+
+  /// No description provided for @onboardingPlacementBody.
+  ///
+  /// In en, this message translates to:
+  /// **'New to {language}, or do you know some already?'**
+  String onboardingPlacementBody(String language);
+
+  /// No description provided for @onboardingBrandNew.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'m brand new'**
+  String get onboardingBrandNew;
+
+  /// No description provided for @onboardingBrandNewSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Start from the very beginning'**
+  String get onboardingBrandNewSub;
+
+  /// No description provided for @onboardingPlacementTest.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a placement test'**
+  String get onboardingPlacementTest;
+
+  /// No description provided for @onboardingPlacementTestSub.
+  ///
+  /// In en, this message translates to:
+  /// **'~3 min · skip ahead to your level'**
+  String get onboardingPlacementTestSub;
+
+  /// No description provided for @onboardingXpPerDay.
+  ///
+  /// In en, this message translates to:
+  /// **'{xp} XP / day'**
+  String onboardingXpPerDay(int xp);
+
+  /// No description provided for @reasonTravel.
+  ///
+  /// In en, this message translates to:
+  /// **'Travel'**
+  String get reasonTravel;
+
+  /// No description provided for @reasonCulture.
+  ///
+  /// In en, this message translates to:
+  /// **'Culture'**
+  String get reasonCulture;
+
+  /// No description provided for @reasonCareer.
+  ///
+  /// In en, this message translates to:
+  /// **'Career'**
+  String get reasonCareer;
+
+  /// No description provided for @reasonFamilyFriends.
+  ///
+  /// In en, this message translates to:
+  /// **'Family & friends'**
+  String get reasonFamilyFriends;
+
+  /// No description provided for @reasonBrainTraining.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain training'**
+  String get reasonBrainTraining;
+
+  /// No description provided for @reasonJustForFun.
+  ///
+  /// In en, this message translates to:
+  /// **'Just for fun'**
+  String get reasonJustForFun;
+
+  /// No description provided for @goalCasual.
+  ///
+  /// In en, this message translates to:
+  /// **'Casual'**
+  String get goalCasual;
+
+  /// No description provided for @goalRegular.
+  ///
+  /// In en, this message translates to:
+  /// **'Regular'**
+  String get goalRegular;
+
+  /// No description provided for @goalSerious.
+  ///
+  /// In en, this message translates to:
+  /// **'Serious'**
+  String get goalSerious;
+
+  /// No description provided for @goalIntense.
+  ///
+  /// In en, this message translates to:
+  /// **'Intense'**
+  String get goalIntense;
+
+  /// No description provided for @langNameSpanish.
+  ///
+  /// In en, this message translates to:
+  /// **'Spanish'**
+  String get langNameSpanish;
+
+  /// No description provided for @langNameFrench.
+  ///
+  /// In en, this message translates to:
+  /// **'French'**
+  String get langNameFrench;
+
+  /// No description provided for @langNameJapanese.
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese'**
+  String get langNameJapanese;
+
+  /// No description provided for @langNameTamil.
+  ///
+  /// In en, this message translates to:
+  /// **'Tamil'**
+  String get langNameTamil;
+
+  /// No description provided for @langNameGerman.
+  ///
+  /// In en, this message translates to:
+  /// **'German'**
+  String get langNameGerman;
+
+  /// No description provided for @langNameKorean.
+  ///
+  /// In en, this message translates to:
+  /// **'Korean'**
+  String get langNameKorean;
+
+  /// No description provided for @settingsDailyGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily goal'**
+  String get settingsDailyGoal;
+
+  /// No description provided for @settingsGoalRow.
+  ///
+  /// In en, this message translates to:
+  /// **'{label} · {xp} XP/day'**
+  String settingsGoalRow(String label, int xp);
+
+  /// No description provided for @profileAchievements.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievements'**
+  String get profileAchievements;
+
+  /// No description provided for @profileFriends.
+  ///
+  /// In en, this message translates to:
+  /// **'Friends'**
+  String get profileFriends;
+
+  /// No description provided for @profileShop.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop'**
+  String get profileShop;
+
+  /// No description provided for @profileNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get profileNotifications;
+
+  /// No description provided for @profileSeeOnboarding.
+  ///
+  /// In en, this message translates to:
+  /// **'See onboarding flow ↗'**
+  String get profileSeeOnboarding;
+
+  /// No description provided for @profileNotSignedIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Not signed in'**
+  String get profileNotSignedIn;
+
+  /// No description provided for @profileCreateAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a free account'**
+  String get profileCreateAccount;
+
+  /// No description provided for @profileSaveProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Save your progress across devices'**
+  String get profileSaveProgress;
+
+  /// No description provided for @profileTodaysGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s goal · {today}/{goal} XP'**
+  String profileTodaysGoal(int today, int goal);
+
+  /// No description provided for @profileViewProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'View progress →'**
+  String get profileViewProgress;
+
+  /// No description provided for @profileUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked'**
+  String get profileUnlocked;
 }
 
 class _AppLocalizationsDelegate

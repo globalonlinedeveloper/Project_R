@@ -233,4 +233,151 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get lessonStatTime => 'الوقت';
+
+  @override
+  String get onboardingWelcomeTitle => 'مرحبًا، أنا راتل!';
+
+  @override
+  String get onboardingWelcomeBody =>
+      'تعلّم لغة بلا خوف — دروس قصيرة وممتعة ومجانية. جاهز للانطلاق؟';
+
+  @override
+  String get onboardingHaveAccount => 'لديّ حساب بالفعل';
+
+  @override
+  String get onboardingTryWithoutAccount => '← جرّب بدون حساب';
+
+  @override
+  String get onboardingGetStarted => 'ابدأ';
+
+  @override
+  String get onboardingStartLearning => 'ابدأ التعلّم';
+
+  @override
+  String get onboardingLanguageTitle => 'ماذا تريد أن تتعلّم؟';
+
+  @override
+  String get onboardingLanguageSubtitle => '52 لغة متاحة';
+
+  @override
+  String get onboardingReasonTitle => 'لماذا تتعلّم؟';
+
+  @override
+  String get onboardingGoalTitle => 'اختر هدفًا يوميًا';
+
+  @override
+  String get onboardingPlacementTitle => 'حدّد نقطة انطلاقك';
+
+  @override
+  String onboardingPlacementBody(String language) {
+    return 'جديد على $language، أم تعرف بعض الأساسيات؟';
+  }
+
+  @override
+  String get onboardingBrandNew => 'أنا مبتدئ تمامًا';
+
+  @override
+  String get onboardingBrandNewSub => 'ابدأ من البداية';
+
+  @override
+  String get onboardingPlacementTest => 'خُض اختبار تحديد المستوى';
+
+  @override
+  String get onboardingPlacementTestSub => '~3 دقائق · انتقل إلى مستواك';
+
+  @override
+  String onboardingXpPerDay(int xp) {
+    return '$xp XP / يوم';
+  }
+
+  @override
+  String get reasonTravel => 'السفر';
+
+  @override
+  String get reasonCulture => 'الثقافة';
+
+  @override
+  String get reasonCareer => 'العمل';
+
+  @override
+  String get reasonFamilyFriends => 'العائلة والأصدقاء';
+
+  @override
+  String get reasonBrainTraining => 'تدريب الدماغ';
+
+  @override
+  String get reasonJustForFun => 'للمتعة فقط';
+
+  @override
+  String get goalCasual => 'مسترخٍ';
+
+  @override
+  String get goalRegular => 'منتظم';
+
+  @override
+  String get goalSerious => 'جادّ';
+
+  @override
+  String get goalIntense => 'مكثّف';
+
+  @override
+  String get langNameSpanish => 'الإسبانية';
+
+  @override
+  String get langNameFrench => 'الفرنسية';
+
+  @override
+  String get langNameJapanese => 'اليابانية';
+
+  @override
+  String get langNameTamil => 'التاميلية';
+
+  @override
+  String get langNameGerman => 'الألمانية';
+
+  @override
+  String get langNameKorean => 'الكورية';
+
+  @override
+  String get settingsDailyGoal => 'الهدف اليومي';
+
+  @override
+  String settingsGoalRow(String label, int xp) {
+    return '$label · $xp XP/يوم';
+  }
+
+  @override
+  String get profileAchievements => 'الإنجازات';
+
+  @override
+  String get profileFriends => 'الأصدقاء';
+
+  @override
+  String get profileShop => 'المتجر';
+
+  @override
+  String get profileNotifications => 'الإشعارات';
+
+  @override
+  String get profileSeeOnboarding => 'عرض جولة البداية ↗';
+
+  @override
+  String get profileNotSignedIn => 'غير مسجّل الدخول';
+
+  @override
+  String get profileCreateAccount => 'أنشئ حسابًا مجانيًا';
+
+  @override
+  String get profileSaveProgress => 'احفظ تقدّمك على جميع أجهزتك';
+
+  @override
+  String profileTodaysGoal(int today, int goal) {
+    return 'هدف اليوم · $today/$goal XP';
+  }
+
+  @override
+  String get profileViewProgress => 'عرض التقدّم ←';
+
+  @override
+  String get profileUnlocked => 'مفتوح';
 }

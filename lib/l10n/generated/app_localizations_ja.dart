@@ -225,4 +225,150 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get lessonStatTime => '時間';
+
+  @override
+  String get onboardingWelcomeTitle => 'こんにちは、ラテルです!';
+
+  @override
+  String get onboardingWelcomeBody => '恐れず言語を学ぼう — 少しずつ、楽しく、無料で。始める準備はいい?';
+
+  @override
+  String get onboardingHaveAccount => 'アカウントを持っています';
+
+  @override
+  String get onboardingTryWithoutAccount => 'アカウントなしで試す →';
+
+  @override
+  String get onboardingGetStarted => 'はじめる';
+
+  @override
+  String get onboardingStartLearning => '学習を始める';
+
+  @override
+  String get onboardingLanguageTitle => '何を学びたい?';
+
+  @override
+  String get onboardingLanguageSubtitle => '52言語に対応';
+
+  @override
+  String get onboardingReasonTitle => '学ぶ理由は?';
+
+  @override
+  String get onboardingGoalTitle => '毎日の目標を選ぼう';
+
+  @override
+  String get onboardingPlacementTitle => 'スタート地点を見つけよう';
+
+  @override
+  String onboardingPlacementBody(String language) {
+    return '$languageは初めて?それとも少し知ってる?';
+  }
+
+  @override
+  String get onboardingBrandNew => 'まったくの初心者です';
+
+  @override
+  String get onboardingBrandNewSub => 'いちばん最初から始める';
+
+  @override
+  String get onboardingPlacementTest => 'レベル診断テストを受ける';
+
+  @override
+  String get onboardingPlacementTestSub => '約3分 · 自分のレベルから開始';
+
+  @override
+  String onboardingXpPerDay(int xp) {
+    return '$xp XP / 日';
+  }
+
+  @override
+  String get reasonTravel => '旅行';
+
+  @override
+  String get reasonCulture => '文化';
+
+  @override
+  String get reasonCareer => 'キャリア';
+
+  @override
+  String get reasonFamilyFriends => '家族と友だち';
+
+  @override
+  String get reasonBrainTraining => '脳トレ';
+
+  @override
+  String get reasonJustForFun => '楽しみのため';
+
+  @override
+  String get goalCasual => 'カジュアル';
+
+  @override
+  String get goalRegular => 'レギュラー';
+
+  @override
+  String get goalSerious => '本気';
+
+  @override
+  String get goalIntense => 'ガチ';
+
+  @override
+  String get langNameSpanish => 'スペイン語';
+
+  @override
+  String get langNameFrench => 'フランス語';
+
+  @override
+  String get langNameJapanese => '日本語';
+
+  @override
+  String get langNameTamil => 'タミル語';
+
+  @override
+  String get langNameGerman => 'ドイツ語';
+
+  @override
+  String get langNameKorean => '韓国語';
+
+  @override
+  String get settingsDailyGoal => '毎日の目標';
+
+  @override
+  String settingsGoalRow(String label, int xp) {
+    return '$label · 1日 $xp XP';
+  }
+
+  @override
+  String get profileAchievements => '実績';
+
+  @override
+  String get profileFriends => 'フレンド';
+
+  @override
+  String get profileShop => 'ショップ';
+
+  @override
+  String get profileNotifications => '通知';
+
+  @override
+  String get profileSeeOnboarding => 'オンボーディングを見る ↗';
+
+  @override
+  String get profileNotSignedIn => '未ログイン';
+
+  @override
+  String get profileCreateAccount => '無料アカウントを作成';
+
+  @override
+  String get profileSaveProgress => '進捗をすべての端末で保存';
+
+  @override
+  String profileTodaysGoal(int today, int goal) {
+    return '今日の目標 · $today/$goal XP';
+  }
+
+  @override
+  String get profileViewProgress => '進捗を見る →';
+
+  @override
+  String get profileUnlocked => '解除済み';
 }

@@ -227,4 +227,151 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lessonStatTime => 'TIME';
+
+  @override
+  String get onboardingWelcomeTitle => 'Hi, I\'m Ratel!';
+
+  @override
+  String get onboardingWelcomeBody =>
+      'Learn a language the fearless way — bite-sized, fun, and free. Ready to dig in?';
+
+  @override
+  String get onboardingHaveAccount => 'I already have an account';
+
+  @override
+  String get onboardingTryWithoutAccount => 'Try without an account →';
+
+  @override
+  String get onboardingGetStarted => 'Get started';
+
+  @override
+  String get onboardingStartLearning => 'Start learning';
+
+  @override
+  String get onboardingLanguageTitle => 'What do you want to learn?';
+
+  @override
+  String get onboardingLanguageSubtitle => '52 languages available';
+
+  @override
+  String get onboardingReasonTitle => 'Why are you learning?';
+
+  @override
+  String get onboardingGoalTitle => 'Pick a daily goal';
+
+  @override
+  String get onboardingPlacementTitle => 'Find your starting point';
+
+  @override
+  String onboardingPlacementBody(String language) {
+    return 'New to $language, or do you know some already?';
+  }
+
+  @override
+  String get onboardingBrandNew => 'I\'m brand new';
+
+  @override
+  String get onboardingBrandNewSub => 'Start from the very beginning';
+
+  @override
+  String get onboardingPlacementTest => 'Take a placement test';
+
+  @override
+  String get onboardingPlacementTestSub => '~3 min · skip ahead to your level';
+
+  @override
+  String onboardingXpPerDay(int xp) {
+    return '$xp XP / day';
+  }
+
+  @override
+  String get reasonTravel => 'Travel';
+
+  @override
+  String get reasonCulture => 'Culture';
+
+  @override
+  String get reasonCareer => 'Career';
+
+  @override
+  String get reasonFamilyFriends => 'Family & friends';
+
+  @override
+  String get reasonBrainTraining => 'Brain training';
+
+  @override
+  String get reasonJustForFun => 'Just for fun';
+
+  @override
+  String get goalCasual => 'Casual';
+
+  @override
+  String get goalRegular => 'Regular';
+
+  @override
+  String get goalSerious => 'Serious';
+
+  @override
+  String get goalIntense => 'Intense';
+
+  @override
+  String get langNameSpanish => 'Spanish';
+
+  @override
+  String get langNameFrench => 'French';
+
+  @override
+  String get langNameJapanese => 'Japanese';
+
+  @override
+  String get langNameTamil => 'Tamil';
+
+  @override
+  String get langNameGerman => 'German';
+
+  @override
+  String get langNameKorean => 'Korean';
+
+  @override
+  String get settingsDailyGoal => 'Daily goal';
+
+  @override
+  String settingsGoalRow(String label, int xp) {
+    return '$label · $xp XP/day';
+  }
+
+  @override
+  String get profileAchievements => 'Achievements';
+
+  @override
+  String get profileFriends => 'Friends';
+
+  @override
+  String get profileShop => 'Shop';
+
+  @override
+  String get profileNotifications => 'Notifications';
+
+  @override
+  String get profileSeeOnboarding => 'See onboarding flow ↗';
+
+  @override
+  String get profileNotSignedIn => 'Not signed in';
+
+  @override
+  String get profileCreateAccount => 'Create a free account';
+
+  @override
+  String get profileSaveProgress => 'Save your progress across devices';
+
+  @override
+  String profileTodaysGoal(int today, int goal) {
+    return 'Today\'s goal · $today/$goal XP';
+  }
+
+  @override
+  String get profileViewProgress => 'View progress →';
+
+  @override
+  String get profileUnlocked => 'Unlocked';
 }

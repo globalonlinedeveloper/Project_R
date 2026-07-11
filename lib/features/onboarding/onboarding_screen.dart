@@ -162,12 +162,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   Widget _cta() {
-    String label = 'Continue';
+    String label = context.l10n.lessonContinue;
     VoidCallback onPressed = _next;
     if (_step == 0) {
-      label = 'Get started';
+      label = context.l10n.onboardingGetStarted;
     } else if (_step == 4) {
-      label = 'Start learning';
+      label = context.l10n.onboardingStartLearning;
       onPressed = _placementTest ? _startPlacement : _finishBrandNew;
     }
     return RatelButton(label: label, onPressed: onPressed);
@@ -206,7 +206,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           const Text('🦡', style: TextStyle(fontSize: 96)),
           const SizedBox(height: RatelSpace.lg),
           Text(
-            "Hi, I'm Ratel!",
+            context.l10n.onboardingWelcomeTitle,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: RatelFont.display,
@@ -217,8 +217,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           ),
           const SizedBox(height: RatelSpace.md),
           Text(
-            'Learn a language the fearless way — bite-sized, fun, and free. '
-            'Ready to dig in?',
+            context.l10n.onboardingWelcomeBody,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: RatelFont.body,
@@ -229,8 +228,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           const SizedBox(height: RatelSpace.xl),
           TextButton(
             onPressed: () => context.push('/login'),
-            child: const Text(
-              'I already have an account',
+            child: Text(
+              context.l10n.onboardingHaveAccount,
               style: TextStyle(
                 fontFamily: RatelFont.body,
                 fontWeight: RatelType.semiBold,
@@ -241,7 +240,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           TextButton(
             onPressed: _next,
             child: Text(
-              'Try without an account →',
+              context.l10n.onboardingTryWithoutAccount,
               style: TextStyle(
                 fontFamily: RatelFont.body,
                 color: context.palette.muted,
@@ -257,9 +256,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _title('What do you want to learn?'),
+        _title(context.l10n.onboardingLanguageTitle),
         const SizedBox(height: RatelSpace.xs),
-        _subtitle('52 languages available'),
+        _subtitle(context.l10n.onboardingLanguageSubtitle),
         const SizedBox(height: RatelSpace.lg),
         Expanded(
           child: GridView.count(
@@ -271,7 +270,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               for (final _Language l in _kLanguages)
                 RatelOptionCard(
                   emoji: l.flag,
-                  label: l.name,
+                  label: ratelLanguageDisplayName(context, l.name),
                   state: _language == l.name
                       ? RatelOptionState.selected
                       : RatelOptionState.idle,
@@ -288,7 +287,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _title('Why are you learning?'),
+        _title(context.l10n.onboardingReasonTitle),
         const SizedBox(height: RatelSpace.lg),
         Expanded(
           child: ListView(
@@ -296,7 +295,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               for (final _Reason r in _kReasons) ...<Widget>[
                 RatelOptionCard(
                   emoji: r.emoji,
-                  label: r.label,
+                  label: ratelReasonDisplayLabel(context, r.label),
                   state: _reason == r.label
                       ? RatelOptionState.selected
                       : RatelOptionState.idle,
@@ -315,14 +314,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _title('Pick a daily goal'),
+        _title(context.l10n.onboardingGoalTitle),
         const SizedBox(height: RatelSpace.lg),
         Expanded(
           child: ListView(
             children: <Widget>[
               for (final _Goal g in _kGoals) ...<Widget>[
                 _GoalRow(
-                  label: g.label,
+                  label: ratelGoalDisplayLabel(context, g.label),
                   xp: g.xp,
                   selected: _goalXp == g.xp,
                   onTap: () => setState(() => _goalXp = g.xp),
@@ -343,25 +342,26 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           const SizedBox(height: RatelSpace.lg),
           const Text('🧭', style: TextStyle(fontSize: 72)),
           const SizedBox(height: RatelSpace.lg),
-          _title('Find your starting point', center: true),
+          _title(context.l10n.onboardingPlacementTitle, center: true),
           const SizedBox(height: RatelSpace.sm),
           _subtitle(
-            'New to $_language, or do you know some already?',
+            context.l10n.onboardingPlacementBody(
+                ratelLanguageDisplayName(context, _language)),
             center: true,
           ),
           const SizedBox(height: RatelSpace.lg),
           _ChoiceCard(
             emoji: '🌱',
-            title: "I'm brand new",
-            subtitle: 'Start from the very beginning',
+            title: context.l10n.onboardingBrandNew,
+            subtitle: context.l10n.onboardingBrandNewSub,
             selected: !_placementTest,
             onTap: () => setState(() => _placementTest = false),
           ),
           const SizedBox(height: RatelSpace.cardGap),
           _ChoiceCard(
             emoji: '📊',
-            title: 'Take a placement test',
-            subtitle: '~3 min · skip ahead to your level',
+            title: context.l10n.onboardingPlacementTest,
+            subtitle: context.l10n.onboardingPlacementTestSub,
             selected: _placementTest,
             onTap: () => setState(() => _placementTest = true),
           ),
@@ -416,7 +416,7 @@ class _GoalRow extends StatelessWidget {
             ),
             const Spacer(),
             Text(
-              '$xp XP / day',
+              context.l10n.onboardingXpPerDay(xp),
               style: TextStyle(
                 fontFamily: RatelFont.body,
                 fontSize: RatelType.body,

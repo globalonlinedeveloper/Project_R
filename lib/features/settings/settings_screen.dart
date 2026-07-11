@@ -61,7 +61,7 @@ class SettingsScreen extends ConsumerWidget {
         children: <Widget>[
           _section(context, context.l10n.settingsSectionLearning, <Widget>[
             RatelListRow(
-              title: 'Daily goal',
+              title: context.l10n.settingsDailyGoal,
               subtitle: goalStatus.met
                   ? '${s.dailyGoal} XP per day · ✓ reached today'
                   : '${s.dailyGoal} XP per day',
@@ -249,15 +249,17 @@ class SettingsScreen extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.only(
+              Padding(
+                padding: const EdgeInsets.only(
                     left: RatelSpace.sm, bottom: RatelSpace.sm),
-                child: RatelSectionHeader(label: 'Daily goal'),
+                child: RatelSectionHeader(
+                    label: context.l10n.settingsDailyGoal),
               ),
               for (final ({String label, int xp}) g in _goals) ...<Widget>[
                 RatelListRow(
                   leadingEmoji: g.xp == current ? '✅' : '⚪',
-                  title: '${g.label} · ${g.xp} XP/day',
+                  title: context.l10n.settingsGoalRow(
+                      ratelGoalDisplayLabel(context, g.label), g.xp),
                   onTap: () {
                     c.setDailyGoal(g.xp);
                     Navigator.of(sheetContext).pop();

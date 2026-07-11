@@ -230,4 +230,152 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get lessonStatTime => 'TEMPO';
+
+  @override
+  String get onboardingWelcomeTitle => 'Oi, eu sou o Ratel!';
+
+  @override
+  String get onboardingWelcomeBody =>
+      'Aprenda um idioma sem medo — em doses pequenas, divertido e grátis. Pronto para começar?';
+
+  @override
+  String get onboardingHaveAccount => 'Já tenho uma conta';
+
+  @override
+  String get onboardingTryWithoutAccount => 'Experimentar sem conta →';
+
+  @override
+  String get onboardingGetStarted => 'Começar';
+
+  @override
+  String get onboardingStartLearning => 'Começar a aprender';
+
+  @override
+  String get onboardingLanguageTitle => 'O que você quer aprender?';
+
+  @override
+  String get onboardingLanguageSubtitle => '52 idiomas disponíveis';
+
+  @override
+  String get onboardingReasonTitle => 'Por que você está aprendendo?';
+
+  @override
+  String get onboardingGoalTitle => 'Escolha uma meta diária';
+
+  @override
+  String get onboardingPlacementTitle => 'Encontre seu ponto de partida';
+
+  @override
+  String onboardingPlacementBody(String language) {
+    return 'Novo em $language ou já sabe um pouco?';
+  }
+
+  @override
+  String get onboardingBrandNew => 'Sou iniciante';
+
+  @override
+  String get onboardingBrandNewSub => 'Comece do zero';
+
+  @override
+  String get onboardingPlacementTest => 'Fazer um teste de nivelamento';
+
+  @override
+  String get onboardingPlacementTestSub => '~3 min · pule para o seu nível';
+
+  @override
+  String onboardingXpPerDay(int xp) {
+    return '$xp XP / dia';
+  }
+
+  @override
+  String get reasonTravel => 'Viagens';
+
+  @override
+  String get reasonCulture => 'Cultura';
+
+  @override
+  String get reasonCareer => 'Carreira';
+
+  @override
+  String get reasonFamilyFriends => 'Família e amigos';
+
+  @override
+  String get reasonBrainTraining => 'Treinar o cérebro';
+
+  @override
+  String get reasonJustForFun => 'Só por diversão';
+
+  @override
+  String get goalCasual => 'Casual';
+
+  @override
+  String get goalRegular => 'Regular';
+
+  @override
+  String get goalSerious => 'Sério';
+
+  @override
+  String get goalIntense => 'Intenso';
+
+  @override
+  String get langNameSpanish => 'Espanhol';
+
+  @override
+  String get langNameFrench => 'Francês';
+
+  @override
+  String get langNameJapanese => 'Japonês';
+
+  @override
+  String get langNameTamil => 'Tâmil';
+
+  @override
+  String get langNameGerman => 'Alemão';
+
+  @override
+  String get langNameKorean => 'Coreano';
+
+  @override
+  String get settingsDailyGoal => 'Meta diária';
+
+  @override
+  String settingsGoalRow(String label, int xp) {
+    return '$label · $xp XP/dia';
+  }
+
+  @override
+  String get profileAchievements => 'Conquistas';
+
+  @override
+  String get profileFriends => 'Amigos';
+
+  @override
+  String get profileShop => 'Loja';
+
+  @override
+  String get profileNotifications => 'Notificações';
+
+  @override
+  String get profileSeeOnboarding => 'Ver o fluxo de boas-vindas ↗';
+
+  @override
+  String get profileNotSignedIn => 'Não conectado';
+
+  @override
+  String get profileCreateAccount => 'Crie uma conta grátis';
+
+  @override
+  String get profileSaveProgress =>
+      'Salve seu progresso em todos os dispositivos';
+
+  @override
+  String profileTodaysGoal(int today, int goal) {
+    return 'Meta de hoje · $today/$goal XP';
+  }
+
+  @override
+  String get profileViewProgress => 'Ver progresso →';
+
+  @override
+  String get profileUnlocked => 'Desbloqueado';
 }

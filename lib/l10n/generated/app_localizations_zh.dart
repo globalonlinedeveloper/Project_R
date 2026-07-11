@@ -225,4 +225,150 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get lessonStatTime => '用时';
+
+  @override
+  String get onboardingWelcomeTitle => '你好,我是 Ratel!';
+
+  @override
+  String get onboardingWelcomeBody => '无所畏惧地学语言——小步快跑、有趣、免费。准备好了吗?';
+
+  @override
+  String get onboardingHaveAccount => '我已有账户';
+
+  @override
+  String get onboardingTryWithoutAccount => '先不注册,试一试 →';
+
+  @override
+  String get onboardingGetStarted => '开始';
+
+  @override
+  String get onboardingStartLearning => '开始学习';
+
+  @override
+  String get onboardingLanguageTitle => '你想学什么?';
+
+  @override
+  String get onboardingLanguageSubtitle => '提供 52 种语言';
+
+  @override
+  String get onboardingReasonTitle => '你为什么学习?';
+
+  @override
+  String get onboardingGoalTitle => '选择每日目标';
+
+  @override
+  String get onboardingPlacementTitle => '找到你的起点';
+
+  @override
+  String onboardingPlacementBody(String language) {
+    return '刚接触$language,还是已经会一些?';
+  }
+
+  @override
+  String get onboardingBrandNew => '我是零基础';
+
+  @override
+  String get onboardingBrandNewSub => '从最开始学起';
+
+  @override
+  String get onboardingPlacementTest => '参加定级测试';
+
+  @override
+  String get onboardingPlacementTestSub => '约 3 分钟 · 直达你的水平';
+
+  @override
+  String onboardingXpPerDay(int xp) {
+    return '$xp XP / 天';
+  }
+
+  @override
+  String get reasonTravel => '旅行';
+
+  @override
+  String get reasonCulture => '文化';
+
+  @override
+  String get reasonCareer => '职业';
+
+  @override
+  String get reasonFamilyFriends => '家人和朋友';
+
+  @override
+  String get reasonBrainTraining => '大脑训练';
+
+  @override
+  String get reasonJustForFun => '纯属娱乐';
+
+  @override
+  String get goalCasual => '轻松';
+
+  @override
+  String get goalRegular => '常规';
+
+  @override
+  String get goalSerious => '认真';
+
+  @override
+  String get goalIntense => '高强度';
+
+  @override
+  String get langNameSpanish => '西班牙语';
+
+  @override
+  String get langNameFrench => '法语';
+
+  @override
+  String get langNameJapanese => '日语';
+
+  @override
+  String get langNameTamil => '泰米尔语';
+
+  @override
+  String get langNameGerman => '德语';
+
+  @override
+  String get langNameKorean => '韩语';
+
+  @override
+  String get settingsDailyGoal => '每日目标';
+
+  @override
+  String settingsGoalRow(String label, int xp) {
+    return '$label · 每天 $xp XP';
+  }
+
+  @override
+  String get profileAchievements => '成就';
+
+  @override
+  String get profileFriends => '好友';
+
+  @override
+  String get profileShop => '商店';
+
+  @override
+  String get profileNotifications => '通知';
+
+  @override
+  String get profileSeeOnboarding => '查看新手引导 ↗';
+
+  @override
+  String get profileNotSignedIn => '未登录';
+
+  @override
+  String get profileCreateAccount => '创建免费账户';
+
+  @override
+  String get profileSaveProgress => '在所有设备上保存你的进度';
+
+  @override
+  String profileTodaysGoal(int today, int goal) {
+    return '今日目标 · $today/$goal XP';
+  }
+
+  @override
+  String get profileViewProgress => '查看进度 →';
+
+  @override
+  String get profileUnlocked => '已解锁';
 }

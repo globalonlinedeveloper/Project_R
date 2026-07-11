@@ -51,7 +51,7 @@ class ProfileScreen extends ConsumerWidget {
             const SizedBox(height: RatelSpace.cardGap),
             _progressBanner(context, level, snap, settings),
             const SizedBox(height: RatelSpace.lg),
-            Text('Achievements',
+            Text(context.l10n.profileAchievements,
                 style: TextStyle(
                     fontFamily: RatelFont.display,
                     fontWeight: RatelType.extraBold,
@@ -71,19 +71,19 @@ class ProfileScreen extends ConsumerWidget {
             RatelListRow(
                 leadingEmoji: '👥',
                 leadingColor: RatelColors.purple,
-                title: 'Friends',
+                title: context.l10n.profileFriends,
                 onTap: () => context.push('/friends')),
             const SizedBox(height: RatelSpace.sm),
             RatelListRow(
                 leadingEmoji: '💎',
                 leadingColor: RatelColors.amber,
-                title: 'Shop',
+                title: context.l10n.profileShop,
                 onTap: () => context.push('/shop')),
             const SizedBox(height: RatelSpace.sm),
             RatelListRow(
                 leadingEmoji: '🔔',
                 leadingColor: RatelColors.blue,
-                title: 'Notifications',
+                title: context.l10n.profileNotifications,
                 trailing: unreadNotifs > 0
                     ? _unreadBadge(context, unreadNotifs)
                     : null,
@@ -92,11 +92,11 @@ class ProfileScreen extends ConsumerWidget {
             RatelListRow(
                 leadingEmoji: '⚙️',
                 leadingColor: context.palette.muted,
-                title: 'Settings',
+                title: context.l10n.settingsTitle,
                 onTap: () => context.push('/settings')),
             const SizedBox(height: RatelSpace.lg),
             RatelButton(
-                label: 'See onboarding flow ↗',
+                label: context.l10n.profileSeeOnboarding,
                 variant: RatelButtonVariant.secondary,
                 onPressed: () => context.push('/onboarding')),
             const SizedBox(height: RatelSpace.md),
@@ -152,7 +152,7 @@ class ProfileScreen extends ConsumerWidget {
                             color: context.palette.ink)),
                     if (!authed) ...<Widget>[
                       const SizedBox(height: 2),
-                      Text('Not signed in',
+                      Text(context.l10n.profileNotSignedIn,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -164,7 +164,7 @@ class ProfileScreen extends ConsumerWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: RatelChip(
-                          label: '🇪🇸 Spanish · Level $level',
+                          label: '🇪🇸 ${context.l10n.langNameSpanish} · ${context.l10n.commonLevel(level)}',
                           tone: RatelChipTone.teal),
                     ),
                   ],
@@ -175,11 +175,11 @@ class ProfileScreen extends ConsumerWidget {
           if (!authed) ...<Widget>[
             const SizedBox(height: RatelSpace.md),
             RatelButton(
-                label: 'Create a free account',
+                label: context.l10n.profileCreateAccount,
                 onPressed: () => context.push('/onboarding')),
             const SizedBox(height: RatelSpace.xs),
             Center(
-              child: Text('Save your progress across devices',
+              child: Text(context.l10n.profileSaveProgress,
                   style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.small,
@@ -265,7 +265,7 @@ class ProfileScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Level $level · ${_levelName(snap.level)}',
+                Text('${context.l10n.commonLevel(level)} · ${_levelName(snap.level)}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -274,13 +274,13 @@ class ProfileScreen extends ConsumerWidget {
                         fontSize: RatelType.cardTitle,
                         color: RatelColors.onColor)),
                 const SizedBox(height: 2),
-                Text("Today's goal · ${snap.xpToday}/$goal XP",
+                Text(context.l10n.profileTodaysGoal(snap.xpToday, goal),
                     style: const TextStyle(
                         fontFamily: RatelFont.body,
                         fontSize: RatelType.small,
                         color: RatelColors.onColor)),
                 const SizedBox(height: RatelSpace.sm),
-                const Text('View progress →',
+                Text(context.l10n.profileViewProgress,
                     style: TextStyle(
                         fontFamily: RatelFont.display,
                         fontWeight: RatelType.semiBold,
@@ -355,7 +355,7 @@ class ProfileScreen extends ConsumerWidget {
                   fontSize: RatelType.small,
                   color: on ? context.palette.ink : context.palette.muted)),
           const SizedBox(height: 2),
-          Text(on ? 'Unlocked' : '${p.current}/${p.target}',
+          Text(on ? context.l10n.profileUnlocked : '${p.current}/${p.target}',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(

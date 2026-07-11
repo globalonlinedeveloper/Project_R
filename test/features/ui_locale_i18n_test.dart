@@ -9,6 +9,8 @@ import 'package:ratel/core/core.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/features/settings/settings_screen.dart';
 import 'package:ratel/features/library/library_screen.dart';
+import 'package:ratel/features/onboarding/onboarding_screen.dart';
+import 'package:ratel/features/profile/profile_screen.dart';
 import 'package:ratel/services/preferences/app_settings.dart';
 import 'package:ratel/services/preferences/prefs_ui_locale_store.dart';
 import 'package:ratel/services/preferences/settings_store.dart';
@@ -261,6 +263,49 @@ void main() {
     expect(find.text('Library'), findsOneWidget);
     expect(find.text('AI Tutor'), findsOneWidget);
     expect(find.text('Practice hub'), findsOneWidget);
+  });
+
+  test('I5 en byte-identity pins (apostrophes + composed rows)', () {
+    final AppLocalizations en = lookupAppLocalizations(const Locale('en'));
+    expect(en.onboardingWelcomeTitle, "Hi, I'm Ratel!");
+    expect(en.onboardingBrandNew, "I'm brand new");
+    expect(en.profileTodaysGoal(15, 20), "Today's goal · 15/20 XP");
+    expect(en.settingsGoalRow('Casual', 20), 'Casual · 20 XP/day');
+    expect(en.onboardingXpPerDay(30), '30 XP / day');
+    expect(en.onboardingPlacementBody('Spanish'),
+        'New to Spanish, or do you know some already?');
+  });
+
+  testWidgets('Onboarding in Spanish: welcome step localized',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const ProviderScope(
+      child: MaterialApp(
+        locale: Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: OnboardingScreen(),
+      ),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.text('¡Hola, soy Ratel!'), findsOneWidget);
+    expect(find.text('Empezar'), findsOneWidget);
+    expect(find.text('Ya tengo una cuenta'), findsOneWidget);
+  });
+
+  testWidgets('Profile in Spanish: chrome localized (guest state)',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const ProviderScope(
+      child: MaterialApp(
+        locale: Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: ProfileScreen(),
+      ),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.text('Logros'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('Amigos'), 200);
+    expect(find.text('Amigos'), findsOneWidget);
   });
 
   testWidgets('Arabic: app renders RTL with localized nav — 360 gauntlet',

@@ -120,5 +120,85 @@
         "type": "String"
       }
     }
+  },
+  "onboardingWelcomeTitle": "Hi, I'm Ratel!",
+  "onboardingWelcomeBody": "Learn a language the fearless way — bite-sized, fun, and free. Ready to dig in?",
+  "onboardingHaveAccount": "I already have an account",
+  "onboardingTryWithoutAccount": "Try without an account →",
+  "onboardingGetStarted": "Get started",
+  "onboardingStartLearning": "Start learning",
+  "onboardingLanguageTitle": "What do you want to learn?",
+  "onboardingLanguageSubtitle": "52 languages available",
+  "onboardingReasonTitle": "Why are you learning?",
+  "onboardingGoalTitle": "Pick a daily goal",
+  "onboardingPlacementTitle": "Find your starting point",
+  "onboardingPlacementBody": "New to {language}, or do you know some already?",
+  "onboardingBrandNew": "I'm brand new",
+  "onboardingBrandNewSub": "Start from the very beginning",
+  "onboardingPlacementTest": "Take a placement test",
+  "onboardingPlacementTestSub": "~3 min · skip ahead to your level",
+  "onboardingXpPerDay": "{xp} XP / day",
+  "reasonTravel": "Travel",
+  "reasonCulture": "Culture",
+  "reasonCareer": "Career",
+  "reasonFamilyFriends": "Family & friends",
+  "reasonBrainTraining": "Brain training",
+  "reasonJustForFun": "Just for fun",
+  "goalCasual": "Casual",
+  "goalRegular": "Regular",
+  "goalSerious": "Serious",
+  "goalIntense": "Intense",
+  "langNameSpanish": "Spanish",
+  "langNameFrench": "French",
+  "langNameJapanese": "Japanese",
+  "langNameTamil": "Tamil",
+  "langNameGerman": "German",
+  "langNameKorean": "Korean",
+  "settingsDailyGoal": "Daily goal",
+  "settingsGoalRow": "{label} · {xp} XP/day",
+  "profileAchievements": "Achievements",
+  "profileFriends": "Friends",
+  "profileShop": "Shop",
+  "profileNotifications": "Notifications",
+  "profileSeeOnboarding": "See onboarding flow ↗",
+  "profileNotSignedIn": "Not signed in",
+  "profileCreateAccount": "Create a free account",
+  "profileSaveProgress": "Save your progress across devices",
+  "profileTodaysGoal": "Today's goal · {today}/{goal} XP",
+  "profileViewProgress": "View progress →",
+  "profileUnlocked": "Unlocked",
+  "@onboardingPlacementBody": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "@onboardingXpPerDay": {
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "@settingsGoalRow": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "@profileTodaysGoal": {
+    "placeholders": {
+      "today": {
+        "type": "int"
+      },
+      "goal": {
+        "type": "int"
+      }
+    }
   }
 }
