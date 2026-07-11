@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ratel/core/core.dart';
+import 'package:ratel/features/common/content_unavailable_card.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 
 /// Roleplay player (INF-8) -- a graded pre-generated dialogue (content
@@ -266,15 +267,8 @@ class _RoleplayPlayerScreenState extends ConsumerState<RoleplayPlayerScreen> {
         ),
       );
 
-  Widget _notFound(BuildContext context) => Center(
-        child: Padding(
-          padding: const EdgeInsets.all(RatelSpace.xl),
-          child: Text('This roleplay is not available.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontFamily: RatelFont.body,
-                  fontSize: RatelType.bodyLg,
-                  color: context.palette.muted)),
-        ),
-      );
+  // M-3 fold-in: the shared honest unavailable card (Q-2) replaces the old
+  // plain not-available text — same degrade as story/podcast/watch.
+  Widget _notFound(BuildContext context) =>
+      const ContentUnavailableCard(noun: 'roleplay');
 }

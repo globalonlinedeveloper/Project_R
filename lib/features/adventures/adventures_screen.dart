@@ -80,6 +80,9 @@ class AdventuresScreen extends ConsumerWidget {
                           : s.goal!,
                       onTap: () => context.push(
                           '/adventure?scenario=${Uri.encodeComponent(s.id)}'),
+                      // M-3: long-press opens the REAL scene-script preview
+                      // (mirrors the lesson preview sheet).
+                      onLongPress: () => _showScenePreview(context, s),
                     ),
                     const SizedBox(height: RatelSpace.sm),
                   ],
@@ -87,6 +90,102 @@ class AdventuresScreen extends ConsumerWidget {
                 ],
               ],
             ),
+    );
+  }
+
+  /// M-3 (screen review §2): the scene-script preview sheet — the SAME sheet
+  /// grammar as the Home lesson preview (kicker / title / meta / primary CTA),
+  /// filled with the REAL authored opening scene: speaker + line + the actual
+  /// branching choices. Pure data off [CourseScenario.scenes]; nothing invented.
+  void _showScenePreview(BuildContext context, CourseScenario s) {
+    final int decisions =
+        s.scenes.where((CourseScene sc) => sc.isDecision).length;
+    final CourseScene? opening = s.scenes.isEmpty ? null : s.scenes.first;
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: context.palette.white,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+              top: Radius.circular(RatelRadius.featureLg))),
+      builder: (BuildContext sheetContext) => Padding(
+        padding: const EdgeInsets.all(RatelSpace.xl),
+        child: Column(
+          key: const ValueKey<String>('adventure-preview-sheet'),
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text('🗺️ ADVENTURE · ${s.cefr}',
+                style: TextStyle(
+                    fontFamily: RatelFont.body,
+                    fontSize: RatelType.caption,
+                    fontWeight: RatelType.semiBold,
+                    color: sheetContext.palette.muted)),
+            const SizedBox(height: 4),
+            Text(s.title,
+                style: TextStyle(
+                    fontFamily: RatelFont.display,
+                    fontWeight: RatelType.extraBold,
+                    fontSize: RatelType.screenTitle,
+                    color: sheetContext.palette.ink)),
+            const SizedBox(height: 4),
+            Text(
+                '${s.scenes.length} scenes · '
+                '$decisions choice ${decisions == 1 ? 'point' : 'points'}'
+                '${s.goal != null && s.goal!.isNotEmpty ? ' · ${s.goal!}' : ''}',
+                style: TextStyle(
+                    fontFamily: RatelFont.body,
+                    fontSize: RatelType.body,
+                    color: sheetContext.palette.muted)),
+            if (opening != null) ...<Widget>[
+              const SizedBox(height: RatelSpace.md),
+              Text('OPENING SCENE',
+                  style: TextStyle(
+                      fontFamily: RatelFont.body,
+                      fontSize: RatelType.caption,
+                      fontWeight: RatelType.semiBold,
+                      color: sheetContext.palette.muted)),
+              const SizedBox(height: RatelSpace.sm),
+              Flexible(
+                child: SingleChildScrollView(
+                  child: Column(
+                    key: const ValueKey<String>('adventure-preview-script'),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text('${opening.speaker}: ${opening.line}',
+                          style: TextStyle(
+                              fontFamily: RatelFont.body,
+                              fontSize: RatelType.body,
+                              height: 1.45,
+                              color: sheetContext.palette.ink)),
+                      for (final CourseChoice ch in opening.choices)
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: RatelSpace.sm, left: RatelSpace.md),
+                          child: Text('› ${ch.label}',
+                              style: TextStyle(
+                                  fontFamily: RatelFont.body,
+                                  fontSize: RatelType.body,
+                                  height: 1.3,
+                                  color: sheetContext.palette.muted)),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+            const SizedBox(height: RatelSpace.lg),
+            RatelButton(
+              key: const ValueKey<String>('adventure-preview-start'),
+              label: 'Start adventure',
+              onPressed: () {
+                Navigator.of(sheetContext).pop();
+                context.push(
+                    '/adventure?scenario=${Uri.encodeComponent(s.id)}');
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 

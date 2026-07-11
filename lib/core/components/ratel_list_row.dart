@@ -14,6 +14,7 @@ class RatelListRow extends StatelessWidget {
     this.subtitle,
     this.trailing,
     this.onTap,
+    this.onLongPress,
   });
 
   final String? leadingEmoji;
@@ -22,6 +23,9 @@ class RatelListRow extends StatelessWidget {
   final String? subtitle;
   final Widget? trailing;
   final VoidCallback? onTap;
+
+  /// M-3: optional long-press affordance (e.g. Adventures scene preview).
+  final VoidCallback? onLongPress;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +48,7 @@ class RatelListRow extends StatelessWidget {
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: onTap,
+        onLongPress: onLongPress,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: RatelSpace.sm),
           child: Row(
