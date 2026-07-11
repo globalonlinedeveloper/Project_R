@@ -125,11 +125,16 @@ class QuestsScreen extends ConsumerWidget {
                           children: <Widget>[
                             const Text('⏳', style: TextStyle(fontSize: 13)),
                             const SizedBox(width: 6),
-                            Text(_localizedResetsLabel(context),
-                                style: const TextStyle(
-                                    fontFamily: RatelFont.body,
-                                    fontSize: RatelType.small,
-                                    color: RatelColors.onColor)),
+                            // Flexible: long locales (ar at 360px) wrap
+                            // instead of overflowing the min-sized Row
+                            // (caught by the S130b RTL deep-audit).
+                            Flexible(
+                              child: Text(_localizedResetsLabel(context),
+                                  style: const TextStyle(
+                                      fontFamily: RatelFont.body,
+                                      fontSize: RatelType.small,
+                                      color: RatelColors.onColor)),
+                            ),
                           ],
                         ),
                       ],
