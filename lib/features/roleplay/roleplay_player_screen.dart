@@ -135,7 +135,7 @@ class _RoleplayPlayerScreenState extends ConsumerState<RoleplayPlayerScreen> {
               const SizedBox(height: RatelSpace.md),
               RatelButton(
                 key: const ValueKey<String>('roleplay-continue'),
-                label: 'Continue',
+                label: context.l10n.lessonContinue,
                 expand: false,
                 onPressed: () => _advance(s, scene),
               ),
@@ -144,7 +144,7 @@ class _RoleplayPlayerScreenState extends ConsumerState<RoleplayPlayerScreen> {
             const SizedBox(height: RatelSpace.md),
             RatelButton(
               key: const ValueKey<String>('roleplay-continue'),
-              label: 'Continue',
+              label: context.l10n.lessonContinue,
               expand: false,
               onPressed: () => _advance(s, scene),
             ),
@@ -215,7 +215,7 @@ class _RoleplayPlayerScreenState extends ConsumerState<RoleplayPlayerScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(correct ? '✓ Nicely done!' : '✕ Not quite',
+        Text(correct ? context.l10n.lessonNicelyDone : context.l10n.lessonNotQuite,
             style: TextStyle(
                 fontFamily: RatelFont.display,
                 fontWeight: RatelType.extraBold,

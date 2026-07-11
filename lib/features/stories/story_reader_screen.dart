@@ -246,7 +246,7 @@ class _CheckQuestionState extends State<_CheckQuestion> {
             ),
             const SizedBox(height: RatelSpace.sm),
             RatelButton(
-              label: 'Check',
+              label: context.l10n.lessonCheck,
               expand: false,
               onPressed: _gradeTyped,
             ),
@@ -254,7 +254,7 @@ class _CheckQuestionState extends State<_CheckQuestion> {
           if (_correct != null) ...<Widget>[
             const SizedBox(height: RatelSpace.sm),
             Text(
-              _correct! ? '✓ Nicely done!' : '✕ Not quite',
+              _correct! ? context.l10n.lessonNicelyDone : context.l10n.lessonNotQuite,
               style: TextStyle(
                   fontFamily: RatelFont.display,
                   fontWeight: RatelType.extraBold,
