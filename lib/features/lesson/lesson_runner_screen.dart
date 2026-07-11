@@ -1010,7 +1010,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
           ),
           const SizedBox(height: RatelSpace.lg),
           Text(
-            it.prompt,
+            _localizedPrompt(context, it),
             style: TextStyle(
               fontFamily: RatelFont.display,
               fontWeight: RatelType.extraBold,
@@ -1282,7 +1282,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
               isCollapsed: true,
               border: InputBorder.none,
               contentPadding: EdgeInsets.symmetric(vertical: RatelSpace.md),
-              hintText: 'Type your answer…',
+              hintText: context.l10n.lessonTypeAnswerHint,
               hintStyle: TextStyle(
                 fontFamily: RatelFont.body,
                 fontWeight: RatelType.medium,
@@ -1369,7 +1369,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
               isCollapsed: true,
               border: InputBorder.none,
               contentPadding: const EdgeInsets.symmetric(vertical: RatelSpace.md),
-              hintText: 'Write your answer…',
+              hintText: context.l10n.lessonWriteAnswerHint,
               hintStyle: TextStyle(
                 fontFamily: RatelFont.body,
                 fontWeight: RatelType.medium,
@@ -1525,7 +1525,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  _wasCorrect ? '✓ Nicely done!' : '✕ Not quite',
+                  _wasCorrect ? context.l10n.lessonNicelyDone : context.l10n.lessonNotQuite,
                   style: TextStyle(
                     fontFamily: RatelFont.display,
                     fontWeight: RatelType.extraBold,
@@ -1536,7 +1536,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
                 if (!_wasCorrect && answerText.isNotEmpty) ...<Widget>[
                   const SizedBox(height: 4),
                   Text(
-                    'Answer: $answerText',
+                    context.l10n.lessonAnswerReveal(answerText),
                     style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.body,
@@ -1578,7 +1578,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
           ],
           const SizedBox(height: RatelSpace.md),
           RatelButton(
-            label: 'Continue',
+            label: context.l10n.lessonContinue,
             variant: _wasCorrect
                 ? RatelButtonVariant.success
                 : RatelButtonVariant.danger,
@@ -1592,7 +1592,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
       // (mirrors the design's Match footer). Word-bank Listen (C-7) now uses
       // the standard Skip+Check footer below, like the Build word-bank.
       return RatelButton(
-        label: 'Skip',
+        label: context.l10n.lessonSkip,
         variant: RatelButtonVariant.secondary,
         onPressed: _skip,
       );
@@ -1600,7 +1600,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
     return Row(
       children: <Widget>[
         RatelButton(
-          label: 'Skip',
+          label: context.l10n.lessonSkip,
           variant: RatelButtonVariant.secondary,
           expand: false,
           onPressed: _skip,
@@ -1608,13 +1608,25 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         const SizedBox(width: RatelSpace.md),
         Expanded(
           child: RatelButton(
-            label: 'Check',
+            label: context.l10n.lessonCheck,
             onPressed: _canCheck ? _check : null,
           ),
         ),
       ],
     );
   }
+
+  /// L-2: the runner's SYNTHESIZED prompts are chrome — fixed English
+  /// sentinels assigned in const _Item constructors (not context-reachable),
+  /// so they localize at RENDER time by exact sentinel match; authored
+  /// course prompts pass through untouched (they are content, not chrome).
+  static String _localizedPrompt(BuildContext context, _Item it) =>
+      switch (it.prompt) {
+        'Type what you hear' => context.l10n.lessonTypeWhatYouHear,
+        'Tap what you hear' => context.l10n.lessonTapWhatYouHear,
+        'Translate this sentence' => context.l10n.lessonTranslateSentence,
+        _ => it.prompt,
+      };
 
   /// Q-1: the design's lesson-complete celebration (owner HTML "LESSON
   /// COMPLETE" overlay) — gold kicker · tiered emoji hero with a pop-in
@@ -1647,7 +1659,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         children: <Widget>[
           const Spacer(),
           Text(
-            'LESSON COMPLETE',
+            context.l10n.lessonCompleteKicker,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: RatelFont.display,
@@ -1671,7 +1683,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
             ),
           const SizedBox(height: RatelSpace.lg),
           Text(
-            'Lesson complete!',
+            context.l10n.lessonCompleteTitle,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: RatelFont.display,
@@ -1682,8 +1694,8 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
           ),
           const SizedBox(height: RatelSpace.sm),
           Text(
-            '$_correct of $_graded correct \u00b7 now '
-            '${snap.level.name.toUpperCase()}',
+            context.l10n.lessonCompleteSummary(
+                _correct, _graded, snap.level.name.toUpperCase()),
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: RatelFont.body,
@@ -1696,21 +1708,21 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
             children: <Widget>[
               _resultStat(
                 context,
-                label: 'TOTAL XP',
+                label: context.l10n.lessonStatTotalXp,
                 value: '\u26a1 +$_kLessonXp',
                 color: RatelColors.amber,
               ),
               const SizedBox(width: RatelSpace.md),
               _resultStat(
                 context,
-                label: 'ACCURACY',
+                label: context.l10n.lessonStatAccuracy,
                 value: '\u{1F3AF} $accuracy%',
                 color: RatelColors.teal,
               ),
               const SizedBox(width: RatelSpace.md),
               _resultStat(
                 context,
-                label: 'TIME',
+                label: context.l10n.lessonStatTime,
                 value: '\u23f1 ${_fmtSession(_sessionDuration)}',
                 color: context.palette.muted,
                 valueColor: context.palette.ink,
@@ -1718,7 +1730,9 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
             ],
           ),
           const Spacer(),
-          RatelButton(label: 'Continue', onPressed: () => context.go('/home')),
+          RatelButton(
+              label: context.l10n.lessonContinue,
+              onPressed: () => context.go('/home')),
           const SizedBox(height: RatelSpace.lg),
         ],
       ),

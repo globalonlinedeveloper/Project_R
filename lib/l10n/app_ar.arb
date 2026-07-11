@@ -49,5 +49,22 @@
   "libraryKindVideo": "فيديو",
   "libraryAllStories": "كل القصص",
   "libraryAllPodcasts": "كل البودكاست",
-  "libraryAllVideos": "كل الفيديوهات"
+  "libraryAllVideos": "كل الفيديوهات",
+  "lessonTypeWhatYouHear": "اكتب ما تسمعه",
+  "lessonTapWhatYouHear": "انقر ما تسمعه",
+  "lessonTranslateSentence": "ترجم هذه الجملة",
+  "lessonTypeAnswerHint": "اكتب إجابتك…",
+  "lessonWriteAnswerHint": "اكتب إجابتك…",
+  "lessonContinue": "متابعة",
+  "lessonSkip": "تخطٍّ",
+  "lessonCheck": "تحقّق",
+  "lessonNicelyDone": "✓ أحسنت!",
+  "lessonNotQuite": "✕ ليس تمامًا",
+  "lessonAnswerReveal": "الإجابة: {answer}",
+  "lessonCompleteKicker": "اكتمل الدرس",
+  "lessonCompleteTitle": "اكتمل الدرس!",
+  "lessonCompleteSummary": "{correct} من {graded} صحيحة · الآن {level}",
+  "lessonStatTotalXp": "مجموع XP",
+  "lessonStatAccuracy": "الدقة",
+  "lessonStatTime": "الوقت"
 }

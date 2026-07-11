@@ -170,4 +170,59 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get libraryAllVideos => 'すべての動画';
+
+  @override
+  String get lessonTypeWhatYouHear => '聞こえたとおりに入力';
+
+  @override
+  String get lessonTapWhatYouHear => '聞こえたとおりにタップ';
+
+  @override
+  String get lessonTranslateSentence => 'この文を翻訳しましょう';
+
+  @override
+  String get lessonTypeAnswerHint => '答えを入力…';
+
+  @override
+  String get lessonWriteAnswerHint => '答えを書きましょう…';
+
+  @override
+  String get lessonContinue => '続ける';
+
+  @override
+  String get lessonSkip => 'スキップ';
+
+  @override
+  String get lessonCheck => 'チェック';
+
+  @override
+  String get lessonNicelyDone => '✓ よくできました!';
+
+  @override
+  String get lessonNotQuite => '✕ おしい!';
+
+  @override
+  String lessonAnswerReveal(String answer) {
+    return '答え: $answer';
+  }
+
+  @override
+  String get lessonCompleteKicker => 'レッスン完了';
+
+  @override
+  String get lessonCompleteTitle => 'レッスン完了!';
+
+  @override
+  String lessonCompleteSummary(int correct, int graded, String level) {
+    return '$graded問中$correct問正解 · 現在 $level';
+  }
+
+  @override
+  String get lessonStatTotalXp => '合計XP';
+
+  @override
+  String get lessonStatAccuracy => '正答率';
+
+  @override
+  String get lessonStatTime => '時間';
 }

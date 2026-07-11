@@ -175,4 +175,59 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get libraryAllVideos => 'Todos os vídeos';
+
+  @override
+  String get lessonTypeWhatYouHear => 'Digite o que você ouvir';
+
+  @override
+  String get lessonTapWhatYouHear => 'Toque no que você ouvir';
+
+  @override
+  String get lessonTranslateSentence => 'Traduza esta frase';
+
+  @override
+  String get lessonTypeAnswerHint => 'Digite sua resposta…';
+
+  @override
+  String get lessonWriteAnswerHint => 'Escreva sua resposta…';
+
+  @override
+  String get lessonContinue => 'Continuar';
+
+  @override
+  String get lessonSkip => 'Pular';
+
+  @override
+  String get lessonCheck => 'Verificar';
+
+  @override
+  String get lessonNicelyDone => '✓ Muito bem!';
+
+  @override
+  String get lessonNotQuite => '✕ Não foi dessa vez';
+
+  @override
+  String lessonAnswerReveal(String answer) {
+    return 'Resposta: $answer';
+  }
+
+  @override
+  String get lessonCompleteKicker => 'LIÇÃO CONCLUÍDA';
+
+  @override
+  String get lessonCompleteTitle => 'Lição concluída!';
+
+  @override
+  String lessonCompleteSummary(int correct, int graded, String level) {
+    return '$correct de $graded corretas · agora $level';
+  }
+
+  @override
+  String get lessonStatTotalXp => 'XP TOTAL';
+
+  @override
+  String get lessonStatAccuracy => 'PRECISÃO';
+
+  @override
+  String get lessonStatTime => 'TEMPO';
 }

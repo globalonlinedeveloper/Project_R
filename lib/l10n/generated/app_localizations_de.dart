@@ -174,4 +174,59 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get libraryAllVideos => 'Alle Videos';
+
+  @override
+  String get lessonTypeWhatYouHear => 'Tippe, was du hörst';
+
+  @override
+  String get lessonTapWhatYouHear => 'Wähle, was du hörst';
+
+  @override
+  String get lessonTranslateSentence => 'Übersetze diesen Satz';
+
+  @override
+  String get lessonTypeAnswerHint => 'Deine Antwort…';
+
+  @override
+  String get lessonWriteAnswerHint => 'Schreibe deine Antwort…';
+
+  @override
+  String get lessonContinue => 'Weiter';
+
+  @override
+  String get lessonSkip => 'Überspringen';
+
+  @override
+  String get lessonCheck => 'Prüfen';
+
+  @override
+  String get lessonNicelyDone => '✓ Gut gemacht!';
+
+  @override
+  String get lessonNotQuite => '✕ Nicht ganz';
+
+  @override
+  String lessonAnswerReveal(String answer) {
+    return 'Antwort: $answer';
+  }
+
+  @override
+  String get lessonCompleteKicker => 'LEKTION ABGESCHLOSSEN';
+
+  @override
+  String get lessonCompleteTitle => 'Lektion geschafft!';
+
+  @override
+  String lessonCompleteSummary(int correct, int graded, String level) {
+    return '$correct von $graded richtig · jetzt $level';
+  }
+
+  @override
+  String get lessonStatTotalXp => 'GESAMT-XP';
+
+  @override
+  String get lessonStatAccuracy => 'GENAUIGKEIT';
+
+  @override
+  String get lessonStatTime => 'ZEIT';
 }

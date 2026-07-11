@@ -49,5 +49,22 @@
   "libraryKindVideo": "Vídeo",
   "libraryAllStories": "Todas las historias",
   "libraryAllPodcasts": "Todos los pódcasts",
-  "libraryAllVideos": "Todos los vídeos"
+  "libraryAllVideos": "Todos los vídeos",
+  "lessonTypeWhatYouHear": "Escribe lo que oyes",
+  "lessonTapWhatYouHear": "Toca lo que oyes",
+  "lessonTranslateSentence": "Traduce esta frase",
+  "lessonTypeAnswerHint": "Escribe tu respuesta…",
+  "lessonWriteAnswerHint": "Redacta tu respuesta…",
+  "lessonContinue": "Continuar",
+  "lessonSkip": "Saltar",
+  "lessonCheck": "Comprobar",
+  "lessonNicelyDone": "✓ ¡Bien hecho!",
+  "lessonNotQuite": "✕ No exactamente",
+  "lessonAnswerReveal": "Respuesta: {answer}",
+  "lessonCompleteKicker": "LECCIÓN COMPLETADA",
+  "lessonCompleteTitle": "¡Lección completada!",
+  "lessonCompleteSummary": "{correct} de {graded} correctas · ahora {level}",
+  "lessonStatTotalXp": "XP TOTAL",
+  "lessonStatAccuracy": "PRECISIÓN",
+  "lessonStatTime": "TIEMPO"
 }

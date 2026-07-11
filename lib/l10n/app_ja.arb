@@ -49,5 +49,22 @@
   "libraryKindVideo": "動画",
   "libraryAllStories": "すべてのストーリー",
   "libraryAllPodcasts": "すべてのポッドキャスト",
-  "libraryAllVideos": "すべての動画"
+  "libraryAllVideos": "すべての動画",
+  "lessonTypeWhatYouHear": "聞こえたとおりに入力",
+  "lessonTapWhatYouHear": "聞こえたとおりにタップ",
+  "lessonTranslateSentence": "この文を翻訳しましょう",
+  "lessonTypeAnswerHint": "答えを入力…",
+  "lessonWriteAnswerHint": "答えを書きましょう…",
+  "lessonContinue": "続ける",
+  "lessonSkip": "スキップ",
+  "lessonCheck": "チェック",
+  "lessonNicelyDone": "✓ よくできました!",
+  "lessonNotQuite": "✕ おしい!",
+  "lessonAnswerReveal": "答え: {answer}",
+  "lessonCompleteKicker": "レッスン完了",
+  "lessonCompleteTitle": "レッスン完了!",
+  "lessonCompleteSummary": "{graded}問中{correct}問正解 · 現在 {level}",
+  "lessonStatTotalXp": "合計XP",
+  "lessonStatAccuracy": "正答率",
+  "lessonStatTime": "時間"
 }

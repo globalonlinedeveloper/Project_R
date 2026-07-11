@@ -172,4 +172,59 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get libraryAllVideos => 'সব ভিডিও';
+
+  @override
+  String get lessonTypeWhatYouHear => 'যা শুনছেন তা লিখুন';
+
+  @override
+  String get lessonTapWhatYouHear => 'যা শুনছেন তা বাছুন';
+
+  @override
+  String get lessonTranslateSentence => 'এই বাক্যটি অনুবাদ করুন';
+
+  @override
+  String get lessonTypeAnswerHint => 'আপনার উত্তর লিখুন…';
+
+  @override
+  String get lessonWriteAnswerHint => 'আপনার উত্তর লিখুন…';
+
+  @override
+  String get lessonContinue => 'চালিয়ে যান';
+
+  @override
+  String get lessonSkip => 'এড়িয়ে যান';
+
+  @override
+  String get lessonCheck => 'যাচাই করুন';
+
+  @override
+  String get lessonNicelyDone => '✓ দারুণ!';
+
+  @override
+  String get lessonNotQuite => '✕ ঠিক হয়নি';
+
+  @override
+  String lessonAnswerReveal(String answer) {
+    return 'উত্তর: $answer';
+  }
+
+  @override
+  String get lessonCompleteKicker => 'পাঠ সম্পূর্ণ';
+
+  @override
+  String get lessonCompleteTitle => 'পাঠ সম্পূর্ণ!';
+
+  @override
+  String lessonCompleteSummary(int correct, int graded, String level) {
+    return '$gradedটির মধ্যে $correctটি সঠিক · এখন $level';
+  }
+
+  @override
+  String get lessonStatTotalXp => 'মোট XP';
+
+  @override
+  String get lessonStatAccuracy => 'নির্ভুলতা';
+
+  @override
+  String get lessonStatTime => 'সময়';
 }

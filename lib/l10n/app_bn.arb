@@ -49,5 +49,22 @@
   "libraryKindVideo": "ভিডিও",
   "libraryAllStories": "সব গল্প",
   "libraryAllPodcasts": "সব পডকাস্ট",
-  "libraryAllVideos": "সব ভিডিও"
+  "libraryAllVideos": "সব ভিডিও",
+  "lessonTypeWhatYouHear": "যা শুনছেন তা লিখুন",
+  "lessonTapWhatYouHear": "যা শুনছেন তা বাছুন",
+  "lessonTranslateSentence": "এই বাক্যটি অনুবাদ করুন",
+  "lessonTypeAnswerHint": "আপনার উত্তর লিখুন…",
+  "lessonWriteAnswerHint": "আপনার উত্তর লিখুন…",
+  "lessonContinue": "চালিয়ে যান",
+  "lessonSkip": "এড়িয়ে যান",
+  "lessonCheck": "যাচাই করুন",
+  "lessonNicelyDone": "✓ দারুণ!",
+  "lessonNotQuite": "✕ ঠিক হয়নি",
+  "lessonAnswerReveal": "উত্তর: {answer}",
+  "lessonCompleteKicker": "পাঠ সম্পূর্ণ",
+  "lessonCompleteTitle": "পাঠ সম্পূর্ণ!",
+  "lessonCompleteSummary": "{graded}টির মধ্যে {correct}টি সঠিক · এখন {level}",
+  "lessonStatTotalXp": "মোট XP",
+  "lessonStatAccuracy": "নির্ভুলতা",
+  "lessonStatTime": "সময়"
 }

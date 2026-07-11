@@ -49,5 +49,22 @@
   "libraryKindVideo": "동영상",
   "libraryAllStories": "모든 스토리",
   "libraryAllPodcasts": "모든 팟캐스트",
-  "libraryAllVideos": "모든 동영상"
+  "libraryAllVideos": "모든 동영상",
+  "lessonTypeWhatYouHear": "들리는 대로 입력하세요",
+  "lessonTapWhatYouHear": "들리는 대로 선택하세요",
+  "lessonTranslateSentence": "이 문장을 번역하세요",
+  "lessonTypeAnswerHint": "답을 입력하세요…",
+  "lessonWriteAnswerHint": "답을 써 보세요…",
+  "lessonContinue": "계속",
+  "lessonSkip": "건너뛰기",
+  "lessonCheck": "확인",
+  "lessonNicelyDone": "✓ 잘했어요!",
+  "lessonNotQuite": "✕ 아쉬워요",
+  "lessonAnswerReveal": "정답: {answer}",
+  "lessonCompleteKicker": "레슨 완료",
+  "lessonCompleteTitle": "레슨 완료!",
+  "lessonCompleteSummary": "{graded}개 중 {correct}개 정답 · 현재 {level}",
+  "lessonStatTotalXp": "총 XP",
+  "lessonStatAccuracy": "정확도",
+  "lessonStatTime": "시간"
 }

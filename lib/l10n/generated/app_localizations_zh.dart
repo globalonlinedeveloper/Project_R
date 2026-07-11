@@ -170,4 +170,59 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get libraryAllVideos => '全部视频';
+
+  @override
+  String get lessonTypeWhatYouHear => '输入你听到的内容';
+
+  @override
+  String get lessonTapWhatYouHear => '点选你听到的内容';
+
+  @override
+  String get lessonTranslateSentence => '翻译这个句子';
+
+  @override
+  String get lessonTypeAnswerHint => '输入你的答案…';
+
+  @override
+  String get lessonWriteAnswerHint => '写下你的答案…';
+
+  @override
+  String get lessonContinue => '继续';
+
+  @override
+  String get lessonSkip => '跳过';
+
+  @override
+  String get lessonCheck => '检查';
+
+  @override
+  String get lessonNicelyDone => '✓ 做得好!';
+
+  @override
+  String get lessonNotQuite => '✕ 不太对';
+
+  @override
+  String lessonAnswerReveal(String answer) {
+    return '答案:$answer';
+  }
+
+  @override
+  String get lessonCompleteKicker => '课程完成';
+
+  @override
+  String get lessonCompleteTitle => '课程完成!';
+
+  @override
+  String lessonCompleteSummary(int correct, int graded, String level) {
+    return '共 $graded 题,答对 $correct 题 · 现在是 $level';
+  }
+
+  @override
+  String get lessonStatTotalXp => '总 XP';
+
+  @override
+  String get lessonStatAccuracy => '准确率';
+
+  @override
+  String get lessonStatTime => '用时';
 }

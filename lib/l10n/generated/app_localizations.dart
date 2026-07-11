@@ -417,6 +417,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All videos'**
   String get libraryAllVideos;
+
+  /// No description provided for @lessonTypeWhatYouHear.
+  ///
+  /// In en, this message translates to:
+  /// **'Type what you hear'**
+  String get lessonTypeWhatYouHear;
+
+  /// No description provided for @lessonTapWhatYouHear.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap what you hear'**
+  String get lessonTapWhatYouHear;
+
+  /// No description provided for @lessonTranslateSentence.
+  ///
+  /// In en, this message translates to:
+  /// **'Translate this sentence'**
+  String get lessonTranslateSentence;
+
+  /// No description provided for @lessonTypeAnswerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your answer…'**
+  String get lessonTypeAnswerHint;
+
+  /// No description provided for @lessonWriteAnswerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your answer…'**
+  String get lessonWriteAnswerHint;
+
+  /// No description provided for @lessonContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get lessonContinue;
+
+  /// No description provided for @lessonSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get lessonSkip;
+
+  /// No description provided for @lessonCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Check'**
+  String get lessonCheck;
+
+  /// No description provided for @lessonNicelyDone.
+  ///
+  /// In en, this message translates to:
+  /// **'✓ Nicely done!'**
+  String get lessonNicelyDone;
+
+  /// No description provided for @lessonNotQuite.
+  ///
+  /// In en, this message translates to:
+  /// **'✕ Not quite'**
+  String get lessonNotQuite;
+
+  /// No description provided for @lessonAnswerReveal.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer: {answer}'**
+  String lessonAnswerReveal(String answer);
+
+  /// No description provided for @lessonCompleteKicker.
+  ///
+  /// In en, this message translates to:
+  /// **'LESSON COMPLETE'**
+  String get lessonCompleteKicker;
+
+  /// No description provided for @lessonCompleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson complete!'**
+  String get lessonCompleteTitle;
+
+  /// No description provided for @lessonCompleteSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{correct} of {graded} correct · now {level}'**
+  String lessonCompleteSummary(int correct, int graded, String level);
+
+  /// No description provided for @lessonStatTotalXp.
+  ///
+  /// In en, this message translates to:
+  /// **'TOTAL XP'**
+  String get lessonStatTotalXp;
+
+  /// No description provided for @lessonStatAccuracy.
+  ///
+  /// In en, this message translates to:
+  /// **'ACCURACY'**
+  String get lessonStatAccuracy;
+
+  /// No description provided for @lessonStatTime.
+  ///
+  /// In en, this message translates to:
+  /// **'TIME'**
+  String get lessonStatTime;
 }
 
 class _AppLocalizationsDelegate

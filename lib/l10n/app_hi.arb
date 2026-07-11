@@ -49,5 +49,22 @@
   "libraryKindVideo": "वीडियो",
   "libraryAllStories": "सभी कहानियाँ",
   "libraryAllPodcasts": "सभी पॉडकास्ट",
-  "libraryAllVideos": "सभी वीडियो"
+  "libraryAllVideos": "सभी वीडियो",
+  "lessonTypeWhatYouHear": "जो सुनें वह लिखें",
+  "lessonTapWhatYouHear": "जो सुनें उसे चुनें",
+  "lessonTranslateSentence": "इस वाक्य का अनुवाद करें",
+  "lessonTypeAnswerHint": "अपना उत्तर लिखें…",
+  "lessonWriteAnswerHint": "अपना उत्तर लिखें…",
+  "lessonContinue": "आगे बढ़ें",
+  "lessonSkip": "छोड़ें",
+  "lessonCheck": "जाँचें",
+  "lessonNicelyDone": "✓ बहुत बढ़िया!",
+  "lessonNotQuite": "✕ बिल्कुल नहीं",
+  "lessonAnswerReveal": "उत्तर: {answer}",
+  "lessonCompleteKicker": "पाठ पूर्ण",
+  "lessonCompleteTitle": "पाठ पूरा हुआ!",
+  "lessonCompleteSummary": "{graded} में से {correct} सही · अब {level}",
+  "lessonStatTotalXp": "कुल XP",
+  "lessonStatAccuracy": "सटीकता",
+  "lessonStatTime": "समय"
 }

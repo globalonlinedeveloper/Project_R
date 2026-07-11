@@ -212,6 +212,24 @@ void main() {
     expect(ar.homeQuickExercises(2), isNotEmpty);
   });
 
+  test('lesson chrome keys: en output BYTE-IDENTICAL to the old literals '
+      '(sentinels + summary), es localized (I3)', () {
+    final AppLocalizations en = lookupAppLocalizations(const Locale('en'));
+    expect(en.lessonNicelyDone, '✓ Nicely done!');
+    expect(en.lessonNotQuite, '✕ Not quite');
+    expect(en.lessonCompleteKicker, 'LESSON COMPLETE');
+    expect(en.lessonCompleteTitle, 'Lesson complete!');
+    expect(en.lessonCompleteSummary(3, 4, 'A1'), '3 of 4 correct \u00b7 now A1');
+    expect(en.lessonAnswerReveal('hola'), 'Answer: hola');
+    expect(en.lessonTypeWhatYouHear, 'Type what you hear');
+    expect(en.lessonTapWhatYouHear, 'Tap what you hear');
+    expect(en.lessonTranslateSentence, 'Translate this sentence');
+    final AppLocalizations es = lookupAppLocalizations(const Locale('es'));
+    expect(es.lessonNicelyDone, '✓ ¡Bien hecho!');
+    expect(es.lessonCheck, 'Comprobar');
+    expect(es.lessonCompleteSummary(3, 4, 'A1'), contains('3 de 4'));
+  });
+
   testWidgets('Library in Spanish (delegates installed): chrome localized',
       (WidgetTester tester) async {
     await tester.pumpWidget(ProviderScope(

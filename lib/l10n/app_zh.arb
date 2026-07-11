@@ -49,5 +49,22 @@
   "libraryKindVideo": "视频",
   "libraryAllStories": "全部故事",
   "libraryAllPodcasts": "全部播客",
-  "libraryAllVideos": "全部视频"
+  "libraryAllVideos": "全部视频",
+  "lessonTypeWhatYouHear": "输入你听到的内容",
+  "lessonTapWhatYouHear": "点选你听到的内容",
+  "lessonTranslateSentence": "翻译这个句子",
+  "lessonTypeAnswerHint": "输入你的答案…",
+  "lessonWriteAnswerHint": "写下你的答案…",
+  "lessonContinue": "继续",
+  "lessonSkip": "跳过",
+  "lessonCheck": "检查",
+  "lessonNicelyDone": "✓ 做得好!",
+  "lessonNotQuite": "✕ 不太对",
+  "lessonAnswerReveal": "答案:{answer}",
+  "lessonCompleteKicker": "课程完成",
+  "lessonCompleteTitle": "课程完成!",
+  "lessonCompleteSummary": "共 {graded} 题,答对 {correct} 题 · 现在是 {level}",
+  "lessonStatTotalXp": "总 XP",
+  "lessonStatAccuracy": "准确率",
+  "lessonStatTime": "用时"
 }

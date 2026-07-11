@@ -49,5 +49,22 @@
   "libraryKindVideo": "Видео",
   "libraryAllStories": "Все истории",
   "libraryAllPodcasts": "Все подкасты",
-  "libraryAllVideos": "Все видео"
+  "libraryAllVideos": "Все видео",
+  "lessonTypeWhatYouHear": "Напишите то, что слышите",
+  "lessonTapWhatYouHear": "Соберите то, что слышите",
+  "lessonTranslateSentence": "Переведите это предложение",
+  "lessonTypeAnswerHint": "Введите свой ответ…",
+  "lessonWriteAnswerHint": "Напишите свой ответ…",
+  "lessonContinue": "Продолжить",
+  "lessonSkip": "Пропустить",
+  "lessonCheck": "Проверить",
+  "lessonNicelyDone": "✓ Отлично!",
+  "lessonNotQuite": "✕ Не совсем",
+  "lessonAnswerReveal": "Ответ: {answer}",
+  "lessonCompleteKicker": "УРОК ПРОЙДЕН",
+  "lessonCompleteTitle": "Урок пройден!",
+  "lessonCompleteSummary": "{correct} из {graded} верно · теперь {level}",
+  "lessonStatTotalXp": "ВСЕГО XP",
+  "lessonStatAccuracy": "ТОЧНОСТЬ",
+  "lessonStatTime": "ВРЕМЯ"
 }

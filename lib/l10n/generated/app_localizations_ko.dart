@@ -170,4 +170,59 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get libraryAllVideos => '모든 동영상';
+
+  @override
+  String get lessonTypeWhatYouHear => '들리는 대로 입력하세요';
+
+  @override
+  String get lessonTapWhatYouHear => '들리는 대로 선택하세요';
+
+  @override
+  String get lessonTranslateSentence => '이 문장을 번역하세요';
+
+  @override
+  String get lessonTypeAnswerHint => '답을 입력하세요…';
+
+  @override
+  String get lessonWriteAnswerHint => '답을 써 보세요…';
+
+  @override
+  String get lessonContinue => '계속';
+
+  @override
+  String get lessonSkip => '건너뛰기';
+
+  @override
+  String get lessonCheck => '확인';
+
+  @override
+  String get lessonNicelyDone => '✓ 잘했어요!';
+
+  @override
+  String get lessonNotQuite => '✕ 아쉬워요';
+
+  @override
+  String lessonAnswerReveal(String answer) {
+    return '정답: $answer';
+  }
+
+  @override
+  String get lessonCompleteKicker => '레슨 완료';
+
+  @override
+  String get lessonCompleteTitle => '레슨 완료!';
+
+  @override
+  String lessonCompleteSummary(int correct, int graded, String level) {
+    return '$graded개 중 $correct개 정답 · 현재 $level';
+  }
+
+  @override
+  String get lessonStatTotalXp => '총 XP';
+
+  @override
+  String get lessonStatAccuracy => '정확도';
+
+  @override
+  String get lessonStatTime => '시간';
 }

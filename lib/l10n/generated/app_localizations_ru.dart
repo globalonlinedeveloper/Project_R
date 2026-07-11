@@ -177,4 +177,59 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get libraryAllVideos => 'Все видео';
+
+  @override
+  String get lessonTypeWhatYouHear => 'Напишите то, что слышите';
+
+  @override
+  String get lessonTapWhatYouHear => 'Соберите то, что слышите';
+
+  @override
+  String get lessonTranslateSentence => 'Переведите это предложение';
+
+  @override
+  String get lessonTypeAnswerHint => 'Введите свой ответ…';
+
+  @override
+  String get lessonWriteAnswerHint => 'Напишите свой ответ…';
+
+  @override
+  String get lessonContinue => 'Продолжить';
+
+  @override
+  String get lessonSkip => 'Пропустить';
+
+  @override
+  String get lessonCheck => 'Проверить';
+
+  @override
+  String get lessonNicelyDone => '✓ Отлично!';
+
+  @override
+  String get lessonNotQuite => '✕ Не совсем';
+
+  @override
+  String lessonAnswerReveal(String answer) {
+    return 'Ответ: $answer';
+  }
+
+  @override
+  String get lessonCompleteKicker => 'УРОК ПРОЙДЕН';
+
+  @override
+  String get lessonCompleteTitle => 'Урок пройден!';
+
+  @override
+  String lessonCompleteSummary(int correct, int graded, String level) {
+    return '$correct из $graded верно · теперь $level';
+  }
+
+  @override
+  String get lessonStatTotalXp => 'ВСЕГО XP';
+
+  @override
+  String get lessonStatAccuracy => 'ТОЧНОСТЬ';
+
+  @override
+  String get lessonStatTime => 'ВРЕМЯ';
 }

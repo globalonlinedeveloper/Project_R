@@ -83,5 +83,42 @@
         "type": "String"
       }
     }
+  },
+  "lessonTypeWhatYouHear": "Type what you hear",
+  "lessonTapWhatYouHear": "Tap what you hear",
+  "lessonTranslateSentence": "Translate this sentence",
+  "lessonTypeAnswerHint": "Type your answer…",
+  "lessonWriteAnswerHint": "Write your answer…",
+  "lessonContinue": "Continue",
+  "lessonSkip": "Skip",
+  "lessonCheck": "Check",
+  "lessonNicelyDone": "✓ Nicely done!",
+  "lessonNotQuite": "✕ Not quite",
+  "lessonAnswerReveal": "Answer: {answer}",
+  "lessonCompleteKicker": "LESSON COMPLETE",
+  "lessonCompleteTitle": "Lesson complete!",
+  "lessonCompleteSummary": "{correct} of {graded} correct · now {level}",
+  "lessonStatTotalXp": "TOTAL XP",
+  "lessonStatAccuracy": "ACCURACY",
+  "lessonStatTime": "TIME",
+  "@lessonAnswerReveal": {
+    "placeholders": {
+      "answer": {
+        "type": "String"
+      }
+    }
+  },
+  "@lessonCompleteSummary": {
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "graded": {
+        "type": "int"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
   }
 }

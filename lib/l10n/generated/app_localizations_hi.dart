@@ -172,4 +172,59 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get libraryAllVideos => 'सभी वीडियो';
+
+  @override
+  String get lessonTypeWhatYouHear => 'जो सुनें वह लिखें';
+
+  @override
+  String get lessonTapWhatYouHear => 'जो सुनें उसे चुनें';
+
+  @override
+  String get lessonTranslateSentence => 'इस वाक्य का अनुवाद करें';
+
+  @override
+  String get lessonTypeAnswerHint => 'अपना उत्तर लिखें…';
+
+  @override
+  String get lessonWriteAnswerHint => 'अपना उत्तर लिखें…';
+
+  @override
+  String get lessonContinue => 'आगे बढ़ें';
+
+  @override
+  String get lessonSkip => 'छोड़ें';
+
+  @override
+  String get lessonCheck => 'जाँचें';
+
+  @override
+  String get lessonNicelyDone => '✓ बहुत बढ़िया!';
+
+  @override
+  String get lessonNotQuite => '✕ बिल्कुल नहीं';
+
+  @override
+  String lessonAnswerReveal(String answer) {
+    return 'उत्तर: $answer';
+  }
+
+  @override
+  String get lessonCompleteKicker => 'पाठ पूर्ण';
+
+  @override
+  String get lessonCompleteTitle => 'पाठ पूरा हुआ!';
+
+  @override
+  String lessonCompleteSummary(int correct, int graded, String level) {
+    return '$graded में से $correct सही · अब $level';
+  }
+
+  @override
+  String get lessonStatTotalXp => 'कुल XP';
+
+  @override
+  String get lessonStatAccuracy => 'सटीकता';
+
+  @override
+  String get lessonStatTime => 'समय';
 }

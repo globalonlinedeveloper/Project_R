@@ -178,4 +178,59 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get libraryAllVideos => 'كل الفيديوهات';
+
+  @override
+  String get lessonTypeWhatYouHear => 'اكتب ما تسمعه';
+
+  @override
+  String get lessonTapWhatYouHear => 'انقر ما تسمعه';
+
+  @override
+  String get lessonTranslateSentence => 'ترجم هذه الجملة';
+
+  @override
+  String get lessonTypeAnswerHint => 'اكتب إجابتك…';
+
+  @override
+  String get lessonWriteAnswerHint => 'اكتب إجابتك…';
+
+  @override
+  String get lessonContinue => 'متابعة';
+
+  @override
+  String get lessonSkip => 'تخطٍّ';
+
+  @override
+  String get lessonCheck => 'تحقّق';
+
+  @override
+  String get lessonNicelyDone => '✓ أحسنت!';
+
+  @override
+  String get lessonNotQuite => '✕ ليس تمامًا';
+
+  @override
+  String lessonAnswerReveal(String answer) {
+    return 'الإجابة: $answer';
+  }
+
+  @override
+  String get lessonCompleteKicker => 'اكتمل الدرس';
+
+  @override
+  String get lessonCompleteTitle => 'اكتمل الدرس!';
+
+  @override
+  String lessonCompleteSummary(int correct, int graded, String level) {
+    return '$correct من $graded صحيحة · الآن $level';
+  }
+
+  @override
+  String get lessonStatTotalXp => 'مجموع XP';
+
+  @override
+  String get lessonStatAccuracy => 'الدقة';
+
+  @override
+  String get lessonStatTime => 'الوقت';
 }
