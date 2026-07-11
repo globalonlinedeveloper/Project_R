@@ -3,7 +3,8 @@
 /// (ability.dart), the cold-start CEFR-anchor difficulty/ability priors
 /// (cold_start.dart), the IRT 1PL/2PL/3PL recall-probability family (irt.dart),
 /// the batch IRT item re-calibration — the staged, thin-data-safe 1PL difficulty
-/// re-fit from the append-only ReviewLog (calibration.dart), the CAT
+/// + 2PL discrimination + mcq 3PL guessing re-fit from the append-only ReviewLog
+/// (calibration.dart), the CAT
 /// placement-test selection + EAP estimate (cat.dart), the learner-state entity
 /// value-objects + append-only / derive-by-compose transitions
 /// (learner_state.dart), the saved-words intake dedup + daily-cap metering

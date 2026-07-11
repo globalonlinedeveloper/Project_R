@@ -395,4 +395,341 @@ void main() {
       }
     });
   });
+
+  // ---- CALIBRATION-2 [R-G3]: the 2PL discrimination + 3PL guessing rungs ----
+  // The staged coordinate MAP now PERFORMS the a fit (rung eligible2pl+) and the
+  // mcq c fit (rung eligible3pl), holding the already-fit parameters. Same
+  // thin-data guards as b: verbatim below the rung, shrinkage above it, finite
+  // clamped on separated/degenerate data.
+
+  // The 2PL discrimination MAP score S(a) = Σ d_j·(y_j − σ(a·d_j)) − (a − a0)/τ_a²
+  // recomputed at the fitted (a, b): the estimator's own root equation, so
+  // |S(a)| ≈ 0 proves the fit solved it (white-box, holds for ANY data).
+  double scoreA(
+    List<CalibrationResponse> rs,
+    double a,
+    double b,
+    double a0,
+    double tau2,
+  ) {
+    double s = 0.0;
+    for (final CalibrationResponse r in rs) {
+      final double d = r.theta - b;
+      s += d * ((r.correct ? 1.0 : 0.0) - 1.0 / (1.0 + math.exp(-a * d)));
+    }
+    return s - (a - a0) / tau2;
+  }
+
+  // The 3PL guessing MAP score S(c) recomputed at the fitted (a, b, c).
+  double scoreC(
+    List<CalibrationResponse> rs,
+    double a,
+    double b,
+    double c,
+    double c0,
+    double tau2,
+  ) {
+    double s = 0.0;
+    for (final CalibrationResponse r in rs) {
+      final double g = 1.0 / (1.0 + math.exp(-a * (r.theta - b)));
+      final double p = c + (1.0 - c) * g;
+      if (r.correct) {
+        s += (1.0 - g) / p;
+      } else {
+        s -= 1.0 / (1.0 - c);
+      }
+    }
+    return s - (c - c0) / tau2;
+  }
+
+  group('2PL discrimination fit (rung eligible2pl)', () {
+    // Ability-balanced data pins the 1PL b EXACTLY at 0, isolating the
+    // discrimination fit: kPlus/n correct at θ=+1 and kMinus/n at θ=−1 give the
+    // closed-form 2PL MLE σ(a) = [(kPlus − kMinus)/n + 1]/2.
+    List<CalibrationResponse> balanced(int kPlus, int kMinus, {int n = 10}) =>
+        <CalibrationResponse>[
+          ...atTheta(1.0, kPlus, n - kPlus),
+          ...atTheta(-1.0, kMinus, n - kMinus),
+        ];
+
+    const IrtCalibrator weak = IrtCalibrator(
+      CalibrationParams(
+        minResponsesToRefine: 1,
+        twoPlThreshold: 2,
+        threePlThreshold: 100000,
+        priorVariance: 1e9,
+        discriminationPriorVariance: 1e9,
+      ),
+    );
+
+    test('recovers the closed-form 2PL MLE a = ln 4 (b stays 0)', () {
+      final CalibrationResult r =
+          weak.calibrateItem(responses: balanced(8, 2), priorB: 0.0);
+      expect(r.rung, CalibrationRung.eligible2pl);
+      expect(r.b, closeTo(0.0, 1e-6)); // balanced data pins b at 0
+      expect(r.a, closeTo(math.log(4), 1e-3)); // σ(a)=0.8 ⇒ a=ln4≈1.386
+      expect(r.aRefined, isTrue);
+      expect(r.aConverged, isTrue);
+      expect(r.c, 0.0); // c passes through below the 3PL rung
+      expect(r.cRefined, isFalse);
+    });
+
+    test('the fitted a is the root of its own MAP score (mixed data)', () {
+      final List<CalibrationResponse> mixed = <CalibrationResponse>[
+        ...atTheta(1.3, 7, 3),
+        ...atTheta(-0.6, 2, 6),
+        ...atTheta(0.2, 3, 3),
+      ];
+      final CalibrationResult r =
+          weak.calibrateItem(responses: mixed, priorB: 0.1);
+      expect(r.rung, CalibrationRung.eligible2pl);
+      expect(r.a, greaterThan(0.2)); // not clamped
+      expect(r.a, lessThan(4.0));
+      expect(scoreA(mixed, r.a, r.b, 1.0, 1e9).abs(), lessThan(1e-6));
+    });
+
+    test('more sharply ability-separated data → a higher discrimination', () {
+      final double sharp =
+          weak.calibrateItem(responses: balanced(9, 1), priorB: 0.0).a;
+      final double flat =
+          weak.calibrateItem(responses: balanced(6, 4), priorB: 0.0).a;
+      expect(sharp, greaterThan(flat)); // ln9 ≈ 2.20 vs ln1.5 ≈ 0.41
+    });
+
+    test('reverse-keyed data (higher ability does worse) clamps to aMin', () {
+      // 2/10 right at θ=+1, 8/10 right at θ=−1 → the raw slope is negative.
+      final CalibrationResult r =
+          weak.calibrateItem(responses: balanced(2, 8), priorB: 0.0);
+      expect(r.a, closeTo(0.2, 1e-6)); // aMin, never a ≤ 0 slope
+      expect(r.aDelta, lessThan(0.0)); // a big drop from prior 1.0 flags it
+      expect(r.a.isFinite, isTrue);
+    });
+
+    test('perfectly separating data clamps to a finite aMax, not ∞', () {
+      final CalibrationResult r =
+          weak.calibrateItem(responses: balanced(10, 0), priorB: 0.0);
+      expect(r.a, closeTo(4.0, 1e-6)); // aMax
+      expect(r.a.isFinite, isTrue);
+    });
+
+    test('a is shrunk toward the prior; a tighter prior shrinks harder', () {
+      double fitA(double tau2) => IrtCalibrator(
+            CalibrationParams(
+              minResponsesToRefine: 1,
+              twoPlThreshold: 2,
+              threePlThreshold: 100000,
+              priorVariance: 1e9,
+              discriminationPriorVariance: tau2,
+            ),
+          ).calibrateItem(responses: balanced(9, 1), priorB: 0.0).a;
+      expect(fitA(1e9), closeTo(math.log(9), 1e-3)); // inert prior → MLE
+      expect(fitA(0.2), lessThan(fitA(1e9))); // shrinks back toward prior 1.0
+      expect(fitA(0.2), greaterThan(1.0)); // but genuinely moved from the prior
+      expect((fitA(0.05) - 1.0).abs(), lessThan((fitA(0.2) - 1.0).abs()));
+    });
+
+    test('no discrimination signal (all answers at θ=b) keeps the prior a', () {
+      final CalibrationResult r = weak.calibrateItem(
+        responses: atTheta(0.0, 6, 6), // every d_j = 0 → no data term in S(a)
+        priorB: 0.0,
+        priorA: 1.4,
+      );
+      expect(r.b, closeTo(0.0, 1e-6));
+      expect(r.a, closeTo(1.4, 1e-6)); // stays at the prior mean
+    });
+
+    test('the a fit is deterministic and order-independent', () {
+      final List<CalibrationResponse> d = balanced(7, 3);
+      final double forward = weak.calibrateItem(responses: d, priorB: 0.0).a;
+      final double reversed =
+          weak.calibrateItem(responses: d.reversed.toList(), priorB: 0.0).a;
+      expect(reversed, forward);
+    });
+
+    test('below the 2PL rung (refined1pl) a passes through verbatim', () {
+      const IrtCalibrator floor = IrtCalibrator(
+        CalibrationParams(
+          minResponsesToRefine: 1,
+          twoPlThreshold: 1000,
+          threePlThreshold: 2000,
+          priorVariance: 1e9,
+        ),
+      );
+      final CalibrationResult r = floor.calibrateItem(
+        responses: balanced(8, 2), // n=20 < 1000 → refined1pl
+        priorB: 0.0,
+        priorA: 1.7,
+      );
+      expect(r.rung, CalibrationRung.refined1pl);
+      expect(r.a, 1.7); // byte-exact prior
+      expect(r.aRefined, isFalse);
+      expect(r.aDelta, 0.0);
+    });
+  });
+
+  group('3PL guessing fit (rung eligible3pl, mcq only)', () {
+    const IrtCalibrator weak = IrtCalibrator(
+      CalibrationParams(
+        minResponsesToRefine: 1,
+        twoPlThreshold: 2,
+        threePlThreshold: 4,
+        priorVariance: 1e9,
+        discriminationPriorVariance: 1e9,
+        guessingPriorVariance: 1e9,
+      ),
+    );
+
+    // Low-ability learners succeed FAR above the 2PL floor (guessing); high
+    // ability nearly always right.
+    List<CalibrationResponse> guessy() => <CalibrationResponse>[
+          // Sampled from a TRUE 3PL (b=0, a=1.5, c=0.25) at five ability levels:
+          // a low-ability success floor that NO c=0 2PL curve can reach (a 2PL
+          // asymptotes to 0 at low θ), so the staged fit is forced to c > 0.
+          // Two ability points alone would let (a, b) fit both exactly ⇒ c=0.
+          ...atTheta(-3.0, 10, 30), // p≈0.26
+          ...atTheta(-1.0, 15, 25), // p≈0.39
+          ...atTheta(0.0, 25, 15), // p≈0.63
+          ...atTheta(1.0, 35, 5), // p≈0.86
+          ...atTheta(3.0, 39, 1), // p≈0.99
+        ];
+
+    test('the fitted c is the root of its own MAP score', () {
+      final List<CalibrationResponse> rs = guessy();
+      final CalibrationResult r =
+          weak.calibrateItem(responses: rs, priorB: 0.0);
+      expect(r.rung, CalibrationRung.eligible3pl);
+      expect(r.c, greaterThan(0.0));
+      expect(r.c, lessThan(0.5));
+      expect(scoreC(rs, r.a, r.b, r.c, 0.0, 1e9).abs(), lessThan(1e-6));
+    });
+
+    test('a guessing signal lifts c above the prior floor', () {
+      final CalibrationResult r =
+          weak.calibrateItem(responses: guessy(), priorB: 0.0);
+      expect(r.cRefined, isTrue);
+      expect(r.c, greaterThan(0.0)); // low-ability corrects ⇒ c > 0
+      expect(r.cConverged, isTrue);
+    });
+
+    test('clean 2PL data (no guessing) keeps c at the floor', () {
+      // Low ability ~all wrong, high ~all right → c-MLE ≤ 0 → clamp cMin.
+      final List<CalibrationResponse> clean = <CalibrationResponse>[
+        ...atTheta(-2.5, 0, 30),
+        ...atTheta(2.5, 30, 0),
+      ];
+      final CalibrationResult r =
+          weak.calibrateItem(responses: clean, priorB: 0.0);
+      expect(r.c, closeTo(0.0, 1e-6)); // cMin
+    });
+
+    test('c is shrunk toward the prior; a tighter prior shrinks harder', () {
+      double fitC(double tau2) => IrtCalibrator(
+            CalibrationParams(
+              minResponsesToRefine: 1,
+              twoPlThreshold: 2,
+              threePlThreshold: 4,
+              priorVariance: 1e9,
+              discriminationPriorVariance: 1e9,
+              guessingPriorVariance: tau2,
+            ),
+          ).calibrateItem(responses: guessy(), priorB: 0.0).c;
+      expect(fitC(1e9), greaterThan(fitC(0.02))); // inert prior moves c furthest
+      expect(fitC(0.02), greaterThanOrEqualTo(0.0)); // stays a valid floor
+    });
+
+    test('3PL is mcq-only: a non-mcq item never fits c', () {
+      final CalibrationResult r = weak.calibrateItem(
+        responses: guessy(),
+        priorB: 0.0,
+        priorC: 0.15,
+        type: ExerciseType.translate,
+      );
+      expect(r.rung, CalibrationRung.eligible2pl); // capped below 3PL
+      expect(r.cRefined, isFalse);
+      expect(r.c, 0.15); // authored guessing passes through
+    });
+
+    test('below the 3PL rung (eligible2pl) c passes through verbatim', () {
+      const IrtCalibrator twoPlOnly = IrtCalibrator(
+        CalibrationParams(
+          minResponsesToRefine: 1,
+          twoPlThreshold: 2,
+          threePlThreshold: 100000,
+          priorVariance: 1e9,
+          discriminationPriorVariance: 1e9,
+        ),
+      );
+      final CalibrationResult r = twoPlOnly.calibrateItem(
+        responses: guessy(),
+        priorB: 0.0,
+        priorC: 0.2,
+      );
+      expect(r.rung, CalibrationRung.eligible2pl);
+      expect(r.cRefined, isFalse);
+      expect(r.c, 0.2);
+    });
+
+    test('the c fit is deterministic and order-independent', () {
+      final List<CalibrationResponse> rs = guessy();
+      final double forward = weak.calibrateItem(responses: rs, priorB: 0.0).c;
+      final double reversed =
+          weak.calibrateItem(responses: rs.reversed.toList(), priorB: 0.0).c;
+      expect(reversed, forward);
+    });
+  });
+
+  group('calibrated params are always a valid IRT item', () {
+    const IrtCalibrator weak = IrtCalibrator(
+      CalibrationParams(
+        minResponsesToRefine: 1,
+        twoPlThreshold: 2,
+        threePlThreshold: 4,
+        priorVariance: 1e9,
+        discriminationPriorVariance: 1e9,
+        guessingPriorVariance: 1e9,
+      ),
+    );
+
+    test('a fitted (a, b, c) constructs an IrtItem without tripping asserts', () {
+      // Guessing, reverse and separating extremes all stay inside IrtItem's
+      // a > 0, c ∈ [0, 1) contract.
+      final List<List<CalibrationResponse>> datasets =
+          <List<CalibrationResponse>>[
+        <CalibrationResponse>[...atTheta(-2.5, 9, 21), ...atTheta(2.5, 28, 2)],
+        <CalibrationResponse>[...atTheta(1.0, 2, 8), ...atTheta(-1.0, 8, 2)],
+        <CalibrationResponse>[...atTheta(1.0, 10, 0), ...atTheta(-1.0, 0, 10)],
+      ];
+      for (final List<CalibrationResponse> rs in datasets) {
+        final CalibrationResult r =
+            weak.calibrateItem(responses: rs, priorB: 0.0);
+        expect(r.a, greaterThan(0.0)); // IrtItem: a > 0
+        expect(r.c, greaterThanOrEqualTo(0.0)); // IrtItem: c ∈ [0, 1)
+        expect(r.c, lessThan(1.0));
+        final IrtItem item = IrtItem(b: r.b, a: r.a, c: r.c);
+        final double p = const IrtModel().pCorrectForItem(0.0, item);
+        expect(p, greaterThanOrEqualTo(r.c)); // 3PL lower asymptote
+        expect(p, lessThan(1.0));
+      }
+    });
+  });
+
+  group('2PL/3PL parameter validation', () {
+    test('invalid new knobs trip an assertion', () {
+      // Runtime values (no const-eval) so the assert fires at call time.
+      double rt(double x) => <double>[x].first;
+      expect(() => CalibrationParams(discriminationPriorVariance: rt(0.0)),
+          throwsA(isA<AssertionError>()));
+      expect(() => CalibrationParams(guessingPriorVariance: rt(-1.0)),
+          throwsA(isA<AssertionError>()));
+      expect(() => CalibrationParams(aMin: rt(0.0)),
+          throwsA(isA<AssertionError>())); // a must stay > 0
+      expect(() => CalibrationParams(aMin: rt(2.0), aMax: rt(1.0)),
+          throwsA(isA<AssertionError>()));
+      expect(() => CalibrationParams(cMin: rt(-0.1)),
+          throwsA(isA<AssertionError>()));
+      expect(() => CalibrationParams(cMax: rt(1.0)),
+          throwsA(isA<AssertionError>())); // c must stay < 1
+    });
+  });
+
 }
