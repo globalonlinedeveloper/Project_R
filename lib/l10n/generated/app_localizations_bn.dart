@@ -1159,4 +1159,224 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get commonDowSun => 'র';
+
+  @override
+  String get searchTitle => 'খুঁজুন';
+
+  @override
+  String get searchHint => 'পাঠ, শব্দ, গল্প খুঁজুন…';
+
+  @override
+  String get searchRecent => 'সাম্প্রতিক';
+
+  @override
+  String get searchClear => 'মুছুন';
+
+  @override
+  String get searchJumpTo => 'যান';
+
+  @override
+  String get searchTagPage => 'পেজ';
+
+  @override
+  String get searchTagWord => 'শব্দ';
+
+  @override
+  String get searchSubtitleSavedWord => 'সংরক্ষিত শব্দ';
+
+  @override
+  String searchLessonSubtitle(String unit) {
+    return '$unit · পাঠ';
+  }
+
+  @override
+  String searchNoMatches(String query) {
+    return '“$query”-এর জন্য কোনো ফলাফল নেই';
+  }
+
+  @override
+  String get searchEmptyNote =>
+      'আপনার কোর্স, সংরক্ষিত শব্দ ও পেজের শিরোনাম, ট্যাগ ও পাঠের বিষয়বস্তুতে খোঁজা হয়। সার্ভার কন্টেন্ট ইনডেক্স ও ট্রেন্ডিং R-L12-এর পরবর্তী ধাপ — এখানে কিছুই নকল নয়।';
+
+  @override
+  String get searchNoMatchNote =>
+      'আপনার প্রকাশিত পাঠ, সংরক্ষিত শব্দ ও অ্যাপ পেজে (শিরোনাম + ট্যাগ) খোঁজা হয়। গল্প/পডকাস্ট ও পূর্ণ-পাঠ্য R-L12-এর পরবর্তী ধাপ — কখনো নকল নয়।';
+
+  @override
+  String get searchFooterNote =>
+      'লঞ্চে শিরোনাম + ট্যাগ। পূর্ণ-পাঠ্য, গল্প/পডকাস্ট ও বহু-কোর্স R-L12-এর পরবর্তী ধাপ — কখনো নকল নয়।';
+
+  @override
+  String get searchDestPracticeHub => 'অনুশীলন কেন্দ্র';
+
+  @override
+  String get searchDestPracticeHubSub => 'ভুল, দুর্বল শব্দ ও ড্রিল';
+
+  @override
+  String get searchDestAiTutor => 'AI টিউটর';
+
+  @override
+  String get searchDestAiTutorSub => 'কথা বলুন, চ্যাট ও রোলপ্লে করুন';
+
+  @override
+  String get searchDestAdventures => 'অ্যাডভেঞ্চার';
+
+  @override
+  String get searchDestAdventuresSub => 'বাস্তব কথোপকথন — বিনামূল্যে';
+
+  @override
+  String get searchDestLeagues => 'লিগ';
+
+  @override
+  String get searchDestLeaguesSub => 'আপনার সাপ্তাহিক লিগ';
+
+  @override
+  String get searchDestQuests => 'কোয়েস্ট';
+
+  @override
+  String get searchDestQuestsSub => 'দৈনিক লক্ষ্য ও কোয়েস্ট';
+
+  @override
+  String get searchDestProgress => 'অগ্রগতি';
+
+  @override
+  String get searchDestProgressSub => 'আপনার পরিসংখ্যান ও স্ট্রিক';
+
+  @override
+  String get searchDestProfile => 'প্রোফাইল';
+
+  @override
+  String get searchDestProfileSub => 'আপনার প্রোফাইল';
+
+  @override
+  String get searchDestSettings => 'সেটিংস';
+
+  @override
+  String get searchDestSettingsSub => 'অ্যাকাউন্ট ও পছন্দ';
+
+  @override
+  String get searchDestShop => 'দোকান';
+
+  @override
+  String get searchDestShopSub => 'আপনার হীরা খরচ করুন';
+
+  @override
+  String get searchDestNotifications => 'বিজ্ঞপ্তি';
+
+  @override
+  String get searchDestNotificationsSub => 'আপনার মাইলফলক ইনবক্স';
+
+  @override
+  String get themesTitle => 'থিম';
+
+  @override
+  String get themesSubtitle =>
+      'পুরো অ্যাপের রূপ বদলায় — লাইভ প্রিভিউতে ট্যাপ করুন';
+
+  @override
+  String themesVehicle(String vehicle) {
+    return 'বাহন · $vehicle';
+  }
+
+  @override
+  String get tutorHeader => 'বাস্তব কথোপকথনের অনুশীলন করুন';
+
+  @override
+  String get tutorHeaderSub =>
+      'একটি দৃশ্য বেছে নিয়ে Ratel-এর সাথে চ্যাট করুন — ভুল উত্তর নেই, শুধু অনুশীলন।';
+
+  @override
+  String get tutorTalkTitle => 'Ratel-এর সাথে কথা বলুন';
+
+  @override
+  String get tutorTalkSub => 'লাইভ ভয়েস ও ভিডিও কথা বলার অনুশীলন';
+
+  @override
+  String get tutorChatTitle => 'Ratel-এর সাথে চ্যাট করুন';
+
+  @override
+  String get tutorChatSub => 'AI চ্যাট · লেখার মতামত';
+
+  @override
+  String get tutorRoleplayTitle => 'রোলপ্লে দৃশ্য';
+
+  @override
+  String get tutorRoleplayGuided => 'নির্দেশিত রোলপ্লে কথোপকথন';
+
+  @override
+  String tutorScenesCount(int count) {
+    return '$countটি দৃশ্য';
+  }
+
+  @override
+  String get tutorUnlockPro => 'RATEL PRO আনলক করুন';
+
+  @override
+  String get tutorRelayNote =>
+      'লাইভ AI টিউটরিং একটি মডারেটেড, ব্যয়-নিয়ন্ত্রিত রিলেতে চলে এবং এটি RATEL PRO সুবিধা। উত্তর কখনো নকল হয় না — PRO ও রিলে দুটোই সক্রিয় হলে তবেই কোনো মোড শুরু হয়।';
+
+  @override
+  String get tutorStatusReadyPro =>
+      'PRO সক্রিয় এবং লাইভ টিউটর সংযুক্ত — শুরু করতে একটি মোড বেছে নিন।';
+
+  @override
+  String get tutorStatusReadyFree =>
+      'লাইভ টিউটর সংযুক্ত। লাইভ টিউটরিং RATEL PRO সুবিধা।';
+
+  @override
+  String get tutorStatusOffline =>
+      'এই বিল্ডে মডারেটেড লাইভ টিউটর এখনো সংযুক্ত নয় — লাইভ টিউটরিং পরের ধাপে চালু হবে। নিচের কিছুই নকল নয়।';
+
+  @override
+  String get tutorAnnounceNeedsPro => 'RATEL PRO লাইভ AI টিউটরিং আনলক করে।';
+
+  @override
+  String get tutorAnnounceNeedsRelay =>
+      'মডারেটেড রিলে চালু হলেই AI টিউটরিং সংযুক্ত হবে।';
+
+  @override
+  String get tutorAnnounceStarting => 'আপনার সেশন শুরু হচ্ছে…';
+
+  @override
+  String get adventuresTitle => 'অ্যাডভেঞ্চার';
+
+  @override
+  String get adventuresFreeChip => 'ফ্রি';
+
+  @override
+  String get adventuresIntro =>
+      'নিজের পথ বেছে নিন — প্রতিটি পছন্দ গল্পকে নতুন শাখায় নেয়। ভুল উত্তর নেই, সবসময় বিনামূল্যে।';
+
+  @override
+  String get adventuresFallbackWorld => 'অ্যাডভেঞ্চার';
+
+  @override
+  String adventureSheetKicker(String cefr) {
+    return '🗺️ অ্যাডভেঞ্চার · $cefr';
+  }
+
+  @override
+  String adventureScenesCount(int count) {
+    return '$countটি দৃশ্য';
+  }
+
+  @override
+  String adventureChoicePoints(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countটি সিদ্ধান্ত বিন্দু',
+      one: '$countটি সিদ্ধান্ত বিন্দু',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get adventureOpeningScene => 'শুরুর দৃশ্য';
+
+  @override
+  String get adventureStart => 'অ্যাডভেঞ্চার শুরু করুন';
+
+  @override
+  String get adventuresEmpty => 'এই কোর্সে এখনো কোনো অ্যাডভেঞ্চার নেই।';
 }

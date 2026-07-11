@@ -116,7 +116,7 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
           onPressed: () => context.pop(),
         ),
         title: Text(
-          'Search',
+          context.l10n.searchTitle,
           style: TextStyle(
             fontFamily: RatelFont.display,
             fontWeight: RatelType.extraBold,
@@ -170,7 +170,7 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
                 decoration: InputDecoration(
                   isDense: true,
                   border: InputBorder.none,
-                  hintText: 'Search lessons, words, stories…',
+                  hintText: context.l10n.searchHint,
                   hintStyle: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.body,
@@ -211,13 +211,15 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
         if (recents.isNotEmpty) ...<Widget>[
           Row(
             children: <Widget>[
-              const Expanded(child: RatelSectionHeader(label: 'Recent')),
+              Expanded(
+                  child:
+                      RatelSectionHeader(label: context.l10n.searchRecent)),
               GestureDetector(
                 key: const ValueKey<String>('recent-clear'),
                 onTap: () => ref
                     .read(appSettingsControllerProvider.notifier)
                     .clearRecentSearches(),
-                child: Text('Clear',
+                child: Text(context.l10n.searchClear,
                     style: TextStyle(
                         fontFamily: RatelFont.body,
                         fontSize: RatelType.small,
@@ -236,7 +238,7 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
           ),
           const SizedBox(height: RatelSpace.lg),
         ],
-        const RatelSectionHeader(label: 'Jump to'),
+        RatelSectionHeader(label: context.l10n.searchJumpTo),
         const SizedBox(height: RatelSpace.sm),
         for (final SearchDestination d in kSearchDestinations.take(6)) ...<Widget>[
           _row(
@@ -253,8 +255,7 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
           const SizedBox(height: RatelSpace.sm),
         ],
         const SizedBox(height: RatelSpace.sm),
-        _note(context,
-            'Searching titles, tags and lesson content across your course, saved words and pages. A server content index and trending are the remaining R-L12 fast-follow — nothing here is faked.'),
+        _note(context, context.l10n.searchEmptyNote),
       ],
     );
   }
@@ -292,7 +293,7 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
           const SizedBox(height: RatelSpace.md),
           Center(
             child: Text(
-              'No matches for “${_query.trim()}”',
+              context.l10n.searchNoMatches(_query.trim()),
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontFamily: RatelFont.display,
@@ -302,8 +303,7 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
             ),
           ),
           const SizedBox(height: RatelSpace.md),
-          _note(context,
-              'Searches your published course lessons, saved words and app pages (titles + tags). Stories/podcasts and full-text are the R-L12 fast-follow — never faked.'),
+          _note(context, context.l10n.searchNoMatchNote),
         ],
       );
 
@@ -327,7 +327,7 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(h.title,
+                    Text(_hitTitle(context, h),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -335,7 +335,7 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
                             fontWeight: RatelType.semiBold,
                             fontSize: RatelType.body,
                             color: context.palette.ink)),
-                    Text(h.subtitle,
+                    Text(_hitSubtitle(context, h),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -346,16 +346,38 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
                 ),
               ),
               const SizedBox(width: RatelSpace.sm),
-              RatelChip(label: h.tag),
+              RatelChip(label: ratelSearchTag(context, h.tag)),
             ],
           ),
         ),
       );
 
+  /// Localize hit chrome at render: destinations by route, the saved-word
+  /// subtitle, and the lesson-subtitle `unit · Lesson` suffix sentinel.
+  /// Authored titles/units pass through untouched (R-C13 dividing line).
+  String _hitTitle(BuildContext context, SearchHit h) =>
+      h.kind == SearchHitKind.destination
+          ? ratelSearchDestinationTitle(context, h.route, h.title)
+          : h.title;
+
+  String _hitSubtitle(BuildContext context, SearchHit h) {
+    switch (h.kind) {
+      case SearchHitKind.destination:
+        return ratelSearchDestinationSubtitle(context, h.route, h.subtitle);
+      case SearchHitKind.word:
+        return context.l10n.searchSubtitleSavedWord;
+      case SearchHitKind.lesson:
+        const String sentinel = ' · Lesson';
+        return h.subtitle.endsWith(sentinel)
+            ? context.l10n.searchLessonSubtitle(h.subtitle
+                .substring(0, h.subtitle.length - sentinel.length))
+            : h.subtitle;
+    }
+  }
+
   Widget _footer(BuildContext context) => Padding(
         padding: const EdgeInsets.only(top: RatelSpace.md),
-        child: _note(context,
-            'Titles + tags at launch. Full-text, stories/podcasts and multi-course scope are the R-L12 fast-follow — never faked.'),
+        child: _note(context, context.l10n.searchFooterNote),
       );
 
   Widget _note(BuildContext context, String text) => Container(

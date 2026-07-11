@@ -14,6 +14,7 @@ import 'package:ratel/features/profile/profile_screen.dart';
 import 'package:ratel/features/quests/quests_screen.dart';
 import 'package:ratel/features/practice/practice_hub_screen.dart';
 import 'package:ratel/features/progress/progress_screen.dart';
+import 'package:ratel/features/tutor/ai_tutor_screen.dart';
 import 'package:ratel/services/achievements/achievements.dart';
 import 'package:ratel/services/leagues/leagues.dart';
 import 'package:ratel/services/notifications/notifications.dart';
@@ -519,5 +520,48 @@ void main() {
     expect(find.text('Progreso'), findsOneWidget);
     expect(find.text('Nivel A1 · Principiante'), findsOneWidget);
     expect(find.text('Palabras guardadas'), findsOneWidget);
+  });
+
+  // ── S130 · search / themes / tutor / adventures chrome ────────────────────
+
+  test('search/themes/tutor/adventures keys: en byte-pins', () {
+    final AppLocalizations en = lookupAppLocalizations(const Locale('en'));
+    // The adventure sheet meta line composes byte-identically (test-pinned
+    // downstream as '3 scenes · 1 choice point · Buy fruit').
+    expect('${en.adventureScenesCount(3)} · ${en.adventureChoicePoints(1)}',
+        '3 scenes · 1 choice point');
+    expect(en.adventureChoicePoints(2), '2 choice points');
+    expect(en.adventureSheetKicker('A1'), '🗺️ ADVENTURE · A1');
+    expect(en.searchNoMatches('café'), 'No matches for “café”');
+    expect(en.searchLessonSubtitle('Basics'), 'Basics · Lesson');
+    expect(en.tutorScenesCount(3), '3 scenes');
+    expect(en.themesVehicle('Fox'), 'Vehicle · Fox');
+    expect(en.tutorAnnounceNeedsPro, 'RATEL PRO unlocks live AI tutoring.');
+  });
+
+  test('search/themes/tutor/adventures keys: es spot-checks', () {
+    final AppLocalizations es = lookupAppLocalizations(const Locale('es'));
+    expect(es.searchTitle, 'Buscar');
+    expect(es.searchDestPracticeHub, 'Centro de práctica');
+    expect(es.themesTitle, 'Temas');
+    expect(es.tutorTalkTitle, 'Habla con Ratel');
+    expect(es.adventureStart, 'Empezar aventura');
+    expect(es.adventureChoicePoints(1), '1 punto de decisión');
+  });
+
+  testWidgets('AI Tutor in Spanish: header, cards and status localized',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const ProviderScope(
+      child: MaterialApp(
+        locale: Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: AiTutorScreen(),
+      ),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.text('Practica una conversación real'), findsOneWidget);
+    expect(find.text('Habla con Ratel'), findsOneWidget);
+    expect(find.text('Practice a real conversation'), findsNothing);
   });
 }

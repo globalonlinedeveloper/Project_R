@@ -1159,4 +1159,225 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get commonDowSun => 'र';
+
+  @override
+  String get searchTitle => 'खोज';
+
+  @override
+  String get searchHint => 'पाठ, शब्द, कहानियाँ खोजें…';
+
+  @override
+  String get searchRecent => 'हाल की';
+
+  @override
+  String get searchClear => 'साफ़ करें';
+
+  @override
+  String get searchJumpTo => 'यहाँ जाएँ';
+
+  @override
+  String get searchTagPage => 'पेज';
+
+  @override
+  String get searchTagWord => 'शब्द';
+
+  @override
+  String get searchSubtitleSavedWord => 'सहेजा शब्द';
+
+  @override
+  String searchLessonSubtitle(String unit) {
+    return '$unit · पाठ';
+  }
+
+  @override
+  String searchNoMatches(String query) {
+    return '“$query” के लिए कोई परिणाम नहीं';
+  }
+
+  @override
+  String get searchEmptyNote =>
+      'आपके कोर्स, सहेजे शब्दों और पेजों के शीर्षक, टैग और पाठ सामग्री में खोज। सर्वर कंटेंट इंडेक्स और ट्रेंडिंग R-L12 का अगला चरण हैं — यहाँ कुछ भी नकली नहीं।';
+
+  @override
+  String get searchNoMatchNote =>
+      'आपके प्रकाशित पाठों, सहेजे शब्दों और ऐप पेजों (शीर्षक + टैग) में खोज। कहानियाँ/पॉडकास्ट और पूर्ण-पाठ R-L12 का अगला चरण हैं — कभी नकली नहीं।';
+
+  @override
+  String get searchFooterNote =>
+      'लॉन्च पर शीर्षक + टैग। पूर्ण-पाठ, कहानियाँ/पॉडकास्ट और बहु-कोर्स R-L12 का अगला चरण हैं — कभी नकली नहीं।';
+
+  @override
+  String get searchDestPracticeHub => 'अभ्यास केंद्र';
+
+  @override
+  String get searchDestPracticeHubSub => 'गलतियाँ, कमज़ोर शब्द और ड्रिल';
+
+  @override
+  String get searchDestAiTutor => 'AI ट्यूटर';
+
+  @override
+  String get searchDestAiTutorSub => 'बोलें, चैट करें और रोलप्ले करें';
+
+  @override
+  String get searchDestAdventures => 'एडवेंचर';
+
+  @override
+  String get searchDestAdventuresSub => 'असली बातचीत — मुफ़्त';
+
+  @override
+  String get searchDestLeagues => 'लीग';
+
+  @override
+  String get searchDestLeaguesSub => 'आपकी साप्ताहिक लीग';
+
+  @override
+  String get searchDestQuests => 'क्वेस्ट';
+
+  @override
+  String get searchDestQuestsSub => 'दैनिक लक्ष्य और क्वेस्ट';
+
+  @override
+  String get searchDestProgress => 'प्रगति';
+
+  @override
+  String get searchDestProgressSub => 'आपके आँकड़े और स्ट्रीक';
+
+  @override
+  String get searchDestProfile => 'प्रोफ़ाइल';
+
+  @override
+  String get searchDestProfileSub => 'आपकी प्रोफ़ाइल';
+
+  @override
+  String get searchDestSettings => 'सेटिंग्स';
+
+  @override
+  String get searchDestSettingsSub => 'खाता और प्राथमिकताएँ';
+
+  @override
+  String get searchDestShop => 'दुकान';
+
+  @override
+  String get searchDestShopSub => 'अपने हीरे खर्च करें';
+
+  @override
+  String get searchDestNotifications => 'सूचनाएँ';
+
+  @override
+  String get searchDestNotificationsSub => 'आपकी उपलब्धियों का इनबॉक्स';
+
+  @override
+  String get themesTitle => 'थीम';
+
+  @override
+  String get themesSubtitle =>
+      'पूरे ऐप का रूप बदलता है — लाइव पूर्वावलोकन के लिए टैप करें';
+
+  @override
+  String themesVehicle(String vehicle) {
+    return 'वाहन · $vehicle';
+  }
+
+  @override
+  String get tutorHeader => 'असली बातचीत का अभ्यास करें';
+
+  @override
+  String get tutorHeaderSub =>
+      'एक दृश्य चुनें और Ratel से चैट करें — कोई गलत जवाब नहीं, बस अभ्यास।';
+
+  @override
+  String get tutorTalkTitle => 'Ratel से बात करें';
+
+  @override
+  String get tutorTalkSub => 'लाइव आवाज़ और वीडियो बोलने का अभ्यास';
+
+  @override
+  String get tutorChatTitle => 'Ratel से चैट करें';
+
+  @override
+  String get tutorChatSub => 'AI चैट · लेखन प्रतिक्रिया';
+
+  @override
+  String get tutorRoleplayTitle => 'रोलप्ले दृश्य';
+
+  @override
+  String get tutorRoleplayGuided => 'मार्गदर्शित रोलप्ले बातचीत';
+
+  @override
+  String tutorScenesCount(int count) {
+    return '$count दृश्य';
+  }
+
+  @override
+  String get tutorUnlockPro => 'RATEL PRO अनलॉक करें';
+
+  @override
+  String get tutorRelayNote =>
+      'लाइव AI ट्यूटरिंग एक मॉडरेटेड, लागत-नियंत्रित रिले पर चलती है और RATEL PRO सुविधा है। जवाब कभी नकली नहीं होते — कोई मोड तभी शुरू होता है जब PRO और रिले दोनों सक्रिय हों।';
+
+  @override
+  String get tutorStatusReadyPro =>
+      'PRO सक्रिय है और लाइव ट्यूटर जुड़ा है — शुरू करने के लिए मोड चुनें।';
+
+  @override
+  String get tutorStatusReadyFree =>
+      'लाइव ट्यूटर जुड़ा है। लाइव ट्यूटरिंग RATEL PRO सुविधा है।';
+
+  @override
+  String get tutorStatusOffline =>
+      'इस बिल्ड में मॉडरेटेड लाइव ट्यूटर अभी जुड़ा नहीं है — लाइव ट्यूटरिंग बाद के चरण में चालू होगी। नीचे कुछ भी नकली नहीं है।';
+
+  @override
+  String get tutorAnnounceNeedsPro =>
+      'RATEL PRO लाइव AI ट्यूटरिंग अनलॉक करता है।';
+
+  @override
+  String get tutorAnnounceNeedsRelay =>
+      'मॉडरेटेड रिले सक्षम होते ही AI ट्यूटरिंग जुड़ जाएगी।';
+
+  @override
+  String get tutorAnnounceStarting => 'आपका सत्र शुरू हो रहा है…';
+
+  @override
+  String get adventuresTitle => 'एडवेंचर';
+
+  @override
+  String get adventuresFreeChip => 'मुफ़्त';
+
+  @override
+  String get adventuresIntro =>
+      'अपना रास्ता चुनें — हर चुनाव कहानी की नई शाखा खोलता है। कोई गलत जवाब नहीं, हमेशा मुफ़्त।';
+
+  @override
+  String get adventuresFallbackWorld => 'एडवेंचर';
+
+  @override
+  String adventureSheetKicker(String cefr) {
+    return '🗺️ एडवेंचर · $cefr';
+  }
+
+  @override
+  String adventureScenesCount(int count) {
+    return '$count दृश्य';
+  }
+
+  @override
+  String adventureChoicePoints(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count निर्णय बिंदु',
+      one: '$count निर्णय बिंदु',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get adventureOpeningScene => 'प्रारंभिक दृश्य';
+
+  @override
+  String get adventureStart => 'एडवेंचर शुरू करें';
+
+  @override
+  String get adventuresEmpty => 'इस कोर्स में अभी कोई एडवेंचर नहीं।';
 }

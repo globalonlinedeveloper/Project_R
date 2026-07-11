@@ -86,7 +86,7 @@ class AiTutorScreen extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text('Practice a real conversation',
+                      Text(context.l10n.tutorHeader,
                           style: TextStyle(
                               fontFamily: RatelFont.display,
                               fontWeight: RatelType.extraBold,
@@ -94,8 +94,7 @@ class AiTutorScreen extends ConsumerWidget {
                               color: context.palette.ink)),
                       const SizedBox(height: 2),
                       Text(
-                          'Pick a scene and chat with Ratel — no wrong answers, '
-                          'just practice.',
+                          context.l10n.tutorHeaderSub,
                           style: TextStyle(
                               fontFamily: RatelFont.body,
                               fontSize: RatelType.small,
@@ -117,8 +116,8 @@ class AiTutorScreen extends ConsumerWidget {
                   end: Alignment.bottomRight),
               accent: RatelColors.teal,
               emoji: '🎙️',
-              title: 'Talk to Ratel',
-              subtitle: 'Live voice & video speaking practice',
+              title: context.l10n.tutorTalkTitle,
+              subtitle: context.l10n.tutorTalkSub,
               isPro: isPro,
               relayReady: relayReady,
               onStart: isPro && liveReady
@@ -130,8 +129,8 @@ class AiTutorScreen extends ConsumerWidget {
               context,
               accent: RatelColors.blue,
               emoji: '💬',
-              title: 'Chat with Ratel',
-              subtitle: 'AI chat · writing feedback',
+              title: context.l10n.tutorChatTitle,
+              subtitle: context.l10n.tutorChatSub,
               isPro: isPro,
               relayReady: relayReady,
             ),
@@ -140,10 +139,10 @@ class AiTutorScreen extends ConsumerWidget {
               context,
               accent: RatelColors.purple,
               emoji: '🎭',
-              title: 'Roleplay scenes',
+              title: context.l10n.tutorRoleplayTitle,
               subtitle: roleplayCount > 0
-                  ? '$roleplayCount scenes'
-                  : 'Guided roleplay conversations',
+                  ? context.l10n.tutorScenesCount(roleplayCount)
+                  : context.l10n.tutorRoleplayGuided,
               isPro: isPro,
               relayReady: relayReady,
               onStart: isPro && liveReady
@@ -153,15 +152,13 @@ class AiTutorScreen extends ConsumerWidget {
             const SizedBox(height: RatelSpace.lg),
             if (!isPro)
               RatelButton(
-                label: 'Unlock RATEL PRO',
+                label: context.l10n.tutorUnlockPro,
                 onPressed: () => context.push('/paywall?source=tutor'),
               ),
             const SizedBox(height: RatelSpace.md),
             Center(
               child: Text(
-                'Live AI tutoring runs on a moderated, cost-guarded relay and is '
-                'a RATEL PRO feature. Replies are never simulated — a mode starts '
-                'only once PRO and the relay are both active.',
+                context.l10n.tutorRelayNote,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: RatelFont.body,
@@ -179,10 +176,9 @@ class AiTutorScreen extends ConsumerWidget {
   Widget _statusCard(BuildContext context, bool isPro, bool liveReady) {
     final String text = liveReady
         ? (isPro
-            ? 'PRO active and the live tutor is connected — pick a mode to begin.'
-            : 'The live tutor is connected. Live tutoring is a RATEL PRO feature.')
-        : 'The moderated live tutor is not connected in this build yet — live '
-            'tutoring turns on in a later step. Nothing below is simulated.';
+            ? context.l10n.tutorStatusReadyPro
+            : context.l10n.tutorStatusReadyFree)
+        : context.l10n.tutorStatusOffline;
     return RatelCard(
       color: context.palette.cream2,
       child: Row(
@@ -265,10 +261,10 @@ class AiTutorScreen extends ConsumerWidget {
 
   void _announce(BuildContext context, bool isPro, bool relayReady) {
     final String msg = !isPro
-        ? 'RATEL PRO unlocks live AI tutoring.'
+        ? context.l10n.tutorAnnounceNeedsPro
         : (!relayReady
-            ? 'AI tutoring connects once the moderated relay is enabled.'
-            : 'Starting your session…');
+            ? context.l10n.tutorAnnounceNeedsRelay
+            : context.l10n.tutorAnnounceStarting);
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(SnackBar(content: Text(msg)));

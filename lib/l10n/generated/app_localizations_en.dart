@@ -1162,4 +1162,223 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get commonDowSun => 'Su';
+
+  @override
+  String get searchTitle => 'Search';
+
+  @override
+  String get searchHint => 'Search lessons, words, stories…';
+
+  @override
+  String get searchRecent => 'Recent';
+
+  @override
+  String get searchClear => 'Clear';
+
+  @override
+  String get searchJumpTo => 'Jump to';
+
+  @override
+  String get searchTagPage => 'Page';
+
+  @override
+  String get searchTagWord => 'Word';
+
+  @override
+  String get searchSubtitleSavedWord => 'Saved word';
+
+  @override
+  String searchLessonSubtitle(String unit) {
+    return '$unit · Lesson';
+  }
+
+  @override
+  String searchNoMatches(String query) {
+    return 'No matches for “$query”';
+  }
+
+  @override
+  String get searchEmptyNote =>
+      'Searching titles, tags and lesson content across your course, saved words and pages. A server content index and trending are the remaining R-L12 fast-follow — nothing here is faked.';
+
+  @override
+  String get searchNoMatchNote =>
+      'Searches your published course lessons, saved words and app pages (titles + tags). Stories/podcasts and full-text are the R-L12 fast-follow — never faked.';
+
+  @override
+  String get searchFooterNote =>
+      'Titles + tags at launch. Full-text, stories/podcasts and multi-course scope are the R-L12 fast-follow — never faked.';
+
+  @override
+  String get searchDestPracticeHub => 'Practice hub';
+
+  @override
+  String get searchDestPracticeHubSub => 'Mistakes, weak words & drills';
+
+  @override
+  String get searchDestAiTutor => 'AI Tutor';
+
+  @override
+  String get searchDestAiTutorSub => 'Talk, chat & roleplay';
+
+  @override
+  String get searchDestAdventures => 'Adventures';
+
+  @override
+  String get searchDestAdventuresSub => 'Real conversations — free';
+
+  @override
+  String get searchDestLeagues => 'Leagues';
+
+  @override
+  String get searchDestLeaguesSub => 'Your weekly league';
+
+  @override
+  String get searchDestQuests => 'Quests';
+
+  @override
+  String get searchDestQuestsSub => 'Daily goals & quests';
+
+  @override
+  String get searchDestProgress => 'Progress';
+
+  @override
+  String get searchDestProgressSub => 'Your stats & streak';
+
+  @override
+  String get searchDestProfile => 'Profile';
+
+  @override
+  String get searchDestProfileSub => 'Your profile';
+
+  @override
+  String get searchDestSettings => 'Settings';
+
+  @override
+  String get searchDestSettingsSub => 'Account & preferences';
+
+  @override
+  String get searchDestShop => 'Shop';
+
+  @override
+  String get searchDestShopSub => 'Spend your diamonds';
+
+  @override
+  String get searchDestNotifications => 'Notifications';
+
+  @override
+  String get searchDestNotificationsSub => 'Your milestone inbox';
+
+  @override
+  String get themesTitle => 'Themes';
+
+  @override
+  String get themesSubtitle => 'Restyles the whole app — tap to preview live';
+
+  @override
+  String themesVehicle(String vehicle) {
+    return 'Vehicle · $vehicle';
+  }
+
+  @override
+  String get tutorHeader => 'Practice a real conversation';
+
+  @override
+  String get tutorHeaderSub =>
+      'Pick a scene and chat with Ratel — no wrong answers, just practice.';
+
+  @override
+  String get tutorTalkTitle => 'Talk to Ratel';
+
+  @override
+  String get tutorTalkSub => 'Live voice & video speaking practice';
+
+  @override
+  String get tutorChatTitle => 'Chat with Ratel';
+
+  @override
+  String get tutorChatSub => 'AI chat · writing feedback';
+
+  @override
+  String get tutorRoleplayTitle => 'Roleplay scenes';
+
+  @override
+  String get tutorRoleplayGuided => 'Guided roleplay conversations';
+
+  @override
+  String tutorScenesCount(int count) {
+    return '$count scenes';
+  }
+
+  @override
+  String get tutorUnlockPro => 'Unlock RATEL PRO';
+
+  @override
+  String get tutorRelayNote =>
+      'Live AI tutoring runs on a moderated, cost-guarded relay and is a RATEL PRO feature. Replies are never simulated — a mode starts only once PRO and the relay are both active.';
+
+  @override
+  String get tutorStatusReadyPro =>
+      'PRO active and the live tutor is connected — pick a mode to begin.';
+
+  @override
+  String get tutorStatusReadyFree =>
+      'The live tutor is connected. Live tutoring is a RATEL PRO feature.';
+
+  @override
+  String get tutorStatusOffline =>
+      'The moderated live tutor is not connected in this build yet — live tutoring turns on in a later step. Nothing below is simulated.';
+
+  @override
+  String get tutorAnnounceNeedsPro => 'RATEL PRO unlocks live AI tutoring.';
+
+  @override
+  String get tutorAnnounceNeedsRelay =>
+      'AI tutoring connects once the moderated relay is enabled.';
+
+  @override
+  String get tutorAnnounceStarting => 'Starting your session…';
+
+  @override
+  String get adventuresTitle => 'Adventures';
+
+  @override
+  String get adventuresFreeChip => 'FREE';
+
+  @override
+  String get adventuresIntro =>
+      'Choose your path -- every choice branches the story. No wrong answers, always free.';
+
+  @override
+  String get adventuresFallbackWorld => 'Adventure';
+
+  @override
+  String adventureSheetKicker(String cefr) {
+    return '🗺️ ADVENTURE · $cefr';
+  }
+
+  @override
+  String adventureScenesCount(int count) {
+    return '$count scenes';
+  }
+
+  @override
+  String adventureChoicePoints(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count choice points',
+      one: '$count choice point',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get adventureOpeningScene => 'OPENING SCENE';
+
+  @override
+  String get adventureStart => 'Start adventure';
+
+  @override
+  String get adventuresEmpty => 'No adventures in this course yet.';
 }

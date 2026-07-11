@@ -177,3 +177,45 @@ String ratelCefrLevelDisplayName(BuildContext context, String englishName) =>
       'Proficient' => context.l10n.cefrNameProficient,
       _ => englishName,
     };
+/// Search render maps (R-L12): destination catalogue entries localize by
+/// ROUTE (the stable identifier), result-type tags by their English value.
+/// Authored content (lesson/word titles, unit names) passes through — only
+/// chrome localizes. Matching still runs over the engine's English catalogue;
+/// a localized matching index is part of the R-L12 server-index fast-follow.
+String ratelSearchDestinationTitle(
+        BuildContext context, String route, String fallback) =>
+    switch (route) {
+      '/practice' => context.l10n.searchDestPracticeHub,
+      '/tutor' => context.l10n.searchDestAiTutor,
+      '/adventures' => context.l10n.searchDestAdventures,
+      '/leagues' => context.l10n.searchDestLeagues,
+      '/quests' => context.l10n.searchDestQuests,
+      '/progress' => context.l10n.searchDestProgress,
+      '/profile' => context.l10n.searchDestProfile,
+      '/settings' => context.l10n.searchDestSettings,
+      '/shop' => context.l10n.searchDestShop,
+      '/notifications' => context.l10n.searchDestNotifications,
+      _ => fallback,
+    };
+
+String ratelSearchDestinationSubtitle(
+        BuildContext context, String route, String fallback) =>
+    switch (route) {
+      '/practice' => context.l10n.searchDestPracticeHubSub,
+      '/tutor' => context.l10n.searchDestAiTutorSub,
+      '/adventures' => context.l10n.searchDestAdventuresSub,
+      '/leagues' => context.l10n.searchDestLeaguesSub,
+      '/quests' => context.l10n.searchDestQuestsSub,
+      '/progress' => context.l10n.searchDestProgressSub,
+      '/profile' => context.l10n.searchDestProfileSub,
+      '/settings' => context.l10n.searchDestSettingsSub,
+      '/shop' => context.l10n.searchDestShopSub,
+      '/notifications' => context.l10n.searchDestNotificationsSub,
+      _ => fallback,
+    };
+
+String ratelSearchTag(BuildContext context, String tag) => switch (tag) {
+      'Page' => context.l10n.searchTagPage,
+      'Word' => context.l10n.searchTagWord,
+      _ => tag, // CEFR codes (A1…C2) are locale-independent.
+    };

@@ -1139,4 +1139,217 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get commonDowSun => '日';
+
+  @override
+  String get searchTitle => '検索';
+
+  @override
+  String get searchHint => 'レッスン・単語・ストーリーを検索…';
+
+  @override
+  String get searchRecent => '最近';
+
+  @override
+  String get searchClear => 'クリア';
+
+  @override
+  String get searchJumpTo => 'ジャンプ';
+
+  @override
+  String get searchTagPage => 'ページ';
+
+  @override
+  String get searchTagWord => '単語';
+
+  @override
+  String get searchSubtitleSavedWord => '保存した単語';
+
+  @override
+  String searchLessonSubtitle(String unit) {
+    return '$unit · レッスン';
+  }
+
+  @override
+  String searchNoMatches(String query) {
+    return '「$query」に一致する結果はありません';
+  }
+
+  @override
+  String get searchEmptyNote =>
+      'コース・保存した単語・ページのタイトル、タグ、レッスン内容を検索します。サーバー側の内容インデックスと人気検索はR-L12の今後の対応 — ここに偽物はありません。';
+
+  @override
+  String get searchNoMatchNote =>
+      '公開済みのレッスン、保存した単語、アプリのページ(タイトル+タグ)を検索します。ストーリー/ポッドキャストと全文検索はR-L12の今後の対応 — 決して偽装しません。';
+
+  @override
+  String get searchFooterNote =>
+      'リリース時はタイトル+タグ。全文、ストーリー/ポッドキャスト、複数コース対応はR-L12の今後の対応 — 決して偽装しません。';
+
+  @override
+  String get searchDestPracticeHub => '練習ハブ';
+
+  @override
+  String get searchDestPracticeHubSub => '間違い・弱点単語・ドリル';
+
+  @override
+  String get searchDestAiTutor => 'AIチューター';
+
+  @override
+  String get searchDestAiTutorSub => '会話・チャット・ロールプレイ';
+
+  @override
+  String get searchDestAdventures => 'アドベンチャー';
+
+  @override
+  String get searchDestAdventuresSub => 'リアルな会話 — 無料';
+
+  @override
+  String get searchDestLeagues => 'リーグ';
+
+  @override
+  String get searchDestLeaguesSub => 'あなたの週間リーグ';
+
+  @override
+  String get searchDestQuests => 'クエスト';
+
+  @override
+  String get searchDestQuestsSub => '毎日の目標とクエスト';
+
+  @override
+  String get searchDestProgress => '進捗';
+
+  @override
+  String get searchDestProgressSub => '統計と連続記録';
+
+  @override
+  String get searchDestProfile => 'プロフィール';
+
+  @override
+  String get searchDestProfileSub => 'あなたのプロフィール';
+
+  @override
+  String get searchDestSettings => '設定';
+
+  @override
+  String get searchDestSettingsSub => 'アカウントと設定';
+
+  @override
+  String get searchDestShop => 'ショップ';
+
+  @override
+  String get searchDestShopSub => 'ダイヤモンドを使う';
+
+  @override
+  String get searchDestNotifications => '通知';
+
+  @override
+  String get searchDestNotificationsSub => 'マイルストーンの受信箱';
+
+  @override
+  String get themesTitle => 'テーマ';
+
+  @override
+  String get themesSubtitle => 'アプリ全体の見た目を変えます — タップでライブプレビュー';
+
+  @override
+  String themesVehicle(String vehicle) {
+    return '乗り物 · $vehicle';
+  }
+
+  @override
+  String get tutorHeader => 'リアルな会話を練習しよう';
+
+  @override
+  String get tutorHeaderSub => 'シーンを選んでRatelとチャット — 間違いはなし、ただ練習あるのみ。';
+
+  @override
+  String get tutorTalkTitle => 'Ratelと話す';
+
+  @override
+  String get tutorTalkSub => '音声・ビデオのライブスピーキング練習';
+
+  @override
+  String get tutorChatTitle => 'Ratelとチャット';
+
+  @override
+  String get tutorChatSub => 'AIチャット · ライティング添削';
+
+  @override
+  String get tutorRoleplayTitle => 'ロールプレイシーン';
+
+  @override
+  String get tutorRoleplayGuided => 'ガイド付きロールプレイ会話';
+
+  @override
+  String tutorScenesCount(int count) {
+    return '$countシーン';
+  }
+
+  @override
+  String get tutorUnlockPro => 'RATEL PROを解除';
+
+  @override
+  String get tutorRelayNote =>
+      'ライブAIチュータリングはモデレーション付き・コスト管理されたリレー上で動作するRATEL PRO機能です。返答は決してシミュレーションではありません — PROとリレーの両方が有効なときだけモードが始まります。';
+
+  @override
+  String get tutorStatusReadyPro => 'PRO有効・ライブチューター接続済み — モードを選んで始めましょう。';
+
+  @override
+  String get tutorStatusReadyFree => 'ライブチューターは接続済み。ライブチュータリングはRATEL PRO機能です。';
+
+  @override
+  String get tutorStatusOffline =>
+      'このビルドではモデレーション付きライブチューターは未接続です — ライブチュータリングは後の段階で有効になります。以下に偽物はありません。';
+
+  @override
+  String get tutorAnnounceNeedsPro => 'RATEL PROでライブAIチュータリングが解除されます。';
+
+  @override
+  String get tutorAnnounceNeedsRelay => 'モデレーション付きリレーが有効になるとAIチュータリングがつながります。';
+
+  @override
+  String get tutorAnnounceStarting => 'セッションを開始しています…';
+
+  @override
+  String get adventuresTitle => 'アドベンチャー';
+
+  @override
+  String get adventuresFreeChip => '無料';
+
+  @override
+  String get adventuresIntro => '道を選ぼう — 選択のたびに物語が分岐します。間違いはなく、いつでも無料。';
+
+  @override
+  String get adventuresFallbackWorld => 'アドベンチャー';
+
+  @override
+  String adventureSheetKicker(String cefr) {
+    return '🗺️ アドベンチャー · $cefr';
+  }
+
+  @override
+  String adventureScenesCount(int count) {
+    return '$countシーン';
+  }
+
+  @override
+  String adventureChoicePoints(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '分岐ポイント$count個',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get adventureOpeningScene => 'オープニングシーン';
+
+  @override
+  String get adventureStart => 'アドベンチャーを始める';
+
+  @override
+  String get adventuresEmpty => 'このコースにはまだアドベンチャーがありません。';
 }

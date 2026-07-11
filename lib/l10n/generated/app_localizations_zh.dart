@@ -1134,4 +1134,216 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get commonDowSun => '日';
+
+  @override
+  String get searchTitle => '搜索';
+
+  @override
+  String get searchHint => '搜索课程、单词、故事…';
+
+  @override
+  String get searchRecent => '最近';
+
+  @override
+  String get searchClear => '清除';
+
+  @override
+  String get searchJumpTo => '前往';
+
+  @override
+  String get searchTagPage => '页面';
+
+  @override
+  String get searchTagWord => '单词';
+
+  @override
+  String get searchSubtitleSavedWord => '收藏的单词';
+
+  @override
+  String searchLessonSubtitle(String unit) {
+    return '$unit · 课程';
+  }
+
+  @override
+  String searchNoMatches(String query) {
+    return '没有与“$query”匹配的结果';
+  }
+
+  @override
+  String get searchEmptyNote =>
+      '在你的课程、收藏单词和页面的标题、标签与课程内容中搜索。服务器内容索引和热门趋势是 R-L12 的后续跟进 — 这里没有任何虚假内容。';
+
+  @override
+  String get searchNoMatchNote =>
+      '搜索你已发布的课程、收藏的单词和应用页面（标题 + 标签）。故事/播客和全文搜索是 R-L12 的后续跟进 — 绝不造假。';
+
+  @override
+  String get searchFooterNote =>
+      '上线时支持标题 + 标签。全文、故事/播客和多课程范围是 R-L12 的后续跟进 — 绝不造假。';
+
+  @override
+  String get searchDestPracticeHub => '练习中心';
+
+  @override
+  String get searchDestPracticeHubSub => '错题、薄弱单词与训练';
+
+  @override
+  String get searchDestAiTutor => 'AI 导师';
+
+  @override
+  String get searchDestAiTutorSub => '对话、聊天与角色扮演';
+
+  @override
+  String get searchDestAdventures => '冒险';
+
+  @override
+  String get searchDestAdventuresSub => '真实对话 — 免费';
+
+  @override
+  String get searchDestLeagues => '联赛';
+
+  @override
+  String get searchDestLeaguesSub => '你的每周联赛';
+
+  @override
+  String get searchDestQuests => '任务';
+
+  @override
+  String get searchDestQuestsSub => '每日目标与任务';
+
+  @override
+  String get searchDestProgress => '进度';
+
+  @override
+  String get searchDestProgressSub => '你的统计与连胜';
+
+  @override
+  String get searchDestProfile => '个人资料';
+
+  @override
+  String get searchDestProfileSub => '你的个人资料';
+
+  @override
+  String get searchDestSettings => '设置';
+
+  @override
+  String get searchDestSettingsSub => '账户与偏好';
+
+  @override
+  String get searchDestShop => '商店';
+
+  @override
+  String get searchDestShopSub => '使用你的钻石';
+
+  @override
+  String get searchDestNotifications => '通知';
+
+  @override
+  String get searchDestNotificationsSub => '你的里程碑收件箱';
+
+  @override
+  String get themesTitle => '主题';
+
+  @override
+  String get themesSubtitle => '改变整个应用的风格 — 点按即可实时预览';
+
+  @override
+  String themesVehicle(String vehicle) {
+    return '载具 · $vehicle';
+  }
+
+  @override
+  String get tutorHeader => '练习真实对话';
+
+  @override
+  String get tutorHeaderSub => '选择场景并与 Ratel 聊天 — 没有错误答案，只有练习。';
+
+  @override
+  String get tutorTalkTitle => '与 Ratel 通话';
+
+  @override
+  String get tutorTalkSub => '实时语音和视频口语练习';
+
+  @override
+  String get tutorChatTitle => '与 Ratel 聊天';
+
+  @override
+  String get tutorChatSub => 'AI 聊天 · 写作反馈';
+
+  @override
+  String get tutorRoleplayTitle => '角色扮演场景';
+
+  @override
+  String get tutorRoleplayGuided => '有引导的角色扮演对话';
+
+  @override
+  String tutorScenesCount(int count) {
+    return '$count 个场景';
+  }
+
+  @override
+  String get tutorUnlockPro => '解锁 RATEL PRO';
+
+  @override
+  String get tutorRelayNote =>
+      '实时 AI 辅导运行在有内容审核、成本受控的中继上，是 RATEL PRO 功能。回复绝不模拟 — 只有 PRO 和中继都激活后模式才会启动。';
+
+  @override
+  String get tutorStatusReadyPro => 'PRO 已激活且实时导师已连接 — 选择一个模式开始。';
+
+  @override
+  String get tutorStatusReadyFree => '实时导师已连接。实时辅导是 RATEL PRO 功能。';
+
+  @override
+  String get tutorStatusOffline => '此版本尚未连接经审核的实时导师 — 实时辅导将在后续步骤开启。下方内容均非模拟。';
+
+  @override
+  String get tutorAnnounceNeedsPro => 'RATEL PRO 解锁实时 AI 辅导。';
+
+  @override
+  String get tutorAnnounceNeedsRelay => '启用经审核的中继后，AI 辅导即可连接。';
+
+  @override
+  String get tutorAnnounceStarting => '正在开始你的会话…';
+
+  @override
+  String get adventuresTitle => '冒险';
+
+  @override
+  String get adventuresFreeChip => '免费';
+
+  @override
+  String get adventuresIntro => '选择你的道路 — 每个选择都会让故事产生分支。没有错误答案，永远免费。';
+
+  @override
+  String get adventuresFallbackWorld => '冒险';
+
+  @override
+  String adventureSheetKicker(String cefr) {
+    return '🗺️ 冒险 · $cefr';
+  }
+
+  @override
+  String adventureScenesCount(int count) {
+    return '$count 个场景';
+  }
+
+  @override
+  String adventureChoicePoints(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 个决策点',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get adventureOpeningScene => '开场场景';
+
+  @override
+  String get adventureStart => '开始冒险';
+
+  @override
+  String get adventuresEmpty => '这个课程还没有冒险内容。';
 }

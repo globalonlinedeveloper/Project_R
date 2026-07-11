@@ -1182,4 +1182,226 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get commonDowSun => 'Вс';
+
+  @override
+  String get searchTitle => 'Поиск';
+
+  @override
+  String get searchHint => 'Ищите уроки, слова, истории…';
+
+  @override
+  String get searchRecent => 'Недавние';
+
+  @override
+  String get searchClear => 'Очистить';
+
+  @override
+  String get searchJumpTo => 'Перейти к';
+
+  @override
+  String get searchTagPage => 'Страница';
+
+  @override
+  String get searchTagWord => 'Слово';
+
+  @override
+  String get searchSubtitleSavedWord => 'Сохранённое слово';
+
+  @override
+  String searchLessonSubtitle(String unit) {
+    return '$unit · Урок';
+  }
+
+  @override
+  String searchNoMatches(String query) {
+    return 'Нет результатов по запросу «$query»';
+  }
+
+  @override
+  String get searchEmptyNote =>
+      'Поиск по названиям, тегам и содержимому уроков вашего курса, сохранённым словам и страницам. Серверный индекс контента и тренды — следующий шаг R-L12; здесь ничего не подделано.';
+
+  @override
+  String get searchNoMatchNote =>
+      'Ищет по опубликованным урокам курса, сохранённым словам и страницам приложения (названия + теги). Истории/подкасты и полнотекстовый поиск — следующий шаг R-L12; никогда не подделывается.';
+
+  @override
+  String get searchFooterNote =>
+      'На старте — названия + теги. Полный текст, истории/подкасты и мультикурс — следующий шаг R-L12; никогда не подделывается.';
+
+  @override
+  String get searchDestPracticeHub => 'Центр практики';
+
+  @override
+  String get searchDestPracticeHubSub => 'Ошибки, слабые слова и тренировки';
+
+  @override
+  String get searchDestAiTutor => 'ИИ-репетитор';
+
+  @override
+  String get searchDestAiTutorSub => 'Говорите, переписывайтесь, играйте роли';
+
+  @override
+  String get searchDestAdventures => 'Приключения';
+
+  @override
+  String get searchDestAdventuresSub => 'Настоящие диалоги — бесплатно';
+
+  @override
+  String get searchDestLeagues => 'Лиги';
+
+  @override
+  String get searchDestLeaguesSub => 'Ваша недельная лига';
+
+  @override
+  String get searchDestQuests => 'Задания';
+
+  @override
+  String get searchDestQuestsSub => 'Дневные цели и задания';
+
+  @override
+  String get searchDestProgress => 'Прогресс';
+
+  @override
+  String get searchDestProgressSub => 'Ваша статистика и серия';
+
+  @override
+  String get searchDestProfile => 'Профиль';
+
+  @override
+  String get searchDestProfileSub => 'Ваш профиль';
+
+  @override
+  String get searchDestSettings => 'Настройки';
+
+  @override
+  String get searchDestSettingsSub => 'Аккаунт и предпочтения';
+
+  @override
+  String get searchDestShop => 'Магазин';
+
+  @override
+  String get searchDestShopSub => 'Потратьте свои алмазы';
+
+  @override
+  String get searchDestNotifications => 'Уведомления';
+
+  @override
+  String get searchDestNotificationsSub => 'Ваш ящик достижений';
+
+  @override
+  String get themesTitle => 'Темы';
+
+  @override
+  String get themesSubtitle =>
+      'Меняет стиль всего приложения — коснитесь для живого предпросмотра';
+
+  @override
+  String themesVehicle(String vehicle) {
+    return 'Транспорт · $vehicle';
+  }
+
+  @override
+  String get tutorHeader => 'Практикуйте настоящий разговор';
+
+  @override
+  String get tutorHeaderSub =>
+      'Выберите сцену и общайтесь с Ratel — неправильных ответов нет, только практика.';
+
+  @override
+  String get tutorTalkTitle => 'Говорить с Ratel';
+
+  @override
+  String get tutorTalkSub => 'Живая разговорная практика с голосом и видео';
+
+  @override
+  String get tutorChatTitle => 'Чат с Ratel';
+
+  @override
+  String get tutorChatSub => 'ИИ-чат · разбор письма';
+
+  @override
+  String get tutorRoleplayTitle => 'Ролевые сцены';
+
+  @override
+  String get tutorRoleplayGuided => 'Ролевые диалоги с подсказками';
+
+  @override
+  String tutorScenesCount(int count) {
+    return '$count сцен';
+  }
+
+  @override
+  String get tutorUnlockPro => 'Открыть RATEL PRO';
+
+  @override
+  String get tutorRelayNote =>
+      'Живое ИИ-обучение работает через модерируемый реле-сервис с контролем затрат и является функцией RATEL PRO. Ответы никогда не имитируются — режим запускается только когда активны PRO и реле.';
+
+  @override
+  String get tutorStatusReadyPro =>
+      'PRO активен, живой репетитор подключён — выберите режим, чтобы начать.';
+
+  @override
+  String get tutorStatusReadyFree =>
+      'Живой репетитор подключён. Живое обучение — функция RATEL PRO.';
+
+  @override
+  String get tutorStatusOffline =>
+      'Модерируемый живой репетитор в этой сборке ещё не подключён — живое обучение включится на следующем шаге. Ничего ниже не имитируется.';
+
+  @override
+  String get tutorAnnounceNeedsPro => 'RATEL PRO открывает живое ИИ-обучение.';
+
+  @override
+  String get tutorAnnounceNeedsRelay =>
+      'ИИ-обучение подключится после включения модерируемого реле.';
+
+  @override
+  String get tutorAnnounceStarting => 'Начинаем вашу сессию…';
+
+  @override
+  String get adventuresTitle => 'Приключения';
+
+  @override
+  String get adventuresFreeChip => 'БЕСПЛАТНО';
+
+  @override
+  String get adventuresIntro =>
+      'Выбирайте свой путь — каждый выбор ветвит историю. Неправильных ответов нет, всегда бесплатно.';
+
+  @override
+  String get adventuresFallbackWorld => 'Приключение';
+
+  @override
+  String adventureSheetKicker(String cefr) {
+    return '🗺️ ПРИКЛЮЧЕНИЕ · $cefr';
+  }
+
+  @override
+  String adventureScenesCount(int count) {
+    return '$count сцен';
+  }
+
+  @override
+  String adventureChoicePoints(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count точки выбора',
+      many: '$count точек выбора',
+      few: '$count точки выбора',
+      one: '$count точка выбора',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get adventureOpeningScene => 'ПЕРВАЯ СЦЕНА';
+
+  @override
+  String get adventureStart => 'Начать приключение';
+
+  @override
+  String get adventuresEmpty => 'В этом курсе пока нет приключений.';
 }

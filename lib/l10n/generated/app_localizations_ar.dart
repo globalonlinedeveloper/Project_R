@@ -1183,4 +1183,228 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get commonDowSun => 'ح';
+
+  @override
+  String get searchTitle => 'بحث';
+
+  @override
+  String get searchHint => 'ابحث في الدروس والكلمات والقصص…';
+
+  @override
+  String get searchRecent => 'الأخيرة';
+
+  @override
+  String get searchClear => 'مسح';
+
+  @override
+  String get searchJumpTo => 'انتقل إلى';
+
+  @override
+  String get searchTagPage => 'صفحة';
+
+  @override
+  String get searchTagWord => 'كلمة';
+
+  @override
+  String get searchSubtitleSavedWord => 'كلمة محفوظة';
+
+  @override
+  String searchLessonSubtitle(String unit) {
+    return '$unit · درس';
+  }
+
+  @override
+  String searchNoMatches(String query) {
+    return 'لا نتائج لـ «$query»';
+  }
+
+  @override
+  String get searchEmptyNote =>
+      'يبحث في العناوين والوسوم ومحتوى الدروس عبر دورتك وكلماتك المحفوظة والصفحات. فهرس المحتوى على الخادم والرائج هما متابعة R-L12 — لا شيء هنا مزيف.';
+
+  @override
+  String get searchNoMatchNote =>
+      'يبحث في دروس دورتك المنشورة وكلماتك المحفوظة وصفحات التطبيق (العناوين + الوسوم). القصص/البودكاست والنص الكامل متابعة R-L12 — لا تزييف أبدًا.';
+
+  @override
+  String get searchFooterNote =>
+      'العناوين + الوسوم عند الإطلاق. النص الكامل والقصص/البودكاست وتعدد الدورات متابعة R-L12 — لا تزييف أبدًا.';
+
+  @override
+  String get searchDestPracticeHub => 'مركز التدريب';
+
+  @override
+  String get searchDestPracticeHubSub => 'الأخطاء والكلمات الضعيفة والتمارين';
+
+  @override
+  String get searchDestAiTutor => 'المعلّم الذكي';
+
+  @override
+  String get searchDestAiTutorSub => 'تحدّث ودردش ومثّل الأدوار';
+
+  @override
+  String get searchDestAdventures => 'المغامرات';
+
+  @override
+  String get searchDestAdventuresSub => 'محادثات حقيقية — مجانًا';
+
+  @override
+  String get searchDestLeagues => 'الدوريات';
+
+  @override
+  String get searchDestLeaguesSub => 'دوريك الأسبوعي';
+
+  @override
+  String get searchDestQuests => 'المهام';
+
+  @override
+  String get searchDestQuestsSub => 'أهداف ومهام يومية';
+
+  @override
+  String get searchDestProgress => 'التقدم';
+
+  @override
+  String get searchDestProgressSub => 'إحصاءاتك وسلسلتك';
+
+  @override
+  String get searchDestProfile => 'الملف الشخصي';
+
+  @override
+  String get searchDestProfileSub => 'ملفك الشخصي';
+
+  @override
+  String get searchDestSettings => 'الإعدادات';
+
+  @override
+  String get searchDestSettingsSub => 'الحساب والتفضيلات';
+
+  @override
+  String get searchDestShop => 'المتجر';
+
+  @override
+  String get searchDestShopSub => 'أنفق ماساتك';
+
+  @override
+  String get searchDestNotifications => 'الإشعارات';
+
+  @override
+  String get searchDestNotificationsSub => 'صندوق إنجازاتك';
+
+  @override
+  String get themesTitle => 'السمات';
+
+  @override
+  String get themesSubtitle => 'يغيّر مظهر التطبيق كله — انقر للمعاينة الحية';
+
+  @override
+  String themesVehicle(String vehicle) {
+    return 'المركبة · $vehicle';
+  }
+
+  @override
+  String get tutorHeader => 'تدرّب على محادثة حقيقية';
+
+  @override
+  String get tutorHeaderSub =>
+      'اختر مشهدًا ودردش مع Ratel — لا إجابات خاطئة، مجرد تدريب.';
+
+  @override
+  String get tutorTalkTitle => 'تحدّث مع Ratel';
+
+  @override
+  String get tutorTalkSub => 'تدريب حي على التحدث بالصوت والفيديو';
+
+  @override
+  String get tutorChatTitle => 'دردش مع Ratel';
+
+  @override
+  String get tutorChatSub => 'دردشة ذكية · ملاحظات على الكتابة';
+
+  @override
+  String get tutorRoleplayTitle => 'مشاهد تمثيل الأدوار';
+
+  @override
+  String get tutorRoleplayGuided => 'محادثات تمثيل أدوار موجّهة';
+
+  @override
+  String tutorScenesCount(int count) {
+    return '$count مشاهد';
+  }
+
+  @override
+  String get tutorUnlockPro => 'افتح RATEL PRO';
+
+  @override
+  String get tutorRelayNote =>
+      'يعمل التدريس الحي بالذكاء الاصطناعي عبر مرحّل خاضع للإشراف ومضبوط التكلفة، وهو ميزة RATEL PRO. الردود لا تُحاكى أبدًا — لا يبدأ وضع إلا حين يكون PRO والمرحّل نشطين.';
+
+  @override
+  String get tutorStatusReadyPro =>
+      'PRO نشط والمعلّم الحي متصل — اختر وضعًا للبدء.';
+
+  @override
+  String get tutorStatusReadyFree =>
+      'المعلّم الحي متصل. التدريس الحي ميزة RATEL PRO.';
+
+  @override
+  String get tutorStatusOffline =>
+      'المعلّم الحي الخاضع للإشراف غير متصل في هذا الإصدار بعد — سيُفعّل التدريس الحي في خطوة لاحقة. لا شيء أدناه مُحاكى.';
+
+  @override
+  String get tutorAnnounceNeedsPro =>
+      'يفتح RATEL PRO التدريس الحي بالذكاء الاصطناعي.';
+
+  @override
+  String get tutorAnnounceNeedsRelay =>
+      'يتصل التدريس الذكي فور تفعيل المرحّل الخاضع للإشراف.';
+
+  @override
+  String get tutorAnnounceStarting => 'جارٍ بدء جلستك…';
+
+  @override
+  String get adventuresTitle => 'المغامرات';
+
+  @override
+  String get adventuresFreeChip => 'مجاني';
+
+  @override
+  String get adventuresIntro =>
+      'اختر طريقك — كل اختيار يفرّع القصة. لا إجابات خاطئة، ومجاني دائمًا.';
+
+  @override
+  String get adventuresFallbackWorld => 'مغامرة';
+
+  @override
+  String adventureSheetKicker(String cefr) {
+    return '🗺️ مغامرة · $cefr';
+  }
+
+  @override
+  String adventureScenesCount(int count) {
+    return '$count مشاهد';
+  }
+
+  @override
+  String adventureChoicePoints(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count نقطة قرار',
+      many: '$count نقطة قرار',
+      few: '$count نقاط قرار',
+      two: 'نقطتا قرار',
+      one: 'نقطة قرار واحدة',
+      zero: 'بلا نقاط قرار',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get adventureOpeningScene => 'المشهد الافتتاحي';
+
+  @override
+  String get adventureStart => 'ابدأ المغامرة';
+
+  @override
+  String get adventuresEmpty => 'لا مغامرات في هذه الدورة بعد.';
 }

@@ -42,7 +42,7 @@ class ThemesScreen extends ConsumerWidget {
           icon: Icon(RatelIcons.arrowBack, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: Text('Themes',
+        title: Text(context.l10n.themesTitle,
             style: TextStyle(
                 fontFamily: RatelFont.display,
                 fontWeight: RatelType.extraBold,
@@ -56,7 +56,7 @@ class ThemesScreen extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(
                 RatelSpace.screen, 0, RatelSpace.screen, RatelSpace.sm),
             child: Text(
-              'Restyles the whole app — tap to preview live',
+              context.l10n.themesSubtitle,
               style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.small,
@@ -205,7 +205,7 @@ class _ThemeCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    'Vehicle · ${world.vehicle}',
+                    context.l10n.themesVehicle(world.vehicle),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(

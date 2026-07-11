@@ -2109,6 +2109,384 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Su'**
   String get commonDowSun;
+
+  /// No description provided for @searchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get searchTitle;
+
+  /// No description provided for @searchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search lessons, words, stories…'**
+  String get searchHint;
+
+  /// No description provided for @searchRecent.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent'**
+  String get searchRecent;
+
+  /// No description provided for @searchClear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get searchClear;
+
+  /// No description provided for @searchJumpTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Jump to'**
+  String get searchJumpTo;
+
+  /// No description provided for @searchTagPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Page'**
+  String get searchTagPage;
+
+  /// No description provided for @searchTagWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Word'**
+  String get searchTagWord;
+
+  /// No description provided for @searchSubtitleSavedWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved word'**
+  String get searchSubtitleSavedWord;
+
+  /// No description provided for @searchLessonSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{unit} · Lesson'**
+  String searchLessonSubtitle(String unit);
+
+  /// No description provided for @searchNoMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'No matches for “{query}”'**
+  String searchNoMatches(String query);
+
+  /// No description provided for @searchEmptyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Searching titles, tags and lesson content across your course, saved words and pages. A server content index and trending are the remaining R-L12 fast-follow — nothing here is faked.'**
+  String get searchEmptyNote;
+
+  /// No description provided for @searchNoMatchNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Searches your published course lessons, saved words and app pages (titles + tags). Stories/podcasts and full-text are the R-L12 fast-follow — never faked.'**
+  String get searchNoMatchNote;
+
+  /// No description provided for @searchFooterNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Titles + tags at launch. Full-text, stories/podcasts and multi-course scope are the R-L12 fast-follow — never faked.'**
+  String get searchFooterNote;
+
+  /// No description provided for @searchDestPracticeHub.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice hub'**
+  String get searchDestPracticeHub;
+
+  /// No description provided for @searchDestPracticeHubSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Mistakes, weak words & drills'**
+  String get searchDestPracticeHubSub;
+
+  /// No description provided for @searchDestAiTutor.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Tutor'**
+  String get searchDestAiTutor;
+
+  /// No description provided for @searchDestAiTutorSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk, chat & roleplay'**
+  String get searchDestAiTutorSub;
+
+  /// No description provided for @searchDestAdventures.
+  ///
+  /// In en, this message translates to:
+  /// **'Adventures'**
+  String get searchDestAdventures;
+
+  /// No description provided for @searchDestAdventuresSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Real conversations — free'**
+  String get searchDestAdventuresSub;
+
+  /// No description provided for @searchDestLeagues.
+  ///
+  /// In en, this message translates to:
+  /// **'Leagues'**
+  String get searchDestLeagues;
+
+  /// No description provided for @searchDestLeaguesSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Your weekly league'**
+  String get searchDestLeaguesSub;
+
+  /// No description provided for @searchDestQuests.
+  ///
+  /// In en, this message translates to:
+  /// **'Quests'**
+  String get searchDestQuests;
+
+  /// No description provided for @searchDestQuestsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily goals & quests'**
+  String get searchDestQuestsSub;
+
+  /// No description provided for @searchDestProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get searchDestProgress;
+
+  /// No description provided for @searchDestProgressSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Your stats & streak'**
+  String get searchDestProgressSub;
+
+  /// No description provided for @searchDestProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get searchDestProfile;
+
+  /// No description provided for @searchDestProfileSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Your profile'**
+  String get searchDestProfileSub;
+
+  /// No description provided for @searchDestSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get searchDestSettings;
+
+  /// No description provided for @searchDestSettingsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Account & preferences'**
+  String get searchDestSettingsSub;
+
+  /// No description provided for @searchDestShop.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop'**
+  String get searchDestShop;
+
+  /// No description provided for @searchDestShopSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Spend your diamonds'**
+  String get searchDestShopSub;
+
+  /// No description provided for @searchDestNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get searchDestNotifications;
+
+  /// No description provided for @searchDestNotificationsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Your milestone inbox'**
+  String get searchDestNotificationsSub;
+
+  /// No description provided for @themesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Themes'**
+  String get themesTitle;
+
+  /// No description provided for @themesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restyles the whole app — tap to preview live'**
+  String get themesSubtitle;
+
+  /// No description provided for @themesVehicle.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle · {vehicle}'**
+  String themesVehicle(String vehicle);
+
+  /// No description provided for @tutorHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice a real conversation'**
+  String get tutorHeader;
+
+  /// No description provided for @tutorHeaderSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a scene and chat with Ratel — no wrong answers, just practice.'**
+  String get tutorHeaderSub;
+
+  /// No description provided for @tutorTalkTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk to Ratel'**
+  String get tutorTalkTitle;
+
+  /// No description provided for @tutorTalkSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Live voice & video speaking practice'**
+  String get tutorTalkSub;
+
+  /// No description provided for @tutorChatTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat with Ratel'**
+  String get tutorChatTitle;
+
+  /// No description provided for @tutorChatSub.
+  ///
+  /// In en, this message translates to:
+  /// **'AI chat · writing feedback'**
+  String get tutorChatSub;
+
+  /// No description provided for @tutorRoleplayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Roleplay scenes'**
+  String get tutorRoleplayTitle;
+
+  /// No description provided for @tutorRoleplayGuided.
+  ///
+  /// In en, this message translates to:
+  /// **'Guided roleplay conversations'**
+  String get tutorRoleplayGuided;
+
+  /// No description provided for @tutorScenesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} scenes'**
+  String tutorScenesCount(int count);
+
+  /// No description provided for @tutorUnlockPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock RATEL PRO'**
+  String get tutorUnlockPro;
+
+  /// No description provided for @tutorRelayNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Live AI tutoring runs on a moderated, cost-guarded relay and is a RATEL PRO feature. Replies are never simulated — a mode starts only once PRO and the relay are both active.'**
+  String get tutorRelayNote;
+
+  /// No description provided for @tutorStatusReadyPro.
+  ///
+  /// In en, this message translates to:
+  /// **'PRO active and the live tutor is connected — pick a mode to begin.'**
+  String get tutorStatusReadyPro;
+
+  /// No description provided for @tutorStatusReadyFree.
+  ///
+  /// In en, this message translates to:
+  /// **'The live tutor is connected. Live tutoring is a RATEL PRO feature.'**
+  String get tutorStatusReadyFree;
+
+  /// No description provided for @tutorStatusOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'The moderated live tutor is not connected in this build yet — live tutoring turns on in a later step. Nothing below is simulated.'**
+  String get tutorStatusOffline;
+
+  /// No description provided for @tutorAnnounceNeedsPro.
+  ///
+  /// In en, this message translates to:
+  /// **'RATEL PRO unlocks live AI tutoring.'**
+  String get tutorAnnounceNeedsPro;
+
+  /// No description provided for @tutorAnnounceNeedsRelay.
+  ///
+  /// In en, this message translates to:
+  /// **'AI tutoring connects once the moderated relay is enabled.'**
+  String get tutorAnnounceNeedsRelay;
+
+  /// No description provided for @tutorAnnounceStarting.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting your session…'**
+  String get tutorAnnounceStarting;
+
+  /// No description provided for @adventuresTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Adventures'**
+  String get adventuresTitle;
+
+  /// No description provided for @adventuresFreeChip.
+  ///
+  /// In en, this message translates to:
+  /// **'FREE'**
+  String get adventuresFreeChip;
+
+  /// No description provided for @adventuresIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your path -- every choice branches the story. No wrong answers, always free.'**
+  String get adventuresIntro;
+
+  /// No description provided for @adventuresFallbackWorld.
+  ///
+  /// In en, this message translates to:
+  /// **'Adventure'**
+  String get adventuresFallbackWorld;
+
+  /// No description provided for @adventureSheetKicker.
+  ///
+  /// In en, this message translates to:
+  /// **'🗺️ ADVENTURE · {cefr}'**
+  String adventureSheetKicker(String cefr);
+
+  /// No description provided for @adventureScenesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} scenes'**
+  String adventureScenesCount(int count);
+
+  /// No description provided for @adventureChoicePoints.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} choice point} other{{count} choice points}}'**
+  String adventureChoicePoints(int count);
+
+  /// No description provided for @adventureOpeningScene.
+  ///
+  /// In en, this message translates to:
+  /// **'OPENING SCENE'**
+  String get adventureOpeningScene;
+
+  /// No description provided for @adventureStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start adventure'**
+  String get adventureStart;
+
+  /// No description provided for @adventuresEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No adventures in this course yet.'**
+  String get adventuresEmpty;
 }
 
 class _AppLocalizationsDelegate

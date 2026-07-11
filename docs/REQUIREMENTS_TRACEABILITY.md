@@ -73,7 +73,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-C10 | Provenance / versioning on every row | Must | Stage1 | Built ✅ | — | `common.schema.json` |
 | R-C11 | Stable language-neutral ID scheme | Must | Stage1 | Built ✅ | — | — |
 | R-C12 | Shared controlled vocabularies / enums | Must | Stage1 | Built ✅ | — | `codegen_dart.py`, `test_enum_forward_compat.py`, `enums.schema.json`, `schema.json` |
-| R-C13 | App-shell strings vs DB gloss boundary | Must | Stage1 | Built ✅ | — | `ratel_app.dart`, `l10n.dart`, `ui_locale.dart`, `ui_locale_store.dart` +1 |
+| R-C13 | App-shell strings vs DB gloss boundary | Must | Stage1 | Built ✅ | — | `ratel_app.dart`, `l10n.dart`, `library_search_screen.dart`, `ui_locale.dart` +2 |
 | R-C14 | Schema-conformance gate | Must | Stage1 | Built ✅ | — | `content_loader.dart`, `axis_gate.py`, `schema.json` |
 
 ## Part D — Exercise types & grading
@@ -213,7 +213,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-L11 | Notifications (push categories, opt-in, inbox) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `friends_controller.dart`, `home_screen.dart`, `leagues_screen.dart`, `learner_controller.dart` +11 |
 | R-L11a | Widgets are mobile-only; desktop/web get in-app/tray equivalent | Could | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-L11b | Notifications: per-platform delivery profile | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `friends_controller.dart`, `data_access.dart`, `supabase_friends_store.dart`, `friends_realtime_test.dart` |
-| R-L12 | Global search | Should | Stage2 | Built ✅ | — | `library_search_screen.dart`, `settings_controller.dart`, `app_settings.dart`, `search.dart` +3 |
+| R-L12 | Global search | Should | Stage2 | Built ✅ | — | `l10n.dart`, `library_search_screen.dart`, `settings_controller.dart`, `app_localizations.dart` +17 |
 | R-L13 | Offline mode & caching | Must | Stage2 | Built ✅ | — | — |
 | R-L13a | Background sync is foreground-reconcile on iOS-PWA + desktop | Should | Stage2 | Built ✅ | — | — |
 | R-L14 | Cross-cutting UI states (loading/empty/error/skeleton) | Must | Stage2 | Built ✅ | — | `learner_controller.dart`, `progress_screen.dart`, `study_stats_controller.dart`, `xp_history_controller.dart` +7 |

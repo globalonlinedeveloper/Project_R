@@ -37,17 +37,19 @@ class AdventuresScreen extends ConsumerWidget {
           icon: Icon(RatelIcons.arrowBack, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: Text('Adventures',
+        title: Text(context.l10n.adventuresTitle,
             style: TextStyle(
                 fontFamily: RatelFont.display,
                 fontWeight: RatelType.extraBold,
                 color: context.palette.ink,
                 fontSize: RatelType.cardTitle)),
-        actions: const <Widget>[
+        actions: <Widget>[
           Padding(
-            padding: EdgeInsets.only(right: RatelSpace.lg),
-            child:
-                Center(child: RatelChip(label: 'FREE', tone: RatelChipTone.green)),
+            padding: const EdgeInsets.only(right: RatelSpace.lg),
+            child: Center(
+                child: RatelChip(
+                    label: context.l10n.adventuresFreeChip,
+                    tone: RatelChipTone.green)),
           ),
         ],
       ),
@@ -59,7 +61,7 @@ class AdventuresScreen extends ConsumerWidget {
                   RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
               children: <Widget>[
                 Text(
-                  'Choose your path -- every choice branches the story. No wrong answers, always free.',
+                  context.l10n.adventuresIntro,
                   style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.body,
@@ -76,7 +78,7 @@ class AdventuresScreen extends ConsumerWidget {
                       leadingColor: RatelColors.blue,
                       title: s.title,
                       subtitle: s.goal == null || s.goal!.isEmpty
-                          ? (s.world ?? 'Adventure')
+                          ? (s.world ?? context.l10n.adventuresFallbackWorld)
                           : s.goal!,
                       onTap: () => context.push(
                           '/adventure?scenario=${Uri.encodeComponent(s.id)}'),
@@ -114,7 +116,7 @@ class AdventuresScreen extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('🗺️ ADVENTURE · ${s.cefr}',
+            Text(sheetContext.l10n.adventureSheetKicker(s.cefr),
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.caption,
@@ -129,8 +131,8 @@ class AdventuresScreen extends ConsumerWidget {
                     color: sheetContext.palette.ink)),
             const SizedBox(height: 4),
             Text(
-                '${s.scenes.length} scenes · '
-                '$decisions choice ${decisions == 1 ? 'point' : 'points'}'
+                '${sheetContext.l10n.adventureScenesCount(s.scenes.length)} · '
+                '${sheetContext.l10n.adventureChoicePoints(decisions)}'
                 '${s.goal != null && s.goal!.isNotEmpty ? ' · ${s.goal!}' : ''}',
                 style: TextStyle(
                     fontFamily: RatelFont.body,
@@ -138,7 +140,7 @@ class AdventuresScreen extends ConsumerWidget {
                     color: sheetContext.palette.muted)),
             if (opening != null) ...<Widget>[
               const SizedBox(height: RatelSpace.md),
-              Text('OPENING SCENE',
+              Text(sheetContext.l10n.adventureOpeningScene,
                   style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.caption,
@@ -176,7 +178,7 @@ class AdventuresScreen extends ConsumerWidget {
             const SizedBox(height: RatelSpace.lg),
             RatelButton(
               key: const ValueKey<String>('adventure-preview-start'),
-              label: 'Start adventure',
+              label: sheetContext.l10n.adventureStart,
               onPressed: () {
                 Navigator.of(sheetContext).pop();
                 context.push(
@@ -198,7 +200,7 @@ class AdventuresScreen extends ConsumerWidget {
             children: <Widget>[
               const Text('🗺️', style: TextStyle(fontSize: 56)),
               const SizedBox(height: RatelSpace.md),
-              Text('No adventures in this course yet.',
+              Text(context.l10n.adventuresEmpty,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontFamily: RatelFont.body,

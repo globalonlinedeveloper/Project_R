@@ -1180,4 +1180,225 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get commonDowSun => 'Di';
+
+  @override
+  String get searchTitle => 'Recherche';
+
+  @override
+  String get searchHint => 'Cherche leçons, mots, histoires…';
+
+  @override
+  String get searchRecent => 'Récents';
+
+  @override
+  String get searchClear => 'Effacer';
+
+  @override
+  String get searchJumpTo => 'Aller à';
+
+  @override
+  String get searchTagPage => 'Page';
+
+  @override
+  String get searchTagWord => 'Mot';
+
+  @override
+  String get searchSubtitleSavedWord => 'Mot enregistré';
+
+  @override
+  String searchLessonSubtitle(String unit) {
+    return '$unit · Leçon';
+  }
+
+  @override
+  String searchNoMatches(String query) {
+    return 'Aucun résultat pour « $query »';
+  }
+
+  @override
+  String get searchEmptyNote =>
+      'Recherche dans les titres, tags et contenus de leçons de ton cours, tes mots enregistrés et les pages. L\'index de contenu serveur et les tendances sont la suite de R-L12 — rien ici n\'est truqué.';
+
+  @override
+  String get searchNoMatchNote =>
+      'Recherche dans tes leçons publiées, tes mots enregistrés et les pages de l\'appli (titres + tags). Histoires/podcasts et texte intégral sont la suite de R-L12 — jamais truqué.';
+
+  @override
+  String get searchFooterNote =>
+      'Au lancement : titres + tags. Texte intégral, histoires/podcasts et multi-cours sont la suite de R-L12 — jamais truqué.';
+
+  @override
+  String get searchDestPracticeHub => 'Espace pratique';
+
+  @override
+  String get searchDestPracticeHubSub => 'Erreurs, mots faibles & exercices';
+
+  @override
+  String get searchDestAiTutor => 'Tuteur IA';
+
+  @override
+  String get searchDestAiTutorSub => 'Parle, discute & joue des scènes';
+
+  @override
+  String get searchDestAdventures => 'Aventures';
+
+  @override
+  String get searchDestAdventuresSub => 'Vraies conversations — gratuit';
+
+  @override
+  String get searchDestLeagues => 'Ligues';
+
+  @override
+  String get searchDestLeaguesSub => 'Ta ligue hebdomadaire';
+
+  @override
+  String get searchDestQuests => 'Quêtes';
+
+  @override
+  String get searchDestQuestsSub => 'Objectifs & quêtes du jour';
+
+  @override
+  String get searchDestProgress => 'Progression';
+
+  @override
+  String get searchDestProgressSub => 'Tes stats & ta série';
+
+  @override
+  String get searchDestProfile => 'Profil';
+
+  @override
+  String get searchDestProfileSub => 'Ton profil';
+
+  @override
+  String get searchDestSettings => 'Paramètres';
+
+  @override
+  String get searchDestSettingsSub => 'Compte & préférences';
+
+  @override
+  String get searchDestShop => 'Boutique';
+
+  @override
+  String get searchDestShopSub => 'Dépense tes diamants';
+
+  @override
+  String get searchDestNotifications => 'Notifications';
+
+  @override
+  String get searchDestNotificationsSub => 'Ta boîte à jalons';
+
+  @override
+  String get themesTitle => 'Thèmes';
+
+  @override
+  String get themesSubtitle =>
+      'Restyle toute l\'appli — touche pour prévisualiser en direct';
+
+  @override
+  String themesVehicle(String vehicle) {
+    return 'Véhicule · $vehicle';
+  }
+
+  @override
+  String get tutorHeader => 'Pratique une vraie conversation';
+
+  @override
+  String get tutorHeaderSub =>
+      'Choisis une scène et discute avec Ratel — pas de mauvaises réponses, juste de la pratique.';
+
+  @override
+  String get tutorTalkTitle => 'Parler à Ratel';
+
+  @override
+  String get tutorTalkSub => 'Pratique orale en direct, voix & vidéo';
+
+  @override
+  String get tutorChatTitle => 'Discuter avec Ratel';
+
+  @override
+  String get tutorChatSub => 'Chat IA · retours d\'écriture';
+
+  @override
+  String get tutorRoleplayTitle => 'Scènes de jeu de rôle';
+
+  @override
+  String get tutorRoleplayGuided => 'Conversations de jeu de rôle guidées';
+
+  @override
+  String tutorScenesCount(int count) {
+    return '$count scènes';
+  }
+
+  @override
+  String get tutorUnlockPro => 'Débloquer RATEL PRO';
+
+  @override
+  String get tutorRelayNote =>
+      'Le tutorat IA en direct passe par un relais modéré à coûts maîtrisés et relève de RATEL PRO. Les réponses ne sont jamais simulées — un mode ne démarre que lorsque PRO et le relais sont actifs.';
+
+  @override
+  String get tutorStatusReadyPro =>
+      'PRO actif et tuteur en direct connecté — choisis un mode pour commencer.';
+
+  @override
+  String get tutorStatusReadyFree =>
+      'Le tuteur en direct est connecté. Le tutorat en direct relève de RATEL PRO.';
+
+  @override
+  String get tutorStatusOffline =>
+      'Le tuteur en direct modéré n\'est pas encore connecté dans cette version — le tutorat en direct arrivera plus tard. Rien ci-dessous n\'est simulé.';
+
+  @override
+  String get tutorAnnounceNeedsPro =>
+      'RATEL PRO débloque le tutorat IA en direct.';
+
+  @override
+  String get tutorAnnounceNeedsRelay =>
+      'Le tutorat IA se connecte dès que le relais modéré est activé.';
+
+  @override
+  String get tutorAnnounceStarting => 'Démarrage de ta session…';
+
+  @override
+  String get adventuresTitle => 'Aventures';
+
+  @override
+  String get adventuresFreeChip => 'GRATUIT';
+
+  @override
+  String get adventuresIntro =>
+      'Choisis ton chemin — chaque choix fait bifurquer l\'histoire. Pas de mauvaises réponses, toujours gratuit.';
+
+  @override
+  String get adventuresFallbackWorld => 'Aventure';
+
+  @override
+  String adventureSheetKicker(String cefr) {
+    return '🗺️ AVENTURE · $cefr';
+  }
+
+  @override
+  String adventureScenesCount(int count) {
+    return '$count scènes';
+  }
+
+  @override
+  String adventureChoicePoints(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count points de décision',
+      one: '$count point de décision',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get adventureOpeningScene => 'SCÈNE D\'OUVERTURE';
+
+  @override
+  String get adventureStart => 'Commencer l\'aventure';
+
+  @override
+  String get adventuresEmpty => 'Pas encore d\'aventures dans ce cours.';
 }

@@ -1140,4 +1140,218 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get commonDowSun => '일';
+
+  @override
+  String get searchTitle => '검색';
+
+  @override
+  String get searchHint => '레슨, 단어, 이야기 검색…';
+
+  @override
+  String get searchRecent => '최근';
+
+  @override
+  String get searchClear => '지우기';
+
+  @override
+  String get searchJumpTo => '바로 가기';
+
+  @override
+  String get searchTagPage => '페이지';
+
+  @override
+  String get searchTagWord => '단어';
+
+  @override
+  String get searchSubtitleSavedWord => '저장한 단어';
+
+  @override
+  String searchLessonSubtitle(String unit) {
+    return '$unit · 레슨';
+  }
+
+  @override
+  String searchNoMatches(String query) {
+    return '“$query”에 대한 결과가 없어요';
+  }
+
+  @override
+  String get searchEmptyNote =>
+      '코스, 저장한 단어, 페이지의 제목·태그·레슨 내용을 검색해요. 서버 콘텐츠 색인과 인기 검색은 R-L12 후속 작업이에요 — 여기에 가짜는 없어요.';
+
+  @override
+  String get searchNoMatchNote =>
+      '게시된 레슨, 저장한 단어, 앱 페이지(제목 + 태그)를 검색해요. 이야기/팟캐스트와 전문 검색은 R-L12 후속 작업이에요 — 절대 꾸며내지 않아요.';
+
+  @override
+  String get searchFooterNote =>
+      '출시 시점엔 제목 + 태그. 전문, 이야기/팟캐스트, 다중 코스는 R-L12 후속 작업이에요 — 절대 꾸며내지 않아요.';
+
+  @override
+  String get searchDestPracticeHub => '연습 허브';
+
+  @override
+  String get searchDestPracticeHubSub => '실수, 약한 단어, 드릴';
+
+  @override
+  String get searchDestAiTutor => 'AI 튜터';
+
+  @override
+  String get searchDestAiTutorSub => '말하기, 채팅, 롤플레이';
+
+  @override
+  String get searchDestAdventures => '어드벤처';
+
+  @override
+  String get searchDestAdventuresSub => '실제 대화 — 무료';
+
+  @override
+  String get searchDestLeagues => '리그';
+
+  @override
+  String get searchDestLeaguesSub => '나의 주간 리그';
+
+  @override
+  String get searchDestQuests => '퀘스트';
+
+  @override
+  String get searchDestQuestsSub => '일일 목표와 퀘스트';
+
+  @override
+  String get searchDestProgress => '진행 상황';
+
+  @override
+  String get searchDestProgressSub => '나의 통계와 스트릭';
+
+  @override
+  String get searchDestProfile => '프로필';
+
+  @override
+  String get searchDestProfileSub => '나의 프로필';
+
+  @override
+  String get searchDestSettings => '설정';
+
+  @override
+  String get searchDestSettingsSub => '계정과 환경설정';
+
+  @override
+  String get searchDestShop => '상점';
+
+  @override
+  String get searchDestShopSub => '다이아몬드 사용하기';
+
+  @override
+  String get searchDestNotifications => '알림';
+
+  @override
+  String get searchDestNotificationsSub => '나의 이정표 수신함';
+
+  @override
+  String get themesTitle => '테마';
+
+  @override
+  String get themesSubtitle => '앱 전체 스타일을 바꿔요 — 탭하면 실시간 미리보기';
+
+  @override
+  String themesVehicle(String vehicle) {
+    return '탈것 · $vehicle';
+  }
+
+  @override
+  String get tutorHeader => '실제 대화를 연습하세요';
+
+  @override
+  String get tutorHeaderSub => '장면을 골라 Ratel과 채팅하세요 — 틀린 답은 없고, 연습만 있어요.';
+
+  @override
+  String get tutorTalkTitle => 'Ratel과 통화하기';
+
+  @override
+  String get tutorTalkSub => '실시간 음성·영상 말하기 연습';
+
+  @override
+  String get tutorChatTitle => 'Ratel과 채팅하기';
+
+  @override
+  String get tutorChatSub => 'AI 채팅 · 글쓰기 피드백';
+
+  @override
+  String get tutorRoleplayTitle => '롤플레이 장면';
+
+  @override
+  String get tutorRoleplayGuided => '가이드형 롤플레이 대화';
+
+  @override
+  String tutorScenesCount(int count) {
+    return '장면 $count개';
+  }
+
+  @override
+  String get tutorUnlockPro => 'RATEL PRO 잠금 해제';
+
+  @override
+  String get tutorRelayNote =>
+      '실시간 AI 튜터링은 검열되고 비용이 관리되는 릴레이에서 동작하는 RATEL PRO 기능이에요. 답변은 절대 시뮬레이션이 아니에요 — PRO와 릴레이가 모두 활성일 때만 모드가 시작돼요.';
+
+  @override
+  String get tutorStatusReadyPro => 'PRO 활성 상태이고 실시간 튜터가 연결됐어요 — 모드를 골라 시작하세요.';
+
+  @override
+  String get tutorStatusReadyFree => '실시간 튜터가 연결됐어요. 실시간 튜터링은 RATEL PRO 기능이에요.';
+
+  @override
+  String get tutorStatusOffline =>
+      '이 빌드에서는 검열형 실시간 튜터가 아직 연결되지 않았어요 — 실시간 튜터링은 이후 단계에서 켜져요. 아래 어떤 것도 시뮬레이션이 아니에요.';
+
+  @override
+  String get tutorAnnounceNeedsPro => 'RATEL PRO가 실시간 AI 튜터링을 잠금 해제해요.';
+
+  @override
+  String get tutorAnnounceNeedsRelay => '검열형 릴레이가 활성화되면 AI 튜터링이 연결돼요.';
+
+  @override
+  String get tutorAnnounceStarting => '세션을 시작하는 중…';
+
+  @override
+  String get adventuresTitle => '어드벤처';
+
+  @override
+  String get adventuresFreeChip => '무료';
+
+  @override
+  String get adventuresIntro =>
+      '길을 선택하세요 — 선택마다 이야기가 갈라져요. 틀린 답은 없고, 언제나 무료예요.';
+
+  @override
+  String get adventuresFallbackWorld => '어드벤처';
+
+  @override
+  String adventureSheetKicker(String cefr) {
+    return '🗺️ 어드벤처 · $cefr';
+  }
+
+  @override
+  String adventureScenesCount(int count) {
+    return '장면 $count개';
+  }
+
+  @override
+  String adventureChoicePoints(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '선택 지점 $count개',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get adventureOpeningScene => '오프닝 장면';
+
+  @override
+  String get adventureStart => '어드벤처 시작';
+
+  @override
+  String get adventuresEmpty => '이 코스에는 아직 어드벤처가 없어요.';
 }
