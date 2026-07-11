@@ -20,6 +20,9 @@ extension type _Audio._(JSObject _) implements JSObject {
   external void pause();
   external bool get paused;
   external set preload(String value);
+  external double get currentTime;
+  external set currentTime(double value);
+  external double get duration;
 }
 
 /// Plays a pre-generated MP3 via the browser. [isAvailable] is true when the
@@ -32,7 +35,7 @@ class WebPodcastAudio implements PodcastAudio {
   PodcastHandle handleFor(String url) => _WebPodcastHandle(url);
 }
 
-class _WebPodcastHandle implements PodcastHandle {
+class _WebPodcastHandle implements PodcastHandle, SeekablePodcastHandle {
   _WebPodcastHandle(String url) : _el = _Audio(url) {
     _el.preload = 'none';
   }
@@ -55,6 +58,23 @@ class _WebPodcastHandle implements PodcastHandle {
 
   @override
   Future<void> pause() async => _el.pause();
+
+  // M-2: real position/seek straight off the HTMLAudioElement. `duration` is
+  // NaN until the browser has metadata — surfaced honestly as null.
+  @override
+  double get positionSeconds {
+    final double t = _el.currentTime;
+    return t.isFinite && t > 0 ? t : 0;
+  }
+
+  @override
+  double? get durationSeconds {
+    final double d = _el.duration;
+    return d.isFinite && d > 0 ? d : null;
+  }
+
+  @override
+  void seekTo(double seconds) => _el.currentTime = seconds;
 
   @override
   Future<void> dispose() async => _el.pause();

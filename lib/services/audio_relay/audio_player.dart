@@ -66,6 +66,24 @@ class SilentPodcastHandle implements PodcastHandle {
   Future<void> dispose() async {}
 }
 
+/// M-2 (screen review §2): OPTIONAL position/seek capability on a podcast
+/// handle — the same seam-extension pattern as Q-6's `RateControlledAudio`:
+/// a handle that ALSO implements this exposes the REAL playback position so
+/// the player can render a seekbar + elapsed time. Handles without it (fakes,
+/// [SilentPodcastHandle]) keep the plain play/pause UI — the player must NEVER
+/// invent a position it cannot read.
+abstract interface class SeekablePodcastHandle {
+  /// Current playback position in seconds (0 when unknown).
+  double get positionSeconds;
+
+  /// Total duration in seconds, or null while the metadata is not yet loaded
+  /// (`preload='none'` defers it until the first play).
+  double? get durationSeconds;
+
+  /// Jump playback to [seconds] (the element clamps out-of-range values).
+  void seekTo(double seconds);
+}
+
 /// Thrown by [SilentPodcastHandle] (or a real handle on a decode/URL failure).
 class PodcastAudioUnavailable implements Exception {
   const PodcastAudioUnavailable(this.reason);
