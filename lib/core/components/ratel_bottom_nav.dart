@@ -96,19 +96,34 @@ class _NavItem extends StatelessWidget {
                     : Colors.transparent,
                 borderRadius: BorderRadius.circular(RatelRadius.pill),
               ),
-              child: Text(tab.emoji, style: const TextStyle(fontSize: 20)),
+              // M-1: the emoji is a pictogram, not prose — pin its scale so
+              // the fixed-height bar survives 200% font scale; the LABEL below
+              // (the accessible part) keeps scaling with the user setting.
+              child: Text(
+                tab.emoji,
+                textScaler: TextScaler.noScaling,
+                style: const TextStyle(fontSize: 20),
+              ),
             ),
             const SizedBox(height: 2),
-            Text(
-              tab.label,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: RatelFont.display,
-                fontSize: 10,
-                fontWeight: RatelType.extraBold,
-                color: active ? RatelColors.teal : context.palette.muted,
+            // M-1: Flexible+FittedBox — identity at normal scale; at very large
+            // font scales the label compresses to fit the 64px bar instead of
+            // overflowing (gauntlet @200%).
+            Flexible(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  tab.label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: RatelFont.display,
+                    fontSize: 10,
+                    fontWeight: RatelType.extraBold,
+                    color: active ? RatelColors.teal : context.palette.muted,
+                  ),
+                ),
               ),
             ),
           ],
