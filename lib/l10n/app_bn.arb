@@ -400,6 +400,8 @@
   "adventureCompleteKicker": "অ্যাডভেঞ্চার সম্পূর্ণ",
   "adventureCompleteTitle": "{title} ✓",
   "adventureCompleteBody": "দারুণ! +15 XP · +5 💎 অর্জিত — যখন খুশি পরের দৃশ্যটি এক্সপ্লোর করুন।",
+  "adventureDistrictProgress": "{done}/{total} এক্সপ্লোর করা",
+  "adventureDistrictDone": "✓ সম্পন্ন",
   "adventuresEmpty": "এই কোর্সে এখনো কোনো অ্যাডভেঞ্চার নেই।",
   "authWelcomeTitle": "Ratel-এ স্বাগতম",
   "authWelcomeSubtitle": "পাঠ, গল্প, পডকাস্ট আরও অনেক কিছু —\nকীভাবে শুরু করবেন বেছে নিন।",

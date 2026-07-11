@@ -1368,6 +1368,14 @@ class AppLocalizationsZh extends AppLocalizations {
   String get adventureCompleteBody => '做得好！获得 +15 XP · +5 💎 — 随时探索下一个场景。';
 
   @override
+  String adventureDistrictProgress(int done, int total) {
+    return '已探索 $done/$total';
+  }
+
+  @override
+  String get adventureDistrictDone => '✓ 完成';
+
+  @override
   String get adventuresEmpty => '这个课程还没有冒险内容。';
 
   @override

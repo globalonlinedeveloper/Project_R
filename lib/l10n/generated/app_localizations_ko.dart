@@ -1377,6 +1377,14 @@ class AppLocalizationsKo extends AppLocalizations {
       '잘했어요! +15 XP · +5 💎 획득 — 다음 장면은 언제든 탐험해 보세요.';
 
   @override
+  String adventureDistrictProgress(int done, int total) {
+    return '$done/$total 탐험 완료';
+  }
+
+  @override
+  String get adventureDistrictDone => '✓ 완료';
+
+  @override
   String get adventuresEmpty => '이 코스에는 아직 어드벤처가 없어요.';
 
   @override

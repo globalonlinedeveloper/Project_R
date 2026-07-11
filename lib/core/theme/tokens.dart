@@ -59,6 +59,21 @@ abstract final class RatelColors {
   static const Color gold = Color(0xFFFFD36B);
   static const Color blue = Color(0xFF2A6FDB);
   static const Color purple = Color(0xFF9B59B6);
+
+  // Adventure district header gradients (L-4, design §4.12). The first four
+  // pairs are the design mock's own district tints byte-exact; the C1/C2
+  // pairs derive from the design accent set (red · deep navy) with the same
+  // darken treatment. Light ends reuse [green]/[blue]/[purple] where the
+  // design tint coincides with an existing token.
+  static const Color districtCafe = Color(0xFFC7794B);
+  static const Color districtCafeDark = Color(0xFF9A5630);
+  static const Color districtMarketDark = Color(0xFF1B7D4F);
+  static const Color districtMoveDark = Color(0xFF1B4E9C);
+  static const Color districtFriendsDark = Color(0xFF6E3E86);
+  static const Color districtRed = Color(0xFFC0392B);
+  static const Color districtRedDark = Color(0xFF8E2A20);
+  static const Color districtNavy = Color(0xFF15324A);
+  static const Color districtNavyDark = Color(0xFF0C1E2C);
   static const Color cyan = Color(0xFF16E0FF);
   static const Color pink = Color(0xFFFF7AA0);
   static const Color lavender = Color(0xFFB89CFF);

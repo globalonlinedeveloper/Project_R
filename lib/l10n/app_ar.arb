@@ -400,6 +400,8 @@
   "adventureCompleteKicker": "اكتملت المغامرة",
   "adventureCompleteTitle": "{title} ✓",
   "adventureCompleteBody": "أحسنت! حصلت على ‎+15 XP · ‎+5 💎 — استكشف المشهد التالي وقتما تشاء.",
+  "adventureDistrictProgress": "استكشفت {done}/{total}",
+  "adventureDistrictDone": "✓ تم",
   "adventuresEmpty": "لا مغامرات في هذه الدورة بعد.",
   "authWelcomeTitle": "مرحبًا بك في Ratel",
   "authWelcomeSubtitle": "دروس وقصص وبودكاست والمزيد —\nاختر كيف تريد أن تبدأ.",

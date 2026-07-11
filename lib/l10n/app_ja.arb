@@ -400,6 +400,8 @@
   "adventureCompleteKicker": "アドベンチャー完了",
   "adventureCompleteTitle": "{title} ✓",
   "adventureCompleteBody": "よくできました！+15 XP · +5 💎 を獲得 — 次のシーンはいつでも探索できます。",
+  "adventureDistrictProgress": "{done}/{total} 探索済み",
+  "adventureDistrictDone": "✓ 完了",
   "adventuresEmpty": "このコースにはまだアドベンチャーがありません。",
   "authWelcomeTitle": "Ratelへようこそ",
   "authWelcomeSubtitle": "レッスン、ストーリー、ポッドキャストなど —\n始め方を選びましょう。",

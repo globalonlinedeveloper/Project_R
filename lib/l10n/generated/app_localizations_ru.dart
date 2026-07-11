@@ -1427,6 +1427,14 @@ class AppLocalizationsRu extends AppLocalizations {
       'Отлично! Получено +15 XP · +5 💎 — исследуйте следующую сцену, когда захотите.';
 
   @override
+  String adventureDistrictProgress(int done, int total) {
+    return '$done/$total пройдено';
+  }
+
+  @override
+  String get adventureDistrictDone => '✓ Готово';
+
+  @override
   String get adventuresEmpty => 'В этом курсе пока нет приключений.';
 
   @override

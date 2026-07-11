@@ -400,6 +400,8 @@
   "adventureCompleteKicker": "AVENTURA CONCLUÍDA",
   "adventureCompleteTitle": "{title} ✓",
   "adventureCompleteBody": "Muito bem! +15 XP · +5 💎 ganhos — explore a próxima cena quando quiser.",
+  "adventureDistrictProgress": "{done}/{total} exploradas",
+  "adventureDistrictDone": "✓ Concluído",
   "adventuresEmpty": "Ainda não há aventuras neste curso.",
   "authWelcomeTitle": "Bem-vindo ao Ratel",
   "authWelcomeSubtitle": "Lições, histórias, podcasts e mais —\nescolha como quer começar.",

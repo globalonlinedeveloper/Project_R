@@ -400,6 +400,8 @@
   "adventureCompleteKicker": "ПРИКЛЮЧЕНИЕ ПРОЙДЕНО",
   "adventureCompleteTitle": "{title} ✓",
   "adventureCompleteBody": "Отлично! Получено +15 XP · +5 💎 — исследуйте следующую сцену, когда захотите.",
+  "adventureDistrictProgress": "{done}/{total} пройдено",
+  "adventureDistrictDone": "✓ Готово",
   "adventuresEmpty": "В этом курсе пока нет приключений.",
   "authWelcomeTitle": "Добро пожаловать в Ratel",
   "authWelcomeSubtitle": "Уроки, истории, подкасты и не только —\nвыберите, как начать.",

@@ -1424,6 +1424,14 @@ class AppLocalizationsFr extends AppLocalizations {
       'Bien joué ! +15 XP · +5 💎 gagnés — explorez la scène suivante quand vous voulez.';
 
   @override
+  String adventureDistrictProgress(int done, int total) {
+    return '$done/$total explorées';
+  }
+
+  @override
+  String get adventureDistrictDone => '✓ Terminé';
+
+  @override
   String get adventuresEmpty => 'Pas encore d\'aventures dans ce cours.';
 
   @override

@@ -400,6 +400,8 @@
   "adventureCompleteKicker": "冒险完成",
   "adventureCompleteTitle": "{title} ✓",
   "adventureCompleteBody": "做得好！获得 +15 XP · +5 💎 — 随时探索下一个场景。",
+  "adventureDistrictProgress": "已探索 {done}/{total}",
+  "adventureDistrictDone": "✓ 完成",
   "adventuresEmpty": "这个课程还没有冒险内容。",
   "authWelcomeTitle": "欢迎来到 Ratel",
   "authWelcomeSubtitle": "课程、故事、播客等 —\n选择你的开始方式。",

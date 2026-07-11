@@ -400,6 +400,8 @@
   "adventureCompleteKicker": "어드벤처 완료",
   "adventureCompleteTitle": "{title} ✓",
   "adventureCompleteBody": "잘했어요! +15 XP · +5 💎 획득 — 다음 장면은 언제든 탐험해 보세요.",
+  "adventureDistrictProgress": "{done}/{total} 탐험 완료",
+  "adventureDistrictDone": "✓ 완료",
   "adventuresEmpty": "이 코스에는 아직 어드벤처가 없어요.",
   "authWelcomeTitle": "Ratel에 오신 것을 환영해요",
   "authWelcomeSubtitle": "레슨, 이야기, 팟캐스트 등 —\n시작 방법을 골라보세요.",

@@ -2524,6 +2524,18 @@ abstract class AppLocalizations {
   /// **'Nicely done! +15 XP · +5 💎 earned — explore the next scene whenever you like.'**
   String get adventureCompleteBody;
 
+  /// No description provided for @adventureDistrictProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{done}/{total} explored'**
+  String adventureDistrictProgress(int done, int total);
+
+  /// No description provided for @adventureDistrictDone.
+  ///
+  /// In en, this message translates to:
+  /// **'✓ Done'**
+  String get adventureDistrictDone;
+
   /// No description provided for @adventuresEmpty.
   ///
   /// In en, this message translates to:
