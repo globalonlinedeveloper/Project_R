@@ -330,6 +330,1347 @@
           "created_at": "2026-06-23T00:00:00Z",
           "updated_at": "2026-06-23T00:00:00Z"
         }
+      },
+      {
+        "sentence_id": "sentence_es_adv_cafe1_open",
+        "locale": "es",
+        "target_text": "¡Hola! ¿Qué te pongo?",
+        "tokens": [
+          {
+            "surface": "¡Hola"
+          },
+          {
+            "surface": "!"
+          },
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "te"
+          },
+          {
+            "surface": "pongo"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_cafe1_close1",
+        "locale": "es",
+        "target_text": "Marchando un café con leche. ¡Aquí tienes!",
+        "tokens": [
+          {
+            "surface": "Marchando"
+          },
+          {
+            "surface": "un"
+          },
+          {
+            "surface": "café"
+          },
+          {
+            "surface": "con"
+          },
+          {
+            "surface": "leche"
+          },
+          {
+            "surface": "."
+          },
+          {
+            "surface": "¡Aquí"
+          },
+          {
+            "surface": "tienes"
+          },
+          {
+            "surface": "!"
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_cafe1_close2",
+        "locale": "es",
+        "target_text": "Hoy tenemos croissants y tarta de manzana.",
+        "tokens": [
+          {
+            "surface": "Hoy"
+          },
+          {
+            "surface": "tenemos"
+          },
+          {
+            "surface": "croissants"
+          },
+          {
+            "surface": "y"
+          },
+          {
+            "surface": "tarta"
+          },
+          {
+            "surface": "de"
+          },
+          {
+            "surface": "manzana"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_cafe1_close3",
+        "locale": "es",
+        "target_text": "Claro, en un momento te lo preparo.",
+        "tokens": [
+          {
+            "surface": "Claro,"
+          },
+          {
+            "surface": "en"
+          },
+          {
+            "surface": "un"
+          },
+          {
+            "surface": "momento"
+          },
+          {
+            "surface": "te"
+          },
+          {
+            "surface": "lo"
+          },
+          {
+            "surface": "preparo"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_cafe2_open",
+        "locale": "es",
+        "target_text": "Aquí tienes la cuenta: ocho euros.",
+        "tokens": [
+          {
+            "surface": "Aquí"
+          },
+          {
+            "surface": "tienes"
+          },
+          {
+            "surface": "la"
+          },
+          {
+            "surface": "cuenta:"
+          },
+          {
+            "surface": "ocho"
+          },
+          {
+            "surface": "euros"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_cafe2_close1",
+        "locale": "es",
+        "target_text": "Sí, claro. Aquí está el datáfono.",
+        "tokens": [
+          {
+            "surface": "Sí,"
+          },
+          {
+            "surface": "claro"
+          },
+          {
+            "surface": "."
+          },
+          {
+            "surface": "Aquí"
+          },
+          {
+            "surface": "está"
+          },
+          {
+            "surface": "el"
+          },
+          {
+            "surface": "datáfono"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_cafe2_close2",
+        "locale": "es",
+        "target_text": "¡Muchas gracias! Muy amable.",
+        "tokens": [
+          {
+            "surface": "¡Muchas"
+          },
+          {
+            "surface": "gracias"
+          },
+          {
+            "surface": "!"
+          },
+          {
+            "surface": "Muy"
+          },
+          {
+            "surface": "amable"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_cafe2_close3",
+        "locale": "es",
+        "target_text": "No es necesario, pero se agradece.",
+        "tokens": [
+          {
+            "surface": "No"
+          },
+          {
+            "surface": "es"
+          },
+          {
+            "surface": "necesario,"
+          },
+          {
+            "surface": "pero"
+          },
+          {
+            "surface": "se"
+          },
+          {
+            "surface": "agradece"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mkt1_open",
+        "locale": "es",
+        "target_text": "¡Fruta fresca! ¿Qué le doy?",
+        "tokens": [
+          {
+            "surface": "¡Fruta"
+          },
+          {
+            "surface": "fresca"
+          },
+          {
+            "surface": "!"
+          },
+          {
+            "surface": "¿Qué"
+          },
+          {
+            "surface": "le"
+          },
+          {
+            "surface": "doy"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mkt1_close1",
+        "locale": "es",
+        "target_text": "Aquí tiene, un kilo justo. Son dos euros.",
+        "tokens": [
+          {
+            "surface": "Aquí"
+          },
+          {
+            "surface": "tiene,"
+          },
+          {
+            "surface": "un"
+          },
+          {
+            "surface": "kilo"
+          },
+          {
+            "surface": "justo"
+          },
+          {
+            "surface": "."
+          },
+          {
+            "surface": "Son"
+          },
+          {
+            "surface": "dos"
+          },
+          {
+            "surface": "euros"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mkt1_close2",
+        "locale": "es",
+        "target_text": "A un euro y medio el kilo.",
+        "tokens": [
+          {
+            "surface": "A"
+          },
+          {
+            "surface": "un"
+          },
+          {
+            "surface": "euro"
+          },
+          {
+            "surface": "y"
+          },
+          {
+            "surface": "medio"
+          },
+          {
+            "surface": "el"
+          },
+          {
+            "surface": "kilo"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mkt1_close3",
+        "locale": "es",
+        "target_text": "Los plátanos están de oferta hoy.",
+        "tokens": [
+          {
+            "surface": "Los"
+          },
+          {
+            "surface": "plátanos"
+          },
+          {
+            "surface": "están"
+          },
+          {
+            "surface": "de"
+          },
+          {
+            "surface": "oferta"
+          },
+          {
+            "surface": "hoy"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mkt2_open",
+        "locale": "es",
+        "target_text": "Este bolso cuesta treinta euros.",
+        "tokens": [
+          {
+            "surface": "Este"
+          },
+          {
+            "surface": "bolso"
+          },
+          {
+            "surface": "cuesta"
+          },
+          {
+            "surface": "treinta"
+          },
+          {
+            "surface": "euros"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mkt2_close1",
+        "locale": "es",
+        "target_text": "Es de piel buena, pero puedo bajar algo.",
+        "tokens": [
+          {
+            "surface": "Es"
+          },
+          {
+            "surface": "de"
+          },
+          {
+            "surface": "piel"
+          },
+          {
+            "surface": "buena,"
+          },
+          {
+            "surface": "pero"
+          },
+          {
+            "surface": "puedo"
+          },
+          {
+            "surface": "bajar"
+          },
+          {
+            "surface": "algo"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mkt2_close2",
+        "locale": "es",
+        "target_text": "Está bien, se lo dejo en veinticinco.",
+        "tokens": [
+          {
+            "surface": "Está"
+          },
+          {
+            "surface": "bien,"
+          },
+          {
+            "surface": "se"
+          },
+          {
+            "surface": "lo"
+          },
+          {
+            "surface": "dejo"
+          },
+          {
+            "surface": "en"
+          },
+          {
+            "surface": "veinticinco"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mkt2_close3",
+        "locale": "es",
+        "target_text": "Veinte no puedo… veintidós y es suyo.",
+        "tokens": [
+          {
+            "surface": "Veinte"
+          },
+          {
+            "surface": "no"
+          },
+          {
+            "surface": "puedo…"
+          },
+          {
+            "surface": "veintidós"
+          },
+          {
+            "surface": "y"
+          },
+          {
+            "surface": "es"
+          },
+          {
+            "surface": "suyo"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "A2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mov1_open",
+        "locale": "es",
+        "target_text": "Su pasaporte, por favor.",
+        "tokens": [
+          {
+            "surface": "Su"
+          },
+          {
+            "surface": "pasaporte,"
+          },
+          {
+            "surface": "por"
+          },
+          {
+            "surface": "favor"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "B1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mov1_close1",
+        "locale": "es",
+        "target_text": "Gracias. Su puerta es la B12, embarque a las diez.",
+        "tokens": [
+          {
+            "surface": "Gracias"
+          },
+          {
+            "surface": "."
+          },
+          {
+            "surface": "Su"
+          },
+          {
+            "surface": "puerta"
+          },
+          {
+            "surface": "es"
+          },
+          {
+            "surface": "la"
+          },
+          {
+            "surface": "B12,"
+          },
+          {
+            "surface": "embarque"
+          },
+          {
+            "surface": "a"
+          },
+          {
+            "surface": "las"
+          },
+          {
+            "surface": "diez"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "B1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mov1_close2",
+        "locale": "es",
+        "target_text": "Siga las señales hasta la zona B.",
+        "tokens": [
+          {
+            "surface": "Siga"
+          },
+          {
+            "surface": "las"
+          },
+          {
+            "surface": "señales"
+          },
+          {
+            "surface": "hasta"
+          },
+          {
+            "surface": "la"
+          },
+          {
+            "surface": "zona"
+          },
+          {
+            "surface": "B"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "B1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mov1_close3",
+        "locale": "es",
+        "target_text": "Sale puntual, no se preocupe.",
+        "tokens": [
+          {
+            "surface": "Sale"
+          },
+          {
+            "surface": "puntual,"
+          },
+          {
+            "surface": "no"
+          },
+          {
+            "surface": "se"
+          },
+          {
+            "surface": "preocupe"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "B1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mov2_open",
+        "locale": "es",
+        "target_text": "¿Necesita ayuda?",
+        "tokens": [
+          {
+            "surface": "¿Necesita"
+          },
+          {
+            "surface": "ayuda"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "B1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mov2_close1",
+        "locale": "es",
+        "target_text": "Todo recto y la segunda a la izquierda.",
+        "tokens": [
+          {
+            "surface": "Todo"
+          },
+          {
+            "surface": "recto"
+          },
+          {
+            "surface": "y"
+          },
+          {
+            "surface": "la"
+          },
+          {
+            "surface": "segunda"
+          },
+          {
+            "surface": "a"
+          },
+          {
+            "surface": "la"
+          },
+          {
+            "surface": "izquierda"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "B1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mov2_close2",
+        "locale": "es",
+        "target_text": "No, a unos diez minutos a pie.",
+        "tokens": [
+          {
+            "surface": "No,"
+          },
+          {
+            "surface": "a"
+          },
+          {
+            "surface": "unos"
+          },
+          {
+            "surface": "diez"
+          },
+          {
+            "surface": "minutos"
+          },
+          {
+            "surface": "a"
+          },
+          {
+            "surface": "pie"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "B1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mov2_close3",
+        "locale": "es",
+        "target_text": "Sí, es un paseo agradable.",
+        "tokens": [
+          {
+            "surface": "Sí,"
+          },
+          {
+            "surface": "es"
+          },
+          {
+            "surface": "un"
+          },
+          {
+            "surface": "paseo"
+          },
+          {
+            "surface": "agradable"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "B1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mov3_open",
+        "locale": "es",
+        "target_text": "Bienvenido. ¿Tiene reserva?",
+        "tokens": [
+          {
+            "surface": "Bienvenido"
+          },
+          {
+            "surface": "."
+          },
+          {
+            "surface": "¿Tiene"
+          },
+          {
+            "surface": "reserva"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "B1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mov3_close1",
+        "locale": "es",
+        "target_text": "Perfecto, habitación 204, segunda planta.",
+        "tokens": [
+          {
+            "surface": "Perfecto,"
+          },
+          {
+            "surface": "habitación"
+          },
+          {
+            "surface": "204,"
+          },
+          {
+            "surface": "segunda"
+          },
+          {
+            "surface": "planta"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "B1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mov3_close2",
+        "locale": "es",
+        "target_text": "De siete a diez, en la planta baja.",
+        "tokens": [
+          {
+            "surface": "De"
+          },
+          {
+            "surface": "siete"
+          },
+          {
+            "surface": "a"
+          },
+          {
+            "surface": "diez,"
+          },
+          {
+            "surface": "en"
+          },
+          {
+            "surface": "la"
+          },
+          {
+            "surface": "planta"
+          },
+          {
+            "surface": "baja"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "B1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_mov3_close3",
+        "locale": "es",
+        "target_text": "Sí, la contraseña está en su llave.",
+        "tokens": [
+          {
+            "surface": "Sí,"
+          },
+          {
+            "surface": "la"
+          },
+          {
+            "surface": "contraseña"
+          },
+          {
+            "surface": "está"
+          },
+          {
+            "surface": "en"
+          },
+          {
+            "surface": "su"
+          },
+          {
+            "surface": "llave"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "B1",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_fri1_open",
+        "locale": "es",
+        "target_text": "¡Hola! ¿De dónde eres?",
+        "tokens": [
+          {
+            "surface": "¡Hola"
+          },
+          {
+            "surface": "!"
+          },
+          {
+            "surface": "¿De"
+          },
+          {
+            "surface": "dónde"
+          },
+          {
+            "surface": "eres"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "B2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_fri1_close1",
+        "locale": "es",
+        "target_text": "¡Qué interesante! Yo soy de Sevilla.",
+        "tokens": [
+          {
+            "surface": "¡Qué"
+          },
+          {
+            "surface": "interesante"
+          },
+          {
+            "surface": "!"
+          },
+          {
+            "surface": "Yo"
+          },
+          {
+            "surface": "soy"
+          },
+          {
+            "surface": "de"
+          },
+          {
+            "surface": "Sevilla"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "B2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_fri1_close2",
+        "locale": "es",
+        "target_text": "Igualmente, un placer.",
+        "tokens": [
+          {
+            "surface": "Igualmente,"
+          },
+          {
+            "surface": "un"
+          },
+          {
+            "surface": "placer"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "B2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_fri1_close3",
+        "locale": "es",
+        "target_text": "De aquí, de toda la vida.",
+        "tokens": [
+          {
+            "surface": "De"
+          },
+          {
+            "surface": "aquí,"
+          },
+          {
+            "surface": "de"
+          },
+          {
+            "surface": "toda"
+          },
+          {
+            "surface": "la"
+          },
+          {
+            "surface": "vida"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "B2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_fri2_open",
+        "locale": "es",
+        "target_text": "¿Listos para pedir?",
+        "tokens": [
+          {
+            "surface": "¿Listos"
+          },
+          {
+            "surface": "para"
+          },
+          {
+            "surface": "pedir"
+          },
+          {
+            "surface": "?"
+          }
+        ],
+        "cefr_level": "B2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_fri2_close1",
+        "locale": "es",
+        "target_text": "La paella está muy buena hoy.",
+        "tokens": [
+          {
+            "surface": "La"
+          },
+          {
+            "surface": "paella"
+          },
+          {
+            "surface": "está"
+          },
+          {
+            "surface": "muy"
+          },
+          {
+            "surface": "buena"
+          },
+          {
+            "surface": "hoy"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "B2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_fri2_close2",
+        "locale": "es",
+        "target_text": "Buena elección, enseguida la traigo.",
+        "tokens": [
+          {
+            "surface": "Buena"
+          },
+          {
+            "surface": "elección,"
+          },
+          {
+            "surface": "enseguida"
+          },
+          {
+            "surface": "la"
+          },
+          {
+            "surface": "traigo"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "B2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "sentence_id": "sentence_es_adv_fri2_close3",
+        "locale": "es",
+        "target_text": "Ahora mismo se la traigo.",
+        "tokens": [
+          {
+            "surface": "Ahora"
+          },
+          {
+            "surface": "mismo"
+          },
+          {
+            "surface": "se"
+          },
+          {
+            "surface": "la"
+          },
+          {
+            "surface": "traigo"
+          },
+          {
+            "surface": "."
+          }
+        ],
+        "cefr_level": "B2",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
       }
     ],
     "grammar_point": [
@@ -998,6 +2339,485 @@
         }
       }
     ],
+    "scenario": [
+      {
+        "scenario_id": "scenario_es_adv_cafe1",
+        "locale": "es",
+        "kind": "adventure",
+        "title_ref": "scenariotitle_es_adv_cafe1",
+        "cefr_level": "A1",
+        "world": "a neighbourhood café",
+        "goal_ref": "goal_es_adv_cafe1",
+        "scenes": [
+          {
+            "scene_id": "s1",
+            "speaker": "camarero",
+            "line_sentence_ref": "sentence_es_adv_cafe1_open",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_adv_cafe1_1",
+                "next_scene_id": "s2"
+              },
+              {
+                "label_ref": "choicelabel_es_adv_cafe1_2",
+                "next_scene_id": "s3"
+              },
+              {
+                "label_ref": "choicelabel_es_adv_cafe1_3",
+                "next_scene_id": "s4"
+              }
+            ]
+          },
+          {
+            "scene_id": "s2",
+            "speaker": "camarero",
+            "line_sentence_ref": "sentence_es_adv_cafe1_close1"
+          },
+          {
+            "scene_id": "s3",
+            "speaker": "camarero",
+            "line_sentence_ref": "sentence_es_adv_cafe1_close2"
+          },
+          {
+            "scene_id": "s4",
+            "speaker": "camarero",
+            "line_sentence_ref": "sentence_es_adv_cafe1_close3"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_adv_cafe2",
+        "locale": "es",
+        "kind": "adventure",
+        "title_ref": "scenariotitle_es_adv_cafe2",
+        "cefr_level": "A1",
+        "world": "the café counter",
+        "goal_ref": "goal_es_adv_cafe2",
+        "scenes": [
+          {
+            "scene_id": "s1",
+            "speaker": "camarero",
+            "line_sentence_ref": "sentence_es_adv_cafe2_open",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_adv_cafe2_1",
+                "next_scene_id": "s2"
+              },
+              {
+                "label_ref": "choicelabel_es_adv_cafe2_2",
+                "next_scene_id": "s3"
+              },
+              {
+                "label_ref": "choicelabel_es_adv_cafe2_3",
+                "next_scene_id": "s4"
+              }
+            ]
+          },
+          {
+            "scene_id": "s2",
+            "speaker": "camarero",
+            "line_sentence_ref": "sentence_es_adv_cafe2_close1"
+          },
+          {
+            "scene_id": "s3",
+            "speaker": "camarero",
+            "line_sentence_ref": "sentence_es_adv_cafe2_close2"
+          },
+          {
+            "scene_id": "s4",
+            "speaker": "camarero",
+            "line_sentence_ref": "sentence_es_adv_cafe2_close3"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_adv_mkt1",
+        "locale": "es",
+        "kind": "adventure",
+        "title_ref": "scenariotitle_es_adv_mkt1",
+        "cefr_level": "A2",
+        "world": "a colourful market stall",
+        "goal_ref": "goal_es_adv_mkt1",
+        "scenes": [
+          {
+            "scene_id": "s1",
+            "speaker": "vendedora",
+            "line_sentence_ref": "sentence_es_adv_mkt1_open",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_adv_mkt1_1",
+                "next_scene_id": "s2"
+              },
+              {
+                "label_ref": "choicelabel_es_adv_mkt1_2",
+                "next_scene_id": "s3"
+              },
+              {
+                "label_ref": "choicelabel_es_adv_mkt1_3",
+                "next_scene_id": "s4"
+              }
+            ]
+          },
+          {
+            "scene_id": "s2",
+            "speaker": "vendedora",
+            "line_sentence_ref": "sentence_es_adv_mkt1_close1"
+          },
+          {
+            "scene_id": "s3",
+            "speaker": "vendedora",
+            "line_sentence_ref": "sentence_es_adv_mkt1_close2"
+          },
+          {
+            "scene_id": "s4",
+            "speaker": "vendedora",
+            "line_sentence_ref": "sentence_es_adv_mkt1_close3"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_adv_mkt2",
+        "locale": "es",
+        "kind": "adventure",
+        "title_ref": "scenariotitle_es_adv_mkt2",
+        "cefr_level": "A2",
+        "world": "a market square stall",
+        "goal_ref": "goal_es_adv_mkt2",
+        "scenes": [
+          {
+            "scene_id": "s1",
+            "speaker": "vendedor",
+            "line_sentence_ref": "sentence_es_adv_mkt2_open",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_adv_mkt2_1",
+                "next_scene_id": "s2"
+              },
+              {
+                "label_ref": "choicelabel_es_adv_mkt2_2",
+                "next_scene_id": "s3"
+              },
+              {
+                "label_ref": "choicelabel_es_adv_mkt2_3",
+                "next_scene_id": "s4"
+              }
+            ]
+          },
+          {
+            "scene_id": "s2",
+            "speaker": "vendedor",
+            "line_sentence_ref": "sentence_es_adv_mkt2_close1"
+          },
+          {
+            "scene_id": "s3",
+            "speaker": "vendedor",
+            "line_sentence_ref": "sentence_es_adv_mkt2_close2"
+          },
+          {
+            "scene_id": "s4",
+            "speaker": "vendedor",
+            "line_sentence_ref": "sentence_es_adv_mkt2_close3"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_adv_mov1",
+        "locale": "es",
+        "kind": "adventure",
+        "title_ref": "scenariotitle_es_adv_mov1",
+        "cefr_level": "B1",
+        "world": "the airport check-in desk",
+        "goal_ref": "goal_es_adv_mov1",
+        "scenes": [
+          {
+            "scene_id": "s1",
+            "speaker": "agente",
+            "line_sentence_ref": "sentence_es_adv_mov1_open",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_adv_mov1_1",
+                "next_scene_id": "s2"
+              },
+              {
+                "label_ref": "choicelabel_es_adv_mov1_2",
+                "next_scene_id": "s3"
+              },
+              {
+                "label_ref": "choicelabel_es_adv_mov1_3",
+                "next_scene_id": "s4"
+              }
+            ]
+          },
+          {
+            "scene_id": "s2",
+            "speaker": "agente",
+            "line_sentence_ref": "sentence_es_adv_mov1_close1"
+          },
+          {
+            "scene_id": "s3",
+            "speaker": "agente",
+            "line_sentence_ref": "sentence_es_adv_mov1_close2"
+          },
+          {
+            "scene_id": "s4",
+            "speaker": "agente",
+            "line_sentence_ref": "sentence_es_adv_mov1_close3"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_adv_mov2",
+        "locale": "es",
+        "kind": "adventure",
+        "title_ref": "scenariotitle_es_adv_mov2",
+        "cefr_level": "B1",
+        "world": "a street corner downtown",
+        "goal_ref": "goal_es_adv_mov2",
+        "scenes": [
+          {
+            "scene_id": "s1",
+            "speaker": "transeúnte",
+            "line_sentence_ref": "sentence_es_adv_mov2_open",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_adv_mov2_1",
+                "next_scene_id": "s2"
+              },
+              {
+                "label_ref": "choicelabel_es_adv_mov2_2",
+                "next_scene_id": "s3"
+              },
+              {
+                "label_ref": "choicelabel_es_adv_mov2_3",
+                "next_scene_id": "s4"
+              }
+            ]
+          },
+          {
+            "scene_id": "s2",
+            "speaker": "transeúnte",
+            "line_sentence_ref": "sentence_es_adv_mov2_close1"
+          },
+          {
+            "scene_id": "s3",
+            "speaker": "transeúnte",
+            "line_sentence_ref": "sentence_es_adv_mov2_close2"
+          },
+          {
+            "scene_id": "s4",
+            "speaker": "transeúnte",
+            "line_sentence_ref": "sentence_es_adv_mov2_close3"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_adv_mov3",
+        "locale": "es",
+        "kind": "adventure",
+        "title_ref": "scenariotitle_es_adv_mov3",
+        "cefr_level": "B1",
+        "world": "a small hotel lobby",
+        "goal_ref": "goal_es_adv_mov3",
+        "scenes": [
+          {
+            "scene_id": "s1",
+            "speaker": "recepcionista",
+            "line_sentence_ref": "sentence_es_adv_mov3_open",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_adv_mov3_1",
+                "next_scene_id": "s2"
+              },
+              {
+                "label_ref": "choicelabel_es_adv_mov3_2",
+                "next_scene_id": "s3"
+              },
+              {
+                "label_ref": "choicelabel_es_adv_mov3_3",
+                "next_scene_id": "s4"
+              }
+            ]
+          },
+          {
+            "scene_id": "s2",
+            "speaker": "recepcionista",
+            "line_sentence_ref": "sentence_es_adv_mov3_close1"
+          },
+          {
+            "scene_id": "s3",
+            "speaker": "recepcionista",
+            "line_sentence_ref": "sentence_es_adv_mov3_close2"
+          },
+          {
+            "scene_id": "s4",
+            "speaker": "recepcionista",
+            "line_sentence_ref": "sentence_es_adv_mov3_close3"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_adv_fri1",
+        "locale": "es",
+        "kind": "adventure",
+        "title_ref": "scenariotitle_es_adv_fri1",
+        "cefr_level": "B2",
+        "world": "a friendly get-together",
+        "goal_ref": "goal_es_adv_fri1",
+        "scenes": [
+          {
+            "scene_id": "s1",
+            "speaker": "Lucía",
+            "line_sentence_ref": "sentence_es_adv_fri1_open",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_adv_fri1_1",
+                "next_scene_id": "s2"
+              },
+              {
+                "label_ref": "choicelabel_es_adv_fri1_2",
+                "next_scene_id": "s3"
+              },
+              {
+                "label_ref": "choicelabel_es_adv_fri1_3",
+                "next_scene_id": "s4"
+              }
+            ]
+          },
+          {
+            "scene_id": "s2",
+            "speaker": "Lucía",
+            "line_sentence_ref": "sentence_es_adv_fri1_close1"
+          },
+          {
+            "scene_id": "s3",
+            "speaker": "Lucía",
+            "line_sentence_ref": "sentence_es_adv_fri1_close2"
+          },
+          {
+            "scene_id": "s4",
+            "speaker": "Lucía",
+            "line_sentence_ref": "sentence_es_adv_fri1_close3"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "scenario_id": "scenario_es_adv_fri2",
+        "locale": "es",
+        "kind": "adventure",
+        "title_ref": "scenariotitle_es_adv_fri2",
+        "cefr_level": "B2",
+        "world": "a busy restaurant",
+        "goal_ref": "goal_es_adv_fri2",
+        "scenes": [
+          {
+            "scene_id": "s1",
+            "speaker": "camarera",
+            "line_sentence_ref": "sentence_es_adv_fri2_open",
+            "choices": [
+              {
+                "label_ref": "choicelabel_es_adv_fri2_1",
+                "next_scene_id": "s2"
+              },
+              {
+                "label_ref": "choicelabel_es_adv_fri2_2",
+                "next_scene_id": "s3"
+              },
+              {
+                "label_ref": "choicelabel_es_adv_fri2_3",
+                "next_scene_id": "s4"
+              }
+            ]
+          },
+          {
+            "scene_id": "s2",
+            "speaker": "camarera",
+            "line_sentence_ref": "sentence_es_adv_fri2_close1"
+          },
+          {
+            "scene_id": "s3",
+            "speaker": "camarera",
+            "line_sentence_ref": "sentence_es_adv_fri2_close2"
+          },
+          {
+            "scene_id": "s4",
+            "speaker": "camarera",
+            "line_sentence_ref": "sentence_es_adv_fri2_close3"
+          }
+        ],
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      }
+    ],
     "gloss": [
       {
         "content_id": "prompt_item_es_greet_1",
@@ -1297,6 +3117,636 @@
           "content_version": 1,
           "created_at": "2026-07-02T00:00:00Z",
           "updated_at": "2026-07-02T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_adv_cafe1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Order a coffee",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_adv_cafe1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Ask for your drink",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_cafe1_1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Un café con leche, por favor",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_cafe1_2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Qué pasteles tienen?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_cafe1_3",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Para llevar, por favor",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_adv_cafe2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Pay the bill",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_adv_cafe2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Settle up politely",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_cafe2_1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Puedo pagar con tarjeta?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_cafe2_2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Quédese con el cambio",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_cafe2_3",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Aceptan propina?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_adv_mkt1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Buy some fruit",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_adv_mkt1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Pick and ask the price",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_mkt1_1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Un kilo de manzanas",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_mkt1_2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿A cuánto están las naranjas?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_mkt1_3",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Tiene algo más barato?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_adv_mkt2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Haggle a price",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_adv_mkt2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Try for a better deal",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_mkt2_1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Es un poco caro",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_mkt2_2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Me hace un descuento?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_mkt2_3",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Le doy veinte",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_adv_mov1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "At the airport",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_adv_mov1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Get through check-in",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_mov1_1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Aquí tiene",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_mov1_2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Dónde está la puerta?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_mov1_3",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿El vuelo va con retraso?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_adv_mov2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Ask directions",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_adv_mov2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Find your way",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_mov2_1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Dónde está la estación?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_mov2_2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Está lejos?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_mov2_3",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Puedo ir a pie?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_adv_mov3",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Check in to a hotel",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_adv_mov3",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Claim your room",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_mov3_1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Una habitación, por favor",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_mov3_2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿A qué hora es el desayuno?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_mov3_3",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Tienen wifi?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_adv_fri1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Meet someone new",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_adv_fri1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Break the ice",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_fri1_1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Soy de la India",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_fri1_2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Encantado de conocerte",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_fri1_3",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Y tú de dónde eres?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "scenariotitle_es_adv_fri2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "At the restaurant",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "goal_es_adv_fri2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Order a meal",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_fri2_1",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "¿Qué recomienda?",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_fri2_2",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "Para mí, la paella",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
+        }
+      },
+      {
+        "content_id": "choicelabel_es_adv_fri2_3",
+        "content_kind": "instruction",
+        "ui_locale": "en",
+        "text": "La cuenta, por favor",
+        "provenance": {
+          "batch_id": "batch_es_course_0001",
+          "provenance": "ai_generated",
+          "review_status": "auto_certified",
+          "content_version": 1,
+          "created_at": "2026-07-11T00:00:00Z",
+          "updated_at": "2026-07-11T00:00:00Z"
         }
       }
     ]
