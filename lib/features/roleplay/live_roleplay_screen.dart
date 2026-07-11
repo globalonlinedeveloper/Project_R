@@ -50,6 +50,9 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
   bool _starting = false;
   bool _muted = false;
   bool _ended = false;
+  // M-4: distinguish a user-ended scene from an UNEXPECTED drop (WSS died).
+  bool _userEnded = false;
+  bool _dropped = false;
   // LV-1: transcription streams as incremental deltas; a phase change
   // seals the open bubble so the next delta opens a fresh one.
   bool _sealOpenTurn = false;
@@ -83,6 +86,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
     setState(() {
       _starting = true;
       _ended = false;
+      _userEnded = false; // M-4: a fresh attempt is not a user-ended scene
       _turns.clear();
       _sealOpenTurn = false;
     });
@@ -102,6 +106,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
       setState(() {
         _session = session;
         _phase = session.phase;
+        _dropped = false; // M-4: reconnected — the band comes down
       });
       _phaseSub = session.phases.listen((LiveSessionPhase p) {
         if (!mounted) return;
@@ -113,6 +118,8 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
           if (p == LiveSessionPhase.closed) {
             _ended = true;
             _session = null;
+            // M-4: closed WITHOUT the user asking = the transport dropped.
+            if (!_userEnded) _dropped = true;
           }
         });
       });
@@ -158,6 +165,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
   Future<void> _end() async {
     final LiveSession? s = _session;
     if (s == null) return;
+    _userEnded = true; // M-4: set BEFORE close so the phase listener knows
     await s.close();
     if (mounted) {
       setState(() {
@@ -284,6 +292,55 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
         else if (!engine.isAvailable)
           _notEnabled(context)
         else ...<Widget>[
+          // M-4 (screen review §2): the connection band — an UNEXPECTED drop
+          // is named honestly and offers a REAL one-tap reconnect (the tap IS
+          // the user gesture the browser mic rules require; a silent
+          // auto-reconnect would violate them — pinned in _start()).
+          // 'Reconnecting…' shows exactly while a reconnect attempt is live.
+          if (_dropped) ...<Widget>[
+            Container(
+              key: const ValueKey<String>('live-reconnect-band'),
+              padding: const EdgeInsets.all(RatelSpace.md),
+              decoration: BoxDecoration(
+                color: RatelColors.amber.withValues(alpha: 0.16),
+                borderRadius: BorderRadius.circular(RatelRadius.card),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(children: <Widget>[
+                    const Text('📡', style: TextStyle(fontSize: 18)),
+                    const SizedBox(width: RatelSpace.sm),
+                    Expanded(
+                      child: Text(
+                        _starting
+                            ? 'Reconnecting…'
+                            : 'Connection lost — the live session dropped.',
+                        key: const ValueKey<String>('live-reconnect-status'),
+                        style: TextStyle(
+                          fontFamily: RatelFont.body,
+                          fontSize: RatelType.small,
+                          fontWeight: RatelType.semiBold,
+                          color: context.palette.ink,
+                        ),
+                      ),
+                    ),
+                  ]),
+                  if (!_starting) ...<Widget>[
+                    const SizedBox(height: RatelSpace.sm),
+                    RatelButton(
+                      key: const ValueKey<String>('live-reconnect'),
+                      label: 'Reconnect',
+                      variant: RatelButtonVariant.secondary,
+                      expand: false,
+                      onPressed: () => _start(engine, spine, scenario),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            const SizedBox(height: RatelSpace.md),
+          ],
           if (!_ended) ...<Widget>[
             _phaseCard(context),
             const SizedBox(height: RatelSpace.md),
@@ -297,7 +354,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
                   : () => _start(engine, spine, scenario),
             ),
           if (_session != null) _controls(context),
-          if (_ended) ...<Widget>[
+          if (_ended && !_dropped) ...<Widget>[
             RatelCard(
               color: context.palette.cream2,
               child: Row(children: <Widget>[
