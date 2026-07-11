@@ -4,6 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:ratel/services/data_access/supabase_user_state_stores.dart';
+import 'package:ratel/services/adventures/adventure_progress_store.dart';
+import 'package:ratel/services/adventures/prefs_adventure_progress_store.dart';
 import 'package:ratel/services/notifications/earned_stamps_store.dart';
 import 'package:ratel/services/notifications/prefs_earned_stamps_store.dart';
 import 'package:ratel/services/preferences/prefs_settings_store.dart';
@@ -101,6 +103,10 @@ Future<void> main() async {
       // D-13 earn stamps: device-local only (like the pre-S110 stores) — a
       // cross-device synced column is a future owner-gated migration.
       final EarnedStampsStore earnedStamps = PrefsEarnedStampsStore(prefs);
+      // L-4 adventure exploration: device-local only (same owner-gated
+      // cross-device-migration posture as xpHistory/earnedAt, S126/S131).
+      final AdventureProgressStore adventureProgress =
+          PrefsAdventureProgressStore(prefs);
       // L-2 app-shell language override: device-local only (the synced
       // user_settings row is fixed-column — a cross-device column is an
       // owner-gated migration, S126 precedent).
@@ -136,6 +142,8 @@ Future<void> main() async {
       overrides.add(outfitsStoreProvider.overrideWithValue(outfits));
       overrides.add(
           earnedStampsStoreProvider.overrideWithValue(earnedStamps));
+      overrides.add(adventureProgressStoreProvider
+          .overrideWithValue(adventureProgress));
       overrides.add(uiLocaleStoreProvider.overrideWithValue(uiLocale));
     } catch (_) {
       // keep the in-memory settings default

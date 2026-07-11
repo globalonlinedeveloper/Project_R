@@ -1345,6 +1345,29 @@ class AppLocalizationsZh extends AppLocalizations {
   String get adventureStart => '开始冒险';
 
   @override
+  String get adventurePlayerFallbackTitle => '冒险';
+
+  @override
+  String get adventureTheEnd => '🏁 完';
+
+  @override
+  String get adventureStartOver => '重新开始';
+
+  @override
+  String get adventureDone => '完成';
+
+  @override
+  String get adventureCompleteKicker => '冒险完成';
+
+  @override
+  String adventureCompleteTitle(String title) {
+    return '$title ✓';
+  }
+
+  @override
+  String get adventureCompleteBody => '做得好！获得 +15 XP · +5 💎 — 随时探索下一个场景。';
+
+  @override
   String get adventuresEmpty => '这个课程还没有冒险内容。';
 
   @override

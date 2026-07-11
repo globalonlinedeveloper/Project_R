@@ -1396,6 +1396,30 @@ class AppLocalizationsEs extends AppLocalizations {
   String get adventureStart => 'Empezar aventura';
 
   @override
+  String get adventurePlayerFallbackTitle => 'Aventura';
+
+  @override
+  String get adventureTheEnd => '🏁 Fin';
+
+  @override
+  String get adventureStartOver => 'Empezar de nuevo';
+
+  @override
+  String get adventureDone => 'Hecho';
+
+  @override
+  String get adventureCompleteKicker => 'AVENTURA COMPLETADA';
+
+  @override
+  String adventureCompleteTitle(String title) {
+    return '$title ✓';
+  }
+
+  @override
+  String get adventureCompleteBody =>
+      '¡Bien hecho! +15 XP · +5 💎 ganados — explora la siguiente escena cuando quieras.';
+
+  @override
   String get adventuresEmpty => 'Aún no hay aventuras en este curso.';
 
   @override

@@ -4,13 +4,18 @@ import 'package:go_router/go_router.dart';
 
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/common/content_unavailable_card.dart';
+import 'package:ratel/features/adventures/adventure_progress_controller.dart';
+import 'package:ratel/features/learner/learner_controller.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 
 /// Adventure player (INF-8) -- a branching pre-generated story (content
 /// `scenario`, kind=adventure). Plays scene by scene: the authored line, then the
 /// authored choices, each of which BRANCHES to its authored `next_scene_id`. No
 /// wrong answers, no grading -- a scene with no choices is an ENDING. Pure
-/// authored DATA, NO live AI, no fabricated dialogue. [R-D10 - R-B3 - R-J1]
+/// authored DATA, NO live AI, no fabricated dialogue. Reaching an ending marks
+/// the adventure EXPLORED (device-local, L-4 design 4.12); the FIRST
+/// exploration awards +15 XP / +5 diamonds with the ADVENTURE COMPLETE dialog
+/// (owner-approved S131) -- re-plays never re-award. [R-D10 - R-B3 - R-J1]
 class AdventurePlayerScreen extends ConsumerStatefulWidget {
   const AdventurePlayerScreen({super.key, required this.scenarioId});
 
@@ -23,6 +28,11 @@ class AdventurePlayerScreen extends ConsumerStatefulWidget {
 
 class _AdventurePlayerScreenState extends ConsumerState<AdventurePlayerScreen> {
   String? _sceneId;
+
+  /// Scenario ids whose ending has already been handled THIS visit — guards
+  /// the post-frame explored/reward hook against rebuilds and 'Start over'
+  /// round-trips (the store itself guards re-plays across visits).
+  final Set<String> _endingHandled = <String>{};
 
   CourseScenario? _find(CourseSpine spine) {
     for (final CourseScenario s in spine.adventures) {
@@ -45,7 +55,7 @@ class _AdventurePlayerScreenState extends ConsumerState<AdventurePlayerScreen> {
           icon: Icon(RatelIcons.arrowBack, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: Text(s?.title ?? 'Adventure',
+        title: Text(s?.title ?? context.l10n.adventurePlayerFallbackTitle,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -91,6 +101,7 @@ class _AdventurePlayerScreenState extends ConsumerState<AdventurePlayerScreen> {
           ),
         ),
         const SizedBox(height: RatelSpace.md),
+        if (!scene.isDecision) _scheduleEndingReached(s),
         if (scene.isDecision)
           for (int i = 0; i < scene.choices.length; i++)
             Padding(
@@ -120,7 +131,7 @@ class _AdventurePlayerScreenState extends ConsumerState<AdventurePlayerScreen> {
           key: const ValueKey<String>('adventure-ending'),
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('🏁 The End',
+            Text(context.l10n.adventureTheEnd,
                 style: TextStyle(
                     fontFamily: RatelFont.display,
                     fontWeight: RatelType.extraBold,
@@ -132,13 +143,13 @@ class _AdventurePlayerScreenState extends ConsumerState<AdventurePlayerScreen> {
               runSpacing: RatelSpace.sm,
               children: <Widget>[
                 RatelButton(
-                    label: 'Start over',
+                    label: context.l10n.adventureStartOver,
                     variant: RatelButtonVariant.secondary,
                     expand: false,
                     onPressed: () =>
                         setState(() => _sceneId = s.scenes.first.sceneId)),
                 RatelButton(
-                    label: 'Done',
+                    label: context.l10n.adventureDone,
                     expand: false,
                     onPressed: () => context.pop()),
               ],
@@ -146,6 +157,71 @@ class _AdventurePlayerScreenState extends ConsumerState<AdventurePlayerScreen> {
           ],
         ),
       );
+
+  /// Ending reached (a choice-less scene rendered): schedule the explored
+  /// mark + first-time reward AFTER this frame (never a build-time side
+  /// effect). Renders as an empty box so it can sit in the scene column.
+  Widget _scheduleEndingReached(CourseScenario s) {
+    if (!_endingHandled.contains(s.id)) {
+      _endingHandled.add(s.id);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _onEndingReached(s);
+      });
+    }
+    return const SizedBox.shrink();
+  }
+
+  void _onEndingReached(CourseScenario s) {
+    final bool newlyExplored = ref
+        .read(adventureProgressControllerProvider.notifier)
+        .markExplored(s.id);
+    if (!newlyExplored) return;
+    // FIRST exploration: the once-per-adventure design reward (+15 XP - +5
+    // diamonds, S131 owner-approved) + the ADVENTURE COMPLETE dialog.
+    ref.read(learnerControllerProvider.notifier).recordAdventureExplored();
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext dialogContext) => AlertDialog(
+        key: const ValueKey<String>('adventure-complete-dialog'),
+        backgroundColor: dialogContext.palette.white,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(RatelRadius.featureLg)),
+        title: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(dialogContext.l10n.adventureCompleteKicker,
+                style: TextStyle(
+                    fontFamily: RatelFont.body,
+                    fontSize: RatelType.caption,
+                    fontWeight: RatelType.extraBold,
+                    letterSpacing: 2,
+                    color: RatelColors.amber)),
+            const SizedBox(height: RatelSpace.xs),
+            Text(dialogContext.l10n.adventureCompleteTitle(s.title),
+                style: TextStyle(
+                    fontFamily: RatelFont.display,
+                    fontWeight: RatelType.extraBold,
+                    fontSize: RatelType.screenTitle,
+                    color: dialogContext.palette.ink)),
+          ],
+        ),
+        content: Text(dialogContext.l10n.adventureCompleteBody,
+            style: TextStyle(
+                fontFamily: RatelFont.body,
+                fontSize: RatelType.body,
+                height: 1.45,
+                color: dialogContext.palette.muted)),
+        actions: <Widget>[
+          RatelButton(
+            key: const ValueKey<String>('adventure-complete-continue'),
+            label: dialogContext.l10n.lessonContinue,
+            onPressed: () => Navigator.of(dialogContext).pop(),
+          ),
+        ],
+      ),
+    );
+  }
 
   // M-3 fold-in: the shared honest unavailable card (Q-2) replaces the old
   // plain not-available text — same degrade as story/podcast/watch.

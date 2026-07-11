@@ -20,6 +20,11 @@ enum DiamondEvent {
   /// The daily XP goal was met for the first time today (the same once-per-day
   /// goal-gated crossing that advances the streak — R-I2 / R-I7).
   dailyGoalMet,
+
+  /// An adventure was explored for the FIRST time — the learner genuinely
+  /// reached an ending of that authored scenario in the player (L-4, design
+  /// §4.12; once per adventure, owner-approved S131).
+  adventureExplored,
 }
 
 /// Computes diamond reward amounts. Holds no state: the [LearnerController]
@@ -33,10 +38,16 @@ class DiamondsModel {
   /// 💎 awarded the first time the daily goal is met on a given day.
   static const int goalMetReward = 5;
 
+  /// 💎 awarded the first time each adventure is explored (design §4.12
+  /// ADVENTURE COMPLETE: "+15 XP · +5 💎"; the XP side lives with the
+  /// caller's XP bookkeeping, `LearnerController.recordAdventureExplored`).
+  static const int adventureReward = 5;
+
   /// Diamonds earned by a single [event].
   int reward(DiamondEvent event) => switch (event) {
         DiamondEvent.lessonCompleted => lessonReward,
         DiamondEvent.dailyGoalMet => goalMetReward,
+        DiamondEvent.adventureExplored => adventureReward,
       };
 
   /// The wallet balance after [event] is credited to [balance]. A negative

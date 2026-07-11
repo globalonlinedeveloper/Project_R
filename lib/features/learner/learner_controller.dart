@@ -283,6 +283,38 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _maybePublishWeeklyXp();
   }
 
+  /// Record a FIRST-TIME adventure exploration (L-4, design §4.12
+  /// ADVENTURE COMPLETE: +15 XP · +5 💎 — owner-approved S131). Mirrors
+  /// [recordLessonComplete]'s XP bookkeeping — day/week rolls, double-XP,
+  /// goal-met crossing, 7-day history, milestone stamps, weekly publish —
+  /// but does NOT count a lesson, advance lesson-count milestones, or spend
+  /// energy (adventures are FREE by design). The caller
+  /// (`AdventurePlayerScreen`) gates this on the exploration being genuinely
+  /// NEW — re-plays never re-award.
+  void recordAdventureExplored({int xp = 15}) {
+    final LearnerSnapshot snapBefore = state;
+    final int streakBefore = state.streakDays;
+    final DateTime today = _today();
+    _rollDay(today);
+    _rollWeek(today);
+    _coverMissedDays(today);
+    final int gained =
+        isDoubleXpActive ? xp * PowerUpPrices.doubleXpMultiplier : xp;
+    _xpTotal += gained;
+    _xpToday += gained;
+    _xpWeek += gained;
+    _diamonds = _diamondsModel.award(
+        balance: _diamonds, event: DiamondEvent.adventureExplored);
+    _maybeAwardGoalMet(today);
+    // Real earned XP into the device-local 7-day history (R-G6 / R-L14).
+    ref.read(xpHistoryControllerProvider.notifier).recordToday(gained);
+    state = _derive();
+    _persist();
+    _stampMilestones(snapBefore);
+    _maybeEmitStreak(streakBefore, state.streakDays);
+    _maybePublishWeeklyXp();
+  }
+
   /// Reset today's XP when the calendar day has rolled over since it was last
   /// touched. [xpToday] has no durable column, so this only bites within a live
   /// session that crosses local midnight (a relaunch already starts it at zero).

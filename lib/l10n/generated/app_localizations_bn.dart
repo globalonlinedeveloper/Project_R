@@ -1378,6 +1378,30 @@ class AppLocalizationsBn extends AppLocalizations {
   String get adventureStart => 'অ্যাডভেঞ্চার শুরু করুন';
 
   @override
+  String get adventurePlayerFallbackTitle => 'অ্যাডভেঞ্চার';
+
+  @override
+  String get adventureTheEnd => '🏁 সমাপ্ত';
+
+  @override
+  String get adventureStartOver => 'আবার শুরু করুন';
+
+  @override
+  String get adventureDone => 'সম্পন্ন';
+
+  @override
+  String get adventureCompleteKicker => 'অ্যাডভেঞ্চার সম্পূর্ণ';
+
+  @override
+  String adventureCompleteTitle(String title) {
+    return '$title ✓';
+  }
+
+  @override
+  String get adventureCompleteBody =>
+      'দারুণ! +15 XP · +5 💎 অর্জিত — যখন খুশি পরের দৃশ্যটি এক্সপ্লোর করুন।';
+
+  @override
   String get adventuresEmpty => 'এই কোর্সে এখনো কোনো অ্যাডভেঞ্চার নেই।';
 
   @override

@@ -1353,6 +1353,30 @@ class AppLocalizationsKo extends AppLocalizations {
   String get adventureStart => '어드벤처 시작';
 
   @override
+  String get adventurePlayerFallbackTitle => '어드벤처';
+
+  @override
+  String get adventureTheEnd => '🏁 끝';
+
+  @override
+  String get adventureStartOver => '다시 시작';
+
+  @override
+  String get adventureDone => '완료';
+
+  @override
+  String get adventureCompleteKicker => '어드벤처 완료';
+
+  @override
+  String adventureCompleteTitle(String title) {
+    return '$title ✓';
+  }
+
+  @override
+  String get adventureCompleteBody =>
+      '잘했어요! +15 XP · +5 💎 획득 — 다음 장면은 언제든 탐험해 보세요.';
+
+  @override
   String get adventuresEmpty => '이 코스에는 아직 어드벤처가 없어요.';
 
   @override

@@ -2482,6 +2482,48 @@ abstract class AppLocalizations {
   /// **'Start adventure'**
   String get adventureStart;
 
+  /// No description provided for @adventurePlayerFallbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Adventure'**
+  String get adventurePlayerFallbackTitle;
+
+  /// No description provided for @adventureTheEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'🏁 The End'**
+  String get adventureTheEnd;
+
+  /// No description provided for @adventureStartOver.
+  ///
+  /// In en, this message translates to:
+  /// **'Start over'**
+  String get adventureStartOver;
+
+  /// No description provided for @adventureDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get adventureDone;
+
+  /// No description provided for @adventureCompleteKicker.
+  ///
+  /// In en, this message translates to:
+  /// **'ADVENTURE COMPLETE'**
+  String get adventureCompleteKicker;
+
+  /// No description provided for @adventureCompleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{title} ✓'**
+  String adventureCompleteTitle(String title);
+
+  /// No description provided for @adventureCompleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Nicely done! +15 XP · +5 💎 earned — explore the next scene whenever you like.'**
+  String get adventureCompleteBody;
+
   /// No description provided for @adventuresEmpty.
   ///
   /// In en, this message translates to:

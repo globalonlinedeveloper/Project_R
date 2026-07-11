@@ -1379,6 +1379,30 @@ class AppLocalizationsHi extends AppLocalizations {
   String get adventureStart => 'एडवेंचर शुरू करें';
 
   @override
+  String get adventurePlayerFallbackTitle => 'एडवेंचर';
+
+  @override
+  String get adventureTheEnd => '🏁 समाप्त';
+
+  @override
+  String get adventureStartOver => 'फिर से शुरू करें';
+
+  @override
+  String get adventureDone => 'हो गया';
+
+  @override
+  String get adventureCompleteKicker => 'एडवेंचर पूरा हुआ';
+
+  @override
+  String adventureCompleteTitle(String title) {
+    return '$title ✓';
+  }
+
+  @override
+  String get adventureCompleteBody =>
+      'बहुत बढ़िया! +15 XP · +5 💎 मिले — अगला दृश्य जब चाहें एक्सप्लोर करें।';
+
+  @override
   String get adventuresEmpty => 'इस कोर्स में अभी कोई एडवेंचर नहीं।';
 
   @override

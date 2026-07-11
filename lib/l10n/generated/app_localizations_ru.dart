@@ -1403,6 +1403,30 @@ class AppLocalizationsRu extends AppLocalizations {
   String get adventureStart => 'Начать приключение';
 
   @override
+  String get adventurePlayerFallbackTitle => 'Приключение';
+
+  @override
+  String get adventureTheEnd => '🏁 Конец';
+
+  @override
+  String get adventureStartOver => 'Начать заново';
+
+  @override
+  String get adventureDone => 'Готово';
+
+  @override
+  String get adventureCompleteKicker => 'ПРИКЛЮЧЕНИЕ ПРОЙДЕНО';
+
+  @override
+  String adventureCompleteTitle(String title) {
+    return '$title ✓';
+  }
+
+  @override
+  String get adventureCompleteBody =>
+      'Отлично! Получено +15 XP · +5 💎 — исследуйте следующую сцену, когда захотите.';
+
+  @override
   String get adventuresEmpty => 'В этом курсе пока нет приключений.';
 
   @override
