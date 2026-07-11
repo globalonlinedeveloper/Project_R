@@ -1346,4 +1346,137 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get adventuresEmpty => '这个课程还没有冒险内容。';
+
+  @override
+  String get authWelcomeTitle => '欢迎来到 Ratel';
+
+  @override
+  String get authWelcomeSubtitle => '课程、故事、播客等 —\n选择你的开始方式。';
+
+  @override
+  String get authCreateFreeAccount => '创建免费账户';
+
+  @override
+  String get authAlreadyHaveAccount => '我已有账户';
+
+  @override
+  String get authSettingUp => '正在准备…';
+
+  @override
+  String get authContinueAsGuest => '以访客身份继续';
+
+  @override
+  String get authGuestNote => '访客进度保存在本设备 — 随时可在设置中创建免费账户，让进度随身携带。';
+
+  @override
+  String get authEnterYourEmail => '请输入邮箱';
+
+  @override
+  String get authEnterValidEmail => '请输入有效邮箱';
+
+  @override
+  String get authEnterYourPassword => '请输入密码';
+
+  @override
+  String get authCouldNotSignIn => '无法登录。请重试。';
+
+  @override
+  String get authSomethingWentWrong => '出了点问题。请重试。';
+
+  @override
+  String get authSocialComingSoon => 'Google / Apple 登录即将推出。';
+
+  @override
+  String get authResetTitle => '重置密码';
+
+  @override
+  String get authWelcomeBack => '欢迎回来！';
+
+  @override
+  String get authResetSubtitle => '输入邮箱，我们会发送重置链接。';
+
+  @override
+  String get authPickUpWhereYouLeft => '从上次的地方继续';
+
+  @override
+  String get authEmailHint => '邮箱';
+
+  @override
+  String get authPasswordHint => '密码';
+
+  @override
+  String get authForgotPassword => '忘记密码？';
+
+  @override
+  String get authSendResetLink => '发送重置链接';
+
+  @override
+  String get authLogIn => '登录';
+
+  @override
+  String get authBackToLogIn => '返回登录';
+
+  @override
+  String get authNewToRatel => '第一次用 Ratel？';
+
+  @override
+  String get authSignUp => '注册';
+
+  @override
+  String get authCheckYourInbox => '查看你的收件箱';
+
+  @override
+  String authResetSent(String email) {
+    return '我们已向 $email 发送密码重置链接。打开它来设置新密码。';
+  }
+
+  @override
+  String get authCreatePassword => '创建密码';
+
+  @override
+  String get authAtLeast8Chars => '至少 8 个字符';
+
+  @override
+  String get authCreateYourAccount => '创建你的账户';
+
+  @override
+  String get authSignupSubtitle => '永久免费 · 学习 52 种语言';
+
+  @override
+  String get authPassword8Hint => '密码（8 个字符以上）';
+
+  @override
+  String get authCreateAccount => '创建账户';
+
+  @override
+  String get authAlreadyAccountLead => '已有账户？';
+
+  @override
+  String get authSignIn => '登录';
+
+  @override
+  String get authConfirmEmail => '确认你的邮箱';
+
+  @override
+  String authConfirmSent(String email) {
+    return '我们已向 $email 发送确认链接。点按以激活账户，然后回来登录。';
+  }
+
+  @override
+  String get authContinueGoogle => '使用 Google 继续';
+
+  @override
+  String get authContinueApple => '使用 Apple 继续';
+
+  @override
+  String get authOr => '或';
+
+  @override
+  String get authUnavailableNote => '此版本暂不支持账户 — 你可以继续以访客身份学习。后端配置好后登录即会开启。';
+
+  @override
+  String get liveMute => '静音';
+
+  @override
+  String get liveUnmute => '取消静音';
 }

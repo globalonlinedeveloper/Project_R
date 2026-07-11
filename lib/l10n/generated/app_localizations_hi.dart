@@ -1380,4 +1380,140 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get adventuresEmpty => 'इस कोर्स में अभी कोई एडवेंचर नहीं।';
+
+  @override
+  String get authWelcomeTitle => 'Ratel में आपका स्वागत है';
+
+  @override
+  String get authWelcomeSubtitle =>
+      'पाठ, कहानियाँ, पॉडकास्ट और भी बहुत कुछ —\nचुनें कि आप कैसे शुरू करना चाहते हैं।';
+
+  @override
+  String get authCreateFreeAccount => 'मुफ़्त खाता बनाएँ';
+
+  @override
+  String get authAlreadyHaveAccount => 'मेरा खाता पहले से है';
+
+  @override
+  String get authSettingUp => 'तैयारी हो रही है…';
+
+  @override
+  String get authContinueAsGuest => 'अतिथि के रूप में जारी रखें';
+
+  @override
+  String get authGuestNote =>
+      'अतिथि प्रगति इसी डिवाइस पर रहती है — इसे हर जगह रखने के लिए सेटिंग्स में कभी भी मुफ़्त खाता बनाएँ।';
+
+  @override
+  String get authEnterYourEmail => 'अपना ईमेल लिखें';
+
+  @override
+  String get authEnterValidEmail => 'मान्य ईमेल लिखें';
+
+  @override
+  String get authEnterYourPassword => 'अपना पासवर्ड लिखें';
+
+  @override
+  String get authCouldNotSignIn => 'साइन इन नहीं हो सका। फिर से कोशिश करें।';
+
+  @override
+  String get authSomethingWentWrong => 'कुछ गड़बड़ हुई। फिर से कोशिश करें।';
+
+  @override
+  String get authSocialComingSoon => 'Google / Apple से साइन-इन जल्द आ रहा है।';
+
+  @override
+  String get authResetTitle => 'पासवर्ड रीसेट करें';
+
+  @override
+  String get authWelcomeBack => 'वापसी पर स्वागत है!';
+
+  @override
+  String get authResetSubtitle => 'अपना ईमेल लिखें, हम रीसेट लिंक भेजेंगे।';
+
+  @override
+  String get authPickUpWhereYouLeft => 'जहाँ छोड़ा था वहीं से शुरू करें';
+
+  @override
+  String get authEmailHint => 'ईमेल';
+
+  @override
+  String get authPasswordHint => 'पासवर्ड';
+
+  @override
+  String get authForgotPassword => 'पासवर्ड भूल गए?';
+
+  @override
+  String get authSendResetLink => 'रीसेट लिंक भेजें';
+
+  @override
+  String get authLogIn => 'लॉग इन';
+
+  @override
+  String get authBackToLogIn => 'लॉग इन पर वापस';
+
+  @override
+  String get authNewToRatel => 'Ratel पर नए हैं? ';
+
+  @override
+  String get authSignUp => 'साइन अप करें';
+
+  @override
+  String get authCheckYourInbox => 'अपना इनबॉक्स देखें';
+
+  @override
+  String authResetSent(String email) {
+    return 'हमने $email पर पासवर्ड-रीसेट लिंक भेजा है। नया पासवर्ड चुनने के लिए उसे खोलें।';
+  }
+
+  @override
+  String get authCreatePassword => 'पासवर्ड बनाएँ';
+
+  @override
+  String get authAtLeast8Chars => 'कम से कम 8 अक्षर';
+
+  @override
+  String get authCreateYourAccount => 'अपना खाता बनाएँ';
+
+  @override
+  String get authSignupSubtitle => 'हमेशा मुफ़्त · 52 भाषाएँ सीखें';
+
+  @override
+  String get authPassword8Hint => 'पासवर्ड (8+ अक्षर)';
+
+  @override
+  String get authCreateAccount => 'खाता बनाएँ';
+
+  @override
+  String get authAlreadyAccountLead => 'पहले से खाता है? ';
+
+  @override
+  String get authSignIn => 'साइन इन करें';
+
+  @override
+  String get authConfirmEmail => 'अपना ईमेल पक्का करें';
+
+  @override
+  String authConfirmSent(String email) {
+    return 'हमने $email पर पुष्टि लिंक भेजा है। खाता सक्रिय करने के लिए उसे टैप करें, फिर लॉग इन करने लौटें।';
+  }
+
+  @override
+  String get authContinueGoogle => 'Google से जारी रखें';
+
+  @override
+  String get authContinueApple => 'Apple से जारी रखें';
+
+  @override
+  String get authOr => 'या';
+
+  @override
+  String get authUnavailableNote =>
+      'इस बिल्ड में खाते अभी उपलब्ध नहीं हैं — आप अतिथि के रूप में सीखते रह सकते हैं। बैकएंड कॉन्फ़िगर होते ही साइन-इन चालू होगा।';
+
+  @override
+  String get liveMute => 'म्यूट';
+
+  @override
+  String get liveUnmute => 'अनम्यूट';
 }

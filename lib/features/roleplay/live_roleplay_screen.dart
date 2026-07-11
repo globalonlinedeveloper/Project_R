@@ -474,7 +474,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
           const SizedBox(width: RatelSpace.md),
           IconButton(
             key: const ValueKey<String>('live-roleplay-mute'),
-            tooltip: _muted ? 'Unmute' : 'Mute',
+            tooltip: _muted ? context.l10n.liveUnmute : context.l10n.liveMute,
             onPressed: () {
               setState(() => _muted = !_muted);
               _session?.setMicMuted(_muted);

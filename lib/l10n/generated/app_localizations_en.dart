@@ -1381,4 +1381,143 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get adventuresEmpty => 'No adventures in this course yet.';
+
+  @override
+  String get authWelcomeTitle => 'Welcome to Ratel';
+
+  @override
+  String get authWelcomeSubtitle =>
+      'Lessons, stories, podcasts and more —\npick how you want to start.';
+
+  @override
+  String get authCreateFreeAccount => 'Create free account';
+
+  @override
+  String get authAlreadyHaveAccount => 'I already have an account';
+
+  @override
+  String get authSettingUp => 'Setting things up…';
+
+  @override
+  String get authContinueAsGuest => 'Continue as guest';
+
+  @override
+  String get authGuestNote =>
+      'Guest progress lives on this device — create a free account any time in Settings to keep it everywhere.';
+
+  @override
+  String get authEnterYourEmail => 'Enter your email';
+
+  @override
+  String get authEnterValidEmail => 'Enter a valid email';
+
+  @override
+  String get authEnterYourPassword => 'Enter your password';
+
+  @override
+  String get authCouldNotSignIn => 'Could not sign you in. Please try again.';
+
+  @override
+  String get authSomethingWentWrong =>
+      'Something went wrong. Please try again.';
+
+  @override
+  String get authSocialComingSoon =>
+      'Social sign-in (Google / Apple) is coming soon.';
+
+  @override
+  String get authResetTitle => 'Reset your password';
+
+  @override
+  String get authWelcomeBack => 'Welcome back!';
+
+  @override
+  String get authResetSubtitle =>
+      'Enter your email and we\'ll send a reset link.';
+
+  @override
+  String get authPickUpWhereYouLeft => 'Pick up where you left off';
+
+  @override
+  String get authEmailHint => 'Email';
+
+  @override
+  String get authPasswordHint => 'Password';
+
+  @override
+  String get authForgotPassword => 'Forgot password?';
+
+  @override
+  String get authSendResetLink => 'Send reset link';
+
+  @override
+  String get authLogIn => 'Log in';
+
+  @override
+  String get authBackToLogIn => 'Back to log in';
+
+  @override
+  String get authNewToRatel => 'New to Ratel? ';
+
+  @override
+  String get authSignUp => 'Sign up';
+
+  @override
+  String get authCheckYourInbox => 'Check your inbox';
+
+  @override
+  String authResetSent(String email) {
+    return 'We sent a password-reset link to $email. Open it to choose a new password.';
+  }
+
+  @override
+  String get authCreatePassword => 'Create a password';
+
+  @override
+  String get authAtLeast8Chars => 'At least 8 characters';
+
+  @override
+  String get authCreateYourAccount => 'Create your account';
+
+  @override
+  String get authSignupSubtitle => 'Free forever · learn 52 languages';
+
+  @override
+  String get authPassword8Hint => 'Password (8+ characters)';
+
+  @override
+  String get authCreateAccount => 'Create account';
+
+  @override
+  String get authAlreadyAccountLead => 'Already have an account? ';
+
+  @override
+  String get authSignIn => 'Sign in';
+
+  @override
+  String get authConfirmEmail => 'Confirm your email';
+
+  @override
+  String authConfirmSent(String email) {
+    return 'We sent a confirmation link to $email. Tap it to activate your account, then come back to log in.';
+  }
+
+  @override
+  String get authContinueGoogle => 'Continue with Google';
+
+  @override
+  String get authContinueApple => 'Continue with Apple';
+
+  @override
+  String get authOr => 'or';
+
+  @override
+  String get authUnavailableNote =>
+      'Accounts aren’t available in this build yet — you can keep learning as a guest. Sign-in turns on when the backend is configured.';
+
+  @override
+  String get liveMute => 'Mute';
+
+  @override
+  String get liveUnmute => 'Unmute';
 }

@@ -63,22 +63,21 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const AuthHeader(
-                  title: 'Welcome to Ratel',
-                  subtitle:
-                      'Lessons, stories, podcasts and more —\npick how you want to start.',
+                AuthHeader(
+                  title: context.l10n.authWelcomeTitle,
+                  subtitle: context.l10n.authWelcomeSubtitle,
                 ),
                 const SizedBox(height: RatelSpace.xl),
                 RatelButton(
                   key: const Key('welcome-register'),
-                  label: 'Create free account',
+                  label: context.l10n.authCreateFreeAccount,
                   onPressed:
                       _busy ? null : () => widget.onRegister?.call(),
                 ),
                 const SizedBox(height: RatelSpace.sm),
                 RatelButton(
                   key: const Key('welcome-login'),
-                  label: 'I already have an account',
+                  label: context.l10n.authAlreadyHaveAccount,
                   variant: RatelButtonVariant.secondary,
                   onPressed: _busy ? null : () => widget.onLogin?.call(),
                 ),
@@ -88,7 +87,9 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
                     key: const Key('welcome-guest'),
                     onTap: _busy ? null : _continueAsGuest,
                     child: Text(
-                      _busy ? 'Setting things up…' : 'Continue as guest',
+                      _busy
+                          ? context.l10n.authSettingUp
+                          : context.l10n.authContinueAsGuest,
                       style: const TextStyle(
                         fontFamily: RatelFont.body,
                         fontWeight: RatelType.extraBold,
@@ -100,7 +101,7 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
                 ),
                 const SizedBox(height: RatelSpace.sm),
                 Text(
-                  'Guest progress lives on this device — create a free account any time in Settings to keep it everywhere.',
+                  context.l10n.authGuestNote,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: RatelFont.body,

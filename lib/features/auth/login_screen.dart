@@ -53,12 +53,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     String? pwErr;
     final String email = _emailCtrl.text.trim();
     if (email.isEmpty) {
-      emailErr = 'Enter your email';
+      emailErr = context.l10n.authEnterYourEmail;
     } else if (!_emailRe.hasMatch(email)) {
-      emailErr = 'Enter a valid email';
+      emailErr = context.l10n.authEnterValidEmail;
     }
     if (!_reset && _passwordCtrl.text.isEmpty) {
-      pwErr = 'Enter your password';
+      pwErr = context.l10n.authEnterYourPassword;
     }
     setState(() {
       _emailError = emailErr;
@@ -90,14 +90,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           await _claimAnonymousState(identity, claimToken);
           widget.onAuthenticated?.call();
         } else {
-          setState(() => _error = 'Could not sign you in. Please try again.');
+          setState(
+              () => _error = context.l10n.authCouldNotSignIn);
         }
       }
     } on AuthFailure catch (e) {
       if (mounted) setState(() => _error = e.message);
     } catch (_) {
       if (mounted) {
-        setState(() => _error = 'Something went wrong. Please try again.');
+        setState(() => _error = context.l10n.authSomethingWentWrong);
       }
     } finally {
       if (mounted) setState(() => _busy = false);
@@ -118,8 +119,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   void _social() {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(
-          content: Text('Social sign-in (Google / Apple) is coming soon.')));
+      ..showSnackBar(SnackBar(
+          content: Text(context.l10n.authSocialComingSoon)));
   }
 
   @override
@@ -141,10 +142,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     AuthHeader(
-                      title: _reset ? 'Reset your password' : 'Welcome back!',
+                      title: _reset
+                          ? context.l10n.authResetTitle
+                          : context.l10n.authWelcomeBack,
                       subtitle: _reset
-                          ? "Enter your email and we'll send a reset link."
-                          : 'Pick up where you left off',
+                          ? context.l10n.authResetSubtitle
+                          : context.l10n.authPickUpWhereYouLeft,
                     ),
                     const SizedBox(height: RatelSpace.xl),
                     if (!auth.isAvailable) ...<Widget>[
@@ -161,7 +164,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       fieldKey: const Key('login-email'),
                       controller: _emailCtrl,
                       emoji: '✉️',
-                      hint: 'Email',
+                      hint: context.l10n.authEmailHint,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       errorText: _emailError,
@@ -172,7 +175,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         fieldKey: const Key('login-password'),
                         controller: _passwordCtrl,
                         emoji: '🔒',
-                        hint: 'Password',
+                        hint: context.l10n.authPasswordHint,
                         obscureText: true,
                         textInputAction: TextInputAction.done,
                         onSubmitted: (_) => _busy ? null : _submit(),
@@ -190,9 +193,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                     _error = null;
                                     _passwordError = null;
                                   }),
-                          child: const Text(
-                            'Forgot password?',
-                            style: TextStyle(
+                          child: Text(
+                            context.l10n.authForgotPassword,
+                            style: const TextStyle(
                               fontFamily: RatelFont.body,
                               fontWeight: RatelType.extraBold,
                               fontSize: RatelType.small,
@@ -218,14 +221,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     const SizedBox(height: RatelSpace.xl),
                     RatelButton(
                       key: const Key('login-submit'),
-                      label: _reset ? 'Send reset link' : 'Log in',
+                      label: _reset
+                          ? context.l10n.authSendResetLink
+                          : context.l10n.authLogIn,
                       onPressed: _busy ? null : _submit,
                     ),
                     const SizedBox(height: RatelSpace.sm),
                     if (_reset)
                       RatelButton(
                         key: const Key('login-back'),
-                        label: 'Back to log in',
+                        label: context.l10n.authBackToLogIn,
                         variant: RatelButtonVariant.secondary,
                         onPressed: _busy
                             ? null
@@ -236,8 +241,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       )
                     else
                       AuthFooterLink(
-                        lead: 'New to Ratel? ',
-                        linkText: 'Sign up',
+                        lead: context.l10n.authNewToRatel,
+                        linkText: context.l10n.authSignUp,
                         onTap: () => widget.onSignUpInstead?.call(),
                       ),
                     const SizedBox(height: RatelSpace.lg),
@@ -278,7 +283,7 @@ class _SentNotice extends StatelessWidget {
                         size: 64, color: RatelColors.teal),
                     const SizedBox(height: RatelSpace.lg),
                     Text(
-                      'Check your inbox',
+                      context.l10n.authCheckYourInbox,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: RatelFont.display,
@@ -289,8 +294,7 @@ class _SentNotice extends StatelessWidget {
                     ),
                     const SizedBox(height: RatelSpace.sm),
                     Text(
-                      'We sent a password-reset link to $email. Open it to '
-                      'choose a new password.',
+                      context.l10n.authResetSent(email),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: RatelFont.body,

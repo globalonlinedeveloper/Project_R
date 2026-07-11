@@ -15,6 +15,7 @@ import 'package:ratel/features/quests/quests_screen.dart';
 import 'package:ratel/features/practice/practice_hub_screen.dart';
 import 'package:ratel/features/progress/progress_screen.dart';
 import 'package:ratel/features/tutor/ai_tutor_screen.dart';
+import 'package:ratel/features/auth/welcome_screen.dart';
 import 'package:ratel/services/achievements/achievements.dart';
 import 'package:ratel/services/leagues/leagues.dart';
 import 'package:ratel/services/notifications/notifications.dart';
@@ -563,5 +564,53 @@ void main() {
     expect(find.text('Practica una conversación real'), findsOneWidget);
     expect(find.text('Habla con Ratel'), findsOneWidget);
     expect(find.text('Practice a real conversation'), findsNothing);
+  });
+
+  // ── S130 · auth chrome ─────────────────────────────────────────────────────
+
+  test('auth keys: en byte-pins (incl. the curly-apostrophe banner)', () {
+    final AppLocalizations en = lookupAppLocalizations(const Locale('en'));
+    expect(en.authWelcomeTitle, 'Welcome to Ratel');
+    expect(en.authWelcomeSubtitle,
+        'Lessons, stories, podcasts and more —\npick how you want to start.');
+    expect(en.authResetSent('a@b.co'),
+        'We sent a password-reset link to a@b.co. Open it to '
+        'choose a new password.');
+    expect(en.authConfirmSent('a@b.co'),
+        'We sent a confirmation link to a@b.co. Tap it to activate '
+        'your account, then come back to log in.');
+    expect(
+        en.authUnavailableNote,
+        'Accounts aren’t available in this build yet — you can keep learning as '
+        'a guest. Sign-in turns on when the backend is configured.');
+    expect(en.authNewToRatel, 'New to Ratel? ');
+    expect(en.liveMute, 'Mute');
+    expect(en.liveUnmute, 'Unmute');
+  });
+
+  test('auth keys: es spot-checks', () {
+    final AppLocalizations es = lookupAppLocalizations(const Locale('es'));
+    expect(es.authWelcomeTitle, 'Bienvenido a Ratel');
+    expect(es.authCreateFreeAccount, 'Crear cuenta gratis');
+    expect(es.authLogIn, 'Iniciar sesión');
+    expect(es.authForgotPassword, '¿Olvidaste tu contraseña?');
+    expect(es.authOr, 'o');
+  });
+
+  testWidgets('Welcome screen in Spanish: chrome localized',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const ProviderScope(
+      child: MaterialApp(
+        locale: Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: WelcomeScreen(),
+      ),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.text('Bienvenido a Ratel'), findsOneWidget);
+    expect(find.text('Crear cuenta gratis'), findsOneWidget);
+    expect(find.text('Continuar como invitado'), findsOneWidget);
+    expect(find.text('Welcome to Ratel'), findsNothing);
   });
 }

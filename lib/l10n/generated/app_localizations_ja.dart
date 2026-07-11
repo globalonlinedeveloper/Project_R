@@ -1352,4 +1352,139 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get adventuresEmpty => 'このコースにはまだアドベンチャーがありません。';
+
+  @override
+  String get authWelcomeTitle => 'Ratelへようこそ';
+
+  @override
+  String get authWelcomeSubtitle => 'レッスン、ストーリー、ポッドキャストなど —\n始め方を選びましょう。';
+
+  @override
+  String get authCreateFreeAccount => '無料アカウントを作成';
+
+  @override
+  String get authAlreadyHaveAccount => 'アカウントを持っています';
+
+  @override
+  String get authSettingUp => '準備しています…';
+
+  @override
+  String get authContinueAsGuest => 'ゲストとして続ける';
+
+  @override
+  String get authGuestNote =>
+      'ゲストの進捗はこの端末に保存されます — どこでも使うには、設定からいつでも無料アカウントを作成できます。';
+
+  @override
+  String get authEnterYourEmail => 'メールアドレスを入力';
+
+  @override
+  String get authEnterValidEmail => '有効なメールアドレスを入力';
+
+  @override
+  String get authEnterYourPassword => 'パスワードを入力';
+
+  @override
+  String get authCouldNotSignIn => 'サインインできませんでした。もう一度お試しください。';
+
+  @override
+  String get authSomethingWentWrong => '問題が発生しました。もう一度お試しください。';
+
+  @override
+  String get authSocialComingSoon => 'Google / Appleでのサインインは近日対応。';
+
+  @override
+  String get authResetTitle => 'パスワードをリセット';
+
+  @override
+  String get authWelcomeBack => 'おかえりなさい!';
+
+  @override
+  String get authResetSubtitle => 'メールアドレスを入力すると、リセットリンクを送ります。';
+
+  @override
+  String get authPickUpWhereYouLeft => '前回の続きから';
+
+  @override
+  String get authEmailHint => 'メール';
+
+  @override
+  String get authPasswordHint => 'パスワード';
+
+  @override
+  String get authForgotPassword => 'パスワードをお忘れですか?';
+
+  @override
+  String get authSendResetLink => 'リセットリンクを送信';
+
+  @override
+  String get authLogIn => 'ログイン';
+
+  @override
+  String get authBackToLogIn => 'ログインに戻る';
+
+  @override
+  String get authNewToRatel => 'Ratelは初めてですか? ';
+
+  @override
+  String get authSignUp => '登録';
+
+  @override
+  String get authCheckYourInbox => '受信箱を確認';
+
+  @override
+  String authResetSent(String email) {
+    return '$email にパスワードリセットのリンクを送りました。開いて新しいパスワードを設定してください。';
+  }
+
+  @override
+  String get authCreatePassword => 'パスワードを作成';
+
+  @override
+  String get authAtLeast8Chars => '8文字以上';
+
+  @override
+  String get authCreateYourAccount => 'アカウントを作成';
+
+  @override
+  String get authSignupSubtitle => 'ずっと無料 · 52言語を学べる';
+
+  @override
+  String get authPassword8Hint => 'パスワード(8文字以上)';
+
+  @override
+  String get authCreateAccount => 'アカウント作成';
+
+  @override
+  String get authAlreadyAccountLead => 'アカウントをお持ちですか? ';
+
+  @override
+  String get authSignIn => 'サインイン';
+
+  @override
+  String get authConfirmEmail => 'メールを確認';
+
+  @override
+  String authConfirmSent(String email) {
+    return '$email に確認リンクを送りました。タップしてアカウントを有効化し、戻ってログインしてください。';
+  }
+
+  @override
+  String get authContinueGoogle => 'Googleで続ける';
+
+  @override
+  String get authContinueApple => 'Appleで続ける';
+
+  @override
+  String get authOr => 'または';
+
+  @override
+  String get authUnavailableNote =>
+      'このビルドではまだアカウントを利用できません — ゲストとして学習を続けられます。バックエンド設定後にサインインが有効になります。';
+
+  @override
+  String get liveMute => 'ミュート';
+
+  @override
+  String get liveUnmute => 'ミュート解除';
 }

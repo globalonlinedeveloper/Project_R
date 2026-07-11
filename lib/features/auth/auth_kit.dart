@@ -78,7 +78,7 @@ class AuthSocialButtons extends StatelessWidget {
       children: <Widget>[
         _SocialButton(
           key: const Key('auth-google'),
-          label: 'Continue with Google',
+          label: context.l10n.authContinueGoogle,
           emoji: '🔵',
           background: context.palette.white,
           foreground: context.palette.ink,
@@ -88,7 +88,7 @@ class AuthSocialButtons extends StatelessWidget {
         const SizedBox(height: RatelSpace.sm),
         _SocialButton(
           key: const Key('auth-apple'),
-          label: 'Continue with Apple',
+          label: context.l10n.authContinueApple,
           emoji: '',
           background: context.palette.ink,
           foreground: context.palette.white,
@@ -170,7 +170,7 @@ class AuthDivider extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: RatelSpace.md),
           child: Text(
-            'or',
+            context.l10n.authOr,
             style: TextStyle(
               fontFamily: RatelFont.body,
               fontWeight: RatelType.semiBold,
@@ -296,8 +296,7 @@ class AuthUnavailableBanner extends StatelessWidget {
         borderRadius: BorderRadius.circular(RatelRadius.card),
       ),
       child: Text(
-        'Accounts aren’t available in this build yet — you can keep learning as '
-        'a guest. Sign-in turns on when the backend is configured.',
+        context.l10n.authUnavailableNote,
         style: TextStyle(
           fontFamily: RatelFont.body,
           fontWeight: RatelType.semiBold,

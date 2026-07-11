@@ -1354,4 +1354,139 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get adventuresEmpty => '이 코스에는 아직 어드벤처가 없어요.';
+
+  @override
+  String get authWelcomeTitle => 'Ratel에 오신 것을 환영해요';
+
+  @override
+  String get authWelcomeSubtitle => '레슨, 이야기, 팟캐스트 등 —\n시작 방법을 골라보세요.';
+
+  @override
+  String get authCreateFreeAccount => '무료 계정 만들기';
+
+  @override
+  String get authAlreadyHaveAccount => '계정이 이미 있어요';
+
+  @override
+  String get authSettingUp => '준비하는 중…';
+
+  @override
+  String get authContinueAsGuest => '게스트로 계속하기';
+
+  @override
+  String get authGuestNote =>
+      '게스트 진행 상황은 이 기기에 저장돼요 — 어디서나 이어가려면 설정에서 언제든 무료 계정을 만드세요.';
+
+  @override
+  String get authEnterYourEmail => '이메일을 입력하세요';
+
+  @override
+  String get authEnterValidEmail => '올바른 이메일을 입력하세요';
+
+  @override
+  String get authEnterYourPassword => '비밀번호를 입력하세요';
+
+  @override
+  String get authCouldNotSignIn => '로그인하지 못했어요. 다시 시도하세요.';
+
+  @override
+  String get authSomethingWentWrong => '문제가 발생했어요. 다시 시도하세요.';
+
+  @override
+  String get authSocialComingSoon => 'Google / Apple 로그인은 곧 제공돼요.';
+
+  @override
+  String get authResetTitle => '비밀번호 재설정';
+
+  @override
+  String get authWelcomeBack => '다시 만나서 반가워요!';
+
+  @override
+  String get authResetSubtitle => '이메일을 입력하면 재설정 링크를 보내드려요.';
+
+  @override
+  String get authPickUpWhereYouLeft => '멈춘 곳에서 이어가기';
+
+  @override
+  String get authEmailHint => '이메일';
+
+  @override
+  String get authPasswordHint => '비밀번호';
+
+  @override
+  String get authForgotPassword => '비밀번호를 잊으셨나요?';
+
+  @override
+  String get authSendResetLink => '재설정 링크 보내기';
+
+  @override
+  String get authLogIn => '로그인';
+
+  @override
+  String get authBackToLogIn => '로그인으로 돌아가기';
+
+  @override
+  String get authNewToRatel => 'Ratel이 처음인가요? ';
+
+  @override
+  String get authSignUp => '가입하기';
+
+  @override
+  String get authCheckYourInbox => '받은편지함을 확인하세요';
+
+  @override
+  String authResetSent(String email) {
+    return '$email로 비밀번호 재설정 링크를 보냈어요. 열어서 새 비밀번호를 정하세요.';
+  }
+
+  @override
+  String get authCreatePassword => '비밀번호를 만드세요';
+
+  @override
+  String get authAtLeast8Chars => '8자 이상';
+
+  @override
+  String get authCreateYourAccount => '계정을 만드세요';
+
+  @override
+  String get authSignupSubtitle => '영원히 무료 · 52개 언어 학습';
+
+  @override
+  String get authPassword8Hint => '비밀번호(8자 이상)';
+
+  @override
+  String get authCreateAccount => '계정 만들기';
+
+  @override
+  String get authAlreadyAccountLead => '계정이 이미 있나요? ';
+
+  @override
+  String get authSignIn => '로그인';
+
+  @override
+  String get authConfirmEmail => '이메일을 확인하세요';
+
+  @override
+  String authConfirmSent(String email) {
+    return '$email로 확인 링크를 보냈어요. 눌러서 계정을 활성화한 뒤 돌아와 로그인하세요.';
+  }
+
+  @override
+  String get authContinueGoogle => 'Google로 계속하기';
+
+  @override
+  String get authContinueApple => 'Apple로 계속하기';
+
+  @override
+  String get authOr => '또는';
+
+  @override
+  String get authUnavailableNote =>
+      '이 빌드에서는 아직 계정을 쓸 수 없어요 — 게스트로 계속 배울 수 있어요. 백엔드가 구성되면 로그인이 켜져요.';
+
+  @override
+  String get liveMute => '음소거';
+
+  @override
+  String get liveUnmute => '음소거 해제';
 }

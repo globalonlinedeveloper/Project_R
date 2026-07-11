@@ -50,15 +50,15 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     String? pwErr;
     final String email = _emailCtrl.text.trim();
     if (email.isEmpty) {
-      emailErr = 'Enter your email';
+      emailErr = context.l10n.authEnterYourEmail;
     } else if (!_emailRe.hasMatch(email)) {
-      emailErr = 'Enter a valid email';
+      emailErr = context.l10n.authEnterValidEmail;
     }
     final String pw = _passwordCtrl.text;
     if (pw.isEmpty) {
-      pwErr = 'Create a password';
+      pwErr = context.l10n.authCreatePassword;
     } else if (pw.length < 8) {
-      pwErr = 'At least 8 characters';
+      pwErr = context.l10n.authAtLeast8Chars;
     }
     setState(() {
       _emailError = emailErr;
@@ -91,7 +91,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
       if (mounted) setState(() => _error = e.message);
     } catch (_) {
       if (mounted) {
-        setState(() => _error = 'Something went wrong. Please try again.');
+        setState(() => _error = context.l10n.authSomethingWentWrong);
       }
     } finally {
       if (mounted) setState(() => _busy = false);
@@ -112,8 +112,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   void _social() {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(
-          content: Text('Social sign-in (Google / Apple) is coming soon.')));
+      ..showSnackBar(SnackBar(
+          content: Text(context.l10n.authSocialComingSoon)));
   }
 
   @override
@@ -134,9 +134,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   key: const Key('signup'),
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    const AuthHeader(
-                      title: 'Create your account',
-                      subtitle: 'Free forever · learn 52 languages',
+                    AuthHeader(
+                      title: context.l10n.authCreateYourAccount,
+                      subtitle: context.l10n.authSignupSubtitle,
                     ),
                     const SizedBox(height: RatelSpace.xl),
                     if (!auth.isAvailable) ...<Widget>[
@@ -151,7 +151,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       fieldKey: const Key('signup-email'),
                       controller: _emailCtrl,
                       emoji: '✉️',
-                      hint: 'Email',
+                      hint: context.l10n.authEmailHint,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       errorText: _emailError,
@@ -161,7 +161,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       fieldKey: const Key('signup-password'),
                       controller: _passwordCtrl,
                       emoji: '🔒',
-                      hint: 'Password (8+ characters)',
+                      hint: context.l10n.authPassword8Hint,
                       obscureText: true,
                       textInputAction: TextInputAction.done,
                       onSubmitted: (_) => _busy ? null : _submit(),
@@ -183,13 +183,13 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     const SizedBox(height: RatelSpace.xl),
                     RatelButton(
                       key: const Key('signup-submit'),
-                      label: 'Create account',
+                      label: context.l10n.authCreateAccount,
                       onPressed: _busy ? null : _submit,
                     ),
                     const SizedBox(height: RatelSpace.sm),
                     AuthFooterLink(
-                      lead: 'Already have an account? ',
-                      linkText: 'Sign in',
+                      lead: context.l10n.authAlreadyAccountLead,
+                      linkText: context.l10n.authSignIn,
                       onTap: () => widget.onSignInInstead?.call(),
                     ),
                     const SizedBox(height: RatelSpace.lg),
@@ -231,7 +231,7 @@ class _SentNotice extends StatelessWidget {
                         size: 64, color: RatelColors.teal),
                     const SizedBox(height: RatelSpace.lg),
                     Text(
-                      'Confirm your email',
+                      context.l10n.authConfirmEmail,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: RatelFont.display,
@@ -242,8 +242,7 @@ class _SentNotice extends StatelessWidget {
                     ),
                     const SizedBox(height: RatelSpace.sm),
                     Text(
-                      'We sent a confirmation link to $email. Tap it to activate '
-                      'your account, then come back to log in.',
+                      context.l10n.authConfirmSent(email),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: RatelFont.body,

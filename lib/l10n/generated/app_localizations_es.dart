@@ -1397,4 +1397,143 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get adventuresEmpty => 'Aún no hay aventuras en este curso.';
+
+  @override
+  String get authWelcomeTitle => 'Bienvenido a Ratel';
+
+  @override
+  String get authWelcomeSubtitle =>
+      'Lecciones, historias, pódcasts y más —\nelige cómo quieres empezar.';
+
+  @override
+  String get authCreateFreeAccount => 'Crear cuenta gratis';
+
+  @override
+  String get authAlreadyHaveAccount => 'Ya tengo una cuenta';
+
+  @override
+  String get authSettingUp => 'Preparando todo…';
+
+  @override
+  String get authContinueAsGuest => 'Continuar como invitado';
+
+  @override
+  String get authGuestNote =>
+      'El progreso de invitado vive en este dispositivo — crea una cuenta gratis en Ajustes cuando quieras para llevarlo a todas partes.';
+
+  @override
+  String get authEnterYourEmail => 'Escribe tu correo';
+
+  @override
+  String get authEnterValidEmail => 'Escribe un correo válido';
+
+  @override
+  String get authEnterYourPassword => 'Escribe tu contraseña';
+
+  @override
+  String get authCouldNotSignIn =>
+      'No pudimos iniciar tu sesión. Inténtalo de nuevo.';
+
+  @override
+  String get authSomethingWentWrong => 'Algo salió mal. Inténtalo de nuevo.';
+
+  @override
+  String get authSocialComingSoon =>
+      'El acceso con Google / Apple llegará pronto.';
+
+  @override
+  String get authResetTitle => 'Restablece tu contraseña';
+
+  @override
+  String get authWelcomeBack => '¡Hola de nuevo!';
+
+  @override
+  String get authResetSubtitle =>
+      'Escribe tu correo y te enviaremos un enlace de restablecimiento.';
+
+  @override
+  String get authPickUpWhereYouLeft => 'Continúa donde lo dejaste';
+
+  @override
+  String get authEmailHint => 'Correo';
+
+  @override
+  String get authPasswordHint => 'Contraseña';
+
+  @override
+  String get authForgotPassword => '¿Olvidaste tu contraseña?';
+
+  @override
+  String get authSendResetLink => 'Enviar enlace';
+
+  @override
+  String get authLogIn => 'Iniciar sesión';
+
+  @override
+  String get authBackToLogIn => 'Volver a iniciar sesión';
+
+  @override
+  String get authNewToRatel => '¿Nuevo en Ratel? ';
+
+  @override
+  String get authSignUp => 'Regístrate';
+
+  @override
+  String get authCheckYourInbox => 'Revisa tu bandeja';
+
+  @override
+  String authResetSent(String email) {
+    return 'Enviamos un enlace de restablecimiento a $email. Ábrelo para elegir una nueva contraseña.';
+  }
+
+  @override
+  String get authCreatePassword => 'Crea una contraseña';
+
+  @override
+  String get authAtLeast8Chars => 'Mínimo 8 caracteres';
+
+  @override
+  String get authCreateYourAccount => 'Crea tu cuenta';
+
+  @override
+  String get authSignupSubtitle => 'Gratis para siempre · aprende 52 idiomas';
+
+  @override
+  String get authPassword8Hint => 'Contraseña (8+ caracteres)';
+
+  @override
+  String get authCreateAccount => 'Crear cuenta';
+
+  @override
+  String get authAlreadyAccountLead => '¿Ya tienes cuenta? ';
+
+  @override
+  String get authSignIn => 'Inicia sesión';
+
+  @override
+  String get authConfirmEmail => 'Confirma tu correo';
+
+  @override
+  String authConfirmSent(String email) {
+    return 'Enviamos un enlace de confirmación a $email. Tócalo para activar tu cuenta y vuelve para iniciar sesión.';
+  }
+
+  @override
+  String get authContinueGoogle => 'Continuar con Google';
+
+  @override
+  String get authContinueApple => 'Continuar con Apple';
+
+  @override
+  String get authOr => 'o';
+
+  @override
+  String get authUnavailableNote =>
+      'Las cuentas aún no están disponibles en esta versión — puedes seguir aprendiendo como invitado. El acceso se activará cuando el backend esté configurado.';
+
+  @override
+  String get liveMute => 'Silenciar';
+
+  @override
+  String get liveUnmute => 'Activar sonido';
 }

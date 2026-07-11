@@ -1407,4 +1407,141 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get adventuresEmpty => 'لا مغامرات في هذه الدورة بعد.';
+
+  @override
+  String get authWelcomeTitle => 'مرحبًا بك في Ratel';
+
+  @override
+  String get authWelcomeSubtitle =>
+      'دروس وقصص وبودكاست والمزيد —\nاختر كيف تريد أن تبدأ.';
+
+  @override
+  String get authCreateFreeAccount => 'أنشئ حسابًا مجانيًا';
+
+  @override
+  String get authAlreadyHaveAccount => 'لدي حساب بالفعل';
+
+  @override
+  String get authSettingUp => 'جارٍ التجهيز…';
+
+  @override
+  String get authContinueAsGuest => 'المتابعة كضيف';
+
+  @override
+  String get authGuestNote =>
+      'تقدم الضيف يبقى على هذا الجهاز — أنشئ حسابًا مجانيًا في الإعدادات متى شئت ليبقى معك في كل مكان.';
+
+  @override
+  String get authEnterYourEmail => 'أدخل بريدك الإلكتروني';
+
+  @override
+  String get authEnterValidEmail => 'أدخل بريدًا إلكترونيًا صالحًا';
+
+  @override
+  String get authEnterYourPassword => 'أدخل كلمة المرور';
+
+  @override
+  String get authCouldNotSignIn => 'تعذّر تسجيل دخولك. حاول مرة أخرى.';
+
+  @override
+  String get authSomethingWentWrong => 'حدث خطأ ما. حاول مرة أخرى.';
+
+  @override
+  String get authSocialComingSoon =>
+      'تسجيل الدخول عبر Google / Apple قادم قريبًا.';
+
+  @override
+  String get authResetTitle => 'أعد تعيين كلمة المرور';
+
+  @override
+  String get authWelcomeBack => 'مرحبًا بعودتك!';
+
+  @override
+  String get authResetSubtitle => 'أدخل بريدك وسنرسل رابط إعادة التعيين.';
+
+  @override
+  String get authPickUpWhereYouLeft => 'تابع من حيث توقفت';
+
+  @override
+  String get authEmailHint => 'البريد الإلكتروني';
+
+  @override
+  String get authPasswordHint => 'كلمة المرور';
+
+  @override
+  String get authForgotPassword => 'نسيت كلمة المرور؟';
+
+  @override
+  String get authSendResetLink => 'أرسل رابط إعادة التعيين';
+
+  @override
+  String get authLogIn => 'تسجيل الدخول';
+
+  @override
+  String get authBackToLogIn => 'عودة إلى تسجيل الدخول';
+
+  @override
+  String get authNewToRatel => 'جديد على Ratel؟ ';
+
+  @override
+  String get authSignUp => 'سجّل الآن';
+
+  @override
+  String get authCheckYourInbox => 'تفقد بريدك الوارد';
+
+  @override
+  String authResetSent(String email) {
+    return 'أرسلنا رابط إعادة تعيين كلمة المرور إلى $email. افتحه لاختيار كلمة مرور جديدة.';
+  }
+
+  @override
+  String get authCreatePassword => 'أنشئ كلمة مرور';
+
+  @override
+  String get authAtLeast8Chars => '8 أحرف على الأقل';
+
+  @override
+  String get authCreateYourAccount => 'أنشئ حسابك';
+
+  @override
+  String get authSignupSubtitle => 'مجاني للأبد · تعلّم 52 لغة';
+
+  @override
+  String get authPassword8Hint => 'كلمة المرور (8 أحرف أو أكثر)';
+
+  @override
+  String get authCreateAccount => 'إنشاء حساب';
+
+  @override
+  String get authAlreadyAccountLead => 'لديك حساب بالفعل؟ ';
+
+  @override
+  String get authSignIn => 'سجّل الدخول';
+
+  @override
+  String get authConfirmEmail => 'أكّد بريدك الإلكتروني';
+
+  @override
+  String authConfirmSent(String email) {
+    return 'أرسلنا رابط تأكيد إلى $email. انقر عليه لتفعيل حسابك ثم عد لتسجيل الدخول.';
+  }
+
+  @override
+  String get authContinueGoogle => 'المتابعة عبر Google';
+
+  @override
+  String get authContinueApple => 'المتابعة عبر Apple';
+
+  @override
+  String get authOr => 'أو';
+
+  @override
+  String get authUnavailableNote =>
+      'الحسابات غير متاحة في هذا الإصدار بعد — يمكنك مواصلة التعلم كضيف. سيُفعّل تسجيل الدخول عند تهيئة الخادم.';
+
+  @override
+  String get liveMute => 'كتم';
+
+  @override
+  String get liveUnmute => 'إلغاء الكتم';
 }

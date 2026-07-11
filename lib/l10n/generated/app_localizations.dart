@@ -2487,6 +2487,264 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No adventures in this course yet.'**
   String get adventuresEmpty;
+
+  /// No description provided for @authWelcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Ratel'**
+  String get authWelcomeTitle;
+
+  /// No description provided for @authWelcomeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lessons, stories, podcasts and more —\npick how you want to start.'**
+  String get authWelcomeSubtitle;
+
+  /// No description provided for @authCreateFreeAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create free account'**
+  String get authCreateFreeAccount;
+
+  /// No description provided for @authAlreadyHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'I already have an account'**
+  String get authAlreadyHaveAccount;
+
+  /// No description provided for @authSettingUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Setting things up…'**
+  String get authSettingUp;
+
+  /// No description provided for @authContinueAsGuest.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue as guest'**
+  String get authContinueAsGuest;
+
+  /// No description provided for @authGuestNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest progress lives on this device — create a free account any time in Settings to keep it everywhere.'**
+  String get authGuestNote;
+
+  /// No description provided for @authEnterYourEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email'**
+  String get authEnterYourEmail;
+
+  /// No description provided for @authEnterValidEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid email'**
+  String get authEnterValidEmail;
+
+  /// No description provided for @authEnterYourPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your password'**
+  String get authEnterYourPassword;
+
+  /// No description provided for @authCouldNotSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not sign you in. Please try again.'**
+  String get authCouldNotSignIn;
+
+  /// No description provided for @authSomethingWentWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get authSomethingWentWrong;
+
+  /// No description provided for @authSocialComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Social sign-in (Google / Apple) is coming soon.'**
+  String get authSocialComingSoon;
+
+  /// No description provided for @authResetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset your password'**
+  String get authResetTitle;
+
+  /// No description provided for @authWelcomeBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back!'**
+  String get authWelcomeBack;
+
+  /// No description provided for @authResetSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email and we\'ll send a reset link.'**
+  String get authResetSubtitle;
+
+  /// No description provided for @authPickUpWhereYouLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick up where you left off'**
+  String get authPickUpWhereYouLeft;
+
+  /// No description provided for @authEmailHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get authEmailHint;
+
+  /// No description provided for @authPasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get authPasswordHint;
+
+  /// No description provided for @authForgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password?'**
+  String get authForgotPassword;
+
+  /// No description provided for @authSendResetLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Send reset link'**
+  String get authSendResetLink;
+
+  /// No description provided for @authLogIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Log in'**
+  String get authLogIn;
+
+  /// No description provided for @authBackToLogIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to log in'**
+  String get authBackToLogIn;
+
+  /// No description provided for @authNewToRatel.
+  ///
+  /// In en, this message translates to:
+  /// **'New to Ratel? '**
+  String get authNewToRatel;
+
+  /// No description provided for @authSignUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up'**
+  String get authSignUp;
+
+  /// No description provided for @authCheckYourInbox.
+  ///
+  /// In en, this message translates to:
+  /// **'Check your inbox'**
+  String get authCheckYourInbox;
+
+  /// No description provided for @authResetSent.
+  ///
+  /// In en, this message translates to:
+  /// **'We sent a password-reset link to {email}. Open it to choose a new password.'**
+  String authResetSent(String email);
+
+  /// No description provided for @authCreatePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a password'**
+  String get authCreatePassword;
+
+  /// No description provided for @authAtLeast8Chars.
+  ///
+  /// In en, this message translates to:
+  /// **'At least 8 characters'**
+  String get authAtLeast8Chars;
+
+  /// No description provided for @authCreateYourAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your account'**
+  String get authCreateYourAccount;
+
+  /// No description provided for @authSignupSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Free forever · learn 52 languages'**
+  String get authSignupSubtitle;
+
+  /// No description provided for @authPassword8Hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Password (8+ characters)'**
+  String get authPassword8Hint;
+
+  /// No description provided for @authCreateAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create account'**
+  String get authCreateAccount;
+
+  /// No description provided for @authAlreadyAccountLead.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? '**
+  String get authAlreadyAccountLead;
+
+  /// No description provided for @authSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in'**
+  String get authSignIn;
+
+  /// No description provided for @authConfirmEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm your email'**
+  String get authConfirmEmail;
+
+  /// No description provided for @authConfirmSent.
+  ///
+  /// In en, this message translates to:
+  /// **'We sent a confirmation link to {email}. Tap it to activate your account, then come back to log in.'**
+  String authConfirmSent(String email);
+
+  /// No description provided for @authContinueGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get authContinueGoogle;
+
+  /// No description provided for @authContinueApple.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Apple'**
+  String get authContinueApple;
+
+  /// No description provided for @authOr.
+  ///
+  /// In en, this message translates to:
+  /// **'or'**
+  String get authOr;
+
+  /// No description provided for @authUnavailableNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Accounts aren’t available in this build yet — you can keep learning as a guest. Sign-in turns on when the backend is configured.'**
+  String get authUnavailableNote;
+
+  /// No description provided for @liveMute.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute'**
+  String get liveMute;
+
+  /// No description provided for @liveUnmute.
+  ///
+  /// In en, this message translates to:
+  /// **'Unmute'**
+  String get liveUnmute;
 }
 
 class _AppLocalizationsDelegate

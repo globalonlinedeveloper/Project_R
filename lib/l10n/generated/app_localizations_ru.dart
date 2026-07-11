@@ -1404,4 +1404,144 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get adventuresEmpty => 'В этом курсе пока нет приключений.';
+
+  @override
+  String get authWelcomeTitle => 'Добро пожаловать в Ratel';
+
+  @override
+  String get authWelcomeSubtitle =>
+      'Уроки, истории, подкасты и не только —\nвыберите, как начать.';
+
+  @override
+  String get authCreateFreeAccount => 'Создать бесплатный аккаунт';
+
+  @override
+  String get authAlreadyHaveAccount => 'У меня уже есть аккаунт';
+
+  @override
+  String get authSettingUp => 'Готовим всё…';
+
+  @override
+  String get authContinueAsGuest => 'Продолжить как гость';
+
+  @override
+  String get authGuestNote =>
+      'Гостевой прогресс хранится на этом устройстве — создайте бесплатный аккаунт в настройках в любой момент, чтобы он был с вами везде.';
+
+  @override
+  String get authEnterYourEmail => 'Введите свою почту';
+
+  @override
+  String get authEnterValidEmail => 'Введите корректную почту';
+
+  @override
+  String get authEnterYourPassword => 'Введите пароль';
+
+  @override
+  String get authCouldNotSignIn => 'Не удалось войти. Попробуйте ещё раз.';
+
+  @override
+  String get authSomethingWentWrong =>
+      'Что-то пошло не так. Попробуйте ещё раз.';
+
+  @override
+  String get authSocialComingSoon =>
+      'Вход через Google / Apple скоро появится.';
+
+  @override
+  String get authResetTitle => 'Сбросьте пароль';
+
+  @override
+  String get authWelcomeBack => 'С возвращением!';
+
+  @override
+  String get authResetSubtitle =>
+      'Введите почту — мы отправим ссылку для сброса.';
+
+  @override
+  String get authPickUpWhereYouLeft =>
+      'Продолжите с того места, где остановились';
+
+  @override
+  String get authEmailHint => 'Почта';
+
+  @override
+  String get authPasswordHint => 'Пароль';
+
+  @override
+  String get authForgotPassword => 'Забыли пароль?';
+
+  @override
+  String get authSendResetLink => 'Отправить ссылку';
+
+  @override
+  String get authLogIn => 'Войти';
+
+  @override
+  String get authBackToLogIn => 'Назад ко входу';
+
+  @override
+  String get authNewToRatel => 'Впервые в Ratel? ';
+
+  @override
+  String get authSignUp => 'Регистрация';
+
+  @override
+  String get authCheckYourInbox => 'Проверьте почту';
+
+  @override
+  String authResetSent(String email) {
+    return 'Мы отправили ссылку для сброса пароля на $email. Откройте её, чтобы выбрать новый пароль.';
+  }
+
+  @override
+  String get authCreatePassword => 'Придумайте пароль';
+
+  @override
+  String get authAtLeast8Chars => 'Не менее 8 символов';
+
+  @override
+  String get authCreateYourAccount => 'Создайте аккаунт';
+
+  @override
+  String get authSignupSubtitle => 'Бесплатно навсегда · учите 52 языка';
+
+  @override
+  String get authPassword8Hint => 'Пароль (8+ символов)';
+
+  @override
+  String get authCreateAccount => 'Создать аккаунт';
+
+  @override
+  String get authAlreadyAccountLead => 'Уже есть аккаунт? ';
+
+  @override
+  String get authSignIn => 'Войти';
+
+  @override
+  String get authConfirmEmail => 'Подтвердите почту';
+
+  @override
+  String authConfirmSent(String email) {
+    return 'Мы отправили ссылку подтверждения на $email. Нажмите её, чтобы активировать аккаунт, и возвращайтесь ко входу.';
+  }
+
+  @override
+  String get authContinueGoogle => 'Продолжить с Google';
+
+  @override
+  String get authContinueApple => 'Продолжить с Apple';
+
+  @override
+  String get authOr => 'или';
+
+  @override
+  String get authUnavailableNote =>
+      'Аккаунты в этой сборке пока недоступны — можно продолжать учиться как гость. Вход включится после настройки бэкенда.';
+
+  @override
+  String get liveMute => 'Выкл. звук';
+
+  @override
+  String get liveUnmute => 'Вкл. звук';
 }
