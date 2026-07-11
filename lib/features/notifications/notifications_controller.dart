@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:ratel/app/app_providers.dart';
+import 'package:ratel/features/notifications/earned_stamps_controller.dart';
 import 'package:ratel/services/notifications/notifications.dart';
 
 /// Bridges the REAL learner state + the persisted read-set to the pure
@@ -21,7 +22,11 @@ final notificationsProvider = Provider<List<AppNotification>>((ref) {
   final LearnerSnapshot snap = ref.watch(learnerControllerProvider);
   final Set<String> read =
       ref.watch(appSettingsControllerProvider).readNotifications;
-  return const NotificationsEngine().project(_statsOf(snap), read);
+  // Real device-local earn moments (D-13) — absent ids honestly carry no label.
+  final Map<String, DateTime> earnedAt =
+      ref.watch(earnedStampsControllerProvider);
+  return const NotificationsEngine()
+      .project(_statsOf(snap), read, earnedAt: earnedAt);
 });
 
 /// Count of earned-but-unseen notifications (drives the Profile row badge).

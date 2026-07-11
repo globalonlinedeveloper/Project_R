@@ -3,12 +3,15 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ratel/content/models/enums.dart' show CefrLevel;
 import 'package:ratel/features/settings/settings_controller.dart';
+import 'package:ratel/features/notifications/earned_stamps_controller.dart';
 import 'package:ratel/features/progress/xp_history_controller.dart';
 import 'package:ratel/services/data_access/data_access.dart';
 import 'package:ratel/services/economy/economy.dart';
 import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/leagues/leagues.dart' show LeagueWeek;
 import 'package:ratel/services/learning/learning.dart';
+import 'package:ratel/services/notifications/notifications.dart'
+    show NotificationStats;
 import 'package:ratel/services/social/friends.dart' show FriendActivityType;
 import 'package:ratel/services/social/friends_service.dart';
 
@@ -236,6 +239,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   /// Append a graded answer to the immutable log and re-derive ability + level
   /// through the real engine (the only path that moves θ/level), then persist.
   void recordReview(ReviewLogEntry entry) {
+    final LearnerSnapshot snapBefore = state;
     final CefrLevel levelBefore = state.level;
     _log.add(entry);
     // Durable answer spine (R-G6): fire-and-forget append to the sink seam —
@@ -244,6 +248,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     ref.read(reviewLogSinkProvider).append(targetLocale, entry);
     state = _derive();
     _persist();
+    _stampMilestones(snapBefore);
     _maybeEmitLevelUp(levelBefore, state.level);
   }
 
@@ -253,6 +258,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   /// goal-gated streak and credits the goal-met diamond bonus, and writes the
   /// lot through.
   void recordLessonComplete({int xp = 20}) {
+    final LearnerSnapshot snapBefore = state;
     final int streakBefore = state.streakDays;
     final DateTime today = _today();
     _rollDay(today);
@@ -272,6 +278,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     ref.read(xpHistoryControllerProvider.notifier).recordToday(gained);
     state = _derive();
     _persist();
+    _stampMilestones(snapBefore);
     _maybeEmitStreak(streakBefore, state.streakDays);
     _maybePublishWeeklyXp();
   }
@@ -488,10 +495,12 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   /// so the placement defines the starting point, re-derives the CEFR level,
   /// and persists. [R-G4 · R-G7]
   void seedFromPlacement(double theta) {
+    final LearnerSnapshot snapBefore = state;
     _placementTheta = theta;
     _log.clear();
     state = _derive();
     _persist();
+    _stampMilestones(snapBefore);
   }
 
   /// Re-derive the surfaced snapshot for the CURRENT clock day WITHOUT mutating
@@ -530,6 +539,24 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   /// pushed the learner across a CEFR band (the REAL, theta-driven rise — never
   /// fabricated). Fire-and-forget + session-guarded: a guest (or the default
   /// UnavailableFriendsService) routes nothing, so flag-off is byte-identical.
+  /// Map a snapshot onto the notification milestone metrics (mirrors the
+  /// `notificationsProvider` bridge).
+  static NotificationStats _notifStatsOf(LearnerSnapshot s) =>
+      NotificationStats(
+        lessonsCompleted: s.lessonsCompleted,
+        xpTotal: s.xpTotal,
+        streakDays: s.streakDays,
+        cefrOrdinal: s.level.index,
+      );
+
+  /// Stamp any notification milestone genuinely crossed by this mutation with
+  /// the real injected clock (D-13 per-row timestamps). Hydration/restore
+  /// paths never call this, so restored milestones honestly stay unstamped.
+  void _stampMilestones(LearnerSnapshot before) {
+    ref.read(earnedStampsControllerProvider.notifier).stampCrossings(
+        before: _notifStatsOf(before), after: _notifStatsOf(state));
+  }
+
   void _maybeEmitLevelUp(CefrLevel before, CefrLevel after) {
     if (after.index <= before.index) return;
     if (ref.read(identityProvider).uid == null) return;

@@ -79,6 +79,7 @@ class AppNotification {
     required this.title,
     required this.body,
     required this.read,
+    this.earnedAt,
   });
 
   final String id;
@@ -86,6 +87,13 @@ class AppNotification {
   final String title;
   final String body;
   final bool read;
+
+  /// The REAL moment the learner was observed crossing this milestone's
+  /// threshold (device-local stamp, D-13) — supplied by the caller, never by
+  /// this clockless engine. Null ⇒ unknown (earned before the stamps shipped,
+  /// or on another device): the row honestly shows no time label rather than
+  /// a fabricated one.
+  final DateTime? earnedAt;
 }
 
 /// The clockless in-app notification engine.
@@ -133,7 +141,11 @@ class NotificationsEngine {
   /// The inbox: every milestone the learner has genuinely earned, ordered
   /// biggest-first (descending [rank]), each flagged read iff its id is in
   /// [readIds]. A fresh account ⇒ an empty list (honest).
-  List<AppNotification> project(NotificationStats stats, Set<String> readIds) {
+  List<AppNotification> project(
+    NotificationStats stats,
+    Set<String> readIds, {
+    Map<String, DateTime> earnedAt = const <String, DateTime>{},
+  }) {
     final List<NotificationDef> earnedDefs = <NotificationDef>[
       for (final NotificationDef d in catalogue)
         if (earned(d, stats)) d,
@@ -146,6 +158,7 @@ class NotificationsEngine {
           title: d.title,
           body: d.body,
           read: readIds.contains(d.id),
+          earnedAt: earnedAt[d.id],
         ),
     ];
   }
@@ -164,4 +177,26 @@ class NotificationsEngine {
         for (final NotificationDef d in catalogue)
           if (earned(d, stats)) d.id,
       };
+
+  /// Ids whose threshold is crossed in [after] but was NOT in [before] — the
+  /// genuine earn moments a caller may stamp against a real clock (D-13).
+  /// Pure and clockless: the diff carries no time; the caller records it.
+  Set<String> newlyEarned(NotificationStats before, NotificationStats after) =>
+      <String>{
+        for (final NotificationDef d in catalogue)
+          if (!earned(d, before) && earned(d, after)) d.id,
+      };
+}
+
+/// Compact relative age of an earn stamp, matching the design mock's per-row
+/// labels (`2h` / `5h` / `1d` — `Ratel App.dc.html` notifications rows): under
+/// a minute ⇒ `now`, under an hour ⇒ `Xm`, under a day ⇒ `Xh`, else `Xd`.
+/// Pure — [now] is injected, so the engine file stays clockless. A stamp in
+/// the future (clock skew) clamps to `now`.
+String relativeEarnedLabel(DateTime earnedAt, DateTime now) {
+  final Duration age = now.difference(earnedAt);
+  if (age.inMinutes < 1) return 'now';
+  if (age.inHours < 1) return '${age.inMinutes}m';
+  if (age.inDays < 1) return '${age.inHours}h';
+  return '${age.inDays}d';
 }

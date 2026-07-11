@@ -14,6 +14,11 @@ import 'package:ratel/services/notifications/notifications.dart';
 /// card (or "Mark all read") persists the read-state device-locally with the
 /// other preferences, so the unread badge survives a relaunch.
 ///
+/// Each row's trailing relative-time label (design §4.14 `2h/5h/1d`) comes
+/// from a REAL device-local earn stamp recorded the moment the milestone was
+/// crossed (D-13); a milestone with no recorded stamp (earned before stamps
+/// shipped, or on another device) honestly shows no label.
+///
 /// HONESTY (charter "don't fake depth"): PUSH delivery, opt-in categories and
 /// per-platform delivery profiles (a separate owner/$$-gated item) have NO
 /// engine — shown here as an
@@ -26,6 +31,9 @@ class NotificationsScreen extends ConsumerWidget {
     final List<AppNotification> items = ref.watch(notificationsProvider);
     final int unread = ref.watch(unreadNotificationsCountProvider);
     final Set<String> earned = ref.watch(earnedNotificationIdsProvider);
+    // One clock read per build (injected — tests pin it); each row renders its
+    // relative age against the same now, like the quests reset label.
+    final DateTime now = ref.read(clockProvider)();
 
     return Scaffold(
       backgroundColor: context.palette.cream,
@@ -73,7 +81,7 @@ class NotificationsScreen extends ConsumerWidget {
                     RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
                 children: <Widget>[
                   for (final AppNotification n in items) ...<Widget>[
-                    _tile(context, ref, n),
+                    _tile(context, ref, n, now),
                     const SizedBox(height: RatelSpace.sm),
                   ],
                   const SizedBox(height: RatelSpace.sm),
@@ -84,7 +92,8 @@ class NotificationsScreen extends ConsumerWidget {
     );
   }
 
-  Widget _tile(BuildContext context, WidgetRef ref, AppNotification n) =>
+  Widget _tile(BuildContext context, WidgetRef ref, AppNotification n,
+          DateTime now) =>
       RatelCard(
         key: ValueKey<String>('notification-${n.id}'),
         color: n.read ? context.palette.cream2 : context.palette.white,
@@ -121,14 +130,36 @@ class NotificationsScreen extends ConsumerWidget {
                 ],
               ),
             ),
-            if (!n.read) ...<Widget>[
+            if (n.earnedAt != null || !n.read) ...<Widget>[
               const SizedBox(width: RatelSpace.sm),
-              Container(
-                width: 10,
-                height: 10,
-                margin: const EdgeInsets.only(top: 4),
-                decoration: const BoxDecoration(
-                    color: RatelColors.coral, shape: BoxShape.circle),
+              // Trailing cluster per the design row: relative-time label above
+              // the unread dot, right-aligned (§4.14 — 11px muted 700 / 5 gap).
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  if (n.earnedAt != null)
+                    Text(
+                      relativeEarnedLabel(n.earnedAt!, now),
+                      style: TextStyle(
+                        fontFamily: RatelFont.body,
+                        fontSize: RatelType.caption,
+                        fontWeight: RatelType.semiBold,
+                        color: context.palette.muted,
+                      ),
+                    ),
+                  if (n.earnedAt != null && !n.read)
+                    const SizedBox(height: 5),
+                  if (!n.read)
+                    Container(
+                      width: 10,
+                      height: 10,
+                      margin: n.earnedAt == null
+                          ? const EdgeInsets.only(top: 4)
+                          : EdgeInsets.zero,
+                      decoration: const BoxDecoration(
+                          color: RatelColors.coral, shape: BoxShape.circle),
+                    ),
+                ],
               ),
             ],
           ],

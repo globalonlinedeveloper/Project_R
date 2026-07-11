@@ -210,7 +210,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-L8 | Gamification & social screens | Must | Stage2 | Built ✅ | — | `router.dart`, `friends_controller.dart`, `friends_screen.dart`, `learner_controller.dart` +16 |
 | R-L9 | Multi-course, course-switch, flip-UI & immersion | Must | Stage2 | Built ✅ | — | — |
 | R-L10 | Navigation / information architecture (tab shell, deep links) | Must | Stage2 | Built ✅ | — | — |
-| R-L11 | Notifications (push categories, opt-in, inbox) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `friends_controller.dart`, `home_screen.dart`, `leagues_screen.dart`, `learner_controller.dart` +9 |
+| R-L11 | Notifications (push categories, opt-in, inbox) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `friends_controller.dart`, `home_screen.dart`, `leagues_screen.dart`, `learner_controller.dart` +11 |
 | R-L11a | Widgets are mobile-only; desktop/web get in-app/tray equivalent | Could | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-L11b | Notifications: per-platform delivery profile | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `friends_controller.dart`, `data_access.dart`, `supabase_friends_store.dart`, `friends_realtime_test.dart` |
 | R-L12 | Global search | Should | Stage2 | Built ✅ | — | `library_search_screen.dart`, `settings_controller.dart`, `app_settings.dart`, `search.dart` +3 |
@@ -263,7 +263,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-O1 | Phase-2 deliverables (local content model - NO DB) | Process | Stage1 | Built ✅ | — | `friends_screen.dart`, `learner_controller.dart`, `practice_hub_screen.dart`, `progress_screen.dart` +19 |
+| R-O1 | Phase-2 deliverables (local content model - NO DB) | Process | Stage1 | Built ✅ | — | `friends_screen.dart`, `learner_controller.dart`, `practice_hub_screen.dart`, `progress_screen.dart` +20 |
 | R-O2 | Phase-3 deliverables (DB + runtime + payments - gated, MONEY) | Process | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-O3 | Post-launch waves (tier climb, write/live-roleplay, RTL re-add) | Process | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
 | R-O4 | Risk register & mitigations | Process | Program | Spec/cross ▫ | — | — |

@@ -4,6 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:ratel/services/data_access/supabase_user_state_stores.dart';
+import 'package:ratel/services/notifications/earned_stamps_store.dart';
+import 'package:ratel/services/notifications/prefs_earned_stamps_store.dart';
 import 'package:ratel/services/preferences/prefs_settings_store.dart';
 import 'package:ratel/services/preferences/settings_store.dart';
 import 'package:ratel/services/progress/prefs_xp_history_store.dart';
@@ -94,6 +96,9 @@ Future<void> main() async {
       XpHistoryStore xpHistory = PrefsXpHistoryStore(prefs);
       StudyStatsStore studyStats = PrefsStudyStatsStore(prefs);
       OutfitsStore outfits = PrefsOutfitsStore(prefs);
+      // D-13 earn stamps: device-local only (like the pre-S110 stores) — a
+      // cross-device synced column is a future owner-gated migration.
+      final EarnedStampsStore earnedStamps = PrefsEarnedStampsStore(prefs);
       if (supabaseConfigured()) {
         try {
           final SupabaseClient client = Supabase.instance.client;
@@ -123,6 +128,8 @@ Future<void> main() async {
       overrides.add(xpHistoryStoreProvider.overrideWithValue(xpHistory));
       overrides.add(studyStatsStoreProvider.overrideWithValue(studyStats));
       overrides.add(outfitsStoreProvider.overrideWithValue(outfits));
+      overrides.add(
+          earnedStampsStoreProvider.overrideWithValue(earnedStamps));
     } catch (_) {
       // keep the in-memory settings default
     }
