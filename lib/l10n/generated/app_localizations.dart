@@ -963,6 +963,324 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'These are in-app milestones, surfaced the moment you earn them. Push notifications and reminders are an owner decision and not enabled yet — nothing here is faked.'**
   String get notifPushNote;
+
+  /// No description provided for @shopPowerUps.
+  ///
+  /// In en, this message translates to:
+  /// **'Power-ups'**
+  String get shopPowerUps;
+
+  /// No description provided for @shopStreakFreeze.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak Freeze'**
+  String get shopStreakFreeze;
+
+  /// No description provided for @shopStreakFreezeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Protects your streak for one missed day. Spent automatically when you miss your daily goal.'**
+  String get shopStreakFreezeDesc;
+
+  /// No description provided for @shopOwned.
+  ///
+  /// In en, this message translates to:
+  /// **'Owned {have}/{max}'**
+  String shopOwned(int have, int max);
+
+  /// No description provided for @shopMaxedOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Maxed out'**
+  String get shopMaxedOut;
+
+  /// No description provided for @shopBuyFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy for {cost} 💎'**
+  String shopBuyFor(int cost);
+
+  /// No description provided for @shopFreezeAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak freeze added 💪'**
+  String get shopFreezeAdded;
+
+  /// No description provided for @shopFreezeAtCap.
+  ///
+  /// In en, this message translates to:
+  /// **'You already hold the most freezes ({max}).'**
+  String shopFreezeAtCap(int max);
+
+  /// No description provided for @shopNotEnoughEarnCost.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough 💎 — earn {cost} by finishing lessons.'**
+  String shopNotEnoughEarnCost(int cost);
+
+  /// No description provided for @shopNotEnoughEarnMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough 💎 — earn more by finishing lessons.'**
+  String get shopNotEnoughEarnMore;
+
+  /// No description provided for @shopEnergyRefill.
+  ///
+  /// In en, this message translates to:
+  /// **'Energy Refill'**
+  String get shopEnergyRefill;
+
+  /// No description provided for @shopEnergyRefillDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Top your energy straight back up to full. Energy is display-only — lessons never block.'**
+  String get shopEnergyRefillDesc;
+
+  /// No description provided for @shopAlreadyFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Already full'**
+  String get shopAlreadyFull;
+
+  /// No description provided for @shopEnergyRefilled.
+  ///
+  /// In en, this message translates to:
+  /// **'Energy refilled ⚡'**
+  String get shopEnergyRefilled;
+
+  /// No description provided for @shopEnergyAlreadyFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Your energy is already full.'**
+  String get shopEnergyAlreadyFull;
+
+  /// No description provided for @shopStreakRepair.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak Repair'**
+  String get shopStreakRepair;
+
+  /// No description provided for @shopStreakRepairDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lost your streak? Restore it to its previous length and keep the run going.'**
+  String get shopStreakRepairDesc;
+
+  /// No description provided for @shopStreakLapsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak lapsed'**
+  String get shopStreakLapsed;
+
+  /// No description provided for @shopStreakDays.
+  ///
+  /// In en, this message translates to:
+  /// **'🔥 {days}-day streak'**
+  String shopStreakDays(int days);
+
+  /// No description provided for @shopRepairFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Repair for {cost} 💎'**
+  String shopRepairFor(int cost);
+
+  /// No description provided for @shopStreakRestored.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak restored 🔥'**
+  String get shopStreakRestored;
+
+  /// No description provided for @shopStreakSafe.
+  ///
+  /// In en, this message translates to:
+  /// **'Your streak is safe — nothing to repair right now.'**
+  String get shopStreakSafe;
+
+  /// No description provided for @shopDoubleXp.
+  ///
+  /// In en, this message translates to:
+  /// **'Double XP'**
+  String get shopDoubleXp;
+
+  /// No description provided for @shopDoubleXpDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Earn 2× XP from every lesson for 15 minutes.'**
+  String get shopDoubleXpDesc;
+
+  /// No description provided for @shopActiveLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'Active · {minutes}m left'**
+  String shopActiveLeft(int minutes);
+
+  /// No description provided for @shopInactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get shopInactive;
+
+  /// No description provided for @shopActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get shopActive;
+
+  /// No description provided for @shopDoubleXpActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Double XP active ✨'**
+  String get shopDoubleXpActive;
+
+  /// No description provided for @shopBoostRunning.
+  ///
+  /// In en, this message translates to:
+  /// **'Your boost is running — XP is doubled.'**
+  String get shopBoostRunning;
+
+  /// No description provided for @shopBadgerOutfits.
+  ///
+  /// In en, this message translates to:
+  /// **'Badger outfits'**
+  String get shopBadgerOutfits;
+
+  /// No description provided for @paywallTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'RATEL PRO'**
+  String get paywallTitle;
+
+  /// No description provided for @paywallStartTrial.
+  ///
+  /// In en, this message translates to:
+  /// **'Start 7-day free trial'**
+  String get paywallStartTrial;
+
+  /// No description provided for @paywallGoPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Go Pro — {price}/mo'**
+  String paywallGoPro(String price);
+
+  /// No description provided for @paywallRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get paywallRestore;
+
+  /// No description provided for @paywallHero.
+  ///
+  /// In en, this message translates to:
+  /// **'Live AI tutoring, ad-free, and offline lessons.'**
+  String get paywallHero;
+
+  /// No description provided for @paywallAnnual.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual'**
+  String get paywallAnnual;
+
+  /// No description provided for @paywallMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get paywallMonthly;
+
+  /// No description provided for @paywallTrialHow.
+  ///
+  /// In en, this message translates to:
+  /// **'How the 7-day free trial works'**
+  String get paywallTrialHow;
+
+  /// No description provided for @paywallTrialToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get paywallTrialToday;
+
+  /// No description provided for @paywallTrialTodayDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Pro access unlocks. No charge.'**
+  String get paywallTrialTodayDesc;
+
+  /// No description provided for @paywallTrialDay5.
+  ///
+  /// In en, this message translates to:
+  /// **'Day 5'**
+  String get paywallTrialDay5;
+
+  /// No description provided for @paywallTrialDay5Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'We remind you before the trial ends.'**
+  String get paywallTrialDay5Desc;
+
+  /// No description provided for @paywallTrialDay7.
+  ///
+  /// In en, this message translates to:
+  /// **'Day 7'**
+  String get paywallTrialDay7;
+
+  /// No description provided for @paywallTrialDay7Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'{price}/yr begins unless you cancel.'**
+  String paywallTrialDay7Desc(String price);
+
+  /// No description provided for @paywallFeatureLiveAi.
+  ///
+  /// In en, this message translates to:
+  /// **'Live AI: voice, tutor chat & writing feedback'**
+  String get paywallFeatureLiveAi;
+
+  /// No description provided for @paywallFeatureNoAds.
+  ///
+  /// In en, this message translates to:
+  /// **'No ads, anywhere'**
+  String get paywallFeatureNoAds;
+
+  /// No description provided for @paywallFeatureOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline lessons & audio'**
+  String get paywallFeatureOffline;
+
+  /// No description provided for @paywallFeaturePronunciation.
+  ///
+  /// In en, this message translates to:
+  /// **'AI pronunciation coaching tips'**
+  String get paywallFeaturePronunciation;
+
+  /// No description provided for @paywallEverythingFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything else — all 52 languages, audio, review, leagues, roleplay and on-device pronunciation — stays free for everyone.'**
+  String get paywallEverythingFree;
+
+  /// No description provided for @paywallYouArePro.
+  ///
+  /// In en, this message translates to:
+  /// **'You are on RATEL PRO'**
+  String get paywallYouArePro;
+
+  /// No description provided for @paywallThanks.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks for supporting Ratel. Manage or cancel anytime from Settings → Manage subscription.'**
+  String get paywallThanks;
+
+  /// No description provided for @paywallManage.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage subscription'**
+  String get paywallManage;
+
+  /// No description provided for @paywallFinePrint.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel anytime in Settings. Prices shown for {regions}; your local price is set by your app store.'**
+  String paywallFinePrint(String regions);
 }
 
 class _AppLocalizationsDelegate

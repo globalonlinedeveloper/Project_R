@@ -478,4 +478,186 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get notifPushNote =>
       '이것은 앱 내 마일스톤으로, 달성하는 순간 표시돼요. 푸시 알림과 리마인더는 소유자의 결정이며 아직 활성화되지 않았어요 — 여기 가짜는 없어요.';
+
+  @override
+  String get shopPowerUps => '파워업';
+
+  @override
+  String get shopStreakFreeze => '스트릭 프리즈';
+
+  @override
+  String get shopStreakFreezeDesc => '하루 빠져도 스트릭을 지켜줘요. 일일 목표를 놓치면 자동으로 사용돼요.';
+
+  @override
+  String shopOwned(int have, int max) {
+    return '보유 $have/$max';
+  }
+
+  @override
+  String get shopMaxedOut => '최대 보유';
+
+  @override
+  String shopBuyFor(int cost) {
+    return '$cost 💎로 구매';
+  }
+
+  @override
+  String get shopFreezeAdded => '스트릭 프리즈 추가됨 💪';
+
+  @override
+  String shopFreezeAtCap(int max) {
+    return '이미 최대 개수예요($max).';
+  }
+
+  @override
+  String shopNotEnoughEarnCost(int cost) {
+    return '💎 부족 — 레슨을 끝내고 $cost 모으세요.';
+  }
+
+  @override
+  String get shopNotEnoughEarnMore => '💎 부족 — 레슨을 끝내고 더 모으세요.';
+
+  @override
+  String get shopEnergyRefill => '에너지 리필';
+
+  @override
+  String get shopEnergyRefillDesc =>
+      '에너지를 바로 가득 채우세요. 에너지는 표시용일 뿐 — 레슨은 절대 막히지 않아요.';
+
+  @override
+  String get shopAlreadyFull => '이미 가득';
+
+  @override
+  String get shopEnergyRefilled => '에너지 충전 완료 ⚡';
+
+  @override
+  String get shopEnergyAlreadyFull => '에너지가 이미 가득해요.';
+
+  @override
+  String get shopStreakRepair => '스트릭 복구';
+
+  @override
+  String get shopStreakRepairDesc => '스트릭을 잃었나요? 이전 길이로 되돌리고 계속 이어가세요.';
+
+  @override
+  String get shopStreakLapsed => '스트릭 끊김';
+
+  @override
+  String shopStreakDays(int days) {
+    return '🔥 $days일 스트릭';
+  }
+
+  @override
+  String shopRepairFor(int cost) {
+    return '$cost 💎로 복구';
+  }
+
+  @override
+  String get shopStreakRestored => '스트릭 복구 완료 🔥';
+
+  @override
+  String get shopStreakSafe => '스트릭이 안전해요 — 지금은 복구할 게 없어요.';
+
+  @override
+  String get shopDoubleXp => '더블 XP';
+
+  @override
+  String get shopDoubleXpDesc => '15분 동안 모든 레슨에서 2× XP 획득.';
+
+  @override
+  String shopActiveLeft(int minutes) {
+    return '활성 · $minutes분 남음';
+  }
+
+  @override
+  String get shopInactive => '비활성';
+
+  @override
+  String get shopActive => '활성';
+
+  @override
+  String get shopDoubleXpActive => '더블 XP 활성화 ✨';
+
+  @override
+  String get shopBoostRunning => '부스트 작동 중 — XP가 2배예요.';
+
+  @override
+  String get shopBadgerOutfits => '오소리 의상';
+
+  @override
+  String get paywallTitle => 'RATEL PRO';
+
+  @override
+  String get paywallStartTrial => '7일 무료 체험 시작';
+
+  @override
+  String paywallGoPro(String price) {
+    return 'Pro 시작 — $price/월';
+  }
+
+  @override
+  String get paywallRestore => '구매 복원';
+
+  @override
+  String get paywallHero => '실시간 AI 튜터링, 광고 없음, 오프라인 레슨.';
+
+  @override
+  String get paywallAnnual => '연간';
+
+  @override
+  String get paywallMonthly => '월간';
+
+  @override
+  String get paywallTrialHow => '7일 무료 체험 안내';
+
+  @override
+  String get paywallTrialToday => '오늘';
+
+  @override
+  String get paywallTrialTodayDesc => 'Pro 전체 이용 해제. 요금 없음.';
+
+  @override
+  String get paywallTrialDay5 => '5일차';
+
+  @override
+  String get paywallTrialDay5Desc => '체험 종료 전에 알려드려요.';
+
+  @override
+  String get paywallTrialDay7 => '7일차';
+
+  @override
+  String paywallTrialDay7Desc(String price) {
+    return '취소하지 않으면 $price/년이 시작돼요.';
+  }
+
+  @override
+  String get paywallFeatureLiveAi => '실시간 AI: 음성, 튜터 채팅, 작문 피드백';
+
+  @override
+  String get paywallFeatureNoAds => '어디서든 광고 없음';
+
+  @override
+  String get paywallFeatureOffline => '오프라인 레슨과 오디오';
+
+  @override
+  String get paywallFeaturePronunciation => 'AI 발음 코칭 팁';
+
+  @override
+  String get paywallEverythingFree =>
+      '나머지 전부 — 52개 언어, 오디오, 복습, 리그, 롤플레이, 기기 내 발음 — 는 모두에게 무료예요.';
+
+  @override
+  String get paywallYouArePro => 'RATEL PRO 이용 중';
+
+  @override
+  String get paywallThanks =>
+      'Ratel을 응원해 주셔서 감사해요. 설정 → 구독 관리에서 언제든 관리하거나 취소할 수 있어요.';
+
+  @override
+  String get paywallManage => '구독 관리';
+
+  @override
+  String paywallFinePrint(String regions) {
+    return '설정에서 언제든 취소할 수 있어요. 표시된 가격은 $regions 기준이며 실제 가격은 앱 스토어가 정해요.';
+  }
 }

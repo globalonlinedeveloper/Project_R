@@ -292,6 +292,24 @@ void main() {
     expect(es.questsGoalReached, contains('🎉'));
   });
 
+  test('I7 en byte-identity pins (shop/paywall)', () {
+    final AppLocalizations en = lookupAppLocalizations(const Locale('en'));
+    expect(en.shopOwned(1, 2), 'Owned 1/2');
+    expect(en.shopBuyFor(200), 'Buy for 200 💎');
+    expect(en.shopFreezeAtCap(2), 'You already hold the most freezes (2).');
+    expect(en.shopStreakDays(7), '🔥 7-day streak');
+    expect(en.shopActiveLeft(14), 'Active · 14m left');
+    expect(en.paywallGoPro('US\u00244.99'), 'Go Pro — US\u00244.99/mo');
+    expect(en.paywallTrialDay7Desc('US\u002429.99'),
+        'US\u002429.99/yr begins unless you cancel.');
+    expect(en.paywallFinePrint('IN/BD'),
+        'Cancel anytime in Settings. Prices shown for IN/BD; '
+        'your local price is set by your app store.');
+    final AppLocalizations es = lookupAppLocalizations(const Locale('es'));
+    expect(es.shopBuyFor(200), contains('200 💎'));
+    expect(es.paywallStartTrial, contains('7'));
+  });
+
   testWidgets('Onboarding in Spanish: welcome step localized',
       (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(

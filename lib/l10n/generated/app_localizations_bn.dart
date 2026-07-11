@@ -482,4 +482,191 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get notifPushNote =>
       'এগুলো অ্যাপের ভেতরের মাইলফলক, অর্জনের মুহূর্তেই দেখানো হয়। পুশ বিজ্ঞপ্তি ও রিমাইন্ডার মালিকের সিদ্ধান্ত, এখনো চালু হয়নি — এখানে কিছুই নকল নয়।';
+
+  @override
+  String get shopPowerUps => 'পাওয়ার-আপ';
+
+  @override
+  String get shopStreakFreeze => 'স্ট্রিক ফ্রিজ';
+
+  @override
+  String get shopStreakFreezeDesc =>
+      'একটি বাদ পড়া দিনে আপনার স্ট্রিক রক্ষা করে। দৈনিক লক্ষ্য মিস করলে স্বয়ংক্রিয়ভাবে খরচ হয়।';
+
+  @override
+  String shopOwned(int have, int max) {
+    return 'আছে $have/$max';
+  }
+
+  @override
+  String get shopMaxedOut => 'সর্বোচ্চ';
+
+  @override
+  String shopBuyFor(int cost) {
+    return '$cost 💎 দিয়ে কিনুন';
+  }
+
+  @override
+  String get shopFreezeAdded => 'স্ট্রিক ফ্রিজ যোগ হয়েছে 💪';
+
+  @override
+  String shopFreezeAtCap(int max) {
+    return 'আপনার কাছে ইতিমধ্যে সর্বোচ্চ ফ্রিজ আছে ($max)।';
+  }
+
+  @override
+  String shopNotEnoughEarnCost(int cost) {
+    return 'যথেষ্ট 💎 নেই — পাঠ শেষ করে $cost অর্জন করুন।';
+  }
+
+  @override
+  String get shopNotEnoughEarnMore =>
+      'যথেষ্ট 💎 নেই — পাঠ শেষ করে আরও অর্জন করুন।';
+
+  @override
+  String get shopEnergyRefill => 'এনার্জি রিফিল';
+
+  @override
+  String get shopEnergyRefillDesc =>
+      'শক্তি সরাসরি পূর্ণ করুন। শক্তি শুধু প্রদর্শনের জন্য — পাঠ কখনো আটকায় না।';
+
+  @override
+  String get shopAlreadyFull => 'আগে থেকেই পূর্ণ';
+
+  @override
+  String get shopEnergyRefilled => 'শক্তি পূরণ হয়েছে ⚡';
+
+  @override
+  String get shopEnergyAlreadyFull => 'আপনার শক্তি আগে থেকেই পূর্ণ।';
+
+  @override
+  String get shopStreakRepair => 'স্ট্রিক মেরামত';
+
+  @override
+  String get shopStreakRepairDesc =>
+      'স্ট্রিক হারিয়েছেন? আগের দৈর্ঘ্যে ফিরিয়ে এনে চালিয়ে যান।';
+
+  @override
+  String get shopStreakLapsed => 'স্ট্রিক ভেঙেছে';
+
+  @override
+  String shopStreakDays(int days) {
+    return '🔥 $days-দিনের স্ট্রিক';
+  }
+
+  @override
+  String shopRepairFor(int cost) {
+    return '$cost 💎 দিয়ে মেরামত';
+  }
+
+  @override
+  String get shopStreakRestored => 'স্ট্রিক পুনরুদ্ধার 🔥';
+
+  @override
+  String get shopStreakSafe => 'আপনার স্ট্রিক নিরাপদ — এখন মেরামতের কিছু নেই।';
+
+  @override
+  String get shopDoubleXp => 'ডাবল XP';
+
+  @override
+  String get shopDoubleXpDesc => '১৫ মিনিট ধরে প্রতিটি পাঠে 2× XP অর্জন করুন।';
+
+  @override
+  String shopActiveLeft(int minutes) {
+    return 'সক্রিয় · $minutesমি বাকি';
+  }
+
+  @override
+  String get shopInactive => 'নিষ্ক্রিয়';
+
+  @override
+  String get shopActive => 'সক্রিয়';
+
+  @override
+  String get shopDoubleXpActive => 'ডাবল XP সক্রিয় ✨';
+
+  @override
+  String get shopBoostRunning => 'আপনার বুস্ট চলছে — XP দ্বিগুণ হচ্ছে।';
+
+  @override
+  String get shopBadgerOutfits => 'ব্যাজারের পোশাক';
+
+  @override
+  String get paywallTitle => 'RATEL PRO';
+
+  @override
+  String get paywallStartTrial => '৭ দিনের ফ্রি ট্রায়াল শুরু করুন';
+
+  @override
+  String paywallGoPro(String price) {
+    return 'Pro নিন — $price/মাস';
+  }
+
+  @override
+  String get paywallRestore => 'কেনাকাটা পুনরুদ্ধার';
+
+  @override
+  String get paywallHero => 'লাইভ AI টিউটরিং, বিজ্ঞাপনমুক্ত, অফলাইন পাঠ।';
+
+  @override
+  String get paywallAnnual => 'বার্ষিক';
+
+  @override
+  String get paywallMonthly => 'মাসিক';
+
+  @override
+  String get paywallTrialHow => '৭ দিনের ফ্রি ট্রায়াল কীভাবে কাজ করে';
+
+  @override
+  String get paywallTrialToday => 'আজ';
+
+  @override
+  String get paywallTrialTodayDesc =>
+      'সম্পূর্ণ Pro অ্যাক্সেস খুলে যায়। কোনো চার্জ নেই।';
+
+  @override
+  String get paywallTrialDay5 => 'দিন ৫';
+
+  @override
+  String get paywallTrialDay5Desc => 'ট্রায়াল শেষের আগে আমরা মনে করিয়ে দিই।';
+
+  @override
+  String get paywallTrialDay7 => 'দিন ৭';
+
+  @override
+  String paywallTrialDay7Desc(String price) {
+    return 'বাতিল না করলে $price/বছর শুরু হয়।';
+  }
+
+  @override
+  String get paywallFeatureLiveAi =>
+      'লাইভ AI: ভয়েস, টিউটর চ্যাট ও লেখার ফিডব্যাক';
+
+  @override
+  String get paywallFeatureNoAds => 'কোথাও বিজ্ঞাপন নেই';
+
+  @override
+  String get paywallFeatureOffline => 'অফলাইন পাঠ ও অডিও';
+
+  @override
+  String get paywallFeaturePronunciation => 'AI উচ্চারণ কোচিং টিপস';
+
+  @override
+  String get paywallEverythingFree =>
+      'বাকি সব — ৫২টি ভাষা, অডিও, রিভিউ, লিগ, রোলপ্লে ও ডিভাইসে উচ্চারণ — সবার জন্য ফ্রি থাকে।';
+
+  @override
+  String get paywallYouArePro => 'আপনি RATEL PRO-তে আছেন';
+
+  @override
+  String get paywallThanks =>
+      'Ratel-কে সমর্থনের জন্য ধন্যবাদ। সেটিংস → সাবস্ক্রিপশন পরিচালনা থেকে যেকোনো সময় পরিচালনা বা বাতিল করুন।';
+
+  @override
+  String get paywallManage => 'সাবস্ক্রিপশন পরিচালনা';
+
+  @override
+  String paywallFinePrint(String regions) {
+    return 'সেটিংসে যেকোনো সময় বাতিল করুন। দেখানো দাম $regions-এর জন্য; আপনার স্থানীয় দাম ঠিক করে আপনার অ্যাপ স্টোর।';
+  }
 }

@@ -54,7 +54,7 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
           icon: Icon(RatelIcons.arrowBack, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: Text('RATEL PRO',
+        title: Text(context.l10n.paywallTitle,
             style: TextStyle(
                 fontFamily: RatelFont.display,
                 fontWeight: RatelType.extraBold,
@@ -86,13 +86,13 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
               RatelButton(
                 key: const ValueKey<String>('paywall-cta'),
                 label: _plan == ProPlan.annual
-                    ? 'Start 7-day free trial'
-                    : 'Go Pro — ${price.monthlyDisplay}/mo',
+                    ? context.l10n.paywallStartTrial
+                    : context.l10n.paywallGoPro(price.monthlyDisplay),
                 onPressed: () => _startCheckout(context, price),
               ),
               const SizedBox(height: RatelSpace.sm),
               RatelButton(
-                label: 'Restore purchases',
+                label: context.l10n.paywallRestore,
                 variant: RatelButtonVariant.secondary,
                 onPressed: () => _restore(context),
               ),
@@ -118,14 +118,14 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Text('RATEL PRO',
+                  Text(context.l10n.paywallTitle,
                       style: TextStyle(
                           fontFamily: RatelFont.display,
                           fontWeight: RatelType.extraBold,
                           fontSize: RatelType.cardTitle,
                           color: RatelColors.onColor)),
                   const SizedBox(height: 2),
-                  Text('Live AI tutoring, ad-free, and offline lessons.',
+                  Text(context.l10n.paywallHero,
                       style: TextStyle(
                           fontFamily: RatelFont.body,
                           fontSize: RatelType.small,
@@ -162,7 +162,7 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(annual ? 'Annual' : 'Monthly',
+                Text(annual ? context.l10n.paywallAnnual : context.l10n.paywallMonthly,
                     style: TextStyle(
                         fontFamily: RatelFont.display,
                         fontWeight: RatelType.extraBold,
@@ -197,18 +197,19 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('How the 7-day free trial works',
+            Text(context.l10n.paywallTrialHow,
                 style: TextStyle(
                     fontFamily: RatelFont.display,
                     fontWeight: RatelType.extraBold,
                     fontSize: RatelType.body,
                     color: context.palette.ink)),
             const SizedBox(height: RatelSpace.sm),
-            _timelineRow(context, 'Today', 'Full Pro access unlocks. No charge.'),
-            _timelineRow(
-                context, 'Day 5', 'We remind you before the trial ends.'),
-            _timelineRow(context, 'Day 7',
-                '${price.annualDisplay}/yr begins unless you cancel.'),
+            _timelineRow(context, context.l10n.paywallTrialToday,
+                context.l10n.paywallTrialTodayDesc),
+            _timelineRow(context, context.l10n.paywallTrialDay5,
+                context.l10n.paywallTrialDay5Desc),
+            _timelineRow(context, context.l10n.paywallTrialDay7,
+                context.l10n.paywallTrialDay7Desc(price.annualDisplay)),
           ],
         ),
       );
@@ -250,14 +251,13 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
                     fontSize: RatelType.body,
                     color: context.palette.ink)),
             const SizedBox(height: RatelSpace.sm),
-            _featureRow(context, '🎙️', 'Live AI: voice, tutor chat & writing feedback'),
-            _featureRow(context, '🚫', 'No ads, anywhere'),
-            _featureRow(context, '📥', 'Offline lessons & audio'),
-            _featureRow(context, '🗣️', 'AI pronunciation coaching tips'),
+            _featureRow(context, '🎙️', context.l10n.paywallFeatureLiveAi),
+            _featureRow(context, '🚫', context.l10n.paywallFeatureNoAds),
+            _featureRow(context, '📥', context.l10n.paywallFeatureOffline),
+            _featureRow(context, '🗣️', context.l10n.paywallFeaturePronunciation),
             const SizedBox(height: RatelSpace.sm),
             Text(
-                'Everything else — all 52 languages, audio, review, leagues, '
-                'roleplay and on-device pronunciation — stays free for everyone.',
+                context.l10n.paywallEverythingFree,
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.small,
@@ -296,7 +296,7 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
                 RatelChip.pro(),
                 const SizedBox(width: RatelSpace.sm),
                 Expanded(
-                  child: Text('You are on RATEL PRO',
+                  child: Text(context.l10n.paywallYouArePro,
                       style: TextStyle(
                           fontFamily: RatelFont.display,
                           fontWeight: RatelType.extraBold,
@@ -307,8 +307,7 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
             ),
             const SizedBox(height: RatelSpace.sm),
             Text(
-                'Thanks for supporting Ratel. Manage or cancel anytime from '
-                'Settings → Manage subscription.',
+                context.l10n.paywallThanks,
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.small,
@@ -322,7 +321,7 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
                 if (!context.mounted) return;
                 _snack(context, r.message);
               },
-              child: Text('Manage subscription',
+              child: Text(context.l10n.paywallManage,
                   style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.body,
@@ -336,8 +335,7 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
   Widget _finePrint(BuildContext context, ProBandPricing price) => Column(
         children: <Widget>[
           Text(
-            'Cancel anytime in Settings. Prices shown for ${price.regions}; '
-            'your local price is set by your app store.',
+            context.l10n.paywallFinePrint(price.regions),
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontFamily: RatelFont.body,

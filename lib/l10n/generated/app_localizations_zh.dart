@@ -476,4 +476,184 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get notifPushNote =>
       '这些是应用内里程碑,在你达成时立即显示。推送通知和提醒由所有者决定,尚未启用 — 这里没有任何虚假内容。';
+
+  @override
+  String get shopPowerUps => '强化道具';
+
+  @override
+  String get shopStreakFreeze => '连胜冻结';
+
+  @override
+  String get shopStreakFreezeDesc => '漏学一天也能保住连胜。错过每日目标时自动消耗。';
+
+  @override
+  String shopOwned(int have, int max) {
+    return '已拥有 $have/$max';
+  }
+
+  @override
+  String get shopMaxedOut => '已达上限';
+
+  @override
+  String shopBuyFor(int cost) {
+    return '花 $cost 💎 购买';
+  }
+
+  @override
+  String get shopFreezeAdded => '已添加连胜冻结 💪';
+
+  @override
+  String shopFreezeAtCap(int max) {
+    return '你已持有最多的冻结($max)。';
+  }
+
+  @override
+  String shopNotEnoughEarnCost(int cost) {
+    return '💎 不足 — 完成课程赚取 $cost。';
+  }
+
+  @override
+  String get shopNotEnoughEarnMore => '💎 不足 — 完成课程赚取更多。';
+
+  @override
+  String get shopEnergyRefill => '能量补充';
+
+  @override
+  String get shopEnergyRefillDesc => '立即把能量补满。能量仅作展示 — 课程永不受阻。';
+
+  @override
+  String get shopAlreadyFull => '已满';
+
+  @override
+  String get shopEnergyRefilled => '能量已补满 ⚡';
+
+  @override
+  String get shopEnergyAlreadyFull => '你的能量已经满了。';
+
+  @override
+  String get shopStreakRepair => '连胜修复';
+
+  @override
+  String get shopStreakRepairDesc => '丢了连胜?恢复到之前的长度,继续前进。';
+
+  @override
+  String get shopStreakLapsed => '连胜已中断';
+
+  @override
+  String shopStreakDays(int days) {
+    return '🔥 $days 天连胜';
+  }
+
+  @override
+  String shopRepairFor(int cost) {
+    return '花 $cost 💎 修复';
+  }
+
+  @override
+  String get shopStreakRestored => '连胜已恢复 🔥';
+
+  @override
+  String get shopStreakSafe => '你的连胜安然无恙 — 现在无需修复。';
+
+  @override
+  String get shopDoubleXp => '双倍 XP';
+
+  @override
+  String get shopDoubleXpDesc => '15 分钟内每节课获得 2× XP。';
+
+  @override
+  String shopActiveLeft(int minutes) {
+    return '生效中 · 剩余 $minutes 分钟';
+  }
+
+  @override
+  String get shopInactive => '未激活';
+
+  @override
+  String get shopActive => '生效中';
+
+  @override
+  String get shopDoubleXpActive => '双倍 XP 已激活 ✨';
+
+  @override
+  String get shopBoostRunning => '你的加成正在生效 — XP 翻倍中。';
+
+  @override
+  String get shopBadgerOutfits => '獾的服装';
+
+  @override
+  String get paywallTitle => 'RATEL PRO';
+
+  @override
+  String get paywallStartTrial => '开始 7 天免费试用';
+
+  @override
+  String paywallGoPro(String price) {
+    return '升级 Pro — $price/月';
+  }
+
+  @override
+  String get paywallRestore => '恢复购买';
+
+  @override
+  String get paywallHero => '实时 AI 辅导、无广告、离线课程。';
+
+  @override
+  String get paywallAnnual => '按年';
+
+  @override
+  String get paywallMonthly => '按月';
+
+  @override
+  String get paywallTrialHow => '7 天免费试用如何运作';
+
+  @override
+  String get paywallTrialToday => '今天';
+
+  @override
+  String get paywallTrialTodayDesc => '解锁全部 Pro 权益。不收费。';
+
+  @override
+  String get paywallTrialDay5 => '第 5 天';
+
+  @override
+  String get paywallTrialDay5Desc => '试用结束前我们会提醒你。';
+
+  @override
+  String get paywallTrialDay7 => '第 7 天';
+
+  @override
+  String paywallTrialDay7Desc(String price) {
+    return '若未取消,将开始按 $price/年收费。';
+  }
+
+  @override
+  String get paywallFeatureLiveAi => '实时 AI:语音、导师聊天与写作反馈';
+
+  @override
+  String get paywallFeatureNoAds => '任何地方都无广告';
+
+  @override
+  String get paywallFeatureOffline => '离线课程与音频';
+
+  @override
+  String get paywallFeaturePronunciation => 'AI 发音指导建议';
+
+  @override
+  String get paywallEverythingFree =>
+      '其余一切 — 全部 52 种语言、音频、复习、联赛、角色扮演和设备端发音 — 对所有人永久免费。';
+
+  @override
+  String get paywallYouArePro => '你已是 RATEL PRO';
+
+  @override
+  String get paywallThanks => '感谢支持 Ratel。可随时在 设置 → 管理订阅 中管理或取消。';
+
+  @override
+  String get paywallManage => '管理订阅';
+
+  @override
+  String paywallFinePrint(String regions) {
+    return '可随时在设置中取消。所示价格适用于 $regions;你的本地价格由应用商店决定。';
+  }
 }

@@ -292,5 +292,131 @@
         "type": "int"
       }
     }
+  },
+  "shopPowerUps": "Power-ups",
+  "shopStreakFreeze": "Streak Freeze",
+  "shopStreakFreezeDesc": "Protects your streak for one missed day. Spent automatically when you miss your daily goal.",
+  "shopOwned": "Owned {have}/{max}",
+  "shopMaxedOut": "Maxed out",
+  "shopBuyFor": "Buy for {cost} 💎",
+  "shopFreezeAdded": "Streak freeze added 💪",
+  "shopFreezeAtCap": "You already hold the most freezes ({max}).",
+  "shopNotEnoughEarnCost": "Not enough 💎 — earn {cost} by finishing lessons.",
+  "shopNotEnoughEarnMore": "Not enough 💎 — earn more by finishing lessons.",
+  "shopEnergyRefill": "Energy Refill",
+  "shopEnergyRefillDesc": "Top your energy straight back up to full. Energy is display-only — lessons never block.",
+  "shopAlreadyFull": "Already full",
+  "shopEnergyRefilled": "Energy refilled ⚡",
+  "shopEnergyAlreadyFull": "Your energy is already full.",
+  "shopStreakRepair": "Streak Repair",
+  "shopStreakRepairDesc": "Lost your streak? Restore it to its previous length and keep the run going.",
+  "shopStreakLapsed": "Streak lapsed",
+  "shopStreakDays": "🔥 {days}-day streak",
+  "shopRepairFor": "Repair for {cost} 💎",
+  "shopStreakRestored": "Streak restored 🔥",
+  "shopStreakSafe": "Your streak is safe — nothing to repair right now.",
+  "shopDoubleXp": "Double XP",
+  "shopDoubleXpDesc": "Earn 2× XP from every lesson for 15 minutes.",
+  "shopActiveLeft": "Active · {minutes}m left",
+  "shopInactive": "Inactive",
+  "shopActive": "Active",
+  "shopDoubleXpActive": "Double XP active ✨",
+  "shopBoostRunning": "Your boost is running — XP is doubled.",
+  "shopBadgerOutfits": "Badger outfits",
+  "paywallTitle": "RATEL PRO",
+  "paywallStartTrial": "Start 7-day free trial",
+  "paywallGoPro": "Go Pro — {price}/mo",
+  "paywallRestore": "Restore purchases",
+  "paywallHero": "Live AI tutoring, ad-free, and offline lessons.",
+  "paywallAnnual": "Annual",
+  "paywallMonthly": "Monthly",
+  "paywallTrialHow": "How the 7-day free trial works",
+  "paywallTrialToday": "Today",
+  "paywallTrialTodayDesc": "Full Pro access unlocks. No charge.",
+  "paywallTrialDay5": "Day 5",
+  "paywallTrialDay5Desc": "We remind you before the trial ends.",
+  "paywallTrialDay7": "Day 7",
+  "paywallTrialDay7Desc": "{price}/yr begins unless you cancel.",
+  "paywallFeatureLiveAi": "Live AI: voice, tutor chat & writing feedback",
+  "paywallFeatureNoAds": "No ads, anywhere",
+  "paywallFeatureOffline": "Offline lessons & audio",
+  "paywallFeaturePronunciation": "AI pronunciation coaching tips",
+  "paywallEverythingFree": "Everything else — all 52 languages, audio, review, leagues, roleplay and on-device pronunciation — stays free for everyone.",
+  "paywallYouArePro": "You are on RATEL PRO",
+  "paywallThanks": "Thanks for supporting Ratel. Manage or cancel anytime from Settings → Manage subscription.",
+  "paywallManage": "Manage subscription",
+  "paywallFinePrint": "Cancel anytime in Settings. Prices shown for {regions}; your local price is set by your app store.",
+  "@shopOwned": {
+    "placeholders": {
+      "have": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "@shopBuyFor": {
+    "placeholders": {
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
+  "@shopFreezeAtCap": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "@shopNotEnoughEarnCost": {
+    "placeholders": {
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
+  "@shopStreakDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "@shopRepairFor": {
+    "placeholders": {
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
+  "@shopActiveLeft": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "@paywallGoPro": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "@paywallTrialDay7Desc": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "@paywallFinePrint": {
+    "placeholders": {
+      "regions": {
+        "type": "String"
+      }
+    }
   }
 }

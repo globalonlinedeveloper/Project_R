@@ -486,4 +486,193 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get notifPushNote =>
       'Estes são marcos no app, exibidos no momento em que você os conquista. Notificações push e lembretes são decisão do proprietário e ainda não estão ativados — nada aqui é falso.';
+
+  @override
+  String get shopPowerUps => 'Potencializadores';
+
+  @override
+  String get shopStreakFreeze => 'Congelamento de ofensiva';
+
+  @override
+  String get shopStreakFreezeDesc =>
+      'Protege sua ofensiva por um dia perdido. Gasto automaticamente quando você perde a meta diária.';
+
+  @override
+  String shopOwned(int have, int max) {
+    return 'Possui $have/$max';
+  }
+
+  @override
+  String get shopMaxedOut => 'No máximo';
+
+  @override
+  String shopBuyFor(int cost) {
+    return 'Comprar por $cost 💎';
+  }
+
+  @override
+  String get shopFreezeAdded => 'Congelamento adicionado 💪';
+
+  @override
+  String shopFreezeAtCap(int max) {
+    return 'Você já tem o máximo de congelamentos ($max).';
+  }
+
+  @override
+  String shopNotEnoughEarnCost(int cost) {
+    return '💎 insuficientes — ganhe $cost concluindo lições.';
+  }
+
+  @override
+  String get shopNotEnoughEarnMore =>
+      '💎 insuficientes — ganhe mais concluindo lições.';
+
+  @override
+  String get shopEnergyRefill => 'Recarga de energia';
+
+  @override
+  String get shopEnergyRefillDesc =>
+      'Recarregue sua energia até o máximo. A energia é só visual — as lições nunca bloqueiam.';
+
+  @override
+  String get shopAlreadyFull => 'Já cheia';
+
+  @override
+  String get shopEnergyRefilled => 'Energia recarregada ⚡';
+
+  @override
+  String get shopEnergyAlreadyFull => 'Sua energia já está cheia.';
+
+  @override
+  String get shopStreakRepair => 'Reparo de ofensiva';
+
+  @override
+  String get shopStreakRepairDesc =>
+      'Perdeu a ofensiva? Restaure o tamanho anterior e continue em frente.';
+
+  @override
+  String get shopStreakLapsed => 'Ofensiva perdida';
+
+  @override
+  String shopStreakDays(int days) {
+    return '🔥 Ofensiva de $days dias';
+  }
+
+  @override
+  String shopRepairFor(int cost) {
+    return 'Reparar por $cost 💎';
+  }
+
+  @override
+  String get shopStreakRestored => 'Ofensiva restaurada 🔥';
+
+  @override
+  String get shopStreakSafe =>
+      'Sua ofensiva está segura — nada a reparar agora.';
+
+  @override
+  String get shopDoubleXp => 'XP em dobro';
+
+  @override
+  String get shopDoubleXpDesc => 'Ganhe 2× XP em cada lição por 15 minutos.';
+
+  @override
+  String shopActiveLeft(int minutes) {
+    return 'Ativo · faltam ${minutes}min';
+  }
+
+  @override
+  String get shopInactive => 'Inativo';
+
+  @override
+  String get shopActive => 'Ativo';
+
+  @override
+  String get shopDoubleXpActive => 'XP em dobro ativado ✨';
+
+  @override
+  String get shopBoostRunning => 'Seu bônus está rodando — o XP está dobrado.';
+
+  @override
+  String get shopBadgerOutfits => 'Trajes do texugo';
+
+  @override
+  String get paywallTitle => 'RATEL PRO';
+
+  @override
+  String get paywallStartTrial => 'Iniciar teste grátis de 7 dias';
+
+  @override
+  String paywallGoPro(String price) {
+    return 'Seja Pro — $price/mês';
+  }
+
+  @override
+  String get paywallRestore => 'Restaurar compras';
+
+  @override
+  String get paywallHero =>
+      'Tutoria com IA ao vivo, sem anúncios e lições offline.';
+
+  @override
+  String get paywallAnnual => 'Anual';
+
+  @override
+  String get paywallMonthly => 'Mensal';
+
+  @override
+  String get paywallTrialHow => 'Como funciona o teste grátis de 7 dias';
+
+  @override
+  String get paywallTrialToday => 'Hoje';
+
+  @override
+  String get paywallTrialTodayDesc =>
+      'Acesso Pro completo liberado. Sem cobrança.';
+
+  @override
+  String get paywallTrialDay5 => 'Dia 5';
+
+  @override
+  String get paywallTrialDay5Desc => 'Lembramos você antes do fim do teste.';
+
+  @override
+  String get paywallTrialDay7 => 'Dia 7';
+
+  @override
+  String paywallTrialDay7Desc(String price) {
+    return '$price/ano começa a valer, a menos que você cancele.';
+  }
+
+  @override
+  String get paywallFeatureLiveAi =>
+      'IA ao vivo: voz, chat com tutor e feedback de escrita';
+
+  @override
+  String get paywallFeatureNoAds => 'Sem anúncios, em lugar nenhum';
+
+  @override
+  String get paywallFeatureOffline => 'Lições e áudio offline';
+
+  @override
+  String get paywallFeaturePronunciation => 'Dicas de pronúncia com IA';
+
+  @override
+  String get paywallEverythingFree =>
+      'Todo o resto — os 52 idiomas, áudio, revisão, ligas, roleplay e pronúncia no dispositivo — continua grátis para todos.';
+
+  @override
+  String get paywallYouArePro => 'Você está no RATEL PRO';
+
+  @override
+  String get paywallThanks =>
+      'Obrigado por apoiar o Ratel. Gerencie ou cancele quando quiser em Configurações → Gerenciar assinatura.';
+
+  @override
+  String get paywallManage => 'Gerenciar assinatura';
+
+  @override
+  String paywallFinePrint(String regions) {
+    return 'Cancele quando quiser nas Configurações. Preços exibidos para $regions; seu preço local é definido pela loja de aplicativos.';
+  }
 }

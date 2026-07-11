@@ -477,4 +477,186 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get notifPushNote =>
       'これらはアプリ内のマイルストーンで、達成した瞬間に表示されます。プッシュ通知とリマインダーはオーナーの判断でまだ無効です — 偽物は一切ありません。';
+
+  @override
+  String get shopPowerUps => 'パワーアップ';
+
+  @override
+  String get shopStreakFreeze => 'ストリークフリーズ';
+
+  @override
+  String get shopStreakFreezeDesc => '1日休んでも連続記録を守ります。毎日の目標を逃すと自動で消費されます。';
+
+  @override
+  String shopOwned(int have, int max) {
+    return '所持 $have/$max';
+  }
+
+  @override
+  String get shopMaxedOut => '上限到達';
+
+  @override
+  String shopBuyFor(int cost) {
+    return '$cost 💎 で購入';
+  }
+
+  @override
+  String get shopFreezeAdded => 'ストリークフリーズを追加 💪';
+
+  @override
+  String shopFreezeAtCap(int max) {
+    return 'すでに最大数のフリーズを所持しています($max)。';
+  }
+
+  @override
+  String shopNotEnoughEarnCost(int cost) {
+    return '💎 が足りません — レッスンを終えて $cost 獲得しよう。';
+  }
+
+  @override
+  String get shopNotEnoughEarnMore => '💎 が足りません — レッスンを終えてもっと獲得しよう。';
+
+  @override
+  String get shopEnergyRefill => 'エネルギー回復';
+
+  @override
+  String get shopEnergyRefillDesc =>
+      'エネルギーを一気に満タンへ。エネルギーは表示のみ — レッスンは決してブロックされません。';
+
+  @override
+  String get shopAlreadyFull => 'すでに満タン';
+
+  @override
+  String get shopEnergyRefilled => 'エネルギー回復 ⚡';
+
+  @override
+  String get shopEnergyAlreadyFull => 'エネルギーはすでに満タンです。';
+
+  @override
+  String get shopStreakRepair => 'ストリーク修復';
+
+  @override
+  String get shopStreakRepairDesc => '連続記録を失った?以前の長さに戻して続けよう。';
+
+  @override
+  String get shopStreakLapsed => 'ストリーク途切れ';
+
+  @override
+  String shopStreakDays(int days) {
+    return '🔥 $days日連続';
+  }
+
+  @override
+  String shopRepairFor(int cost) {
+    return '$cost 💎 で修復';
+  }
+
+  @override
+  String get shopStreakRestored => 'ストリーク復活 🔥';
+
+  @override
+  String get shopStreakSafe => '連続記録は無事です — 今は修復不要。';
+
+  @override
+  String get shopDoubleXp => 'ダブルXP';
+
+  @override
+  String get shopDoubleXpDesc => '15分間、全レッスンで2×XPを獲得。';
+
+  @override
+  String shopActiveLeft(int minutes) {
+    return '有効 · 残り$minutes分';
+  }
+
+  @override
+  String get shopInactive => '無効';
+
+  @override
+  String get shopActive => '有効';
+
+  @override
+  String get shopDoubleXpActive => 'ダブルXP発動 ✨';
+
+  @override
+  String get shopBoostRunning => 'ブースト作動中 — XPが2倍です。';
+
+  @override
+  String get shopBadgerOutfits => 'アナグマの衣装';
+
+  @override
+  String get paywallTitle => 'RATEL PRO';
+
+  @override
+  String get paywallStartTrial => '7日間無料トライアルを開始';
+
+  @override
+  String paywallGoPro(String price) {
+    return 'Proにする — $price/月';
+  }
+
+  @override
+  String get paywallRestore => '購入を復元';
+
+  @override
+  String get paywallHero => 'ライブAIチュータリング、広告なし、オフラインレッスン。';
+
+  @override
+  String get paywallAnnual => '年額';
+
+  @override
+  String get paywallMonthly => '月額';
+
+  @override
+  String get paywallTrialHow => '7日間無料トライアルの仕組み';
+
+  @override
+  String get paywallTrialToday => '今日';
+
+  @override
+  String get paywallTrialTodayDesc => 'Proのフルアクセスが解放。請求なし。';
+
+  @override
+  String get paywallTrialDay5 => '5日目';
+
+  @override
+  String get paywallTrialDay5Desc => '終了前にお知らせします。';
+
+  @override
+  String get paywallTrialDay7 => '7日目';
+
+  @override
+  String paywallTrialDay7Desc(String price) {
+    return 'キャンセルしない限り $price/年が始まります。';
+  }
+
+  @override
+  String get paywallFeatureLiveAi => 'ライブAI:音声・チューターチャット・作文フィードバック';
+
+  @override
+  String get paywallFeatureNoAds => '広告は一切なし';
+
+  @override
+  String get paywallFeatureOffline => 'オフラインのレッスンと音声';
+
+  @override
+  String get paywallFeaturePronunciation => 'AI発音コーチングのヒント';
+
+  @override
+  String get paywallEverythingFree =>
+      'それ以外のすべて — 52言語・音声・復習・リーグ・ロールプレイ・端末上の発音 — は誰でもずっと無料。';
+
+  @override
+  String get paywallYouArePro => 'RATEL PRO をご利用中';
+
+  @override
+  String get paywallThanks =>
+      'Ratelを支えてくれてありがとう。設定 → サブスクリプション管理 からいつでも管理・解約できます。';
+
+  @override
+  String get paywallManage => 'サブスクリプション管理';
+
+  @override
+  String paywallFinePrint(String regions) {
+    return '設定からいつでもキャンセルできます。表示価格は $regions のもの。実際の価格はアプリストアが決定します。';
+  }
 }

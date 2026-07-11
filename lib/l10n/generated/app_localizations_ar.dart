@@ -492,4 +492,192 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get notifPushNote =>
       'هذه إنجازات داخل التطبيق تظهر لحظة تحقيقها. إشعارات الدفع والتذكيرات قرار المالك وغير مفعّلة بعد — لا شيء هنا مزيّف.';
+
+  @override
+  String get shopPowerUps => 'التعزيزات';
+
+  @override
+  String get shopStreakFreeze => 'تجميد السلسلة';
+
+  @override
+  String get shopStreakFreezeDesc =>
+      'يحمي سلسلتك ليوم واحد فائت. يُستهلك تلقائيًا عند تفويت هدفك اليومي.';
+
+  @override
+  String shopOwned(int have, int max) {
+    return 'تملك $have/$max';
+  }
+
+  @override
+  String get shopMaxedOut => 'الحد الأقصى';
+
+  @override
+  String shopBuyFor(int cost) {
+    return 'اشترِ بـ $cost 💎';
+  }
+
+  @override
+  String get shopFreezeAdded => 'أُضيف تجميد السلسلة 💪';
+
+  @override
+  String shopFreezeAtCap(int max) {
+    return 'لديك بالفعل أقصى عدد من التجميدات ($max).';
+  }
+
+  @override
+  String shopNotEnoughEarnCost(int cost) {
+    return '💎 غير كافية — اجمع $cost بإنهاء الدروس.';
+  }
+
+  @override
+  String get shopNotEnoughEarnMore =>
+      '💎 غير كافية — اجمع المزيد بإنهاء الدروس.';
+
+  @override
+  String get shopEnergyRefill => 'إعادة شحن الطاقة';
+
+  @override
+  String get shopEnergyRefillDesc =>
+      'أعد طاقتك إلى الحد الأقصى فورًا. الطاقة للعرض فقط — الدروس لا تُحجب أبدًا.';
+
+  @override
+  String get shopAlreadyFull => 'ممتلئة بالفعل';
+
+  @override
+  String get shopEnergyRefilled => 'أُعيد شحن الطاقة ⚡';
+
+  @override
+  String get shopEnergyAlreadyFull => 'طاقتك ممتلئة بالفعل.';
+
+  @override
+  String get shopStreakRepair => 'إصلاح السلسلة';
+
+  @override
+  String get shopStreakRepairDesc =>
+      'فقدت سلسلتك؟ أعدها إلى طولها السابق وواصل المسيرة.';
+
+  @override
+  String get shopStreakLapsed => 'انقطعت السلسلة';
+
+  @override
+  String shopStreakDays(int days) {
+    return '🔥 سلسلة $days يومًا';
+  }
+
+  @override
+  String shopRepairFor(int cost) {
+    return 'أصلح بـ $cost 💎';
+  }
+
+  @override
+  String get shopStreakRestored => 'استُعيدت السلسلة 🔥';
+
+  @override
+  String get shopStreakSafe => 'سلسلتك بأمان — لا شيء يحتاج إصلاحًا الآن.';
+
+  @override
+  String get shopDoubleXp => 'XP مضاعف';
+
+  @override
+  String get shopDoubleXpDesc => 'اكسب 2× XP من كل درس لمدة 15 دقيقة.';
+
+  @override
+  String shopActiveLeft(int minutes) {
+    return 'نشط · تبقّى $minutes د';
+  }
+
+  @override
+  String get shopInactive => 'غير نشط';
+
+  @override
+  String get shopActive => 'نشط';
+
+  @override
+  String get shopDoubleXpActive => 'تفعّل XP المضاعف ✨';
+
+  @override
+  String get shopBoostRunning => 'التعزيز يعمل — يتضاعف XP.';
+
+  @override
+  String get shopBadgerOutfits => 'أزياء الغرير';
+
+  @override
+  String get paywallTitle => 'RATEL PRO';
+
+  @override
+  String get paywallStartTrial => 'ابدأ تجربة مجانية لـ7 أيام';
+
+  @override
+  String paywallGoPro(String price) {
+    return 'اشترك في Pro — $price/شهر';
+  }
+
+  @override
+  String get paywallRestore => 'استعادة المشتريات';
+
+  @override
+  String get paywallHero =>
+      'تدريس مباشر بالذكاء الاصطناعي، بلا إعلانات، ودروس دون اتصال.';
+
+  @override
+  String get paywallAnnual => 'سنوي';
+
+  @override
+  String get paywallMonthly => 'شهري';
+
+  @override
+  String get paywallTrialHow => 'كيف تعمل التجربة المجانية لـ7 أيام';
+
+  @override
+  String get paywallTrialToday => 'اليوم';
+
+  @override
+  String get paywallTrialTodayDesc => 'يُفتح وصول Pro الكامل. بلا رسوم.';
+
+  @override
+  String get paywallTrialDay5 => 'اليوم 5';
+
+  @override
+  String get paywallTrialDay5Desc => 'نذكّرك قبل انتهاء التجربة.';
+
+  @override
+  String get paywallTrialDay7 => 'اليوم 7';
+
+  @override
+  String paywallTrialDay7Desc(String price) {
+    return 'يبدأ $price/سنة ما لم تلغِ.';
+  }
+
+  @override
+  String get paywallFeatureLiveAi =>
+      'ذكاء اصطناعي مباشر: صوت ودردشة معلّم وملاحظات كتابة';
+
+  @override
+  String get paywallFeatureNoAds => 'لا إعلانات، في أي مكان';
+
+  @override
+  String get paywallFeatureOffline => 'دروس وصوت دون اتصال';
+
+  @override
+  String get paywallFeaturePronunciation =>
+      'نصائح تدريب على النطق بالذكاء الاصطناعي';
+
+  @override
+  String get paywallEverythingFree =>
+      'كل ما عدا ذلك — الـ52 لغة والصوت والمراجعة والدوريات وتمثيل الأدوار والنطق على الجهاز — يبقى مجانيًا للجميع.';
+
+  @override
+  String get paywallYouArePro => 'أنت مشترك في RATEL PRO';
+
+  @override
+  String get paywallThanks =>
+      'شكرًا لدعمك Ratel. أدر اشتراكك أو ألغِه متى شئت من الإعدادات ← إدارة الاشتراك.';
+
+  @override
+  String get paywallManage => 'إدارة الاشتراك';
+
+  @override
+  String paywallFinePrint(String regions) {
+    return 'ألغِ في أي وقت من الإعدادات. الأسعار المعروضة لـ$regions؛ يحدد متجر تطبيقاتك سعرك المحلي.';
+  }
 }

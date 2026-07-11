@@ -73,7 +73,7 @@ class SettingsScreen extends ConsumerWidget {
           const SizedBox(height: RatelSpace.lg),
           _section(context, context.l10n.settingsSectionSubscription, <Widget>[
             RatelListRow(
-              title: 'Manage subscription',
+              title: context.l10n.paywallManage,
               subtitle: isPro ? 'RATEL PRO active' : 'Free plan',
               onTap: () {
                 if (isPro) {

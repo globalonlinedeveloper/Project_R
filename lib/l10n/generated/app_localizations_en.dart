@@ -482,4 +482,191 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get notifPushNote =>
       'These are in-app milestones, surfaced the moment you earn them. Push notifications and reminders are an owner decision and not enabled yet — nothing here is faked.';
+
+  @override
+  String get shopPowerUps => 'Power-ups';
+
+  @override
+  String get shopStreakFreeze => 'Streak Freeze';
+
+  @override
+  String get shopStreakFreezeDesc =>
+      'Protects your streak for one missed day. Spent automatically when you miss your daily goal.';
+
+  @override
+  String shopOwned(int have, int max) {
+    return 'Owned $have/$max';
+  }
+
+  @override
+  String get shopMaxedOut => 'Maxed out';
+
+  @override
+  String shopBuyFor(int cost) {
+    return 'Buy for $cost 💎';
+  }
+
+  @override
+  String get shopFreezeAdded => 'Streak freeze added 💪';
+
+  @override
+  String shopFreezeAtCap(int max) {
+    return 'You already hold the most freezes ($max).';
+  }
+
+  @override
+  String shopNotEnoughEarnCost(int cost) {
+    return 'Not enough 💎 — earn $cost by finishing lessons.';
+  }
+
+  @override
+  String get shopNotEnoughEarnMore =>
+      'Not enough 💎 — earn more by finishing lessons.';
+
+  @override
+  String get shopEnergyRefill => 'Energy Refill';
+
+  @override
+  String get shopEnergyRefillDesc =>
+      'Top your energy straight back up to full. Energy is display-only — lessons never block.';
+
+  @override
+  String get shopAlreadyFull => 'Already full';
+
+  @override
+  String get shopEnergyRefilled => 'Energy refilled ⚡';
+
+  @override
+  String get shopEnergyAlreadyFull => 'Your energy is already full.';
+
+  @override
+  String get shopStreakRepair => 'Streak Repair';
+
+  @override
+  String get shopStreakRepairDesc =>
+      'Lost your streak? Restore it to its previous length and keep the run going.';
+
+  @override
+  String get shopStreakLapsed => 'Streak lapsed';
+
+  @override
+  String shopStreakDays(int days) {
+    return '🔥 $days-day streak';
+  }
+
+  @override
+  String shopRepairFor(int cost) {
+    return 'Repair for $cost 💎';
+  }
+
+  @override
+  String get shopStreakRestored => 'Streak restored 🔥';
+
+  @override
+  String get shopStreakSafe =>
+      'Your streak is safe — nothing to repair right now.';
+
+  @override
+  String get shopDoubleXp => 'Double XP';
+
+  @override
+  String get shopDoubleXpDesc => 'Earn 2× XP from every lesson for 15 minutes.';
+
+  @override
+  String shopActiveLeft(int minutes) {
+    return 'Active · ${minutes}m left';
+  }
+
+  @override
+  String get shopInactive => 'Inactive';
+
+  @override
+  String get shopActive => 'Active';
+
+  @override
+  String get shopDoubleXpActive => 'Double XP active ✨';
+
+  @override
+  String get shopBoostRunning => 'Your boost is running — XP is doubled.';
+
+  @override
+  String get shopBadgerOutfits => 'Badger outfits';
+
+  @override
+  String get paywallTitle => 'RATEL PRO';
+
+  @override
+  String get paywallStartTrial => 'Start 7-day free trial';
+
+  @override
+  String paywallGoPro(String price) {
+    return 'Go Pro — $price/mo';
+  }
+
+  @override
+  String get paywallRestore => 'Restore purchases';
+
+  @override
+  String get paywallHero => 'Live AI tutoring, ad-free, and offline lessons.';
+
+  @override
+  String get paywallAnnual => 'Annual';
+
+  @override
+  String get paywallMonthly => 'Monthly';
+
+  @override
+  String get paywallTrialHow => 'How the 7-day free trial works';
+
+  @override
+  String get paywallTrialToday => 'Today';
+
+  @override
+  String get paywallTrialTodayDesc => 'Full Pro access unlocks. No charge.';
+
+  @override
+  String get paywallTrialDay5 => 'Day 5';
+
+  @override
+  String get paywallTrialDay5Desc => 'We remind you before the trial ends.';
+
+  @override
+  String get paywallTrialDay7 => 'Day 7';
+
+  @override
+  String paywallTrialDay7Desc(String price) {
+    return '$price/yr begins unless you cancel.';
+  }
+
+  @override
+  String get paywallFeatureLiveAi =>
+      'Live AI: voice, tutor chat & writing feedback';
+
+  @override
+  String get paywallFeatureNoAds => 'No ads, anywhere';
+
+  @override
+  String get paywallFeatureOffline => 'Offline lessons & audio';
+
+  @override
+  String get paywallFeaturePronunciation => 'AI pronunciation coaching tips';
+
+  @override
+  String get paywallEverythingFree =>
+      'Everything else — all 52 languages, audio, review, leagues, roleplay and on-device pronunciation — stays free for everyone.';
+
+  @override
+  String get paywallYouArePro => 'You are on RATEL PRO';
+
+  @override
+  String get paywallThanks =>
+      'Thanks for supporting Ratel. Manage or cancel anytime from Settings → Manage subscription.';
+
+  @override
+  String get paywallManage => 'Manage subscription';
+
+  @override
+  String paywallFinePrint(String regions) {
+    return 'Cancel anytime in Settings. Prices shown for $regions; your local price is set by your app store.';
+  }
 }

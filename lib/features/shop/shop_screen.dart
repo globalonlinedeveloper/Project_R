@@ -28,8 +28,8 @@ class ShopScreen extends ConsumerWidget {
     final bool atCap = snap.streakFreezes >= max;
     final bool canBuy = learner.canBuyStreakFreeze;
     final String reason = atCap
-        ? 'You already hold the most freezes ($max).'
-        : 'Not enough 💎 — earn $cost by finishing lessons.';
+        ? context.l10n.shopFreezeAtCap(max)
+        : context.l10n.shopNotEnoughEarnCost(cost);
     final int energyRefillCost = learner.energyRefillCost;
     final bool canRefill = learner.canBuyEnergyRefill;
     final bool energyFull = snap.energy >= learner.energyCap;
@@ -56,7 +56,7 @@ class ShopScreen extends ConsumerWidget {
           onPressed: () => context.pop(),
         ),
         title: Text(
-          'Shop',
+          context.l10n.profileShop,
           style: TextStyle(
             fontFamily: RatelFont.display,
             fontWeight: RatelType.extraBold,
@@ -75,7 +75,7 @@ class ShopScreen extends ConsumerWidget {
             const SizedBox(height: RatelSpace.lg),
             _proBanner(context),
             const SizedBox(height: RatelSpace.lg),
-            const RatelSectionHeader(label: 'Power-ups'),
+            RatelSectionHeader(label: context.l10n.shopPowerUps),
             const SizedBox(height: RatelSpace.sm),
             RatelCard(
               child: Column(
@@ -90,7 +90,7 @@ class ShopScreen extends ConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text('Streak Freeze',
+                            Text(context.l10n.shopStreakFreeze,
                                 style: TextStyle(
                                     fontFamily: RatelFont.display,
                                     fontWeight: RatelType.extraBold,
@@ -98,8 +98,7 @@ class ShopScreen extends ConsumerWidget {
                                     color: context.palette.ink)),
                             const SizedBox(height: 2),
                             Text(
-                                'Protects your streak for one missed day. Spent '
-                                'automatically when you miss your daily goal.',
+                                context.l10n.shopStreakFreezeDesc,
                                 style: TextStyle(
                                     fontFamily: RatelFont.body,
                                     fontSize: RatelType.small,
@@ -113,7 +112,7 @@ class ShopScreen extends ConsumerWidget {
                   Row(
                     children: <Widget>[
                       RatelChip(
-                          label: 'Owned ${snap.streakFreezes}/$max',
+                          label: context.l10n.shopOwned(snap.streakFreezes, max),
                           tone: RatelChipTone.teal),
                       const Spacer(),
                       RatelChip(
@@ -125,14 +124,16 @@ class ShopScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: RatelSpace.md),
                   RatelButton(
-                    label: atCap ? 'Maxed out' : 'Buy for $cost 💎',
+                    label: atCap
+                        ? context.l10n.shopMaxedOut
+                        : context.l10n.shopBuyFor(cost),
                     onPressed: canBuy
                         ? () {
                             learner.buyStreakFreeze();
                             ScaffoldMessenger.of(context)
                               ..hideCurrentSnackBar()
-                              ..showSnackBar(const SnackBar(
-                                  content: Text('Streak freeze added 💪')));
+                              ..showSnackBar(SnackBar(
+                                  content: Text(context.l10n.shopFreezeAdded)));
                           }
                         : null,
                   ),
@@ -150,83 +151,85 @@ class ShopScreen extends ConsumerWidget {
             const SizedBox(height: RatelSpace.cardGap),
             _PowerUpCard(
               emoji: '⚡',
-              title: 'Energy Refill',
-              desc: 'Top your energy straight back up to full. Energy is '
-                  'display-only — lessons never block.',
+              title: context.l10n.shopEnergyRefill,
+              desc: context.l10n.shopEnergyRefillDesc,
               status: '⚡ ${snap.energy}/${learner.energyCap}',
               statusTone: RatelChipTone.amber,
-              buttonLabel:
-                  energyFull ? 'Already full' : 'Buy for $energyRefillCost 💎',
+              buttonLabel: energyFull
+                  ? context.l10n.shopAlreadyFull
+                  : context.l10n.shopBuyFor(energyRefillCost),
               onBuy: canRefill
                   ? () {
                       learner.buyEnergyRefill();
                       ScaffoldMessenger.of(context)
                         ..hideCurrentSnackBar()
-                        ..showSnackBar(const SnackBar(
-                            content: Text('Energy refilled ⚡')));
+                        ..showSnackBar(SnackBar(
+                            content: Text(context.l10n.shopEnergyRefilled)));
                     }
                   : null,
               note: canRefill
                   ? null
                   : (energyFull
-                      ? 'Your energy is already full.'
-                      : 'Not enough 💎 — earn more by finishing lessons.'),
+                      ? context.l10n.shopEnergyAlreadyFull
+                      : context.l10n.shopNotEnoughEarnMore),
             ),
             const SizedBox(height: RatelSpace.cardGap),
             _PowerUpCard(
               emoji: '🛠️',
-              title: 'Streak Repair',
-              desc: 'Lost your streak? Restore it to its previous length and '
-                  'keep the run going.',
+              title: context.l10n.shopStreakRepair,
+              desc: context.l10n.shopStreakRepairDesc,
               status: streakLapsed
-                  ? 'Streak lapsed'
-                  : '🔥 ${snap.streakDays}-day streak',
+                  ? context.l10n.shopStreakLapsed
+                  : context.l10n.shopStreakDays(snap.streakDays),
               statusTone:
                   streakLapsed ? RatelChipTone.coral : RatelChipTone.teal,
-              buttonLabel: 'Repair for $streakRepairCost 💎',
+              buttonLabel: context.l10n.shopRepairFor(streakRepairCost),
               onBuy: canRepair
                   ? () {
                       learner.repairStreak();
                       ScaffoldMessenger.of(context)
                         ..hideCurrentSnackBar()
-                        ..showSnackBar(const SnackBar(
-                            content: Text('Streak restored 🔥')));
+                        ..showSnackBar(SnackBar(
+                            content: Text(context.l10n.shopStreakRestored)));
                     }
                   : null,
               note: canRepair
                   ? null
                   : (streakLapsed
-                      ? 'Not enough 💎 — earn more by finishing lessons.'
-                      : 'Your streak is safe — nothing to repair right now.'),
+                      ? context.l10n.shopNotEnoughEarnMore
+                      : context.l10n.shopStreakSafe),
             ),
             const SizedBox(height: RatelSpace.cardGap),
             _PowerUpCard(
               emoji: '✨',
-              title: 'Double XP',
-              desc: 'Earn 2× XP from every lesson for 15 minutes.',
+              title: context.l10n.shopDoubleXp,
+              desc: context.l10n.shopDoubleXpDesc,
               status: xpBoostActive
-                  ? 'Active · ${(xpBoostLeft?.inMinutes ?? 0) + 1}m left'
-                  : 'Inactive',
+                  ? context.l10n
+                      .shopActiveLeft((xpBoostLeft?.inMinutes ?? 0) + 1)
+                  : context.l10n.shopInactive,
               statusTone:
                   xpBoostActive ? RatelChipTone.green : RatelChipTone.neutral,
-              buttonLabel: xpBoostActive ? 'Active' : 'Buy for $doubleXpCost 💎',
+              buttonLabel: xpBoostActive
+                  ? context.l10n.shopActive
+                  : context.l10n.shopBuyFor(doubleXpCost),
               onBuy: canBuyXp
                   ? () {
                       learner.buyDoubleXp();
                       ScaffoldMessenger.of(context)
                         ..hideCurrentSnackBar()
-                        ..showSnackBar(const SnackBar(
-                            content: Text('Double XP active ✨')));
+                        ..showSnackBar(SnackBar(
+                            content: Text(context.l10n.shopDoubleXpActive)));
                     }
                   : null,
               note: canBuyXp
                   ? null
                   : (xpBoostActive
-                      ? 'Your boost is running — XP is doubled.'
-                      : 'Not enough 💎 — earn more by finishing lessons.'),
+                      ? context.l10n.shopBoostRunning
+                      : context.l10n.shopNotEnoughEarnMore),
             ),
             const SizedBox(height: RatelSpace.lg),
-            const RatelSectionHeader(label: 'Badger outfits'),
+            RatelSectionHeader(label: context.l10n.shopBadgerOutfits),
             const SizedBox(height: RatelSpace.sm),
             RatelCard(
               child: Column(
