@@ -671,4 +671,222 @@ class AppLocalizationsHi extends AppLocalizations {
   String paywallFinePrint(String regions) {
     return 'सेटिंग्स में कभी भी रद्द करें। दिखाए गए दाम $regions के लिए हैं; आपका स्थानीय दाम आपका ऐप स्टोर तय करता है।';
   }
+
+  @override
+  String get questTitlePowerSession => 'पावर सेशन';
+
+  @override
+  String get questDescPowerSession => 'अपने दैनिक लक्ष्य का दोगुना कमाएँ';
+
+  @override
+  String get questTitleOnFire => 'जोश में';
+
+  @override
+  String get questDescOnFire => 'अपने दैनिक लक्ष्य का तिगुना कमाएँ';
+
+  @override
+  String get questTitleStreakKeeper => 'स्ट्रीक रक्षक';
+
+  @override
+  String get questDescStreakKeeper => 'स्ट्रीक बनाए रखने के लिए आज अभ्यास करें';
+
+  @override
+  String get notifTitleLessons1 => 'पहला पाठ पूरा';
+
+  @override
+  String get notifBodyLessons1 =>
+      'आपने अपना पहला पाठ पूरा किया — शानदार शुरुआत!';
+
+  @override
+  String get notifTitleLessons5 => '5 पाठ पूरे';
+
+  @override
+  String get notifBodyLessons5 => 'आपने 5 पाठ पूरे कर लिए हैं। गति बनाए रखें।';
+
+  @override
+  String get notifTitleLessons10 => '10 पाठ पूरे';
+
+  @override
+  String get notifBodyLessons10 => 'दस पाठ — आप एक सच्ची आदत बना रहे हैं।';
+
+  @override
+  String get notifTitleLessons25 => '25 पाठ पूरे';
+
+  @override
+  String get notifBodyLessons25 => 'पच्चीस पाठ पूरे। प्रभावशाली समर्पण!';
+
+  @override
+  String get notifTitleLessons50 => '50 पाठ पूरे';
+
+  @override
+  String get notifBodyLessons50 => 'पचास पाठ — आप सही राह पर हैं।';
+
+  @override
+  String get notifTitleStreak3 => '3 दिन की स्ट्रीक!';
+
+  @override
+  String get notifBodyStreak3 => 'लगातार तीन दिन। निरंतरता ही सब कुछ है।';
+
+  @override
+  String get notifTitleStreak7 => '7 दिन की स्ट्रीक!';
+
+  @override
+  String get notifBodyStreak7 => 'रोज़ अभ्यास का पूरा एक हफ़्ता। शानदार!';
+
+  @override
+  String get notifTitleStreak14 => '14 दिन की स्ट्रीक!';
+
+  @override
+  String get notifBodyStreak14 => 'लगातार दो हफ़्ते — आप अजेय हैं।';
+
+  @override
+  String get notifTitleStreak30 => '30 दिन की स्ट्रीक!';
+
+  @override
+  String get notifBodyStreak30 => 'रोज़ अभ्यास का पूरा एक महीना। अविश्वसनीय।';
+
+  @override
+  String get notifTitleXp100 => '100 XP अर्जित';
+
+  @override
+  String get notifBodyXp100 => 'आपके पहले सौ XP — गति बढ़ रही है।';
+
+  @override
+  String get notifTitleXp500 => '500 XP अर्जित';
+
+  @override
+  String get notifBodyXp500 => 'पाँच सौ XP। आप मेहनत कर रहे हैं।';
+
+  @override
+  String get notifTitleXp1000 => '1,000 XP अर्जित';
+
+  @override
+  String get notifBodyXp1000 => 'एक हज़ार XP का पड़ाव पूरा!';
+
+  @override
+  String get notifTitleXp2500 => '2,500 XP अर्जित';
+
+  @override
+  String get notifBodyXp2500 => 'ढाई हज़ार XP — गंभीर प्रगति।';
+
+  @override
+  String get notifTitleLevel1 => 'स्तर A2 पर पहुँचे';
+
+  @override
+  String get notifBodyLevel1 => 'आपकी क्षमता A1 से A2 हो गई। आगे बढ़ें!';
+
+  @override
+  String get notifTitleLevel2 => 'स्तर B1 पर पहुँचे';
+
+  @override
+  String get notifBodyLevel2 => 'अब आप मध्यम स्तर के शिक्षार्थी हैं (B1)।';
+
+  @override
+  String get notifTitleLevel3 => 'स्तर B2 पर पहुँचे';
+
+  @override
+  String get notifBodyLevel3 => 'उच्च-मध्यम (B2) पर पहुँचे। शानदार।';
+
+  @override
+  String get notifTitleLevel4 => 'स्तर C1 पर पहुँचे';
+
+  @override
+  String get notifBodyLevel4 => 'उन्नत (C1) — आपकी स्पैनिश मज़बूत है।';
+
+  @override
+  String get notifTitleLevel5 => 'स्तर C2 पर पहुँचे';
+
+  @override
+  String get notifBodyLevel5 => 'प्रवीणता (C2) — पैमाने का शिखर!';
+
+  @override
+  String get achTitleFirstSteps => 'पहले क़दम';
+
+  @override
+  String get achTitleScholar => 'विद्वान';
+
+  @override
+  String get achTitleWildfire => 'दावानल';
+
+  @override
+  String get achTitlePointMaker => 'पॉइंट मेकर';
+
+  @override
+  String get achTitleCollector => 'संग्राहक';
+
+  @override
+  String get achTitleRisingStar => 'उभरता सितारा';
+
+  @override
+  String get leagueTierBronze => 'कांस्य';
+
+  @override
+  String get leagueTierSilver => 'रजत';
+
+  @override
+  String get leagueTierGold => 'स्वर्ण';
+
+  @override
+  String get leagueTierSapphire => 'नीलम';
+
+  @override
+  String get leagueTierRuby => 'माणिक';
+
+  @override
+  String get leagueTierEmerald => 'पन्ना';
+
+  @override
+  String get leagueTierAmethyst => 'एमेथिस्ट';
+
+  @override
+  String get leagueTierPearl => 'मोती';
+
+  @override
+  String get leagueTierObsidian => 'ऑब्सिडियन';
+
+  @override
+  String get leagueTierDiamond => 'हीरा';
+
+  @override
+  String get cefrNameBeginner => 'शुरुआती';
+
+  @override
+  String get cefrNameElementary => 'प्रारंभिक';
+
+  @override
+  String get cefrNameIntermediate => 'मध्यम';
+
+  @override
+  String get cefrNameUpperIntermediate => 'उच्च-मध्यम';
+
+  @override
+  String get cefrNameAdvanced => 'उन्नत';
+
+  @override
+  String get cefrNameProficient => 'प्रवीण';
+
+  @override
+  String leaguesTierLeague(String tier) {
+    return '$tier लीग';
+  }
+
+  @override
+  String leaguesYoureIn(String tier) {
+    return 'आप $tier में हैं · शीर्ष 7 हर हफ़्ते ऊपर जाते हैं';
+  }
+
+  @override
+  String get leaguesZonePromotion => '⬆ पदोन्नति क्षेत्र';
+
+  @override
+  String get leaguesZoneDemotion => '⬇ अवनति क्षेत्र';
+
+  @override
+  String profileAchievementsSummary(int unlocked, int total) {
+    return '$total में से $unlocked अनलॉक · वास्तविक प्रगति';
+  }
+
+  @override
+  String get profileRealStateNote =>
+      'स्तर, XP, पाठ, स्ट्रीक और सहेजे गए शब्द असली इंजन स्थिति हैं — नए खाते में ये शून्य से शुरू होते हैं।';
 }

@@ -669,4 +669,223 @@ class AppLocalizationsBn extends AppLocalizations {
   String paywallFinePrint(String regions) {
     return 'সেটিংসে যেকোনো সময় বাতিল করুন। দেখানো দাম $regions-এর জন্য; আপনার স্থানীয় দাম ঠিক করে আপনার অ্যাপ স্টোর।';
   }
+
+  @override
+  String get questTitlePowerSession => 'পাওয়ার সেশন';
+
+  @override
+  String get questDescPowerSession => 'আপনার দৈনিক লক্ষ্যের দ্বিগুণ অর্জন করুন';
+
+  @override
+  String get questTitleOnFire => 'আগুনে গতি';
+
+  @override
+  String get questDescOnFire => 'আপনার দৈনিক লক্ষ্যের তিনগুণ অর্জন করুন';
+
+  @override
+  String get questTitleStreakKeeper => 'স্ট্রিক রক্ষক';
+
+  @override
+  String get questDescStreakKeeper => 'স্ট্রিক ধরে রাখতে আজ অনুশীলন করুন';
+
+  @override
+  String get notifTitleLessons1 => 'প্রথম পাঠ সম্পূর্ণ';
+
+  @override
+  String get notifBodyLessons1 =>
+      'আপনি আপনার প্রথম পাঠ শেষ করেছেন — দুর্দান্ত শুরু!';
+
+  @override
+  String get notifTitleLessons5 => '5টি পাঠ সম্পন্ন';
+
+  @override
+  String get notifBodyLessons5 =>
+      'আপনি 5টি পাঠ সম্পন্ন করেছেন। গতি বজায় রাখুন।';
+
+  @override
+  String get notifTitleLessons10 => '10টি পাঠ সম্পন্ন';
+
+  @override
+  String get notifBodyLessons10 => 'দশটি পাঠ — আপনি সত্যিকারের অভ্যাস গড়ছেন।';
+
+  @override
+  String get notifTitleLessons25 => '25টি পাঠ সম্পন্ন';
+
+  @override
+  String get notifBodyLessons25 => 'পঁচিশটি পাঠ সম্পন্ন। প্রশংসনীয় নিষ্ঠা!';
+
+  @override
+  String get notifTitleLessons50 => '50টি পাঠ সম্পন্ন';
+
+  @override
+  String get notifBodyLessons50 => 'পঞ্চাশটি পাঠ — আপনি সঠিক পথে এগোচ্ছেন।';
+
+  @override
+  String get notifTitleStreak3 => '3 দিনের স্ট্রিক!';
+
+  @override
+  String get notifBodyStreak3 => 'টানা তিন দিন। ধারাবাহিকতাই সব।';
+
+  @override
+  String get notifTitleStreak7 => '7 দিনের স্ট্রিক!';
+
+  @override
+  String get notifBodyStreak7 => 'প্রতিদিন অনুশীলনের পুরো এক সপ্তাহ। অসাধারণ!';
+
+  @override
+  String get notifTitleStreak14 => '14 দিনের স্ট্রিক!';
+
+  @override
+  String get notifBodyStreak14 => 'টানা দুই সপ্তাহ — আপনি অপ্রতিরোধ্য।';
+
+  @override
+  String get notifTitleStreak30 => '30 দিনের স্ট্রিক!';
+
+  @override
+  String get notifBodyStreak30 => 'প্রতিদিন অনুশীলনের পুরো এক মাস। অবিশ্বাস্য।';
+
+  @override
+  String get notifTitleXp100 => '100 XP অর্জিত';
+
+  @override
+  String get notifBodyXp100 => 'আপনার প্রথম একশো XP — গতি বাড়ছে।';
+
+  @override
+  String get notifTitleXp500 => '500 XP অর্জিত';
+
+  @override
+  String get notifBodyXp500 => 'পাঁচশো XP। আপনি পরিশ্রম করছেন।';
+
+  @override
+  String get notifTitleXp1000 => '1,000 XP অর্জিত';
+
+  @override
+  String get notifBodyXp1000 => 'এক হাজার XP মাইলফলক অর্জিত!';
+
+  @override
+  String get notifTitleXp2500 => '2,500 XP অর্জিত';
+
+  @override
+  String get notifBodyXp2500 => 'আড়াই হাজার XP — গুরুতর অগ্রগতি।';
+
+  @override
+  String get notifTitleLevel1 => 'স্তর A2-এ পৌঁছেছেন';
+
+  @override
+  String get notifBodyLevel1 => 'আপনার দক্ষতা A1 থেকে A2 হয়েছে। এগিয়ে চলুন!';
+
+  @override
+  String get notifTitleLevel2 => 'স্তর B1-এ পৌঁছেছেন';
+
+  @override
+  String get notifBodyLevel2 => 'আপনি এখন মধ্যম স্তরের শিক্ষার্থী (B1)।';
+
+  @override
+  String get notifTitleLevel3 => 'স্তর B2-এ পৌঁছেছেন';
+
+  @override
+  String get notifBodyLevel3 => 'উচ্চ-মধ্যম (B2) অর্জিত। চমৎকার।';
+
+  @override
+  String get notifTitleLevel4 => 'স্তর C1-এ পৌঁছেছেন';
+
+  @override
+  String get notifBodyLevel4 => 'উন্নত (C1) — আপনার স্প্যানিশ শক্তিশালী।';
+
+  @override
+  String get notifTitleLevel5 => 'স্তর C2-এ পৌঁছেছেন';
+
+  @override
+  String get notifBodyLevel5 => 'দক্ষতা (C2) — স্কেলের শীর্ষ!';
+
+  @override
+  String get achTitleFirstSteps => 'প্রথম পদক্ষেপ';
+
+  @override
+  String get achTitleScholar => 'পণ্ডিত';
+
+  @override
+  String get achTitleWildfire => 'দাবানল';
+
+  @override
+  String get achTitlePointMaker => 'পয়েন্ট মেকার';
+
+  @override
+  String get achTitleCollector => 'সংগ্রাহক';
+
+  @override
+  String get achTitleRisingStar => 'উদীয়মান তারকা';
+
+  @override
+  String get leagueTierBronze => 'ব্রোঞ্জ';
+
+  @override
+  String get leagueTierSilver => 'রুপা';
+
+  @override
+  String get leagueTierGold => 'সোনা';
+
+  @override
+  String get leagueTierSapphire => 'নীলকান্তমণি';
+
+  @override
+  String get leagueTierRuby => 'চুনি';
+
+  @override
+  String get leagueTierEmerald => 'পান্না';
+
+  @override
+  String get leagueTierAmethyst => 'অ্যামেথিস্ট';
+
+  @override
+  String get leagueTierPearl => 'মুক্তা';
+
+  @override
+  String get leagueTierObsidian => 'অবসিডিয়ান';
+
+  @override
+  String get leagueTierDiamond => 'হীরা';
+
+  @override
+  String get cefrNameBeginner => 'শিক্ষানবিস';
+
+  @override
+  String get cefrNameElementary => 'প্রাথমিক';
+
+  @override
+  String get cefrNameIntermediate => 'মধ্যম';
+
+  @override
+  String get cefrNameUpperIntermediate => 'উচ্চ-মধ্যম';
+
+  @override
+  String get cefrNameAdvanced => 'উন্নত';
+
+  @override
+  String get cefrNameProficient => 'দক্ষ';
+
+  @override
+  String leaguesTierLeague(String tier) {
+    return '$tier লিগ';
+  }
+
+  @override
+  String leaguesYoureIn(String tier) {
+    return 'আপনি $tier-এ আছেন · শীর্ষ 7 প্রতি সপ্তাহে উপরে ওঠে';
+  }
+
+  @override
+  String get leaguesZonePromotion => '⬆ পদোন্নতি অঞ্চল';
+
+  @override
+  String get leaguesZoneDemotion => '⬇ অবনমন অঞ্চল';
+
+  @override
+  String profileAchievementsSummary(int unlocked, int total) {
+    return '$totalটির মধ্যে $unlockedটি আনলক · প্রকৃত অগ্রগতি';
+  }
+
+  @override
+  String get profileRealStateNote =>
+      'স্তর, XP, পাঠ, স্ট্রিক ও সংরক্ষিত শব্দ প্রকৃত ইঞ্জিন অবস্থা — নতুন অ্যাকাউন্টে শূন্য থেকে শুরু হয়।';
 }

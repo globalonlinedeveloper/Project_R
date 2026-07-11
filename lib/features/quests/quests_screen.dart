@@ -275,13 +275,13 @@ class _QuestTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(q.title,
+                Text(ratelQuestTitle(context, q.id, q.title),
                     style: TextStyle(
                         fontFamily: RatelFont.display,
                         fontWeight: RatelType.semiBold,
                         fontSize: RatelType.bodyLg,
                         color: context.palette.ink)),
-                Text(q.description,
+                Text(ratelQuestDescription(context, q.id, q.description),
                     style: TextStyle(
                         fontFamily: RatelFont.body,
                         fontSize: RatelType.small,

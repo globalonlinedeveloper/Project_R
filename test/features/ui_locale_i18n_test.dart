@@ -11,6 +11,11 @@ import 'package:ratel/features/settings/settings_screen.dart';
 import 'package:ratel/features/library/library_screen.dart';
 import 'package:ratel/features/onboarding/onboarding_screen.dart';
 import 'package:ratel/features/profile/profile_screen.dart';
+import 'package:ratel/features/quests/quests_screen.dart';
+import 'package:ratel/services/achievements/achievements.dart';
+import 'package:ratel/services/leagues/leagues.dart';
+import 'package:ratel/services/notifications/notifications.dart';
+import 'package:ratel/services/quests/quests.dart';
 import 'package:ratel/services/preferences/app_settings.dart';
 import 'package:ratel/services/preferences/prefs_ui_locale_store.dart';
 import 'package:ratel/services/preferences/settings_store.dart';
@@ -353,5 +358,93 @@ void main() {
     expect(
         Directionality.of(tester.element(find.byType(Scaffold).first)),
         TextDirection.rtl);
+  });
+
+  // ── S130 · engine-string render maps (quests / notifications /
+  //    achievements / league tiers / CEFR level names) ──────────────────────
+
+  testWidgets(
+      'engine render maps: bare harness renders the full catalogues '
+      'byte-identical English, and unknown ids/labels pass through',
+      (WidgetTester tester) async {
+    late BuildContext ctx;
+    await tester.pumpWidget(MaterialApp(
+      home: Builder(builder: (BuildContext c) {
+        ctx = c;
+        return const SizedBox();
+      }),
+    ));
+    for (final Quest q in QuestsEngine.catalogue) {
+      expect(ratelQuestTitle(ctx, q.id, q.title), q.title);
+      expect(ratelQuestDescription(ctx, q.id, q.description), q.description);
+    }
+    for (final NotificationDef d in NotificationsEngine.catalogue) {
+      expect(ratelNotificationTitle(ctx, d.id, d.title), d.title);
+      expect(ratelNotificationBody(ctx, d.id, d.body), d.body);
+    }
+    for (final Achievement a in AchievementsEngine.catalogue) {
+      expect(ratelAchievementTitle(ctx, a.id, a.title), a.title);
+    }
+    for (final LeagueTier t in LeagueTier.values) {
+      expect(ratelLeagueTierName(ctx, t.label), t.label);
+    }
+    for (final String n in <String>[
+      'Beginner',
+      'Elementary',
+      'Intermediate',
+      'Upper intermediate',
+      'Advanced',
+      'Proficient',
+    ]) {
+      expect(ratelCefrLevelDisplayName(ctx, n), n);
+    }
+    // Unknown ids/labels degrade honestly to the engine's own text.
+    expect(ratelQuestTitle(ctx, 'mystery_quest', 'Mystery'), 'Mystery');
+    expect(ratelQuestDescription(ctx, 'mystery_quest', 'Do it'), 'Do it');
+    expect(ratelNotificationTitle(ctx, 'gems:1', 'First gem'), 'First gem');
+    expect(ratelNotificationBody(ctx, 'gems:1', 'Shiny.'), 'Shiny.');
+    expect(ratelAchievementTitle(ctx, 'polyglot', 'Polyglot'), 'Polyglot');
+    expect(ratelLeagueTierName(ctx, 'Titanium'), 'Titanium');
+    expect(ratelCefrLevelDisplayName(ctx, 'Native'), 'Native');
+  });
+
+  test('leagues/profile leftover chrome keys: en byte-pins', () {
+    final AppLocalizations en = lookupAppLocalizations(const Locale('en'));
+    expect(en.leaguesTierLeague('Bronze'), 'Bronze League');
+    expect(
+        en.leaguesYoureIn('Bronze'), "You're in Bronze · top 7 climb each week");
+    expect(en.leaguesZonePromotion, '⬆ PROMOTION ZONE');
+    expect(en.leaguesZoneDemotion, '⬇ DEMOTION ZONE');
+    expect(en.profileAchievementsSummary(2, 6), '2 of 6 unlocked · real progress');
+    expect(
+        en.profileRealStateNote,
+        'Level, XP, lessons, streak and saved words are real engine '
+        'state — they start at zero on a fresh account.');
+  });
+
+  test('engine-map keys: es spot-checks', () {
+    final AppLocalizations es = lookupAppLocalizations(const Locale('es'));
+    expect(es.questTitlePowerSession, 'Sesión intensa');
+    expect(es.notifTitleStreak7, '¡Racha de 7 días!');
+    expect(es.achTitleFirstSteps, 'Primeros pasos');
+    expect(es.leagueTierGold, 'Oro');
+    expect(es.cefrNameBeginner, 'Principiante');
+    expect(es.leaguesTierLeague('Oro'), 'Liga de Oro');
+  });
+
+  testWidgets('Quests in Spanish: engine-generated quest cards localized',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const ProviderScope(
+      child: MaterialApp(
+        locale: Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: QuestsScreen(),
+      ),
+    ));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.text('Sesión intensa'), 200);
+    expect(find.text('Sesión intensa'), findsOneWidget);
+    expect(find.text('Power session'), findsNothing);
   });
 }

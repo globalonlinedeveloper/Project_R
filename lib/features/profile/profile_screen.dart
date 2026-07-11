@@ -59,7 +59,7 @@ class ProfileScreen extends ConsumerWidget {
                     color: context.palette.ink)),
             const SizedBox(height: RatelSpace.xs),
             Text(
-              '$unlockedAch of ${achievements.length} unlocked · real progress',
+              context.l10n.profileAchievementsSummary(unlockedAch, achievements.length),
               style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.small,
@@ -102,8 +102,7 @@ class ProfileScreen extends ConsumerWidget {
             const SizedBox(height: RatelSpace.md),
             Center(
               child: Text(
-                'Level, XP, lessons, streak and saved words are real engine '
-                'state — they start at zero on a fresh account.',
+                context.l10n.profileRealStateNote,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: RatelFont.body,
@@ -265,7 +264,7 @@ class ProfileScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('${context.l10n.commonLevel(level)} · ${_levelName(snap.level)}',
+                Text('${context.l10n.commonLevel(level)} · ${ratelCefrLevelDisplayName(context, _levelName(snap.level))}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -345,7 +344,7 @@ class ProfileScreen extends ConsumerWidget {
                 style: const TextStyle(fontSize: 30)),
           ),
           const SizedBox(height: RatelSpace.xs),
-          Text(p.achievement.title,
+          Text(ratelAchievementTitle(context, p.achievement.id, p.achievement.title),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,

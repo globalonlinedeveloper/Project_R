@@ -678,4 +678,228 @@ class AppLocalizationsRu extends AppLocalizations {
   String paywallFinePrint(String regions) {
     return 'Отмена в любой момент в настройках. Цены указаны для $regions; вашу локальную цену определяет магазин приложений.';
   }
+
+  @override
+  String get questTitlePowerSession => 'Мощная сессия';
+
+  @override
+  String get questDescPowerSession => 'Заработайте вдвое больше дневной цели';
+
+  @override
+  String get questTitleOnFire => 'В ударе';
+
+  @override
+  String get questDescOnFire => 'Заработайте втрое больше дневной цели';
+
+  @override
+  String get questTitleStreakKeeper => 'Хранитель серии';
+
+  @override
+  String get questDescStreakKeeper =>
+      'Позанимайтесь сегодня, чтобы сохранить серию';
+
+  @override
+  String get notifTitleLessons1 => 'Первый урок пройден';
+
+  @override
+  String get notifBodyLessons1 =>
+      'Вы закончили свой первый урок — отличное начало!';
+
+  @override
+  String get notifTitleLessons5 => '5 уроков пройдено';
+
+  @override
+  String get notifBodyLessons5 => 'Вы прошли 5 уроков. Не сбавляйте темп.';
+
+  @override
+  String get notifTitleLessons10 => '10 уроков пройдено';
+
+  @override
+  String get notifBodyLessons10 =>
+      'Десять уроков — вы формируете настоящую привычку.';
+
+  @override
+  String get notifTitleLessons25 => '25 уроков пройдено';
+
+  @override
+  String get notifBodyLessons25 =>
+      'Двадцать пять уроков. Впечатляющее упорство!';
+
+  @override
+  String get notifTitleLessons50 => '50 уроков пройдено';
+
+  @override
+  String get notifBodyLessons50 => 'Пятьдесят уроков — вы на верном пути.';
+
+  @override
+  String get notifTitleStreak3 => 'Серия 3 дня!';
+
+  @override
+  String get notifBodyStreak3 => 'Три дня подряд. Постоянство — это всё.';
+
+  @override
+  String get notifTitleStreak7 => 'Серия 7 дней!';
+
+  @override
+  String get notifBodyStreak7 =>
+      'Целая неделя ежедневных занятий. Превосходно!';
+
+  @override
+  String get notifTitleStreak14 => 'Серия 14 дней!';
+
+  @override
+  String get notifBodyStreak14 => 'Две недели подряд — вас не остановить.';
+
+  @override
+  String get notifTitleStreak30 => 'Серия 30 дней!';
+
+  @override
+  String get notifBodyStreak30 => 'Целый месяц ежедневных занятий. Невероятно.';
+
+  @override
+  String get notifTitleXp100 => 'Заработано 100 XP';
+
+  @override
+  String get notifBodyXp100 => 'Ваши первые сто XP — темп нарастает.';
+
+  @override
+  String get notifTitleXp500 => 'Заработано 500 XP';
+
+  @override
+  String get notifBodyXp500 => 'Пятьсот XP. Вы отлично работаете.';
+
+  @override
+  String get notifTitleXp1000 => 'Заработано 1 000 XP';
+
+  @override
+  String get notifBodyXp1000 => 'Рубеж в тысячу XP взят!';
+
+  @override
+  String get notifTitleXp2500 => 'Заработано 2 500 XP';
+
+  @override
+  String get notifBodyXp2500 =>
+      'Две с половиной тысячи XP — серьёзный прогресс.';
+
+  @override
+  String get notifTitleLevel1 => 'Достигнут уровень A2';
+
+  @override
+  String get notifBodyLevel1 => 'Ваш уровень вырос с A1 до A2. Вперёд!';
+
+  @override
+  String get notifTitleLevel2 => 'Достигнут уровень B1';
+
+  @override
+  String get notifBodyLevel2 => 'Теперь вы учащийся среднего уровня (B1).';
+
+  @override
+  String get notifTitleLevel3 => 'Достигнут уровень B2';
+
+  @override
+  String get notifBodyLevel3 =>
+      'Достигнут уровень выше среднего (B2). Блестяще.';
+
+  @override
+  String get notifTitleLevel4 => 'Достигнут уровень C1';
+
+  @override
+  String get notifBodyLevel4 => 'Продвинутый (C1) — ваш испанский силён.';
+
+  @override
+  String get notifTitleLevel5 => 'Достигнут уровень C2';
+
+  @override
+  String get notifBodyLevel5 => 'Свободное владение (C2) — вершина шкалы!';
+
+  @override
+  String get achTitleFirstSteps => 'Первые шаги';
+
+  @override
+  String get achTitleScholar => 'Учёный';
+
+  @override
+  String get achTitleWildfire => 'Пожар';
+
+  @override
+  String get achTitlePointMaker => 'Мастер очков';
+
+  @override
+  String get achTitleCollector => 'Коллекционер';
+
+  @override
+  String get achTitleRisingStar => 'Восходящая звезда';
+
+  @override
+  String get leagueTierBronze => 'Бронза';
+
+  @override
+  String get leagueTierSilver => 'Серебро';
+
+  @override
+  String get leagueTierGold => 'Золото';
+
+  @override
+  String get leagueTierSapphire => 'Сапфир';
+
+  @override
+  String get leagueTierRuby => 'Рубин';
+
+  @override
+  String get leagueTierEmerald => 'Изумруд';
+
+  @override
+  String get leagueTierAmethyst => 'Аметист';
+
+  @override
+  String get leagueTierPearl => 'Жемчуг';
+
+  @override
+  String get leagueTierObsidian => 'Обсидиан';
+
+  @override
+  String get leagueTierDiamond => 'Алмаз';
+
+  @override
+  String get cefrNameBeginner => 'Начинающий';
+
+  @override
+  String get cefrNameElementary => 'Элементарный';
+
+  @override
+  String get cefrNameIntermediate => 'Средний';
+
+  @override
+  String get cefrNameUpperIntermediate => 'Выше среднего';
+
+  @override
+  String get cefrNameAdvanced => 'Продвинутый';
+
+  @override
+  String get cefrNameProficient => 'Свободный';
+
+  @override
+  String leaguesTierLeague(String tier) {
+    return 'Лига $tier';
+  }
+
+  @override
+  String leaguesYoureIn(String tier) {
+    return 'Вы в лиге $tier · топ-7 поднимаются каждую неделю';
+  }
+
+  @override
+  String get leaguesZonePromotion => '⬆ ЗОНА ПОВЫШЕНИЯ';
+
+  @override
+  String get leaguesZoneDemotion => '⬇ ЗОНА ВЫЛЕТА';
+
+  @override
+  String profileAchievementsSummary(int unlocked, int total) {
+    return 'Открыто $unlocked из $total · реальный прогресс';
+  }
+
+  @override
+  String get profileRealStateNote =>
+      'Уровень, XP, уроки, серия и сохранённые слова — реальное состояние движка; на новом аккаунте они начинаются с нуля.';
 }

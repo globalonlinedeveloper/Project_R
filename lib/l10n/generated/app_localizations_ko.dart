@@ -660,4 +660,221 @@ class AppLocalizationsKo extends AppLocalizations {
   String paywallFinePrint(String regions) {
     return '설정에서 언제든 취소할 수 있어요. 표시된 가격은 $regions 기준이며 실제 가격은 앱 스토어가 정해요.';
   }
+
+  @override
+  String get questTitlePowerSession => '파워 세션';
+
+  @override
+  String get questDescPowerSession => '일일 목표의 2배를 획득하세요';
+
+  @override
+  String get questTitleOnFire => '불타는 중';
+
+  @override
+  String get questDescOnFire => '일일 목표의 3배를 획득하세요';
+
+  @override
+  String get questTitleStreakKeeper => '스트릭 지킴이';
+
+  @override
+  String get questDescStreakKeeper => '스트릭을 지키려면 오늘 연습하세요';
+
+  @override
+  String get notifTitleLessons1 => '첫 레슨 완료';
+
+  @override
+  String get notifBodyLessons1 => '첫 레슨을 마쳤어요 — 멋진 시작!';
+
+  @override
+  String get notifTitleLessons5 => '레슨 5개 완료';
+
+  @override
+  String get notifBodyLessons5 => '레슨 5개를 완료했어요. 기세를 이어가세요.';
+
+  @override
+  String get notifTitleLessons10 => '레슨 10개 완료';
+
+  @override
+  String get notifBodyLessons10 => '레슨 10개 — 진짜 습관이 만들어지고 있어요.';
+
+  @override
+  String get notifTitleLessons25 => '레슨 25개 완료';
+
+  @override
+  String get notifBodyLessons25 => '레슨 25개 완료. 인상적인 노력이에요!';
+
+  @override
+  String get notifTitleLessons50 => '레슨 50개 완료';
+
+  @override
+  String get notifBodyLessons50 => '레슨 50개 — 순조롭게 나아가고 있어요.';
+
+  @override
+  String get notifTitleStreak3 => '3일 스트릭!';
+
+  @override
+  String get notifBodyStreak3 => '3일 연속. 꾸준함이 전부예요.';
+
+  @override
+  String get notifTitleStreak7 => '7일 스트릭!';
+
+  @override
+  String get notifBodyStreak7 => '매일 연습으로 꽉 채운 일주일. 훌륭해요!';
+
+  @override
+  String get notifTitleStreak14 => '14일 스트릭!';
+
+  @override
+  String get notifBodyStreak14 => '2주 연속 — 멈출 수 없네요.';
+
+  @override
+  String get notifTitleStreak30 => '30일 스트릭!';
+
+  @override
+  String get notifBodyStreak30 => '매일 연습으로 꽉 채운 한 달. 놀라워요.';
+
+  @override
+  String get notifTitleXp100 => '100 XP 획득';
+
+  @override
+  String get notifBodyXp100 => '첫 100 XP — 탄력이 붙고 있어요.';
+
+  @override
+  String get notifTitleXp500 => '500 XP 획득';
+
+  @override
+  String get notifBodyXp500 => '500 XP. 제대로 노력하고 있어요.';
+
+  @override
+  String get notifTitleXp1000 => '1,000 XP 획득';
+
+  @override
+  String get notifBodyXp1000 => '1,000 XP 이정표 달성!';
+
+  @override
+  String get notifTitleXp2500 => '2,500 XP 획득';
+
+  @override
+  String get notifBodyXp2500 => '2,500 XP — 진지한 발전이에요.';
+
+  @override
+  String get notifTitleLevel1 => '레벨 A2 도달';
+
+  @override
+  String get notifBodyLevel1 => '실력이 A1에서 A2로 성장했어요. 앞으로!';
+
+  @override
+  String get notifTitleLevel2 => '레벨 B1 도달';
+
+  @override
+  String get notifBodyLevel2 => '이제 중급 학습자예요 (B1).';
+
+  @override
+  String get notifTitleLevel3 => '레벨 B2 도달';
+
+  @override
+  String get notifBodyLevel3 => '중상급(B2) 도달. 훌륭해요.';
+
+  @override
+  String get notifTitleLevel4 => '레벨 C1 도달';
+
+  @override
+  String get notifBodyLevel4 => '고급(C1) — 스페인어 실력이 탄탄해요.';
+
+  @override
+  String get notifTitleLevel5 => '레벨 C2 도달';
+
+  @override
+  String get notifBodyLevel5 => '숙달(C2) — 척도의 정점!';
+
+  @override
+  String get achTitleFirstSteps => '첫걸음';
+
+  @override
+  String get achTitleScholar => '학자';
+
+  @override
+  String get achTitleWildfire => '들불';
+
+  @override
+  String get achTitlePointMaker => '포인트 메이커';
+
+  @override
+  String get achTitleCollector => '수집가';
+
+  @override
+  String get achTitleRisingStar => '떠오르는 별';
+
+  @override
+  String get leagueTierBronze => '브론즈';
+
+  @override
+  String get leagueTierSilver => '실버';
+
+  @override
+  String get leagueTierGold => '골드';
+
+  @override
+  String get leagueTierSapphire => '사파이어';
+
+  @override
+  String get leagueTierRuby => '루비';
+
+  @override
+  String get leagueTierEmerald => '에메랄드';
+
+  @override
+  String get leagueTierAmethyst => '자수정';
+
+  @override
+  String get leagueTierPearl => '진주';
+
+  @override
+  String get leagueTierObsidian => '흑요석';
+
+  @override
+  String get leagueTierDiamond => '다이아몬드';
+
+  @override
+  String get cefrNameBeginner => '입문';
+
+  @override
+  String get cefrNameElementary => '초급';
+
+  @override
+  String get cefrNameIntermediate => '중급';
+
+  @override
+  String get cefrNameUpperIntermediate => '중상급';
+
+  @override
+  String get cefrNameAdvanced => '고급';
+
+  @override
+  String get cefrNameProficient => '숙달';
+
+  @override
+  String leaguesTierLeague(String tier) {
+    return '$tier 리그';
+  }
+
+  @override
+  String leaguesYoureIn(String tier) {
+    return '$tier 리그에 있어요 · 매주 상위 7명 승급';
+  }
+
+  @override
+  String get leaguesZonePromotion => '⬆ 승급권';
+
+  @override
+  String get leaguesZoneDemotion => '⬇ 강등권';
+
+  @override
+  String profileAchievementsSummary(int unlocked, int total) {
+    return '$total개 중 $unlocked개 잠금 해제 · 실제 진행률';
+  }
+
+  @override
+  String get profileRealStateNote =>
+      '레벨, XP, 레슨, 스트릭, 저장한 단어는 실제 엔진 상태예요 — 새 계정에서는 0부터 시작해요.';
 }

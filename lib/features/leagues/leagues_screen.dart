@@ -159,7 +159,7 @@ void _showTierLadder(BuildContext context, LeagueTier current) {
                 ),
               ),
               Text(
-                "You're in ${current.label} · top 7 climb each week",
+                context.l10n.leaguesYoureIn(ratelLeagueTierName(context, current.label)),
                 style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.small,
@@ -202,7 +202,7 @@ class _TierHeaderCard extends StatelessWidget {
           ),
           const SizedBox(height: RatelSpace.sm),
           Text(
-            '${tier.label} League',
+            context.l10n.leaguesTierLeague(ratelLeagueTierName(context, tier.label)),
             style: TextStyle(
               fontFamily: RatelFont.display,
               fontWeight: RatelType.extraBold,
@@ -393,7 +393,9 @@ class _ZoneDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color c = promotion ? RatelColors.green : RatelColors.coral;
-    final String label = promotion ? '⬆ PROMOTION ZONE' : '⬇ DEMOTION ZONE';
+    final String label = promotion
+        ? context.l10n.leaguesZonePromotion
+        : context.l10n.leaguesZoneDemotion;
     return Padding(
       padding: const EdgeInsets.only(bottom: RatelSpace.sm),
       child: Row(
@@ -510,7 +512,7 @@ class _LadderRow extends StatelessWidget {
           const SizedBox(width: RatelSpace.md),
           Expanded(
             child: Text(
-              '${tier.label} League',
+              context.l10n.leaguesTierLeague(ratelLeagueTierName(context, tier.label)),
               style: TextStyle(
                 fontFamily: RatelFont.display,
                 fontWeight: RatelType.semiBold,

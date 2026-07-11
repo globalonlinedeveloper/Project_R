@@ -656,4 +656,220 @@ class AppLocalizationsZh extends AppLocalizations {
   String paywallFinePrint(String regions) {
     return '可随时在设置中取消。所示价格适用于 $regions;你的本地价格由应用商店决定。';
   }
+
+  @override
+  String get questTitlePowerSession => '高能时段';
+
+  @override
+  String get questDescPowerSession => '赚取每日目标的两倍';
+
+  @override
+  String get questTitleOnFire => '火力全开';
+
+  @override
+  String get questDescOnFire => '赚取每日目标的三倍';
+
+  @override
+  String get questTitleStreakKeeper => '连胜守护';
+
+  @override
+  String get questDescStreakKeeper => '今天练习，保持连胜';
+
+  @override
+  String get notifTitleLessons1 => '完成第一课';
+
+  @override
+  String get notifBodyLessons1 => '你完成了第一节课 — 好的开始！';
+
+  @override
+  String get notifTitleLessons5 => '完成 5 节课';
+
+  @override
+  String get notifBodyLessons5 => '你已完成 5 节课。保持势头。';
+
+  @override
+  String get notifTitleLessons10 => '完成 10 节课';
+
+  @override
+  String get notifBodyLessons10 => '十节课了 — 你正在养成真正的习惯。';
+
+  @override
+  String get notifTitleLessons25 => '完成 25 节课';
+
+  @override
+  String get notifBodyLessons25 => '完成二十五节课。令人钦佩的坚持！';
+
+  @override
+  String get notifTitleLessons50 => '完成 50 节课';
+
+  @override
+  String get notifBodyLessons50 => '五十节课 — 你已走上正轨。';
+
+  @override
+  String get notifTitleStreak3 => '连胜 3 天！';
+
+  @override
+  String get notifBodyStreak3 => '连续三天。贵在坚持。';
+
+  @override
+  String get notifTitleStreak7 => '连胜 7 天！';
+
+  @override
+  String get notifBodyStreak7 => '整整一周每天练习。出色！';
+
+  @override
+  String get notifTitleStreak14 => '连胜 14 天！';
+
+  @override
+  String get notifBodyStreak14 => '连续两周 — 势不可挡。';
+
+  @override
+  String get notifTitleStreak30 => '连胜 30 天！';
+
+  @override
+  String get notifBodyStreak30 => '整整一个月每天练习。难以置信。';
+
+  @override
+  String get notifTitleXp100 => '获得 100 XP';
+
+  @override
+  String get notifBodyXp100 => '你的第一个一百 XP — 势头正起。';
+
+  @override
+  String get notifTitleXp500 => '获得 500 XP';
+
+  @override
+  String get notifBodyXp500 => '五百 XP。你在认真投入。';
+
+  @override
+  String get notifTitleXp1000 => '获得 1,000 XP';
+
+  @override
+  String get notifBodyXp1000 => '达成一千 XP 里程碑！';
+
+  @override
+  String get notifTitleXp2500 => '获得 2,500 XP';
+
+  @override
+  String get notifBodyXp2500 => '两千五百 XP — 进步显著。';
+
+  @override
+  String get notifTitleLevel1 => '达到 A2 级';
+
+  @override
+  String get notifBodyLevel1 => '你的能力从 A1 升到 A2。继续前进！';
+
+  @override
+  String get notifTitleLevel2 => '达到 B1 级';
+
+  @override
+  String get notifBodyLevel2 => '你已是中级学习者（B1）。';
+
+  @override
+  String get notifTitleLevel3 => '达到 B2 级';
+
+  @override
+  String get notifBodyLevel3 => '达到中高级（B2）。出色。';
+
+  @override
+  String get notifTitleLevel4 => '达到 C1 级';
+
+  @override
+  String get notifBodyLevel4 => '高级（C1）— 你的西班牙语很扎实。';
+
+  @override
+  String get notifTitleLevel5 => '达到 C2 级';
+
+  @override
+  String get notifBodyLevel5 => '精通（C2）— 到达顶峰！';
+
+  @override
+  String get achTitleFirstSteps => '最初的脚步';
+
+  @override
+  String get achTitleScholar => '学者';
+
+  @override
+  String get achTitleWildfire => '燎原之火';
+
+  @override
+  String get achTitlePointMaker => '得分手';
+
+  @override
+  String get achTitleCollector => '收藏家';
+
+  @override
+  String get achTitleRisingStar => '新星';
+
+  @override
+  String get leagueTierBronze => '青铜';
+
+  @override
+  String get leagueTierSilver => '白银';
+
+  @override
+  String get leagueTierGold => '黄金';
+
+  @override
+  String get leagueTierSapphire => '蓝宝石';
+
+  @override
+  String get leagueTierRuby => '红宝石';
+
+  @override
+  String get leagueTierEmerald => '翡翠';
+
+  @override
+  String get leagueTierAmethyst => '紫水晶';
+
+  @override
+  String get leagueTierPearl => '珍珠';
+
+  @override
+  String get leagueTierObsidian => '黑曜石';
+
+  @override
+  String get leagueTierDiamond => '钻石';
+
+  @override
+  String get cefrNameBeginner => '入门';
+
+  @override
+  String get cefrNameElementary => '初级';
+
+  @override
+  String get cefrNameIntermediate => '中级';
+
+  @override
+  String get cefrNameUpperIntermediate => '中高级';
+
+  @override
+  String get cefrNameAdvanced => '高级';
+
+  @override
+  String get cefrNameProficient => '精通';
+
+  @override
+  String leaguesTierLeague(String tier) {
+    return '$tier联赛';
+  }
+
+  @override
+  String leaguesYoureIn(String tier) {
+    return '你在$tier · 每周前 7 名晋级';
+  }
+
+  @override
+  String get leaguesZonePromotion => '⬆ 晋级区';
+
+  @override
+  String get leaguesZoneDemotion => '⬇ 降级区';
+
+  @override
+  String profileAchievementsSummary(int unlocked, int total) {
+    return '已解锁 $unlocked/$total · 真实进度';
+  }
+
+  @override
+  String get profileRealStateNote => '等级、XP、课程、连胜和收藏的单词都是真实的引擎状态 — 新账户从零开始。';
 }

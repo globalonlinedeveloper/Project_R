@@ -114,14 +114,14 @@ class NotificationsScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(n.title,
+                  Text(ratelNotificationTitle(context, n.id, n.title),
                       style: TextStyle(
                           fontFamily: RatelFont.display,
                           fontWeight: RatelType.extraBold,
                           fontSize: RatelType.body,
                           color: context.palette.ink)),
                   const SizedBox(height: 2),
-                  Text(n.body,
+                  Text(ratelNotificationBody(context, n.id, n.body),
                       style: TextStyle(
                           fontFamily: RatelFont.body,
                           fontSize: RatelType.small,

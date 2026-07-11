@@ -680,4 +680,222 @@ class AppLocalizationsAr extends AppLocalizations {
   String paywallFinePrint(String regions) {
     return 'ألغِ في أي وقت من الإعدادات. الأسعار المعروضة لـ$regions؛ يحدد متجر تطبيقاتك سعرك المحلي.';
   }
+
+  @override
+  String get questTitlePowerSession => 'جلسة قوية';
+
+  @override
+  String get questDescPowerSession => 'اجمع ضعف هدفك اليومي';
+
+  @override
+  String get questTitleOnFire => 'متوهّج';
+
+  @override
+  String get questDescOnFire => 'اجمع ثلاثة أضعاف هدفك اليومي';
+
+  @override
+  String get questTitleStreakKeeper => 'حارس السلسلة';
+
+  @override
+  String get questDescStreakKeeper => 'تدرّب اليوم للحفاظ على سلسلتك';
+
+  @override
+  String get notifTitleLessons1 => 'اكتمل الدرس الأول';
+
+  @override
+  String get notifBodyLessons1 => 'أنهيت درسك الأول — بداية رائعة!';
+
+  @override
+  String get notifTitleLessons5 => 'أُنجزت 5 دروس';
+
+  @override
+  String get notifBodyLessons5 => 'أكملت 5 دروس. حافظ على الزخم.';
+
+  @override
+  String get notifTitleLessons10 => 'أُنجزت 10 دروس';
+
+  @override
+  String get notifBodyLessons10 => 'عشرة دروس — أنت تبني عادة حقيقية.';
+
+  @override
+  String get notifTitleLessons25 => 'أُنجز 25 درسًا';
+
+  @override
+  String get notifBodyLessons25 =>
+      'اكتملت خمسة وعشرون درسًا. تفانٍ مثير للإعجاب!';
+
+  @override
+  String get notifTitleLessons50 => 'أُنجز 50 درسًا';
+
+  @override
+  String get notifBodyLessons50 => 'خمسون درسًا — أنت على الطريق الصحيح.';
+
+  @override
+  String get notifTitleStreak3 => 'سلسلة 3 أيام!';
+
+  @override
+  String get notifBodyStreak3 => 'ثلاثة أيام متتالية. الاستمرارية هي كل شيء.';
+
+  @override
+  String get notifTitleStreak7 => 'سلسلة 7 أيام!';
+
+  @override
+  String get notifBodyStreak7 => 'أسبوع كامل من التدريب اليومي. متميز!';
+
+  @override
+  String get notifTitleStreak14 => 'سلسلة 14 يومًا!';
+
+  @override
+  String get notifBodyStreak14 => 'أسبوعان متتاليان — لا يمكن إيقافك.';
+
+  @override
+  String get notifTitleStreak30 => 'سلسلة 30 يومًا!';
+
+  @override
+  String get notifBodyStreak30 => 'شهر كامل من التدريب اليومي. مذهل.';
+
+  @override
+  String get notifTitleXp100 => 'اكتسبت 100 XP';
+
+  @override
+  String get notifBodyXp100 => 'أول مئة XP لك — الزخم يتصاعد.';
+
+  @override
+  String get notifTitleXp500 => 'اكتسبت 500 XP';
+
+  @override
+  String get notifBodyXp500 => 'خمسمئة XP. أنت تبذل الجهد.';
+
+  @override
+  String get notifTitleXp1000 => 'اكتسبت 1,000 XP';
+
+  @override
+  String get notifBodyXp1000 => 'تم بلوغ إنجاز الألف XP!';
+
+  @override
+  String get notifTitleXp2500 => 'اكتسبت 2,500 XP';
+
+  @override
+  String get notifBodyXp2500 => 'ألفان وخمسمئة XP — تقدّم جادّ.';
+
+  @override
+  String get notifTitleLevel1 => 'بلغت المستوى A2';
+
+  @override
+  String get notifBodyLevel1 => 'نمت قدرتك من A1 إلى A2. إلى الأمام!';
+
+  @override
+  String get notifTitleLevel2 => 'بلغت المستوى B1';
+
+  @override
+  String get notifBodyLevel2 => 'أصبحت متعلمًا متوسطًا (B1).';
+
+  @override
+  String get notifTitleLevel3 => 'بلغت المستوى B2';
+
+  @override
+  String get notifBodyLevel3 => 'بلغت فوق المتوسط (B2). رائع.';
+
+  @override
+  String get notifTitleLevel4 => 'بلغت المستوى C1';
+
+  @override
+  String get notifBodyLevel4 => 'متقدم (C1) — إسبانيتك قوية.';
+
+  @override
+  String get notifTitleLevel5 => 'بلغت المستوى C2';
+
+  @override
+  String get notifBodyLevel5 => 'الإتقان (C2) — قمة السلّم!';
+
+  @override
+  String get achTitleFirstSteps => 'الخطوات الأولى';
+
+  @override
+  String get achTitleScholar => 'الباحث';
+
+  @override
+  String get achTitleWildfire => 'نار متأججة';
+
+  @override
+  String get achTitlePointMaker => 'صانع النقاط';
+
+  @override
+  String get achTitleCollector => 'الجامع';
+
+  @override
+  String get achTitleRisingStar => 'نجم صاعد';
+
+  @override
+  String get leagueTierBronze => 'البرونز';
+
+  @override
+  String get leagueTierSilver => 'الفضة';
+
+  @override
+  String get leagueTierGold => 'الذهب';
+
+  @override
+  String get leagueTierSapphire => 'الياقوت الأزرق';
+
+  @override
+  String get leagueTierRuby => 'الياقوت الأحمر';
+
+  @override
+  String get leagueTierEmerald => 'الزمرد';
+
+  @override
+  String get leagueTierAmethyst => 'الجمشت';
+
+  @override
+  String get leagueTierPearl => 'اللؤلؤ';
+
+  @override
+  String get leagueTierObsidian => 'السبج';
+
+  @override
+  String get leagueTierDiamond => 'الماس';
+
+  @override
+  String get cefrNameBeginner => 'مبتدئ';
+
+  @override
+  String get cefrNameElementary => 'أساسي';
+
+  @override
+  String get cefrNameIntermediate => 'متوسط';
+
+  @override
+  String get cefrNameUpperIntermediate => 'فوق المتوسط';
+
+  @override
+  String get cefrNameAdvanced => 'متقدم';
+
+  @override
+  String get cefrNameProficient => 'متقن';
+
+  @override
+  String leaguesTierLeague(String tier) {
+    return 'دوري $tier';
+  }
+
+  @override
+  String leaguesYoureIn(String tier) {
+    return 'أنت في $tier · أفضل 7 يصعدون كل أسبوع';
+  }
+
+  @override
+  String get leaguesZonePromotion => '⬆ منطقة الصعود';
+
+  @override
+  String get leaguesZoneDemotion => '⬇ منطقة الهبوط';
+
+  @override
+  String profileAchievementsSummary(int unlocked, int total) {
+    return '$unlocked من $total مفتوحة · تقدّم حقيقي';
+  }
+
+  @override
+  String get profileRealStateNote =>
+      'المستوى وXP والدروس والسلسلة والكلمات المحفوظة حالة محرّك حقيقية — تبدأ من الصفر في الحساب الجديد.';
 }

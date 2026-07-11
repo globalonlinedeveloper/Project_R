@@ -69,3 +69,111 @@ const Map<String, String> kUiLanguageEndonyms = <String, String>{
   'fr': 'Français',
   'ko': '한국어',
 };
+/// Engine-generated strings (quest / notification / achievement catalogues,
+/// league tier labels, CEFR level names) localize through these RENDER-time
+/// maps — the engines stay UI-free and keep emitting their stable English
+/// catalogue (ids + English text = the identifiers, pinned by service tests);
+/// only the render site swaps in the learner's locale. Unknown ids/labels
+/// pass through untouched, so future catalogue growth degrades honestly.
+String ratelQuestTitle(BuildContext context, String id, String fallback) =>
+    switch (id) {
+      'power_session' => context.l10n.questTitlePowerSession,
+      'on_fire' => context.l10n.questTitleOnFire,
+      'streak_keeper' => context.l10n.questTitleStreakKeeper,
+      _ => fallback,
+    };
+
+String ratelQuestDescription(
+        BuildContext context, String id, String fallback) =>
+    switch (id) {
+      'power_session' => context.l10n.questDescPowerSession,
+      'on_fire' => context.l10n.questDescOnFire,
+      'streak_keeper' => context.l10n.questDescStreakKeeper,
+      _ => fallback,
+    };
+
+String ratelNotificationTitle(
+        BuildContext context, String id, String fallback) =>
+    switch (id) {
+      'lessons:1' => context.l10n.notifTitleLessons1,
+      'lessons:5' => context.l10n.notifTitleLessons5,
+      'lessons:10' => context.l10n.notifTitleLessons10,
+      'lessons:25' => context.l10n.notifTitleLessons25,
+      'lessons:50' => context.l10n.notifTitleLessons50,
+      'streak:3' => context.l10n.notifTitleStreak3,
+      'streak:7' => context.l10n.notifTitleStreak7,
+      'streak:14' => context.l10n.notifTitleStreak14,
+      'streak:30' => context.l10n.notifTitleStreak30,
+      'xp:100' => context.l10n.notifTitleXp100,
+      'xp:500' => context.l10n.notifTitleXp500,
+      'xp:1000' => context.l10n.notifTitleXp1000,
+      'xp:2500' => context.l10n.notifTitleXp2500,
+      'level:1' => context.l10n.notifTitleLevel1,
+      'level:2' => context.l10n.notifTitleLevel2,
+      'level:3' => context.l10n.notifTitleLevel3,
+      'level:4' => context.l10n.notifTitleLevel4,
+      'level:5' => context.l10n.notifTitleLevel5,
+      _ => fallback,
+    };
+
+String ratelNotificationBody(
+        BuildContext context, String id, String fallback) =>
+    switch (id) {
+      'lessons:1' => context.l10n.notifBodyLessons1,
+      'lessons:5' => context.l10n.notifBodyLessons5,
+      'lessons:10' => context.l10n.notifBodyLessons10,
+      'lessons:25' => context.l10n.notifBodyLessons25,
+      'lessons:50' => context.l10n.notifBodyLessons50,
+      'streak:3' => context.l10n.notifBodyStreak3,
+      'streak:7' => context.l10n.notifBodyStreak7,
+      'streak:14' => context.l10n.notifBodyStreak14,
+      'streak:30' => context.l10n.notifBodyStreak30,
+      'xp:100' => context.l10n.notifBodyXp100,
+      'xp:500' => context.l10n.notifBodyXp500,
+      'xp:1000' => context.l10n.notifBodyXp1000,
+      'xp:2500' => context.l10n.notifBodyXp2500,
+      'level:1' => context.l10n.notifBodyLevel1,
+      'level:2' => context.l10n.notifBodyLevel2,
+      'level:3' => context.l10n.notifBodyLevel3,
+      'level:4' => context.l10n.notifBodyLevel4,
+      'level:5' => context.l10n.notifBodyLevel5,
+      _ => fallback,
+    };
+
+String ratelAchievementTitle(
+        BuildContext context, String id, String fallback) =>
+    switch (id) {
+      'first_steps' => context.l10n.achTitleFirstSteps,
+      'scholar' => context.l10n.achTitleScholar,
+      'wildfire' => context.l10n.achTitleWildfire,
+      'point_maker' => context.l10n.achTitlePointMaker,
+      'collector' => context.l10n.achTitleCollector,
+      'rising_star' => context.l10n.achTitleRisingStar,
+      _ => fallback,
+    };
+
+String ratelLeagueTierName(BuildContext context, String englishLabel) =>
+    switch (englishLabel) {
+      'Bronze' => context.l10n.leagueTierBronze,
+      'Silver' => context.l10n.leagueTierSilver,
+      'Gold' => context.l10n.leagueTierGold,
+      'Sapphire' => context.l10n.leagueTierSapphire,
+      'Ruby' => context.l10n.leagueTierRuby,
+      'Emerald' => context.l10n.leagueTierEmerald,
+      'Amethyst' => context.l10n.leagueTierAmethyst,
+      'Pearl' => context.l10n.leagueTierPearl,
+      'Obsidian' => context.l10n.leagueTierObsidian,
+      'Diamond' => context.l10n.leagueTierDiamond,
+      _ => englishLabel,
+    };
+
+String ratelCefrLevelDisplayName(BuildContext context, String englishName) =>
+    switch (englishName) {
+      'Beginner' => context.l10n.cefrNameBeginner,
+      'Elementary' => context.l10n.cefrNameElementary,
+      'Intermediate' => context.l10n.cefrNameIntermediate,
+      'Upper intermediate' => context.l10n.cefrNameUpperIntermediate,
+      'Advanced' => context.l10n.cefrNameAdvanced,
+      'Proficient' => context.l10n.cefrNameProficient,
+      _ => englishName,
+    };

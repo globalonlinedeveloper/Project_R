@@ -1281,6 +1281,426 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancel anytime in Settings. Prices shown for {regions}; your local price is set by your app store.'**
   String paywallFinePrint(String regions);
+
+  /// No description provided for @questTitlePowerSession.
+  ///
+  /// In en, this message translates to:
+  /// **'Power session'**
+  String get questTitlePowerSession;
+
+  /// No description provided for @questDescPowerSession.
+  ///
+  /// In en, this message translates to:
+  /// **'Earn double your daily goal'**
+  String get questDescPowerSession;
+
+  /// No description provided for @questTitleOnFire.
+  ///
+  /// In en, this message translates to:
+  /// **'On fire'**
+  String get questTitleOnFire;
+
+  /// No description provided for @questDescOnFire.
+  ///
+  /// In en, this message translates to:
+  /// **'Earn triple your daily goal'**
+  String get questDescOnFire;
+
+  /// No description provided for @questTitleStreakKeeper.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak keeper'**
+  String get questTitleStreakKeeper;
+
+  /// No description provided for @questDescStreakKeeper.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice today to keep your streak'**
+  String get questDescStreakKeeper;
+
+  /// No description provided for @notifTitleLessons1.
+  ///
+  /// In en, this message translates to:
+  /// **'First lesson complete'**
+  String get notifTitleLessons1;
+
+  /// No description provided for @notifBodyLessons1.
+  ///
+  /// In en, this message translates to:
+  /// **'You finished your first lesson — great start!'**
+  String get notifBodyLessons1;
+
+  /// No description provided for @notifTitleLessons5.
+  ///
+  /// In en, this message translates to:
+  /// **'5 lessons done'**
+  String get notifTitleLessons5;
+
+  /// No description provided for @notifBodyLessons5.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve completed 5 lessons. Keep the momentum going.'**
+  String get notifBodyLessons5;
+
+  /// No description provided for @notifTitleLessons10.
+  ///
+  /// In en, this message translates to:
+  /// **'10 lessons done'**
+  String get notifTitleLessons10;
+
+  /// No description provided for @notifBodyLessons10.
+  ///
+  /// In en, this message translates to:
+  /// **'Ten lessons in — you are building a real habit.'**
+  String get notifBodyLessons10;
+
+  /// No description provided for @notifTitleLessons25.
+  ///
+  /// In en, this message translates to:
+  /// **'25 lessons done'**
+  String get notifTitleLessons25;
+
+  /// No description provided for @notifBodyLessons25.
+  ///
+  /// In en, this message translates to:
+  /// **'Twenty-five lessons completed. Impressive dedication!'**
+  String get notifBodyLessons25;
+
+  /// No description provided for @notifTitleLessons50.
+  ///
+  /// In en, this message translates to:
+  /// **'50 lessons done'**
+  String get notifTitleLessons50;
+
+  /// No description provided for @notifBodyLessons50.
+  ///
+  /// In en, this message translates to:
+  /// **'Fifty lessons — you are well on your way.'**
+  String get notifBodyLessons50;
+
+  /// No description provided for @notifTitleStreak3.
+  ///
+  /// In en, this message translates to:
+  /// **'3-day streak!'**
+  String get notifTitleStreak3;
+
+  /// No description provided for @notifBodyStreak3.
+  ///
+  /// In en, this message translates to:
+  /// **'Three days in a row. Consistency is everything.'**
+  String get notifBodyStreak3;
+
+  /// No description provided for @notifTitleStreak7.
+  ///
+  /// In en, this message translates to:
+  /// **'7-day streak!'**
+  String get notifTitleStreak7;
+
+  /// No description provided for @notifBodyStreak7.
+  ///
+  /// In en, this message translates to:
+  /// **'A full week of daily practice. Outstanding!'**
+  String get notifBodyStreak7;
+
+  /// No description provided for @notifTitleStreak14.
+  ///
+  /// In en, this message translates to:
+  /// **'14-day streak!'**
+  String get notifTitleStreak14;
+
+  /// No description provided for @notifBodyStreak14.
+  ///
+  /// In en, this message translates to:
+  /// **'Two weeks straight — you are unstoppable.'**
+  String get notifBodyStreak14;
+
+  /// No description provided for @notifTitleStreak30.
+  ///
+  /// In en, this message translates to:
+  /// **'30-day streak!'**
+  String get notifTitleStreak30;
+
+  /// No description provided for @notifBodyStreak30.
+  ///
+  /// In en, this message translates to:
+  /// **'A whole month of daily practice. Incredible.'**
+  String get notifBodyStreak30;
+
+  /// No description provided for @notifTitleXp100.
+  ///
+  /// In en, this message translates to:
+  /// **'100 XP earned'**
+  String get notifTitleXp100;
+
+  /// No description provided for @notifBodyXp100.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first hundred XP — momentum is building.'**
+  String get notifBodyXp100;
+
+  /// No description provided for @notifTitleXp500.
+  ///
+  /// In en, this message translates to:
+  /// **'500 XP earned'**
+  String get notifTitleXp500;
+
+  /// No description provided for @notifBodyXp500.
+  ///
+  /// In en, this message translates to:
+  /// **'Five hundred XP. You are putting in the work.'**
+  String get notifBodyXp500;
+
+  /// No description provided for @notifTitleXp1000.
+  ///
+  /// In en, this message translates to:
+  /// **'1,000 XP earned'**
+  String get notifTitleXp1000;
+
+  /// No description provided for @notifBodyXp1000.
+  ///
+  /// In en, this message translates to:
+  /// **'A thousand XP milestone reached!'**
+  String get notifBodyXp1000;
+
+  /// No description provided for @notifTitleXp2500.
+  ///
+  /// In en, this message translates to:
+  /// **'2,500 XP earned'**
+  String get notifTitleXp2500;
+
+  /// No description provided for @notifBodyXp2500.
+  ///
+  /// In en, this message translates to:
+  /// **'Twenty-five hundred XP — serious progress.'**
+  String get notifBodyXp2500;
+
+  /// No description provided for @notifTitleLevel1.
+  ///
+  /// In en, this message translates to:
+  /// **'Reached level A2'**
+  String get notifTitleLevel1;
+
+  /// No description provided for @notifBodyLevel1.
+  ///
+  /// In en, this message translates to:
+  /// **'Your ability grew from A1 to A2. Onward!'**
+  String get notifBodyLevel1;
+
+  /// No description provided for @notifTitleLevel2.
+  ///
+  /// In en, this message translates to:
+  /// **'Reached level B1'**
+  String get notifTitleLevel2;
+
+  /// No description provided for @notifBodyLevel2.
+  ///
+  /// In en, this message translates to:
+  /// **'You are now an intermediate learner (B1).'**
+  String get notifBodyLevel2;
+
+  /// No description provided for @notifTitleLevel3.
+  ///
+  /// In en, this message translates to:
+  /// **'Reached level B2'**
+  String get notifTitleLevel3;
+
+  /// No description provided for @notifBodyLevel3.
+  ///
+  /// In en, this message translates to:
+  /// **'Upper-intermediate (B2) reached. Brilliant.'**
+  String get notifBodyLevel3;
+
+  /// No description provided for @notifTitleLevel4.
+  ///
+  /// In en, this message translates to:
+  /// **'Reached level C1'**
+  String get notifTitleLevel4;
+
+  /// No description provided for @notifBodyLevel4.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced (C1) — your Spanish is strong.'**
+  String get notifBodyLevel4;
+
+  /// No description provided for @notifTitleLevel5.
+  ///
+  /// In en, this message translates to:
+  /// **'Reached level C2'**
+  String get notifTitleLevel5;
+
+  /// No description provided for @notifBodyLevel5.
+  ///
+  /// In en, this message translates to:
+  /// **'Proficiency (C2) — the top of the scale!'**
+  String get notifBodyLevel5;
+
+  /// No description provided for @achTitleFirstSteps.
+  ///
+  /// In en, this message translates to:
+  /// **'First Steps'**
+  String get achTitleFirstSteps;
+
+  /// No description provided for @achTitleScholar.
+  ///
+  /// In en, this message translates to:
+  /// **'Scholar'**
+  String get achTitleScholar;
+
+  /// No description provided for @achTitleWildfire.
+  ///
+  /// In en, this message translates to:
+  /// **'Wildfire'**
+  String get achTitleWildfire;
+
+  /// No description provided for @achTitlePointMaker.
+  ///
+  /// In en, this message translates to:
+  /// **'Point Maker'**
+  String get achTitlePointMaker;
+
+  /// No description provided for @achTitleCollector.
+  ///
+  /// In en, this message translates to:
+  /// **'Collector'**
+  String get achTitleCollector;
+
+  /// No description provided for @achTitleRisingStar.
+  ///
+  /// In en, this message translates to:
+  /// **'Rising Star'**
+  String get achTitleRisingStar;
+
+  /// No description provided for @leagueTierBronze.
+  ///
+  /// In en, this message translates to:
+  /// **'Bronze'**
+  String get leagueTierBronze;
+
+  /// No description provided for @leagueTierSilver.
+  ///
+  /// In en, this message translates to:
+  /// **'Silver'**
+  String get leagueTierSilver;
+
+  /// No description provided for @leagueTierGold.
+  ///
+  /// In en, this message translates to:
+  /// **'Gold'**
+  String get leagueTierGold;
+
+  /// No description provided for @leagueTierSapphire.
+  ///
+  /// In en, this message translates to:
+  /// **'Sapphire'**
+  String get leagueTierSapphire;
+
+  /// No description provided for @leagueTierRuby.
+  ///
+  /// In en, this message translates to:
+  /// **'Ruby'**
+  String get leagueTierRuby;
+
+  /// No description provided for @leagueTierEmerald.
+  ///
+  /// In en, this message translates to:
+  /// **'Emerald'**
+  String get leagueTierEmerald;
+
+  /// No description provided for @leagueTierAmethyst.
+  ///
+  /// In en, this message translates to:
+  /// **'Amethyst'**
+  String get leagueTierAmethyst;
+
+  /// No description provided for @leagueTierPearl.
+  ///
+  /// In en, this message translates to:
+  /// **'Pearl'**
+  String get leagueTierPearl;
+
+  /// No description provided for @leagueTierObsidian.
+  ///
+  /// In en, this message translates to:
+  /// **'Obsidian'**
+  String get leagueTierObsidian;
+
+  /// No description provided for @leagueTierDiamond.
+  ///
+  /// In en, this message translates to:
+  /// **'Diamond'**
+  String get leagueTierDiamond;
+
+  /// No description provided for @cefrNameBeginner.
+  ///
+  /// In en, this message translates to:
+  /// **'Beginner'**
+  String get cefrNameBeginner;
+
+  /// No description provided for @cefrNameElementary.
+  ///
+  /// In en, this message translates to:
+  /// **'Elementary'**
+  String get cefrNameElementary;
+
+  /// No description provided for @cefrNameIntermediate.
+  ///
+  /// In en, this message translates to:
+  /// **'Intermediate'**
+  String get cefrNameIntermediate;
+
+  /// No description provided for @cefrNameUpperIntermediate.
+  ///
+  /// In en, this message translates to:
+  /// **'Upper intermediate'**
+  String get cefrNameUpperIntermediate;
+
+  /// No description provided for @cefrNameAdvanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced'**
+  String get cefrNameAdvanced;
+
+  /// No description provided for @cefrNameProficient.
+  ///
+  /// In en, this message translates to:
+  /// **'Proficient'**
+  String get cefrNameProficient;
+
+  /// No description provided for @leaguesTierLeague.
+  ///
+  /// In en, this message translates to:
+  /// **'{tier} League'**
+  String leaguesTierLeague(String tier);
+
+  /// No description provided for @leaguesYoureIn.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re in {tier} · top 7 climb each week'**
+  String leaguesYoureIn(String tier);
+
+  /// No description provided for @leaguesZonePromotion.
+  ///
+  /// In en, this message translates to:
+  /// **'⬆ PROMOTION ZONE'**
+  String get leaguesZonePromotion;
+
+  /// No description provided for @leaguesZoneDemotion.
+  ///
+  /// In en, this message translates to:
+  /// **'⬇ DEMOTION ZONE'**
+  String get leaguesZoneDemotion;
+
+  /// No description provided for @profileAchievementsSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{unlocked} of {total} unlocked · real progress'**
+  String profileAchievementsSummary(int unlocked, int total);
+
+  /// No description provided for @profileRealStateNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Level, XP, lessons, streak and saved words are real engine state — they start at zero on a fresh account.'**
+  String get profileRealStateNote;
 }
 
 class _AppLocalizationsDelegate
