@@ -69,18 +69,42 @@
 //   never move a sound authored a or c — the launch-thin design constraint,
 //   applied to all three parameters.
 //
-// GO-LIVE STOP — this is the item-parameter re-fit MATH (b, a, c) only. NOT done
-// here (each lands at go-live behind the human dual senior-architect sign-off):
-// the full JOINT / iterated (a, b, c) refinement (this pass takes ONE coordinate
-// step per rung — b, then a holding b, then c holding a and b — the conservative
-// thin-data realization, not a joint Newton fit); the EAP θ re-estimate that
-// complements the online step; and the wiring that reads the ReviewLog out of
-// Supabase, writes the calibrated irt_a / irt_b / irt_c back onto the item bank,
-// and schedules the batch. Pure values only.
+// THE JOINT / ITERATED (a, b, c) REFIT (calibrateItemJoint). calibrateItem
+// takes ONE coordinate step per rung (b, then a holding b, then c holding a and
+// b); calibrateItemJoint instead ITERATES the coordinate updates to a fixed
+// point — guarded cyclic coordinate ascent on the penalized log-posterior.
+// Each update is the SAME strictly-monotone bisection, generalized to hold the
+// other two parameters; a step is ACCEPTED only if it does not decrease the
+// penalized log-posterior (penLP). For the 2PL (a, b) sub-problem every
+// coordinate is strictly concave (its bisection is the exact coordinate max) so
+// the guard is a no-op and the ascent converges to the joint MAP; with a 3PL
+// guessing floor the (a, b) surface is non-concave, so the guard makes each
+// cycle a monotone IMPROVEMENT from the authored prior (a prior-anchored local
+// ascent — never a global-optimum claim, never worse than the single pass).
+// penLP is bounded above ⇒ the monotone ascent converges; jointConverged
+// reports whether the parameter move fell below jointTolerance before
+// jointMaxCycles. Same thin-data guards as the single pass: below-rung
+// parameters never enter the cycle (verbatim), and every bisection stays finite
+// + clamped on separated / reverse-keyed data.
+//
+// THE EAP θ RE-ESTIMATE (EapThetaEstimator) — the batch posterior-mean ability
+// that COMPLEMENTS the online θ step (ability.dart): given a learner's graded
+// responses to items with calibrated (a, b, c) parameters and a Gaussian θ
+// prior, integrate θ·posterior over a fixed quadrature grid (log-sum-exp
+// stable). Pure, deterministic, order-independent; with no responses it returns
+// the prior mean (thin-data-safe by the same construction). The mcq-only
+// guessing guard mirrors IrtModel.guessingFor.
+//
+// GO-LIVE STOP — this is the batch re-fit MATH (item a/b/c AND learner θ) only.
+// NOT done here (lands at go-live behind the human dual senior-architect
+// sign-off): the wiring that reads the ReviewLog out of Supabase, writes the
+// calibrated irt_a / irt_b / irt_c back onto the item bank, persists the
+// re-estimated θ, and schedules the batch. Pure values only.
 
 import 'dart:math' as math;
 
 import 'package:ratel/content/models/enums.dart' show ExerciseType;
+import 'package:ratel/services/learning/irt.dart' show IrtItem;
 import 'package:ratel/services/learning/learner_state.dart' show ReviewLogEntry;
 
 /// One graded response feeding an item's difficulty re-fit: the learner's
@@ -129,6 +153,8 @@ class CalibrationResult {
     required this.converged,
     required this.aConverged,
     required this.cConverged,
+    this.cycles = 0,
+    this.jointConverged = true,
   });
 
   /// The calibrated difficulty — or, at [CalibrationRung.insufficientData], the
@@ -170,6 +196,16 @@ class CalibrationResult {
   /// Whether the `c` bisection reached tolerance (true when `c` was not re-fit
   /// this rung, the prior was kept, or the root was clamped to a bound).
   final bool cConverged;
+
+  /// How many cyclic-coordinate-ascent cycles
+  /// [IrtCalibrator.calibrateItemJoint] ran (0 for a single-pass
+  /// [IrtCalibrator.calibrateItem] result).
+  final int cycles;
+
+  /// Whether the joint refit's parameter moves settled below
+  /// [CalibrationParams.jointTolerance] before [CalibrationParams.jointMaxCycles]
+  /// (always true for a single-pass result).
+  final bool jointConverged;
 
   /// Signed difficulty change from the prior (0.0 when the prior was kept).
   double get delta => b - priorB;
@@ -236,6 +272,8 @@ class CalibrationParams {
     this.cMax = 0.5,
     this.tolerance = 1e-9,
     this.maxIterations = 200,
+    this.jointMaxCycles = 50,
+    this.jointTolerance = 1e-6,
   })  : assert(priorVariance > 0, 'priorVariance (τ²) must be > 0'),
         assert(discriminationPriorVariance > 0,
             'discriminationPriorVariance (τ_a²) must be > 0'),
@@ -253,7 +291,9 @@ class CalibrationParams {
         assert(cMax > cMin, 'cMax must be > cMin'),
         assert(cMax < 1, 'cMax must be < 1 (a valid guessing floor)'),
         assert(tolerance > 0, 'tolerance must be > 0'),
-        assert(maxIterations > 0, 'maxIterations must be > 0');
+        assert(maxIterations > 0, 'maxIterations must be > 0'),
+        assert(jointMaxCycles > 0, 'jointMaxCycles must be > 0'),
+        assert(jointTolerance > 0, 'jointTolerance must be > 0');
 
   /// τ² — the Gaussian prior variance on `b` (logit scale). Small = trust the
   /// authored difficulty (strong shrinkage); large = trust the data.
@@ -300,6 +340,15 @@ class CalibrationParams {
   /// Bisection iteration cap (a safety bound; the strictly-monotone score
   /// converges well within it).
   final int maxIterations;
+
+  /// Maximum cyclic-coordinate-ascent cycles in
+  /// [IrtCalibrator.calibrateItemJoint] before returning the best fixed point
+  /// reached (a safety bound; the 2PL joint MAP converges well within it).
+  final int jointMaxCycles;
+
+  /// Joint-refit convergence tolerance: the cycle stops once the largest
+  /// absolute parameter move within a cycle falls below this.
+  final double jointTolerance;
 
   /// Documented, pilot-tunable launch defaults.
   static const CalibrationParams defaults = CalibrationParams();
@@ -645,5 +694,409 @@ class IrtCalibrator {
     }
     final double clamped = mid < floor ? floor : (mid > ceil ? ceil : mid);
     return (clamped, converged);
+  }
+
+  /// Re-calibrate ONE item with the FULL JOINT / iterated (a, b, c) refit —
+  /// guarded cyclic coordinate ascent to a fixed point, the go-live complement to
+  /// the single-coordinate-step [calibrateItem]. Same staged rungs and thin-data
+  /// guards; the difference is that the eligible parameters are co-fit and
+  /// iterated rather than updated once:
+  ///   * [CalibrationRung.insufficientData] -> authored params verbatim (cycles 0);
+  ///   * [CalibrationRung.refined1pl] -> identical to [calibrateItem] (only `b` is
+  ///     eligible, so one exact 1PL bisection is already the fixed point);
+  ///   * [CalibrationRung.eligible2pl] -> `b` and `a` are co-fit and iterated
+  ///     (each cycle: `b` holding `a`, then `a` holding `b`) to the joint 2PL MAP;
+  ///   * [CalibrationRung.eligible3pl] -> `b`, `a` and the mcq `c` are co-fit and
+  ///     iterated (guarded — the 3PL surface is non-concave, so each accepted step
+  ///     only ever IMPROVES the penalized log-posterior from the authored prior).
+  /// A coordinate step is accepted only if it does not decrease the penalized
+  /// log-posterior, so the ascent is monotone and converges;
+  /// [CalibrationResult.cycles] / [CalibrationResult.jointConverged] report the
+  /// effort and whether the moves settled below [CalibrationParams.jointTolerance].
+  CalibrationResult calibrateItemJoint({
+    required List<CalibrationResponse> responses,
+    required double priorB,
+    double priorA = 1.0,
+    double priorC = 0.0,
+    ExerciseType type = ExerciseType.mcq,
+  }) {
+    final int n = responses.length;
+    final CalibrationRung rung = _rungFor(n, type);
+
+    if (rung == CalibrationRung.insufficientData) {
+      return CalibrationResult(
+        b: priorB,
+        a: priorA,
+        c: priorC,
+        rung: rung,
+        responseCount: n,
+        priorB: priorB,
+        priorA: priorA,
+        priorC: priorC,
+        converged: true,
+        aConverged: true,
+        cConverged: true,
+        cycles: 0,
+        jointConverged: true,
+      );
+    }
+
+    // refined1pl: only `b` is eligible, so the single exact 1PL bisection IS the
+    // fixed point (identical to calibrateItem). One trivially-converged cycle.
+    if (rung == CalibrationRung.refined1pl) {
+      final (double b1, bool b1Converged) = _fitDifficulty(responses, priorB);
+      return CalibrationResult(
+        b: b1,
+        a: priorA,
+        c: priorC,
+        rung: rung,
+        responseCount: n,
+        priorB: priorB,
+        priorA: priorA,
+        priorC: priorC,
+        converged: b1Converged,
+        aConverged: true,
+        cConverged: true,
+        cycles: 1,
+        jointConverged: true,
+      );
+    }
+
+    // eligible2pl / eligible3pl: co-fit (b, a[, c]) by guarded coordinate ascent.
+    final bool fitC = rung == CalibrationRung.eligible3pl;
+    double b = priorB;
+    double a = priorA;
+    double c = priorC;
+    bool bConverged = true;
+    bool aConverged = true;
+    bool cConverged = true;
+    double lp =
+        _penalizedLogPosterior(responses, a, b, c, priorB, priorA, priorC, type);
+
+    int cycles = 0;
+    bool settled = false;
+    for (int k = 0; k < params.jointMaxCycles; k++) {
+      cycles++;
+      double maxMove = 0.0;
+
+      // `b` holding a, c.
+      final (double bProp, bool bcv) =
+          _fitDifficultyConditional(responses, a, c, priorB, type);
+      final double lpB = _penalizedLogPosterior(
+          responses, a, bProp, c, priorB, priorA, priorC, type);
+      if (lpB >= lp) {
+        maxMove = math.max(maxMove, (bProp - b).abs());
+        b = bProp;
+        bConverged = bcv;
+        lp = lpB;
+      }
+
+      // `a` holding b, c.
+      final (double aProp, bool acv) =
+          _fitDiscriminationConditional(responses, b, c, priorA, type);
+      final double lpA = _penalizedLogPosterior(
+          responses, aProp, b, c, priorB, priorA, priorC, type);
+      if (lpA >= lp) {
+        maxMove = math.max(maxMove, (aProp - a).abs());
+        a = aProp;
+        aConverged = acv;
+        lp = lpA;
+      }
+
+      // mcq `c` holding a, b (3PL rung only).
+      if (fitC) {
+        final (double cProp, bool ccv) = _fitGuessing(responses, a, b, priorC);
+        final double lpC = _penalizedLogPosterior(
+            responses, a, b, cProp, priorB, priorA, priorC, type);
+        if (lpC >= lp) {
+          maxMove = math.max(maxMove, (cProp - c).abs());
+          c = cProp;
+          cConverged = ccv;
+          lp = lpC;
+        }
+      }
+
+      if (maxMove < params.jointTolerance) {
+        settled = true;
+        break;
+      }
+    }
+
+    return CalibrationResult(
+      b: b,
+      a: a,
+      c: fitC ? c : priorC,
+      rung: rung,
+      responseCount: n,
+      priorB: priorB,
+      priorA: priorA,
+      priorC: priorC,
+      converged: bConverged,
+      aConverged: aConverged,
+      cConverged: fitC ? cConverged : true,
+      cycles: cycles,
+      jointConverged: settled,
+    );
+  }
+
+  /// Batch variant of [calibrateItemJoint]: map each item id to its joint
+  /// [CalibrationResult]. Deterministic and order-independent (see
+  /// [calibrateBatch]).
+  Map<String, CalibrationResult> calibrateBatchJoint({
+    required Map<String, ItemPrior> priors,
+    required Map<String, List<CalibrationResponse>> responsesByItem,
+  }) {
+    final Map<String, CalibrationResult> out = <String, CalibrationResult>{};
+    for (final MapEntry<String, ItemPrior> e in priors.entries) {
+      final ItemPrior p = e.value;
+      out[e.key] = calibrateItemJoint(
+        responses: responsesByItem[e.key] ?? const <CalibrationResponse>[],
+        priorB: p.b,
+        priorA: p.a,
+        priorC: p.c,
+        type: p.type,
+      );
+    }
+    return out;
+  }
+
+  /// The penalized log-posterior log P(responses | a, b, c) + log prior(a, b, c)
+  /// (up to constants) — the objective the joint coordinate ascent monotonically
+  /// increases. p_j = c + (1 - c)*sigma(a*(theta_j - b)) with the mcq-only
+  /// guessing guard; logs are guarded against 0/1 saturation so separated data
+  /// stays finite. Used only for step-acceptance comparisons.
+  double _penalizedLogPosterior(
+    List<CalibrationResponse> responses,
+    double a,
+    double b,
+    double c,
+    double priorB,
+    double priorA,
+    double priorC,
+    ExerciseType type,
+  ) {
+    final double cEff = type == ExerciseType.mcq ? c : 0.0;
+    double ll = 0.0;
+    for (final CalibrationResponse r in responses) {
+      final double g = 1.0 / (1.0 + math.exp(-a * (r.theta - b)));
+      final double p = cEff + (1.0 - cEff) * g;
+      final double pc =
+          p < 1e-12 ? 1e-12 : (p > 1.0 - 1e-12 ? 1.0 - 1e-12 : p);
+      ll += r.correct ? math.log(pc) : math.log(1.0 - pc);
+    }
+    ll -= (b - priorB) * (b - priorB) / (2.0 * params.priorVariance);
+    ll -=
+        (a - priorA) * (a - priorA) / (2.0 * params.discriminationPriorVariance);
+    ll -= (c - priorC) * (c - priorC) / (2.0 * params.guessingPriorVariance);
+    return ll;
+  }
+
+  /// MAP 1PL/2PL/3PL difficulty holding [a] and [cRaw] (mcq-gated): the general
+  /// score S(b) = -a*(1-c)*Sum_j w_j*g_j*(1-g_j) - (b-priorB)/tau_b^2 with
+  /// w_j = y_j/p_j - (1-y_j)/(1-p_j). Reduces to the strictly-decreasing 2PL
+  /// b-score when c = 0 (the joint-refit inner step). Bisected via
+  /// [_bisectDecreasing]; clamped to [CalibrationParams.bMin]..[bMax].
+  (double, bool) _fitDifficultyConditional(
+    List<CalibrationResponse> responses,
+    double a,
+    double cRaw,
+    double priorB,
+    ExerciseType type,
+  ) {
+    final double c = type == ExerciseType.mcq ? cRaw : 0.0;
+    double score(double b) {
+      double s = 0.0;
+      for (final CalibrationResponse r in responses) {
+        final double g = 1.0 / (1.0 + math.exp(-a * (r.theta - b)));
+        final double p = c + (1.0 - c) * g;
+        final double w = r.correct ? (1.0 / p) : (-1.0 / (1.0 - p));
+        s += -a * (1.0 - c) * w * g * (1.0 - g);
+      }
+      return s - (b - priorB) / params.priorVariance;
+    }
+
+    return _bisectDecreasing(score, priorB, params.bMin, params.bMax);
+  }
+
+  /// MAP 2PL/3PL discrimination holding [b] and [cRaw] (mcq-gated): the general
+  /// score S(a) = (1-c)*Sum_j w_j*d_j*g_j*(1-g_j) - (a-priorA)/tau_a^2, d_j =
+  /// theta_j - b. Reduces to the strictly-decreasing 2PL a-score when c = 0.
+  /// Bisected via [_bisectDecreasing]; clamped to [CalibrationParams.aMin]..[aMax]
+  /// (aMin > 0 keeps it a valid slope).
+  (double, bool) _fitDiscriminationConditional(
+    List<CalibrationResponse> responses,
+    double b,
+    double cRaw,
+    double priorA,
+    ExerciseType type,
+  ) {
+    final double c = type == ExerciseType.mcq ? cRaw : 0.0;
+    double score(double a) {
+      double s = 0.0;
+      for (final CalibrationResponse r in responses) {
+        final double d = r.theta - b;
+        final double g = 1.0 / (1.0 + math.exp(-a * d));
+        final double p = c + (1.0 - c) * g;
+        final double w = r.correct ? (1.0 / p) : (-1.0 / (1.0 - p));
+        s += (1.0 - c) * w * d * g * (1.0 - g);
+      }
+      return s - (a - priorA) / params.discriminationPriorVariance;
+    }
+
+    return _bisectDecreasing(score, priorA, params.aMin, params.aMax);
+  }
+}
+/// One graded response feeding an EAP theta re-estimate: the [item]'s calibrated
+/// IRT parameters, the exercise [type] (the mcq-only guessing guard, mirroring
+/// [IrtModel.guessingFor]), and the binary [correct] outcome.
+class ThetaResponse {
+  const ThetaResponse({
+    required this.item,
+    required this.correct,
+    this.type = ExerciseType.mcq,
+  });
+
+  /// The item's stored (a, b, c) parameters the response is scored against.
+  final IrtItem item;
+
+  /// The exercise type — gates whether the item's guessing floor `c` applies.
+  final ExerciseType type;
+
+  /// Whether the answer was correct.
+  final bool correct;
+}
+
+/// Injectable EAP theta knobs with documented const defaults. `const
+/// EapThetaParams()` is the launch profile: a unit-normal theta prior on the
+/// logit scale (matching AbilityState's cold-start mean 0.0) over a grid that
+/// spans [gridMin, gridMax] OFFSETS around the prior mean (default +/-6), so the
+/// no-response posterior mean is exactly the prior mean.
+class EapThetaParams {
+  const EapThetaParams({
+    this.priorMean = 0.0,
+    this.priorSd = 1.0,
+    this.gridMin = -6.0,
+    this.gridMax = 6.0,
+    this.gridPoints = 121,
+  })  : assert(priorSd > 0, 'priorSd must be > 0'),
+        assert(gridMax > gridMin, 'gridMax must be > gridMin'),
+        assert(gridPoints >= 3, 'gridPoints must be >= 3');
+
+  /// Theta prior mean (the cold-start / placement prior; AbilityState default 0).
+  final double priorMean;
+
+  /// Theta prior standard deviation on the logit scale.
+  final double priorSd;
+
+  /// Lower / upper bound of the integration grid, as OFFSETS around [priorMean].
+  final double gridMin;
+  final double gridMax;
+
+  /// Number of evenly-spaced grid nodes (trapezoidal weights). More = finer.
+  final int gridPoints;
+
+  /// Documented launch defaults.
+  static const EapThetaParams defaults = EapThetaParams();
+}
+
+/// The immutable outcome of an EAP theta re-estimate: the posterior-mean ability
+/// [theta], its posterior standard deviation [sd] (a calibrated uncertainty),
+/// the [responseCount] used, and the [priorMean] it falls back to when thin.
+class EapThetaResult {
+  const EapThetaResult({
+    required this.theta,
+    required this.sd,
+    required this.responseCount,
+    required this.priorMean,
+  });
+
+  /// The posterior-mean theta (the EAP point estimate). Equals [priorMean]
+  /// exactly when there are no responses.
+  final double theta;
+
+  /// The posterior standard deviation of theta (shrinks as evidence accumulates).
+  final double sd;
+
+  /// How many responses fed the estimate.
+  final int responseCount;
+
+  /// The prior mean the estimate started from (returned verbatim when thin).
+  final double priorMean;
+
+  /// Whether any responses informed the estimate.
+  bool get refined => responseCount > 0;
+}
+
+/// Pure, deterministic EAP (Expected A Posteriori) theta re-estimator — the batch
+/// posterior-mean ability that COMPLEMENTS the online theta step (ability.dart).
+/// Construct with `const EapThetaEstimator()` for the launch profile, or inject
+/// [params].
+///
+/// Given a learner's [ThetaResponse]s (each an item's calibrated (a, b, c) + the
+/// correct/incorrect outcome) and a Gaussian theta prior, it integrates theta
+/// against the posterior on a fixed quadrature grid:
+///   posterior(theta) ~ prior(theta) * Prod_j p_j^{y_j}*(1-p_j)^{1-y_j},
+/// p_j = c_j + (1-c_j)*sigma(a_j*(theta-b_j)) (guessing gated to mcq), and returns
+/// the posterior mean (and SD). The likelihood is accumulated in LOG space with a
+/// log-sum-exp shift so many responses never underflow. THIN-DATA SAFE: with no
+/// responses the posterior IS the prior, so [EapThetaResult.theta] == the prior
+/// mean. Deterministic, clockless, order-independent (a sum) => golden-testable.
+class EapThetaEstimator {
+  const EapThetaEstimator([this.params = EapThetaParams.defaults]);
+
+  /// The injected prior + grid knobs.
+  final EapThetaParams params;
+
+  /// Re-estimate one learner's global theta from their [responses].
+  EapThetaResult estimate(List<ThetaResponse> responses) {
+    final int n = responses.length;
+    final int m = params.gridPoints;
+    final double lo = params.priorMean + params.gridMin;
+    final double step = (params.gridMax - params.gridMin) / (m - 1);
+    final double invTwoVar = 1.0 / (2.0 * params.priorSd * params.priorSd);
+
+    final List<double> nodes = List<double>.filled(m, 0.0);
+    final List<double> logW = List<double>.filled(m, 0.0);
+    double maxLog = double.negativeInfinity;
+    for (int k = 0; k < m; k++) {
+      final double theta = lo + step * k;
+      nodes[k] = theta;
+      final double d = theta - params.priorMean;
+      // log unnormalized Gaussian prior + trapezoidal end-weight.
+      double lw = -d * d * invTwoVar + math.log((k == 0 || k == m - 1) ? 0.5 : 1.0);
+      for (final ThetaResponse r in responses) {
+        final double c = r.type == ExerciseType.mcq ? r.item.c : 0.0;
+        final double g = 1.0 / (1.0 + math.exp(-r.item.a * (theta - r.item.b)));
+        final double p = c + (1.0 - c) * g;
+        final double pc =
+            p < 1e-12 ? 1e-12 : (p > 1.0 - 1e-12 ? 1.0 - 1e-12 : p);
+        lw += r.correct ? math.log(pc) : math.log(1.0 - pc);
+      }
+      logW[k] = lw;
+      if (lw > maxLog) {
+        maxLog = lw;
+      }
+    }
+
+    double w0 = 0.0;
+    double w1 = 0.0;
+    double w2 = 0.0;
+    for (int k = 0; k < m; k++) {
+      final double w = math.exp(logW[k] - maxLog);
+      w0 += w;
+      w1 += w * nodes[k];
+      w2 += w * nodes[k] * nodes[k];
+    }
+    final double mean = w1 / w0;
+    double variance = w2 / w0 - mean * mean;
+    if (variance < 0.0) {
+      variance = 0.0; // numerical floor
+    }
+    return EapThetaResult(
+      theta: mean,
+      sd: math.sqrt(variance),
+      responseCount: n,
+      priorMean: params.priorMean,
+    );
   }
 }
