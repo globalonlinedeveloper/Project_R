@@ -17,6 +17,7 @@ library;
 
 export 'ability.dart';
 export 'calibration.dart';
+export 'calibration_runner.dart';
 export 'cat.dart';
 export 'cold_start.dart';
 export 'fsrs.dart';
