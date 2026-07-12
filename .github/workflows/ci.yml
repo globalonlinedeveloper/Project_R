@@ -73,3 +73,14 @@ jobs:
         run: pip install -r ratel-tools/requirements-dev.txt || pip install -r ratel-tools/requirements.txt
       - name: pytest — Part D pg_dump diff=0 + entitlement/credit + per-table RLS isolation (importorskip if pgserver absent)
         run: python -m pytest ratel-tools/tests/test_pg_dump_parity.py ratel-tools/tests/test_rls_entitlement.py ratel-tools/tests/test_rls_isolation.py ratel-tools/tests/test_credit_ledger.py ratel-tools/tests/test_entitlement_events.py ratel-tools/tests/test_review_log_partitions.py ratel-tools/tests/test_dsar_delete_anchor.py ratel-tools/tests/test_audit_log.py -q
+
+  web-pwa-gate:
+    name: Web gate (PWA service-worker offline behaviour)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Service-worker behavioural test (mocked Cache/fetch, all strategies)
+        run: node --test test/web/service_worker.logic.test.mjs

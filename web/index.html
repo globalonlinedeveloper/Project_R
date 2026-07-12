@@ -59,5 +59,17 @@
        whole app crashes with "reading 'init'". Vendored from corbado release 2.4.0. -->
   <script src="passkeys_bundle.js" type="application/javascript"></script>
   <script src="flutter_bootstrap.js" async></script>
+
+  <!-- Ratel offline PWA: register the versioned service worker (see web/service_worker.js).
+       Progressive enhancement — registration failures are swallowed so the app still runs.
+       updateViaCache:'none' keeps the worker script itself uncached so updates apply promptly. -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('service_worker.js', { updateViaCache: 'none' })
+          .catch(function () { /* SW is optional; ignore registration errors */ });
+      });
+    }
+  </script>
 </body>
 </html>
