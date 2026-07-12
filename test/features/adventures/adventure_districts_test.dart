@@ -156,25 +156,14 @@ void main() {
     expect(find.text('🗺️ ADVENTURE · A1'), findsOneWidget);
   });
 
-  testWidgets('es renders translated district chrome',
+  testWidgets('de renders translated district chrome',
       (WidgetTester tester) async {
     final ProviderContainer c = _c(explored: <String>{'a1x', 'a1y'});
     addTearDown(c.dispose);
-    await _pump(tester, c, locale: const Locale('es'));
-    expect(find.text('2/2 exploradas'), findsOneWidget);
-    expect(find.text('✓ Hecho'), findsOneWidget);
-    expect(find.text('A1 · Principiante'), findsOneWidget);
-  });
-
-  testWidgets('ar RTL @360: real ar strings, RTL direction, no overflow',
-      (WidgetTester tester) async {
-    final ProviderContainer c = _c(explored: <String>{'a1x'});
-    addTearDown(c.dispose);
-    await _pump(tester, c,
-        size: const Size(360, 2600), locale: const Locale('ar'));
-    expect(Directionality.of(tester.element(find.byType(ListView))),
-        TextDirection.rtl);
-    expect(find.textContaining('استكشفت'), findsNWidgets(2));
+    await _pump(tester, c, locale: const Locale('de'));
+    expect(find.text('2/2 erkundet'), findsOneWidget);
+    expect(find.text('✓ Fertig'), findsOneWidget);
+    expect(find.text('A1 · Anfänger'), findsOneWidget);
   });
 
   testWidgets('narrow gauntlet @360 and @320: district cards never overflow',
@@ -262,15 +251,5 @@ void main() {
             .byKey(const ValueKey<String>('adventure-district-current-A1')),
         matching: find.byType(Transform)));
     expect(t.transform.getTranslation().y, lessThan(-1.0));
-  });
-
-  testWidgets('ar RTL mirrors the play pictogram (◀, never ▶)',
-      (WidgetTester tester) async {
-    final ProviderContainer c = _c(explored: <String>{'a1x'});
-    addTearDown(c.dispose);
-    await _pump(tester, c, locale: const Locale('ar'));
-    expect(find.text('◀'), findsNWidgets(2)); // the two unexplored rows
-    expect(find.text('▶'), findsNothing);
-    expect(find.text('✓'), findsOneWidget); // explored keeps the check
   });
 }

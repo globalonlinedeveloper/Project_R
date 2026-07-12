@@ -30,10 +30,10 @@ import 'package:ratel/services/preferences/ui_locale_store.dart';
 ///
 /// Covers the full chain (store → controller → MaterialApp locale → ARB
 /// strings), the English fallback that keeps every bare-`MaterialApp` legacy
-/// harness valid, the settings picker mechanics, and an Arabic RTL smoke at
-/// 360 width.
+/// harness valid, the settings picker mechanics, and a German 360-width
+/// gauntlet.
 const CourseSpine _testSpine =
-    CourseSpine(courseCode: 'es', units: <CourseUnit>[
+    CourseSpine(courseCode: 'en', units: <CourseUnit>[
   CourseUnit(
       section: 'SECTION 1 · LEVEL A1',
       title: 'Level A1',
@@ -79,8 +79,8 @@ void main() {
   test('UiLocaleStore roundtrip — in-memory and prefs', () async {
     final InMemoryUiLocaleStore mem = InMemoryUiLocaleStore();
     expect(mem.load(), isNull);
-    await mem.save('es');
-    expect(mem.load(), 'es');
+    await mem.save('de');
+    expect(mem.load(), 'de');
     await mem.save(null);
     expect(mem.load(), isNull);
 
@@ -88,9 +88,9 @@ void main() {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final PrefsUiLocaleStore store = PrefsUiLocaleStore(prefs);
     expect(store.load(), isNull);
-    await store.save('ar');
-    expect(store.load(), 'ar');
-    expect(prefs.getString(PrefsUiLocaleStore.prefsKey), 'ar');
+    await store.save('fr');
+    expect(store.load(), 'fr');
+    expect(prefs.getString(PrefsUiLocaleStore.prefsKey), 'fr');
     await store.save(null);
     expect(store.load(), isNull);
   });
@@ -105,9 +105,9 @@ void main() {
     expect(container.read(uiLocaleControllerProvider), isNull);
     await container
         .read(uiLocaleControllerProvider.notifier)
-        .setLocale(const Locale('es'));
-    expect(container.read(uiLocaleControllerProvider), const Locale('es'));
-    expect(store.current, 'es');
+        .setLocale(const Locale('de'));
+    expect(container.read(uiLocaleControllerProvider), const Locale('de'));
+    expect(store.current, 'de');
     await container.read(uiLocaleControllerProvider.notifier).setLocale(null);
     expect(container.read(uiLocaleControllerProvider), isNull);
     expect(store.current, isNull);
@@ -141,13 +141,13 @@ void main() {
         <String>['Home', 'Library', 'Leagues', 'Quests', 'Profile']);
   });
 
-  testWidgets('full app in Spanish: nav chrome localized; live flip to '
+  testWidgets('full app in German: nav chrome localized; live flip to '
       'Japanese rebuilds', (WidgetTester tester) async {
-    await tester.pumpWidget(_app(InMemoryUiLocaleStore('es')));
+    await tester.pumpWidget(_app(InMemoryUiLocaleStore('de')));
     await tester.pumpAndSettle();
-    expect(find.text('Inicio'), findsOneWidget);
-    expect(find.text('Biblioteca'), findsOneWidget);
-    expect(find.text('Misiones'), findsOneWidget);
+    expect(find.text('Start'), findsOneWidget); // navHome
+    expect(find.text('Bibliothek'), findsOneWidget); // navLibrary
+    expect(find.text('Quests'), findsOneWidget); // navQuests (German keeps 'Quests')
 
 
     final ProviderContainer container =
@@ -158,22 +158,21 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('ホーム'), findsOneWidget);
     expect(find.text('クエスト'), findsOneWidget);
-    expect(find.text('Inicio'), findsNothing);
+    expect(find.text('Start'), findsNothing);
   });
 
-  testWidgets('settings in Spanish (delegates installed): chrome localized',
+  testWidgets('settings in German (delegates installed): chrome localized',
       (WidgetTester tester) async {
     await tester.pumpWidget(
-        _settingsWith(const Locale('es'), InMemoryUiLocaleStore('es')));
+        _settingsWith(const Locale('de'), InMemoryUiLocaleStore('de')));
     await tester.pumpAndSettle();
-    expect(find.text('Ajustes'), findsOneWidget);
-    expect(find.text('APRENDIZAJE'), findsOneWidget);
-    await tester.scrollUntilVisible(
-        find.text('Idioma de la aplicación'), 200);
-    expect(find.text('Idioma de la aplicación'), findsOneWidget);
+    expect(find.text('Einstellungen'), findsOneWidget);
+    expect(find.text('LERNEN'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('App-Sprache'), 200);
+    expect(find.text('App-Sprache'), findsOneWidget);
   });
 
-  testWidgets('picker: choosing Español persists; System default clears',
+  testWidgets('picker: choosing Deutsch persists; System default clears',
       (WidgetTester tester) async {
     final InMemoryUiLocaleStore store = InMemoryUiLocaleStore();
     await tester.pumpWidget(ProviderScope(
@@ -193,12 +192,21 @@ void main() {
     expect(find.text('System default'), findsOneWidget);
     await tester.tap(find.text('App language'));
     await tester.pumpAndSettle();
-    expect(find.text('Español'), findsOneWidget);
-    await tester.tap(find.text('Español'));
+    // 'Deutsch' sits lower in the 10-language sheet — scroll it into view
+    // (the sheet ListView is the last Scrollable, above the settings list).
+    await tester.scrollUntilVisible(find.text('Deutsch'), 120,
+        scrollable: find.byType(Scrollable).last);
+    // Fully align the row — a partially-visible row is find-able but its
+    // center misses hit-testing (same reason the 'App language' row above
+    // needs ensureVisible).
+    await tester.ensureVisible(find.text('Deutsch'));
     await tester.pumpAndSettle();
-    expect(store.current, 'es');
+    expect(find.text('Deutsch'), findsOneWidget);
+    await tester.tap(find.text('Deutsch'));
+    await tester.pumpAndSettle();
+    expect(store.current, 'de');
     // Sheet closed; the row subtitle now shows the endonym.
-    expect(find.text('Español'), findsOneWidget);
+    expect(find.text('Deutsch'), findsOneWidget);
     // Re-open and clear back to system default.
     await tester.ensureVisible(find.text('App language'));
     await tester.pumpAndSettle();
@@ -219,12 +227,12 @@ void main() {
     final AppLocalizations ru = lookupAppLocalizations(const Locale('ru'));
     expect(ru.homeQuickExercises(1), contains('быстрое'));
     expect(ru.homeQuickExercises(3), contains('быстрых'));
-    final AppLocalizations ar = lookupAppLocalizations(const Locale('ar'));
-    expect(ar.homeQuickExercises(2), isNotEmpty);
+    final AppLocalizations ja = lookupAppLocalizations(const Locale('ja'));
+    expect(ja.homeQuickExercises(2), isNotEmpty);
   });
 
   test('lesson chrome keys: en output BYTE-IDENTICAL to the old literals '
-      '(sentinels + summary), es localized (I3)', () {
+      '(sentinels + summary), de localized (I3)', () {
     final AppLocalizations en = lookupAppLocalizations(const Locale('en'));
     expect(en.lessonNicelyDone, '✓ Nicely done!');
     expect(en.lessonNotQuite, '✕ Not quite');
@@ -235,29 +243,29 @@ void main() {
     expect(en.lessonTypeWhatYouHear, 'Type what you hear');
     expect(en.lessonTapWhatYouHear, 'Tap what you hear');
     expect(en.lessonTranslateSentence, 'Translate this sentence');
-    final AppLocalizations es = lookupAppLocalizations(const Locale('es'));
-    expect(es.lessonNicelyDone, '✓ ¡Bien hecho!');
-    expect(es.lessonCheck, 'Comprobar');
-    expect(es.lessonCompleteSummary(3, 4, 'A1'), contains('3 de 4'));
+    final AppLocalizations de = lookupAppLocalizations(const Locale('de'));
+    expect(de.lessonNicelyDone, '✓ Gut gemacht!');
+    expect(de.lessonCheck, 'Prüfen');
+    expect(de.lessonCompleteSummary(3, 4, 'A1'), contains('3 von 4'));
   });
 
-  testWidgets('Library in Spanish (delegates installed): chrome localized',
+  testWidgets('Library in German (delegates installed): chrome localized',
       (WidgetTester tester) async {
     await tester.pumpWidget(ProviderScope(
       overrides: <Override>[
         courseSpineProvider.overrideWithValue(_testSpine),
       ],
       child: const MaterialApp(
-        locale: Locale('es'),
+        locale: Locale('de'),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         home: LibraryScreen(),
       ),
     ));
     await tester.pumpAndSettle();
-    expect(find.text('Biblioteca'), findsOneWidget);
-    expect(find.text('Tutor de IA'), findsOneWidget);
-    expect(find.text('Centro de práctica'), findsOneWidget);
+    expect(find.text('Bibliothek'), findsOneWidget);
+    expect(find.text('KI-Tutor'), findsOneWidget);
+    expect(find.text('Übungszentrum'), findsOneWidget);
   });
 
   testWidgets('Library English fallback: bare MaterialApp renders English',
@@ -296,9 +304,9 @@ void main() {
         'Top 7 promote · bottom 5 relegate when the week ends.');
     expect(en.leaguesYouAreHere, "You're here");
     expect(en.leaguesViewAllTiers, '🏆 View all 10 tiers ›');
-    final AppLocalizations es = lookupAppLocalizations(const Locale('es'));
-    expect(es.leaguesTopClimb(7, 1), contains('1 día'));
-    expect(es.questsGoalReached, contains('🎉'));
+    final AppLocalizations de = lookupAppLocalizations(const Locale('de'));
+    expect(de.leaguesTopClimb(7, 1), contains('1 Tag'));
+    expect(de.questsGoalReached, contains('🎉'));
   });
 
   test('I7 en byte-identity pins (shop/paywall)', () {
@@ -314,54 +322,54 @@ void main() {
     expect(en.paywallFinePrint('IN/BD'),
         'Cancel anytime in Settings. Prices shown for IN/BD; '
         'your local price is set by your app store.');
-    final AppLocalizations es = lookupAppLocalizations(const Locale('es'));
-    expect(es.shopBuyFor(200), contains('200 💎'));
-    expect(es.paywallStartTrial, contains('7'));
+    final AppLocalizations de = lookupAppLocalizations(const Locale('de'));
+    expect(de.shopBuyFor(200), contains('200 💎'));
+    expect(de.paywallStartTrial, contains('7'));
   });
 
-  testWidgets('Onboarding in Spanish: welcome step localized',
+  testWidgets('Onboarding in German: welcome step localized',
       (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(
       child: MaterialApp(
-        locale: Locale('es'),
+        locale: Locale('de'),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         home: OnboardingScreen(),
       ),
     ));
     await tester.pumpAndSettle();
-    expect(find.text('¡Hola, soy Ratel!'), findsOneWidget);
-    expect(find.text('Empezar'), findsOneWidget);
-    expect(find.text('Ya tengo una cuenta'), findsOneWidget);
+    expect(find.text('Hi, ich bin Ratel!'), findsOneWidget);
+    expect(find.text("Los geht's"), findsOneWidget);
+    expect(find.text('Ich habe schon ein Konto'), findsOneWidget);
   });
 
-  testWidgets('Profile in Spanish: chrome localized (guest state)',
+  testWidgets('Profile in German: chrome localized (guest state)',
       (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(
       child: MaterialApp(
-        locale: Locale('es'),
+        locale: Locale('de'),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         home: ProfileScreen(),
       ),
     ));
     await tester.pumpAndSettle();
-    expect(find.text('Logros'), findsOneWidget);
-    await tester.scrollUntilVisible(find.text('Amigos'), 200);
-    expect(find.text('Amigos'), findsOneWidget);
+    expect(find.text('Erfolge'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('Freunde'), 200);
+    expect(find.text('Freunde'), findsOneWidget);
   });
 
-  testWidgets('Arabic: app renders RTL with localized nav — 360 gauntlet',
+  testWidgets('German: app renders LTR with localized nav — 360 gauntlet',
       (WidgetTester tester) async {
     tester.view.physicalSize = const Size(360, 800);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
-    await tester.pumpWidget(_app(InMemoryUiLocaleStore('ar')));
+    await tester.pumpWidget(_app(InMemoryUiLocaleStore('de')));
     await tester.pumpAndSettle();
-    expect(find.text('الرئيسية'), findsOneWidget);
+    expect(find.text('Start'), findsOneWidget);
     expect(
         Directionality.of(tester.element(find.byType(Scaffold).first)),
-        TextDirection.rtl);
+        TextDirection.ltr);
   });
 
   // ── S130 · engine-string render maps (quests / notifications /
@@ -426,29 +434,29 @@ void main() {
         'state — they start at zero on a fresh account.');
   });
 
-  test('engine-map keys: es spot-checks', () {
-    final AppLocalizations es = lookupAppLocalizations(const Locale('es'));
-    expect(es.questTitlePowerSession, 'Sesión intensa');
-    expect(es.notifTitleStreak7, '¡Racha de 7 días!');
-    expect(es.achTitleFirstSteps, 'Primeros pasos');
-    expect(es.leagueTierGold, 'Oro');
-    expect(es.cefrNameBeginner, 'Principiante');
-    expect(es.leaguesTierLeague('Oro'), 'Liga de Oro');
+  test('engine-map keys: de spot-checks', () {
+    final AppLocalizations de = lookupAppLocalizations(const Locale('de'));
+    expect(de.questTitlePowerSession, 'Power-Session');
+    expect(de.notifTitleStreak7, '7-Tage-Serie!');
+    expect(de.achTitleFirstSteps, 'Erste Schritte');
+    expect(de.leagueTierGold, 'Gold');
+    expect(de.cefrNameBeginner, 'Anfänger');
+    expect(de.leaguesTierLeague('Gold'), 'Gold-Liga');
   });
 
-  testWidgets('Quests in Spanish: engine-generated quest cards localized',
+  testWidgets('Quests in German: engine-generated quest cards localized',
       (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(
       child: MaterialApp(
-        locale: Locale('es'),
+        locale: Locale('de'),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         home: QuestsScreen(),
       ),
     ));
     await tester.pumpAndSettle();
-    await tester.scrollUntilVisible(find.text('Sesión intensa'), 200);
-    expect(find.text('Sesión intensa'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('Power-Session'), 200);
+    expect(find.text('Power-Session'), findsOneWidget);
     expect(find.text('Power session'), findsNothing);
   });
 
@@ -481,46 +489,46 @@ void main() {
     expect(en.commonDowMon, 'Mo');
   });
 
-  test('practice/progress keys: es spot-checks', () {
-    final AppLocalizations es = lookupAppLocalizations(const Locale('es'));
-    expect(es.practiceTitle, 'Práctica');
-    expect(es.practiceReviewWords(2), 'Repasar 2 palabras');
-    expect(es.practiceGradeEasy, 'Fácil');
-    expect(es.progressTitle, 'Progreso');
-    expect(es.progressStatSavedWords, 'Palabras guardadas');
-    expect(es.commonDowMon, 'Lu');
+  test('practice/progress keys: de spot-checks', () {
+    final AppLocalizations de = lookupAppLocalizations(const Locale('de'));
+    expect(de.practiceTitle, 'Üben');
+    expect(de.practiceReviewWords(2), '2 Wörter wiederholen');
+    expect(de.practiceGradeEasy, 'Leicht');
+    expect(de.progressTitle, 'Fortschritt');
+    expect(de.progressStatSavedWords, 'Gespeicherte Wörter');
+    expect(de.commonDowMon, 'Mo');
   });
 
-  testWidgets('Practice hub in Spanish: empty state localized',
+  testWidgets('Practice hub in German: empty state localized',
       (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(
       child: MaterialApp(
-        locale: Locale('es'),
+        locale: Locale('de'),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         home: PracticeHubScreen(),
       ),
     ));
     await tester.pumpAndSettle();
-    expect(find.text('Práctica'), findsOneWidget);
-    expect(find.text('Aún no hay palabras guardadas'), findsOneWidget);
+    expect(find.text('Üben'), findsOneWidget);
+    expect(find.text('Noch keine gespeicherten Wörter'), findsOneWidget);
     expect(find.text('No saved words yet'), findsNothing);
   });
 
-  testWidgets('Progress in Spanish: hero + stats localized (zero state)',
+  testWidgets('Progress in German: hero + stats localized (zero state)',
       (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(
       child: MaterialApp(
-        locale: Locale('es'),
+        locale: Locale('de'),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         home: ProgressScreen(),
       ),
     ));
     await tester.pumpAndSettle();
-    expect(find.text('Progreso'), findsOneWidget);
-    expect(find.text('Nivel A1 · Principiante'), findsOneWidget);
-    expect(find.text('Palabras guardadas'), findsOneWidget);
+    expect(find.text('Fortschritt'), findsOneWidget);
+    expect(find.text('Niveau A1 · Anfänger'), findsOneWidget);
+    expect(find.text('Gespeicherte Wörter'), findsOneWidget);
   });
 
   // ── S130 · search / themes / tutor / adventures chrome ────────────────────
@@ -540,29 +548,29 @@ void main() {
     expect(en.tutorAnnounceNeedsPro, 'RATEL PRO unlocks live AI tutoring.');
   });
 
-  test('search/themes/tutor/adventures keys: es spot-checks', () {
-    final AppLocalizations es = lookupAppLocalizations(const Locale('es'));
-    expect(es.searchTitle, 'Buscar');
-    expect(es.searchDestPracticeHub, 'Centro de práctica');
-    expect(es.themesTitle, 'Temas');
-    expect(es.tutorTalkTitle, 'Habla con Ratel');
-    expect(es.adventureStart, 'Empezar aventura');
-    expect(es.adventureChoicePoints(1), '1 punto de decisión');
+  test('search/themes/tutor/adventures keys: de spot-checks', () {
+    final AppLocalizations de = lookupAppLocalizations(const Locale('de'));
+    expect(de.searchTitle, 'Suche');
+    expect(de.searchDestPracticeHub, 'Übungszentrum');
+    expect(de.themesTitle, 'Themen');
+    expect(de.tutorTalkTitle, 'Mit Ratel sprechen');
+    expect(de.adventureStart, 'Abenteuer starten');
+    expect(de.adventureChoicePoints(1), '1 Entscheidungspunkt');
   });
 
-  testWidgets('AI Tutor in Spanish: header, cards and status localized',
+  testWidgets('AI Tutor in German: header, cards and status localized',
       (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(
       child: MaterialApp(
-        locale: Locale('es'),
+        locale: Locale('de'),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         home: AiTutorScreen(),
       ),
     ));
     await tester.pumpAndSettle();
-    expect(find.text('Practica una conversación real'), findsOneWidget);
-    expect(find.text('Habla con Ratel'), findsOneWidget);
+    expect(find.text('Übe ein echtes Gespräch'), findsOneWidget);
+    expect(find.text('Mit Ratel sprechen'), findsOneWidget);
     expect(find.text('Practice a real conversation'), findsNothing);
   });
 
@@ -588,29 +596,29 @@ void main() {
     expect(en.liveUnmute, 'Unmute');
   });
 
-  test('auth keys: es spot-checks', () {
-    final AppLocalizations es = lookupAppLocalizations(const Locale('es'));
-    expect(es.authWelcomeTitle, 'Bienvenido a Ratel');
-    expect(es.authCreateFreeAccount, 'Crear cuenta gratis');
-    expect(es.authLogIn, 'Iniciar sesión');
-    expect(es.authForgotPassword, '¿Olvidaste tu contraseña?');
-    expect(es.authOr, 'o');
+  test('auth keys: de spot-checks', () {
+    final AppLocalizations de = lookupAppLocalizations(const Locale('de'));
+    expect(de.authWelcomeTitle, 'Willkommen bei Ratel');
+    expect(de.authCreateFreeAccount, 'Kostenloses Konto erstellen');
+    expect(de.authLogIn, 'Anmelden');
+    expect(de.authForgotPassword, 'Passwort vergessen?');
+    expect(de.authOr, 'oder');
   });
 
-  testWidgets('Welcome screen in Spanish: chrome localized',
+  testWidgets('Welcome screen in German: chrome localized',
       (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(
       child: MaterialApp(
-        locale: Locale('es'),
+        locale: Locale('de'),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         home: WelcomeScreen(),
       ),
     ));
     await tester.pumpAndSettle();
-    expect(find.text('Bienvenido a Ratel'), findsOneWidget);
-    expect(find.text('Crear cuenta gratis'), findsOneWidget);
-    expect(find.text('Continuar como invitado'), findsOneWidget);
+    expect(find.text('Willkommen bei Ratel'), findsOneWidget);
+    expect(find.text('Kostenloses Konto erstellen'), findsOneWidget);
+    expect(find.text('Als Gast fortfahren'), findsOneWidget);
     expect(find.text('Welcome to Ratel'), findsNothing);
   });
 
@@ -621,7 +629,7 @@ void main() {
     expect(en.commonDurHours(2), '2h');
     expect(en.commonDurHoursMinutes(2, 5), '2h 5m');
     expect(en.practiceGradeInterval('Easy', 4), 'Easy · 4d');
-    final AppLocalizations es = lookupAppLocalizations(const Locale('es'));
-    expect(es.practiceGradeInterval('Fácil', 4), 'Fácil · 4 d');
+    final AppLocalizations de = lookupAppLocalizations(const Locale('de'));
+    expect(de.practiceGradeInterval('Leicht', 4), 'Leicht · 4 T.');
   });
 }

@@ -57,10 +57,8 @@ String ratelGoalDisplayLabel(BuildContext context, String englishLabel) =>
 /// Order = shipped-course order (en · es, then the S123 reach order).
 const Map<String, String> kUiLanguageEndonyms = <String, String>{
   'en': 'English',
-  'es': 'Español',
   'hi': 'हिन्दी',
   'zh': '中文',
-  'ar': 'العربية',
   'bn': 'বাংলা',
   'pt': 'Português',
   'ru': 'Русский',

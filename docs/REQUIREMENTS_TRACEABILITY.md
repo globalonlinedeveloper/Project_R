@@ -213,7 +213,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-L11 | Notifications (push categories, opt-in, inbox) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `friends_controller.dart`, `home_screen.dart`, `leagues_screen.dart`, `learner_controller.dart` +11 |
 | R-L11a | Widgets are mobile-only; desktop/web get in-app/tray equivalent | Could | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-L11b | Notifications: per-platform delivery profile | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `friends_controller.dart`, `data_access.dart`, `supabase_friends_store.dart`, `friends_realtime_test.dart` |
-| R-L12 | Global search | Should | Stage2 | Built ✅ | — | `l10n.dart`, `library_search_screen.dart`, `settings_controller.dart`, `app_localizations.dart` +17 |
+| R-L12 | Global search | Should | Stage2 | Built ✅ | — | `l10n.dart`, `library_search_screen.dart`, `settings_controller.dart`, `app_localizations.dart` +15 |
 | R-L13 | Offline mode & caching | Must | Stage2 | Built ✅ | — | `service_worker_contract_test.dart` |
 | R-L13a | Background sync is foreground-reconcile on iOS-PWA + desktop | Should | Stage2 | Built ✅ | — | — |
 | R-L14 | Cross-cutting UI states (loading/empty/error/skeleton) | Must | Stage2 | Built ✅ | — | `learner_controller.dart`, `progress_screen.dart`, `study_stats_controller.dart`, `xp_history_controller.dart` +7 |

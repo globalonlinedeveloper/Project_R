@@ -158,13 +158,13 @@ void main() {
     expect(find.text('Done'), findsOneWidget);
   });
 
-  testWidgets('es dialog renders the translated celebration',
+  testWidgets('de dialog renders the translated celebration',
       (WidgetTester tester) async {
     final ProviderContainer c = _c();
     addTearDown(c.dispose);
-    await _pump(tester, c, locale: const Locale('es'));
+    await _pump(tester, c, locale: const Locale('de'));
     await _walkToEnding(tester);
-    expect(find.text('AVENTURA COMPLETADA'), findsOneWidget);
-    expect(find.text('Continuar'), findsOneWidget);
+    expect(find.text('ABENTEUER ABGESCHLOSSEN'), findsOneWidget);
+    expect(find.text('Weiter'), findsOneWidget);
   });
 }
