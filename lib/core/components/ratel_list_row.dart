@@ -10,6 +10,7 @@ class RatelListRow extends StatelessWidget {
     super.key,
     this.leadingEmoji,
     this.leadingColor,
+    this.leading,
     required this.title,
     this.subtitle,
     this.trailing,
@@ -19,6 +20,10 @@ class RatelListRow extends StatelessWidget {
 
   final String? leadingEmoji;
   final Color? leadingColor;
+
+  /// Optional leading WIDGET (e.g. an SVG country flag). Takes precedence over
+  /// [leadingEmoji] when both are set.
+  final Widget? leading;
   final String title;
   final String? subtitle;
   final Widget? trailing;
@@ -53,7 +58,10 @@ class RatelListRow extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: RatelSpace.sm),
           child: Row(
             children: <Widget>[
-              if (leadingEmoji != null) ...<Widget>[
+              if (leading != null) ...<Widget>[
+                leading!,
+                const SizedBox(width: RatelSpace.md),
+              ] else if (leadingEmoji != null) ...<Widget>[
                 Container(
                   width: 40,
                   height: 40,

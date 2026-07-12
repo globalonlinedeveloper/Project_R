@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:country_flags/country_flags.dart';
+
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/app/course_switch.dart';
 import 'package:ratel/core/core.dart';
@@ -281,6 +283,38 @@ class SettingsScreen extends ConsumerWidget {
         : (kUiLanguageEndonyms[l.languageCode] ?? l.languageCode);
   }
 
+  // Option A app-language picker decoration: an SVG country flag (NOT emoji —
+  // regional-indicator emoji render broken on Flutter web / Chrome-Windows) +
+  // an English-name·country subtitle. Endonym stays the primary label.
+  static Widget? _appLangFlag(String code) {
+    final ({String country, String english, String countryName})? m =
+        kUiLanguageFlag[code];
+    if (m == null) return null;
+    return CountryFlag.fromCountryCode(
+      m.country,
+      width: 34,
+      height: 26,
+      shape: const RoundedRectangle(4),
+    );
+  }
+
+  static String? _appLangSubtitle(String code) {
+    final ({String country, String english, String countryName})? m =
+        kUiLanguageFlag[code];
+    return m == null ? null : '${m.english} · ${m.countryName}';
+  }
+
+  static Widget _appLangSelectedMark(BuildContext context, bool selected) =>
+      selected
+          ? const Text('✓',
+              style: TextStyle(
+                fontFamily: RatelFont.display,
+                fontSize: 20,
+                fontWeight: RatelType.extraBold,
+                color: RatelColors.teal,
+              ))
+          : const SizedBox.shrink();
+
   void _pickAppLanguage(BuildContext context, WidgetRef ref) {
     final UiLocaleController c = ref.read(uiLocaleControllerProvider.notifier);
     final String? current = ref.read(uiLocaleControllerProvider)?.languageCode;
@@ -308,8 +342,10 @@ class SettingsScreen extends ConsumerWidget {
                   shrinkWrap: true,
                   children: <Widget>[
                     RatelListRow(
-                      leadingEmoji: current == null ? '✅' : '⚪',
+                      leadingEmoji: '🌐',
                       title: context.l10n.settingsAppLanguageSystem,
+                      trailing:
+                          _appLangSelectedMark(sheetContext, current == null),
                       onTap: () {
                         c.setLocale(null);
                         Navigator.of(sheetContext).pop();
@@ -319,8 +355,11 @@ class SettingsScreen extends ConsumerWidget {
                     for (final MapEntry<String, String> e
                         in kUiLanguageEndonyms.entries) ...<Widget>[
                       RatelListRow(
-                        leadingEmoji: e.key == current ? '✅' : '⚪',
+                        leading: _appLangFlag(e.key),
                         title: e.value,
+                        subtitle: _appLangSubtitle(e.key),
+                        trailing: _appLangSelectedMark(
+                            sheetContext, e.key == current),
                         onTap: () {
                           c.setLocale(Locale(e.key));
                           Navigator.of(sheetContext).pop();

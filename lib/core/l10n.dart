@@ -67,6 +67,27 @@ const Map<String, String> kUiLanguageEndonyms = <String, String>{
   'fr': 'Français',
   'ko': '한국어',
 };
+
+/// Flag country + English display metadata for the settings app-language
+/// picker (Option A). The endonym (kUiLanguageEndonyms) stays the PRIMARY
+/// label; this adds an SVG country flag + an English-name·country subtitle.
+/// `country` = ISO-3166 alpha-2 for the flag (rendered as SVG via
+/// country_flags — NOT emoji flags, which render broken on Flutter web /
+/// Chrome-Windows). Owner-specified country mapping.
+const Map<String, ({String country, String english, String countryName})>
+    kUiLanguageFlag =
+    <String, ({String country, String english, String countryName})>{
+  'en': (country: 'GB', english: 'English', countryName: 'United Kingdom'),
+  'de': (country: 'DE', english: 'German', countryName: 'Germany'),
+  'fr': (country: 'FR', english: 'French', countryName: 'France'),
+  'hi': (country: 'IN', english: 'Hindi', countryName: 'India'),
+  'bn': (country: 'BD', english: 'Bengali', countryName: 'Bangladesh'),
+  'ja': (country: 'JP', english: 'Japanese', countryName: 'Japan'),
+  'ko': (country: 'KR', english: 'Korean', countryName: 'South Korea'),
+  'zh': (country: 'CN', english: 'Chinese', countryName: 'China'),
+  'pt': (country: 'PT', english: 'Portuguese', countryName: 'Portugal'),
+  'ru': (country: 'RU', english: 'Russian', countryName: 'Russia'),
+};
 /// Engine-generated strings (quest / notification / achievement catalogues,
 /// league tier labels, CEFR level names) localize through these RENDER-time
 /// maps — the engines stay UI-free and keep emitting their stable English

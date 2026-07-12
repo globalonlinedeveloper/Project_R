@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:country_flags/country_flags.dart';
 
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/app/ratel_app.dart';
@@ -215,6 +216,45 @@ void main() {
     await tester.tap(find.text('System default'));
     await tester.pumpAndSettle();
     expect(store.current, isNull);
+  });
+
+  testWidgets('Option A picker: rows show SVG country flags + English·country '
+      'subtitles (no emoji flags)', (WidgetTester tester) async {
+    final InMemoryUiLocaleStore store = InMemoryUiLocaleStore();
+    await tester.pumpWidget(ProviderScope(
+      overrides: <Override>[
+        uiLocaleStoreProvider.overrideWithValue(store),
+      ],
+      child: const MaterialApp(home: SettingsScreen()),
+    ));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.text('App language'), 200);
+    await tester.ensureVisible(find.text('App language'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('App language'));
+    await tester.pumpAndSettle();
+    // SVG flags (country_flags), NOT regional-indicator emoji.
+    expect(find.byType(CountryFlag), findsWidgets);
+    // English-name·country subtitle for the top-of-list language (en → GB).
+    expect(find.text('English · United Kingdom'), findsOneWidget);
+    // Endonym stays the primary label.
+    expect(find.text('English'), findsOneWidget);
+  });
+
+  test('kUiLanguageFlag parity: every app-UI language has flag metadata '
+      '(alpha-2 country + English name + country)', () {
+    expect(kUiLanguageFlag.keys.toSet(), kUiLanguageEndonyms.keys.toSet(),
+        reason: 'flag metadata must cover exactly the picker languages');
+    for (final MapEntry<String,
+            ({String country, String english, String countryName})> e
+        in kUiLanguageFlag.entries) {
+      expect(e.value.country.length, 2,
+          reason: '${e.key}: ISO-3166 alpha-2 country code');
+      expect(e.value.country, e.value.country.toUpperCase(),
+          reason: '${e.key}: country code upper-case');
+      expect(e.value.english, isNotEmpty);
+      expect(e.value.countryName, isNotEmpty);
+    }
   });
 
   test('ICU plurals + placeholders resolve per locale (I2)', () {
