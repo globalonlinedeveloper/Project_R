@@ -23,6 +23,9 @@ import 'package:ratel/services/learning/review_log_sink.dart';
 import 'package:ratel/services/learning/saved_words_store.dart';
 import 'package:ratel/services/data_access/supabase_friends_store.dart';
 import 'package:ratel/services/data_access/supabase_leagues_store.dart';
+import 'package:ratel/services/data_access/supabase_calibration_store.dart';
+import 'package:ratel/services/learning/calibration_runner.dart'
+    show calibrationStoreProvider;
 import 'package:ratel/services/data_access/supabase_friends_service.dart';
 import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/social/friends_service.dart';
@@ -205,6 +208,11 @@ List<Override> backendOverridesForClient(SupabaseClient client) => <Override>[
           .overrideWithValue(SupabaseReviewLogSink.fromClient(client)),
       savedWordsStoreProvider
           .overrideWithValue(SupabaseSavedWordsStore.fromClient(client)),
+      // L-5 (S140): batch IRT re-calibration store — DORMANT build-ahead.
+      // Nothing consumes calibrationRunnerProvider at runtime, so this
+      // override is byte-identical live; it powers the go-live batch host.
+      calibrationStoreProvider
+          .overrideWithValue(SupabaseCalibrationStore.fromClient(client)),
       authServiceProvider
           .overrideWithValue(SupabaseAuthService.fromClient(client)),
       // L-5b (S114): PRO entitlements follow profiles.is_pro — reactive via
