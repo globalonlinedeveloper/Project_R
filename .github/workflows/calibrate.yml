@@ -1,0 +1,41 @@
+name: calibrate-difficulty
+
+# Monthly item re-calibration (R-G3 go-live tail). DORMANT until the owner adds
+# the SUPABASE_SERVICE_ROLE_KEY repository secret AND applies the item-bank
+# migration (Apps/RATEL/db-migrations/RATEL_L5_CALIBRATION_MIGRATION.sql). Until
+# then the run skips cleanly (see test/tools/calibration_batch_test.dart), so it
+# is safe to merge switched off. Runs the SHIPPED Dart engine unchanged.
+
+on:
+  schedule:
+    - cron: '30 2 1 * *'   # 02:30 UTC, 1st of each month
+  workflow_dispatch: {}     # manual "run now"
+
+concurrency:
+  group: calibrate-difficulty
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  calibrate:
+    name: Monthly item re-calibration (dormant until secret is set)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.1'
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - name: Codegen (freezed/json_serializable parts are gitignored)
+        run: dart run build_runner build
+      - name: Run monthly item re-calibration
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          # optional: pin the courses instead of discovering from item_bank
+          # CALIBRATION_COURSES: es,en
+        run: flutter test test/tools/calibration_batch_test.dart
