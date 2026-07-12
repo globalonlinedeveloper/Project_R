@@ -434,7 +434,6 @@ class SettingsScreen extends ConsumerWidget {
   }
 
   static String _courseLabel(String code) => switch (code) {
-        'es' => 'Spanish (es)',
         'en' => 'English (en)',
         _ => code,
       };

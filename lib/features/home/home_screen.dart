@@ -536,8 +536,6 @@ class HomeScreen extends ConsumerWidget {
 
   static String _flagFor(String code) {
     switch (code) {
-      case 'es':
-        return '🇪🇸';
       case 'en':
         return '🇬🇧';
       case 'ja':

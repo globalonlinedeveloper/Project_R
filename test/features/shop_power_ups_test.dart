@@ -25,7 +25,7 @@ class _Store implements LearnerStateStore {
 
 Map<String, Object?> _seed(Map<String, Object?> course) => <String, Object?>{
       'courses': <Object?>[
-        <String, Object?>{'target_locale': 'es', ...course},
+        <String, Object?>{'target_locale': 'en', ...course},
       ],
     };
 

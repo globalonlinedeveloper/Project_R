@@ -207,13 +207,5 @@ void main() {
         all.every((CourseExercise e) => (e.explain ?? '').isNotEmpty), true,
         reason: 'every EN path exercise carries its authored explanation '
             '(S97 re-key: gloss content_id == item_id)');
-    // The legacy ES course authored neither options nor explanations — the
-    // projection must stay empty/null there (typed path, byte-identical).
-    final CourseSpine es = buildCourseSpine(loader.loadString(
-        File('assets/content/es/course.batch.json').readAsStringSync()));
-    for (final CourseExercise e in pathExercises(es)) {
-      expect(e.options, isEmpty, reason: '${e.id} (ES) has no authored bank');
-      expect(e.explain, isNull, reason: '${e.id} (ES) has no explanation');
-    }
   });
 }

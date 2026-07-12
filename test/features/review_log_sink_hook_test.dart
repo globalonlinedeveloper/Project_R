@@ -35,7 +35,7 @@ void main() {
     c.read(learnerControllerProvider.notifier).recordReview(entry);
 
     expect(sink.appended, hasLength(1));
-    expect(sink.appended.single.$1, 'es'); // the controller's targetLocale
+    expect(sink.appended.single.$1, 'en'); // the controller's targetLocale
     expect(sink.appended.single.$2, same(entry));
   });
 

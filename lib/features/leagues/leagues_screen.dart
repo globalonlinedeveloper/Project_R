@@ -37,8 +37,8 @@ class LeaguesScreen extends ConsumerWidget {
             // R-L11 inbox surface: the top-bar bell + unread badge open the
             // in-app notifications feed (a real, learner-derived count).
             RatelTopBar(
-              flagEmoji: '🇪🇸',
-              langCode: 'ES',
+              flagEmoji: '🇬🇧',
+              langCode: 'EN',
               streak: snap.streakDays,
               energy: snap.energy,
               diamonds: formatCount(snap.diamonds),

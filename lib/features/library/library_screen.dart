@@ -40,8 +40,8 @@ class LibraryScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             RatelTopBar(
-                flagEmoji: '🇪🇸',
-                langCode: 'ES',
+                flagEmoji: '🇬🇧',
+                langCode: 'EN',
                 streak: snap.streakDays,
                 energy: snap.energy,
                 unreadNotifications: unread,

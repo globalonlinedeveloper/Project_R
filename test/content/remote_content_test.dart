@@ -59,7 +59,7 @@ void main() {
         () async {
       int calls = 0;
       final List<Override> o = await initContentOverrides(
-        course: 'es',
+        course: 'en',
         remoteEnabled: false,
         remoteBase: 'https://cdn/content',
         remoteFetch: (Uri u) async {
@@ -68,45 +68,45 @@ void main() {
         },
       );
       expect(calls, 0);
-      expect(o, isNotEmpty); // bundled ES beachhead loaded as always
+      expect(o, isNotEmpty); // bundled EN default loaded as always
     });
 
     test('remote failure falls back to the bundled course (never a broken boot)',
         () async {
       final List<Override> o = await initContentOverrides(
-        course: 'es',
+        course: 'en',
         remoteEnabled: true,
         remoteBase: 'https://cdn/content',
         remoteFetch: (Uri u) async => null, // offline / CDN down
       );
-      expect(o, isNotEmpty); // bundled ES still boots the path
+      expect(o, isNotEmpty); // bundled EN still boots the path
     });
 
     test('remote success serves the catalog course + publishes remote codes',
         () async {
-      // Serve the REAL bundled ES batch as if it were the published file —
+      // Serve the REAL bundled EN batch as if it were the published file —
       // proves the remote path end-to-end over real content.
-      final String realEs =
-          await rootBundle.loadString('assets/content/es/course.batch.json');
+      final String realEn =
+          await rootBundle.loadString('assets/content/en/course.batch.json');
       final List<Uri> seen = <Uri>[];
       final List<Override> o = await initContentOverrides(
-        course: 'es',
+        course: 'en',
         remoteEnabled: true,
         remoteBase: 'https://cdn/content',
         remoteFetch: (Uri u) async {
           seen.add(u);
           if (u.path.endsWith('manifest.json')) {
-            return '{"courses":[{"code":"es","batch_id":"es-7","path":"es/course.es-7.json"},'
+            return '{"courses":[{"code":"en","batch_id":"en-7","path":"en/course.en-7.json"},'
                 '{"code":"tt","batch_id":"t","path":"tt/course.t.json"}]}';
           }
-          if (u.path.endsWith('es/course.es-7.json')) return realEs;
+          if (u.path.endsWith('en/course.en-7.json')) return realEn;
           return null;
         },
       );
       expect(o, isNotEmpty);
       expect(seen.first.toString(), 'https://cdn/content/manifest.json');
-      expect(seen.any((Uri u) => u.path.endsWith('es/course.es-7.json')), isTrue);
-      expect(remoteCourseCodes, containsAll(<String>['es', 'tt']));
+      expect(seen.any((Uri u) => u.path.endsWith('en/course.en-7.json')), isTrue);
+      expect(remoteCourseCodes, containsAll(<String>['en', 'tt']));
       expect(await availableCourseCodes(), contains('tt')); // picker grows remotely
     });
   });

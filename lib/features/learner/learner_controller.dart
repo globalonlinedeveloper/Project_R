@@ -117,11 +117,11 @@ class LearnerSnapshot {
 class LearnerController extends Notifier<LearnerSnapshot> {
   /// The active course (single-course foundation; multi-course lands with the
   /// course picker). Matches the Supabase `user_course` key shape.
-  static const String courseId = 'es';
+  static const String courseId = 'en';
 
   /// The `target_locale` the active [courseId] maps onto in `user_course`
   /// (the upsert conflict key is `(user_id, target_locale)`).
-  static const String targetLocale = 'es';
+  static const String targetLocale = 'en';
 
   /// Reserved `theta_per_skill` key carrying the GLOBAL θ (the surfaced
   /// ability). Real skill ids are content-id shaped (start with a lowercase

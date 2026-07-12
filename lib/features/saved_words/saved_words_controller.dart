@@ -113,7 +113,7 @@ class SavedWordsState {
 /// clockless; this layer owns the injected [clockProvider].
 class SavedWordsController extends Notifier<SavedWordsState> {
   /// The active course (matches [LearnerController.courseId]).
-  static const String courseId = 'es';
+  static const String courseId = 'en';
 
   /// `user_item_state.item_id` prefix namespacing saved-word cards apart from
   /// lesson-item FSRS rows (`sw:<courseId>:<normalizedLemma>`).

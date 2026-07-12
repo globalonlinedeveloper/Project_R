@@ -44,7 +44,7 @@ void main() {
       final RecordingStore store = RecordingStore(<String, Object?>{
         'courses': <Object?>[
           <String, Object?>{
-            'target_locale': 'es',
+            'target_locale': 'en',
             'xp_total': 140,
             'lessons_completed': 7,
             'streak_days': 3,
@@ -82,7 +82,7 @@ void main() {
       final List<Object?> courses =
           store.saves.last['courses']! as List<Object?>;
       final Map<Object?, Object?> row = courses.single as Map<Object?, Object?>;
-      expect(row['target_locale'], 'es');
+      expect(row['target_locale'], 'en');
       expect(row['xp_total'], 20);
       expect(row['lessons_completed'], 1);
       final Map<Object?, Object?> theta =
@@ -113,7 +113,7 @@ void main() {
         'courses': <Object?>[],
         'items': <Object?>[
           <String, Object?>{
-            'item_id': 'sw:es:hola',
+            'item_id': 'sw:en:hola',
             'state': 'review',
             'stability': 10.0,
             'difficulty': 5.0,
@@ -156,7 +156,7 @@ void main() {
       expect(store.saves, isNotEmpty);
       final List<Object?> items = store.saves.last['items']! as List<Object?>;
       final Map<Object?, Object?> row = items.single as Map<Object?, Object?>;
-      expect(row['item_id'], 'sw:es:hola');
+      expect(row['item_id'], 'sw:en:hola');
       expect(row['state'], 'new');
       expect(row['reps'], 0);
     });

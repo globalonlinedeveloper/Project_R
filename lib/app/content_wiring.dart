@@ -1,7 +1,7 @@
 /// Content seam wiring (queue #H — content-driven spine; INF-3 selectable
 /// course). Loads the SELECTED bundled authored course batch through the
 /// fail-closed content layer and injects its [CourseSpine] projection behind
-/// [courseSpineProvider]. On ANY failure it falls back to the ES beachhead,
+/// [courseSpineProvider]. On ANY failure it falls back to the EN default,
 /// then to no override (the honest empty-path default — never a fabricated
 /// curriculum, never a broken boot). This is the ONLY app-root file that
 /// imports the build_runner content models, so — like the models — it is
@@ -20,8 +20,9 @@ import 'package:ratel/features/learning_path/course_spine.dart';
 /// SharedPreferences key holding the learner's selected course code (INF-3).
 const String kCoursePrefKey = 'ratel.course.code';
 
-/// The ES beachhead stays the default — existing learners see no change.
-const String kDefaultCourseCode = 'es';
+/// English is the sole target course (S142 — the ES pilot was removed;
+/// single-target app). All 10 live courses share the English item base.
+const String kDefaultCourseCode = 'en';
 
 /// C-lane go-live gate (plan §B, O-1 = R2/CDN): when ON and [kRemoteContentBase]
 /// is set, the app fetches the published course catalog + versioned batch from
@@ -67,7 +68,7 @@ Future<List<String>> availableCourseCodes() async {
 
 /// [R-B3 · R-A3] injects the projected Course→Section→Unit→Lesson path at app
 /// root for the SELECTED course. Fail-closed ladder: requested course →
-/// ES beachhead → honest empty path (never blocks boot).
+/// EN default → honest empty path (never blocks boot).
 Future<List<Override>> initContentOverrides({
   String course = kDefaultCourseCode,
   bool? remoteEnabled,

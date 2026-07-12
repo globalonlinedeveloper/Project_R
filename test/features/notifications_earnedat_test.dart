@@ -249,7 +249,7 @@ void main() {
         store: _SeedStore(<String, Object?>{
           'courses': <Object?>[
             <String, Object?>{
-              'target_locale': 'es',
+              'target_locale': 'en',
               'xp_total': 500,
               'lessons_completed': 10,
             },
@@ -297,7 +297,7 @@ void main() {
         store: _SeedStore(<String, Object?>{
           'courses': <Object?>[
             <String, Object?>{
-              'target_locale': 'es',
+              'target_locale': 'en',
               'xp_total': 500,
               'lessons_completed': 10,
             },

@@ -150,7 +150,7 @@ void main() {
       final _RecordingStore seeded = _RecordingStore(<String, Object?>{
         'courses': <Object?>[
           <String, Object?>{
-            'target_locale': 'es',
+            'target_locale': 'en',
             'xp_total': 100,
             'lessons_completed': 5,
             'streak_days': 5,
