@@ -123,7 +123,7 @@ class NotificationsEngine {
     NotificationDef(id: 'level:1', emoji: '🎓', title: 'Reached level A2', body: 'Your ability grew from A1 to A2. Onward!', metric: NotificationMetric.level, threshold: 1, rank: 22),
     NotificationDef(id: 'level:2', emoji: '🎓', title: 'Reached level B1', body: 'You are now an intermediate learner (B1).', metric: NotificationMetric.level, threshold: 2, rank: 32),
     NotificationDef(id: 'level:3', emoji: '🎓', title: 'Reached level B2', body: 'Upper-intermediate (B2) reached. Brilliant.', metric: NotificationMetric.level, threshold: 3, rank: 42),
-    NotificationDef(id: 'level:4', emoji: '🎓', title: 'Reached level C1', body: 'Advanced (C1) — your Spanish is strong.', metric: NotificationMetric.level, threshold: 4, rank: 52),
+    NotificationDef(id: 'level:4', emoji: '🎓', title: 'Reached level C1', body: 'Advanced (C1) — your English is strong.', metric: NotificationMetric.level, threshold: 4, rank: 52),
     NotificationDef(id: 'level:5', emoji: '🎓', title: 'Reached level C2', body: 'Proficiency (C2) — the top of the scale!', metric: NotificationMetric.level, threshold: 5, rank: 62),
   ];
 

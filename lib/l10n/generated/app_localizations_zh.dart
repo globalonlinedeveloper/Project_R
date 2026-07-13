@@ -248,7 +248,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onboardingLanguageTitle => '你想学什么?';
 
   @override
-  String get onboardingLanguageSubtitle => '提供 52 种语言';
+  String get onboardingLanguageSubtitle => '用 10 种语言学习英语';
 
   @override
   String get onboardingReasonTitle => '你为什么学习?';
@@ -310,6 +310,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get goalIntense => '高强度';
+
+  @override
+  String get langNameEnglish => '英语';
 
   @override
   String get langNameSpanish => '西班牙语';
@@ -640,8 +643,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get paywallFeaturePronunciation => 'AI 发音指导建议';
 
   @override
-  String get paywallEverythingFree =>
-      '其余一切 — 全部 52 种语言、音频、复习、联赛、角色扮演和设备端发音 — 对所有人永久免费。';
+  String get paywallEverythingFree => '其余一切 — 音频、复习、联赛、角色扮演和设备端发音 — 对所有人永久免费。';
 
   @override
   String get paywallYouArePro => '你已是 RATEL PRO';
@@ -775,7 +777,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get notifTitleLevel4 => '达到 C1 级';
 
   @override
-  String get notifBodyLevel4 => '高级（C1）— 你的西班牙语很扎实。';
+  String get notifBodyLevel4 => '高级（C1）— 你的英语很扎实。';
 
   @override
   String get notifTitleLevel5 => '达到 C2 级';
@@ -1477,7 +1479,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get authCreateYourAccount => '创建你的账户';
 
   @override
-  String get authSignupSubtitle => '永久免费 · 学习 52 种语言';
+  String get authSignupSubtitle => '永久免费 · 用 10 种语言学习英语';
 
   @override
   String get authPassword8Hint => '密码（8 个字符以上）';

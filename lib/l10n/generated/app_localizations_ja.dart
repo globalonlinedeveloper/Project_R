@@ -248,7 +248,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get onboardingLanguageTitle => '何を学びたい?';
 
   @override
-  String get onboardingLanguageSubtitle => '52言語に対応';
+  String get onboardingLanguageSubtitle => '10の言語から英語を学ぶ';
 
   @override
   String get onboardingReasonTitle => '学ぶ理由は?';
@@ -310,6 +310,9 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get goalIntense => 'ガチ';
+
+  @override
+  String get langNameEnglish => '英語';
 
   @override
   String get langNameSpanish => 'スペイン語';
@@ -643,7 +646,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get paywallEverythingFree =>
-      'それ以外のすべて — 52言語・音声・復習・リーグ・ロールプレイ・端末上の発音 — は誰でもずっと無料。';
+      'それ以外のすべて — 音声・復習・リーグ・ロールプレイ・端末上の発音 — は誰でもずっと無料。';
 
   @override
   String get paywallYouArePro => 'RATEL PRO をご利用中';
@@ -778,7 +781,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get notifTitleLevel4 => 'レベルC1に到達';
 
   @override
-  String get notifBodyLevel4 => '上級(C1) — スペイン語が確かな力に。';
+  String get notifBodyLevel4 => '上級(C1) — 英語が確かな力に。';
 
   @override
   String get notifTitleLevel5 => 'レベルC2に到達';
@@ -1485,7 +1488,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get authCreateYourAccount => 'アカウントを作成';
 
   @override
-  String get authSignupSubtitle => 'ずっと無料 · 52言語を学べる';
+  String get authSignupSubtitle => 'ずっと無料 · 10の言語から英語を学べる';
 
   @override
   String get authPassword8Hint => 'パスワード(8文字以上)';

@@ -10,7 +10,7 @@ import 'package:ratel/services/learning/learning.dart';
 /// The adaptive placement test (design spec §4.11 "Take a placement test").
 ///
 /// A REAL computerised-adaptive quiz: each question is selected by
-/// Maximum-Fisher-Information from a hand-authored Spanish item bank
+/// Maximum-Fisher-Information from a hand-authored English item bank
 /// ([CatModel.selectNext]), the running ability is re-estimated by EAP after
 /// every answer ([CatModel.eap]), and the variable-length stop rule
 /// ([CatModel.shouldStop]) ends it. The final θ (same IRT logit scale as the
@@ -18,7 +18,7 @@ import 'package:ratel/services/learning/learning.dart';
 /// so Home opens at the placed level. Nothing here is faked — the items are
 /// authored content scored by the real IRT / CAT / EAP engine. [R-G4 · R-G7]
 ///
-/// The bank is a small hand-authored Spanish set spanning A1→C1; the calibrated
+/// The bank is a small hand-authored English set spanning A1→C1; the calibrated
 /// production item-bank is a go-live wiring step (engine contract).
 class PlacementQuizScreen extends ConsumerStatefulWidget {
   const PlacementQuizScreen({super.key});
@@ -38,35 +38,35 @@ class _QItem {
 }
 
 const List<_QItem> _kBank = <_QItem>[
-  _QItem('p1', "What does 'hola' mean?",
-      <String>['Hello', 'Goodbye', 'Please', 'Sorry'], 0, -2.5),
-  _QItem('p2', "'Gracias' means…",
-      <String>['Thanks', 'Yes', 'No', 'Water'], 0, -2.3),
-  _QItem('p3', "'Sí' means…",
-      <String>['Yes', 'No', 'Maybe', 'Never'], 0, -2.4),
-  _QItem('p4', "'Agua' is…",
-      <String>['Water', 'Bread', 'Wine', 'Milk'], 0, -1.8),
-  _QItem('p5', "Count: 'uno, dos, …' — next is",
-      <String>['tres', 'diez', 'cien', 'cero'], 0, -1.5),
-  _QItem('p6', "'Tengo hambre' means",
-      <String>["I'm hungry", "I'm tired", "I'm cold", "I'm late"], 0, -0.8),
-  _QItem('p7', "'Ayer' means",
-      <String>['Yesterday', 'Tomorrow', 'Today', 'Now'], 0, -0.6),
-  _QItem('p8', "Past tense — 'I ate' is 'yo …'",
-      <String>['comí', 'como', 'comeré', 'comía'], 0, -0.3),
-  _QItem('p9', "'Aunque llueva, iré.' — 'aunque' means",
-      <String>['Although', 'Because', 'If only', 'Until'], 0, 0.5),
-  _QItem('p10', "Subjunctive: 'Espero que … bien.' (you are)",
-      <String>['estés', 'estás', 'estarás', 'estabas'], 0, 0.9),
-  _QItem('p11', "'Se me hizo tarde' implies",
-      <String>['I ran late', 'I left early', 'I forgot', "I'm bored"], 0, 1.4),
-  _QItem('p12', "'Por mucho que lo intentes' means",
+  _QItem('p1', "Complete: 'I ___ a student.'",
+      <String>['am', 'is', 'are', 'be'], 0, -2.5),
+  _QItem('p2', 'Which word is a greeting?',
+      <String>['Hello', 'Table', 'Fast', 'Blue'], 0, -2.3),
+  _QItem('p3', "What is the plural of 'book'?",
+      <String>['books', 'book', 'bookes', 'bookies'], 0, -2.1),
+  _QItem('p4', "Complete: 'She ___ tea every morning.'",
+      <String>['drinks', 'drink', 'drinking', 'drunk'], 0, -1.8),
+  _QItem('p5', "Past tense: 'Yesterday I ___ home.'",
+      <String>['went', 'go', 'goes', 'going'], 0, -1.5),
+  _QItem('p6', "Choose the preposition: 'The book is ___ the table.'",
+      <String>['on', 'in', 'of', 'since'], 0, -1.1),
+  _QItem('p7', "Complete: 'They have ___ finished.'",
+      <String>['already', 'yet', 'ago', 'during'], 0, -0.8),
+  _QItem('p8', "First conditional: 'If it rains, we ___ stay in.'",
+      <String>['will', 'would', 'are', 'did'], 0, -0.5),
+  _QItem('p9', "Closest in meaning to 'purchase'",
+      <String>['buy', 'sell', 'lose', 'borrow'], 0, -0.1),
+  _QItem('p10', "Reported speech: 'She said she ___ tired.'",
+      <String>['was', 'is', 'being', 'be'], 0, 0.3),
+  _QItem('p11', 'Which sentence is correct?',
       <String>[
-        'However hard you try',
-        'As long as you try',
-        'Because you try',
-        'Unless you try'
-      ], 0, 1.9),
+        'I wish I had known earlier.',
+        'I wish I have known earlier.',
+        'I wish I know earlier.',
+        'I wish I knowing earlier.'
+      ], 0, 0.9),
+  _QItem('p12', "Closest in meaning to 'meticulous'",
+      <String>['thorough', 'careless', 'sudden', 'rough'], 0, 1.9),
 ];
 
 class _PlacementQuizScreenState extends ConsumerState<PlacementQuizScreen> {

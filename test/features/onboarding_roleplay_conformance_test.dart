@@ -64,16 +64,9 @@ void main() {
           reason: 'design 1fr 1fr 1fr (Ratel App.dc.html:1376)');
       expect(delegate.childAspectRatio, lessThan(1.2),
           reason: 'vertical flag-over-name cards, not wide rows');
-      for (final String l in <String>[
-        'Spanish',
-        'French',
-        'Japanese',
-        'Tamil',
-        'German',
-        'Korean',
-      ]) {
-        expect(find.text(l), findsOneWidget, reason: '$l card renders');
-      }
+      // S144: the app ships a single English course today, so the language
+      // grid offers English only until a multi-course picker lands.
+      expect(find.text('English'), findsOneWidget, reason: 'English card renders');
     });
 
     testWidgets('F-10: Live Roleplay entry title is single-line ellipsized',

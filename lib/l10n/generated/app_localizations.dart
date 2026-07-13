@@ -561,7 +561,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingLanguageSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'52 languages available'**
+  /// **'Learn English from 10 languages'**
   String get onboardingLanguageSubtitle;
 
   /// No description provided for @onboardingReasonTitle.
@@ -677,6 +677,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Intense'**
   String get goalIntense;
+
+  /// No description provided for @langNameEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get langNameEnglish;
 
   /// No description provided for @langNameSpanish.
   ///
@@ -1251,7 +1257,7 @@ abstract class AppLocalizations {
   /// No description provided for @paywallEverythingFree.
   ///
   /// In en, this message translates to:
-  /// **'Everything else — all 52 languages, audio, review, leagues, roleplay and on-device pronunciation — stays free for everyone.'**
+  /// **'Everything else — audio, review, leagues, roleplay and on-device pronunciation — stays free for everyone.'**
   String get paywallEverythingFree;
 
   /// No description provided for @paywallYouArePro.
@@ -1515,7 +1521,7 @@ abstract class AppLocalizations {
   /// No description provided for @notifBodyLevel4.
   ///
   /// In en, this message translates to:
-  /// **'Advanced (C1) — your Spanish is strong.'**
+  /// **'Advanced (C1) — your English is strong.'**
   String get notifBodyLevel4;
 
   /// No description provided for @notifTitleLevel5.
@@ -2733,7 +2739,7 @@ abstract class AppLocalizations {
   /// No description provided for @authSignupSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Free forever · learn 52 languages'**
+  /// **'Free forever · learn English from 10 languages'**
   String get authSignupSubtitle;
 
   /// No description provided for @authPassword8Hint.

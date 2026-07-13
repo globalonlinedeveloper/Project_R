@@ -12,10 +12,10 @@ import 'package:ratel/core/core.dart';
 /// [LearnerController.reset]), and the placement-test branch hands off to the
 /// adaptive CAT quiz at `/placement`. A fresh install is a GUEST (the default
 /// identity) — "try without an account" simply proceeds; "I already have an
-/// account" routes to the (coming) login screen. NOTE: the active course is
-/// engine-fixed to `es` today (no multi-course setter yet) — the language
-/// choice is captured for personalisation only; a course-picker is a flagged
-/// follow-up, never faked.
+/// account" routes to the (coming) login screen. NOTE: the app ships a single
+/// English course today (no multi-course setter yet) — the language choice is
+/// captured for personalisation only; a course-picker is a flagged follow-up,
+/// never faked.
 ///
 /// Requirements: R-L2 (onboarding flow: language → motivation → goal →
 /// placement → first win), R-G7 (cold-start works from day one — the
@@ -46,12 +46,7 @@ class _Goal {
 }
 
 const List<_Language> _kLanguages = <_Language>[
-  _Language('Spanish', '🇪🇸'),
-  _Language('French', '🇫🇷'),
-  _Language('Japanese', '🇯🇵'),
-  _Language('Tamil', '🇮🇳'),
-  _Language('German', '🇩🇪'),
-  _Language('Korean', '🇰🇷'),
+  _Language('English', '🇬🇧'),
 ];
 
 const List<_Reason> _kReasons = <_Reason>[
@@ -74,7 +69,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   static const int _kSteps = 5;
 
   int _step = 0;
-  String _language = 'Spanish';
+  String _language = 'English';
   String? _reason;
   int _goalXp = 20;
   bool _placementTest = true; // design default = "Take a placement test"

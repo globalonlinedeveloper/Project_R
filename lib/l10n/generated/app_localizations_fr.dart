@@ -255,7 +255,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get onboardingLanguageTitle => 'Que veux-tu apprendre ?';
 
   @override
-  String get onboardingLanguageSubtitle => '52 langues disponibles';
+  String get onboardingLanguageSubtitle =>
+      'Apprends l\'anglais depuis 10 langues';
 
   @override
   String get onboardingReasonTitle => 'Pourquoi apprends-tu ?';
@@ -317,6 +318,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get goalIntense => 'Intense';
+
+  @override
+  String get langNameEnglish => 'Anglais';
 
   @override
   String get langNameSpanish => 'Espagnol';
@@ -663,7 +667,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get paywallEverythingFree =>
-      'Tout le reste — les 52 langues, l\'audio, les révisions, les ligues, le jeu de rôle et la prononciation sur l\'appareil — reste gratuit pour tout le monde.';
+      'Tout le reste — l\'audio, les révisions, les ligues, le jeu de rôle et la prononciation sur l\'appareil — reste gratuit pour tout le monde.';
 
   @override
   String get paywallYouArePro => 'Tu es sur RATEL PRO';
@@ -810,7 +814,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get notifTitleLevel4 => 'Niveau C1 atteint';
 
   @override
-  String get notifBodyLevel4 => 'Avancé (C1) — ton espagnol est solide.';
+  String get notifBodyLevel4 => 'Avancé (C1) — ton anglais est solide.';
 
   @override
   String get notifTitleLevel5 => 'Niveau C2 atteint';
@@ -1538,7 +1542,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get authSignupSubtitle =>
-      'Gratuit pour toujours · apprends 52 langues';
+      'Gratuit pour toujours · apprends l\'anglais depuis 10 langues';
 
   @override
   String get authPassword8Hint => 'Mot de passe (8 caractères ou plus)';

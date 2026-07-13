@@ -23,6 +23,7 @@ extension RatelL10nX on BuildContext {
 /// content and future entries degrade honestly.
 String ratelLanguageDisplayName(BuildContext context, String englishName) =>
     switch (englishName) {
+      'English' => context.l10n.langNameEnglish,
       'Spanish' => context.l10n.langNameSpanish,
       'French' => context.l10n.langNameFrench,
       'Japanese' => context.l10n.langNameJapanese,
@@ -30,6 +31,30 @@ String ratelLanguageDisplayName(BuildContext context, String englishName) =>
       'German' => context.l10n.langNameGerman,
       'Korean' => context.l10n.langNameKorean,
       _ => englishName,
+    };
+
+/// Flag emoji for the active COURSE (the target language being taught),
+/// mirroring the Home top-bar. Locale-independent (emoji) so it lives in
+/// code; unknown course codes fall back to the badger.
+String ratelCourseFlagEmoji(String courseCode) => switch (courseCode) {
+      'en' => '\u{1F1EC}\u{1F1E7}',
+      'ja' => '\u{1F1EF}\u{1F1F5}',
+      'ta' => '\u{1F1EE}\u{1F1F3}',
+      _ => '\u{1F9A1}',
+    };
+
+/// Localized display name for the active COURSE (target language). Course code
+/// in, localized language name out; unknown codes pass the upper-cased code
+/// through so future courses degrade honestly.
+String ratelCourseLanguageName(BuildContext context, String courseCode) =>
+    switch (courseCode) {
+      'en' => context.l10n.langNameEnglish,
+      'es' => context.l10n.langNameSpanish,
+      'fr' => context.l10n.langNameFrench,
+      'ja' => context.l10n.langNameJapanese,
+      'de' => context.l10n.langNameGerman,
+      'ko' => context.l10n.langNameKorean,
+      _ => courseCode.toUpperCase(),
     };
 
 String ratelReasonDisplayLabel(BuildContext context, String englishLabel) =>

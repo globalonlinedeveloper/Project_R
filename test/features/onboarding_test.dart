@@ -66,9 +66,9 @@ void main() {
     await tester.tap(find.text('Get started'));
     await tester.pumpAndSettle();
 
-    // Language (Spanish selected by default)
+    // Language (English selected by default — single English course, S144)
     expect(find.text('What do you want to learn?'), findsOneWidget);
-    expect(find.text('French'), findsOneWidget);
+    expect(find.text('English'), findsOneWidget);
     await tester.tap(find.text('Continue'));
     await tester.pumpAndSettle();
 

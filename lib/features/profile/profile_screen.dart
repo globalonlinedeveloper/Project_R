@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/content/models/enums.dart' show CefrLevel;
 import 'package:ratel/core/core.dart';
+import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/features/achievements/achievements_controller.dart';
 import 'package:ratel/features/notifications/notifications_controller.dart';
 import 'package:ratel/features/shop/outfits_controller.dart';
@@ -29,6 +30,7 @@ class ProfileScreen extends ConsumerWidget {
     final Identity identity = ref.watch(identityProvider);
     final AppSettings settings = ref.watch(appSettingsControllerProvider);
     final String level = snap.level.name.toUpperCase();
+    final String courseCode = ref.watch(courseSpineProvider).courseCode;
     final List<AchievementProgress> achievements =
         ref.watch(achievementsProvider);
     final int unlockedAch =
@@ -45,7 +47,7 @@ class ProfileScreen extends ConsumerWidget {
               RatelSpace.screen, RatelSpace.xl),
           children: <Widget>[
             _header(context, identity, level, settings.displayName,
-                ref.watch(equippedOutfitProvider).emoji),
+                ref.watch(equippedOutfitProvider).emoji, courseCode),
             const SizedBox(height: RatelSpace.cardGap),
             _stats(context, snap, words),
             const SizedBox(height: RatelSpace.cardGap),
@@ -117,7 +119,7 @@ class ProfileScreen extends ConsumerWidget {
   }
 
   Widget _header(BuildContext context, Identity identity, String level,
-      String displayName, String avatarEmoji) {
+      String displayName, String avatarEmoji, String courseCode) {
     final bool authed = identity.isAuthenticated;
     final String name = displayName.trim().isNotEmpty
         ? displayName.trim()
@@ -163,7 +165,7 @@ class ProfileScreen extends ConsumerWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: RatelChip(
-                          label: '🇪🇸 ${context.l10n.langNameSpanish} · ${context.l10n.commonLevel(level)}',
+                          label: '${ratelCourseFlagEmoji(courseCode)} ${ratelCourseLanguageName(context, courseCode)} · ${context.l10n.commonLevel(level)}',
                           tone: RatelChipTone.teal),
                     ),
                   ],

@@ -256,7 +256,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get onboardingLanguageTitle => 'Что вы хотите изучать?';
 
   @override
-  String get onboardingLanguageSubtitle => 'Доступно 52 языка';
+  String get onboardingLanguageSubtitle => 'Учите английский на 10 языках';
 
   @override
   String get onboardingReasonTitle => 'Зачем вы учитесь?';
@@ -318,6 +318,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get goalIntense => 'Интенсивный';
+
+  @override
+  String get langNameEnglish => 'Английский';
 
   @override
   String get langNameSpanish => 'Испанский';
@@ -662,7 +665,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get paywallEverythingFree =>
-      'Всё остальное — все 52 языка, аудио, повторение, лиги, ролевые сценки и произношение на устройстве — остаётся бесплатным для всех.';
+      'Всё остальное — аудио, повторение, лиги, ролевые сценки и произношение на устройстве — остаётся бесплатным для всех.';
 
   @override
   String get paywallYouArePro => 'У вас RATEL PRO';
@@ -804,7 +807,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get notifTitleLevel4 => 'Достигнут уровень C1';
 
   @override
-  String get notifBodyLevel4 => 'Продвинутый (C1) — ваш испанский силён.';
+  String get notifBodyLevel4 => 'Продвинутый (C1) — ваш английский силён.';
 
   @override
   String get notifTitleLevel5 => 'Достигнут уровень C2';
@@ -1542,7 +1545,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get authCreateYourAccount => 'Создайте аккаунт';
 
   @override
-  String get authSignupSubtitle => 'Бесплатно навсегда · учите 52 языка';
+  String get authSignupSubtitle =>
+      'Бесплатно навсегда · учите английский на 10 языках';
 
   @override
   String get authPassword8Hint => 'Пароль (8+ символов)';
