@@ -181,10 +181,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get lessonTranslateSentence => '이 문장을 번역하세요';
 
   @override
-  String get lessonExplainThis => '💡 Explain this';
+  String get lessonExplainThis => '💡 설명 보기';
 
   @override
-  String get lessonMatchPairs => 'Match the pairs';
+  String get lessonMatchPairs => '짝을 맞추세요';
 
   @override
   String get lessonTypeAnswerHint => '답을 입력하세요…';
@@ -1563,711 +1563,698 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String settingsGoalPerDay(int goal) {
-    return '$goal XP per day';
+    return '하루 $goal XP';
   }
 
   @override
   String settingsGoalReachedSub(int goal) {
-    return '$goal XP per day · ✓ reached today';
+    return '하루 $goal XP · ✓ 오늘 달성';
   }
 
   @override
-  String get settingsSoundEffects => 'Sound effects';
+  String get settingsSoundEffects => '효과음';
 
   @override
-  String get settingsHaptics => 'Haptics';
+  String get settingsHaptics => '진동';
 
   @override
-  String get settingsProActive => 'RATEL PRO active';
+  String get settingsProActive => 'RATEL PRO 활성';
 
   @override
-  String get settingsFreePlan => 'Free plan';
+  String get settingsFreePlan => '무료 플랜';
 
   @override
-  String get settingsReduceMotion => 'Reduce motion';
+  String get settingsReduceMotion => '모션 줄이기';
 
   @override
-  String get settingsReduceMotionSub =>
-      'Master switch — turns off every animation';
+  String get settingsReduceMotionSub => '마스터 스위치 — 모든 애니메이션을 꺼요';
 
   @override
-  String get settingsHighContrast => 'High contrast';
+  String get settingsHighContrast => '고대비';
 
   @override
-  String get settingsNotifPush => 'Push notifications';
+  String get settingsNotifPush => '푸시 알림';
 
   @override
-  String get settingsNotifStreak => 'Streak reminders';
+  String get settingsNotifStreak => '스트릭 리마인더';
 
   @override
-  String get settingsNotifLeague => 'League updates';
+  String get settingsNotifLeague => '리그 업데이트';
 
   @override
-  String get settingsNotifFriend => 'Friend activity';
+  String get settingsNotifFriend => '친구 활동';
 
   @override
-  String get settingsNotifFootnote =>
-      'Your choices are saved now — delivery switches on when push notifications ship.';
+  String get settingsNotifFootnote => '선택은 지금 저장돼요 — 푸시 알림이 출시되면 전송이 켜져요.';
 
   @override
-  String get settingsCourse => 'Course';
+  String get settingsCourse => '코스';
 
   @override
-  String get settingsTheme => 'Theme';
+  String get settingsTheme => '테마';
 
   @override
-  String get settingsWorld => 'World';
+  String get settingsWorld => '월드';
 
   @override
-  String get settingsEditProfile => 'Edit profile';
+  String get settingsEditProfile => '프로필 편집';
 
   @override
-  String get settingsPrivacy => 'Privacy & data';
+  String get settingsPrivacy => '개인정보 및 데이터';
 
   @override
-  String get settingsHelp => 'Help & support';
+  String get settingsHelp => '도움말 및 지원';
 
   @override
-  String get settingsLogOut => 'Log out';
+  String get settingsLogOut => '로그아웃';
 
   @override
-  String get settingsGuestSub =>
-      'You are learning as a guest — sign up to save progress';
+  String get settingsGuestSub => '게스트로 학습 중이에요 — 진행 상황을 저장하려면 가입하세요';
 
   @override
   String settingsCouldNotOpen(String url) {
-    return 'Could not open $url';
+    return '$url을(를) 열 수 없어요';
   }
 
   @override
-  String get settingsThemeSystem => 'Match device';
+  String get settingsThemeSystem => '기기에 맞춤';
 
   @override
-  String get settingsThemeLight => 'Light';
+  String get settingsThemeLight => '라이트';
 
   @override
-  String get settingsThemeDark => 'Dark';
+  String get settingsThemeDark => '다크';
 
   @override
-  String get mediaReadAloud => 'Read aloud';
+  String get mediaReadAloud => '소리 내어 읽기';
 
   @override
-  String get mediaTranscript => 'Transcript';
+  String get mediaTranscript => '스크립트';
 
   @override
-  String get mediaCheckUnderstanding => 'Check understanding';
+  String get mediaCheckUnderstanding => '이해도 확인';
 
   @override
   String mediaChecksCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count comprehension checks',
-      one: '$count comprehension check',
+      other: '이해도 확인 $count개',
+      one: '이해도 확인 $count개',
     );
     return '$_temp0';
   }
 
   @override
-  String get mediaLoading => 'Loading…';
+  String get mediaLoading => '불러오는 중…';
 
   @override
-  String get mediaPause => 'Pause';
+  String get mediaPause => '일시정지';
 
   @override
-  String get storiesTitle => 'Stories';
+  String get storiesTitle => '스토리';
 
   @override
-  String get storiesSub =>
-      'Read & listen — graded stories with browser read-aloud.';
+  String get storiesSub => '읽고 듣기 — 브라우저 소리 내어 읽기가 있는 단계별 스토리.';
 
   @override
-  String get storiesEmpty => 'No stories in this course yet.';
+  String get storiesEmpty => '이 코스에는 아직 스토리가 없어요.';
 
   @override
-  String get storyFallbackTitle => 'Story';
+  String get storyFallbackTitle => '스토리';
 
   @override
-  String get podcastsSub =>
-      'Listen -- graded podcasts with real audio and a transcript.';
+  String get podcastsSub => '듣기 — 실제 오디오와 스크립트가 있는 단계별 팟캐스트.';
 
   @override
-  String get podcastsEmpty => 'No podcasts in this course yet.';
+  String get podcastsEmpty => '이 코스에는 아직 팟캐스트가 없어요.';
 
   @override
-  String get podcastFallbackTitle => 'Podcast';
+  String get podcastFallbackTitle => '팟캐스트';
 
   @override
-  String get podcastPlayEpisode => 'Play episode';
+  String get podcastPlayEpisode => '에피소드 재생';
 
   @override
-  String get watchSub =>
-      'Watch -- short clips with a transcript and comprehension checks.';
+  String get watchSub => '시청 — 스크립트와 이해도 확인이 있는 짧은 클립.';
 
   @override
-  String get watchEmpty => 'No watch lessons in this course yet.';
+  String get watchEmpty => '이 코스에는 아직 시청 레슨이 없어요.';
 
   @override
-  String get watchWebOnly => 'Video plays in the web app';
+  String get watchWebOnly => '동영상은 웹 앱에서 재생돼요';
 
   @override
-  String get libraryAdventuresSub =>
-      'Walk a living world and talk your way through real scenes.';
+  String get libraryAdventuresSub => '살아 있는 세계를 거닐며 실제 장면을 대화로 헤쳐 나가요.';
 
   @override
-  String get roleplaySub =>
-      'Practice real conversations -- pick the right reply, get instant feedback.';
+  String get roleplaySub => '실제 대화 연습 — 알맞은 답을 골라 즉시 피드백을 받아요.';
 
   @override
-  String get roleplayEmpty => 'No roleplays in this course yet.';
+  String get roleplayEmpty => '이 코스에는 아직 롤플레이가 없어요.';
 
   @override
-  String get roleplayYourReply => 'Your reply:';
+  String get roleplayYourReply => '내 답변:';
 
   @override
-  String get roleplaySceneComplete => '🎉 Scene complete!';
+  String get roleplaySceneComplete => '🎉 장면 완료!';
 
   @override
-  String get roleplayBack => 'Back to roleplays';
+  String get roleplayBack => '롤플레이로 돌아가기';
 
   @override
-  String get liveRoleplayTitle => 'Live Roleplay';
+  String get liveRoleplayTitle => '실시간 롤플레이';
 
   @override
-  String get liveRoleplayCardSub => 'Talk it out with Ratel — real voice';
+  String get liveRoleplayCardSub => 'Ratel과 대화로 풀어봐요 — 실제 음성';
 
   @override
   String get liveIntro =>
-      'Talk it out with Ratel — live voice roleplay. Pick a scene, or just have a conversation.';
+      'Ratel과 대화로 풀어봐요 — 실시간 음성 롤플레이. 장면을 고르거나, 그냥 대화해 보세요.';
 
   @override
-  String get liveFreeConversation => 'Free conversation';
+  String get liveFreeConversation => '자유 대화';
 
   @override
-  String get liveFreeConversationSub => 'No script — just talk';
+  String get liveFreeConversationSub => '대본 없이 — 그냥 이야기해요';
 
   @override
-  String get liveRoleplayScene => 'Roleplay a scene';
+  String get liveRoleplayScene => '장면 롤플레이';
 
   @override
-  String get liveReconnecting => 'Reconnecting…';
+  String get liveReconnecting => '재연결 중…';
 
   @override
-  String get liveConnectionLost =>
-      'Connection lost — the live session dropped.';
+  String get liveConnectionLost => '연결이 끊겼어요 — 실시간 세션이 종료됐어요.';
 
   @override
-  String get liveReconnect => 'Reconnect';
+  String get liveReconnect => '재연결';
 
   @override
-  String get liveConnecting => 'Connecting…';
+  String get liveConnecting => '연결 중…';
 
   @override
-  String get liveStartTalking => 'Start talking';
+  String get liveStartTalking => '말하기 시작';
 
   @override
   String get liveSceneEndedNote =>
-      'Scene ended. Start again whenever you like — your live minutes are budgeted, never silent.';
+      '장면이 끝났어요. 언제든 다시 시작하세요 — 실시간 시간은 관리되며, 절대 조용히 흐르지 않아요.';
 
   @override
-  String get liveStartAgain => 'Start again';
+  String get liveStartAgain => '다시 시작';
 
   @override
   String get liveProGate =>
-      'Live voice roleplay is a RATEL PRO feature — real conversation, live feedback, cost-guarded minutes.';
+      '실시간 음성 롤플레이는 RATEL PRO 기능이에요 — 실제 대화, 실시간 피드백, 비용이 관리되는 시간.';
 
   @override
-  String get liveUnlockPro => 'Unlock RATEL PRO';
+  String get liveUnlockPro => 'RATEL PRO 잠금 해제';
 
   @override
   String get liveNotEnabled =>
-      'Live voice is not enabled in this build yet — it turns on in a later step. Nothing here is simulated.';
+      '실시간 음성은 이 빌드에서 아직 활성화되지 않았어요 — 이후 단계에서 켜져요. 여기 어떤 것도 시뮬레이션이 아니에요.';
 
   @override
-  String get livePhaseIdle => 'Ready when you are — it’s a real live call.';
+  String get livePhaseIdle => '준비되면 시작하세요 — 진짜 실시간 통화예요.';
 
   @override
-  String get livePhaseListening => 'Listening — your turn.';
+  String get livePhaseListening => '듣는 중 — 당신 차례예요.';
 
   @override
-  String get livePhaseSpeaking => 'Ratel is speaking — jump in any time.';
+  String get livePhaseSpeaking => 'Ratel이 말하는 중 — 언제든 끼어드세요.';
 
   @override
-  String get livePhaseClosed => 'Scene ended.';
+  String get livePhaseClosed => '장면이 끝났어요.';
 
   @override
-  String get liveEndScene => 'End scene';
+  String get liveEndScene => '장면 종료';
 
   @override
-  String get liveYou => 'You';
+  String get liveYou => '나';
 
   @override
-  String get liveStartFailed => 'Could not start the live session — try again.';
+  String get liveStartFailed => '실시간 세션을 시작할 수 없어요 — 다시 시도하세요.';
 
   @override
-  String get friendsHandleInvalid =>
-      'Enter a handle like @mia (2–20 letters, numbers, _).';
+  String get friendsHandleInvalid => '@mia 같은 핸들을 입력하세요 (2–20자, 글자·숫자·_).';
 
   @override
   String friendsAlreadyConnected(String handle) {
-    return 'You already have a connection with @$handle.';
+    return '이미 @$handle님과 연결되어 있어요.';
   }
 
   @override
-  String get friendsRequests => 'Requests';
+  String get friendsRequests => '요청';
 
   @override
-  String get friendsYourFriends => 'Your friends';
+  String get friendsYourFriends => '내 친구';
 
   @override
-  String get friendsPending => 'Pending';
+  String get friendsPending => '대기 중';
 
   @override
-  String get friendsActivity => 'Friend activity';
+  String get friendsActivity => '친구 활동';
 
   @override
   String get friendsFootnote =>
-      'Your social graph is real and private to you. Friend requests are delivered, and \"passed you\" appears, once the durable cross-user graph goes live — the same go-live step as every other durable counter. Nothing here is faked.';
+      '당신의 소셜 그래프는 실제이며 당신만 볼 수 있어요. 친구 요청 전송과 \"나를 앞질렀어요\" 표시는 지속형 사용자 간 그래프가 활성화되면 이루어져요 — 다른 모든 지속형 카운터와 동일한 출시 단계예요. 여기 가짜는 없어요.';
 
   @override
-  String get friendsAddHint => 'Add a friend by @handle…';
+  String get friendsAddHint => '@핸들로 친구 추가…';
 
   @override
-  String get friendsAccept => 'Accept';
+  String get friendsAccept => '수락';
 
   @override
   String friendsXpThisWeek(String handle, String xp) {
-    return '@$handle · $xp XP this week';
+    return '@$handle · 이번 주 $xp XP';
   }
 
   @override
-  String get friendsPassedYou => 'Passed you';
+  String get friendsPassedYou => '나를 앞질렀어요';
 
   @override
-  String get friendsRemove => 'Remove';
+  String get friendsRemove => '삭제';
 
   @override
-  String get friendsBlock => 'Block';
+  String get friendsBlock => '차단';
 
   @override
-  String get friendsReportBlock => 'Report & block';
+  String get friendsReportBlock => '신고 및 차단';
 
   @override
-  String get friendsRequestSent => 'Request sent';
+  String get friendsRequestSent => '요청을 보냈어요';
 
   @override
-  String get friendsEmptyTitle => 'No friends yet';
+  String get friendsEmptyTitle => '아직 친구가 없어요';
 
   @override
-  String get friendsEmptyBody =>
-      'Add someone by their @handle to start sharing progress.';
+  String get friendsEmptyBody => '@핸들로 누군가를 추가해 진행 상황을 공유해 보세요.';
 
   @override
-  String get profileLearner => 'Learner';
+  String get profileLearner => '학습자';
 
   @override
-  String get profileGuest => 'Guest';
+  String get profileGuest => '게스트';
 
   @override
-  String get editProfileSaved => 'Profile saved';
+  String get editProfileSaved => '프로필을 저장했어요';
 
   @override
-  String get editProfileHandleSet => 'Saved — your @handle is set.';
+  String get editProfileHandleSet => '저장됨 — @핸들이 설정됐어요.';
 
   @override
-  String get editProfileSignInForHandle =>
-      'Name saved. Sign in to claim your @handle.';
+  String get editProfileSignInForHandle => '이름을 저장했어요. @핸들을 등록하려면 로그인하세요.';
 
   @override
-  String get editProfileHandleFailed => 'That @handle could not be set.';
+  String get editProfileHandleFailed => '그 @핸들을 설정할 수 없어요.';
 
   @override
-  String get editProfileDisplayName => 'Display name';
+  String get editProfileDisplayName => '표시 이름';
 
   @override
-  String get editProfileNameHint => 'How should we greet you?';
+  String get editProfileNameHint => '어떻게 불러드릴까요?';
 
   @override
-  String get editProfileNameNote =>
-      'Shown on your profile. Saved on this device — it syncs to your account when you sign in.';
+  String get editProfileNameNote => '프로필에 표시돼요. 이 기기에 저장되며 — 로그인하면 계정에 동기화돼요.';
 
   @override
-  String get editProfileHandle => 'Your @handle';
+  String get editProfileHandle => '내 @핸들';
 
   @override
   String get editProfileHandleNote =>
-      'Other learners add you by your @handle (2–20 letters, numbers or _). Claiming it needs you to be signed in.';
+      '다른 학습자가 @핸들로 당신을 추가해요 (2–20자, 글자·숫자 또는 _). 등록하려면 로그인이 필요해요.';
 
   @override
-  String get commonSave => 'Save';
+  String get commonSave => '저장';
 
   @override
-  String get commonCancel => 'Cancel';
+  String get commonCancel => '취소';
 
   @override
-  String get feedIsNowYourFriend => 'is now your friend';
+  String get feedIsNowYourFriend => '님이 이제 친구예요';
 
   @override
   String feedReachedLevel(String level) {
-    return 'reached $level';
+    return '$level 도달';
   }
 
   @override
   String feedDayStreak(int count) {
-    return '$count-day streak';
+    return '$count일 스트릭';
   }
 
   @override
-  String get feedPassedYou => 'passed you in your league';
+  String get feedPassedYou => '리그에서 나를 앞질렀어요';
 
   @override
-  String get leaguesSoloCaption => 'this week · solo group';
+  String get leaguesSoloCaption => '이번 주 · 솔로 그룹';
 
   @override
   String leaguesXpToRank(int xp, int rank) {
-    return '$xp XP to rank $rank';
+    return '$rank위까지 $xp XP';
   }
 
   @override
-  String get leaguesLeading => 'leading your group';
+  String get leaguesLeading => '그룹 선두';
 
   @override
   String get leaguesSoloNote =>
-      'You\'re the only learner in your group this week. Real rivals join as Ratel grows — no bots, no fake leaderboards. Keep earning XP to be ready to climb when the week resets.';
+      '이번 주에는 당신이 그룹의 유일한 학습자예요. Ratel이 성장하면 진짜 경쟁자가 합류해요 — 봇도, 가짜 리더보드도 없어요. 주가 초기화될 때 오를 수 있도록 계속 XP를 모으세요.';
 
   @override
   String questsGoalLine(int today, int goal) {
-    return '$today / $goal XP · goal reached';
+    return '$today / $goal XP · 목표 달성';
   }
 
   @override
   String questsGoalRemaining(int today, int goal, int remaining) {
-    return '$today / $goal XP · $remaining XP to go';
+    return '$today / $goal XP · $remaining XP 남음';
   }
 
   @override
-  String get worldLabelLight => 'Daylight';
+  String get worldLabelLight => '한낮';
 
   @override
-  String get worldVehicleLight => 'Scooter';
+  String get worldVehicleLight => '스쿠터';
 
   @override
-  String get worldLabelGalaxy => 'Space';
+  String get worldLabelGalaxy => '우주';
 
   @override
-  String get worldVehicleGalaxy => 'Star pod';
+  String get worldVehicleGalaxy => '별 포드';
 
   @override
-  String get worldLabelSavanna => 'Savanna';
+  String get worldLabelSavanna => '사바나';
 
   @override
-  String get worldVehicleSavanna => 'Safari jeep';
+  String get worldVehicleSavanna => '사파리 지프';
 
   @override
-  String get worldLabelOcean => 'Ocean';
+  String get worldLabelOcean => '바다';
 
   @override
-  String get worldVehicleOcean => 'Submarine';
+  String get worldVehicleOcean => '잠수함';
 
   @override
-  String get worldLabelForest => 'Forest';
+  String get worldLabelForest => '숲';
 
   @override
-  String get worldVehicleForest => 'Leaf glider';
+  String get worldVehicleForest => '잎사귀 글라이더';
 
   @override
-  String get worldLabelCandy => 'Candy';
+  String get worldLabelCandy => '사탕';
 
   @override
-  String get worldVehicleCandy => 'Balloon';
+  String get worldVehicleCandy => '풍선';
 
   @override
-  String get worldLabelNeon => 'Neon City';
+  String get worldLabelNeon => '네온 시티';
 
   @override
-  String get worldVehicleNeon => 'Hover-bike';
+  String get worldVehicleNeon => '호버바이크';
 
   @override
-  String get worldLabelStorm => 'Rainstorm';
+  String get worldLabelStorm => '폭풍우';
 
   @override
-  String get worldVehicleStorm => 'Storm glider';
+  String get worldVehicleStorm => '폭풍 글라이더';
 
   @override
-  String get worldLabelSnow => 'Winter';
+  String get worldLabelSnow => '겨울';
 
   @override
-  String get worldVehicleSnow => 'Snow sled';
+  String get worldVehicleSnow => '눈썰매';
 
   @override
-  String get worldLabelSakura => 'Cherry Blossom';
+  String get worldLabelSakura => '벚꽃';
 
   @override
-  String get worldVehicleSakura => 'Petal kite';
+  String get worldVehicleSakura => '꽃잎 연';
 
   @override
-  String get worldLabelAutumn => 'Autumn';
+  String get worldLabelAutumn => '가을';
 
   @override
-  String get worldVehicleAutumn => 'Leaf-cart';
+  String get worldVehicleAutumn => '낙엽 수레';
 
   @override
-  String get worldLabelAurora => 'Aurora';
+  String get worldLabelAurora => '오로라';
 
   @override
-  String get worldVehicleAurora => 'Aurora skiff';
+  String get worldVehicleAurora => '오로라 나룻배';
 
   @override
-  String get worldLabelVolcano => 'Volcano';
+  String get worldLabelVolcano => '화산';
 
   @override
-  String get worldVehicleVolcano => 'Magma board';
+  String get worldVehicleVolcano => '마그마 보드';
 
   @override
-  String get worldLabelSunset => 'Sunset';
+  String get worldLabelSunset => '노을';
 
   @override
-  String get worldVehicleSunset => 'Glider';
+  String get worldVehicleSunset => '글라이더';
 
   @override
-  String get worldLabelDesert => 'Desert';
+  String get worldLabelDesert => '사막';
 
   @override
-  String get worldVehicleDesert => 'Dune buggy';
+  String get worldVehicleDesert => '사막 버기';
 
   @override
-  String get worldLabelReef => 'Coral Reef';
+  String get worldLabelReef => '산호초';
 
   @override
-  String get worldVehicleReef => 'Glass boat';
+  String get worldVehicleReef => '유리 보트';
 
   @override
-  String get worldLabelMeadow => 'Meadow';
+  String get worldLabelMeadow => '초원';
 
   @override
-  String get worldVehicleMeadow => 'Bicycle';
+  String get worldVehicleMeadow => '자전거';
 
   @override
-  String get worldLabelDawn => 'Dawn';
+  String get worldLabelDawn => '새벽';
 
   @override
-  String get worldVehicleDawn => 'Sky balloon';
+  String get worldVehicleDawn => '하늘 풍선';
 
   @override
-  String get worldLabelBeach => 'Tropical Beach';
+  String get worldLabelBeach => '열대 해변';
 
   @override
-  String get worldVehicleBeach => 'Catamaran';
+  String get worldVehicleBeach => '쌍동선';
 
   @override
-  String get worldLabelMars => 'Mars';
+  String get worldLabelMars => '화성';
 
   @override
-  String get worldVehicleMars => 'Rover';
+  String get worldVehicleMars => '탐사차';
 
   @override
-  String get worldLabelJungle => 'Rainforest';
+  String get worldLabelJungle => '열대우림';
 
   @override
-  String get worldVehicleJungle => 'Zipline';
+  String get worldVehicleJungle => '짚라인';
 
   @override
-  String get worldLabelCyberrain => 'Cyber Rain';
+  String get worldLabelCyberrain => '사이버 레인';
 
   @override
-  String get worldVehicleCyberrain => 'Hover-bike';
+  String get worldVehicleCyberrain => '호버바이크';
 
   @override
-  String get worldLabelAbyss => 'Deep Sea';
+  String get worldLabelAbyss => '심해';
 
   @override
-  String get worldVehicleAbyss => 'Bathysphere';
+  String get worldVehicleAbyss => '심해정';
 
   @override
-  String get worldLabelAlpine => 'Alpine';
+  String get worldLabelAlpine => '알프스';
 
   @override
-  String get worldVehicleAlpine => 'Cable car';
+  String get worldVehicleAlpine => '케이블카';
 
   @override
-  String get worldLabelLavender => 'Lavender';
+  String get worldLabelLavender => '라벤더';
 
   @override
-  String get worldVehicleLavender => 'Vespa';
+  String get worldVehicleLavender => '베스파';
 
   @override
-  String get worldLabelBamboo => 'Bamboo Grove';
+  String get worldLabelBamboo => '대나무 숲';
 
   @override
-  String get worldVehicleBamboo => 'Rickshaw';
+  String get worldVehicleBamboo => '인력거';
 
   @override
-  String get worldLabelLagoon => 'Lagoon Night';
+  String get worldLabelLagoon => '석호의 밤';
 
   @override
-  String get worldVehicleLagoon => 'Kayak';
+  String get worldVehicleLagoon => '카약';
 
   @override
-  String get worldLabelThunder => 'Thunderhead';
+  String get worldLabelThunder => '천둥 구름';
 
   @override
-  String get worldVehicleThunder => 'Storm chaser';
+  String get worldVehicleThunder => '폭풍 추격자';
 
   @override
-  String get worldLabelNebula => 'Nebula';
+  String get worldLabelNebula => '성운';
 
   @override
-  String get worldVehicleNebula => 'Star cruiser';
+  String get worldVehicleNebula => '별 크루저';
 
   @override
-  String get worldLabelSandstorm => 'Sandstorm';
+  String get worldLabelSandstorm => '모래폭풍';
 
   @override
-  String get worldVehicleSandstorm => 'Caravan';
+  String get worldVehicleSandstorm => '카라반';
 
   @override
-  String get worldLabelCherrynight => 'Cherry Night';
+  String get worldLabelCherrynight => '벚꽃의 밤';
 
   @override
-  String get worldVehicleCherrynight => 'Paper lantern';
+  String get worldVehicleCherrynight => '종이 등불';
 
   @override
-  String get shopYourBadger => 'Your badger';
+  String get shopYourBadger => '내 오소리';
 
   @override
   String get shopDiamondsNote =>
-      'A real-money 💎 top-up is coming. Diamonds are earned by finishing lessons and meeting your daily goal, and every power-up here spends them for real — nothing is faked.';
+      '실제 결제로 💎를 충전하는 기능이 곧 나와요. 다이아몬드는 레슨을 끝내고 일일 목표를 달성하면 얻으며, 여기 모든 파워업은 실제로 다이아몬드를 사용해요 — 가짜는 없어요.';
 
   @override
-  String get shopProBannerSub => 'Live AI, no ads, offline · Try 7 days free';
+  String get shopProBannerSub => '실시간 AI, 광고 없음, 오프라인 · 7일 무료 체험';
 
   @override
-  String get shopYourDiamonds => 'Your diamonds';
+  String get shopYourDiamonds => '내 다이아몬드';
 
   @override
-  String get shopEquipped => 'Equipped';
+  String get shopEquipped => '착용 중';
 
   @override
-  String get shopEquip => 'Equip';
+  String get shopEquip => '착용';
 
   @override
   String shopEquippedSnack(String name, String emoji) {
-    return 'Equipped $name $emoji';
+    return '$name $emoji 착용 완료';
   }
 
   @override
-  String get shopFree => 'Free';
+  String get shopFree => '무료';
 
   @override
-  String get outfitClassic => 'Classic';
+  String get outfitClassic => '클래식';
 
   @override
-  String get outfitScholar => 'Scholar';
+  String get outfitScholar => '학자';
 
   @override
-  String get outfitExplorer => 'Explorer';
+  String get outfitExplorer => '탐험가';
 
   @override
-  String get outfitAstronaut => 'Astronaut';
+  String get outfitAstronaut => '우주비행사';
 
   @override
-  String get outfitWizard => 'Wizard';
+  String get outfitWizard => '마법사';
 
   @override
   String paywallAnnualLine(String annual, String perMonth) {
-    return '$annual/yr  ·  $perMonth/mo  ·  7 days free';
+    return '연 $annual  ·  월 $perMonth  ·  7일 무료';
   }
 
   @override
   String paywallMonthlyLine(String monthly) {
-    return '$monthly/mo  ·  billed monthly';
+    return '월 $monthly  ·  매월 청구';
   }
 
   @override
   String paywallSavePercent(int percent) {
-    return 'SAVE $percent%';
+    return '$percent% 할인';
   }
 
   @override
-  String get paywallIncluded => 'What\'s included with Pro';
+  String get paywallIncluded => 'Pro에 포함된 항목';
 
   @override
-  String get paywallTerms => 'Terms';
+  String get paywallTerms => '약관';
 
   @override
-  String get paywallPrivacy => 'Privacy';
+  String get paywallPrivacy => '개인정보';
 
   @override
   String get paywallNothingToRestore =>
-      'Nothing to restore — billing isn\'t live in this build yet.';
+      '복원할 항목이 없어요 — 이 빌드에서는 결제가 아직 활성화되지 않았어요.';
 
   @override
-  String get contentUnavailableTitle => 'Content unavailable';
+  String get contentUnavailableTitle => '콘텐츠를 사용할 수 없어요';
 
   @override
   String contentUnavailableBody(String noun) {
-    return 'This $noun is not available right now. If you are offline, check your connection and try again.';
+    return '이 $noun은(는) 지금 사용할 수 없어요. 오프라인 상태라면 연결을 확인하고 다시 시도하세요.';
   }
 
   @override
-  String get contentNounStory => 'story';
+  String get contentNounStory => '스토리';
 
   @override
-  String get contentNounPodcast => 'podcast';
+  String get contentNounPodcast => '팟캐스트';
 
   @override
-  String get contentNounVideo => 'video';
+  String get contentNounVideo => '동영상';
 
   @override
-  String get contentNounAdventure => 'adventure';
+  String get contentNounAdventure => '어드벤처';
 
   @override
-  String get contentNounRoleplay => 'roleplay';
+  String get contentNounRoleplay => '롤플레이';
 
   @override
-  String get commonGoBack => 'Go back';
+  String get commonGoBack => '돌아가기';
 
   @override
-  String get placementTitle => 'Placement test';
+  String get placementTitle => '레벨 테스트';
 
   @override
   String placementQuestionN(int n) {
-    return 'Question $n';
+    return '질문 $n';
   }
 
   @override
-  String get placementResultTitle => 'Your starting point';
+  String get placementResultTitle => '나의 시작 지점';
 
   @override
   String placementResultBody(int count, String level) {
-    return 'Based on $count questions, we placed you at $level. You can always adjust later.';
+    return '$count개의 질문을 바탕으로 $level에 배치했어요. 나중에 언제든 조정할 수 있어요.';
   }
 
   @override
-  String get lessonTypedNote => 'Type your answer in the target language.';
+  String get lessonTypedNote => '목표 언어로 답을 입력하세요.';
 
   @override
   String lessonHintMinWords(int count) {
-    return 'at least $count words';
+    return '최소 $count단어';
   }
 
   @override
   String lessonHintUseWords(String words) {
-    return 'use: $words';
+    return '사용: $words';
   }
 
   @override
-  String get lessonHintEndPunct => 'end with . ! or ?';
+  String get lessonHintEndPunct => '. ! 또는 ?로 끝내기';
 
   @override
-  String get lessonPlayAudio => 'Play audio';
+  String get lessonPlayAudio => '오디오 재생';
 
   @override
-  String get lessonPlaySlowly => 'Play slowly';
+  String get lessonPlaySlowly => '천천히 재생';
 
   @override
-  String get lessonAudioUnavailable => 'Audio unavailable — read the prompt.';
+  String get lessonAudioUnavailable => '오디오를 사용할 수 없어요 — 문제를 읽으세요.';
 
   @override
-  String get lessonPlaybackSpeed => 'Playback speed';
+  String get lessonPlaybackSpeed => '재생 속도';
 }

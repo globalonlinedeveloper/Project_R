@@ -181,10 +181,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get lessonTranslateSentence => '翻译这个句子';
 
   @override
-  String get lessonExplainThis => '💡 Explain this';
+  String get lessonExplainThis => '💡 讲解一下';
 
   @override
-  String get lessonMatchPairs => 'Match the pairs';
+  String get lessonMatchPairs => '配对连线';
 
   @override
   String get lessonTypeAnswerHint => '输入你的答案…';
@@ -1552,711 +1552,693 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String settingsGoalPerDay(int goal) {
-    return '$goal XP per day';
+    return '每天 $goal XP';
   }
 
   @override
   String settingsGoalReachedSub(int goal) {
-    return '$goal XP per day · ✓ reached today';
+    return '每天 $goal XP · ✓ 今日已达成';
   }
 
   @override
-  String get settingsSoundEffects => 'Sound effects';
+  String get settingsSoundEffects => '音效';
 
   @override
-  String get settingsHaptics => 'Haptics';
+  String get settingsHaptics => '触感反馈';
 
   @override
-  String get settingsProActive => 'RATEL PRO active';
+  String get settingsProActive => 'RATEL PRO 已激活';
 
   @override
-  String get settingsFreePlan => 'Free plan';
+  String get settingsFreePlan => '免费方案';
 
   @override
-  String get settingsReduceMotion => 'Reduce motion';
+  String get settingsReduceMotion => '减弱动态效果';
 
   @override
-  String get settingsReduceMotionSub =>
-      'Master switch — turns off every animation';
+  String get settingsReduceMotionSub => '总开关 — 关闭所有动画';
 
   @override
-  String get settingsHighContrast => 'High contrast';
+  String get settingsHighContrast => '高对比度';
 
   @override
-  String get settingsNotifPush => 'Push notifications';
+  String get settingsNotifPush => '推送通知';
 
   @override
-  String get settingsNotifStreak => 'Streak reminders';
+  String get settingsNotifStreak => '连胜提醒';
 
   @override
-  String get settingsNotifLeague => 'League updates';
+  String get settingsNotifLeague => '联赛动态';
 
   @override
-  String get settingsNotifFriend => 'Friend activity';
+  String get settingsNotifFriend => '好友动态';
 
   @override
-  String get settingsNotifFootnote =>
-      'Your choices are saved now — delivery switches on when push notifications ship.';
+  String get settingsNotifFootnote => '你的选择现已保存 — 推送通知上线后即会开始送达。';
 
   @override
-  String get settingsCourse => 'Course';
+  String get settingsCourse => '课程';
 
   @override
-  String get settingsTheme => 'Theme';
+  String get settingsTheme => '主题';
 
   @override
-  String get settingsWorld => 'World';
+  String get settingsWorld => '世界';
 
   @override
-  String get settingsEditProfile => 'Edit profile';
+  String get settingsEditProfile => '编辑个人资料';
 
   @override
-  String get settingsPrivacy => 'Privacy & data';
+  String get settingsPrivacy => '隐私与数据';
 
   @override
-  String get settingsHelp => 'Help & support';
+  String get settingsHelp => '帮助与支持';
 
   @override
-  String get settingsLogOut => 'Log out';
+  String get settingsLogOut => '退出登录';
 
   @override
-  String get settingsGuestSub =>
-      'You are learning as a guest — sign up to save progress';
+  String get settingsGuestSub => '你正在以访客身份学习 — 注册以保存进度';
 
   @override
   String settingsCouldNotOpen(String url) {
-    return 'Could not open $url';
+    return '无法打开 $url';
   }
 
   @override
-  String get settingsThemeSystem => 'Match device';
+  String get settingsThemeSystem => '跟随设备';
 
   @override
-  String get settingsThemeLight => 'Light';
+  String get settingsThemeLight => '浅色';
 
   @override
-  String get settingsThemeDark => 'Dark';
+  String get settingsThemeDark => '深色';
 
   @override
-  String get mediaReadAloud => 'Read aloud';
+  String get mediaReadAloud => '朗读';
 
   @override
-  String get mediaTranscript => 'Transcript';
+  String get mediaTranscript => '文字稿';
 
   @override
-  String get mediaCheckUnderstanding => 'Check understanding';
+  String get mediaCheckUnderstanding => '检查理解';
 
   @override
   String mediaChecksCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count comprehension checks',
-      one: '$count comprehension check',
+      other: '$count 个理解检查',
+      one: '$count 个理解检查',
     );
     return '$_temp0';
   }
 
   @override
-  String get mediaLoading => 'Loading…';
+  String get mediaLoading => '加载中…';
 
   @override
-  String get mediaPause => 'Pause';
+  String get mediaPause => '暂停';
 
   @override
-  String get storiesTitle => 'Stories';
+  String get storiesTitle => '故事';
 
   @override
-  String get storiesSub =>
-      'Read & listen — graded stories with browser read-aloud.';
+  String get storiesSub => '边读边听 — 分级故事,支持浏览器朗读。';
 
   @override
-  String get storiesEmpty => 'No stories in this course yet.';
+  String get storiesEmpty => '这个课程还没有故事。';
 
   @override
-  String get storyFallbackTitle => 'Story';
+  String get storyFallbackTitle => '故事';
 
   @override
-  String get podcastsSub =>
-      'Listen -- graded podcasts with real audio and a transcript.';
+  String get podcastsSub => '听 — 分级播客,配真实音频和文字稿。';
 
   @override
-  String get podcastsEmpty => 'No podcasts in this course yet.';
+  String get podcastsEmpty => '这个课程还没有播客。';
 
   @override
-  String get podcastFallbackTitle => 'Podcast';
+  String get podcastFallbackTitle => '播客';
 
   @override
-  String get podcastPlayEpisode => 'Play episode';
+  String get podcastPlayEpisode => '播放单集';
 
   @override
-  String get watchSub =>
-      'Watch -- short clips with a transcript and comprehension checks.';
+  String get watchSub => '看 — 短视频片段,配文字稿和理解检查。';
 
   @override
-  String get watchEmpty => 'No watch lessons in this course yet.';
+  String get watchEmpty => '这个课程还没有观看课程。';
 
   @override
-  String get watchWebOnly => 'Video plays in the web app';
+  String get watchWebOnly => '视频在网页版中播放';
 
   @override
-  String get libraryAdventuresSub =>
-      'Walk a living world and talk your way through real scenes.';
+  String get libraryAdventuresSub => '漫游鲜活的世界,用对话闯过真实场景。';
 
   @override
-  String get roleplaySub =>
-      'Practice real conversations -- pick the right reply, get instant feedback.';
+  String get roleplaySub => '练习真实对话 — 选出正确回复,即时获得反馈。';
 
   @override
-  String get roleplayEmpty => 'No roleplays in this course yet.';
+  String get roleplayEmpty => '这个课程还没有角色扮演。';
 
   @override
-  String get roleplayYourReply => 'Your reply:';
+  String get roleplayYourReply => '你的回复:';
 
   @override
-  String get roleplaySceneComplete => '🎉 Scene complete!';
+  String get roleplaySceneComplete => '🎉 场景完成!';
 
   @override
-  String get roleplayBack => 'Back to roleplays';
+  String get roleplayBack => '返回角色扮演';
 
   @override
-  String get liveRoleplayTitle => 'Live Roleplay';
+  String get liveRoleplayTitle => '实时角色扮演';
 
   @override
-  String get liveRoleplayCardSub => 'Talk it out with Ratel — real voice';
+  String get liveRoleplayCardSub => '和 Ratel 聊出来 — 真实语音';
 
   @override
-  String get liveIntro =>
-      'Talk it out with Ratel — live voice roleplay. Pick a scene, or just have a conversation.';
+  String get liveIntro => '和 Ratel 聊出来 — 实时语音角色扮演。选个场景,或者随便聊聊。';
 
   @override
-  String get liveFreeConversation => 'Free conversation';
+  String get liveFreeConversation => '自由对话';
 
   @override
-  String get liveFreeConversationSub => 'No script — just talk';
+  String get liveFreeConversationSub => '没有脚本 — 尽管聊';
 
   @override
-  String get liveRoleplayScene => 'Roleplay a scene';
+  String get liveRoleplayScene => '角色扮演场景';
 
   @override
-  String get liveReconnecting => 'Reconnecting…';
+  String get liveReconnecting => '正在重新连接…';
 
   @override
-  String get liveConnectionLost =>
-      'Connection lost — the live session dropped.';
+  String get liveConnectionLost => '连接已断开 — 实时会话中断了。';
 
   @override
-  String get liveReconnect => 'Reconnect';
+  String get liveReconnect => '重新连接';
 
   @override
-  String get liveConnecting => 'Connecting…';
+  String get liveConnecting => '正在连接…';
 
   @override
-  String get liveStartTalking => 'Start talking';
+  String get liveStartTalking => '开始说话';
 
   @override
-  String get liveSceneEndedNote =>
-      'Scene ended. Start again whenever you like — your live minutes are budgeted, never silent.';
+  String get liveSceneEndedNote => '场景已结束。随时可以重新开始 — 你的实时通话时长有预算,绝不冷场。';
 
   @override
-  String get liveStartAgain => 'Start again';
+  String get liveStartAgain => '重新开始';
 
   @override
-  String get liveProGate =>
-      'Live voice roleplay is a RATEL PRO feature — real conversation, live feedback, cost-guarded minutes.';
+  String get liveProGate => '实时语音角色扮演是 RATEL PRO 功能 — 真实对话、实时反馈、有成本保护的通话时长。';
 
   @override
-  String get liveUnlockPro => 'Unlock RATEL PRO';
+  String get liveUnlockPro => '解锁 RATEL PRO';
 
   @override
-  String get liveNotEnabled =>
-      'Live voice is not enabled in this build yet — it turns on in a later step. Nothing here is simulated.';
+  String get liveNotEnabled => '此版本尚未启用实时语音 — 它将在后续步骤开启。这里没有任何模拟内容。';
 
   @override
-  String get livePhaseIdle => 'Ready when you are — it’s a real live call.';
+  String get livePhaseIdle => '准备好就开始 — 这是一次真实的实时通话。';
 
   @override
-  String get livePhaseListening => 'Listening — your turn.';
+  String get livePhaseListening => '正在聆听 — 该你了。';
 
   @override
-  String get livePhaseSpeaking => 'Ratel is speaking — jump in any time.';
+  String get livePhaseSpeaking => 'Ratel 正在说话 — 随时可以插话。';
 
   @override
-  String get livePhaseClosed => 'Scene ended.';
+  String get livePhaseClosed => '场景已结束。';
 
   @override
-  String get liveEndScene => 'End scene';
+  String get liveEndScene => '结束场景';
 
   @override
-  String get liveYou => 'You';
+  String get liveYou => '你';
 
   @override
-  String get liveStartFailed => 'Could not start the live session — try again.';
+  String get liveStartFailed => '无法开始实时会话 — 请重试。';
 
   @override
-  String get friendsHandleInvalid =>
-      'Enter a handle like @mia (2–20 letters, numbers, _).';
+  String get friendsHandleInvalid => '请输入像 @mia 这样的用户名(2–20 个字母、数字或 _)。';
 
   @override
   String friendsAlreadyConnected(String handle) {
-    return 'You already have a connection with @$handle.';
+    return '你已经和 @$handle 建立了连接。';
   }
 
   @override
-  String get friendsRequests => 'Requests';
+  String get friendsRequests => '请求';
 
   @override
-  String get friendsYourFriends => 'Your friends';
+  String get friendsYourFriends => '你的好友';
 
   @override
-  String get friendsPending => 'Pending';
+  String get friendsPending => '待处理';
 
   @override
-  String get friendsActivity => 'Friend activity';
+  String get friendsActivity => '好友动态';
 
   @override
   String get friendsFootnote =>
-      'Your social graph is real and private to you. Friend requests are delivered, and \"passed you\" appears, once the durable cross-user graph goes live — the same go-live step as every other durable counter. Nothing here is faked.';
+      '你的社交关系是真实的,且仅对你可见。跨用户的持久关系图上线后,好友请求即会送达,“超过了你”也会出现 — 与其他所有持久计数器是同一个上线步骤。这里没有任何虚假内容。';
 
   @override
-  String get friendsAddHint => 'Add a friend by @handle…';
+  String get friendsAddHint => '通过 @用户名 添加好友…';
 
   @override
-  String get friendsAccept => 'Accept';
+  String get friendsAccept => '接受';
 
   @override
   String friendsXpThisWeek(String handle, String xp) {
-    return '@$handle · $xp XP this week';
+    return '@$handle · 本周 $xp XP';
   }
 
   @override
-  String get friendsPassedYou => 'Passed you';
+  String get friendsPassedYou => '超过了你';
 
   @override
-  String get friendsRemove => 'Remove';
+  String get friendsRemove => '移除';
 
   @override
-  String get friendsBlock => 'Block';
+  String get friendsBlock => '屏蔽';
 
   @override
-  String get friendsReportBlock => 'Report & block';
+  String get friendsReportBlock => '举报并屏蔽';
 
   @override
-  String get friendsRequestSent => 'Request sent';
+  String get friendsRequestSent => '请求已发送';
 
   @override
-  String get friendsEmptyTitle => 'No friends yet';
+  String get friendsEmptyTitle => '还没有好友';
 
   @override
-  String get friendsEmptyBody =>
-      'Add someone by their @handle to start sharing progress.';
+  String get friendsEmptyBody => '通过 @用户名 添加某人,开始分享进度。';
 
   @override
-  String get profileLearner => 'Learner';
+  String get profileLearner => '学习者';
 
   @override
-  String get profileGuest => 'Guest';
+  String get profileGuest => '访客';
 
   @override
-  String get editProfileSaved => 'Profile saved';
+  String get editProfileSaved => '个人资料已保存';
 
   @override
-  String get editProfileHandleSet => 'Saved — your @handle is set.';
+  String get editProfileHandleSet => '已保存 — 你的 @用户名 已设置。';
 
   @override
-  String get editProfileSignInForHandle =>
-      'Name saved. Sign in to claim your @handle.';
+  String get editProfileSignInForHandle => '姓名已保存。登录以认领你的 @用户名。';
 
   @override
-  String get editProfileHandleFailed => 'That @handle could not be set.';
+  String get editProfileHandleFailed => '无法设置该 @用户名。';
 
   @override
-  String get editProfileDisplayName => 'Display name';
+  String get editProfileDisplayName => '显示名称';
 
   @override
-  String get editProfileNameHint => 'How should we greet you?';
+  String get editProfileNameHint => '我们该怎么称呼你?';
 
   @override
-  String get editProfileNameNote =>
-      'Shown on your profile. Saved on this device — it syncs to your account when you sign in.';
+  String get editProfileNameNote => '显示在你的个人资料上。保存在本设备 — 登录后会同步到你的账户。';
 
   @override
-  String get editProfileHandle => 'Your @handle';
+  String get editProfileHandle => '你的 @用户名';
 
   @override
   String get editProfileHandleNote =>
-      'Other learners add you by your @handle (2–20 letters, numbers or _). Claiming it needs you to be signed in.';
+      '其他学习者通过你的 @用户名 添加你(2–20 个字母、数字或 _)。认领它需要你先登录。';
 
   @override
-  String get commonSave => 'Save';
+  String get commonSave => '保存';
 
   @override
-  String get commonCancel => 'Cancel';
+  String get commonCancel => '取消';
 
   @override
-  String get feedIsNowYourFriend => 'is now your friend';
+  String get feedIsNowYourFriend => '现在是你的好友了';
 
   @override
   String feedReachedLevel(String level) {
-    return 'reached $level';
+    return '达到了 $level';
   }
 
   @override
   String feedDayStreak(int count) {
-    return '$count-day streak';
+    return '连胜 $count 天';
   }
 
   @override
-  String get feedPassedYou => 'passed you in your league';
+  String get feedPassedYou => '在联赛中超过了你';
 
   @override
-  String get leaguesSoloCaption => 'this week · solo group';
+  String get leaguesSoloCaption => '本周 · 单人小组';
 
   @override
   String leaguesXpToRank(int xp, int rank) {
-    return '$xp XP to rank $rank';
+    return '还差 $xp XP 升到第 $rank 名';
   }
 
   @override
-  String get leaguesLeading => 'leading your group';
+  String get leaguesLeading => '在你的小组中领先';
 
   @override
   String get leaguesSoloNote =>
-      'You\'re the only learner in your group this week. Real rivals join as Ratel grows — no bots, no fake leaderboards. Keep earning XP to be ready to climb when the week resets.';
+      '本周你是小组里唯一的学习者。随着 Ratel 成长,真实的对手会加入 — 没有机器人,没有虚假排行榜。继续赚取 XP,等本周重置后就能向上攀登。';
 
   @override
   String questsGoalLine(int today, int goal) {
-    return '$today / $goal XP · goal reached';
+    return '$today / $goal XP · 目标已达成';
   }
 
   @override
   String questsGoalRemaining(int today, int goal, int remaining) {
-    return '$today / $goal XP · $remaining XP to go';
+    return '$today / $goal XP · 还差 $remaining XP';
   }
 
   @override
-  String get worldLabelLight => 'Daylight';
+  String get worldLabelLight => '白昼';
 
   @override
-  String get worldVehicleLight => 'Scooter';
+  String get worldVehicleLight => '滑板车';
 
   @override
-  String get worldLabelGalaxy => 'Space';
+  String get worldLabelGalaxy => '太空';
 
   @override
-  String get worldVehicleGalaxy => 'Star pod';
+  String get worldVehicleGalaxy => '星际舱';
 
   @override
-  String get worldLabelSavanna => 'Savanna';
+  String get worldLabelSavanna => '热带草原';
 
   @override
-  String get worldVehicleSavanna => 'Safari jeep';
+  String get worldVehicleSavanna => '越野吉普';
 
   @override
-  String get worldLabelOcean => 'Ocean';
+  String get worldLabelOcean => '海洋';
 
   @override
-  String get worldVehicleOcean => 'Submarine';
+  String get worldVehicleOcean => '潜水艇';
 
   @override
-  String get worldLabelForest => 'Forest';
+  String get worldLabelForest => '森林';
 
   @override
-  String get worldVehicleForest => 'Leaf glider';
+  String get worldVehicleForest => '树叶滑翔翼';
 
   @override
-  String get worldLabelCandy => 'Candy';
+  String get worldLabelCandy => '糖果';
 
   @override
-  String get worldVehicleCandy => 'Balloon';
+  String get worldVehicleCandy => '热气球';
 
   @override
-  String get worldLabelNeon => 'Neon City';
+  String get worldLabelNeon => '霓虹之城';
 
   @override
-  String get worldVehicleNeon => 'Hover-bike';
+  String get worldVehicleNeon => '悬浮摩托';
 
   @override
-  String get worldLabelStorm => 'Rainstorm';
+  String get worldLabelStorm => '暴雨';
 
   @override
-  String get worldVehicleStorm => 'Storm glider';
+  String get worldVehicleStorm => '暴风滑翔翼';
 
   @override
-  String get worldLabelSnow => 'Winter';
+  String get worldLabelSnow => '冬季';
 
   @override
-  String get worldVehicleSnow => 'Snow sled';
+  String get worldVehicleSnow => '雪橇';
 
   @override
-  String get worldLabelSakura => 'Cherry Blossom';
+  String get worldLabelSakura => '樱花';
 
   @override
-  String get worldVehicleSakura => 'Petal kite';
+  String get worldVehicleSakura => '花瓣风筝';
 
   @override
-  String get worldLabelAutumn => 'Autumn';
+  String get worldLabelAutumn => '秋日';
 
   @override
-  String get worldVehicleAutumn => 'Leaf-cart';
+  String get worldVehicleAutumn => '落叶小车';
 
   @override
-  String get worldLabelAurora => 'Aurora';
+  String get worldLabelAurora => '极光';
 
   @override
-  String get worldVehicleAurora => 'Aurora skiff';
+  String get worldVehicleAurora => '极光小艇';
 
   @override
-  String get worldLabelVolcano => 'Volcano';
+  String get worldLabelVolcano => '火山';
 
   @override
-  String get worldVehicleVolcano => 'Magma board';
+  String get worldVehicleVolcano => '岩浆滑板';
 
   @override
-  String get worldLabelSunset => 'Sunset';
+  String get worldLabelSunset => '日落';
 
   @override
-  String get worldVehicleSunset => 'Glider';
+  String get worldVehicleSunset => '滑翔翼';
 
   @override
-  String get worldLabelDesert => 'Desert';
+  String get worldLabelDesert => '沙漠';
 
   @override
-  String get worldVehicleDesert => 'Dune buggy';
+  String get worldVehicleDesert => '沙丘越野车';
 
   @override
-  String get worldLabelReef => 'Coral Reef';
+  String get worldLabelReef => '珊瑚礁';
 
   @override
-  String get worldVehicleReef => 'Glass boat';
+  String get worldVehicleReef => '玻璃船';
 
   @override
-  String get worldLabelMeadow => 'Meadow';
+  String get worldLabelMeadow => '草地';
 
   @override
-  String get worldVehicleMeadow => 'Bicycle';
+  String get worldVehicleMeadow => '自行车';
 
   @override
-  String get worldLabelDawn => 'Dawn';
+  String get worldLabelDawn => '黎明';
 
   @override
-  String get worldVehicleDawn => 'Sky balloon';
+  String get worldVehicleDawn => '空中气球';
 
   @override
-  String get worldLabelBeach => 'Tropical Beach';
+  String get worldLabelBeach => '热带海滩';
 
   @override
-  String get worldVehicleBeach => 'Catamaran';
+  String get worldVehicleBeach => '双体船';
 
   @override
-  String get worldLabelMars => 'Mars';
+  String get worldLabelMars => '火星';
 
   @override
-  String get worldVehicleMars => 'Rover';
+  String get worldVehicleMars => '火星车';
 
   @override
-  String get worldLabelJungle => 'Rainforest';
+  String get worldLabelJungle => '雨林';
 
   @override
-  String get worldVehicleJungle => 'Zipline';
+  String get worldVehicleJungle => '溜索';
 
   @override
-  String get worldLabelCyberrain => 'Cyber Rain';
+  String get worldLabelCyberrain => '赛博雨夜';
 
   @override
-  String get worldVehicleCyberrain => 'Hover-bike';
+  String get worldVehicleCyberrain => '悬浮摩托';
 
   @override
-  String get worldLabelAbyss => 'Deep Sea';
+  String get worldLabelAbyss => '深海';
 
   @override
-  String get worldVehicleAbyss => 'Bathysphere';
+  String get worldVehicleAbyss => '深海球舱';
 
   @override
-  String get worldLabelAlpine => 'Alpine';
+  String get worldLabelAlpine => '高山';
 
   @override
-  String get worldVehicleAlpine => 'Cable car';
+  String get worldVehicleAlpine => '缆车';
 
   @override
-  String get worldLabelLavender => 'Lavender';
+  String get worldLabelLavender => '薰衣草';
 
   @override
-  String get worldVehicleLavender => 'Vespa';
+  String get worldVehicleLavender => '小绵羊';
 
   @override
-  String get worldLabelBamboo => 'Bamboo Grove';
+  String get worldLabelBamboo => '竹林';
 
   @override
-  String get worldVehicleBamboo => 'Rickshaw';
+  String get worldVehicleBamboo => '人力车';
 
   @override
-  String get worldLabelLagoon => 'Lagoon Night';
+  String get worldLabelLagoon => '泻湖之夜';
 
   @override
-  String get worldVehicleLagoon => 'Kayak';
+  String get worldVehicleLagoon => '皮划艇';
 
   @override
-  String get worldLabelThunder => 'Thunderhead';
+  String get worldLabelThunder => '雷暴云';
 
   @override
-  String get worldVehicleThunder => 'Storm chaser';
+  String get worldVehicleThunder => '追风者';
 
   @override
-  String get worldLabelNebula => 'Nebula';
+  String get worldLabelNebula => '星云';
 
   @override
-  String get worldVehicleNebula => 'Star cruiser';
+  String get worldVehicleNebula => '星际巡航舰';
 
   @override
-  String get worldLabelSandstorm => 'Sandstorm';
+  String get worldLabelSandstorm => '沙暴';
 
   @override
-  String get worldVehicleSandstorm => 'Caravan';
+  String get worldVehicleSandstorm => '驼队';
 
   @override
-  String get worldLabelCherrynight => 'Cherry Night';
+  String get worldLabelCherrynight => '樱花之夜';
 
   @override
-  String get worldVehicleCherrynight => 'Paper lantern';
+  String get worldVehicleCherrynight => '纸灯笼';
 
   @override
-  String get shopYourBadger => 'Your badger';
+  String get shopYourBadger => '你的獾';
 
   @override
   String get shopDiamondsNote =>
-      'A real-money 💎 top-up is coming. Diamonds are earned by finishing lessons and meeting your daily goal, and every power-up here spends them for real — nothing is faked.';
+      '真金白银的 💎 充值即将到来。钻石通过完成课程和达成每日目标获得,这里的每个强化道具都会真实消耗它们 — 没有任何虚假内容。';
 
   @override
-  String get shopProBannerSub => 'Live AI, no ads, offline · Try 7 days free';
+  String get shopProBannerSub => '实时 AI、无广告、离线 · 免费试用 7 天';
 
   @override
-  String get shopYourDiamonds => 'Your diamonds';
+  String get shopYourDiamonds => '你的钻石';
 
   @override
-  String get shopEquipped => 'Equipped';
+  String get shopEquipped => '已装备';
 
   @override
-  String get shopEquip => 'Equip';
+  String get shopEquip => '装备';
 
   @override
   String shopEquippedSnack(String name, String emoji) {
-    return 'Equipped $name $emoji';
+    return '已装备 $name $emoji';
   }
 
   @override
-  String get shopFree => 'Free';
+  String get shopFree => '免费';
 
   @override
-  String get outfitClassic => 'Classic';
+  String get outfitClassic => '经典';
 
   @override
-  String get outfitScholar => 'Scholar';
+  String get outfitScholar => '学者';
 
   @override
-  String get outfitExplorer => 'Explorer';
+  String get outfitExplorer => '探险家';
 
   @override
-  String get outfitAstronaut => 'Astronaut';
+  String get outfitAstronaut => '宇航员';
 
   @override
-  String get outfitWizard => 'Wizard';
+  String get outfitWizard => '巫师';
 
   @override
   String paywallAnnualLine(String annual, String perMonth) {
-    return '$annual/yr  ·  $perMonth/mo  ·  7 days free';
+    return '$annual/年  ·  $perMonth/月  ·  免费试用 7 天';
   }
 
   @override
   String paywallMonthlyLine(String monthly) {
-    return '$monthly/mo  ·  billed monthly';
+    return '$monthly/月  ·  按月计费';
   }
 
   @override
   String paywallSavePercent(int percent) {
-    return 'SAVE $percent%';
+    return '省 $percent%';
   }
 
   @override
-  String get paywallIncluded => 'What\'s included with Pro';
+  String get paywallIncluded => 'Pro 包含哪些内容';
 
   @override
-  String get paywallTerms => 'Terms';
+  String get paywallTerms => '条款';
 
   @override
-  String get paywallPrivacy => 'Privacy';
+  String get paywallPrivacy => '隐私';
 
   @override
-  String get paywallNothingToRestore =>
-      'Nothing to restore — billing isn\'t live in this build yet.';
+  String get paywallNothingToRestore => '没有可恢复的内容 — 此版本尚未开启计费。';
 
   @override
-  String get contentUnavailableTitle => 'Content unavailable';
+  String get contentUnavailableTitle => '内容不可用';
 
   @override
   String contentUnavailableBody(String noun) {
-    return 'This $noun is not available right now. If you are offline, check your connection and try again.';
+    return '此$noun目前不可用。如果你处于离线状态,请检查网络连接后重试。';
   }
 
   @override
-  String get contentNounStory => 'story';
+  String get contentNounStory => '故事';
 
   @override
-  String get contentNounPodcast => 'podcast';
+  String get contentNounPodcast => '播客';
 
   @override
-  String get contentNounVideo => 'video';
+  String get contentNounVideo => '视频';
 
   @override
-  String get contentNounAdventure => 'adventure';
+  String get contentNounAdventure => '冒险';
 
   @override
-  String get contentNounRoleplay => 'roleplay';
+  String get contentNounRoleplay => '角色扮演';
 
   @override
-  String get commonGoBack => 'Go back';
+  String get commonGoBack => '返回';
 
   @override
-  String get placementTitle => 'Placement test';
+  String get placementTitle => '定级测试';
 
   @override
   String placementQuestionN(int n) {
-    return 'Question $n';
+    return '第 $n 题';
   }
 
   @override
-  String get placementResultTitle => 'Your starting point';
+  String get placementResultTitle => '你的起点';
 
   @override
   String placementResultBody(int count, String level) {
-    return 'Based on $count questions, we placed you at $level. You can always adjust later.';
+    return '根据 $count 道题,我们将你定级为 $level。你随时可以之后调整。';
   }
 
   @override
-  String get lessonTypedNote => 'Type your answer in the target language.';
+  String get lessonTypedNote => '用目标语言输入你的答案。';
 
   @override
   String lessonHintMinWords(int count) {
-    return 'at least $count words';
+    return '至少 $count 个单词';
   }
 
   @override
   String lessonHintUseWords(String words) {
-    return 'use: $words';
+    return '使用:$words';
   }
 
   @override
-  String get lessonHintEndPunct => 'end with . ! or ?';
+  String get lessonHintEndPunct => '以 . ! 或 ? 结尾';
 
   @override
-  String get lessonPlayAudio => 'Play audio';
+  String get lessonPlayAudio => '播放音频';
 
   @override
-  String get lessonPlaySlowly => 'Play slowly';
+  String get lessonPlaySlowly => '慢速播放';
 
   @override
-  String get lessonAudioUnavailable => 'Audio unavailable — read the prompt.';
+  String get lessonAudioUnavailable => '音频不可用 — 请阅读题目。';
 
   @override
-  String get lessonPlaybackSpeed => 'Playback speed';
+  String get lessonPlaybackSpeed => '播放速度';
 }
