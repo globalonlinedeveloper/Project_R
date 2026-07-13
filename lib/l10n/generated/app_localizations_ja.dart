@@ -60,6 +60,21 @@ class AppLocalizationsJa extends AppLocalizations {
   String get homeStartNode => 'スタート';
 
   @override
+  String homeSectionN(int n) {
+    return 'SECTION $n';
+  }
+
+  @override
+  String homeSectionLevel(int n, String band) {
+    return 'SECTION $n · LEVEL $band';
+  }
+
+  @override
+  String homeLevelBand(String band) {
+    return 'Level $band';
+  }
+
+  @override
   String get homeUnitGuideHeader => 'ユニットガイド';
 
   @override

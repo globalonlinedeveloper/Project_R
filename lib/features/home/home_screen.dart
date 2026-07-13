@@ -38,7 +38,7 @@ import 'package:ratel/services/preferences/app_settings.dart' show WorldTheme;
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
-  static List<_Node> _flatten(CourseSpine spine) {
+  static List<_Node> _flatten(BuildContext context, CourseSpine spine) {
     final List<_Node> out = <_Node>[];
     int gi = 0;
     for (int ui = 0; ui < spine.units.length; ui++) {
@@ -51,8 +51,9 @@ class HomeScreen extends ConsumerWidget {
         final CourseLesson l = u.lessons[i];
         out.add(_Node(
           id: l.id,
-          section: u.section,
-          unit: u.title,
+          section: ratelUnitSectionLabel(
+              context, u.section, u.sectionFallbackOrder, u.sectionFallbackBand),
+          unit: ratelUnitTitleLabel(context, u.title, u.titleFallbackBand),
           lesson: l.title,
           cefr: l.cefr,
           exercises: l.exerciseCount,
@@ -84,7 +85,7 @@ class HomeScreen extends ConsumerWidget {
           snap.streakFreezes, unread, snap.energy, ref.watch(isProProvider));
     }
 
-    final List<_Node> nodes = _flatten(spine);
+    final List<_Node> nodes = _flatten(context, spine);
     final int active = snap.lessonsCompleted;
     final _Node current = nodes[active.clamp(0, nodes.length - 1)];
     // Honour the reduce-motion HARD floor from BOTH the app-wide MediaQuery
@@ -93,8 +94,14 @@ class HomeScreen extends ConsumerWidget {
     // wrapper (e.g. router-only widget tests). SPEC_HOME_PATH Part C.
     final bool reduceMotion = MediaQuery.of(context).disableAnimations ||
         ref.watch(reduceMotionProvider);
-    final PathGeometry geom =
-        computePathGeometry(spine: spine, activeIndex: active);
+    final PathGeometry geom = computePathGeometry(
+      spine: spine,
+      activeIndex: active,
+      sectionLabel: (CourseUnit u) => ratelUnitSectionLabel(
+          context, u.section, u.sectionFallbackOrder, u.sectionFallbackBand),
+      unitTitleLabel: (CourseUnit u) =>
+          ratelUnitTitleLabel(context, u.title, u.titleFallbackBand),
+    );
 
     return Container(
       key: const ValueKey<String>('tab-home'),

@@ -419,3 +419,31 @@ String ratelProRegions(BuildContext context, String bandName) =>
       'lowPpp' => context.l10n.paywallRegionsLowPpp,
       _ => context.l10n.paywallRegionsTier1,
     };
+
+/// Localized fallback label for a course unit SECTION banner. [authored] is the
+/// stable value the projection stores (authored gloss, or the English compare-
+/// key); when [fallbackOrder] is non-null there was NO authored gloss, so
+/// localize: `homeSectionN(order)` for a plain section, or
+/// `homeSectionLevel(order, band)` for a CEFR-band fallback unit. Keeps the
+/// content projection layer l10n-free (R-K6) — mapping happens at the edge.
+String ratelUnitSectionLabel(
+  BuildContext context,
+  String authored,
+  int? fallbackOrder,
+  String? fallbackBand,
+) =>
+    fallbackOrder == null
+        ? authored
+        : fallbackBand == null
+            ? context.l10n.homeSectionN(fallbackOrder)
+            : context.l10n.homeSectionLevel(fallbackOrder, fallbackBand);
+
+/// Localized fallback label for a course unit TITLE. [authored] is the stable
+/// value (authored gloss / unit id); when [fallbackBand] is non-null the unit is
+/// the CEFR-band fallback, localized as `homeLevelBand(band)`.
+String ratelUnitTitleLabel(
+  BuildContext context,
+  String authored,
+  String? fallbackBand,
+) =>
+    fallbackBand == null ? authored : context.l10n.homeLevelBand(fallbackBand);

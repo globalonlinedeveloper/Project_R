@@ -17,6 +17,33 @@
   "homeCourseLoadingBody": "Lessons will appear here once your course content loads.",
   "homeGuideChip": "Guide",
   "homeStartNode": "START",
+  "homeSectionN": "SECTION {n}",
+  "@homeSectionN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "homeSectionLevel": "SECTION {n} · LEVEL {band}",
+  "@homeSectionLevel": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "band": {
+        "type": "String"
+      }
+    }
+  },
+  "homeLevelBand": "Level {band}",
+  "@homeLevelBand": {
+    "placeholders": {
+      "band": {
+        "type": "String"
+      }
+    }
+  },
   "homeUnitGuideHeader": "UNIT GUIDE",
   "commonDone": "Done",
   "homeUnitKicker": "UNIT · {unit}",

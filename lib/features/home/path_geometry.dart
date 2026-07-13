@@ -61,7 +61,13 @@ const double kPathStageWidth = 390;
 PathGeometry computePathGeometry({
   required CourseSpine spine,
   required int activeIndex,
+  String Function(CourseUnit unit)? sectionLabel,
+  String Function(CourseUnit unit)? unitTitleLabel,
 }) {
+  String sectionOf(CourseUnit u) =>
+      sectionLabel != null ? sectionLabel(u) : u.section;
+  String titleOf(CourseUnit u) =>
+      unitTitleLabel != null ? unitTitleLabel(u) : u.title;
   final nodes = <PathNodeData>[];
   final dividers = <PathDivider>[];
   double y = _kStartY;
@@ -75,7 +81,7 @@ PathGeometry computePathGeometry({
   for (final unit in spine.units) {
     unitNo++;
     if (unit.section != prevSection) {
-      dividers.add(PathDivider(label: unit.section, y: y));
+      dividers.add(PathDivider(label: sectionOf(unit), y: y));
       y += _kDividerGap;
       prevSection = unit.section;
     }
@@ -95,7 +101,7 @@ PathGeometry computePathGeometry({
         x: lane + wobble,
         y: y,
         state: state,
-        unitTitle: unit.title,
+        unitTitle: titleOf(unit),
         unitNo: unitNo,
       ));
       y += isCheckpoint ? _kDyIntoCheckpoint : _kDy;

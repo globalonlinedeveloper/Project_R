@@ -85,6 +85,8 @@ void main() {
     expect(spine.units.length, 4);
     expect(spine.units[0].title, 'First Words'); // unit_order 1 (authored 2nd)
     expect(spine.units[0].section, 'SECTION 1 · FOUNDATIONS');
+    expect(spine.units[0].sectionFallbackOrder, isNull); // authored gloss
+    expect(spine.units[0].titleFallbackBand, isNull);
     expect(spine.units[1].title, 'People & Things');
     expect(spine.units[1].section, 'SECTION 1 · FOUNDATIONS'); // shared section
     expect(spine.units[2].title, 'Around Town');
@@ -99,6 +101,11 @@ void main() {
     final CourseUnit fallback = spine.units.last;
     expect(fallback.section, 'SECTION 4 · LEVEL A2'); // numbering continues
     expect(fallback.title, 'Level A2');
+    // The English strings stay byte-identical (stable compare-key); the
+    // fallback DESCRIPTORS carry the data the render layer localizes with.
+    expect(fallback.sectionFallbackOrder, 4);
+    expect(fallback.sectionFallbackBand, 'A2');
+    expect(fallback.titleFallbackBand, 'A2');
     expect(fallback.lessons.single.id, 'skill_en_legacy');
     expect(fallback.guideText, isNull);
   });

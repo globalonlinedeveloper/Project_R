@@ -216,6 +216,24 @@ abstract class AppLocalizations {
   /// **'START'**
   String get homeStartNode;
 
+  /// No description provided for @homeSectionN.
+  ///
+  /// In en, this message translates to:
+  /// **'SECTION {n}'**
+  String homeSectionN(int n);
+
+  /// No description provided for @homeSectionLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'SECTION {n} · LEVEL {band}'**
+  String homeSectionLevel(int n, String band);
+
+  /// No description provided for @homeLevelBand.
+  ///
+  /// In en, this message translates to:
+  /// **'Level {band}'**
+  String homeLevelBand(String band);
+
   /// No description provided for @homeUnitGuideHeader.
   ///
   /// In en, this message translates to:

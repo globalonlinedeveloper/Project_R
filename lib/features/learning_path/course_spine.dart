@@ -115,6 +115,9 @@ class CourseUnit {
     required this.title,
     required this.lessons,
     this.guideText,
+    this.sectionFallbackOrder,
+    this.sectionFallbackBand,
+    this.titleFallbackBand,
   });
 
   final String section; // e.g. 'SECTION 1 · LEVEL A1'
@@ -124,6 +127,18 @@ class CourseUnit {
   /// Authored 📖 Guide text for this unit (`unit.guide_ref` → gloss), when the
   /// curriculum carries one. Null on legacy CEFR-band units.
   final String? guideText;
+
+  /// When non-null, [section] is a GENERATED fallback (no authored gloss): the
+  /// render layer localizes it — `homeSectionN(order)` when [sectionFallbackBand]
+  /// is null, else `homeSectionLevel(order, band)`. [section] itself stays the
+  /// stable English compare-key so section-boundary detection is locale-agnostic.
+  /// Null when [section] is authored gloss text.
+  final int? sectionFallbackOrder;
+  final String? sectionFallbackBand;
+
+  /// When non-null, [title] is the CEFR-band fallback, localized as
+  /// `homeLevelBand(band)`. Null when [title] is authored gloss / unit text.
+  final String? titleFallbackBand;
 }
 
 /// A graded reading passage (content `passage`, kind=story) projected for the

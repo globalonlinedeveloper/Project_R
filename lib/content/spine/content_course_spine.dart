@@ -174,8 +174,10 @@ CourseSpine buildCourseSpine(ContentBatch batch) {
         });
       if (wired.isEmpty) continue; // a unit with no lessons yet renders nothing
       final String? guideRef = u.guideRef;
+      final String? sectionGloss = glossText[u.sectionTitleRef];
       units.add(CourseUnit(
-        section: glossText[u.sectionTitleRef] ?? 'SECTION ${u.sectionOrder}',
+        section: sectionGloss ?? 'SECTION ${u.sectionOrder}',
+        sectionFallbackOrder: sectionGloss == null ? u.sectionOrder : null,
         title: glossText[u.titleRef] ?? u.unitId,
         guideText: guideRef == null ? null : glossText[guideRef],
         lessons: <CourseLesson>[
@@ -204,7 +206,10 @@ CourseSpine buildCourseSpine(ContentBatch batch) {
   for (final String band in bandOrder) {
     units.add(CourseUnit(
       section: 'SECTION ${units.length + 1} · LEVEL $band',
+      sectionFallbackOrder: units.length + 1,
+      sectionFallbackBand: band,
       title: 'Level $band',
+      titleFallbackBand: band,
       lessons: byBand[band]!,
     ));
   }
