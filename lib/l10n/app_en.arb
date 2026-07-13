@@ -829,5 +829,14 @@
   "@feedReachedLevel": {"placeholders": {"level": {"type": "String"}}},
   "feedDayStreak": "{count}-day streak",
   "@feedDayStreak": {"placeholders": {"count": {"type": "int"}}},
-  "feedPassedYou": "passed you in your league"
+  "feedPassedYou": "passed you in your league",
+  "leaguesSoloCaption": "this week · solo group",
+  "leaguesXpToRank": "{xp} XP to rank {rank}",
+  "@leaguesXpToRank": {"placeholders": {"xp": {"type": "int"}, "rank": {"type": "int"}}},
+  "leaguesLeading": "leading your group",
+  "leaguesSoloNote": "You're the only learner in your group this week. Real rivals join as Ratel grows — no bots, no fake leaderboards. Keep earning XP to be ready to climb when the week resets.",
+  "questsGoalLine": "{today} / {goal} XP · goal reached",
+  "@questsGoalLine": {"placeholders": {"today": {"type": "int"}, "goal": {"type": "int"}}},
+  "questsGoalRemaining": "{today} / {goal} XP · {remaining} XP to go",
+  "@questsGoalRemaining": {"placeholders": {"today": {"type": "int"}, "goal": {"type": "int"}, "remaining": {"type": "int"}}}
 }

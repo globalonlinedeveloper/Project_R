@@ -3491,6 +3491,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'passed you in your league'**
   String get feedPassedYou;
+
+  /// No description provided for @leaguesSoloCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'this week · solo group'**
+  String get leaguesSoloCaption;
+
+  /// No description provided for @leaguesXpToRank.
+  ///
+  /// In en, this message translates to:
+  /// **'{xp} XP to rank {rank}'**
+  String leaguesXpToRank(int xp, int rank);
+
+  /// No description provided for @leaguesLeading.
+  ///
+  /// In en, this message translates to:
+  /// **'leading your group'**
+  String get leaguesLeading;
+
+  /// No description provided for @leaguesSoloNote.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re the only learner in your group this week. Real rivals join as Ratel grows — no bots, no fake leaderboards. Keep earning XP to be ready to climb when the week resets.'**
+  String get leaguesSoloNote;
+
+  /// No description provided for @questsGoalLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{today} / {goal} XP · goal reached'**
+  String questsGoalLine(int today, int goal);
+
+  /// No description provided for @questsGoalRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'{today} / {goal} XP · {remaining} XP to go'**
+  String questsGoalRemaining(int today, int goal, int remaining);
 }
 
 class _AppLocalizationsDelegate

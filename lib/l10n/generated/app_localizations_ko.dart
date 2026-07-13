@@ -1919,4 +1919,29 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get feedPassedYou => 'passed you in your league';
+
+  @override
+  String get leaguesSoloCaption => 'this week · solo group';
+
+  @override
+  String leaguesXpToRank(int xp, int rank) {
+    return '$xp XP to rank $rank';
+  }
+
+  @override
+  String get leaguesLeading => 'leading your group';
+
+  @override
+  String get leaguesSoloNote =>
+      'You\'re the only learner in your group this week. Real rivals join as Ratel grows — no bots, no fake leaderboards. Keep earning XP to be ready to climb when the week resets.';
+
+  @override
+  String questsGoalLine(int today, int goal) {
+    return '$today / $goal XP · goal reached';
+  }
+
+  @override
+  String questsGoalRemaining(int today, int goal, int remaining) {
+    return '$today / $goal XP · $remaining XP to go';
+  }
 }

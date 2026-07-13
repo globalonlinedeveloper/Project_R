@@ -175,8 +175,9 @@ class QuestsScreen extends ConsumerWidget {
                         // the real remaining XP instead (anti-goal §E).
                         Text(
                             goalStatus.met
-                                ? '${snap.xpToday} / $goal XP · goal reached'
-                                : '${snap.xpToday} / $goal XP · $remaining XP to go',
+                                ? context.l10n.questsGoalLine(snap.xpToday, goal)
+                                : context.l10n.questsGoalRemaining(
+                                    snap.xpToday, goal, remaining),
                             style: const TextStyle(
                                 fontFamily: RatelFont.body,
                                 fontSize: RatelType.small,

@@ -289,10 +289,11 @@ class _StatusCard extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   status.isSolo
-                      ? 'this week · solo group'
+                      ? context.l10n.leaguesSoloCaption
                       : status.xpToRankAbove > 0
-                      ? '${status.xpToRankAbove} XP to rank ${you.rank - 1}'
-                      : 'leading your group',
+                      ? context.l10n.leaguesXpToRank(
+                          status.xpToRankAbove, you.rank - 1)
+                      : context.l10n.leaguesLeading,
                   textAlign: TextAlign.end,
                   style: TextStyle(
                     fontFamily: RatelFont.body,
@@ -440,9 +441,7 @@ class _SoloNote extends StatelessWidget {
           const SizedBox(width: RatelSpace.md),
           Expanded(
             child: Text(
-              "You're the only learner in your group this week. Real rivals "
-              'join as Ratel grows — no bots, no fake leaderboards. Keep '
-              'earning XP to be ready to climb when the week resets.',
+              context.l10n.leaguesSoloNote,
               style: TextStyle(
                 fontFamily: RatelFont.body,
                 fontSize: RatelType.small,
