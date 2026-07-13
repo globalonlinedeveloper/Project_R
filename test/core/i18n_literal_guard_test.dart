@@ -3,11 +3,95 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+/// Replace every comment in [src] with spaces — newlines preserved, so byte
+/// offsets and line numbers are unchanged — while leaving string literals
+/// intact. String-aware: a `//` or `/*` INSIDE a string (e.g. a URL like
+/// 'https://…') is copied through as string content, never mistaken for a
+/// comment. This lets Guard 1 match ACROSS lines without commented-out code or
+/// a `//` inside a literal tripping it.
+String _stripComments(String src) {
+  final StringBuffer out = StringBuffer();
+  final int n = src.length;
+  int i = 0;
+  while (i < n) {
+    final String c = src[i];
+    // String literal (optionally r-prefixed): copy through verbatim.
+    if (c == "'" || c == '"') {
+      final String q = c;
+      final bool triple = i + 2 < n && src[i + 1] == q && src[i + 2] == q;
+      out.write(c);
+      i++;
+      if (triple) {
+        out.write(src[i]);
+        out.write(src[i + 1]);
+        i += 2;
+        while (i < n &&
+            !(src[i] == q &&
+                i + 2 < n &&
+                src[i + 1] == q &&
+                src[i + 2] == q)) {
+          out.write(src[i]);
+          i++;
+        }
+        for (int k = 0; k < 3 && i < n; k++) {
+          out.write(src[i]);
+          i++;
+        }
+      } else {
+        while (i < n && src[i] != q) {
+          if (src[i] == '\\' && i + 1 < n) {
+            out.write(src[i]);
+            out.write(src[i + 1]);
+            i += 2;
+          } else {
+            out.write(src[i]);
+            i++;
+          }
+        }
+        if (i < n) {
+          out.write(src[i]);
+          i++;
+        }
+      }
+      continue;
+    }
+    // Line comment -> spaces to end of line.
+    if (c == '/' && i + 1 < n && src[i + 1] == '/') {
+      while (i < n && src[i] != '\n') {
+        out.write(' ');
+        i++;
+      }
+      continue;
+    }
+    // Block comment -> spaces (newlines kept so line numbers survive).
+    if (c == '/' && i + 1 < n && src[i + 1] == '*') {
+      out.write('  ');
+      i += 2;
+      while (i < n && !(src[i] == '*' && i + 1 < n && src[i + 1] == '/')) {
+        out.write(src[i] == '\n' ? '\n' : ' ');
+        i++;
+      }
+      if (i + 1 < n) {
+        out.write('  ');
+        i += 2;
+      }
+      continue;
+    }
+    out.write(c);
+    i++;
+  }
+  return out.toString();
+}
+
 /// i18n regression guards (audit RATEL_I18N_HARDCODED_AUDIT.md §15). Added AFTER
-/// the user-facing surfaces + all 10 ARB locales were brought to parity (S144–
-/// S147, increments I1–I4), so the surfaces are clean and this test HOLDS the
+/// the user-facing surfaces + all 10 ARB locales were brought to parity (S144-
+/// S147, increments I1-I4), so the surfaces are clean and this test HOLDS the
 /// line: a NEW hard-coded user-facing English literal — or a resurfaced
 /// "52 languages" / Spanish-veneer claim — fails the build.
+///
+/// S148 hardening: Guard 1 now scans the WHOLE (comment-stripped) file rather
+/// than line-by-line, so a `Text(` / `label:` / `semanticLabel:` whose literal
+/// sits on the NEXT line — previously invisible — is caught too.
 void main() {
   // ------------------------------------------------------------------------
   // Guard 1 — no hard-coded user-facing string literals in the two surface
@@ -17,11 +101,15 @@ void main() {
     const List<String> scope = <String>['lib/features', 'lib/core/components'];
 
     // Constructors / named params that put a raw string in front of the user.
-    final RegExp textCtor = RegExp(r'''\bText\(\s*(['"])(.*?)\1''');
+    // The gap before the opening quote is \s* (which matches NEWLINES) so a
+    // multi-line `Text(\n  'lit'\n)` or a `semanticLabel:\n  'lit'` split over
+    // lines is caught (S148 hardening); the literal BODY stays single-line
+    // ((.*?) with no dotAll) because Dart '..'/".." strings cannot span lines.
+    final RegExp textCtor = RegExp(r'''\bText\s*\(\s*(['"])(.*?)\1''');
     final RegExp namedText = RegExp(
         r'''\b(?:hintText|helperText|semanticLabel|tooltip|label)\s*:\s*(['"])(.*?)\1''');
-    final RegExp hasWord = RegExp(r'[A-Za-z]{2,}'); // >=2 ASCII letters = real copy
-    final RegExp cefr = RegExp(r'^[ABC][12]$'); // A1..C2
+    final RegExp hasWord = RegExp(r'[A-Za-z]{2,}'); // >=2 ASCII letters = copy
+    final RegExp cefr = RegExp(r'^[ABC][12]'); // A1..C2
 
     // Brand tokens (design system; audit §13.3) — never localized.
     const Set<String> brand = <String>{'Ratel', 'RATEL', 'PRO', 'RATEL PRO', 'XP'};
@@ -64,15 +152,15 @@ void main() {
         if (e is! File || !e.path.endsWith('.dart')) continue;
         final String norm = e.path.replaceAll(r'\', '/');
         if (exemptFiles.contains(norm)) continue;
-        final List<String> lines = e.readAsLinesSync();
-        for (int i = 0; i < lines.length; i++) {
-          final String t = lines[i].trimLeft();
-          if (t.startsWith('//') || t.startsWith('*')) continue; // comments
-          for (final RegExp p in <RegExp>[textCtor, namedText]) {
-            for (final RegExpMatch m in p.allMatches(lines[i])) {
-              final String lit = m.group(2)!;
-              if (!allowed(lit)) offenders.add('$norm:${i + 1}: "$lit"');
-            }
+        // Whole file, comments stripped -> newline-tolerant matching.
+        final String src = _stripComments(e.readAsStringSync());
+        for (final RegExp p in <RegExp>[textCtor, namedText]) {
+          for (final RegExpMatch m in p.allMatches(src)) {
+            final String lit = m.group(2)!;
+            if (allowed(lit)) continue;
+            final int line =
+                '\n'.allMatches(src.substring(0, m.start)).length + 1;
+            offenders.add('$norm:$line: "$lit"');
           }
         }
       }
@@ -94,8 +182,9 @@ void main() {
   // live ONLY in langName* keys, which are excluded.
   // ------------------------------------------------------------------------
   test('no false language-count / Spanish-veneer copy in any ARB', () {
-    final RegExp veneer =
-        RegExp(r'52 languages|Español|Spanish is strong', caseSensitive: false);
+    final RegExp veneer = RegExp(
+        '52 languages|Espa\u{00f1}ol|Spanish is strong',
+        caseSensitive: false);
     final Directory l10n = Directory('lib/l10n');
     expect(l10n.existsSync(), isTrue, reason: 'run from the package root');
 
@@ -107,7 +196,8 @@ void main() {
       arb.forEach((String k, dynamic v) {
         if (k.startsWith('@') || k.startsWith('langName')) return;
         if (v is String && veneer.hasMatch(v)) {
-          offenders.add('${e.path.split(Platform.pathSeparator).last}:$k = "$v"');
+          offenders
+              .add('${e.path.split(Platform.pathSeparator).last}:$k = "$v"');
         }
       });
     }
