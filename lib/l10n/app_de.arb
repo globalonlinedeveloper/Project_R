@@ -669,5 +669,18 @@
   "lessonPlayAudio": "Audio abspielen",
   "lessonPlaySlowly": "Langsam abspielen",
   "lessonAudioUnavailable": "Audio nicht verfügbar — lies den Text.",
-  "lessonPlaybackSpeed": "Wiedergabegeschwindigkeit"
+  "lessonPlaybackSpeed": "Wiedergabegeschwindigkeit",
+  "authAccountsUnavailable": "Konten sind in diesem Build noch nicht verfügbar — lerne einfach als Gast weiter.",
+  "liveNotEnabledShort": "Live-KI ist in diesem Build nicht aktiviert.",
+  "liveMicUnavailable": "Mikrofon nicht verfügbar — erlaube den Mikrofonzugriff, um mit dem Tutor zu sprechen.",
+  "liveUnavailable": "Live-KI ist gerade nicht verfügbar.",
+  "liveNeedsPro": "Live-KI ist Teil von RATEL PRO.",
+  "liveMinutesUsed": "Du hast deine Live-Minuten für diesen Monat aufgebraucht.",
+  "commonNetworkError": "Server nicht erreichbar. Versuch es erneut.",
+  "friendsHandleTaken": "Dieser @handle ist schon vergeben.",
+  "friendsHandleFormat": "Verwende 2–20 Buchstaben, Zahlen oder _ für deinen Handle.",
+  "friendsSignInForHandle": "Melde dich an, um deinen @handle zu sichern.",
+  "friendsSetOwnHandleFirst": "Lege zuerst deinen eigenen @handle fest (Profil bearbeiten).",
+  "paywallCheckoutUnavailable": "Checkout folgt zum Launch — die Abrechnung ist in diesem Build noch nicht aktiv.",
+  "settingsManageUnavailable": "Verwalte oder kündige in den Abo-Einstellungen deines Geräts — die App-Verknüpfung folgt zum Launch."
 }

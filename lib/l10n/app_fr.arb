@@ -669,5 +669,18 @@
   "lessonPlayAudio": "Lire l'audio",
   "lessonPlaySlowly": "Lire lentement",
   "lessonAudioUnavailable": "Audio indisponible — lis la consigne.",
-  "lessonPlaybackSpeed": "Vitesse de lecture"
+  "lessonPlaybackSpeed": "Vitesse de lecture",
+  "authAccountsUnavailable": "Les comptes ne sont pas encore disponibles dans cette version — continue à apprendre en invité.",
+  "liveNotEnabledShort": "la voix en direct n'est pas activée dans cette version.",
+  "liveMicUnavailable": "microphone indisponible — autorise l'accès au micro pour parler avec le tuteur.",
+  "liveUnavailable": "la voix en direct est indisponible pour le moment.",
+  "liveNeedsPro": "La voix en direct fait partie de RATEL PRO.",
+  "liveMinutesUsed": "Tu as utilisé tes minutes en direct de ce mois-ci.",
+  "commonNetworkError": "Impossible de joindre le serveur. Réessaie.",
+  "friendsHandleTaken": "Cet @identifiant est déjà pris.",
+  "friendsHandleFormat": "Utilise 2–20 lettres, chiffres ou _ pour ton identifiant.",
+  "friendsSignInForHandle": "Connecte-toi pour revendiquer ton @identifiant.",
+  "friendsSetOwnHandleFirst": "Définis d'abord ton propre @identifiant (Modifier le profil).",
+  "paywallCheckoutUnavailable": "Le paiement s'active plus tard — la facturation du store n'est pas encore active dans cette version.",
+  "settingsManageUnavailable": "Gère ou annule dans les réglages Abonnements de ton appareil — le raccourci dans l'app s'active plus tard."
 }

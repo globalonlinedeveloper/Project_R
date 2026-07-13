@@ -2304,46 +2304,46 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get authAccountsUnavailable =>
-      'Accounts are not available in this build yet — keep learning as a guest.';
+      'এই বিল্ডে অ্যাকাউন্ট এখনো চালু হয়নি — গেস্ট হিসেবে শেখা চালিয়ে যান।';
 
   @override
-  String get liveNotEnabledShort => 'live AI is not enabled in this build.';
+  String get liveNotEnabledShort => 'এই বিল্ডে লাইভ AI চালু নেই।';
 
   @override
   String get liveMicUnavailable =>
-      'microphone unavailable — allow mic access to talk with the tutor.';
+      'মাইক্রোফোন পাওয়া যাচ্ছে না — টিউটরের সাথে কথা বলতে মাইক অ্যাক্সেস দিন।';
 
   @override
-  String get liveUnavailable => 'live AI is unavailable right now.';
+  String get liveUnavailable => 'এই মুহূর্তে লাইভ AI পাওয়া যাচ্ছে না।';
 
   @override
-  String get liveNeedsPro => 'Live AI is part of RATEL PRO.';
+  String get liveNeedsPro => 'লাইভ AI শুধু RATEL PRO-তে পাওয়া যায়।';
 
   @override
-  String get liveMinutesUsed => 'You\'ve used this month\'s live minutes.';
+  String get liveMinutesUsed => 'এই মাসের লাইভ মিনিট আপনি ব্যবহার করে ফেলেছেন।';
 
   @override
-  String get commonNetworkError => 'Could not reach the server. Try again.';
+  String get commonNetworkError => 'সার্ভারে পৌঁছানো গেল না। আবার চেষ্টা করুন।';
 
   @override
-  String get friendsHandleTaken => 'That @handle is already taken.';
+  String get friendsHandleTaken => 'সেই @handle আগে থেকেই নেওয়া হয়ে গেছে।';
 
   @override
   String get friendsHandleFormat =>
-      'Use 2–20 letters, numbers or _ for your handle.';
+      'আপনার হ্যান্ডেলের জন্য 2–20টি অক্ষর, সংখ্যা বা _ ব্যবহার করুন।';
 
   @override
-  String get friendsSignInForHandle => 'Sign in to claim your @handle.';
+  String get friendsSignInForHandle => 'আপনার @handle দাবি করতে সাইন ইন করুন।';
 
   @override
   String get friendsSetOwnHandleFirst =>
-      'Set your own @handle first (Edit profile).';
+      'প্রথমে নিজের @handle সেট করুন (প্রোফাইল সম্পাদনা)।';
 
   @override
   String get paywallCheckoutUnavailable =>
-      'Checkout opens at launch — store billing isn\'t live in this build yet.';
+      'চেকআউট চালু হবে লঞ্চে — এই বিল্ডে স্টোর বিলিং এখনো চালু নয়।';
 
   @override
   String get settingsManageUnavailable =>
-      'Manage or cancel in your device\'s Subscriptions settings — the in-app shortcut opens at launch.';
+      'আপনার ডিভাইসের Subscriptions সেটিংসে পরিচালনা বা বাতিল করুন — অ্যাপের ভেতরের শর্টকাট চালু হবে লঞ্চে।';
 }

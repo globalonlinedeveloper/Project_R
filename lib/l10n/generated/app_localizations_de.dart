@@ -2326,46 +2326,50 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get authAccountsUnavailable =>
-      'Accounts are not available in this build yet — keep learning as a guest.';
+      'Konten sind in diesem Build noch nicht verfügbar — lerne einfach als Gast weiter.';
 
   @override
-  String get liveNotEnabledShort => 'live AI is not enabled in this build.';
+  String get liveNotEnabledShort =>
+      'Live-KI ist in diesem Build nicht aktiviert.';
 
   @override
   String get liveMicUnavailable =>
-      'microphone unavailable — allow mic access to talk with the tutor.';
+      'Mikrofon nicht verfügbar — erlaube den Mikrofonzugriff, um mit dem Tutor zu sprechen.';
 
   @override
-  String get liveUnavailable => 'live AI is unavailable right now.';
+  String get liveUnavailable => 'Live-KI ist gerade nicht verfügbar.';
 
   @override
-  String get liveNeedsPro => 'Live AI is part of RATEL PRO.';
+  String get liveNeedsPro => 'Live-KI ist Teil von RATEL PRO.';
 
   @override
-  String get liveMinutesUsed => 'You\'ve used this month\'s live minutes.';
+  String get liveMinutesUsed =>
+      'Du hast deine Live-Minuten für diesen Monat aufgebraucht.';
 
   @override
-  String get commonNetworkError => 'Could not reach the server. Try again.';
+  String get commonNetworkError =>
+      'Server nicht erreichbar. Versuch es erneut.';
 
   @override
-  String get friendsHandleTaken => 'That @handle is already taken.';
+  String get friendsHandleTaken => 'Dieser @handle ist schon vergeben.';
 
   @override
   String get friendsHandleFormat =>
-      'Use 2–20 letters, numbers or _ for your handle.';
+      'Verwende 2–20 Buchstaben, Zahlen oder _ für deinen Handle.';
 
   @override
-  String get friendsSignInForHandle => 'Sign in to claim your @handle.';
+  String get friendsSignInForHandle =>
+      'Melde dich an, um deinen @handle zu sichern.';
 
   @override
   String get friendsSetOwnHandleFirst =>
-      'Set your own @handle first (Edit profile).';
+      'Lege zuerst deinen eigenen @handle fest (Profil bearbeiten).';
 
   @override
   String get paywallCheckoutUnavailable =>
-      'Checkout opens at launch — store billing isn\'t live in this build yet.';
+      'Checkout folgt zum Launch — die Abrechnung ist in diesem Build noch nicht aktiv.';
 
   @override
   String get settingsManageUnavailable =>
-      'Manage or cancel in your device\'s Subscriptions settings — the in-app shortcut opens at launch.';
+      'Verwalte oder kündige in den Abo-Einstellungen deines Geräts — die App-Verknüpfung folgt zum Launch.';
 }

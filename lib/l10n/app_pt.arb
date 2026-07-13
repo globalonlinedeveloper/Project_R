@@ -669,5 +669,18 @@
   "lessonPlayAudio": "Reproduzir áudio",
   "lessonPlaySlowly": "Reproduzir devagar",
   "lessonAudioUnavailable": "Áudio indisponível — leia o enunciado.",
-  "lessonPlaybackSpeed": "Velocidade de reprodução"
+  "lessonPlaybackSpeed": "Velocidade de reprodução",
+  "authAccountsUnavailable": "As contas ainda não estão disponíveis nesta versão — continue aprendendo como convidado.",
+  "liveNotEnabledShort": "a IA ao vivo não está habilitada nesta versão.",
+  "liveMicUnavailable": "microfone indisponível — permita o acesso ao microfone para falar com o tutor.",
+  "liveUnavailable": "a IA ao vivo está indisponível no momento.",
+  "liveNeedsPro": "A IA ao vivo faz parte do RATEL PRO.",
+  "liveMinutesUsed": "Você usou seus minutos ao vivo deste mês.",
+  "commonNetworkError": "Não foi possível conectar ao servidor. Tente de novo.",
+  "friendsHandleTaken": "Esse @handle já está em uso.",
+  "friendsHandleFormat": "Use 2–20 letras, números ou _ para o seu @handle.",
+  "friendsSignInForHandle": "Entre para reservar seu @handle.",
+  "friendsSetOwnHandleFirst": "Defina primeiro o seu @handle (Editar perfil).",
+  "paywallCheckoutUnavailable": "O checkout abre no lançamento — a cobrança da loja ainda não está ativa nesta versão.",
+  "settingsManageUnavailable": "Gerencie ou cancele nas configurações de Assinaturas do seu dispositivo — o atalho no app abre no lançamento."
 }

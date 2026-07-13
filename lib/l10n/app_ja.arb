@@ -669,5 +669,18 @@
   "lessonPlayAudio": "音声を再生",
   "lessonPlaySlowly": "ゆっくり再生",
   "lessonAudioUnavailable": "音声を利用できません — 問題文を読んでください。",
-  "lessonPlaybackSpeed": "再生速度"
+  "lessonPlaybackSpeed": "再生速度",
+  "authAccountsUnavailable": "このビルドではアカウント機能はまだご利用いただけません — ゲストのまま学習を続けられます。",
+  "liveNotEnabledShort": "このビルドではライブAIは有効になっていません。",
+  "liveMicUnavailable": "マイクを利用できません — チューターと話すにはマイクへのアクセスを許可してください。",
+  "liveUnavailable": "現在ライブAIはご利用いただけません。",
+  "liveNeedsPro": "ライブAIはRATEL PROの機能です。",
+  "liveMinutesUsed": "今月のライブ利用時間を使い切りました。",
+  "commonNetworkError": "サーバーに接続できませんでした。もう一度お試しください。",
+  "friendsHandleTaken": "その@ハンドルはすでに使用されています。",
+  "friendsHandleFormat": "ハンドルには2〜20文字の英字・数字・_を使用してください。",
+  "friendsSignInForHandle": "サインインして@ハンドルを取得しましょう。",
+  "friendsSetOwnHandleFirst": "まずご自身の@ハンドルを設定してください(プロフィール編集)。",
+  "paywallCheckoutUnavailable": "お支払い機能はリリース時に有効になります — このビルドではストアの決済はまだ利用できません。",
+  "settingsManageUnavailable": "管理・解約はお使いの端末の「サブスクリプション」設定から行ってください — アプリ内のショートカットはリリース時に有効になります。"
 }

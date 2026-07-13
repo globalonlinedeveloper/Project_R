@@ -2260,46 +2260,43 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get authAccountsUnavailable =>
-      'Accounts are not available in this build yet — keep learning as a guest.';
+      '이 빌드에서는 계정 기능을 아직 이용할 수 없어요 — 게스트로 계속 학습하세요.';
 
   @override
-  String get liveNotEnabledShort => 'live AI is not enabled in this build.';
+  String get liveNotEnabledShort => '이 빌드에서는 실시간 AI가 활성화되지 않았어요.';
 
   @override
-  String get liveMicUnavailable =>
-      'microphone unavailable — allow mic access to talk with the tutor.';
+  String get liveMicUnavailable => '마이크를 사용할 수 없어요 — 튜터와 대화하려면 마이크 접근을 허용하세요.';
 
   @override
-  String get liveUnavailable => 'live AI is unavailable right now.';
+  String get liveUnavailable => '지금은 실시간 AI를 이용할 수 없어요.';
 
   @override
-  String get liveNeedsPro => 'Live AI is part of RATEL PRO.';
+  String get liveNeedsPro => '실시간 AI는 RATEL PRO 기능이에요.';
 
   @override
-  String get liveMinutesUsed => 'You\'ve used this month\'s live minutes.';
+  String get liveMinutesUsed => '이번 달 실시간 이용 시간을 모두 사용했어요.';
 
   @override
-  String get commonNetworkError => 'Could not reach the server. Try again.';
+  String get commonNetworkError => '서버에 연결할 수 없어요. 다시 시도하세요.';
 
   @override
-  String get friendsHandleTaken => 'That @handle is already taken.';
+  String get friendsHandleTaken => '그 @핸들은 이미 사용 중이에요.';
 
   @override
-  String get friendsHandleFormat =>
-      'Use 2–20 letters, numbers or _ for your handle.';
+  String get friendsHandleFormat => '핸들은 2–20자의 글자·숫자·_만 사용하세요.';
 
   @override
-  String get friendsSignInForHandle => 'Sign in to claim your @handle.';
+  String get friendsSignInForHandle => '@핸들을 등록하려면 로그인하세요.';
 
   @override
-  String get friendsSetOwnHandleFirst =>
-      'Set your own @handle first (Edit profile).';
+  String get friendsSetOwnHandleFirst => '먼저 내 @핸들을 설정하세요 (프로필 편집).';
 
   @override
   String get paywallCheckoutUnavailable =>
-      'Checkout opens at launch — store billing isn\'t live in this build yet.';
+      '결제는 출시 시 열려요 — 이 빌드에서는 스토어 결제가 아직 활성화되지 않았어요.';
 
   @override
   String get settingsManageUnavailable =>
-      'Manage or cancel in your device\'s Subscriptions settings — the in-app shortcut opens at launch.';
+      '기기의 구독 설정에서 관리하거나 해지하세요 — 앱 내 바로가기는 출시 시 열려요.';
 }

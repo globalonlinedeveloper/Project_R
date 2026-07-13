@@ -2243,47 +2243,42 @@ class AppLocalizationsZh extends AppLocalizations {
   String get lessonPlaybackSpeed => '播放速度';
 
   @override
-  String get authAccountsUnavailable =>
-      'Accounts are not available in this build yet — keep learning as a guest.';
+  String get authAccountsUnavailable => '此版本暂未支持账号功能 — 你可以继续以访客身份学习。';
 
   @override
-  String get liveNotEnabledShort => 'live AI is not enabled in this build.';
+  String get liveNotEnabledShort => '此版本尚未启用实时 AI。';
 
   @override
-  String get liveMicUnavailable =>
-      'microphone unavailable — allow mic access to talk with the tutor.';
+  String get liveMicUnavailable => '麦克风不可用 — 请允许麦克风权限以和导师对话。';
 
   @override
-  String get liveUnavailable => 'live AI is unavailable right now.';
+  String get liveUnavailable => '实时 AI 目前不可用。';
 
   @override
-  String get liveNeedsPro => 'Live AI is part of RATEL PRO.';
+  String get liveNeedsPro => '实时 AI 是 RATEL PRO 的功能。';
 
   @override
-  String get liveMinutesUsed => 'You\'ve used this month\'s live minutes.';
+  String get liveMinutesUsed => '你本月的实时通话时长已用完。';
 
   @override
-  String get commonNetworkError => 'Could not reach the server. Try again.';
+  String get commonNetworkError => '无法连接服务器。请重试。';
 
   @override
-  String get friendsHandleTaken => 'That @handle is already taken.';
+  String get friendsHandleTaken => '该 @用户名已被使用。';
 
   @override
-  String get friendsHandleFormat =>
-      'Use 2–20 letters, numbers or _ for your handle.';
+  String get friendsHandleFormat => '用户名需为 2–20 个字母、数字或 _。';
 
   @override
-  String get friendsSignInForHandle => 'Sign in to claim your @handle.';
+  String get friendsSignInForHandle => '登录以认领你的 @用户名。';
 
   @override
-  String get friendsSetOwnHandleFirst =>
-      'Set your own @handle first (Edit profile).';
+  String get friendsSetOwnHandleFirst => '请先设置你自己的 @用户名(编辑资料)。';
 
   @override
-  String get paywallCheckoutUnavailable =>
-      'Checkout opens at launch — store billing isn\'t live in this build yet.';
+  String get paywallCheckoutUnavailable => '结账功能将在正式上线时开放 — 此版本尚未接入应用内计费。';
 
   @override
   String get settingsManageUnavailable =>
-      'Manage or cancel in your device\'s Subscriptions settings — the in-app shortcut opens at launch.';
+      '请在设备的“订阅”设置中管理或取消 — 应用内快捷入口将在正式上线时开放。';
 }

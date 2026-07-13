@@ -2334,46 +2334,47 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get authAccountsUnavailable =>
-      'Accounts are not available in this build yet — keep learning as a guest.';
+      'Аккаунты пока не поддерживаются в этой сборке — продолжайте заниматься как гость.';
 
   @override
-  String get liveNotEnabledShort => 'live AI is not enabled in this build.';
+  String get liveNotEnabledShort => 'живой ИИ не включён в этой сборке.';
 
   @override
   String get liveMicUnavailable =>
-      'microphone unavailable — allow mic access to talk with the tutor.';
+      'микрофон недоступен — разрешите доступ к микрофону, чтобы говорить с репетитором.';
 
   @override
-  String get liveUnavailable => 'live AI is unavailable right now.';
+  String get liveUnavailable => 'живой ИИ сейчас недоступен.';
 
   @override
-  String get liveNeedsPro => 'Live AI is part of RATEL PRO.';
+  String get liveNeedsPro => 'Живой ИИ доступен в RATEL PRO.';
 
   @override
-  String get liveMinutesUsed => 'You\'ve used this month\'s live minutes.';
+  String get liveMinutesUsed => 'Лимит живых минут на этот месяц исчерпан.';
 
   @override
-  String get commonNetworkError => 'Could not reach the server. Try again.';
+  String get commonNetworkError =>
+      'Не удалось связаться с сервером. Попробуйте ещё раз.';
 
   @override
-  String get friendsHandleTaken => 'That @handle is already taken.';
+  String get friendsHandleTaken => 'Это @имя уже занято.';
 
   @override
   String get friendsHandleFormat =>
-      'Use 2–20 letters, numbers or _ for your handle.';
+      'Используйте 2–20 букв, цифр или _ для своего @имени.';
 
   @override
-  String get friendsSignInForHandle => 'Sign in to claim your @handle.';
+  String get friendsSignInForHandle => 'Войдите, чтобы закрепить своё @имя.';
 
   @override
   String get friendsSetOwnHandleFirst =>
-      'Set your own @handle first (Edit profile).';
+      'Сначала задайте своё @имя (Изменить профиль).';
 
   @override
   String get paywallCheckoutUnavailable =>
-      'Checkout opens at launch — store billing isn\'t live in this build yet.';
+      'Оплата откроется при запуске — покупки в этой сборке пока не подключены.';
 
   @override
   String get settingsManageUnavailable =>
-      'Manage or cancel in your device\'s Subscriptions settings — the in-app shortcut opens at launch.';
+      'Управляйте подпиской или отмените её в настройках подписок вашего устройства — быстрый переход появится при запуске.';
 }

@@ -669,5 +669,18 @@
   "lessonPlayAudio": "ऑडियो चलाएँ",
   "lessonPlaySlowly": "धीरे चलाएँ",
   "lessonAudioUnavailable": "ऑडियो उपलब्ध नहीं — प्रॉम्प्ट पढ़ें।",
-  "lessonPlaybackSpeed": "प्लेबैक गति"
+  "lessonPlaybackSpeed": "प्लेबैक गति",
+  "authAccountsUnavailable": "इस बिल्ड में खाते अभी उपलब्ध नहीं हैं — गेस्ट के रूप में सीखना जारी रखें।",
+  "liveNotEnabledShort": "इस बिल्ड में लाइव AI चालू नहीं है।",
+  "liveMicUnavailable": "माइक्रोफ़ोन उपलब्ध नहीं — ट्यूटर से बात करने के लिए माइक एक्सेस की अनुमति दें।",
+  "liveUnavailable": "लाइव AI अभी उपलब्ध नहीं है।",
+  "liveNeedsPro": "लाइव AI, RATEL PRO का हिस्सा है।",
+  "liveMinutesUsed": "आप इस महीने के लाइव मिनट इस्तेमाल कर चुके हैं।",
+  "commonNetworkError": "सर्वर तक नहीं पहुँच सका। फिर से कोशिश करें।",
+  "friendsHandleTaken": "वह @handle पहले से लिया जा चुका है।",
+  "friendsHandleFormat": "अपने हैंडल के लिए 2–20 अक्षर, अंक या _ का उपयोग करें।",
+  "friendsSignInForHandle": "अपना @handle पाने के लिए साइन इन करें।",
+  "friendsSetOwnHandleFirst": "पहले अपना @handle सेट करें (प्रोफ़ाइल संपादित करें)।",
+  "paywallCheckoutUnavailable": "चेकआउट लॉन्च पर खुलेगा — इस बिल्ड में स्टोर बिलिंग अभी चालू नहीं है।",
+  "settingsManageUnavailable": "अपने डिवाइस की सदस्यता सेटिंग्स में प्रबंधित करें या रद्द करें — इन-ऐप शॉर्टकट लॉन्च पर खुलेगा।"
 }

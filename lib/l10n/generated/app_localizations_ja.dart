@@ -2259,46 +2259,44 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get authAccountsUnavailable =>
-      'Accounts are not available in this build yet — keep learning as a guest.';
+      'このビルドではアカウント機能はまだご利用いただけません — ゲストのまま学習を続けられます。';
 
   @override
-  String get liveNotEnabledShort => 'live AI is not enabled in this build.';
+  String get liveNotEnabledShort => 'このビルドではライブAIは有効になっていません。';
 
   @override
   String get liveMicUnavailable =>
-      'microphone unavailable — allow mic access to talk with the tutor.';
+      'マイクを利用できません — チューターと話すにはマイクへのアクセスを許可してください。';
 
   @override
-  String get liveUnavailable => 'live AI is unavailable right now.';
+  String get liveUnavailable => '現在ライブAIはご利用いただけません。';
 
   @override
-  String get liveNeedsPro => 'Live AI is part of RATEL PRO.';
+  String get liveNeedsPro => 'ライブAIはRATEL PROの機能です。';
 
   @override
-  String get liveMinutesUsed => 'You\'ve used this month\'s live minutes.';
+  String get liveMinutesUsed => '今月のライブ利用時間を使い切りました。';
 
   @override
-  String get commonNetworkError => 'Could not reach the server. Try again.';
+  String get commonNetworkError => 'サーバーに接続できませんでした。もう一度お試しください。';
 
   @override
-  String get friendsHandleTaken => 'That @handle is already taken.';
+  String get friendsHandleTaken => 'その@ハンドルはすでに使用されています。';
 
   @override
-  String get friendsHandleFormat =>
-      'Use 2–20 letters, numbers or _ for your handle.';
+  String get friendsHandleFormat => 'ハンドルには2〜20文字の英字・数字・_を使用してください。';
 
   @override
-  String get friendsSignInForHandle => 'Sign in to claim your @handle.';
+  String get friendsSignInForHandle => 'サインインして@ハンドルを取得しましょう。';
 
   @override
-  String get friendsSetOwnHandleFirst =>
-      'Set your own @handle first (Edit profile).';
+  String get friendsSetOwnHandleFirst => 'まずご自身の@ハンドルを設定してください(プロフィール編集)。';
 
   @override
   String get paywallCheckoutUnavailable =>
-      'Checkout opens at launch — store billing isn\'t live in this build yet.';
+      'お支払い機能はリリース時に有効になります — このビルドではストアの決済はまだ利用できません。';
 
   @override
   String get settingsManageUnavailable =>
-      'Manage or cancel in your device\'s Subscriptions settings — the in-app shortcut opens at launch.';
+      '管理・解約はお使いの端末の「サブスクリプション」設定から行ってください — アプリ内のショートカットはリリース時に有効になります。';
 }

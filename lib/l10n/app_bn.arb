@@ -669,5 +669,18 @@
   "lessonPlayAudio": "অডিও চালান",
   "lessonPlaySlowly": "ধীরে চালান",
   "lessonAudioUnavailable": "অডিও অনুপলব্ধ — প্রম্পট পড়ুন।",
-  "lessonPlaybackSpeed": "প্লেব্যাক গতি"
+  "lessonPlaybackSpeed": "প্লেব্যাক গতি",
+  "authAccountsUnavailable": "এই বিল্ডে অ্যাকাউন্ট এখনো চালু হয়নি — গেস্ট হিসেবে শেখা চালিয়ে যান।",
+  "liveNotEnabledShort": "এই বিল্ডে লাইভ AI চালু নেই।",
+  "liveMicUnavailable": "মাইক্রোফোন পাওয়া যাচ্ছে না — টিউটরের সাথে কথা বলতে মাইক অ্যাক্সেস দিন।",
+  "liveUnavailable": "এই মুহূর্তে লাইভ AI পাওয়া যাচ্ছে না।",
+  "liveNeedsPro": "লাইভ AI শুধু RATEL PRO-তে পাওয়া যায়।",
+  "liveMinutesUsed": "এই মাসের লাইভ মিনিট আপনি ব্যবহার করে ফেলেছেন।",
+  "commonNetworkError": "সার্ভারে পৌঁছানো গেল না। আবার চেষ্টা করুন।",
+  "friendsHandleTaken": "সেই @handle আগে থেকেই নেওয়া হয়ে গেছে।",
+  "friendsHandleFormat": "আপনার হ্যান্ডেলের জন্য 2–20টি অক্ষর, সংখ্যা বা _ ব্যবহার করুন।",
+  "friendsSignInForHandle": "আপনার @handle দাবি করতে সাইন ইন করুন।",
+  "friendsSetOwnHandleFirst": "প্রথমে নিজের @handle সেট করুন (প্রোফাইল সম্পাদনা)।",
+  "paywallCheckoutUnavailable": "চেকআউট চালু হবে লঞ্চে — এই বিল্ডে স্টোর বিলিং এখনো চালু নয়।",
+  "settingsManageUnavailable": "আপনার ডিভাইসের Subscriptions সেটিংসে পরিচালনা বা বাতিল করুন — অ্যাপের ভেতরের শর্টকাট চালু হবে লঞ্চে।"
 }
