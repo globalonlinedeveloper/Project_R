@@ -37,7 +37,7 @@ class PodcastsScreen extends ConsumerWidget {
           onPressed: () => context.pop(),
         ),
         title: Text(
-          'Podcasts',
+          context.l10n.libraryPodcasts,
           style: TextStyle(
             fontFamily: RatelFont.display,
             fontWeight: RatelType.extraBold,
@@ -53,7 +53,7 @@ class PodcastsScreen extends ConsumerWidget {
                   RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
               children: <Widget>[
                 Text(
-                  'Listen -- graded podcasts with real audio and a transcript.',
+                  context.l10n.podcastsSub,
                   style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.small,
@@ -70,8 +70,7 @@ class PodcastsScreen extends ConsumerWidget {
                       leadingColor: RatelColors.teal,
                       title: p.title,
                       subtitle: p.theme == null || p.theme!.isEmpty
-                          ? '${p.checkCount} comprehension check'
-                              '${p.checkCount == 1 ? '' : 's'}'
+                          ? context.l10n.mediaChecksCount(p.checkCount)
                           : p.theme!,
                       onTap: () => context.push(
                           '/podcast?passage=${Uri.encodeComponent(p.id)}'),
@@ -94,7 +93,7 @@ class PodcastsScreen extends ConsumerWidget {
               const Text('🎧', style: TextStyle(fontSize: 56)),
               const SizedBox(height: RatelSpace.md),
               Text(
-                'No podcasts in this course yet.',
+                context.l10n.podcastsEmpty,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: RatelFont.body,

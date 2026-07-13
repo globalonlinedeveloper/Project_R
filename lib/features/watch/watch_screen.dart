@@ -37,7 +37,7 @@ class WatchScreen extends ConsumerWidget {
           onPressed: () => context.pop(),
         ),
         title: Text(
-          'Watch',
+          context.l10n.libraryWatch,
           style: TextStyle(
             fontFamily: RatelFont.display,
             fontWeight: RatelType.extraBold,
@@ -53,7 +53,7 @@ class WatchScreen extends ConsumerWidget {
                   RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
               children: <Widget>[
                 Text(
-                  'Watch -- short clips with a transcript and comprehension checks.',
+                  context.l10n.watchSub,
                   style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.small,
@@ -70,8 +70,7 @@ class WatchScreen extends ConsumerWidget {
                       leadingColor: RatelColors.coral,
                       title: p.title,
                       subtitle: p.theme == null || p.theme!.isEmpty
-                          ? '${p.checkCount} comprehension check'
-                              '${p.checkCount == 1 ? '' : 's'}'
+                          ? context.l10n.mediaChecksCount(p.checkCount)
                           : p.theme!,
                       onTap: () => context.push(
                           '/watch-play?passage=${Uri.encodeComponent(p.id)}'),
@@ -94,7 +93,7 @@ class WatchScreen extends ConsumerWidget {
               const Text('🎬', style: TextStyle(fontSize: 56)),
               const SizedBox(height: RatelSpace.md),
               Text(
-                'No watch lessons in this course yet.',
+                context.l10n.watchEmpty,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: RatelFont.body,

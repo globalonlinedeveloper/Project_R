@@ -92,7 +92,7 @@ class LibraryScreen extends ConsumerWidget {
                     emoji: '🎭',
                     title: context.l10n.libraryRoleplay,
                     subtitle: context.l10n.libraryRoleplaySub,
-                    badge: RatelChip.free(),
+                    badge: RatelChip.free(context.l10n.adventuresFreeChip),
                     route: '/roleplay',
                   ),
                   const SizedBox(height: RatelSpace.lg),
@@ -268,7 +268,7 @@ class LibraryScreen extends ConsumerWidget {
                           color: RatelColors.onColor)),
                 ),
                 const SizedBox(width: RatelSpace.sm),
-                RatelChip.free(),
+                RatelChip.free(context.l10n.adventuresFreeChip),
               ],
             ),
             const SizedBox(height: RatelSpace.sm),
@@ -279,8 +279,8 @@ class LibraryScreen extends ConsumerWidget {
                     fontSize: RatelType.cardTitle,
                     color: RatelColors.onColor)),
             const SizedBox(height: RatelSpace.xs),
-            const Text(
-                'Walk a living world and talk your way through real scenes.',
+            Text(
+                context.l10n.libraryAdventuresSub,
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.small,

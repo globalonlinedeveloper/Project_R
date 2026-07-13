@@ -74,7 +74,7 @@ class _StoryReaderScreenState extends ConsumerState<StoryReaderScreen> {
           onPressed: () => context.pop(),
         ),
         title: Text(
-          story?.title ?? 'Story',
+          story?.title ?? context.l10n.storyFallbackTitle,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
@@ -116,7 +116,7 @@ class _StoryReaderScreenState extends ConsumerState<StoryReaderScreen> {
                     padding: const EdgeInsets.only(bottom: RatelSpace.md),
                     child: RatelButton(
                       key: const ValueKey<String>('story-read-aloud'),
-                      label: 'Read aloud',
+                      label: context.l10n.mediaReadAloud,
                       variant: RatelButtonVariant.secondary,
                       expand: false,
                       leading: const Text('🔊', style: TextStyle(fontSize: 18)),
@@ -146,7 +146,7 @@ class _StoryReaderScreenState extends ConsumerState<StoryReaderScreen> {
                 ),
                 if (story.checkExercises.isNotEmpty) ...<Widget>[
                   const SizedBox(height: RatelSpace.lg),
-                  const RatelSectionHeader(label: 'Check understanding'),
+                  RatelSectionHeader(label: context.l10n.mediaCheckUnderstanding),
                   const SizedBox(height: RatelSpace.sm),
                   for (final CourseExercise e in story.checkExercises)
                     Padding(
@@ -238,7 +238,7 @@ class _CheckQuestionState extends State<_CheckQuestion> {
               key: ValueKey<String>('story-check-input-${e.id}'),
               controller: _ctrl,
               decoration: InputDecoration(
-                hintText: 'Type your answer',
+                hintText: context.l10n.lessonTypeAnswerHint,
                 filled: true,
                 fillColor: context.palette.cream2,
                 border: const OutlineInputBorder(),

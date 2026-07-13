@@ -36,7 +36,7 @@ class StoriesScreen extends ConsumerWidget {
           onPressed: () => context.pop(),
         ),
         title: Text(
-          'Stories',
+          context.l10n.storiesTitle,
           style: TextStyle(
             fontFamily: RatelFont.display,
             fontWeight: RatelType.extraBold,
@@ -52,7 +52,7 @@ class StoriesScreen extends ConsumerWidget {
                   RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
               children: <Widget>[
                 Text(
-                  'Read & listen — graded stories with browser read-aloud.',
+                  context.l10n.storiesSub,
                   style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.small,
@@ -69,8 +69,7 @@ class StoriesScreen extends ConsumerWidget {
                       leadingColor: RatelColors.teal,
                       title: s.title,
                       subtitle: s.theme == null || s.theme!.isEmpty
-                          ? '${s.checkCount} comprehension check'
-                              '${s.checkCount == 1 ? '' : 's'}'
+                          ? context.l10n.mediaChecksCount(s.checkCount)
                           : s.theme!,
                       onTap: () => context.push(
                           '/story?passage=${Uri.encodeComponent(s.id)}'),
@@ -93,7 +92,7 @@ class StoriesScreen extends ConsumerWidget {
               const Text('📖', style: TextStyle(fontSize: 56)),
               const SizedBox(height: RatelSpace.md),
               Text(
-                'No stories in this course yet.',
+                context.l10n.storiesEmpty,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: RatelFont.body,

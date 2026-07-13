@@ -74,7 +74,7 @@ class _WatchPlayerScreenState extends ConsumerState<WatchPlayerScreen> {
           onPressed: () => context.pop(),
         ),
         title: Text(
-          watch?.title ?? 'Watch',
+          watch?.title ?? context.l10n.libraryWatch,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
@@ -131,7 +131,7 @@ class _WatchPlayerScreenState extends ConsumerState<WatchPlayerScreen> {
                     padding: const EdgeInsets.only(top: RatelSpace.md),
                     child: RatelButton(
                       key: const ValueKey<String>('watch-read-aloud'),
-                      label: 'Read aloud',
+                      label: context.l10n.mediaReadAloud,
                       variant: RatelButtonVariant.secondary,
                       expand: false,
                       leading: const Text('🔊', style: TextStyle(fontSize: 18)),
@@ -139,7 +139,7 @@ class _WatchPlayerScreenState extends ConsumerState<WatchPlayerScreen> {
                     ),
                   ),
                 const SizedBox(height: RatelSpace.md),
-                const RatelSectionHeader(label: 'Transcript'),
+                RatelSectionHeader(label: context.l10n.mediaTranscript),
                 const SizedBox(height: RatelSpace.sm),
                 RatelCard(
                   child: Column(
@@ -164,7 +164,7 @@ class _WatchPlayerScreenState extends ConsumerState<WatchPlayerScreen> {
                 ),
                 if (watch.checkExercises.isNotEmpty) ...<Widget>[
                   const SizedBox(height: RatelSpace.lg),
-                  const RatelSectionHeader(label: 'Check understanding'),
+                  RatelSectionHeader(label: context.l10n.mediaCheckUnderstanding),
                   const SizedBox(height: RatelSpace.sm),
                   for (final CourseExercise e in watch.checkExercises)
                     Padding(
@@ -189,7 +189,7 @@ class _WatchPlayerScreenState extends ConsumerState<WatchPlayerScreen> {
             const Text('🎬', style: TextStyle(fontSize: 44)),
             const SizedBox(height: RatelSpace.sm),
             Text(
-              'Video plays in the web app',
+              context.l10n.watchWebOnly,
               style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.small,
@@ -279,7 +279,7 @@ class _CheckQuestionState extends State<_CheckQuestion> {
               key: ValueKey<String>('watch-check-input-${e.id}'),
               controller: _ctrl,
               decoration: InputDecoration(
-                hintText: 'Type your answer',
+                hintText: context.l10n.lessonTypeAnswerHint,
                 filled: true,
                 fillColor: context.palette.cream2,
                 border: const OutlineInputBorder(),

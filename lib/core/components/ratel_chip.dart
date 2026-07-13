@@ -27,8 +27,8 @@ class RatelChip extends StatelessWidget {
       const RatelChip(label: 'PRO', tone: RatelChipTone.amber, filled: true);
 
   /// Green tinted "FREE" badge.
-  factory RatelChip.free() =>
-      const RatelChip(label: 'FREE', tone: RatelChipTone.green);
+  factory RatelChip.free([String label = 'FREE']) =>
+      RatelChip(label: label, tone: RatelChipTone.green);
 
   /// Teal-tinted CEFR level pill (e.g. "A2").
   factory RatelChip.level(String level) =>

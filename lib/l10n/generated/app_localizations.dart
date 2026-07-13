@@ -3011,6 +3011,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Dark'**
   String get settingsThemeDark;
+
+  /// No description provided for @mediaReadAloud.
+  ///
+  /// In en, this message translates to:
+  /// **'Read aloud'**
+  String get mediaReadAloud;
+
+  /// No description provided for @mediaTranscript.
+  ///
+  /// In en, this message translates to:
+  /// **'Transcript'**
+  String get mediaTranscript;
+
+  /// No description provided for @mediaCheckUnderstanding.
+  ///
+  /// In en, this message translates to:
+  /// **'Check understanding'**
+  String get mediaCheckUnderstanding;
+
+  /// No description provided for @mediaChecksCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} comprehension check} other{{count} comprehension checks}}'**
+  String mediaChecksCount(int count);
+
+  /// No description provided for @mediaLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading…'**
+  String get mediaLoading;
+
+  /// No description provided for @mediaPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get mediaPause;
+
+  /// No description provided for @storiesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Stories'**
+  String get storiesTitle;
+
+  /// No description provided for @storiesSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Read & listen — graded stories with browser read-aloud.'**
+  String get storiesSub;
+
+  /// No description provided for @storiesEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No stories in this course yet.'**
+  String get storiesEmpty;
+
+  /// No description provided for @storyFallbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Story'**
+  String get storyFallbackTitle;
+
+  /// No description provided for @podcastsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen -- graded podcasts with real audio and a transcript.'**
+  String get podcastsSub;
+
+  /// No description provided for @podcastsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No podcasts in this course yet.'**
+  String get podcastsEmpty;
+
+  /// No description provided for @podcastFallbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Podcast'**
+  String get podcastFallbackTitle;
+
+  /// No description provided for @podcastPlayEpisode.
+  ///
+  /// In en, this message translates to:
+  /// **'Play episode'**
+  String get podcastPlayEpisode;
+
+  /// No description provided for @watchSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch -- short clips with a transcript and comprehension checks.'**
+  String get watchSub;
+
+  /// No description provided for @watchEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No watch lessons in this course yet.'**
+  String get watchEmpty;
+
+  /// No description provided for @watchWebOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Video plays in the web app'**
+  String get watchWebOnly;
+
+  /// No description provided for @libraryAdventuresSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Walk a living world and talk your way through real scenes.'**
+  String get libraryAdventuresSub;
 }
 
 class _AppLocalizationsDelegate

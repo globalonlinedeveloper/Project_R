@@ -155,7 +155,7 @@ class _PodcastPlayerScreenState extends ConsumerState<PodcastPlayerScreen> {
           onPressed: () => context.pop(),
         ),
         title: Text(
-          podcast?.title ?? 'Podcast',
+          podcast?.title ?? context.l10n.podcastFallbackTitle,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
@@ -204,10 +204,10 @@ class _PodcastPlayerScreenState extends ConsumerState<PodcastPlayerScreen> {
                         RatelButton(
                           key: const ValueKey<String>('podcast-play-toggle'),
                           label: _pendingPlay
-                              ? 'Loading\u2026'
+                              ? context.l10n.mediaLoading
                               : _playing
-                                  ? 'Pause'
-                                  : 'Play episode',
+                                  ? context.l10n.mediaPause
+                                  : context.l10n.podcastPlayEpisode,
                           variant: RatelButtonVariant.primary,
                           expand: false,
                           leading: Text(
@@ -265,14 +265,14 @@ class _PodcastPlayerScreenState extends ConsumerState<PodcastPlayerScreen> {
                     padding: const EdgeInsets.only(bottom: RatelSpace.md),
                     child: RatelButton(
                       key: const ValueKey<String>('podcast-read-aloud'),
-                      label: 'Read aloud',
+                      label: context.l10n.mediaReadAloud,
                       variant: RatelButtonVariant.secondary,
                       expand: false,
                       leading: const Text('🔊', style: TextStyle(fontSize: 18)),
                       onPressed: () => _readAloud(podcast.sentences.join(' ')),
                     ),
                   ),
-                const RatelSectionHeader(label: 'Transcript'),
+                RatelSectionHeader(label: context.l10n.mediaTranscript),
                 const SizedBox(height: RatelSpace.sm),
                 RatelCard(
                   child: Column(
@@ -297,7 +297,7 @@ class _PodcastPlayerScreenState extends ConsumerState<PodcastPlayerScreen> {
                 ),
                 if (podcast.checkExercises.isNotEmpty) ...<Widget>[
                   const SizedBox(height: RatelSpace.lg),
-                  const RatelSectionHeader(label: 'Check understanding'),
+                  RatelSectionHeader(label: context.l10n.mediaCheckUnderstanding),
                   const SizedBox(height: RatelSpace.sm),
                   for (final CourseExercise e in podcast.checkExercises)
                     Padding(
@@ -390,7 +390,7 @@ class _CheckQuestionState extends State<_CheckQuestion> {
               key: ValueKey<String>('podcast-check-input-${e.id}'),
               controller: _ctrl,
               decoration: InputDecoration(
-                hintText: 'Type your answer',
+                hintText: context.l10n.lessonTypeAnswerHint,
                 filled: true,
                 fillColor: context.palette.cream2,
                 border: const OutlineInputBorder(),

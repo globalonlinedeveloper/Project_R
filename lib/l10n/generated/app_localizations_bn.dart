@@ -1676,4 +1676,70 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get settingsThemeDark => 'Dark';
+
+  @override
+  String get mediaReadAloud => 'Read aloud';
+
+  @override
+  String get mediaTranscript => 'Transcript';
+
+  @override
+  String get mediaCheckUnderstanding => 'Check understanding';
+
+  @override
+  String mediaChecksCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count comprehension checks',
+      one: '$count comprehension check',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get mediaLoading => 'Loading…';
+
+  @override
+  String get mediaPause => 'Pause';
+
+  @override
+  String get storiesTitle => 'Stories';
+
+  @override
+  String get storiesSub =>
+      'Read & listen — graded stories with browser read-aloud.';
+
+  @override
+  String get storiesEmpty => 'No stories in this course yet.';
+
+  @override
+  String get storyFallbackTitle => 'Story';
+
+  @override
+  String get podcastsSub =>
+      'Listen -- graded podcasts with real audio and a transcript.';
+
+  @override
+  String get podcastsEmpty => 'No podcasts in this course yet.';
+
+  @override
+  String get podcastFallbackTitle => 'Podcast';
+
+  @override
+  String get podcastPlayEpisode => 'Play episode';
+
+  @override
+  String get watchSub =>
+      'Watch -- short clips with a transcript and comprehension checks.';
+
+  @override
+  String get watchEmpty => 'No watch lessons in this course yet.';
+
+  @override
+  String get watchWebOnly => 'Video plays in the web app';
+
+  @override
+  String get libraryAdventuresSub =>
+      'Walk a living world and talk your way through real scenes.';
 }
