@@ -137,8 +137,8 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
-          ..showSnackBar(const SnackBar(
-              content: Text('Could not start the live session — try again.')));
+          ..showSnackBar(SnackBar(
+              content: Text(context.l10n.liveStartFailed)));
       }
     } finally {
       if (mounted) setState(() => _starting = false);
@@ -195,7 +195,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
           icon: Icon(RatelIcons.arrowBack, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: Text(scenario?.title ?? 'Live Roleplay',
+        title: Text(scenario?.title ?? context.l10n.liveRoleplayTitle,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -222,7 +222,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
           RatelSpace.screen, RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
       children: <Widget>[
         Text(
-          'Talk it out with Ratel — live voice roleplay. Pick a scene, or just have a conversation.',
+          context.l10n.liveIntro,
           style: TextStyle(
               fontFamily: RatelFont.body,
               fontSize: RatelType.small,
@@ -233,13 +233,13 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
           key: const ValueKey<String>('live-roleplay-freeform'),
           leadingEmoji: '💬',
           leadingColor: RatelColors.teal,
-          title: 'Free conversation',
-          subtitle: 'No script — just talk',
+          title: context.l10n.liveFreeConversation,
+          subtitle: context.l10n.liveFreeConversationSub,
           onTap: () => setState(() => _freeForm = true),
         ),
         const SizedBox(height: RatelSpace.md),
         if (items.isNotEmpty) ...<Widget>[
-          RatelSectionHeader(label: 'Roleplay a scene'),
+          RatelSectionHeader(label: context.l10n.liveRoleplayScene),
           const SizedBox(height: RatelSpace.sm),
           for (final CourseScenario s in items) ...<Widget>[
             RatelListRow(
@@ -314,8 +314,8 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
                     Expanded(
                       child: Text(
                         _starting
-                            ? 'Reconnecting…'
-                            : 'Connection lost — the live session dropped.',
+                            ? context.l10n.liveReconnecting
+                            : context.l10n.liveConnectionLost,
                         key: const ValueKey<String>('live-reconnect-status'),
                         style: TextStyle(
                           fontFamily: RatelFont.body,
@@ -330,7 +330,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
                     const SizedBox(height: RatelSpace.sm),
                     RatelButton(
                       key: const ValueKey<String>('live-reconnect'),
-                      label: 'Reconnect',
+                      label: context.l10n.liveReconnect,
                       variant: RatelButtonVariant.secondary,
                       expand: false,
                       onPressed: () => _start(engine, spine, scenario),
@@ -348,7 +348,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
           if (_session == null && !_ended)
             RatelButton(
               key: const ValueKey<String>('live-roleplay-start'),
-              label: _starting ? 'Connecting…' : 'Start talking',
+              label: _starting ? context.l10n.liveConnecting : context.l10n.liveStartTalking,
               onPressed: _starting
                   ? null
                   : () => _start(engine, spine, scenario),
@@ -362,7 +362,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
                 const SizedBox(width: RatelSpace.md),
                 Expanded(
                   child: Text(
-                    'Scene ended. Start again whenever you like — your live minutes are budgeted, never silent.',
+                    context.l10n.liveSceneEndedNote,
                     style: TextStyle(
                         fontFamily: RatelFont.body,
                         fontSize: RatelType.body,
@@ -374,7 +374,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
             const SizedBox(height: RatelSpace.md),
             RatelButton(
               key: const ValueKey<String>('live-roleplay-again'),
-              label: 'Start again',
+              label: context.l10n.liveStartAgain,
               onPressed: _starting
                   ? null
                   : () => _start(engine, spine, scenario),
@@ -382,7 +382,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
           ],
           if (_turns.isNotEmpty) ...<Widget>[
             const SizedBox(height: RatelSpace.lg),
-            RatelSectionHeader(label: 'Transcript'),
+            RatelSectionHeader(label: context.l10n.mediaTranscript),
             const SizedBox(height: RatelSpace.sm),
             for (int i = 0; i < _turns.length; i++) _turn(context, i),
           ],
@@ -401,7 +401,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
               const SizedBox(width: RatelSpace.md),
               Expanded(
                 child: Text(
-                  'Live voice roleplay is a RATEL PRO feature — real conversation, live feedback, cost-guarded minutes.',
+                  context.l10n.liveProGate,
                   style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.body,
@@ -414,7 +414,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
           ),
           const SizedBox(height: RatelSpace.md),
           RatelButton(
-            label: 'Unlock RATEL PRO',
+            label: context.l10n.liveUnlockPro,
             onPressed: () => context.push('/paywall?source=live-roleplay'),
           ),
         ],
@@ -427,7 +427,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
           const SizedBox(width: RatelSpace.md),
           Expanded(
             child: Text(
-              'Live voice is not enabled in this build yet — it turns on in a later step. Nothing here is simulated.',
+              context.l10n.liveNotEnabled,
               style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.body,
@@ -439,11 +439,11 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
 
   Widget _phaseCard(BuildContext context) {
     final (String emoji, String label) = switch (_phase) {
-      LiveSessionPhase.idle => ('🎙️', 'Ready when you are — it’s a real live call.'),
-      LiveSessionPhase.connecting => ('⏳', 'Connecting…'),
-      LiveSessionPhase.listening => ('🎤', 'Listening — your turn.'),
-      LiveSessionPhase.speaking => ('🔊', 'Ratel is speaking — jump in any time.'),
-      LiveSessionPhase.closed => ('🏁', 'Scene ended.'),
+      LiveSessionPhase.idle => ('🎙️', context.l10n.livePhaseIdle),
+      LiveSessionPhase.connecting => ('⏳', context.l10n.liveConnecting),
+      LiveSessionPhase.listening => ('🎤', context.l10n.livePhaseListening),
+      LiveSessionPhase.speaking => ('🔊', context.l10n.livePhaseSpeaking),
+      LiveSessionPhase.closed => ('🏁', context.l10n.livePhaseClosed),
     };
     return RatelCard(
       key: const ValueKey<String>('live-roleplay-phase'),
@@ -467,7 +467,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
           Expanded(
             child: RatelButton(
               key: const ValueKey<String>('live-roleplay-end'),
-              label: 'End scene',
+              label: context.l10n.liveEndScene,
               onPressed: _end,
             ),
           ),
@@ -504,7 +504,7 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
                 borderRadius: BorderRadius.circular(RatelRadius.card),
               ),
               child: Text(
-                '${you ? 'You' : '🦡 Ratel'}: ${t.text}',
+                '${you ? context.l10n.liveYou : '🦡 Ratel'}: ${t.text}',
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.body,

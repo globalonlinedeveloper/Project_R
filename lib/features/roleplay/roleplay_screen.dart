@@ -37,7 +37,7 @@ class RoleplayScreen extends ConsumerWidget {
           icon: Icon(RatelIcons.arrowBack, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: Text('Roleplay',
+        title: Text(context.l10n.libraryRoleplay,
             style: TextStyle(
                 fontFamily: RatelFont.display,
                 fontWeight: RatelType.extraBold,
@@ -52,7 +52,7 @@ class RoleplayScreen extends ConsumerWidget {
                   RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
               children: <Widget>[
                 Text(
-                  'Practice real conversations -- pick the right reply, get instant feedback.',
+                  context.l10n.roleplaySub,
                   style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.small,
@@ -78,7 +78,7 @@ class RoleplayScreen extends ConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            const Text('Live Roleplay',
+                            Text(context.l10n.liveRoleplayTitle,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -86,7 +86,7 @@ class RoleplayScreen extends ConsumerWidget {
                                     fontWeight: RatelType.extraBold,
                                     fontSize: RatelType.cardTitle,
                                     color: RatelColors.onColor)),
-                            Text('Talk it out with Ratel — real voice',
+                            Text(context.l10n.liveRoleplayCardSub,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
@@ -114,7 +114,7 @@ class RoleplayScreen extends ConsumerWidget {
                       leadingColor: RatelColors.purple,
                       title: s.title,
                       subtitle: s.goal == null || s.goal!.isEmpty
-                          ? (s.world ?? 'Roleplay')
+                          ? (s.world ?? context.l10n.libraryRoleplay)
                           : s.goal!,
                       onTap: () => context.push(
                           '/roleplay-play?scenario=${Uri.encodeComponent(s.id)}'),
@@ -136,7 +136,7 @@ class RoleplayScreen extends ConsumerWidget {
             children: <Widget>[
               const Text('🎭', style: TextStyle(fontSize: 56)),
               const SizedBox(height: RatelSpace.md),
-              Text('No roleplays in this course yet.',
+              Text(context.l10n.roleplayEmpty,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontFamily: RatelFont.body,

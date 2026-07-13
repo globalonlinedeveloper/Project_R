@@ -70,7 +70,7 @@ class _RoleplayPlayerScreenState extends ConsumerState<RoleplayPlayerScreen> {
           icon: Icon(RatelIcons.arrowBack, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: Text(s?.title ?? 'Roleplay',
+        title: Text(s?.title ?? context.l10n.libraryRoleplay,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -120,7 +120,7 @@ class _RoleplayPlayerScreenState extends ConsumerState<RoleplayPlayerScreen> {
           _speakerLine(context, scene),
           if (youTurn) ...<Widget>[
             const SizedBox(height: RatelSpace.md),
-            Text('Your reply:',
+            Text(context.l10n.roleplayYourReply,
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontWeight: RatelType.extraBold,
@@ -252,7 +252,7 @@ class _RoleplayPlayerScreenState extends ConsumerState<RoleplayPlayerScreen> {
           key: const ValueKey<String>('roleplay-done'),
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('🎉 Scene complete!',
+            Text(context.l10n.roleplaySceneComplete,
                 style: TextStyle(
                     fontFamily: RatelFont.display,
                     fontWeight: RatelType.extraBold,
@@ -260,7 +260,7 @@ class _RoleplayPlayerScreenState extends ConsumerState<RoleplayPlayerScreen> {
                     color: context.palette.ink)),
             const SizedBox(height: RatelSpace.sm),
             RatelButton(
-                label: 'Back to roleplays',
+                label: context.l10n.roleplayBack,
                 expand: false,
                 onPressed: () => context.pop()),
           ],

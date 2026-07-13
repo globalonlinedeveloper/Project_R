@@ -3119,6 +3119,174 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Walk a living world and talk your way through real scenes.'**
   String get libraryAdventuresSub;
+
+  /// No description provided for @roleplaySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice real conversations -- pick the right reply, get instant feedback.'**
+  String get roleplaySub;
+
+  /// No description provided for @roleplayEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No roleplays in this course yet.'**
+  String get roleplayEmpty;
+
+  /// No description provided for @roleplayYourReply.
+  ///
+  /// In en, this message translates to:
+  /// **'Your reply:'**
+  String get roleplayYourReply;
+
+  /// No description provided for @roleplaySceneComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'🎉 Scene complete!'**
+  String get roleplaySceneComplete;
+
+  /// No description provided for @roleplayBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to roleplays'**
+  String get roleplayBack;
+
+  /// No description provided for @liveRoleplayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Live Roleplay'**
+  String get liveRoleplayTitle;
+
+  /// No description provided for @liveRoleplayCardSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk it out with Ratel — real voice'**
+  String get liveRoleplayCardSub;
+
+  /// No description provided for @liveIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk it out with Ratel — live voice roleplay. Pick a scene, or just have a conversation.'**
+  String get liveIntro;
+
+  /// No description provided for @liveFreeConversation.
+  ///
+  /// In en, this message translates to:
+  /// **'Free conversation'**
+  String get liveFreeConversation;
+
+  /// No description provided for @liveFreeConversationSub.
+  ///
+  /// In en, this message translates to:
+  /// **'No script — just talk'**
+  String get liveFreeConversationSub;
+
+  /// No description provided for @liveRoleplayScene.
+  ///
+  /// In en, this message translates to:
+  /// **'Roleplay a scene'**
+  String get liveRoleplayScene;
+
+  /// No description provided for @liveReconnecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconnecting…'**
+  String get liveReconnecting;
+
+  /// No description provided for @liveConnectionLost.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection lost — the live session dropped.'**
+  String get liveConnectionLost;
+
+  /// No description provided for @liveReconnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconnect'**
+  String get liveReconnect;
+
+  /// No description provided for @liveConnecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Connecting…'**
+  String get liveConnecting;
+
+  /// No description provided for @liveStartTalking.
+  ///
+  /// In en, this message translates to:
+  /// **'Start talking'**
+  String get liveStartTalking;
+
+  /// No description provided for @liveSceneEndedNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Scene ended. Start again whenever you like — your live minutes are budgeted, never silent.'**
+  String get liveSceneEndedNote;
+
+  /// No description provided for @liveStartAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Start again'**
+  String get liveStartAgain;
+
+  /// No description provided for @liveProGate.
+  ///
+  /// In en, this message translates to:
+  /// **'Live voice roleplay is a RATEL PRO feature — real conversation, live feedback, cost-guarded minutes.'**
+  String get liveProGate;
+
+  /// No description provided for @liveUnlockPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock RATEL PRO'**
+  String get liveUnlockPro;
+
+  /// No description provided for @liveNotEnabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Live voice is not enabled in this build yet — it turns on in a later step. Nothing here is simulated.'**
+  String get liveNotEnabled;
+
+  /// No description provided for @livePhaseIdle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready when you are — it’s a real live call.'**
+  String get livePhaseIdle;
+
+  /// No description provided for @livePhaseListening.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening — your turn.'**
+  String get livePhaseListening;
+
+  /// No description provided for @livePhaseSpeaking.
+  ///
+  /// In en, this message translates to:
+  /// **'Ratel is speaking — jump in any time.'**
+  String get livePhaseSpeaking;
+
+  /// No description provided for @livePhaseClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Scene ended.'**
+  String get livePhaseClosed;
+
+  /// No description provided for @liveEndScene.
+  ///
+  /// In en, this message translates to:
+  /// **'End scene'**
+  String get liveEndScene;
+
+  /// No description provided for @liveYou.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get liveYou;
+
+  /// No description provided for @liveStartFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not start the live session — try again.'**
+  String get liveStartFailed;
 }
 
 class _AppLocalizationsDelegate

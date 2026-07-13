@@ -1743,4 +1743,94 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get libraryAdventuresSub =>
       'Walk a living world and talk your way through real scenes.';
+
+  @override
+  String get roleplaySub =>
+      'Practice real conversations -- pick the right reply, get instant feedback.';
+
+  @override
+  String get roleplayEmpty => 'No roleplays in this course yet.';
+
+  @override
+  String get roleplayYourReply => 'Your reply:';
+
+  @override
+  String get roleplaySceneComplete => '🎉 Scene complete!';
+
+  @override
+  String get roleplayBack => 'Back to roleplays';
+
+  @override
+  String get liveRoleplayTitle => 'Live Roleplay';
+
+  @override
+  String get liveRoleplayCardSub => 'Talk it out with Ratel — real voice';
+
+  @override
+  String get liveIntro =>
+      'Talk it out with Ratel — live voice roleplay. Pick a scene, or just have a conversation.';
+
+  @override
+  String get liveFreeConversation => 'Free conversation';
+
+  @override
+  String get liveFreeConversationSub => 'No script — just talk';
+
+  @override
+  String get liveRoleplayScene => 'Roleplay a scene';
+
+  @override
+  String get liveReconnecting => 'Reconnecting…';
+
+  @override
+  String get liveConnectionLost =>
+      'Connection lost — the live session dropped.';
+
+  @override
+  String get liveReconnect => 'Reconnect';
+
+  @override
+  String get liveConnecting => 'Connecting…';
+
+  @override
+  String get liveStartTalking => 'Start talking';
+
+  @override
+  String get liveSceneEndedNote =>
+      'Scene ended. Start again whenever you like — your live minutes are budgeted, never silent.';
+
+  @override
+  String get liveStartAgain => 'Start again';
+
+  @override
+  String get liveProGate =>
+      'Live voice roleplay is a RATEL PRO feature — real conversation, live feedback, cost-guarded minutes.';
+
+  @override
+  String get liveUnlockPro => 'Unlock RATEL PRO';
+
+  @override
+  String get liveNotEnabled =>
+      'Live voice is not enabled in this build yet — it turns on in a later step. Nothing here is simulated.';
+
+  @override
+  String get livePhaseIdle => 'Ready when you are — it’s a real live call.';
+
+  @override
+  String get livePhaseListening => 'Listening — your turn.';
+
+  @override
+  String get livePhaseSpeaking => 'Ratel is speaking — jump in any time.';
+
+  @override
+  String get livePhaseClosed => 'Scene ended.';
+
+  @override
+  String get liveEndScene => 'End scene';
+
+  @override
+  String get liveYou => 'You';
+
+  @override
+  String get liveStartFailed => 'Could not start the live session — try again.';
 }
