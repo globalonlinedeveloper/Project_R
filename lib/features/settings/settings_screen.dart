@@ -65,18 +65,19 @@ class SettingsScreen extends ConsumerWidget {
             RatelListRow(
               title: context.l10n.settingsDailyGoal,
               subtitle: goalStatus.met
-                  ? '${s.dailyGoal} XP per day · ✓ reached today'
-                  : '${s.dailyGoal} XP per day',
+                  ? context.l10n.settingsGoalReachedSub(s.dailyGoal)
+                  : context.l10n.settingsGoalPerDay(s.dailyGoal),
               onTap: () => _pickGoal(context, c, s.dailyGoal),
             ),
-            _switchRow('Sound effects', s.sound, c.setSound),
-            _switchRow('Haptics', s.haptics, c.setHaptics),
+            _switchRow(context.l10n.settingsSoundEffects, s.sound, c.setSound),
+            _switchRow(context.l10n.settingsHaptics, s.haptics, c.setHaptics),
           ]),
           const SizedBox(height: RatelSpace.lg),
           _section(context, context.l10n.settingsSectionSubscription, <Widget>[
             RatelListRow(
               title: context.l10n.paywallManage,
-              subtitle: isPro ? 'RATEL PRO active' : 'Free plan',
+              subtitle:
+                  isPro ? context.l10n.settingsProActive : context.l10n.settingsFreePlan,
               onTap: () {
                 if (isPro) {
                   ref.read(manageSubscriptionProvider).open().then((ManageResult r) {
@@ -93,27 +94,28 @@ class SettingsScreen extends ConsumerWidget {
           ]),
           const SizedBox(height: RatelSpace.lg),
           _section(context, context.l10n.settingsSectionAccessibility, <Widget>[
-            _switchRow('Reduce motion', s.reduceMotion, c.setReduceMotion,
-                subtitle: 'Master switch — turns off every animation'),
-            _switchRow('High contrast', s.highContrast, c.setHighContrast),
+            _switchRow(context.l10n.settingsReduceMotion, s.reduceMotion,
+                c.setReduceMotion,
+                subtitle: context.l10n.settingsReduceMotionSub),
+            _switchRow(context.l10n.settingsHighContrast, s.highContrast,
+                c.setHighContrast),
           ]),
           const SizedBox(height: RatelSpace.lg),
           _section(context, context.l10n.settingsSectionNotifications, <Widget>[
-            _switchRow('Push notifications', s.notifyEnabled('push'),
+            _switchRow(context.l10n.settingsNotifPush, s.notifyEnabled('push'),
                 (bool v) => c.setNotification('push', v)),
-            _switchRow('Streak reminders', s.notifyEnabled('streak'),
+            _switchRow(context.l10n.settingsNotifStreak, s.notifyEnabled('streak'),
                 (bool v) => c.setNotification('streak', v)),
-            _switchRow('League updates', s.notifyEnabled('league'),
+            _switchRow(context.l10n.settingsNotifLeague, s.notifyEnabled('league'),
                 (bool v) => c.setNotification('league', v)),
-            _switchRow('Friend activity', s.notifyEnabled('friend'),
+            _switchRow(context.l10n.settingsNotifFriend, s.notifyEnabled('friend'),
                 (bool v) => c.setNotification('friend', v)),
           ]),
           const SizedBox(height: RatelSpace.sm),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: RatelSpace.xs),
             child: Text(
-                'Your choices are saved now — delivery switches on when push '
-                'notifications ship.',
+                context.l10n.settingsNotifFootnote,
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.small,
@@ -126,8 +128,8 @@ class SettingsScreen extends ConsumerWidget {
               RatelListRow(
                 leadingEmoji: '🌍',
                 leadingColor: RatelColors.green,
-                title: 'Course',
-                subtitle: _courseLabel(course.current),
+                title: context.l10n.settingsCourse,
+                subtitle: _courseLabel(context, course.current),
                 onTap: () => _pickCourse(context, course),
               ),
             // L-2: app-shell (chrome) language — separate concept from the
@@ -142,44 +144,46 @@ class SettingsScreen extends ConsumerWidget {
             RatelListRow(
               leadingEmoji: '🌙',
               leadingColor: RatelColors.purple,
-              title: 'Theme',
-              subtitle: _themeLabel(s.themeMode),
+              title: context.l10n.settingsTheme,
+              subtitle: _themeLabel(context, s.themeMode),
               onTap: () => _pickTheme(context, c, s.themeMode),
             ),
             RatelListRow(
               leadingEmoji: '🌌',
               leadingColor: RatelColors.blue,
-              title: 'World',
+              title: context.l10n.settingsWorld,
               subtitle: _worldLabel(s.worldTheme),
               onTap: () => context.push('/themes'),
             ),
             RatelListRow(
               leadingEmoji: '👤',
               leadingColor: RatelColors.blue,
-              title: 'Edit profile',
+              title: context.l10n.settingsEditProfile,
               onTap: () => context.push('/edit-profile'),
             ),
             RatelListRow(
               leadingEmoji: '🔒',
               leadingColor: RatelColors.teal,
-              title: 'Privacy & data',
+              title: context.l10n.settingsPrivacy,
               subtitle: 'learnwithratel.com/privacy',
               onTap: () => _openUrl(context, 'https://learnwithratel.com/privacy'),
             ),
             RatelListRow(
               leadingEmoji: '❓',
               leadingColor: RatelColors.green,
-              title: 'Help & support',
+              title: context.l10n.settingsHelp,
               subtitle: 'learnwithratel.com/help',
               onTap: () => _openUrl(context, 'https://learnwithratel.com/help'),
             ),
             RatelListRow(
               leadingEmoji: identity.isAuthenticated ? '🚪' : '✨',
               leadingColor: RatelColors.coral,
-              title: identity.isAuthenticated ? 'Log out' : 'Create a free account',
+              title: identity.isAuthenticated
+                  ? context.l10n.settingsLogOut
+                  : context.l10n.profileCreateAccount,
               subtitle: identity.isAuthenticated
                   ? null
-                  : 'You are learning as a guest — sign up to save progress',
+                  : context.l10n.settingsGuestSub,
               onTap: () => context.push('/onboarding'),
             ),
           ]),
@@ -194,7 +198,8 @@ class SettingsScreen extends ConsumerWidget {
     if (ok || !context.mounted) return;
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text('Could not open $url')));
+      ..showSnackBar(
+          SnackBar(content: Text(context.l10n.settingsCouldNotOpen(url))));
   }
 
   /// One settings section (E-8): a small-caps header + a single grouped
@@ -377,10 +382,10 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  static String _themeLabel(ThemeMode m) => switch (m) {
-        ThemeMode.system => 'Match device',
-        ThemeMode.light => 'Light',
-        ThemeMode.dark => 'Dark',
+  static String _themeLabel(BuildContext context, ThemeMode m) => switch (m) {
+        ThemeMode.system => context.l10n.settingsThemeSystem,
+        ThemeMode.light => context.l10n.settingsThemeLight,
+        ThemeMode.dark => context.l10n.settingsThemeDark,
       };
 
   static const List<({String label, ThemeMode mode, String emoji})> _themes =
@@ -408,16 +413,16 @@ class SettingsScreen extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              const Padding(
-                padding:
-                    EdgeInsets.only(left: RatelSpace.sm, bottom: RatelSpace.sm),
-                child: RatelSectionHeader(label: 'Theme'),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: RatelSpace.sm, bottom: RatelSpace.sm),
+                child: RatelSectionHeader(label: context.l10n.settingsTheme),
               ),
               for (final ({String label, ThemeMode mode, String emoji}) t
                   in _themes) ...<Widget>[
                 RatelListRow(
                   leadingEmoji: t.mode == current ? '✅' : t.emoji,
-                  title: t.label,
+                  title: _themeLabel(context, t.mode),
                   onTap: () {
                     c.setThemeMode(t.mode);
                     Navigator.of(sheetContext).pop();
@@ -449,15 +454,15 @@ class SettingsScreen extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              const Padding(
-                padding:
-                    EdgeInsets.only(left: RatelSpace.sm, bottom: RatelSpace.sm),
-                child: RatelSectionHeader(label: 'Course'),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: RatelSpace.sm, bottom: RatelSpace.sm),
+                child: RatelSectionHeader(label: context.l10n.settingsCourse),
               ),
               for (final String code in course.available) ...<Widget>[
                 RatelListRow(
                   leadingEmoji: code == course.current ? '✅' : '🌍',
-                  title: _courseLabel(code),
+                  title: _courseLabel(context, code),
                   onTap: () {
                     Navigator.of(sheetContext).pop();
                     unawaited(course.switchCourse(code));
@@ -472,10 +477,8 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  static String _courseLabel(String code) => switch (code) {
-        'en' => 'English (en)',
-        _ => code,
-      };
+  static String _courseLabel(BuildContext context, String code) =>
+      ratelCourseLanguageName(context, code);
 
   String _worldLabel(WorldTheme w) =>
       kThemeWorlds[w.name]?.label ?? 'Daylight';

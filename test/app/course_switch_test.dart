@@ -100,7 +100,7 @@ void main() {
     await tester.pumpAndSettle();
 
     await tester.ensureVisible(find.text('Course'));
-    expect(find.text('English (en)'), findsOneWidget); // current label
+    expect(find.text('English'), findsOneWidget); // current label
   });
 
   testWidgets('Settings WITHOUT a scope renders no Course tile (regression)',

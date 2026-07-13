@@ -2855,6 +2855,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{label} · {days}d'**
   String practiceGradeInterval(String label, int days);
+
+  /// No description provided for @settingsGoalPerDay.
+  ///
+  /// In en, this message translates to:
+  /// **'{goal} XP per day'**
+  String settingsGoalPerDay(int goal);
+
+  /// No description provided for @settingsGoalReachedSub.
+  ///
+  /// In en, this message translates to:
+  /// **'{goal} XP per day · ✓ reached today'**
+  String settingsGoalReachedSub(int goal);
+
+  /// No description provided for @settingsSoundEffects.
+  ///
+  /// In en, this message translates to:
+  /// **'Sound effects'**
+  String get settingsSoundEffects;
+
+  /// No description provided for @settingsHaptics.
+  ///
+  /// In en, this message translates to:
+  /// **'Haptics'**
+  String get settingsHaptics;
+
+  /// No description provided for @settingsProActive.
+  ///
+  /// In en, this message translates to:
+  /// **'RATEL PRO active'**
+  String get settingsProActive;
+
+  /// No description provided for @settingsFreePlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Free plan'**
+  String get settingsFreePlan;
+
+  /// No description provided for @settingsReduceMotion.
+  ///
+  /// In en, this message translates to:
+  /// **'Reduce motion'**
+  String get settingsReduceMotion;
+
+  /// No description provided for @settingsReduceMotionSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Master switch — turns off every animation'**
+  String get settingsReduceMotionSub;
+
+  /// No description provided for @settingsHighContrast.
+  ///
+  /// In en, this message translates to:
+  /// **'High contrast'**
+  String get settingsHighContrast;
+
+  /// No description provided for @settingsNotifPush.
+  ///
+  /// In en, this message translates to:
+  /// **'Push notifications'**
+  String get settingsNotifPush;
+
+  /// No description provided for @settingsNotifStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak reminders'**
+  String get settingsNotifStreak;
+
+  /// No description provided for @settingsNotifLeague.
+  ///
+  /// In en, this message translates to:
+  /// **'League updates'**
+  String get settingsNotifLeague;
+
+  /// No description provided for @settingsNotifFriend.
+  ///
+  /// In en, this message translates to:
+  /// **'Friend activity'**
+  String get settingsNotifFriend;
+
+  /// No description provided for @settingsNotifFootnote.
+  ///
+  /// In en, this message translates to:
+  /// **'Your choices are saved now — delivery switches on when push notifications ship.'**
+  String get settingsNotifFootnote;
+
+  /// No description provided for @settingsCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Course'**
+  String get settingsCourse;
+
+  /// No description provided for @settingsTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get settingsTheme;
+
+  /// No description provided for @settingsWorld.
+  ///
+  /// In en, this message translates to:
+  /// **'World'**
+  String get settingsWorld;
+
+  /// No description provided for @settingsEditProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit profile'**
+  String get settingsEditProfile;
+
+  /// No description provided for @settingsPrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy & data'**
+  String get settingsPrivacy;
+
+  /// No description provided for @settingsHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Help & support'**
+  String get settingsHelp;
+
+  /// No description provided for @settingsLogOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get settingsLogOut;
+
+  /// No description provided for @settingsGuestSub.
+  ///
+  /// In en, this message translates to:
+  /// **'You are learning as a guest — sign up to save progress'**
+  String get settingsGuestSub;
+
+  /// No description provided for @settingsCouldNotOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open {url}'**
+  String settingsCouldNotOpen(String url);
+
+  /// No description provided for @settingsThemeSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'Match device'**
+  String get settingsThemeSystem;
+
+  /// No description provided for @settingsThemeLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get settingsThemeLight;
+
+  /// No description provided for @settingsThemeDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get settingsThemeDark;
 }
 
 class _AppLocalizationsDelegate

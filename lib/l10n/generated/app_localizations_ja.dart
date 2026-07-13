@@ -1559,4 +1559,91 @@ class AppLocalizationsJa extends AppLocalizations {
   String practiceGradeInterval(String label, int days) {
     return '$label · $days日';
   }
+
+  @override
+  String settingsGoalPerDay(int goal) {
+    return '$goal XP per day';
+  }
+
+  @override
+  String settingsGoalReachedSub(int goal) {
+    return '$goal XP per day · ✓ reached today';
+  }
+
+  @override
+  String get settingsSoundEffects => 'Sound effects';
+
+  @override
+  String get settingsHaptics => 'Haptics';
+
+  @override
+  String get settingsProActive => 'RATEL PRO active';
+
+  @override
+  String get settingsFreePlan => 'Free plan';
+
+  @override
+  String get settingsReduceMotion => 'Reduce motion';
+
+  @override
+  String get settingsReduceMotionSub =>
+      'Master switch — turns off every animation';
+
+  @override
+  String get settingsHighContrast => 'High contrast';
+
+  @override
+  String get settingsNotifPush => 'Push notifications';
+
+  @override
+  String get settingsNotifStreak => 'Streak reminders';
+
+  @override
+  String get settingsNotifLeague => 'League updates';
+
+  @override
+  String get settingsNotifFriend => 'Friend activity';
+
+  @override
+  String get settingsNotifFootnote =>
+      'Your choices are saved now — delivery switches on when push notifications ship.';
+
+  @override
+  String get settingsCourse => 'Course';
+
+  @override
+  String get settingsTheme => 'Theme';
+
+  @override
+  String get settingsWorld => 'World';
+
+  @override
+  String get settingsEditProfile => 'Edit profile';
+
+  @override
+  String get settingsPrivacy => 'Privacy & data';
+
+  @override
+  String get settingsHelp => 'Help & support';
+
+  @override
+  String get settingsLogOut => 'Log out';
+
+  @override
+  String get settingsGuestSub =>
+      'You are learning as a guest — sign up to save progress';
+
+  @override
+  String settingsCouldNotOpen(String url) {
+    return 'Could not open $url';
+  }
+
+  @override
+  String get settingsThemeSystem => 'Match device';
+
+  @override
+  String get settingsThemeLight => 'Light';
+
+  @override
+  String get settingsThemeDark => 'Dark';
 }
