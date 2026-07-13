@@ -1988,4 +1988,260 @@ class AppLocalizationsPt extends AppLocalizations {
   String questsGoalRemaining(int today, int goal, int remaining) {
     return '$today / $goal XP · $remaining XP to go';
   }
+
+  @override
+  String get worldLabelLight => 'Daylight';
+
+  @override
+  String get worldVehicleLight => 'Scooter';
+
+  @override
+  String get worldLabelGalaxy => 'Space';
+
+  @override
+  String get worldVehicleGalaxy => 'Star pod';
+
+  @override
+  String get worldLabelSavanna => 'Savanna';
+
+  @override
+  String get worldVehicleSavanna => 'Safari jeep';
+
+  @override
+  String get worldLabelOcean => 'Ocean';
+
+  @override
+  String get worldVehicleOcean => 'Submarine';
+
+  @override
+  String get worldLabelForest => 'Forest';
+
+  @override
+  String get worldVehicleForest => 'Leaf glider';
+
+  @override
+  String get worldLabelCandy => 'Candy';
+
+  @override
+  String get worldVehicleCandy => 'Balloon';
+
+  @override
+  String get worldLabelNeon => 'Neon City';
+
+  @override
+  String get worldVehicleNeon => 'Hover-bike';
+
+  @override
+  String get worldLabelStorm => 'Rainstorm';
+
+  @override
+  String get worldVehicleStorm => 'Storm glider';
+
+  @override
+  String get worldLabelSnow => 'Winter';
+
+  @override
+  String get worldVehicleSnow => 'Snow sled';
+
+  @override
+  String get worldLabelSakura => 'Cherry Blossom';
+
+  @override
+  String get worldVehicleSakura => 'Petal kite';
+
+  @override
+  String get worldLabelAutumn => 'Autumn';
+
+  @override
+  String get worldVehicleAutumn => 'Leaf-cart';
+
+  @override
+  String get worldLabelAurora => 'Aurora';
+
+  @override
+  String get worldVehicleAurora => 'Aurora skiff';
+
+  @override
+  String get worldLabelVolcano => 'Volcano';
+
+  @override
+  String get worldVehicleVolcano => 'Magma board';
+
+  @override
+  String get worldLabelSunset => 'Sunset';
+
+  @override
+  String get worldVehicleSunset => 'Glider';
+
+  @override
+  String get worldLabelDesert => 'Desert';
+
+  @override
+  String get worldVehicleDesert => 'Dune buggy';
+
+  @override
+  String get worldLabelReef => 'Coral Reef';
+
+  @override
+  String get worldVehicleReef => 'Glass boat';
+
+  @override
+  String get worldLabelMeadow => 'Meadow';
+
+  @override
+  String get worldVehicleMeadow => 'Bicycle';
+
+  @override
+  String get worldLabelDawn => 'Dawn';
+
+  @override
+  String get worldVehicleDawn => 'Sky balloon';
+
+  @override
+  String get worldLabelBeach => 'Tropical Beach';
+
+  @override
+  String get worldVehicleBeach => 'Catamaran';
+
+  @override
+  String get worldLabelMars => 'Mars';
+
+  @override
+  String get worldVehicleMars => 'Rover';
+
+  @override
+  String get worldLabelJungle => 'Rainforest';
+
+  @override
+  String get worldVehicleJungle => 'Zipline';
+
+  @override
+  String get worldLabelCyberrain => 'Cyber Rain';
+
+  @override
+  String get worldVehicleCyberrain => 'Hover-bike';
+
+  @override
+  String get worldLabelAbyss => 'Deep Sea';
+
+  @override
+  String get worldVehicleAbyss => 'Bathysphere';
+
+  @override
+  String get worldLabelAlpine => 'Alpine';
+
+  @override
+  String get worldVehicleAlpine => 'Cable car';
+
+  @override
+  String get worldLabelLavender => 'Lavender';
+
+  @override
+  String get worldVehicleLavender => 'Vespa';
+
+  @override
+  String get worldLabelBamboo => 'Bamboo Grove';
+
+  @override
+  String get worldVehicleBamboo => 'Rickshaw';
+
+  @override
+  String get worldLabelLagoon => 'Lagoon Night';
+
+  @override
+  String get worldVehicleLagoon => 'Kayak';
+
+  @override
+  String get worldLabelThunder => 'Thunderhead';
+
+  @override
+  String get worldVehicleThunder => 'Storm chaser';
+
+  @override
+  String get worldLabelNebula => 'Nebula';
+
+  @override
+  String get worldVehicleNebula => 'Star cruiser';
+
+  @override
+  String get worldLabelSandstorm => 'Sandstorm';
+
+  @override
+  String get worldVehicleSandstorm => 'Caravan';
+
+  @override
+  String get worldLabelCherrynight => 'Cherry Night';
+
+  @override
+  String get worldVehicleCherrynight => 'Paper lantern';
+
+  @override
+  String get shopYourBadger => 'Your badger';
+
+  @override
+  String get shopDiamondsNote =>
+      'A real-money 💎 top-up is coming. Diamonds are earned by finishing lessons and meeting your daily goal, and every power-up here spends them for real — nothing is faked.';
+
+  @override
+  String get shopProBannerSub => 'Live AI, no ads, offline · Try 7 days free';
+
+  @override
+  String get shopYourDiamonds => 'Your diamonds';
+
+  @override
+  String get shopEquipped => 'Equipped';
+
+  @override
+  String get shopEquip => 'Equip';
+
+  @override
+  String shopEquippedSnack(String name, String emoji) {
+    return 'Equipped $name $emoji';
+  }
+
+  @override
+  String get shopFree => 'Free';
+
+  @override
+  String get outfitClassic => 'Classic';
+
+  @override
+  String get outfitScholar => 'Scholar';
+
+  @override
+  String get outfitExplorer => 'Explorer';
+
+  @override
+  String get outfitAstronaut => 'Astronaut';
+
+  @override
+  String get outfitWizard => 'Wizard';
+
+  @override
+  String paywallAnnualLine(String annual, String perMonth) {
+    return '$annual/yr  ·  $perMonth/mo  ·  7 days free';
+  }
+
+  @override
+  String paywallMonthlyLine(String monthly) {
+    return '$monthly/mo  ·  billed monthly';
+  }
+
+  @override
+  String paywallSavePercent(int percent) {
+    return 'SAVE $percent%';
+  }
+
+  @override
+  String get paywallIncluded => 'What\'s included with Pro';
+
+  @override
+  String get paywallTerms => 'Terms';
+
+  @override
+  String get paywallPrivacy => 'Privacy';
+
+  @override
+  String get paywallNothingToRestore =>
+      'Nothing to restore — billing isn\'t live in this build yet.';
 }

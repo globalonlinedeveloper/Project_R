@@ -194,7 +194,7 @@ class _ThemeCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Text(
-                    world.label,
+                    ratelWorldLabel(context, world.id),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -205,7 +205,7 @@ class _ThemeCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    context.l10n.themesVehicle(world.vehicle),
+                    context.l10n.themesVehicle(ratelWorldVehicle(context, world.id)),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(

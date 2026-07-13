@@ -12,7 +12,8 @@ import 'package:ratel/core/core.dart';
 ///
 /// HONEST per anti-goal §E: Identity exposes only uid + isAuthenticated (no
 /// handle, no joined date), so the header shows ONLY the real cold-start
-/// Spanish level pill — never a fabricated handle/joined line.
+/// level pill (course-derived name + real CEFR level) — never a fabricated
+/// handle/joined line.
 
 void _sizeTall(WidgetTester tester, double width) {
   tester.view.devicePixelRatio = 1.0;
@@ -29,11 +30,11 @@ Future<void> _toProfile(WidgetTester tester) async {
 }
 
 void main() {
-  testWidgets('E-2 · Profile header shows the honest Spanish level pill',
+  testWidgets('E-2 · Profile header shows the honest level pill',
       (WidgetTester tester) async {
     _sizeTall(tester, 500);
     await _toProfile(tester);
-    expect(find.textContaining('Spanish · Level'), findsOneWidget);
+    expect(find.textContaining('· Level A1'), findsOneWidget);
     expect(find.textContaining('Level A1'), findsWidgets);
   });
 

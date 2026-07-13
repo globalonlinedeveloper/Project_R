@@ -244,12 +244,12 @@ class ShopScreen extends ConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text('Your badger',
+                            Text(context.l10n.shopYourBadger,
                                 style: TextStyle(
                                     fontFamily: RatelFont.body,
                                     fontSize: RatelType.small,
                                     color: context.palette.muted)),
-                            Text(equipped.name,
+                            Text(ratelOutfitName(context, equipped.id),
                                 style: TextStyle(
                                     fontFamily: RatelFont.display,
                                     fontWeight: RatelType.extraBold,
@@ -268,9 +268,7 @@ class ShopScreen extends ConsumerWidget {
             ),
             const SizedBox(height: RatelSpace.lg),
             Text(
-              'A real-money 💎 top-up is coming. Diamonds are earned by '
-              'finishing lessons and meeting your daily goal, and every '
-              'power-up here spends them for real — nothing is faked.',
+              context.l10n.shopDiamondsNote,
               style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.small,
@@ -303,7 +301,7 @@ class ShopScreen extends ConsumerWidget {
                           fontWeight: RatelType.extraBold,
                           fontSize: RatelType.cardTitle,
                           color: RatelColors.onColor)),
-                  Text('Live AI, no ads, offline \u00B7 Try 7 days free',
+                  Text(context.l10n.shopProBannerSub,
                       style: TextStyle(
                           fontFamily: RatelFont.body,
                           fontSize: RatelType.small,
@@ -325,7 +323,7 @@ class ShopScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Your diamonds',
+                Text(context.l10n.shopYourDiamonds,
                     style: TextStyle(
                         fontFamily: RatelFont.body,
                         fontSize: RatelType.small,
@@ -354,9 +352,9 @@ class ShopScreen extends ConsumerWidget {
     final bool canAfford = diamonds >= o.cost;
     final Widget trailing;
     if (isOn) {
-      trailing = const RatelChip(label: 'Equipped', tone: RatelChipTone.teal);
+      trailing = RatelChip(label: context.l10n.shopEquipped, tone: RatelChipTone.teal);
     } else if (owned) {
-      trailing = _pill(context, 'Equip', RatelColors.teal, RatelColors.onColor,
+      trailing = _pill(context, context.l10n.shopEquip, RatelColors.teal, RatelColors.onColor,
           () => ctl.equip(o.id));
     } else {
       trailing = _pill(
@@ -370,7 +368,8 @@ class ShopScreen extends ConsumerWidget {
                   ScaffoldMessenger.of(context)
                     ..hideCurrentSnackBar()
                     ..showSnackBar(SnackBar(
-                        content: Text('Equipped ${o.name} ${o.emoji}')));
+                        content: Text(context.l10n.shopEquippedSnack(
+                            ratelOutfitName(context, o.id), o.emoji))));
                 }
               }
             : null,
@@ -386,12 +385,12 @@ class ShopScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(o.name,
+                Text(ratelOutfitName(context, o.id),
                     style: TextStyle(
                         fontFamily: RatelFont.body,
                         fontSize: RatelType.body,
                         color: context.palette.ink)),
-                Text(o.cost == 0 ? 'Free' : '${o.cost} 💎',
+                Text(o.cost == 0 ? context.l10n.shopFree : '${o.cost} 💎',
                     style: TextStyle(
                         fontFamily: RatelFont.body,
                         fontSize: RatelType.small,

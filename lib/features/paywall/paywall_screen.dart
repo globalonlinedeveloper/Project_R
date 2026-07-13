@@ -171,8 +171,9 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
                 const SizedBox(height: 2),
                 Text(
                     annual
-                        ? '${price.annualDisplay}/yr  ·  ${price.annualPerMonthDisplay}/mo  ·  7 days free'
-                        : '${price.monthlyDisplay}/mo  ·  billed monthly',
+                        ? context.l10n.paywallAnnualLine(
+                            price.annualDisplay, price.annualPerMonthDisplay)
+                        : context.l10n.paywallMonthlyLine(price.monthlyDisplay),
                     style: TextStyle(
                         fontFamily: RatelFont.body,
                         fontSize: RatelType.small,
@@ -183,7 +184,7 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
           if (annual) ...<Widget>[
             const SizedBox(width: RatelSpace.sm),
             RatelChip(
-                label: 'SAVE ${price.annualSavingPercent}%',
+                label: context.l10n.paywallSavePercent(price.annualSavingPercent),
                 tone: RatelChipTone.green,
                 filled: true),
           ],
@@ -244,7 +245,7 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text("What's included with Pro",
+            Text(context.l10n.paywallIncluded,
                 style: TextStyle(
                     fontFamily: RatelFont.display,
                     fontWeight: RatelType.extraBold,
@@ -347,11 +348,11 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _legalLink(context, 'Terms', 'learnwithratel.com/terms'),
+              _legalLink(context, context.l10n.paywallTerms, 'learnwithratel.com/terms'),
               Text('  ·  ',
                   style: TextStyle(
                       fontSize: RatelType.caption, color: context.palette.muted)),
-              _legalLink(context, 'Privacy', 'learnwithratel.com/privacy'),
+              _legalLink(context, context.l10n.paywallPrivacy, 'learnwithratel.com/privacy'),
             ],
           ),
         ],
@@ -378,7 +379,7 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
   }
 
   void _restore(BuildContext context) => _snack(
-      context, "Nothing to restore — billing isn't live in this build yet.");
+      context, context.l10n.paywallNothingToRestore);
 
   void _snack(BuildContext context, String msg) {
     ScaffoldMessenger.of(context)

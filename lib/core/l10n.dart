@@ -263,3 +263,87 @@ String ratelSearchTag(BuildContext context, String tag) => switch (tag) {
       'Word' => context.l10n.searchTagWord,
       _ => tag, // CEFR codes (A1…C2) are locale-independent.
     };
+
+/// Badger-outfit display names (economy/outfits.dart catalogue) localize by id
+/// at the render site; unknown ids pass through.
+String ratelOutfitName(BuildContext context, String id) => switch (id) {
+      'classic' => context.l10n.outfitClassic,
+      'scholar' => context.l10n.outfitScholar,
+      'explorer' => context.l10n.outfitExplorer,
+      'astronaut' => context.l10n.outfitAstronaut,
+      'wizard' => context.l10n.outfitWizard,
+      _ => id,
+    };
+
+/// Theme-world display names + vehicles (core/theme/world_registry.dart) localize
+/// by world id at the render site; unknown ids pass the id through.
+String ratelWorldLabel(BuildContext context, String id) => switch (id) {
+      'light' => context.l10n.worldLabelLight,
+      'galaxy' => context.l10n.worldLabelGalaxy,
+      'savanna' => context.l10n.worldLabelSavanna,
+      'ocean' => context.l10n.worldLabelOcean,
+      'forest' => context.l10n.worldLabelForest,
+      'candy' => context.l10n.worldLabelCandy,
+      'neon' => context.l10n.worldLabelNeon,
+      'storm' => context.l10n.worldLabelStorm,
+      'snow' => context.l10n.worldLabelSnow,
+      'sakura' => context.l10n.worldLabelSakura,
+      'autumn' => context.l10n.worldLabelAutumn,
+      'aurora' => context.l10n.worldLabelAurora,
+      'volcano' => context.l10n.worldLabelVolcano,
+      'sunset' => context.l10n.worldLabelSunset,
+      'desert' => context.l10n.worldLabelDesert,
+      'reef' => context.l10n.worldLabelReef,
+      'meadow' => context.l10n.worldLabelMeadow,
+      'dawn' => context.l10n.worldLabelDawn,
+      'beach' => context.l10n.worldLabelBeach,
+      'mars' => context.l10n.worldLabelMars,
+      'jungle' => context.l10n.worldLabelJungle,
+      'cyberrain' => context.l10n.worldLabelCyberrain,
+      'abyss' => context.l10n.worldLabelAbyss,
+      'alpine' => context.l10n.worldLabelAlpine,
+      'lavender' => context.l10n.worldLabelLavender,
+      'bamboo' => context.l10n.worldLabelBamboo,
+      'lagoon' => context.l10n.worldLabelLagoon,
+      'thunder' => context.l10n.worldLabelThunder,
+      'nebula' => context.l10n.worldLabelNebula,
+      'sandstorm' => context.l10n.worldLabelSandstorm,
+      'cherrynight' => context.l10n.worldLabelCherrynight,
+      _ => id,
+    };
+
+String ratelWorldVehicle(BuildContext context, String id) => switch (id) {
+      'light' => context.l10n.worldVehicleLight,
+      'galaxy' => context.l10n.worldVehicleGalaxy,
+      'savanna' => context.l10n.worldVehicleSavanna,
+      'ocean' => context.l10n.worldVehicleOcean,
+      'forest' => context.l10n.worldVehicleForest,
+      'candy' => context.l10n.worldVehicleCandy,
+      'neon' => context.l10n.worldVehicleNeon,
+      'storm' => context.l10n.worldVehicleStorm,
+      'snow' => context.l10n.worldVehicleSnow,
+      'sakura' => context.l10n.worldVehicleSakura,
+      'autumn' => context.l10n.worldVehicleAutumn,
+      'aurora' => context.l10n.worldVehicleAurora,
+      'volcano' => context.l10n.worldVehicleVolcano,
+      'sunset' => context.l10n.worldVehicleSunset,
+      'desert' => context.l10n.worldVehicleDesert,
+      'reef' => context.l10n.worldVehicleReef,
+      'meadow' => context.l10n.worldVehicleMeadow,
+      'dawn' => context.l10n.worldVehicleDawn,
+      'beach' => context.l10n.worldVehicleBeach,
+      'mars' => context.l10n.worldVehicleMars,
+      'jungle' => context.l10n.worldVehicleJungle,
+      'cyberrain' => context.l10n.worldVehicleCyberrain,
+      'abyss' => context.l10n.worldVehicleAbyss,
+      'alpine' => context.l10n.worldVehicleAlpine,
+      'lavender' => context.l10n.worldVehicleLavender,
+      'bamboo' => context.l10n.worldVehicleBamboo,
+      'lagoon' => context.l10n.worldVehicleLagoon,
+      'thunder' => context.l10n.worldVehicleThunder,
+      'nebula' => context.l10n.worldVehicleNebula,
+      'sandstorm' => context.l10n.worldVehicleSandstorm,
+      'cherrynight' => context.l10n.worldVehicleCherrynight,
+      _ => id,
+    };
+

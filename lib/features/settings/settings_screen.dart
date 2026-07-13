@@ -152,7 +152,7 @@ class SettingsScreen extends ConsumerWidget {
               leadingEmoji: '🌌',
               leadingColor: RatelColors.blue,
               title: context.l10n.settingsWorld,
-              subtitle: _worldLabel(s.worldTheme),
+              subtitle: _worldLabel(context, s.worldTheme),
               onTap: () => context.push('/themes'),
             ),
             RatelListRow(
@@ -480,6 +480,6 @@ class SettingsScreen extends ConsumerWidget {
   static String _courseLabel(BuildContext context, String code) =>
       ratelCourseLanguageName(context, code);
 
-  String _worldLabel(WorldTheme w) =>
-      kThemeWorlds[w.name]?.label ?? 'Daylight';
+  String _worldLabel(BuildContext context, WorldTheme w) => ratelWorldLabel(
+      context, kThemeWorlds.containsKey(w.name) ? w.name : 'light');
 }

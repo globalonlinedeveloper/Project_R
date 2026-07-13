@@ -3527,6 +3527,498 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{today} / {goal} XP · {remaining} XP to go'**
   String questsGoalRemaining(int today, int goal, int remaining);
+
+  /// No description provided for @worldLabelLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Daylight'**
+  String get worldLabelLight;
+
+  /// No description provided for @worldVehicleLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Scooter'**
+  String get worldVehicleLight;
+
+  /// No description provided for @worldLabelGalaxy.
+  ///
+  /// In en, this message translates to:
+  /// **'Space'**
+  String get worldLabelGalaxy;
+
+  /// No description provided for @worldVehicleGalaxy.
+  ///
+  /// In en, this message translates to:
+  /// **'Star pod'**
+  String get worldVehicleGalaxy;
+
+  /// No description provided for @worldLabelSavanna.
+  ///
+  /// In en, this message translates to:
+  /// **'Savanna'**
+  String get worldLabelSavanna;
+
+  /// No description provided for @worldVehicleSavanna.
+  ///
+  /// In en, this message translates to:
+  /// **'Safari jeep'**
+  String get worldVehicleSavanna;
+
+  /// No description provided for @worldLabelOcean.
+  ///
+  /// In en, this message translates to:
+  /// **'Ocean'**
+  String get worldLabelOcean;
+
+  /// No description provided for @worldVehicleOcean.
+  ///
+  /// In en, this message translates to:
+  /// **'Submarine'**
+  String get worldVehicleOcean;
+
+  /// No description provided for @worldLabelForest.
+  ///
+  /// In en, this message translates to:
+  /// **'Forest'**
+  String get worldLabelForest;
+
+  /// No description provided for @worldVehicleForest.
+  ///
+  /// In en, this message translates to:
+  /// **'Leaf glider'**
+  String get worldVehicleForest;
+
+  /// No description provided for @worldLabelCandy.
+  ///
+  /// In en, this message translates to:
+  /// **'Candy'**
+  String get worldLabelCandy;
+
+  /// No description provided for @worldVehicleCandy.
+  ///
+  /// In en, this message translates to:
+  /// **'Balloon'**
+  String get worldVehicleCandy;
+
+  /// No description provided for @worldLabelNeon.
+  ///
+  /// In en, this message translates to:
+  /// **'Neon City'**
+  String get worldLabelNeon;
+
+  /// No description provided for @worldVehicleNeon.
+  ///
+  /// In en, this message translates to:
+  /// **'Hover-bike'**
+  String get worldVehicleNeon;
+
+  /// No description provided for @worldLabelStorm.
+  ///
+  /// In en, this message translates to:
+  /// **'Rainstorm'**
+  String get worldLabelStorm;
+
+  /// No description provided for @worldVehicleStorm.
+  ///
+  /// In en, this message translates to:
+  /// **'Storm glider'**
+  String get worldVehicleStorm;
+
+  /// No description provided for @worldLabelSnow.
+  ///
+  /// In en, this message translates to:
+  /// **'Winter'**
+  String get worldLabelSnow;
+
+  /// No description provided for @worldVehicleSnow.
+  ///
+  /// In en, this message translates to:
+  /// **'Snow sled'**
+  String get worldVehicleSnow;
+
+  /// No description provided for @worldLabelSakura.
+  ///
+  /// In en, this message translates to:
+  /// **'Cherry Blossom'**
+  String get worldLabelSakura;
+
+  /// No description provided for @worldVehicleSakura.
+  ///
+  /// In en, this message translates to:
+  /// **'Petal kite'**
+  String get worldVehicleSakura;
+
+  /// No description provided for @worldLabelAutumn.
+  ///
+  /// In en, this message translates to:
+  /// **'Autumn'**
+  String get worldLabelAutumn;
+
+  /// No description provided for @worldVehicleAutumn.
+  ///
+  /// In en, this message translates to:
+  /// **'Leaf-cart'**
+  String get worldVehicleAutumn;
+
+  /// No description provided for @worldLabelAurora.
+  ///
+  /// In en, this message translates to:
+  /// **'Aurora'**
+  String get worldLabelAurora;
+
+  /// No description provided for @worldVehicleAurora.
+  ///
+  /// In en, this message translates to:
+  /// **'Aurora skiff'**
+  String get worldVehicleAurora;
+
+  /// No description provided for @worldLabelVolcano.
+  ///
+  /// In en, this message translates to:
+  /// **'Volcano'**
+  String get worldLabelVolcano;
+
+  /// No description provided for @worldVehicleVolcano.
+  ///
+  /// In en, this message translates to:
+  /// **'Magma board'**
+  String get worldVehicleVolcano;
+
+  /// No description provided for @worldLabelSunset.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunset'**
+  String get worldLabelSunset;
+
+  /// No description provided for @worldVehicleSunset.
+  ///
+  /// In en, this message translates to:
+  /// **'Glider'**
+  String get worldVehicleSunset;
+
+  /// No description provided for @worldLabelDesert.
+  ///
+  /// In en, this message translates to:
+  /// **'Desert'**
+  String get worldLabelDesert;
+
+  /// No description provided for @worldVehicleDesert.
+  ///
+  /// In en, this message translates to:
+  /// **'Dune buggy'**
+  String get worldVehicleDesert;
+
+  /// No description provided for @worldLabelReef.
+  ///
+  /// In en, this message translates to:
+  /// **'Coral Reef'**
+  String get worldLabelReef;
+
+  /// No description provided for @worldVehicleReef.
+  ///
+  /// In en, this message translates to:
+  /// **'Glass boat'**
+  String get worldVehicleReef;
+
+  /// No description provided for @worldLabelMeadow.
+  ///
+  /// In en, this message translates to:
+  /// **'Meadow'**
+  String get worldLabelMeadow;
+
+  /// No description provided for @worldVehicleMeadow.
+  ///
+  /// In en, this message translates to:
+  /// **'Bicycle'**
+  String get worldVehicleMeadow;
+
+  /// No description provided for @worldLabelDawn.
+  ///
+  /// In en, this message translates to:
+  /// **'Dawn'**
+  String get worldLabelDawn;
+
+  /// No description provided for @worldVehicleDawn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sky balloon'**
+  String get worldVehicleDawn;
+
+  /// No description provided for @worldLabelBeach.
+  ///
+  /// In en, this message translates to:
+  /// **'Tropical Beach'**
+  String get worldLabelBeach;
+
+  /// No description provided for @worldVehicleBeach.
+  ///
+  /// In en, this message translates to:
+  /// **'Catamaran'**
+  String get worldVehicleBeach;
+
+  /// No description provided for @worldLabelMars.
+  ///
+  /// In en, this message translates to:
+  /// **'Mars'**
+  String get worldLabelMars;
+
+  /// No description provided for @worldVehicleMars.
+  ///
+  /// In en, this message translates to:
+  /// **'Rover'**
+  String get worldVehicleMars;
+
+  /// No description provided for @worldLabelJungle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rainforest'**
+  String get worldLabelJungle;
+
+  /// No description provided for @worldVehicleJungle.
+  ///
+  /// In en, this message translates to:
+  /// **'Zipline'**
+  String get worldVehicleJungle;
+
+  /// No description provided for @worldLabelCyberrain.
+  ///
+  /// In en, this message translates to:
+  /// **'Cyber Rain'**
+  String get worldLabelCyberrain;
+
+  /// No description provided for @worldVehicleCyberrain.
+  ///
+  /// In en, this message translates to:
+  /// **'Hover-bike'**
+  String get worldVehicleCyberrain;
+
+  /// No description provided for @worldLabelAbyss.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep Sea'**
+  String get worldLabelAbyss;
+
+  /// No description provided for @worldVehicleAbyss.
+  ///
+  /// In en, this message translates to:
+  /// **'Bathysphere'**
+  String get worldVehicleAbyss;
+
+  /// No description provided for @worldLabelAlpine.
+  ///
+  /// In en, this message translates to:
+  /// **'Alpine'**
+  String get worldLabelAlpine;
+
+  /// No description provided for @worldVehicleAlpine.
+  ///
+  /// In en, this message translates to:
+  /// **'Cable car'**
+  String get worldVehicleAlpine;
+
+  /// No description provided for @worldLabelLavender.
+  ///
+  /// In en, this message translates to:
+  /// **'Lavender'**
+  String get worldLabelLavender;
+
+  /// No description provided for @worldVehicleLavender.
+  ///
+  /// In en, this message translates to:
+  /// **'Vespa'**
+  String get worldVehicleLavender;
+
+  /// No description provided for @worldLabelBamboo.
+  ///
+  /// In en, this message translates to:
+  /// **'Bamboo Grove'**
+  String get worldLabelBamboo;
+
+  /// No description provided for @worldVehicleBamboo.
+  ///
+  /// In en, this message translates to:
+  /// **'Rickshaw'**
+  String get worldVehicleBamboo;
+
+  /// No description provided for @worldLabelLagoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Lagoon Night'**
+  String get worldLabelLagoon;
+
+  /// No description provided for @worldVehicleLagoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Kayak'**
+  String get worldVehicleLagoon;
+
+  /// No description provided for @worldLabelThunder.
+  ///
+  /// In en, this message translates to:
+  /// **'Thunderhead'**
+  String get worldLabelThunder;
+
+  /// No description provided for @worldVehicleThunder.
+  ///
+  /// In en, this message translates to:
+  /// **'Storm chaser'**
+  String get worldVehicleThunder;
+
+  /// No description provided for @worldLabelNebula.
+  ///
+  /// In en, this message translates to:
+  /// **'Nebula'**
+  String get worldLabelNebula;
+
+  /// No description provided for @worldVehicleNebula.
+  ///
+  /// In en, this message translates to:
+  /// **'Star cruiser'**
+  String get worldVehicleNebula;
+
+  /// No description provided for @worldLabelSandstorm.
+  ///
+  /// In en, this message translates to:
+  /// **'Sandstorm'**
+  String get worldLabelSandstorm;
+
+  /// No description provided for @worldVehicleSandstorm.
+  ///
+  /// In en, this message translates to:
+  /// **'Caravan'**
+  String get worldVehicleSandstorm;
+
+  /// No description provided for @worldLabelCherrynight.
+  ///
+  /// In en, this message translates to:
+  /// **'Cherry Night'**
+  String get worldLabelCherrynight;
+
+  /// No description provided for @worldVehicleCherrynight.
+  ///
+  /// In en, this message translates to:
+  /// **'Paper lantern'**
+  String get worldVehicleCherrynight;
+
+  /// No description provided for @shopYourBadger.
+  ///
+  /// In en, this message translates to:
+  /// **'Your badger'**
+  String get shopYourBadger;
+
+  /// No description provided for @shopDiamondsNote.
+  ///
+  /// In en, this message translates to:
+  /// **'A real-money 💎 top-up is coming. Diamonds are earned by finishing lessons and meeting your daily goal, and every power-up here spends them for real — nothing is faked.'**
+  String get shopDiamondsNote;
+
+  /// No description provided for @shopProBannerSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Live AI, no ads, offline · Try 7 days free'**
+  String get shopProBannerSub;
+
+  /// No description provided for @shopYourDiamonds.
+  ///
+  /// In en, this message translates to:
+  /// **'Your diamonds'**
+  String get shopYourDiamonds;
+
+  /// No description provided for @shopEquipped.
+  ///
+  /// In en, this message translates to:
+  /// **'Equipped'**
+  String get shopEquipped;
+
+  /// No description provided for @shopEquip.
+  ///
+  /// In en, this message translates to:
+  /// **'Equip'**
+  String get shopEquip;
+
+  /// No description provided for @shopEquippedSnack.
+  ///
+  /// In en, this message translates to:
+  /// **'Equipped {name} {emoji}'**
+  String shopEquippedSnack(String name, String emoji);
+
+  /// No description provided for @shopFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get shopFree;
+
+  /// No description provided for @outfitClassic.
+  ///
+  /// In en, this message translates to:
+  /// **'Classic'**
+  String get outfitClassic;
+
+  /// No description provided for @outfitScholar.
+  ///
+  /// In en, this message translates to:
+  /// **'Scholar'**
+  String get outfitScholar;
+
+  /// No description provided for @outfitExplorer.
+  ///
+  /// In en, this message translates to:
+  /// **'Explorer'**
+  String get outfitExplorer;
+
+  /// No description provided for @outfitAstronaut.
+  ///
+  /// In en, this message translates to:
+  /// **'Astronaut'**
+  String get outfitAstronaut;
+
+  /// No description provided for @outfitWizard.
+  ///
+  /// In en, this message translates to:
+  /// **'Wizard'**
+  String get outfitWizard;
+
+  /// No description provided for @paywallAnnualLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{annual}/yr  ·  {perMonth}/mo  ·  7 days free'**
+  String paywallAnnualLine(String annual, String perMonth);
+
+  /// No description provided for @paywallMonthlyLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{monthly}/mo  ·  billed monthly'**
+  String paywallMonthlyLine(String monthly);
+
+  /// No description provided for @paywallSavePercent.
+  ///
+  /// In en, this message translates to:
+  /// **'SAVE {percent}%'**
+  String paywallSavePercent(int percent);
+
+  /// No description provided for @paywallIncluded.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s included with Pro'**
+  String get paywallIncluded;
+
+  /// No description provided for @paywallTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms'**
+  String get paywallTerms;
+
+  /// No description provided for @paywallPrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy'**
+  String get paywallPrivacy;
+
+  /// No description provided for @paywallNothingToRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to restore — billing isn\'t live in this build yet.'**
+  String get paywallNothingToRestore;
 }
 
 class _AppLocalizationsDelegate
