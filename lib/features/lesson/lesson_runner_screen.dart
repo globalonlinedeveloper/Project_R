@@ -1227,7 +1227,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
             const SizedBox(width: RatelSpace.sm),
             Expanded(
               child: Text(
-                'Type your answer in the target language.',
+                context.l10n.lessonTypedNote,
                 style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.small,
@@ -1292,9 +1292,10 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         ? (_wasCorrect ? RatelColors.green : RatelColors.coral)
         : context.palette.border;
     final List<String> hints = <String>[
-      if (it.minTokens > 0) 'at least ${it.minTokens} words',
-      if (it.requiredWords.isNotEmpty) 'use: ${it.requiredWords.join(', ')}',
-      if (it.requireTerminalPunct) 'end with . ! or ?',
+      if (it.minTokens > 0) context.l10n.lessonHintMinWords(it.minTokens),
+      if (it.requiredWords.isNotEmpty)
+        context.l10n.lessonHintUseWords(it.requiredWords.join(', ')),
+      if (it.requireTerminalPunct) context.l10n.lessonHintEndPunct,
     ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

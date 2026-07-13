@@ -142,7 +142,7 @@ class _StartBubble extends StatelessWidget {
         ],
       ),
       child: Text(
-        'START',
+        context.l10n.homeStartNode,
         style: TextStyle(
           fontSize: 9,
           fontWeight: FontWeight.w800,

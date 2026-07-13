@@ -2233,4 +2233,74 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get paywallNothingToRestore =>
       'Nothing to restore — billing isn\'t live in this build yet.';
+
+  @override
+  String get contentUnavailableTitle => 'Content unavailable';
+
+  @override
+  String contentUnavailableBody(String noun) {
+    return 'This $noun is not available right now. If you are offline, check your connection and try again.';
+  }
+
+  @override
+  String get contentNounStory => 'story';
+
+  @override
+  String get contentNounPodcast => 'podcast';
+
+  @override
+  String get contentNounVideo => 'video';
+
+  @override
+  String get contentNounAdventure => 'adventure';
+
+  @override
+  String get contentNounRoleplay => 'roleplay';
+
+  @override
+  String get commonGoBack => 'Go back';
+
+  @override
+  String get placementTitle => 'Placement test';
+
+  @override
+  String placementQuestionN(int n) {
+    return 'Question $n';
+  }
+
+  @override
+  String get placementResultTitle => 'Your starting point';
+
+  @override
+  String placementResultBody(int count, String level) {
+    return 'Based on $count questions, we placed you at $level. You can always adjust later.';
+  }
+
+  @override
+  String get lessonTypedNote => 'Type your answer in the target language.';
+
+  @override
+  String lessonHintMinWords(int count) {
+    return 'at least $count words';
+  }
+
+  @override
+  String lessonHintUseWords(String words) {
+    return 'use: $words';
+  }
+
+  @override
+  String get lessonHintEndPunct => 'end with . ! or ?';
+
+  @override
+  String get lessonPlayAudio => 'Play audio';
+
+  @override
+  String get lessonPlaySlowly => 'Play slowly';
+
+  @override
+  String get lessonAudioUnavailable => 'Audio unavailable — read the prompt.';
+
+  @override
+  String get lessonPlaybackSpeed => 'Playback speed';
 }

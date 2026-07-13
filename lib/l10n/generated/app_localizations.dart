@@ -4019,6 +4019,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Nothing to restore — billing isn\'t live in this build yet.'**
   String get paywallNothingToRestore;
+
+  /// No description provided for @contentUnavailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Content unavailable'**
+  String get contentUnavailableTitle;
+
+  /// No description provided for @contentUnavailableBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This {noun} is not available right now. If you are offline, check your connection and try again.'**
+  String contentUnavailableBody(String noun);
+
+  /// No description provided for @contentNounStory.
+  ///
+  /// In en, this message translates to:
+  /// **'story'**
+  String get contentNounStory;
+
+  /// No description provided for @contentNounPodcast.
+  ///
+  /// In en, this message translates to:
+  /// **'podcast'**
+  String get contentNounPodcast;
+
+  /// No description provided for @contentNounVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'video'**
+  String get contentNounVideo;
+
+  /// No description provided for @contentNounAdventure.
+  ///
+  /// In en, this message translates to:
+  /// **'adventure'**
+  String get contentNounAdventure;
+
+  /// No description provided for @contentNounRoleplay.
+  ///
+  /// In en, this message translates to:
+  /// **'roleplay'**
+  String get contentNounRoleplay;
+
+  /// No description provided for @commonGoBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Go back'**
+  String get commonGoBack;
+
+  /// No description provided for @placementTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Placement test'**
+  String get placementTitle;
+
+  /// No description provided for @placementQuestionN.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {n}'**
+  String placementQuestionN(int n);
+
+  /// No description provided for @placementResultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your starting point'**
+  String get placementResultTitle;
+
+  /// No description provided for @placementResultBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on {count} questions, we placed you at {level}. You can always adjust later.'**
+  String placementResultBody(int count, String level);
+
+  /// No description provided for @lessonTypedNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your answer in the target language.'**
+  String get lessonTypedNote;
+
+  /// No description provided for @lessonHintMinWords.
+  ///
+  /// In en, this message translates to:
+  /// **'at least {count} words'**
+  String lessonHintMinWords(int count);
+
+  /// No description provided for @lessonHintUseWords.
+  ///
+  /// In en, this message translates to:
+  /// **'use: {words}'**
+  String lessonHintUseWords(String words);
+
+  /// No description provided for @lessonHintEndPunct.
+  ///
+  /// In en, this message translates to:
+  /// **'end with . ! or ?'**
+  String get lessonHintEndPunct;
+
+  /// No description provided for @lessonPlayAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'Play audio'**
+  String get lessonPlayAudio;
+
+  /// No description provided for @lessonPlaySlowly.
+  ///
+  /// In en, this message translates to:
+  /// **'Play slowly'**
+  String get lessonPlaySlowly;
+
+  /// No description provided for @lessonAudioUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio unavailable — read the prompt.'**
+  String get lessonAudioUnavailable;
+
+  /// No description provided for @lessonPlaybackSpeed.
+  ///
+  /// In en, this message translates to:
+  /// **'Playback speed'**
+  String get lessonPlaybackSpeed;
 }
 
 class _AppLocalizationsDelegate

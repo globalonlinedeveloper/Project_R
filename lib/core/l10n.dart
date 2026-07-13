@@ -347,3 +347,14 @@ String ratelWorldVehicle(BuildContext context, String id) => switch (id) {
       _ => id,
     };
 
+/// Content-player nouns (content_unavailable_card) localize by id at the render
+/// site; unknown nouns pass through.
+String ratelContentNoun(BuildContext context, String noun) => switch (noun) {
+      'story' => context.l10n.contentNounStory,
+      'podcast' => context.l10n.contentNounPodcast,
+      'video' => context.l10n.contentNounVideo,
+      'adventure' => context.l10n.contentNounAdventure,
+      'roleplay' => context.l10n.contentNounRoleplay,
+      _ => noun,
+    };
+

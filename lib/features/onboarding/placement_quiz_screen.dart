@@ -129,7 +129,7 @@ class _PlacementQuizScreenState extends ConsumerState<PlacementQuizScreen> {
           onPressed: () => context.go('/home'),
         ),
         title: Text(
-          'Placement test',
+          context.l10n.placementTitle,
           style: TextStyle(
             fontFamily: RatelFont.display,
             fontWeight: RatelType.extraBold,
@@ -159,7 +159,7 @@ class _PlacementQuizScreenState extends ConsumerState<PlacementQuizScreen> {
         ),
         const SizedBox(height: RatelSpace.sm),
         Text(
-          'Question ${_responses.length + 1}',
+          context.l10n.placementQuestionN(_responses.length + 1),
           style: TextStyle(
             fontFamily: RatelFont.body,
             fontSize: RatelType.small,
@@ -201,7 +201,7 @@ class _PlacementQuizScreenState extends ConsumerState<PlacementQuizScreen> {
         const Text('🧭', style: TextStyle(fontSize: 72)),
         const SizedBox(height: RatelSpace.lg),
         Text(
-          'Your starting point',
+          context.l10n.placementResultTitle,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontFamily: RatelFont.display,
@@ -214,8 +214,8 @@ class _PlacementQuizScreenState extends ConsumerState<PlacementQuizScreen> {
         RatelChip.level(_level.name.toUpperCase()),
         const SizedBox(height: RatelSpace.md),
         Text(
-          'Based on ${_responses.length} questions, we placed you at '
-          '${_level.name.toUpperCase()}. You can always adjust later.',
+          context.l10n.placementResultBody(
+              _responses.length, _level.name.toUpperCase()),
           textAlign: TextAlign.center,
           style: TextStyle(
             fontFamily: RatelFont.body,
@@ -225,7 +225,7 @@ class _PlacementQuizScreenState extends ConsumerState<PlacementQuizScreen> {
         ),
         const Spacer(),
         RatelButton(
-          label: 'Start learning',
+          label: context.l10n.onboardingStartLearning,
           onPressed: () => context.go('/home'),
         ),
         const SizedBox(height: RatelSpace.lg),

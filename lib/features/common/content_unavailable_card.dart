@@ -28,7 +28,7 @@ class ContentUnavailableCard extends StatelessWidget {
             const Text('\u{1F4E1}', style: TextStyle(fontSize: 56)),
             const SizedBox(height: RatelSpace.lg),
             Text(
-              'Content unavailable',
+              context.l10n.contentUnavailableTitle,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: RatelFont.display,
@@ -39,8 +39,7 @@ class ContentUnavailableCard extends StatelessWidget {
             ),
             const SizedBox(height: RatelSpace.sm),
             Text(
-              'This $noun is not available right now. If you are '
-              'offline, check your connection and try again.',
+              context.l10n.contentUnavailableBody(ratelContentNoun(context, noun)),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: RatelFont.body,
@@ -50,7 +49,7 @@ class ContentUnavailableCard extends StatelessWidget {
             ),
             const SizedBox(height: RatelSpace.lg),
             RatelButton(
-              label: 'Go back',
+              label: context.l10n.commonGoBack,
               variant: RatelButtonVariant.secondary,
               expand: false,
               onPressed: () => context.pop(),

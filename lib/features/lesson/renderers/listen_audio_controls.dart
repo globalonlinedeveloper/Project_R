@@ -84,7 +84,7 @@ class _ListenAudioControlsState extends State<ListenAudioControls> {
               which: 0,
               emoji: '🔊',
               size: 62,
-              label: 'Play audio',
+              label: context.l10n.lessonPlayAudio,
               onTap: () => _playAudio(slow: false),
             ),
             const SizedBox(width: RatelSpace.md),
@@ -92,7 +92,7 @@ class _ListenAudioControlsState extends State<ListenAudioControls> {
               which: 1,
               emoji: '🐢',
               size: 44,
-              label: 'Play slowly',
+              label: context.l10n.lessonPlaySlowly,
               onTap: () => _playAudio(slow: true),
             ),
             const SizedBox(width: RatelSpace.md),
@@ -102,7 +102,7 @@ class _ListenAudioControlsState extends State<ListenAudioControls> {
         if (_audioError) ...<Widget>[
           const SizedBox(height: RatelSpace.sm),
           Text(
-            'Audio unavailable — read the prompt.',
+            context.l10n.lessonAudioUnavailable,
             style: TextStyle(
               fontFamily: RatelFont.body,
               fontSize: RatelType.body,
@@ -124,7 +124,7 @@ class _ListenAudioControlsState extends State<ListenAudioControls> {
     // stays with the GestureDetector — never excludeSemantics here.
     return Semantics(
       button: true,
-      label: 'Playback speed',
+      label: context.l10n.lessonPlaybackSpeed,
       child: GestureDetector(
         key: const ValueKey<String>('listen-speed-toggle'),
         behavior: HitTestBehavior.opaque,

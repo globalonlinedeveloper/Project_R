@@ -127,7 +127,7 @@ class _GuideChip extends StatelessWidget {
             const Text('📖', style: TextStyle(fontSize: 15)),
             const SizedBox(width: 5),
             Text(
-              'Guide',
+              context.l10n.homeGuideChip,
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w800,
