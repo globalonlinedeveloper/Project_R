@@ -226,7 +226,7 @@ class _RoleplayPlayerScreenState extends ConsumerState<RoleplayPlayerScreen> {
           GestureDetector(
             key: const ValueKey<String>('roleplay-explain-toggle'),
             onTap: () => setState(() => _showExplain = !_showExplain),
-            child: Text('💡 Explain this',
+            child: Text(context.l10n.lessonExplainThis,
                 style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontWeight: RatelType.extraBold,

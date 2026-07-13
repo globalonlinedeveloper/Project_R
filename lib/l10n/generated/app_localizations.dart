@@ -432,6 +432,18 @@ abstract class AppLocalizations {
   /// **'Translate this sentence'**
   String get lessonTranslateSentence;
 
+  /// No description provided for @lessonExplainThis.
+  ///
+  /// In en, this message translates to:
+  /// **'💡 Explain this'**
+  String get lessonExplainThis;
+
+  /// No description provided for @lessonMatchPairs.
+  ///
+  /// In en, this message translates to:
+  /// **'Match the pairs'**
+  String get lessonMatchPairs;
+
   /// No description provided for @lessonTypeAnswerHint.
   ///
   /// In en, this message translates to:

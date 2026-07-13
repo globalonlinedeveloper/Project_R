@@ -183,6 +183,12 @@ class AppLocalizationsBn extends AppLocalizations {
   String get lessonTranslateSentence => 'এই বাক্যটি অনুবাদ করুন';
 
   @override
+  String get lessonExplainThis => '💡 Explain this';
+
+  @override
+  String get lessonMatchPairs => 'Match the pairs';
+
+  @override
   String get lessonTypeAnswerHint => 'আপনার উত্তর লিখুন…';
 
   @override

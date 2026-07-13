@@ -419,7 +419,7 @@ class _CheckQuestionState extends State<_CheckQuestion> {
                 key: ValueKey<String>('podcast-explain-toggle-${e.id}'),
                 onTap: () => setState(() => _showExplain = !_showExplain),
                 child: Text(
-                  '💡 Explain this',
+                  context.l10n.lessonExplainThis,
                   style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontWeight: RatelType.extraBold,

@@ -185,6 +185,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get lessonTranslateSentence => 'Übersetze diesen Satz';
 
   @override
+  String get lessonExplainThis => '💡 Explain this';
+
+  @override
+  String get lessonMatchPairs => 'Match the pairs';
+
+  @override
   String get lessonTypeAnswerHint => 'Deine Antwort…';
 
   @override

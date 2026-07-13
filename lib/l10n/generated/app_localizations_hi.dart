@@ -183,6 +183,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get lessonTranslateSentence => 'इस वाक्य का अनुवाद करें';
 
   @override
+  String get lessonExplainThis => '💡 Explain this';
+
+  @override
+  String get lessonMatchPairs => 'Match the pairs';
+
+  @override
   String get lessonTypeAnswerHint => 'अपना उत्तर लिखें…';
 
   @override

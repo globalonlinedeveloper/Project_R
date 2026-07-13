@@ -1457,7 +1457,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                '\u{1F4A1} Explain this',
+                ctx.l10n.lessonExplainThis,
                 style: TextStyle(
                   fontFamily: RatelFont.display,
                   fontWeight: RatelType.extraBold,
@@ -1553,7 +1553,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
                 key: const ValueKey<String>('lesson-explain-btn'),
                 onPressed: () => _showExplainSheet(_explainFor(it)!),
                 child: Text(
-                  '\u{1F4A1} Explain this',
+                  context.l10n.lessonExplainThis,
                   style: TextStyle(
                     fontFamily: RatelFont.body,
                     fontSize: RatelType.body,
@@ -1612,6 +1612,7 @@ class _LessonRunnerScreenState extends ConsumerState<LessonRunnerScreen> {
         'Type what you hear' => context.l10n.lessonTypeWhatYouHear,
         'Tap what you hear' => context.l10n.lessonTapWhatYouHear,
         'Translate this sentence' => context.l10n.lessonTranslateSentence,
+        'Match the pairs' => context.l10n.lessonMatchPairs,
         _ => it.prompt,
       };
 

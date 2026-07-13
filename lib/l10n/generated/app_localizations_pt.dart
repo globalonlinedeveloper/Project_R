@@ -186,6 +186,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get lessonTranslateSentence => 'Traduza esta frase';
 
   @override
+  String get lessonExplainThis => '💡 Explain this';
+
+  @override
+  String get lessonMatchPairs => 'Match the pairs';
+
+  @override
   String get lessonTypeAnswerHint => 'Digite sua resposta…';
 
   @override

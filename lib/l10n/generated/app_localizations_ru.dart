@@ -188,6 +188,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get lessonTranslateSentence => 'Переведите это предложение';
 
   @override
+  String get lessonExplainThis => '💡 Explain this';
+
+  @override
+  String get lessonMatchPairs => 'Match the pairs';
+
+  @override
   String get lessonTypeAnswerHint => 'Введите свой ответ…';
 
   @override

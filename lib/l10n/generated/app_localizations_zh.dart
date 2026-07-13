@@ -181,6 +181,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get lessonTranslateSentence => '翻译这个句子';
 
   @override
+  String get lessonExplainThis => '💡 Explain this';
+
+  @override
+  String get lessonMatchPairs => 'Match the pairs';
+
+  @override
   String get lessonTypeAnswerHint => '输入你的答案…';
 
   @override

@@ -187,6 +187,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get lessonTranslateSentence => 'Traduis cette phrase';
 
   @override
+  String get lessonExplainThis => '💡 Explain this';
+
+  @override
+  String get lessonMatchPairs => 'Match the pairs';
+
+  @override
   String get lessonTypeAnswerHint => 'Écris ta réponse…';
 
   @override

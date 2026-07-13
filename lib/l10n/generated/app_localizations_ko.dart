@@ -181,6 +181,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get lessonTranslateSentence => '이 문장을 번역하세요';
 
   @override
+  String get lessonExplainThis => '💡 Explain this';
+
+  @override
+  String get lessonMatchPairs => 'Match the pairs';
+
+  @override
   String get lessonTypeAnswerHint => '답을 입력하세요…';
 
   @override
