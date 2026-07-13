@@ -53,13 +53,13 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     final String message;
     bool stay = false;
     if (handleResult == null) {
-      message = 'Profile saved';
+      message = context.l10n.editProfileSaved;
     } else if (handleResult.outcome == FriendDeliveryOutcome.delivered) {
-      message = 'Saved — your @handle is set.';
+      message = context.l10n.editProfileHandleSet;
     } else if (handleResult.outcome == FriendDeliveryOutcome.unavailable) {
-      message = 'Name saved. Sign in to claim your @handle.';
+      message = context.l10n.editProfileSignInForHandle;
     } else {
-      message = handleResult.message ?? 'That @handle could not be set.';
+      message = handleResult.message ?? context.l10n.editProfileHandleFailed;
       stay = true; // keep the screen open so they can fix the handle
     }
 
@@ -83,7 +83,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           icon: Icon(RatelIcons.arrowBack, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: Text('Edit profile',
+        title: Text(context.l10n.settingsEditProfile,
             style: TextStyle(
                 fontFamily: RatelFont.display,
                 fontWeight: RatelType.extraBold,
@@ -94,7 +94,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         padding: const EdgeInsets.fromLTRB(RatelSpace.screen, RatelSpace.md,
             RatelSpace.screen, RatelSpace.xl),
         children: <Widget>[
-          const RatelSectionHeader(label: 'Display name'),
+          RatelSectionHeader(label: context.l10n.editProfileDisplayName),
           const SizedBox(height: RatelSpace.sm),
           RatelCard(
             child: TextField(
@@ -109,21 +109,20 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               decoration: InputDecoration(
                 border: InputBorder.none,
                 counterText: '',
-                hintText: 'How should we greet you?',
+                hintText: context.l10n.editProfileNameHint,
                 hintStyle: TextStyle(color: context.palette.muted),
               ),
             ),
           ),
           const SizedBox(height: RatelSpace.sm),
           Text(
-              'Shown on your profile. Saved on this device — it syncs to your '
-              'account when you sign in.',
+              context.l10n.editProfileNameNote,
               style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.small,
                   color: context.palette.muted)),
           const SizedBox(height: RatelSpace.lg),
-          const RatelSectionHeader(label: 'Your @handle'),
+          RatelSectionHeader(label: context.l10n.editProfileHandle),
           const SizedBox(height: RatelSpace.sm),
           RatelCard(
             child: TextField(
@@ -149,14 +148,13 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           ),
           const SizedBox(height: RatelSpace.sm),
           Text(
-              'Other learners add you by your @handle (2–20 letters, numbers '
-              'or _). Claiming it needs you to be signed in.',
+              context.l10n.editProfileHandleNote,
               style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.small,
                   color: context.palette.muted)),
           const SizedBox(height: RatelSpace.lg),
-          RatelButton(label: 'Save', onPressed: _save),
+          RatelButton(label: context.l10n.commonSave, onPressed: _save),
         ],
       ),
     );

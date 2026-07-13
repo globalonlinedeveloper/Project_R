@@ -123,7 +123,7 @@ class ProfileScreen extends ConsumerWidget {
     final bool authed = identity.isAuthenticated;
     final String name = displayName.trim().isNotEmpty
         ? displayName.trim()
-        : (authed ? 'Learner' : 'Guest');
+        : (authed ? context.l10n.profileLearner : context.l10n.profileGuest);
     return RatelCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -198,9 +198,9 @@ class ProfileScreen extends ConsumerWidget {
         Row(
           children: <Widget>[
             Expanded(
-                child: _statCard(context, '🔥', '${snap.streakDays}', 'Day streak')),
+                child: _statCard(context, '🔥', '${snap.streakDays}', context.l10n.progressStatDayStreak)),
             const SizedBox(width: RatelSpace.cardGap),
-            Expanded(child: _statCard(context, '⚡', '${snap.xpTotal}', 'Total XP')),
+            Expanded(child: _statCard(context, '⚡', '${snap.xpTotal}', context.l10n.progressStatTotalXp)),
           ],
         ),
         const SizedBox(height: RatelSpace.cardGap),
@@ -208,9 +208,9 @@ class ProfileScreen extends ConsumerWidget {
           children: <Widget>[
             Expanded(
                 child:
-                    _statCard(context, '📘', '${snap.lessonsCompleted}', 'Lessons')),
+                    _statCard(context, '📘', '${snap.lessonsCompleted}', context.l10n.progressStatLessons)),
             const SizedBox(width: RatelSpace.cardGap),
-            Expanded(child: _statCard(context, '🔖', '$words', 'Saved words')),
+            Expanded(child: _statCard(context, '🔖', '$words', context.l10n.progressStatSavedWords)),
           ],
         ),
       ],

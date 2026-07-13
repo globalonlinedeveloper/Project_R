@@ -3287,6 +3287,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not start the live session — try again.'**
   String get liveStartFailed;
+
+  /// No description provided for @friendsHandleInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a handle like @mia (2–20 letters, numbers, _).'**
+  String get friendsHandleInvalid;
+
+  /// No description provided for @friendsAlreadyConnected.
+  ///
+  /// In en, this message translates to:
+  /// **'You already have a connection with @{handle}.'**
+  String friendsAlreadyConnected(String handle);
+
+  /// No description provided for @friendsRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Requests'**
+  String get friendsRequests;
+
+  /// No description provided for @friendsYourFriends.
+  ///
+  /// In en, this message translates to:
+  /// **'Your friends'**
+  String get friendsYourFriends;
+
+  /// No description provided for @friendsPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get friendsPending;
+
+  /// No description provided for @friendsActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Friend activity'**
+  String get friendsActivity;
+
+  /// No description provided for @friendsFootnote.
+  ///
+  /// In en, this message translates to:
+  /// **'Your social graph is real and private to you. Friend requests are delivered, and \"passed you\" appears, once the durable cross-user graph goes live — the same go-live step as every other durable counter. Nothing here is faked.'**
+  String get friendsFootnote;
+
+  /// No description provided for @friendsAddHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a friend by @handle…'**
+  String get friendsAddHint;
+
+  /// No description provided for @friendsAccept.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept'**
+  String get friendsAccept;
+
+  /// No description provided for @friendsXpThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'@{handle} · {xp} XP this week'**
+  String friendsXpThisWeek(String handle, String xp);
+
+  /// No description provided for @friendsPassedYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Passed you'**
+  String get friendsPassedYou;
+
+  /// No description provided for @friendsRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get friendsRemove;
+
+  /// No description provided for @friendsBlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Block'**
+  String get friendsBlock;
+
+  /// No description provided for @friendsReportBlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Report & block'**
+  String get friendsReportBlock;
+
+  /// No description provided for @friendsRequestSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Request sent'**
+  String get friendsRequestSent;
+
+  /// No description provided for @friendsEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No friends yet'**
+  String get friendsEmptyTitle;
+
+  /// No description provided for @friendsEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add someone by their @handle to start sharing progress.'**
+  String get friendsEmptyBody;
+
+  /// No description provided for @profileLearner.
+  ///
+  /// In en, this message translates to:
+  /// **'Learner'**
+  String get profileLearner;
+
+  /// No description provided for @profileGuest.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest'**
+  String get profileGuest;
+
+  /// No description provided for @editProfileSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile saved'**
+  String get editProfileSaved;
+
+  /// No description provided for @editProfileHandleSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved — your @handle is set.'**
+  String get editProfileHandleSet;
+
+  /// No description provided for @editProfileSignInForHandle.
+  ///
+  /// In en, this message translates to:
+  /// **'Name saved. Sign in to claim your @handle.'**
+  String get editProfileSignInForHandle;
+
+  /// No description provided for @editProfileHandleFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'That @handle could not be set.'**
+  String get editProfileHandleFailed;
+
+  /// No description provided for @editProfileDisplayName.
+  ///
+  /// In en, this message translates to:
+  /// **'Display name'**
+  String get editProfileDisplayName;
+
+  /// No description provided for @editProfileNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'How should we greet you?'**
+  String get editProfileNameHint;
+
+  /// No description provided for @editProfileNameNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Shown on your profile. Saved on this device — it syncs to your account when you sign in.'**
+  String get editProfileNameNote;
+
+  /// No description provided for @editProfileHandle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your @handle'**
+  String get editProfileHandle;
+
+  /// No description provided for @editProfileHandleNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Other learners add you by your @handle (2–20 letters, numbers or _). Claiming it needs you to be signed in.'**
+  String get editProfileHandleNote;
+
+  /// No description provided for @commonSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get commonSave;
+
+  /// No description provided for @commonCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get commonCancel;
+
+  /// No description provided for @feedIsNowYourFriend.
+  ///
+  /// In en, this message translates to:
+  /// **'is now your friend'**
+  String get feedIsNowYourFriend;
+
+  /// No description provided for @feedReachedLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'reached {level}'**
+  String feedReachedLevel(String level);
+
+  /// No description provided for @feedDayStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}-day streak'**
+  String feedDayStreak(int count);
+
+  /// No description provided for @feedPassedYou.
+  ///
+  /// In en, this message translates to:
+  /// **'passed you in your league'**
+  String get feedPassedYou;
 }
 
 class _AppLocalizationsDelegate

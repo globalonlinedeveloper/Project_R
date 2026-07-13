@@ -1850,4 +1850,120 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get liveStartFailed => 'Could not start the live session — try again.';
+
+  @override
+  String get friendsHandleInvalid =>
+      'Enter a handle like @mia (2–20 letters, numbers, _).';
+
+  @override
+  String friendsAlreadyConnected(String handle) {
+    return 'You already have a connection with @$handle.';
+  }
+
+  @override
+  String get friendsRequests => 'Requests';
+
+  @override
+  String get friendsYourFriends => 'Your friends';
+
+  @override
+  String get friendsPending => 'Pending';
+
+  @override
+  String get friendsActivity => 'Friend activity';
+
+  @override
+  String get friendsFootnote =>
+      'Your social graph is real and private to you. Friend requests are delivered, and \"passed you\" appears, once the durable cross-user graph goes live — the same go-live step as every other durable counter. Nothing here is faked.';
+
+  @override
+  String get friendsAddHint => 'Add a friend by @handle…';
+
+  @override
+  String get friendsAccept => 'Accept';
+
+  @override
+  String friendsXpThisWeek(String handle, String xp) {
+    return '@$handle · $xp XP this week';
+  }
+
+  @override
+  String get friendsPassedYou => 'Passed you';
+
+  @override
+  String get friendsRemove => 'Remove';
+
+  @override
+  String get friendsBlock => 'Block';
+
+  @override
+  String get friendsReportBlock => 'Report & block';
+
+  @override
+  String get friendsRequestSent => 'Request sent';
+
+  @override
+  String get friendsEmptyTitle => 'No friends yet';
+
+  @override
+  String get friendsEmptyBody =>
+      'Add someone by their @handle to start sharing progress.';
+
+  @override
+  String get profileLearner => 'Learner';
+
+  @override
+  String get profileGuest => 'Guest';
+
+  @override
+  String get editProfileSaved => 'Profile saved';
+
+  @override
+  String get editProfileHandleSet => 'Saved — your @handle is set.';
+
+  @override
+  String get editProfileSignInForHandle =>
+      'Name saved. Sign in to claim your @handle.';
+
+  @override
+  String get editProfileHandleFailed => 'That @handle could not be set.';
+
+  @override
+  String get editProfileDisplayName => 'Display name';
+
+  @override
+  String get editProfileNameHint => 'How should we greet you?';
+
+  @override
+  String get editProfileNameNote =>
+      'Shown on your profile. Saved on this device — it syncs to your account when you sign in.';
+
+  @override
+  String get editProfileHandle => 'Your @handle';
+
+  @override
+  String get editProfileHandleNote =>
+      'Other learners add you by your @handle (2–20 letters, numbers or _). Claiming it needs you to be signed in.';
+
+  @override
+  String get commonSave => 'Save';
+
+  @override
+  String get commonCancel => 'Cancel';
+
+  @override
+  String get feedIsNowYourFriend => 'is now your friend';
+
+  @override
+  String feedReachedLevel(String level) {
+    return 'reached $level';
+  }
+
+  @override
+  String feedDayStreak(int count) {
+    return '$count-day streak';
+  }
+
+  @override
+  String get feedPassedYou => 'passed you in your league';
 }

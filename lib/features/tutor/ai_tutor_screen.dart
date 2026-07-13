@@ -57,7 +57,7 @@ class AiTutorScreen extends ConsumerWidget {
             ),
           ),
         ),
-        title: Text('AI Tutor',
+        title: Text(context.l10n.libraryAiTutor,
             style: TextStyle(
                 fontFamily: RatelFont.display,
                 fontWeight: RatelType.extraBold,

@@ -39,7 +39,7 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
   void _add(String raw) {
     final String handle = _engine.normalizeHandle(raw);
     if (!_engine.isValidHandle(raw)) {
-      setState(() => _error = 'Enter a handle like @mia (2–20 letters, numbers, _).');
+      setState(() => _error = context.l10n.friendsHandleInvalid);
       return;
     }
     final List<FriendRecord> rels =
@@ -51,7 +51,7 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
       status: FriendStatus.none,
     );
     if (!_engine.canSendRequest(rels, target)) {
-      setState(() => _error = 'You already have a connection with @$handle.');
+      setState(() => _error = context.l10n.friendsAlreadyConnected(handle));
       return;
     }
     ref.read(friendsControllerProvider.notifier).sendRequest(target);
@@ -81,7 +81,7 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
           onPressed: () => context.pop(),
         ),
         title: Text(
-          'Friends',
+          context.l10n.profileFriends,
           style: TextStyle(
             fontFamily: RatelFont.display,
             fontWeight: RatelType.extraBold,
@@ -107,7 +107,7 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
             ],
             const SizedBox(height: RatelSpace.lg),
             if (incoming.isNotEmpty) ...<Widget>[
-              const RatelSectionHeader(label: 'Requests'),
+              RatelSectionHeader(label: context.l10n.friendsRequests),
               const SizedBox(height: RatelSpace.sm),
               for (final FriendRecord r in incoming) ...<Widget>[
                 _requestRow(context, r),
@@ -115,7 +115,7 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
               ],
               const SizedBox(height: RatelSpace.md),
             ],
-            const RatelSectionHeader(label: 'Your friends'),
+            RatelSectionHeader(label: context.l10n.friendsYourFriends),
             const SizedBox(height: RatelSpace.sm),
             if (friends.isEmpty)
               _emptyFriends(context)
@@ -126,7 +126,7 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
               ],
             if (outgoing.isNotEmpty) ...<Widget>[
               const SizedBox(height: RatelSpace.md),
-              const RatelSectionHeader(label: 'Pending'),
+              RatelSectionHeader(label: context.l10n.friendsPending),
               const SizedBox(height: RatelSpace.sm),
               for (final FriendRecord r in outgoing) ...<Widget>[
                 _pendingRow(context, r),
@@ -135,7 +135,7 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
             ],
             if (feed.isNotEmpty) ...<Widget>[
               const SizedBox(height: RatelSpace.md),
-              const RatelSectionHeader(label: 'Friend activity'),
+              RatelSectionHeader(label: context.l10n.friendsActivity),
               const SizedBox(height: RatelSpace.sm),
               for (final FriendActivity a in feed) ...<Widget>[
                 _feedRow(context, a),
@@ -143,8 +143,7 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
               ],
             ],
             const SizedBox(height: RatelSpace.lg),
-            _note(context,
-                'Your social graph is real and private to you. Friend requests are delivered, and "${'passed you'}" appears, once the durable cross-user graph goes live — the same go-live step as every other durable counter. Nothing here is faked.'),
+            _note(context, context.l10n.friendsFootnote),
           ],
         ),
       ),
@@ -175,7 +174,7 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
                 decoration: InputDecoration(
                   isDense: true,
                   border: InputBorder.none,
-                  hintText: 'Add a friend by @handle…',
+                  hintText: context.l10n.friendsAddHint,
                   hintStyle: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.body,
@@ -207,7 +206,7 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
             SizedBox(
               width: 92,
               child: RatelButton(
-                label: 'Accept',
+                label: context.l10n.friendsAccept,
                 variant: RatelButtonVariant.success,
                 expand: false,
                 onPressed: () =>
@@ -231,12 +230,12 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
       RatelListRow(
         leadingEmoji: f.avatarEmoji,
         title: f.displayName,
-        subtitle: '@${f.handle} · ${_xp(f.weeklyXp)} XP this week',
+        subtitle: context.l10n.friendsXpThisWeek(f.handle, _xp(f.weeklyXp)),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             if (passedYou) ...<Widget>[
-              const RatelChip(label: 'Passed you', tone: RatelChipTone.coral),
+              RatelChip(label: context.l10n.friendsPassedYou, tone: RatelChipTone.coral),
               const SizedBox(width: RatelSpace.xs),
             ],
             PopupMenuButton<String>(
@@ -253,11 +252,14 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
                 if (v == 'report') c.report(f.userId);
               },
               itemBuilder: (BuildContext context) =>
-                  const <PopupMenuEntry<String>>[
-                PopupMenuItem<String>(value: 'remove', child: Text('Remove')),
-                PopupMenuItem<String>(value: 'block', child: Text('Block')),
+                  <PopupMenuEntry<String>>[
                 PopupMenuItem<String>(
-                    value: 'report', child: Text('Report & block')),
+                    value: 'remove', child: Text(context.l10n.friendsRemove)),
+                PopupMenuItem<String>(
+                    value: 'block', child: Text(context.l10n.friendsBlock)),
+                PopupMenuItem<String>(
+                    value: 'report',
+                    child: Text(context.l10n.friendsReportBlock)),
               ],
             ),
           ],
@@ -267,11 +269,11 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
   Widget _pendingRow(BuildContext context, FriendRecord r) => RatelListRow(
         leadingEmoji: r.avatarEmoji,
         title: r.displayName,
-        subtitle: 'Request sent',
+        subtitle: context.l10n.friendsRequestSent,
         trailing: TextButton(
           onPressed: () =>
               ref.read(friendsControllerProvider.notifier).remove(r.userId),
-          child: Text('Cancel',
+          child: Text(context.l10n.commonCancel,
               style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.small,
@@ -279,10 +281,35 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
         ),
       );
 
+  // Friend-feed summaries localize by activity TYPE at the render site — the
+  // engine keeps emitting the stable English summary (pinned by service tests;
+  // the stable-id pattern). Parametric summaries carry their value in the
+  // always-English summary text.
+  static String _feedSummary(BuildContext context, FriendActivity a) {
+    switch (a.type) {
+      case FriendActivityType.joined:
+        return context.l10n.feedIsNowYourFriend;
+      case FriendActivityType.leveledUp:
+        return context.l10n.feedReachedLevel(a.summary.startsWith('reached ')
+            ? a.summary.substring('reached '.length)
+            : a.summary);
+      case FriendActivityType.streak:
+        final Match? m =
+            RegExp(r'^(\d+)-day streak$').firstMatch(a.summary);
+        return m != null
+            ? context.l10n.feedDayStreak(int.parse(m.group(1)!))
+            : a.summary;
+      case FriendActivityType.passedYouInLeague:
+        return context.l10n.feedPassedYou;
+      case FriendActivityType.lessonsCompleted:
+        return a.summary;
+    }
+  }
+
   Widget _feedRow(BuildContext context, FriendActivity a) => RatelListRow(
         leadingEmoji: a.avatarEmoji,
         title: a.actorName,
-        subtitle: a.summary,
+        subtitle: _feedSummary(context, a),
       );
 
   Widget _emptyFriends(BuildContext context) => Container(
@@ -296,14 +323,14 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
           children: <Widget>[
             const Text('👋', style: TextStyle(fontSize: 40)),
             const SizedBox(height: RatelSpace.sm),
-            Text('No friends yet',
+            Text(context.l10n.friendsEmptyTitle,
                 style: TextStyle(
                     fontFamily: RatelFont.display,
                     fontWeight: RatelType.extraBold,
                     fontSize: RatelType.cardTitle,
                     color: context.palette.ink)),
             const SizedBox(height: RatelSpace.xs),
-            Text('Add someone by their @handle to start sharing progress.',
+            Text(context.l10n.friendsEmptyBody,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: RatelFont.body,
