@@ -2318,4 +2318,49 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get lessonPlaybackSpeed => 'Velocidade de reprodução';
+
+  @override
+  String get authAccountsUnavailable =>
+      'Accounts are not available in this build yet — keep learning as a guest.';
+
+  @override
+  String get liveNotEnabledShort => 'live AI is not enabled in this build.';
+
+  @override
+  String get liveMicUnavailable =>
+      'microphone unavailable — allow mic access to talk with the tutor.';
+
+  @override
+  String get liveUnavailable => 'live AI is unavailable right now.';
+
+  @override
+  String get liveNeedsPro => 'Live AI is part of RATEL PRO.';
+
+  @override
+  String get liveMinutesUsed => 'You\'ve used this month\'s live minutes.';
+
+  @override
+  String get commonNetworkError => 'Could not reach the server. Try again.';
+
+  @override
+  String get friendsHandleTaken => 'That @handle is already taken.';
+
+  @override
+  String get friendsHandleFormat =>
+      'Use 2–20 letters, numbers or _ for your handle.';
+
+  @override
+  String get friendsSignInForHandle => 'Sign in to claim your @handle.';
+
+  @override
+  String get friendsSetOwnHandleFirst =>
+      'Set your own @handle first (Edit profile).';
+
+  @override
+  String get paywallCheckoutUnavailable =>
+      'Checkout opens at launch — store billing isn\'t live in this build yet.';
+
+  @override
+  String get settingsManageUnavailable =>
+      'Manage or cancel in your device\'s Subscriptions settings — the in-app shortcut opens at launch.';
 }

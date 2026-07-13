@@ -80,8 +80,11 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
     return null;
   }
 
-  Future<void> _start(LiveSessionEngine engine, CourseSpine spine,
-      CourseScenario? scenario) async {
+  Future<void> _start(
+    LiveSessionEngine engine,
+    CourseSpine spine,
+    CourseScenario? scenario,
+  ) async {
     if (_starting || _session != null) return;
     setState(() {
       _starting = true;
@@ -131,14 +134,19 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
-          ..showSnackBar(SnackBar(content: Text(e.reason)));
+          ..showSnackBar(
+            SnackBar(
+              content: Text(
+                e.code == null ? e.reason : ratelLiveError(context, e.code!),
+              ),
+            ),
+          );
       }
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
-          ..showSnackBar(SnackBar(
-              content: Text(context.l10n.liveStartFailed)));
+          ..showSnackBar(SnackBar(content: Text(context.l10n.liveStartFailed)));
       }
     } finally {
       if (mounted) setState(() => _starting = false);
@@ -154,8 +162,10 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
         _turns.isNotEmpty &&
         _turns.last.speaker == t.speaker) {
       final LiveTurn prev = _turns.last;
-      _turns[_turns.length - 1] =
-          LiveTurn(speaker: prev.speaker, text: prev.text + t.text);
+      _turns[_turns.length - 1] = LiveTurn(
+        speaker: prev.speaker,
+        text: prev.text + t.text,
+      );
     } else {
       _turns.add(t);
       _sealOpenTurn = false;
@@ -195,14 +205,17 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
           icon: Icon(RatelIcons.arrowBack, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: Text(scenario?.title ?? context.l10n.liveRoleplayTitle,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                fontFamily: RatelFont.display,
-                fontWeight: RatelType.extraBold,
-                color: context.palette.ink,
-                fontSize: RatelType.cardTitle)),
+        title: Text(
+          scenario?.title ?? context.l10n.liveRoleplayTitle,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontFamily: RatelFont.display,
+            fontWeight: RatelType.extraBold,
+            color: context.palette.ink,
+            fontSize: RatelType.cardTitle,
+          ),
+        ),
       ),
       body: SafeArea(
         top: false,
@@ -219,14 +232,19 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
     return ListView(
       key: const ValueKey<String>('screen-live-roleplay-picker'),
       padding: const EdgeInsets.fromLTRB(
-          RatelSpace.screen, RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
+        RatelSpace.screen,
+        RatelSpace.lg,
+        RatelSpace.screen,
+        RatelSpace.xl,
+      ),
       children: <Widget>[
         Text(
           context.l10n.liveIntro,
           style: TextStyle(
-              fontFamily: RatelFont.body,
-              fontSize: RatelType.small,
-              color: context.palette.muted),
+            fontFamily: RatelFont.body,
+            fontSize: RatelType.small,
+            color: context.palette.muted,
+          ),
         ),
         const SizedBox(height: RatelSpace.lg),
         RatelListRow(
@@ -259,31 +277,43 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
   }
 
   // ---- the live scene ------------------------------------------------------
-  Widget _scene(BuildContext context, CourseSpine spine,
-      CourseScenario? scenario, bool isPro, LiveSessionEngine engine) {
+  Widget _scene(
+    BuildContext context,
+    CourseSpine spine,
+    CourseScenario? scenario,
+    bool isPro,
+    LiveSessionEngine engine,
+  ) {
     return ListView(
       key: const ValueKey<String>('screen-live-roleplay'),
       padding: const EdgeInsets.fromLTRB(
-          RatelSpace.screen, RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
+        RatelSpace.screen,
+        RatelSpace.lg,
+        RatelSpace.screen,
+        RatelSpace.xl,
+      ),
       children: <Widget>[
         if (scenario != null) ...<Widget>[
           RatelCard(
             color: context.palette.cream2,
-            child: Row(children: <Widget>[
-              const Text('🎯', style: TextStyle(fontSize: 20)),
-              const SizedBox(width: RatelSpace.sm),
-              Expanded(
-                child: Text(
-                  scenario.goal == null || scenario.goal!.isEmpty
-                      ? '${scenario.title} · ${scenario.cefr}'
-                      : '${scenario.goal!} · ${scenario.cefr}',
-                  style: TextStyle(
+            child: Row(
+              children: <Widget>[
+                const Text('🎯', style: TextStyle(fontSize: 20)),
+                const SizedBox(width: RatelSpace.sm),
+                Expanded(
+                  child: Text(
+                    scenario.goal == null || scenario.goal!.isEmpty
+                        ? '${scenario.title} · ${scenario.cefr}'
+                        : '${scenario.goal!} · ${scenario.cefr}',
+                    style: TextStyle(
                       fontFamily: RatelFont.body,
                       fontSize: RatelType.small,
-                      color: context.palette.muted),
+                      color: context.palette.muted,
+                    ),
+                  ),
                 ),
-              ),
-            ]),
+              ],
+            ),
           ),
           const SizedBox(height: RatelSpace.md),
         ],
@@ -308,24 +338,26 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Row(children: <Widget>[
-                    const Text('📡', style: TextStyle(fontSize: 18)),
-                    const SizedBox(width: RatelSpace.sm),
-                    Expanded(
-                      child: Text(
-                        _starting
-                            ? context.l10n.liveReconnecting
-                            : context.l10n.liveConnectionLost,
-                        key: const ValueKey<String>('live-reconnect-status'),
-                        style: TextStyle(
-                          fontFamily: RatelFont.body,
-                          fontSize: RatelType.small,
-                          fontWeight: RatelType.semiBold,
-                          color: context.palette.ink,
+                  Row(
+                    children: <Widget>[
+                      const Text('📡', style: TextStyle(fontSize: 18)),
+                      const SizedBox(width: RatelSpace.sm),
+                      Expanded(
+                        child: Text(
+                          _starting
+                              ? context.l10n.liveReconnecting
+                              : context.l10n.liveConnectionLost,
+                          key: const ValueKey<String>('live-reconnect-status'),
+                          style: TextStyle(
+                            fontFamily: RatelFont.body,
+                            fontSize: RatelType.small,
+                            fontWeight: RatelType.semiBold,
+                            color: context.palette.ink,
+                          ),
                         ),
                       ),
-                    ),
-                  ]),
+                    ],
+                  ),
                   if (!_starting) ...<Widget>[
                     const SizedBox(height: RatelSpace.sm),
                     RatelButton(
@@ -348,7 +380,9 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
           if (_session == null && !_ended)
             RatelButton(
               key: const ValueKey<String>('live-roleplay-start'),
-              label: _starting ? context.l10n.liveConnecting : context.l10n.liveStartTalking,
+              label: _starting
+                  ? context.l10n.liveConnecting
+                  : context.l10n.liveStartTalking,
               onPressed: _starting
                   ? null
                   : () => _start(engine, spine, scenario),
@@ -357,19 +391,22 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
           if (_ended && !_dropped) ...<Widget>[
             RatelCard(
               color: context.palette.cream2,
-              child: Row(children: <Widget>[
-                const Text('🏁', style: TextStyle(fontSize: 22)),
-                const SizedBox(width: RatelSpace.md),
-                Expanded(
-                  child: Text(
-                    context.l10n.liveSceneEndedNote,
-                    style: TextStyle(
+              child: Row(
+                children: <Widget>[
+                  const Text('🏁', style: TextStyle(fontSize: 22)),
+                  const SizedBox(width: RatelSpace.md),
+                  Expanded(
+                    child: Text(
+                      context.l10n.liveSceneEndedNote,
+                      style: TextStyle(
                         fontFamily: RatelFont.body,
                         fontSize: RatelType.body,
-                        color: context.palette.muted),
+                        color: context.palette.muted,
+                      ),
+                    ),
                   ),
-                ),
-              ]),
+                ],
+              ),
             ),
             const SizedBox(height: RatelSpace.md),
             RatelButton(
@@ -392,50 +429,56 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
   }
 
   Widget _proLock(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          RatelCard(
-            color: context.palette.cream2,
-            child: Row(children: <Widget>[
-              const Text('🎙️', style: TextStyle(fontSize: 22)),
-              const SizedBox(width: RatelSpace.md),
-              Expanded(
-                child: Text(
-                  context.l10n.liveProGate,
-                  style: TextStyle(
-                      fontFamily: RatelFont.body,
-                      fontSize: RatelType.body,
-                      color: context.palette.muted),
-                ),
-              ),
-              const SizedBox(width: RatelSpace.sm),
-              RatelChip.pro(),
-            ]),
-          ),
-          const SizedBox(height: RatelSpace.md),
-          RatelButton(
-            label: context.l10n.liveUnlockPro,
-            onPressed: () => context.push('/paywall?source=live-roleplay'),
-          ),
-        ],
-      );
-
-  Widget _notEnabled(BuildContext context) => RatelCard(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: <Widget>[
+      RatelCard(
         color: context.palette.cream2,
-        child: Row(children: <Widget>[
-          const Text('🔌', style: TextStyle(fontSize: 22)),
-          const SizedBox(width: RatelSpace.md),
-          Expanded(
-            child: Text(
-              context.l10n.liveNotEnabled,
-              style: TextStyle(
+        child: Row(
+          children: <Widget>[
+            const Text('🎙️', style: TextStyle(fontSize: 22)),
+            const SizedBox(width: RatelSpace.md),
+            Expanded(
+              child: Text(
+                context.l10n.liveProGate,
+                style: TextStyle(
                   fontFamily: RatelFont.body,
                   fontSize: RatelType.body,
-                  color: context.palette.muted),
+                  color: context.palette.muted,
+                ),
+              ),
+            ),
+            const SizedBox(width: RatelSpace.sm),
+            RatelChip.pro(),
+          ],
+        ),
+      ),
+      const SizedBox(height: RatelSpace.md),
+      RatelButton(
+        label: context.l10n.liveUnlockPro,
+        onPressed: () => context.push('/paywall?source=live-roleplay'),
+      ),
+    ],
+  );
+
+  Widget _notEnabled(BuildContext context) => RatelCard(
+    color: context.palette.cream2,
+    child: Row(
+      children: <Widget>[
+        const Text('🔌', style: TextStyle(fontSize: 22)),
+        const SizedBox(width: RatelSpace.md),
+        Expanded(
+          child: Text(
+            context.l10n.liveNotEnabled,
+            style: TextStyle(
+              fontFamily: RatelFont.body,
+              fontSize: RatelType.body,
+              color: context.palette.muted,
             ),
           ),
-        ]),
-      );
+        ),
+      ],
+    ),
+  );
 
   Widget _phaseCard(BuildContext context) {
     final (String emoji, String label) = switch (_phase) {
@@ -448,42 +491,46 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
     return RatelCard(
       key: const ValueKey<String>('live-roleplay-phase'),
       color: context.palette.cream2,
-      child: Row(children: <Widget>[
-        Text(emoji, style: const TextStyle(fontSize: 22)),
-        const SizedBox(width: RatelSpace.md),
-        Expanded(
-          child: Text(label,
+      child: Row(
+        children: <Widget>[
+          Text(emoji, style: const TextStyle(fontSize: 22)),
+          const SizedBox(width: RatelSpace.md),
+          Expanded(
+            child: Text(
+              label,
               style: TextStyle(
-                  fontFamily: RatelFont.body,
-                  fontSize: RatelType.body,
-                  color: context.palette.ink)),
-        ),
-      ]),
+                fontFamily: RatelFont.body,
+                fontSize: RatelType.body,
+                color: context.palette.ink,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _controls(BuildContext context) => Row(
-        children: <Widget>[
-          Expanded(
-            child: RatelButton(
-              key: const ValueKey<String>('live-roleplay-end'),
-              label: context.l10n.liveEndScene,
-              onPressed: _end,
-            ),
-          ),
-          const SizedBox(width: RatelSpace.md),
-          IconButton(
-            key: const ValueKey<String>('live-roleplay-mute'),
-            tooltip: _muted ? context.l10n.liveUnmute : context.l10n.liveMute,
-            onPressed: () {
-              setState(() => _muted = !_muted);
-              _session?.setMicMuted(_muted);
-            },
-            icon: Text(_muted ? '🔇' : '🎙️',
-                style: const TextStyle(fontSize: 22)),
-          ),
-        ],
-      );
+    children: <Widget>[
+      Expanded(
+        child: RatelButton(
+          key: const ValueKey<String>('live-roleplay-end'),
+          label: context.l10n.liveEndScene,
+          onPressed: _end,
+        ),
+      ),
+      const SizedBox(width: RatelSpace.md),
+      IconButton(
+        key: const ValueKey<String>('live-roleplay-mute'),
+        tooltip: _muted ? context.l10n.liveUnmute : context.l10n.liveMute,
+        onPressed: () {
+          setState(() => _muted = !_muted);
+          _session?.setMicMuted(_muted);
+        },
+        icon: Text(_muted ? '🔇' : '🎙️', style: const TextStyle(fontSize: 22)),
+      ),
+    ],
+  );
 
   Widget _turn(BuildContext context, int i) {
     final LiveTurn t = _turns[i];
@@ -492,13 +539,16 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
       key: ValueKey<String>('live-turn-$i'),
       padding: const EdgeInsets.only(bottom: RatelSpace.sm),
       child: Row(
-        mainAxisAlignment:
-            you ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: you
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
         children: <Widget>[
           Flexible(
             child: Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: RatelSpace.md, vertical: RatelSpace.sm),
+                horizontal: RatelSpace.md,
+                vertical: RatelSpace.sm,
+              ),
               decoration: BoxDecoration(
                 color: you ? RatelColors.teal : context.palette.cream2,
                 borderRadius: BorderRadius.circular(RatelRadius.card),
@@ -506,9 +556,10 @@ class _LiveRoleplayScreenState extends ConsumerState<LiveRoleplayScreen> {
               child: Text(
                 '${you ? context.l10n.liveYou : '🦡 Ratel'}: ${t.text}',
                 style: TextStyle(
-                    fontFamily: RatelFont.body,
-                    fontSize: RatelType.body,
-                    color: you ? RatelColors.onColor : context.palette.ink),
+                  fontFamily: RatelFont.body,
+                  fontSize: RatelType.body,
+                  color: you ? RatelColors.onColor : context.palette.ink,
+                ),
               ),
             ),
           ),

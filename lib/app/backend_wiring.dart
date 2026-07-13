@@ -40,8 +40,9 @@ import 'auth_gate.dart';
 /// key is NEVER in client code — see [ServiceRoleKeyContract]). Both default to
 /// empty, so an un-configured build (and every test) stays local.
 const String kSupabaseUrl = String.fromEnvironment('SUPABASE_URL');
-const String kSupabasePublishableKey =
-    String.fromEnvironment('SUPABASE_PUBLISHABLE_KEY');
+const String kSupabasePublishableKey = String.fromEnvironment(
+  'SUPABASE_PUBLISHABLE_KEY',
+);
 
 /// Opt-in (build-dark until go-live): boot a Supabase ANONYMOUS session on
 /// launch so durable persistence works BEFORE login. Two-step go-live (§2):
@@ -60,8 +61,7 @@ const bool kEnableAnonSession = bool.fromEnvironment('RATEL_ANON');
 const bool kEnableAiRelay = bool.fromEnvironment('RATEL_AI_RELAY');
 
 /// The server-side relay endpoint, derived from the Supabase project URL.
-String aiRelayUrl(String supabaseUrl) =>
-    '$supabaseUrl/functions/v1/ai-relay';
+String aiRelayUrl(String supabaseUrl) => '$supabaseUrl/functions/v1/ai-relay';
 
 /// Real transport for [EdgeAiRelay]: POST through the Supabase Functions
 /// client (which attaches the session JWT + project apikey), adapting its
@@ -71,8 +71,10 @@ HttpTransport supabaseFunctionsTransport(SupabaseClient client) =>
     (HttpLikeRequest req) async {
       final Map<String, dynamic> body =
           jsonDecode(req.body) as Map<String, dynamic>;
-      final FunctionResponse resp =
-          await client.functions.invoke('ai-relay', body: body);
+      final FunctionResponse resp = await client.functions.invoke(
+        'ai-relay',
+        body: body,
+      );
       return HttpLikeResponse(
         statusCode: resp.status,
         body: jsonEncode(resp.data),
@@ -89,8 +91,7 @@ HttpTransport supabaseFunctionsTransport(SupabaseClient client) =>
 const bool kEnableTts = bool.fromEnvironment('RATEL_TTS');
 
 /// The server-side TTS relay endpoint, derived from the Supabase project URL.
-String ttsRelayUrl(String supabaseUrl) =>
-    '$supabaseUrl/functions/v1/tts-relay';
+String ttsRelayUrl(String supabaseUrl) => '$supabaseUrl/functions/v1/tts-relay';
 
 /// Real transport for [EdgeTtsRelay]: POST through the Supabase Functions client
 /// (which attaches the session JWT + project apikey). The GCP_TTS key is NEVER
@@ -99,8 +100,10 @@ HttpTransport supabaseTtsTransport(SupabaseClient client) =>
     (HttpLikeRequest req) async {
       final Map<String, dynamic> body =
           jsonDecode(req.body) as Map<String, dynamic>;
-      final FunctionResponse resp =
-          await client.functions.invoke('tts-relay', body: body);
+      final FunctionResponse resp = await client.functions.invoke(
+        'tts-relay',
+        body: body,
+      );
       return HttpLikeResponse(
         statusCode: resp.status,
         body: jsonEncode(resp.data),
@@ -116,15 +119,19 @@ HttpTransport supabaseTtsTransport(SupabaseClient client) =>
 LiveTokenFetcher supabaseLiveTokenFetcher(SupabaseClient client) =>
     ({Map<String, Object?>? payload}) async {
       try {
-        final FunctionResponse resp = await client.functions
-            .invoke('live-token', body: payload);
+        final FunctionResponse resp = await client.functions.invoke(
+          'live-token',
+          body: payload,
+        );
         final dynamic data = resp.data;
         final String? token = data is Map
             ? (data['token'] ?? data['name']) as String?
             : null;
         if (token == null || token.isEmpty) {
           throw const LiveSessionUnavailable(
-              'live AI is unavailable right now.');
+            'live AI is unavailable right now.',
+            code: LiveUnavailableCode.unavailable,
+          );
         }
         return LiveTokenGrant(
           token: token,
@@ -134,17 +141,31 @@ LiveTokenFetcher supabaseLiveTokenFetcher(SupabaseClient client) =>
         rethrow;
       } on FunctionException catch (e) {
         final dynamic det = e.details;
-        final String reason = det is Map && det['error'] is String
-            ? det['error'] as String
-            : (e.status == 403
-                ? 'Live AI is part of RATEL PRO.'
-                : e.status == 429
-                    ? "You've used this month's live minutes."
-                    : 'live AI is unavailable right now.');
-        throw LiveSessionUnavailable(reason);
+        // A dynamic server-provided reason renders verbatim (no code).
+        if (det is Map && det['error'] is String) {
+          throw LiveSessionUnavailable(det['error'] as String);
+        }
+        if (e.status == 403) {
+          throw const LiveSessionUnavailable(
+            'Live AI is part of RATEL PRO.',
+            code: LiveUnavailableCode.needsPro,
+          );
+        }
+        if (e.status == 429) {
+          throw const LiveSessionUnavailable(
+            "You've used this month's live minutes.",
+            code: LiveUnavailableCode.minutesUsed,
+          );
+        }
+        throw const LiveSessionUnavailable(
+          'live AI is unavailable right now.',
+          code: LiveUnavailableCode.unavailable,
+        );
       } catch (_) {
         throw const LiveSessionUnavailable(
-            'live AI is unavailable right now.');
+          'live AI is unavailable right now.',
+          code: LiveUnavailableCode.unavailable,
+        );
       }
     };
 
@@ -153,8 +174,7 @@ LiveTokenFetcher supabaseLiveTokenFetcher(SupabaseClient client) =>
 bool supabaseConfigured({
   String url = kSupabaseUrl,
   String publishableKey = kSupabasePublishableKey,
-}) =>
-    url.isNotEmpty && publishableKey.isNotEmpty;
+}) => url.isNotEmpty && publishableKey.isNotEmpty;
 
 /// Pure gate for booting an anonymous session: only when the backend is
 /// configured, anon boot is enabled, there is no existing session, AND the
@@ -168,8 +188,7 @@ bool shouldBootAnonSession({
   required bool enabled,
   required bool hasSession,
   required bool guestChosen,
-}) =>
-    configured && enabled && !hasSession && guestChosen;
+}) => configured && enabled && !hasSession && guestChosen;
 
 /// Pure (no network): build the Riverpod overrides that plug an already-created
 /// [client] behind the data-access + identity seams. `main` supplies the live
@@ -194,63 +213,69 @@ Future<bool> fetchIsPro(SupabaseClient client) async {
 }
 
 List<Override> backendOverridesForClient(SupabaseClient client) => <Override>[
-      learnerStateStoreProvider
-          .overrideWithValue(SupabaseLearnerStateStore.fromClient(client)),
-      friendsStoreProvider
-          .overrideWithValue(SupabaseFriendsStore.fromClient(client)),
-      leaguesStoreProvider
-          .overrideWithValue(SupabaseLeaguesStore.fromClient(client)),
-      friendsServiceProvider
-          .overrideWithValue(SupabaseFriendsService.fromClient(client)),
-      identityProvider
-          .overrideWithValue(SupabaseIdentity.fromClient(client)),
-      reviewLogSinkProvider
-          .overrideWithValue(SupabaseReviewLogSink.fromClient(client)),
-      savedWordsStoreProvider
-          .overrideWithValue(SupabaseSavedWordsStore.fromClient(client)),
-      // L-5 (S140): batch IRT re-calibration store — DORMANT build-ahead.
-      // Nothing consumes calibrationRunnerProvider at runtime, so this
-      // override is byte-identical live; it powers the go-live batch host.
-      calibrationStoreProvider
-          .overrideWithValue(SupabaseCalibrationStore.fromClient(client)),
-      authServiceProvider
-          .overrideWithValue(SupabaseAuthService.fromClient(client)),
-      // L-5b (S114): PRO entitlements follow profiles.is_pro — reactive via
-      // proStatusProvider (boot-seeded in main; refreshed on session entry).
-      entitlementsProvider.overrideWith(
-          (ref) => StaticEntitlements(isPro: ref.watch(proStatusProvider))),
-      proStatusRefresherProvider.overrideWith((ref) => () async {
-        final bool isPro = await fetchIsPro(client);
-        ref.read(proStatusProvider.notifier).state = isPro;
-      }),
-      if (kEnableAiRelay)
-        aiRelayProvider.overrideWithValue(
-          RequestSizeLimitedAiRelay(
-            EdgeAiRelay(
-              transport: supabaseFunctionsTransport(client),
-              url: aiRelayUrl(kSupabaseUrl),
-            ),
-          ),
+  learnerStateStoreProvider.overrideWithValue(
+    SupabaseLearnerStateStore.fromClient(client),
+  ),
+  friendsStoreProvider.overrideWithValue(
+    SupabaseFriendsStore.fromClient(client),
+  ),
+  leaguesStoreProvider.overrideWithValue(
+    SupabaseLeaguesStore.fromClient(client),
+  ),
+  friendsServiceProvider.overrideWithValue(
+    SupabaseFriendsService.fromClient(client),
+  ),
+  identityProvider.overrideWithValue(SupabaseIdentity.fromClient(client)),
+  reviewLogSinkProvider.overrideWithValue(
+    SupabaseReviewLogSink.fromClient(client),
+  ),
+  savedWordsStoreProvider.overrideWithValue(
+    SupabaseSavedWordsStore.fromClient(client),
+  ),
+  // L-5 (S140): batch IRT re-calibration store — DORMANT build-ahead.
+  // Nothing consumes calibrationRunnerProvider at runtime, so this
+  // override is byte-identical live; it powers the go-live batch host.
+  calibrationStoreProvider.overrideWithValue(
+    SupabaseCalibrationStore.fromClient(client),
+  ),
+  authServiceProvider.overrideWithValue(SupabaseAuthService.fromClient(client)),
+  // L-5b (S114): PRO entitlements follow profiles.is_pro — reactive via
+  // proStatusProvider (boot-seeded in main; refreshed on session entry).
+  entitlementsProvider.overrideWith(
+    (ref) => StaticEntitlements(isPro: ref.watch(proStatusProvider)),
+  ),
+  proStatusRefresherProvider.overrideWith(
+    (ref) => () async {
+      final bool isPro = await fetchIsPro(client);
+      ref.read(proStatusProvider.notifier).state = isPro;
+    },
+  ),
+  if (kEnableAiRelay)
+    aiRelayProvider.overrideWithValue(
+      RequestSizeLimitedAiRelay(
+        EdgeAiRelay(
+          transport: supabaseFunctionsTransport(client),
+          url: aiRelayUrl(kSupabaseUrl),
         ),
-      if (kEnableTts)
-        ttsRelayProvider.overrideWithValue(
-          TtsSizeLimitedTtsRelay(
-            EdgeTtsRelay(
-              transport: supabaseTtsTransport(client),
-              url: ttsRelayUrl(kSupabaseUrl),
-            ),
-          ),
+      ),
+    ),
+  if (kEnableTts)
+    ttsRelayProvider.overrideWithValue(
+      TtsSizeLimitedTtsRelay(
+        EdgeTtsRelay(
+          transport: supabaseTtsTransport(client),
+          url: ttsRelayUrl(kSupabaseUrl),
         ),
-      // L-2 (S112): DORMANT live-AI seam — flag off => this override is absent
-      // and the engine stays the honest Unavailable default (byte-identical
-      // build; the Tutor two-signal gate stays false). Flip = L-5.
-      if (kEnableLiveAi)
-        liveSessionEngineProvider.overrideWithValue(
-          createLiveSessionEngine(
-            tokenFetcher: supabaseLiveTokenFetcher(client),
-          ),
-        ),
-    ];
+      ),
+    ),
+  // L-2 (S112): DORMANT live-AI seam — flag off => this override is absent
+  // and the engine stays the honest Unavailable default (byte-identical
+  // build; the Tutor two-signal gate stays false). Flip = L-5.
+  if (kEnableLiveAi)
+    liveSessionEngineProvider.overrideWithValue(
+      createLiveSessionEngine(tokenFetcher: supabaseLiveTokenFetcher(client)),
+    ),
+];
 
 /// Best-effort `main`-side wiring: when [supabaseConfigured], initialise the
 /// Supabase singleton and return the seam overrides; otherwise — or on ANY

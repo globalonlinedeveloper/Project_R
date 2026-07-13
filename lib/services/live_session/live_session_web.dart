@@ -12,8 +12,8 @@ import 'live_session.dart';
 /// AND `backend_wiring` armed a token fetcher — otherwise honest Unavailable.
 LiveSessionEngine createLiveSessionEngine({LiveTokenFetcher? tokenFetcher}) =>
     kEnableLiveAi && tokenFetcher != null
-        ? WebLiveSessionEngine(tokenFetcher)
-        : const UnavailableLiveSessionEngine();
+    ? WebLiveSessionEngine(tokenFetcher)
+    : const UnavailableLiveSessionEngine();
 
 /// Gemini Live over the browser: single-use ephemeral token (minted by the
 /// `live-token` edge function — model + system prompt LOCKED server-side, no
@@ -40,7 +40,9 @@ class WebLiveSessionEngine implements LiveSessionEngine {
       rethrow;
     } catch (_) {
       throw const LiveSessionUnavailable(
-          'could not start a live session — please try again.');
+        'could not start a live session — please try again.',
+        code: LiveUnavailableCode.startFailed,
+      );
     }
     final _WebLiveSession session = _WebLiveSession();
     await session.open(grant);
@@ -88,28 +90,28 @@ class _WebLiveSession implements LiveSession {
     _machine.advance(LiveSessionEvent.connectRequested);
     // 1) Audio pipeline FIRST (inside the user gesture): contexts + mic.
     try {
-      final web.AudioContext ctxIn =
-          web.AudioContext(web.AudioContextOptions(sampleRate: 16000));
-      final web.AudioContext ctxOut =
-          web.AudioContext(web.AudioContextOptions(sampleRate: 24000));
+      final web.AudioContext ctxIn = web.AudioContext(
+        web.AudioContextOptions(sampleRate: 16000),
+      );
+      final web.AudioContext ctxOut = web.AudioContext(
+        web.AudioContextOptions(sampleRate: 24000),
+      );
       _ctxIn = ctxIn;
       _ctxOut = ctxOut;
       await ctxIn.resume().toDart;
       await ctxOut.resume().toDart;
       _mic = (await web.window.navigator.mediaDevices
-              .getUserMedia(web.MediaStreamConstraints(audio: true.toJS))
-              .toDart);
+          .getUserMedia(web.MediaStreamConstraints(audio: true.toJS))
+          .toDart);
       await ctxIn.audioWorklet.addModule('ratel_mic_worklet.js').toDart;
-      final web.AudioWorkletNode tap =
-          web.AudioWorkletNode(ctxIn, 'ratel-mic');
+      final web.AudioWorkletNode tap = web.AudioWorkletNode(ctxIn, 'ratel-mic');
       _tap = tap;
       ctxIn.createMediaStreamSource(_mic!).connect(tap);
       tap.port.onmessage = ((web.MessageEvent e) {
         final JSAny? data = e.data;
         if (data == null || _muted || _ws == null) return;
         final LiveSessionPhase p = _machine.phase;
-        if (p != LiveSessionPhase.listening &&
-            p != LiveSessionPhase.speaking) {
+        if (p != LiveSessionPhase.listening && p != LiveSessionPhase.speaking) {
           return; // not streaming before setupComplete / after close
         }
         final Float32List samples = (data as JSFloat32Array).toDart;
@@ -125,12 +127,15 @@ class _WebLiveSession implements LiveSession {
     } catch (_) {
       await close();
       throw const LiveSessionUnavailable(
-          'microphone unavailable — allow mic access to talk with the tutor.');
+        'microphone unavailable — allow mic access to talk with the tutor.',
+        code: LiveUnavailableCode.micUnavailable,
+      );
     }
     // 2) Socket: single-use token rides the query (v1alpha ephemeral tokens).
     final String host = grant.wssHost ?? _kLiveHost;
     final web.WebSocket ws = web.WebSocket(
-        'wss://$host$_kLivePath?access_token=${Uri.encodeComponent(grant.token)}');
+      'wss://$host$_kLivePath?access_token=${Uri.encodeComponent(grant.token)}',
+    );
     _ws = ws;
     ws.onopen = ((web.Event _) {
       // Model/system-prompt/modality are LOCKED into the token's
@@ -145,8 +150,9 @@ class _WebLiveSession implements LiveSession {
       } else {
         // Live API frames may arrive as Blobs — read then handle.
         (data as web.Blob).text().toDart.then(
-            (JSString s) => _handleFrame(s.toDart),
-            onError: (Object _) {});
+          (JSString s) => _handleFrame(s.toDart),
+          onError: (Object _) {},
+        );
       }
     }).toJS;
     ws.onerror = ((web.Event _) => _fail()).toJS;
@@ -158,7 +164,9 @@ class _WebLiveSession implements LiveSession {
   void _send(Map<String, Object?> frame) {
     try {
       _ws?.send(jsonEncode(frame).toJS);
-    } catch (_) {/* socket teardown race: the close/fail path owns state */}
+    } catch (_) {
+      /* socket teardown race: the close/fail path owns state */
+    }
   }
 
   void _handleFrame(String raw) {
@@ -182,12 +190,14 @@ class _WebLiveSession implements LiveSession {
     final Object? it = sc['inputTranscription'];
     if (it is Map<String, dynamic> && it['text'] is String) {
       _transcript.add(
-          LiveTurn(speaker: LiveSpeaker.you, text: it['text'] as String));
+        LiveTurn(speaker: LiveSpeaker.you, text: it['text'] as String),
+      );
     }
     final Object? ot = sc['outputTranscription'];
     if (ot is Map<String, dynamic> && ot['text'] is String) {
       _transcript.add(
-          LiveTurn(speaker: LiveSpeaker.tutor, text: ot['text'] as String));
+        LiveTurn(speaker: LiveSpeaker.tutor, text: ot['text'] as String),
+      );
     }
     final Object? mt = sc['modelTurn'];
     if (mt is Map<String, dynamic>) {
@@ -202,7 +212,9 @@ class _WebLiveSession implements LiveSession {
           _machine.advance(LiveSessionEvent.tutorSpeaking);
           try {
             _enqueuePcm(base64Decode(b64));
-          } catch (_) {/* skip an undecodable chunk, keep the session */}
+          } catch (_) {
+            /* skip an undecodable chunk, keep the session */
+          }
         }
       }
     }
@@ -235,7 +247,9 @@ class _WebLiveSession implements LiveSession {
     for (final web.AudioBufferSourceNode s in _scheduled) {
       try {
         s.stop();
-      } catch (_) {/* never started / already ended */}
+      } catch (_) {
+        /* never started / already ended */
+      }
     }
     _scheduled.clear();
     _playhead = 0;

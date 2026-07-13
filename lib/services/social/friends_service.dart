@@ -28,9 +28,25 @@ enum FriendDeliveryOutcome {
   failed,
 }
 
+/// Stable, backend-agnostic codes for the hard-coded friend-delivery messages
+/// (i18n I4). A dynamic Postgrest [FriendDeliveryResult.message] carries no
+/// code and renders verbatim.
+enum FriendMessageCode {
+  signInForHandle,
+  handleTaken,
+  handleFormat,
+  networkError,
+  setOwnHandleFirst,
+}
+
 /// Immutable outcome + an honest, user-facing message. Never fabricates success.
 class FriendDeliveryResult {
-  const FriendDeliveryResult(this.outcome, {this.message, this.status});
+  const FriendDeliveryResult(
+    this.outcome, {
+    this.message,
+    this.status,
+    this.code,
+  });
 
   final FriendDeliveryOutcome outcome;
 
@@ -40,6 +56,10 @@ class FriendDeliveryResult {
   /// The authoritative `FriendStatus` name the server settled on, when known
   /// (e.g. `requestOutgoing`, `friends`, `none`).
   final String? status;
+
+  /// Non-null for a hard-coded message (mapped to a localized ARB string at the
+  /// render site); null for a dynamic backend message (i18n I4).
+  final FriendMessageCode? code;
 
   /// True only when the call actually routed to the other account.
   bool get ok =>
@@ -63,8 +83,10 @@ abstract interface class FriendsService {
 
   /// Accept ([accept] = true) or decline an incoming request from
   /// [requesterHandle], mirroring BOTH sides.
-  Future<FriendDeliveryResult> respond(String requesterHandle,
-      {required bool accept});
+  Future<FriendDeliveryResult> respond(
+    String requesterHandle, {
+    required bool accept,
+  });
 
   /// Claim / change the caller's own public @handle (own-row profile write) so
   /// other learners can add them. Returns the normalized handle on success.
@@ -75,8 +97,10 @@ abstract interface class FriendsService {
   /// caller's AND the counterparty's account (so unfriending no longer leaves
   /// the other person a stale row), and when blocking additionally leaves the
   /// caller's own `'blocked'` row so the user cannot be re-requested.
-  Future<FriendDeliveryResult> removeFriend(String otherHandle,
-      {required bool block});
+  Future<FriendDeliveryResult> removeFriend(
+    String otherHandle, {
+    required bool block,
+  });
 
   /// Emit a server-produced friend-activity event of [activityType] (a
   /// `FriendActivityType.name`) to the caller's friends — BROADCAST to all
@@ -114,23 +138,27 @@ class UnavailableFriendsService implements FriendsService {
       _unavailable;
 
   @override
-  Future<FriendDeliveryResult> respond(String requesterHandle,
-          {required bool accept}) async =>
-      _unavailable;
+  Future<FriendDeliveryResult> respond(
+    String requesterHandle, {
+    required bool accept,
+  }) async => _unavailable;
 
   @override
   Future<FriendDeliveryResult> setHandle(String desiredHandle) async =>
       _unavailable;
 
   @override
-  Future<FriendDeliveryResult> removeFriend(String otherHandle,
-          {required bool block}) async =>
-      _unavailable;
+  Future<FriendDeliveryResult> removeFriend(
+    String otherHandle, {
+    required bool block,
+  }) async => _unavailable;
 
   @override
-  Future<FriendDeliveryResult> emitActivity(String activityType,
-          {String summary = '', List<String>? targets}) async =>
-      _unavailable;
+  Future<FriendDeliveryResult> emitActivity(
+    String activityType, {
+    String summary = '',
+    List<String>? targets,
+  }) async => _unavailable;
 
   @override
   Future<FriendDeliveryResult> publishWeeklyXp(int weeklyXp) async =>
@@ -139,5 +167,6 @@ class UnavailableFriendsService implements FriendsService {
 
 /// Inject the social-delivery seam. Stage-3 overrides this with the
 /// Supabase-backed service when auth is on and the keys are present.
-final friendsServiceProvider =
-    Provider<FriendsService>((ref) => const UnavailableFriendsService());
+final friendsServiceProvider = Provider<FriendsService>(
+  (ref) => const UnavailableFriendsService(),
+);

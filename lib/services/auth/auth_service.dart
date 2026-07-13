@@ -12,11 +12,19 @@ enum AuthOutcome {
   emailSent,
 }
 
+/// Stable, backend-agnostic code for the hard-coded unconfigured-build auth
+/// failure (i18n I4); null for dynamic backend (GoTrue) messages.
+enum AuthFailureCode { accountsUnavailable }
+
 /// A user-presentable auth error. The Supabase impl translates GoTrue's
 /// `AuthException` into this so screens never import backend types (R-K6).
 class AuthFailure implements Exception {
-  const AuthFailure(this.message);
+  const AuthFailure(this.message, {this.code});
   final String message;
+
+  /// Non-null for the hard-coded unconfigured-build failure (mapped to a
+  /// localized ARB string at the render site); null for backend messages.
+  final AuthFailureCode? code;
   @override
   String toString() => 'AuthFailure: $message';
 }
@@ -77,22 +85,22 @@ class UnconfiguredAuthService implements AuthService {
     required String email,
     required String password,
   }) async =>
-      throw const AuthFailure(_msg);
+      throw const AuthFailure(_msg, code: AuthFailureCode.accountsUnavailable);
 
   @override
   Future<AuthOutcome> signInWithPassword({
     required String email,
     required String password,
   }) async =>
-      throw const AuthFailure(_msg);
+      throw const AuthFailure(_msg, code: AuthFailureCode.accountsUnavailable);
 
   @override
   Future<AuthOutcome> sendMagicLink({required String email}) async =>
-      throw const AuthFailure(_msg);
+      throw const AuthFailure(_msg, code: AuthFailureCode.accountsUnavailable);
 
   @override
   Future<void> sendPasswordReset({required String email}) async =>
-      throw const AuthFailure(_msg);
+      throw const AuthFailure(_msg, code: AuthFailureCode.accountsUnavailable);
 
   @override
   Future<void> signOut() async {
@@ -105,5 +113,6 @@ class UnconfiguredAuthService implements AuthService {
 /// [UnconfiguredAuthService]; `backend_wiring` overrides it with a real
 /// [SupabaseAuthService] when the build carries the Supabase config, and tests
 /// inject a fake.
-final authServiceProvider =
-    Provider<AuthService>((ref) => const UnconfiguredAuthService());
+final authServiceProvider = Provider<AuthService>(
+  (ref) => const UnconfiguredAuthService(),
+);

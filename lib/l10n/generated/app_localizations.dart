@@ -4139,6 +4139,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Playback speed'**
   String get lessonPlaybackSpeed;
+
+  /// No description provided for @authAccountsUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Accounts are not available in this build yet — keep learning as a guest.'**
+  String get authAccountsUnavailable;
+
+  /// No description provided for @liveNotEnabledShort.
+  ///
+  /// In en, this message translates to:
+  /// **'live AI is not enabled in this build.'**
+  String get liveNotEnabledShort;
+
+  /// No description provided for @liveMicUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'microphone unavailable — allow mic access to talk with the tutor.'**
+  String get liveMicUnavailable;
+
+  /// No description provided for @liveUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'live AI is unavailable right now.'**
+  String get liveUnavailable;
+
+  /// No description provided for @liveNeedsPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Live AI is part of RATEL PRO.'**
+  String get liveNeedsPro;
+
+  /// No description provided for @liveMinutesUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve used this month\'s live minutes.'**
+  String get liveMinutesUsed;
+
+  /// No description provided for @commonNetworkError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not reach the server. Try again.'**
+  String get commonNetworkError;
+
+  /// No description provided for @friendsHandleTaken.
+  ///
+  /// In en, this message translates to:
+  /// **'That @handle is already taken.'**
+  String get friendsHandleTaken;
+
+  /// No description provided for @friendsHandleFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Use 2–20 letters, numbers or _ for your handle.'**
+  String get friendsHandleFormat;
+
+  /// No description provided for @friendsSignInForHandle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to claim your @handle.'**
+  String get friendsSignInForHandle;
+
+  /// No description provided for @friendsSetOwnHandleFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Set your own @handle first (Edit profile).'**
+  String get friendsSetOwnHandleFirst;
+
+  /// No description provided for @paywallCheckoutUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Checkout opens at launch — store billing isn\'t live in this build yet.'**
+  String get paywallCheckoutUnavailable;
+
+  /// No description provided for @settingsManageUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage or cancel in your device\'s Subscriptions settings — the in-app shortcut opens at launch.'**
+  String get settingsManageUnavailable;
 }
 
 class _AppLocalizationsDelegate

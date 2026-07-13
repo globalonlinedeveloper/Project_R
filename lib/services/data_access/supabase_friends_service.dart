@@ -70,8 +70,10 @@ class SupabaseFriendsService implements FriendsService {
   }
 
   @override
-  Future<FriendDeliveryResult> respond(String requesterHandle,
-      {required bool accept}) async {
+  Future<FriendDeliveryResult> respond(
+    String requesterHandle, {
+    required bool accept,
+  }) async {
     try {
       final Object? res = await _db.rpc(
         respondFn,
@@ -89,8 +91,10 @@ class SupabaseFriendsService implements FriendsService {
   }
 
   @override
-  Future<FriendDeliveryResult> removeFriend(String otherHandle,
-      {required bool block}) async {
+  Future<FriendDeliveryResult> removeFriend(
+    String otherHandle, {
+    required bool block,
+  }) async {
     try {
       final Object? res = await _db.rpc(
         removeFn,
@@ -108,16 +112,18 @@ class SupabaseFriendsService implements FriendsService {
   }
 
   @override
-  Future<FriendDeliveryResult> emitActivity(String activityType,
-      {String summary = '', List<String>? targets}) async {
+  Future<FriendDeliveryResult> emitActivity(
+    String activityType, {
+    String summary = '',
+    List<String>? targets,
+  }) async {
     try {
       final Object? res = await _db.rpc(
         emitFn,
         params: <String, Object?>{
           'activity_type': activityType,
           'summary': summary,
-          if (targets != null)
-            'targets': targets.map(normalizeHandle).toList(),
+          if (targets != null) 'targets': targets.map(normalizeHandle).toList(),
         },
       );
       return resultFromEmit(res);
@@ -148,25 +154,37 @@ class SupabaseFriendsService implements FriendsService {
     final String h = normalizeHandle(desiredHandle);
     final String? uid = _db.auth.currentUser?.id;
     if (uid == null) {
-      return const FriendDeliveryResult(FriendDeliveryOutcome.unavailable,
-          message: 'Sign in to claim your @handle.');
+      return const FriendDeliveryResult(
+        FriendDeliveryOutcome.unavailable,
+        message: 'Sign in to claim your @handle.',
+        code: FriendMessageCode.signInForHandle,
+      );
     }
     try {
       await _db
           .from(profilesTable)
-          .update(<String, Object?>{'handle': h}).eq('id', uid);
+          .update(<String, Object?>{'handle': h})
+          .eq('id', uid);
       return FriendDeliveryResult(FriendDeliveryOutcome.delivered, status: h);
     } on PostgrestException catch (e) {
       if (e.code == '23505') {
-        return const FriendDeliveryResult(FriendDeliveryOutcome.failed,
-            message: 'That @handle is already taken.');
+        return const FriendDeliveryResult(
+          FriendDeliveryOutcome.failed,
+          message: 'That @handle is already taken.',
+          code: FriendMessageCode.handleTaken,
+        );
       }
       if (e.code == '23514') {
-        return const FriendDeliveryResult(FriendDeliveryOutcome.failed,
-            message: 'Use 2–20 letters, numbers or _ for your handle.');
+        return const FriendDeliveryResult(
+          FriendDeliveryOutcome.failed,
+          message: 'Use 2–20 letters, numbers or _ for your handle.',
+          code: FriendMessageCode.handleFormat,
+        );
       }
-      return FriendDeliveryResult(FriendDeliveryOutcome.failed,
-          message: e.message);
+      return FriendDeliveryResult(
+        FriendDeliveryOutcome.failed,
+        message: e.message,
+      );
     } catch (_) {
       return _network;
     }
@@ -175,6 +193,7 @@ class SupabaseFriendsService implements FriendsService {
   static const FriendDeliveryResult _network = FriendDeliveryResult(
     FriendDeliveryOutcome.failed,
     message: 'Could not reach the server. Try again.',
+    code: FriendMessageCode.networkError,
   );
 
   /// Map a successful RPC payload (`{status, handle}`) → a delivery result.
@@ -186,17 +205,23 @@ class SupabaseFriendsService implements FriendsService {
         : null;
     switch (status) {
       case 'friends':
-        return FriendDeliveryResult(FriendDeliveryOutcome.friends,
-            status: status);
+        return FriendDeliveryResult(
+          FriendDeliveryOutcome.friends,
+          status: status,
+        );
       case 'none':
       case 'blocked':
         // Both clear the cross-user friendship; 'blocked' additionally left the
         // caller's own bookkeeping row (status preserved for the caller).
-        return FriendDeliveryResult(FriendDeliveryOutcome.cleared,
-            status: status);
+        return FriendDeliveryResult(
+          FriendDeliveryOutcome.cleared,
+          status: status,
+        );
       default:
-        return FriendDeliveryResult(FriendDeliveryOutcome.delivered,
-            status: status);
+        return FriendDeliveryResult(
+          FriendDeliveryOutcome.delivered,
+          status: status,
+        );
     }
   }
 
@@ -206,8 +231,10 @@ class SupabaseFriendsService implements FriendsService {
   /// had no eligible friends to notify.
   static FriendDeliveryResult resultFromEmit(Object? res) {
     final int n = (res is num) ? res.toInt() : 0;
-    return FriendDeliveryResult(FriendDeliveryOutcome.delivered,
-        status: n.toString());
+    return FriendDeliveryResult(
+      FriendDeliveryOutcome.delivered,
+      status: n.toString(),
+    );
   }
 
   /// Map a raised RPC error → an honest, specific result (never a fake
@@ -216,13 +243,21 @@ class SupabaseFriendsService implements FriendsService {
     final String m = e.message.toLowerCase();
     if (m.contains('no user with that handle') ||
         m.contains('no pending request')) {
-      return FriendDeliveryResult(FriendDeliveryOutcome.notFound,
-          message: e.message);
+      return FriendDeliveryResult(
+        FriendDeliveryOutcome.notFound,
+        message: e.message,
+      );
     }
     if (m.contains('set your own')) {
-      return const FriendDeliveryResult(FriendDeliveryOutcome.needsHandle,
-          message: 'Set your own @handle first (Edit profile).');
+      return const FriendDeliveryResult(
+        FriendDeliveryOutcome.needsHandle,
+        message: 'Set your own @handle first (Edit profile).',
+        code: FriendMessageCode.setOwnHandleFirst,
+      );
     }
-    return FriendDeliveryResult(FriendDeliveryOutcome.failed, message: e.message);
+    return FriendDeliveryResult(
+      FriendDeliveryOutcome.failed,
+      message: e.message,
+    );
   }
 }

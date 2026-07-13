@@ -35,8 +35,12 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
   @override
   void initState() {
     super.initState();
-    ref.read(analyticsProvider).logEvent('paywall_viewed',
-        props: <String, Object?>{'source': widget.source});
+    ref
+        .read(analyticsProvider)
+        .logEvent(
+          'paywall_viewed',
+          props: <String, Object?>{'source': widget.source},
+        );
   }
 
   @override
@@ -54,19 +58,26 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
           icon: Icon(RatelIcons.arrowBack, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: Text(context.l10n.paywallTitle,
-            style: TextStyle(
-                fontFamily: RatelFont.display,
-                fontWeight: RatelType.extraBold,
-                color: context.palette.ink,
-                fontSize: RatelType.cardTitle)),
+        title: Text(
+          context.l10n.paywallTitle,
+          style: TextStyle(
+            fontFamily: RatelFont.display,
+            fontWeight: RatelType.extraBold,
+            color: context.palette.ink,
+            fontSize: RatelType.cardTitle,
+          ),
+        ),
       ),
       body: SafeArea(
         top: false,
         child: ListView(
           key: const ValueKey<String>('screen-paywall'),
           padding: const EdgeInsets.fromLTRB(
-              RatelSpace.screen, RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
+            RatelSpace.screen,
+            RatelSpace.lg,
+            RatelSpace.screen,
+            RatelSpace.xl,
+          ),
           children: <Widget>[
             _hero(context),
             const SizedBox(height: RatelSpace.lg),
@@ -106,39 +117,45 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
   }
 
   Widget _hero(BuildContext context) => RatelCard(
-        gradient: const LinearGradient(
-            colors: <Color>[RatelColors.gold, RatelColors.amber],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight),
-        child: Row(
-          children: <Widget>[
-            const Text('🦡', style: TextStyle(fontSize: 34)),
-            const SizedBox(width: RatelSpace.md),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(context.l10n.paywallTitle,
-                      style: TextStyle(
-                          fontFamily: RatelFont.display,
-                          fontWeight: RatelType.extraBold,
-                          fontSize: RatelType.cardTitle,
-                          color: RatelColors.onColor)),
-                  const SizedBox(height: 2),
-                  Text(context.l10n.paywallHero,
-                      style: TextStyle(
-                          fontFamily: RatelFont.body,
-                          fontSize: RatelType.small,
-                          color: RatelColors.onColor.withValues(alpha: 0.95))),
-                ],
+    gradient: const LinearGradient(
+      colors: <Color>[RatelColors.gold, RatelColors.amber],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
+    child: Row(
+      children: <Widget>[
+        const Text('🦡', style: TextStyle(fontSize: 34)),
+        const SizedBox(width: RatelSpace.md),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                context.l10n.paywallTitle,
+                style: TextStyle(
+                  fontFamily: RatelFont.display,
+                  fontWeight: RatelType.extraBold,
+                  fontSize: RatelType.cardTitle,
+                  color: RatelColors.onColor,
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 2),
+              Text(
+                context.l10n.paywallHero,
+                style: TextStyle(
+                  fontFamily: RatelFont.body,
+                  fontSize: RatelType.small,
+                  color: RatelColors.onColor.withValues(alpha: 0.95),
+                ),
+              ),
+            ],
+          ),
         ),
-      );
+      ],
+    ),
+  );
 
-  Widget _planCard(
-      BuildContext context, ProPlan plan, ProBandPricing price) {
+  Widget _planCard(BuildContext context, ProPlan plan, ProBandPricing price) {
     final bool selected = _plan == plan;
     final bool annual = plan == ProPlan.annual;
     return RatelCard(
@@ -153,8 +170,9 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
               shape: BoxShape.circle,
               color: selected ? RatelColors.teal : Colors.transparent,
               border: Border.all(
-                  color: selected ? RatelColors.teal : context.palette.muted,
-                  width: 2),
+                color: selected ? RatelColors.teal : context.palette.muted,
+                width: 2,
+              ),
             ),
           ),
           const SizedBox(width: RatelSpace.md),
@@ -162,111 +180,146 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(annual ? context.l10n.paywallAnnual : context.l10n.paywallMonthly,
-                    style: TextStyle(
-                        fontFamily: RatelFont.display,
-                        fontWeight: RatelType.extraBold,
-                        fontSize: RatelType.cardTitle,
-                        color: context.palette.ink)),
+                Text(
+                  annual
+                      ? context.l10n.paywallAnnual
+                      : context.l10n.paywallMonthly,
+                  style: TextStyle(
+                    fontFamily: RatelFont.display,
+                    fontWeight: RatelType.extraBold,
+                    fontSize: RatelType.cardTitle,
+                    color: context.palette.ink,
+                  ),
+                ),
                 const SizedBox(height: 2),
                 Text(
-                    annual
-                        ? context.l10n.paywallAnnualLine(
-                            price.annualDisplay, price.annualPerMonthDisplay)
-                        : context.l10n.paywallMonthlyLine(price.monthlyDisplay),
-                    style: TextStyle(
-                        fontFamily: RatelFont.body,
-                        fontSize: RatelType.small,
-                        color: context.palette.muted)),
+                  annual
+                      ? context.l10n.paywallAnnualLine(
+                          price.annualDisplay,
+                          price.annualPerMonthDisplay,
+                        )
+                      : context.l10n.paywallMonthlyLine(price.monthlyDisplay),
+                  style: TextStyle(
+                    fontFamily: RatelFont.body,
+                    fontSize: RatelType.small,
+                    color: context.palette.muted,
+                  ),
+                ),
               ],
             ),
           ),
           if (annual) ...<Widget>[
             const SizedBox(width: RatelSpace.sm),
             RatelChip(
-                label: context.l10n.paywallSavePercent(price.annualSavingPercent),
-                tone: RatelChipTone.green,
-                filled: true),
+              label: context.l10n.paywallSavePercent(price.annualSavingPercent),
+              tone: RatelChipTone.green,
+              filled: true,
+            ),
           ],
         ],
       ),
     );
   }
 
-  Widget _trialTimeline(BuildContext context, ProBandPricing price) => RatelCard(
+  Widget _trialTimeline(BuildContext context, ProBandPricing price) =>
+      RatelCard(
         color: context.palette.cream2,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(context.l10n.paywallTrialHow,
-                style: TextStyle(
-                    fontFamily: RatelFont.display,
-                    fontWeight: RatelType.extraBold,
-                    fontSize: RatelType.body,
-                    color: context.palette.ink)),
+            Text(
+              context.l10n.paywallTrialHow,
+              style: TextStyle(
+                fontFamily: RatelFont.display,
+                fontWeight: RatelType.extraBold,
+                fontSize: RatelType.body,
+                color: context.palette.ink,
+              ),
+            ),
             const SizedBox(height: RatelSpace.sm),
-            _timelineRow(context, context.l10n.paywallTrialToday,
-                context.l10n.paywallTrialTodayDesc),
-            _timelineRow(context, context.l10n.paywallTrialDay5,
-                context.l10n.paywallTrialDay5Desc),
-            _timelineRow(context, context.l10n.paywallTrialDay7,
-                context.l10n.paywallTrialDay7Desc(price.annualDisplay)),
+            _timelineRow(
+              context,
+              context.l10n.paywallTrialToday,
+              context.l10n.paywallTrialTodayDesc,
+            ),
+            _timelineRow(
+              context,
+              context.l10n.paywallTrialDay5,
+              context.l10n.paywallTrialDay5Desc,
+            ),
+            _timelineRow(
+              context,
+              context.l10n.paywallTrialDay7,
+              context.l10n.paywallTrialDay7Desc(price.annualDisplay),
+            ),
           ],
         ),
       );
 
-  Widget _timelineRow(BuildContext context, String when, String what) => Padding(
+  Widget _timelineRow(BuildContext context, String when, String what) =>
+      Padding(
         padding: const EdgeInsets.only(bottom: RatelSpace.xs),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
               width: 52,
-              child: Text(when,
-                  style: TextStyle(
-                      fontFamily: RatelFont.display,
-                      fontWeight: RatelType.extraBold,
-                      fontSize: RatelType.small,
-                      color: RatelColors.teal)),
+              child: Text(
+                when,
+                style: TextStyle(
+                  fontFamily: RatelFont.display,
+                  fontWeight: RatelType.extraBold,
+                  fontSize: RatelType.small,
+                  color: RatelColors.teal,
+                ),
+              ),
             ),
             const SizedBox(width: RatelSpace.sm),
             Expanded(
-              child: Text(what,
-                  style: TextStyle(
-                      fontFamily: RatelFont.body,
-                      fontSize: RatelType.small,
-                      color: context.palette.muted)),
+              child: Text(
+                what,
+                style: TextStyle(
+                  fontFamily: RatelFont.body,
+                  fontSize: RatelType.small,
+                  color: context.palette.muted,
+                ),
+              ),
             ),
           ],
         ),
       );
 
   Widget _included(BuildContext context) => RatelCard(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(context.l10n.paywallIncluded,
-                style: TextStyle(
-                    fontFamily: RatelFont.display,
-                    fontWeight: RatelType.extraBold,
-                    fontSize: RatelType.body,
-                    color: context.palette.ink)),
-            const SizedBox(height: RatelSpace.sm),
-            _featureRow(context, '🎙️', context.l10n.paywallFeatureLiveAi),
-            _featureRow(context, '🚫', context.l10n.paywallFeatureNoAds),
-            _featureRow(context, '📥', context.l10n.paywallFeatureOffline),
-            _featureRow(context, '🗣️', context.l10n.paywallFeaturePronunciation),
-            const SizedBox(height: RatelSpace.sm),
-            Text(
-                context.l10n.paywallEverythingFree,
-                style: TextStyle(
-                    fontFamily: RatelFont.body,
-                    fontSize: RatelType.small,
-                    color: context.palette.muted,
-                    height: 1.4)),
-          ],
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          context.l10n.paywallIncluded,
+          style: TextStyle(
+            fontFamily: RatelFont.display,
+            fontWeight: RatelType.extraBold,
+            fontSize: RatelType.body,
+            color: context.palette.ink,
+          ),
         ),
-      );
+        const SizedBox(height: RatelSpace.sm),
+        _featureRow(context, '🎙️', context.l10n.paywallFeatureLiveAi),
+        _featureRow(context, '🚫', context.l10n.paywallFeatureNoAds),
+        _featureRow(context, '📥', context.l10n.paywallFeatureOffline),
+        _featureRow(context, '🗣️', context.l10n.paywallFeaturePronunciation),
+        const SizedBox(height: RatelSpace.sm),
+        Text(
+          context.l10n.paywallEverythingFree,
+          style: TextStyle(
+            fontFamily: RatelFont.body,
+            fontSize: RatelType.small,
+            color: context.palette.muted,
+            height: 1.4,
+          ),
+        ),
+      ],
+    ),
+  );
 
   Widget _featureRow(BuildContext context, String emoji, String label) =>
       Padding(
@@ -277,109 +330,149 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
             Text(emoji, style: const TextStyle(fontSize: 16)),
             const SizedBox(width: RatelSpace.sm),
             Expanded(
-              child: Text(label,
-                  style: TextStyle(
-                      fontFamily: RatelFont.body,
-                      fontSize: RatelType.body,
-                      color: context.palette.ink)),
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontFamily: RatelFont.body,
+                  fontSize: RatelType.body,
+                  color: context.palette.ink,
+                ),
+              ),
             ),
           ],
         ),
       );
 
   Widget _alreadyProCard(BuildContext context) => RatelCard(
-        color: context.palette.cream2,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    color: context.palette.cream2,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                RatelChip.pro(),
-                const SizedBox(width: RatelSpace.sm),
-                Expanded(
-                  child: Text(context.l10n.paywallYouArePro,
-                      style: TextStyle(
-                          fontFamily: RatelFont.display,
-                          fontWeight: RatelType.extraBold,
-                          fontSize: RatelType.body,
-                          color: context.palette.ink)),
-                ),
-              ],
-            ),
-            const SizedBox(height: RatelSpace.sm),
-            Text(
-                context.l10n.paywallThanks,
+            RatelChip.pro(),
+            const SizedBox(width: RatelSpace.sm),
+            Expanded(
+              child: Text(
+                context.l10n.paywallYouArePro,
                 style: TextStyle(
-                    fontFamily: RatelFont.body,
-                    fontSize: RatelType.small,
-                    color: context.palette.muted,
-                    height: 1.4)),
-            const SizedBox(height: RatelSpace.md),
-            GestureDetector(
-              onTap: () async {
-                final ManageResult r =
-                    await ref.read(manageSubscriptionProvider).open();
-                if (!context.mounted) return;
-                _snack(context, r.message);
-              },
-              child: Text(context.l10n.paywallManage,
-                  style: TextStyle(
-                      fontFamily: RatelFont.body,
-                      fontSize: RatelType.body,
-                      fontWeight: RatelType.semiBold,
-                      color: RatelColors.teal)),
+                  fontFamily: RatelFont.display,
+                  fontWeight: RatelType.extraBold,
+                  fontSize: RatelType.body,
+                  color: context.palette.ink,
+                ),
+              ),
             ),
           ],
         ),
-      );
+        const SizedBox(height: RatelSpace.sm),
+        Text(
+          context.l10n.paywallThanks,
+          style: TextStyle(
+            fontFamily: RatelFont.body,
+            fontSize: RatelType.small,
+            color: context.palette.muted,
+            height: 1.4,
+          ),
+        ),
+        const SizedBox(height: RatelSpace.md),
+        GestureDetector(
+          onTap: () async {
+            final ManageResult r = await ref
+                .read(manageSubscriptionProvider)
+                .open();
+            if (!context.mounted) return;
+            _snack(
+              context,
+              r.isAvailable
+                  ? r.message
+                  : context.l10n.settingsManageUnavailable,
+            );
+          },
+          child: Text(
+            context.l10n.paywallManage,
+            style: TextStyle(
+              fontFamily: RatelFont.body,
+              fontSize: RatelType.body,
+              fontWeight: RatelType.semiBold,
+              color: RatelColors.teal,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
 
   Widget _finePrint(BuildContext context, ProBandPricing price) => Column(
+    children: <Widget>[
+      Text(
+        context.l10n.paywallFinePrint(price.regions),
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontFamily: RatelFont.body,
+          fontSize: RatelType.caption,
+          color: context.palette.muted,
+          height: 1.4,
+        ),
+      ),
+      const SizedBox(height: RatelSpace.sm),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(
-            context.l10n.paywallFinePrint(price.regions),
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontFamily: RatelFont.body,
-                fontSize: RatelType.caption,
-                color: context.palette.muted,
-                height: 1.4),
+          _legalLink(
+            context,
+            context.l10n.paywallTerms,
+            'learnwithratel.com/terms',
           ),
-          const SizedBox(height: RatelSpace.sm),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              _legalLink(context, context.l10n.paywallTerms, 'learnwithratel.com/terms'),
-              Text('  ·  ',
-                  style: TextStyle(
-                      fontSize: RatelType.caption, color: context.palette.muted)),
-              _legalLink(context, context.l10n.paywallPrivacy, 'learnwithratel.com/privacy'),
-            ],
+          Text(
+            '  ·  ',
+            style: TextStyle(
+              fontSize: RatelType.caption,
+              color: context.palette.muted,
+            ),
+          ),
+          _legalLink(
+            context,
+            context.l10n.paywallPrivacy,
+            'learnwithratel.com/privacy',
           ),
         ],
-      );
+      ),
+    ],
+  );
 
   Widget _legalLink(BuildContext context, String label, String url) =>
       GestureDetector(
         onTap: () => _snack(context, url),
-        child: Text(label,
-            style: TextStyle(
-                fontFamily: RatelFont.body,
-                fontSize: RatelType.caption,
-                fontWeight: RatelType.semiBold,
-                color: RatelColors.teal)),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontFamily: RatelFont.body,
+            fontSize: RatelType.caption,
+            fontWeight: RatelType.semiBold,
+            color: RatelColors.teal,
+          ),
+        ),
       );
 
   Future<void> _startCheckout(
-      BuildContext context, ProBandPricing price) async {
+    BuildContext context,
+    ProBandPricing price,
+  ) async {
     final CheckoutResult result = await ref
         .read(proCheckoutProvider)
         .start(plan: _plan, band: price.band);
     if (!context.mounted) return;
-    _snack(context, result.message);
+    _snack(
+      context,
+      result.isAvailable
+          ? result.message
+          : context.l10n.paywallCheckoutUnavailable,
+    );
   }
 
-  void _restore(BuildContext context) => _snack(
-      context, context.l10n.paywallNothingToRestore);
+  void _restore(BuildContext context) =>
+      _snack(context, context.l10n.paywallNothingToRestore);
 
   void _snack(BuildContext context, String msg) {
     ScaffoldMessenger.of(context)

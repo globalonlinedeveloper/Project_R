@@ -27,7 +27,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   void initState() {
     super.initState();
     _name = TextEditingController(
-        text: ref.read(appSettingsControllerProvider).displayName);
+      text: ref.read(appSettingsControllerProvider).displayName,
+    );
     _handle = TextEditingController();
   }
 
@@ -59,7 +60,9 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     } else if (handleResult.outcome == FriendDeliveryOutcome.unavailable) {
       message = context.l10n.editProfileSignInForHandle;
     } else {
-      message = handleResult.message ?? context.l10n.editProfileHandleFailed;
+      message = handleResult.code != null
+          ? ratelFriendMessage(context, handleResult.code!)
+          : (handleResult.message ?? context.l10n.editProfileHandleFailed);
       stay = true; // keep the screen open so they can fix the handle
     }
 
@@ -83,16 +86,23 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           icon: Icon(RatelIcons.arrowBack, color: context.palette.ink),
           onPressed: () => context.pop(),
         ),
-        title: Text(context.l10n.settingsEditProfile,
-            style: TextStyle(
-                fontFamily: RatelFont.display,
-                fontWeight: RatelType.extraBold,
-                color: context.palette.ink,
-                fontSize: RatelType.cardTitle)),
+        title: Text(
+          context.l10n.settingsEditProfile,
+          style: TextStyle(
+            fontFamily: RatelFont.display,
+            fontWeight: RatelType.extraBold,
+            color: context.palette.ink,
+            fontSize: RatelType.cardTitle,
+          ),
+        ),
       ),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(RatelSpace.screen, RatelSpace.md,
-            RatelSpace.screen, RatelSpace.xl),
+        padding: const EdgeInsets.fromLTRB(
+          RatelSpace.screen,
+          RatelSpace.md,
+          RatelSpace.screen,
+          RatelSpace.xl,
+        ),
         children: <Widget>[
           RatelSectionHeader(label: context.l10n.editProfileDisplayName),
           const SizedBox(height: RatelSpace.sm),
@@ -103,9 +113,10 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               maxLength: 40,
               textInputAction: TextInputAction.next,
               style: TextStyle(
-                  fontFamily: RatelFont.body,
-                  fontSize: RatelType.body,
-                  color: context.palette.ink),
+                fontFamily: RatelFont.body,
+                fontSize: RatelType.body,
+                color: context.palette.ink,
+              ),
               decoration: InputDecoration(
                 border: InputBorder.none,
                 counterText: '',
@@ -116,11 +127,13 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           ),
           const SizedBox(height: RatelSpace.sm),
           Text(
-              context.l10n.editProfileNameNote,
-              style: TextStyle(
-                  fontFamily: RatelFont.body,
-                  fontSize: RatelType.small,
-                  color: context.palette.muted)),
+            context.l10n.editProfileNameNote,
+            style: TextStyle(
+              fontFamily: RatelFont.body,
+              fontSize: RatelType.small,
+              color: context.palette.muted,
+            ),
+          ),
           const SizedBox(height: RatelSpace.lg),
           RatelSectionHeader(label: context.l10n.editProfileHandle),
           const SizedBox(height: RatelSpace.sm),
@@ -134,9 +147,10 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               textInputAction: TextInputAction.done,
               onSubmitted: (_) => _save(),
               style: TextStyle(
-                  fontFamily: RatelFont.body,
-                  fontSize: RatelType.body,
-                  color: context.palette.ink),
+                fontFamily: RatelFont.body,
+                fontSize: RatelType.body,
+                color: context.palette.ink,
+              ),
               decoration: InputDecoration(
                 border: InputBorder.none,
                 counterText: '',
@@ -148,11 +162,13 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           ),
           const SizedBox(height: RatelSpace.sm),
           Text(
-              context.l10n.editProfileHandleNote,
-              style: TextStyle(
-                  fontFamily: RatelFont.body,
-                  fontSize: RatelType.small,
-                  color: context.palette.muted)),
+            context.l10n.editProfileHandleNote,
+            style: TextStyle(
+              fontFamily: RatelFont.body,
+              fontSize: RatelType.small,
+              color: context.palette.muted,
+            ),
+          ),
           const SizedBox(height: RatelSpace.lg),
           RatelButton(label: context.l10n.commonSave, onPressed: _save),
         ],

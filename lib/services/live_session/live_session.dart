@@ -52,8 +52,8 @@ class LiveTokenGrant {
 /// `live-token` mint — the server clamps every field and builds the system
 /// prompt there (plan §B/§E); null => free-form practice. No prompt text is
 /// ever composed client-side.
-typedef LiveTokenFetcher = Future<LiveTokenGrant> Function(
-    {Map<String, Object?>? payload});
+typedef LiveTokenFetcher =
+    Future<LiveTokenGrant> Function({Map<String, Object?>? payload});
 
 /// Session phases (plan §B): idle -> connecting -> listening <-> speaking ->
 /// closed. `listening` = the learner may talk (mic streaming); `speaking` =
@@ -105,7 +105,9 @@ class LiveSessionStateMachine {
 
   /// The pure transition table (static so tests can probe it exhaustively).
   static LiveSessionPhase? nextPhase(
-      LiveSessionPhase phase, LiveSessionEvent event) {
+    LiveSessionPhase phase,
+    LiveSessionEvent event,
+  ) {
     // Terminal: nothing leaves `closed`.
     if (phase == LiveSessionPhase.closed) return null;
     switch (event) {
@@ -177,14 +179,33 @@ class UnavailableLiveSessionEngine implements LiveSessionEngine {
   bool get isAvailable => false;
   @override
   Future<LiveSession> start({Map<String, Object?>? payload}) async =>
-      throw const LiveSessionUnavailable('live AI is not enabled in this build.');
+      throw const LiveSessionUnavailable(
+        'live AI is not enabled in this build.',
+        code: LiveUnavailableCode.notEnabled,
+      );
+}
+
+/// Stable, backend-agnostic codes for the hard-coded live-session failures
+/// (i18n I4). A dynamic server-provided [LiveSessionUnavailable.reason]
+/// carries no code and renders verbatim.
+enum LiveUnavailableCode {
+  notEnabled,
+  startFailed,
+  micUnavailable,
+  unavailable,
+  needsPro,
+  minutesUsed,
 }
 
 /// Thrown on start/transport failure — carries an honest, user-presentable
 /// reason (quota exhausted, not Pro, offline). Never a fake session (§6).
 class LiveSessionUnavailable implements Exception {
-  const LiveSessionUnavailable(this.reason);
+  const LiveSessionUnavailable(this.reason, {this.code});
   final String reason;
+
+  /// Non-null for the hard-coded reasons (mapped to a localized ARB string at
+  /// the render site); null for a dynamic server-provided [reason] (i18n I4).
+  final LiveUnavailableCode? code;
   @override
   String toString() => 'LiveSessionUnavailable: $reason';
 }
@@ -206,8 +227,7 @@ Uint8List pcm16FromFloat32(List<double> samples) {
 /// PCM16LE bytes -> Float32 [-1,1] samples (odd trailing byte ignored).
 Float32List float32FromPcm16(Uint8List bytes) {
   final int n = bytes.lengthInBytes ~/ 2;
-  final ByteData bd =
-      ByteData.view(bytes.buffer, bytes.offsetInBytes, n * 2);
+  final ByteData bd = ByteData.view(bytes.buffer, bytes.offsetInBytes, n * 2);
   final Float32List out = Float32List(n);
   for (int i = 0; i < n; i++) {
     out[i] = bd.getInt16(i * 2, Endian.little) / 32768.0;
@@ -218,5 +238,6 @@ Float32List float32FromPcm16(Uint8List bytes) {
 /// Resolved at compile time (web vs stub). `backend_wiring` overrides it with
 /// a token-fetcher-armed engine when the build is configured + flag on; tests
 /// override with fakes. Default = the honest Unavailable engine.
-final liveSessionEngineProvider =
-    Provider<LiveSessionEngine>((ref) => createLiveSessionEngine());
+final liveSessionEngineProvider = Provider<LiveSessionEngine>(
+  (ref) => createLiveSessionEngine(),
+);

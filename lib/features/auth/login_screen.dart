@@ -84,18 +84,25 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         final Identity identity = ref.read(identityProvider);
         final AnonymousClaimToken? claimToken = await identity.mintClaimToken();
         final AuthOutcome outcome = await auth.signInWithPassword(
-            email: email, password: _passwordCtrl.text);
+          email: email,
+          password: _passwordCtrl.text,
+        );
         if (!mounted) return;
         if (outcome == AuthOutcome.session) {
           await _claimAnonymousState(identity, claimToken);
           widget.onAuthenticated?.call();
         } else {
-          setState(
-              () => _error = context.l10n.authCouldNotSignIn);
+          setState(() => _error = context.l10n.authCouldNotSignIn);
         }
       }
     } on AuthFailure catch (e) {
-      if (mounted) setState(() => _error = e.message);
+      if (mounted) {
+        setState(
+          () => _error = e.code == null
+              ? e.message
+              : ratelAuthError(context, e.code!),
+        );
+      }
     } catch (_) {
       if (mounted) {
         setState(() => _error = context.l10n.authSomethingWentWrong);
@@ -107,7 +114,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   /// Best-effort guest→account merge (TS-11): never blocks sign-in.
   Future<void> _claimAnonymousState(
-      Identity identity, AnonymousClaimToken? token) async {
+    Identity identity,
+    AnonymousClaimToken? token,
+  ) async {
     if (token == null) return;
     try {
       await identity.claimAnonymousState(token);
@@ -119,8 +128,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   void _social() {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(
-          content: Text(context.l10n.authSocialComingSoon)));
+      ..showSnackBar(
+        SnackBar(content: Text(context.l10n.authSocialComingSoon)),
+      );
   }
 
   @override
@@ -136,7 +146,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: RatelSpace.screen, vertical: RatelSpace.md),
+                  horizontal: RatelSpace.screen,
+                  vertical: RatelSpace.md,
+                ),
                 child: Column(
                   key: const Key('login'),
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -189,10 +201,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           onTap: _busy
                               ? null
                               : () => setState(() {
-                                    _reset = true;
-                                    _error = null;
-                                    _passwordError = null;
-                                  }),
+                                  _reset = true;
+                                  _error = null;
+                                  _passwordError = null;
+                                }),
                           child: Text(
                             context.l10n.authForgotPassword,
                             style: const TextStyle(
@@ -235,9 +247,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         onPressed: _busy
                             ? null
                             : () => setState(() {
-                                  _reset = false;
-                                  _error = null;
-                                }),
+                                _reset = false;
+                                _error = null;
+                              }),
                       )
                     else
                       AuthFooterLink(
@@ -274,13 +286,17 @@ class _SentNotice extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: RatelSpace.screen),
+                  horizontal: RatelSpace.screen,
+                ),
                 child: Column(
                   key: const Key('login-sent'),
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    const Icon(RatelIcons.markEmailUnread,
-                        size: 64, color: RatelColors.teal),
+                    const Icon(
+                      RatelIcons.markEmailUnread,
+                      size: 64,
+                      color: RatelColors.teal,
+                    ),
                     const SizedBox(height: RatelSpace.lg),
                     Text(
                       context.l10n.authCheckYourInbox,
