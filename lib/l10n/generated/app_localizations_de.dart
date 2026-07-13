@@ -62,17 +62,17 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String homeSectionN(int n) {
-    return 'SECTION $n';
+    return 'ABSCHNITT $n';
   }
 
   @override
   String homeSectionLevel(int n, String band) {
-    return 'SECTION $n · LEVEL $band';
+    return 'ABSCHNITT $n · NIVEAU $band';
   }
 
   @override
   String homeLevelBand(String band) {
-    return 'Level $band';
+    return 'Niveau $band';
   }
 
   @override
@@ -700,13 +700,13 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get paywallRegionsTier1 => 'US, EU, Japan, Australia';
+  String get paywallRegionsTier1 => 'USA, EU, Japan, Australien';
 
   @override
-  String get paywallRegionsMid => 'Latin America, SE Asia, E. Europe';
+  String get paywallRegionsMid => 'Lateinamerika, Südostasien, Osteuropa';
 
   @override
-  String get paywallRegionsLowPpp => 'India, Pakistan, Nigeria, Bangladesh';
+  String get paywallRegionsLowPpp => 'Indien, Pakistan, Nigeria, Bangladesch';
 
   @override
   String get questTitlePowerSession => 'Power-Session';

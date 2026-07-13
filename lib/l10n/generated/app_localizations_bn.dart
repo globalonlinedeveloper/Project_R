@@ -62,17 +62,17 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String homeSectionN(int n) {
-    return 'SECTION $n';
+    return 'বিভাগ $n';
   }
 
   @override
   String homeSectionLevel(int n, String band) {
-    return 'SECTION $n · LEVEL $band';
+    return 'বিভাগ $n · স্তর $band';
   }
 
   @override
   String homeLevelBand(String band) {
-    return 'Level $band';
+    return 'স্তর $band';
   }
 
   @override
@@ -695,13 +695,15 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
-  String get paywallRegionsTier1 => 'US, EU, Japan, Australia';
+  String get paywallRegionsTier1 =>
+      'মার্কিন যুক্তরাষ্ট্র, ইইউ, জাপান, অস্ট্রেলিয়া';
 
   @override
-  String get paywallRegionsMid => 'Latin America, SE Asia, E. Europe';
+  String get paywallRegionsMid =>
+      'লাতিন আমেরিকা, দক্ষিণ-পূর্ব এশিয়া, পূর্ব ইউরোপ';
 
   @override
-  String get paywallRegionsLowPpp => 'India, Pakistan, Nigeria, Bangladesh';
+  String get paywallRegionsLowPpp => 'ভারত, পাকিস্তান, নাইজেরিয়া, বাংলাদেশ';
 
   @override
   String get questTitlePowerSession => 'পাওয়ার সেশন';

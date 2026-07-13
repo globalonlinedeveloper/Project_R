@@ -61,17 +61,17 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String homeSectionN(int n) {
-    return 'SECTION $n';
+    return '섹션 $n';
   }
 
   @override
   String homeSectionLevel(int n, String band) {
-    return 'SECTION $n · LEVEL $band';
+    return '섹션 $n · 레벨 $band';
   }
 
   @override
   String homeLevelBand(String band) {
-    return 'Level $band';
+    return '레벨 $band';
   }
 
   @override
@@ -686,13 +686,13 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get paywallRegionsTier1 => 'US, EU, Japan, Australia';
+  String get paywallRegionsTier1 => '미국, EU, 일본, 호주';
 
   @override
-  String get paywallRegionsMid => 'Latin America, SE Asia, E. Europe';
+  String get paywallRegionsMid => '라틴 아메리카, 동남아시아, 동유럽';
 
   @override
-  String get paywallRegionsLowPpp => 'India, Pakistan, Nigeria, Bangladesh';
+  String get paywallRegionsLowPpp => '인도, 파키스탄, 나이지리아, 방글라데시';
 
   @override
   String get questTitlePowerSession => '파워 세션';

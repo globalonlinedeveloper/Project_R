@@ -61,17 +61,17 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String homeSectionN(int n) {
-    return 'SECTION $n';
+    return '第 $n 部分';
   }
 
   @override
   String homeSectionLevel(int n, String band) {
-    return 'SECTION $n · LEVEL $band';
+    return '第 $n 部分 · $band 级';
   }
 
   @override
   String homeLevelBand(String band) {
-    return 'Level $band';
+    return '$band 级';
   }
 
   @override
@@ -681,13 +681,13 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get paywallRegionsTier1 => 'US, EU, Japan, Australia';
+  String get paywallRegionsTier1 => '美国、欧盟、日本、澳大利亚';
 
   @override
-  String get paywallRegionsMid => 'Latin America, SE Asia, E. Europe';
+  String get paywallRegionsMid => '拉丁美洲、东南亚、东欧';
 
   @override
-  String get paywallRegionsLowPpp => 'India, Pakistan, Nigeria, Bangladesh';
+  String get paywallRegionsLowPpp => '印度、巴基斯坦、尼日利亚、孟加拉国';
 
   @override
   String get questTitlePowerSession => '高能时段';

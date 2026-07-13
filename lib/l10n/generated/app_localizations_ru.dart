@@ -62,17 +62,17 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String homeSectionN(int n) {
-    return 'SECTION $n';
+    return 'БЛОК $n';
   }
 
   @override
   String homeSectionLevel(int n, String band) {
-    return 'SECTION $n · LEVEL $band';
+    return 'БЛОК $n · УРОВЕНЬ $band';
   }
 
   @override
   String homeLevelBand(String band) {
-    return 'Level $band';
+    return 'Уровень $band';
   }
 
   @override
@@ -704,13 +704,14 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get paywallRegionsTier1 => 'US, EU, Japan, Australia';
+  String get paywallRegionsTier1 => 'США, ЕС, Япония, Австралия';
 
   @override
-  String get paywallRegionsMid => 'Latin America, SE Asia, E. Europe';
+  String get paywallRegionsMid =>
+      'Латинская Америка, Юго-Восточная Азия, Восточная Европа';
 
   @override
-  String get paywallRegionsLowPpp => 'India, Pakistan, Nigeria, Bangladesh';
+  String get paywallRegionsLowPpp => 'Индия, Пакистан, Нигерия, Бангладеш';
 
   @override
   String get questTitlePowerSession => 'Мощная сессия';
