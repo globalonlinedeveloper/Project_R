@@ -406,7 +406,7 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
   Widget _finePrint(BuildContext context, ProBandPricing price) => Column(
     children: <Widget>[
       Text(
-        context.l10n.paywallFinePrint(price.regions),
+        context.l10n.paywallFinePrint(ratelProRegions(context, price.band.name)),
         textAlign: TextAlign.center,
         style: TextStyle(
           fontFamily: RatelFont.body,

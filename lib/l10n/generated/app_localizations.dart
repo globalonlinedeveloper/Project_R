@@ -1296,6 +1296,24 @@ abstract class AppLocalizations {
   /// **'Cancel anytime in Settings. Prices shown for {regions}; your local price is set by your app store.'**
   String paywallFinePrint(String regions);
 
+  /// No description provided for @paywallRegionsTier1.
+  ///
+  /// In en, this message translates to:
+  /// **'US, EU, Japan, Australia'**
+  String get paywallRegionsTier1;
+
+  /// No description provided for @paywallRegionsMid.
+  ///
+  /// In en, this message translates to:
+  /// **'Latin America, SE Asia, E. Europe'**
+  String get paywallRegionsMid;
+
+  /// No description provided for @paywallRegionsLowPpp.
+  ///
+  /// In en, this message translates to:
+  /// **'India, Pakistan, Nigeria, Bangladesh'**
+  String get paywallRegionsLowPpp;
+
   /// No description provided for @questTitlePowerSession.
   ///
   /// In en, this message translates to:

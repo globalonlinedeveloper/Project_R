@@ -671,6 +671,15 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String get paywallRegionsTier1 => 'US, EU, Japan, Australia';
+
+  @override
+  String get paywallRegionsMid => 'Latin America, SE Asia, E. Europe';
+
+  @override
+  String get paywallRegionsLowPpp => 'India, Pakistan, Nigeria, Bangladesh';
+
+  @override
   String get questTitlePowerSession => '파워 세션';
 
   @override

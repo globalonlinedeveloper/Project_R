@@ -349,6 +349,9 @@
   "paywallThanks": "Thanks for supporting Ratel. Manage or cancel anytime from Settings → Manage subscription.",
   "paywallManage": "Manage subscription",
   "paywallFinePrint": "Cancel anytime in Settings. Prices shown for {regions}; your local price is set by your app store.",
+  "paywallRegionsTier1": "US, EU, Japan, Australia",
+  "paywallRegionsMid": "Latin America, SE Asia, E. Europe",
+  "paywallRegionsLowPpp": "India, Pakistan, Nigeria, Bangladesh",
   "@shopOwned": {
     "placeholders": {
       "have": {

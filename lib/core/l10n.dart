@@ -407,3 +407,15 @@ String ratelFriendMessage(BuildContext context, FriendMessageCode code) =>
       FriendMessageCode.setOwnHandleFirst =>
         context.l10n.friendsSetOwnHandleFirst,
     };
+
+/// Localized market list for a Pro price band (R-J2 fine print). The band's
+/// enum name is the stable id; the English catalogue value is byte-mirrored by
+/// the ARB, localized here so the region names translate INSIDE the localized
+/// `paywallFinePrint` sentence instead of showing English in every locale.
+String ratelProRegions(BuildContext context, String bandName) =>
+    switch (bandName) {
+      'tier1' => context.l10n.paywallRegionsTier1,
+      'mid' => context.l10n.paywallRegionsMid,
+      'lowPpp' => context.l10n.paywallRegionsLowPpp,
+      _ => context.l10n.paywallRegionsTier1,
+    };

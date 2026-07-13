@@ -666,6 +666,15 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String get paywallRegionsTier1 => 'US, EU, Japan, Australia';
+
+  @override
+  String get paywallRegionsMid => 'Latin America, SE Asia, E. Europe';
+
+  @override
+  String get paywallRegionsLowPpp => 'India, Pakistan, Nigeria, Bangladesh';
+
+  @override
   String get questTitlePowerSession => '高能时段';
 
   @override
