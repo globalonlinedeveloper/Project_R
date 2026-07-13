@@ -2372,4 +2372,7 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get settingsManageUnavailable =>
       'Verwalte oder kündige in den Abo-Einstellungen deines Geräts — die App-Verknüpfung folgt zum Launch.';
+
+  @override
+  String get friendsAdd => 'Hinzufügen';
 }

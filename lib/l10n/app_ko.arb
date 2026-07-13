@@ -682,5 +682,6 @@
   "friendsSignInForHandle": "@핸들을 등록하려면 로그인하세요.",
   "friendsSetOwnHandleFirst": "먼저 내 @핸들을 설정하세요 (프로필 편집).",
   "paywallCheckoutUnavailable": "결제는 출시 시 열려요 — 이 빌드에서는 스토어 결제가 아직 활성화되지 않았어요.",
-  "settingsManageUnavailable": "기기의 구독 설정에서 관리하거나 해지하세요 — 앱 내 바로가기는 출시 시 열려요."
+  "settingsManageUnavailable": "기기의 구독 설정에서 관리하거나 해지하세요 — 앱 내 바로가기는 출시 시 열려요.",
+  "friendsAdd": "추가"
 }

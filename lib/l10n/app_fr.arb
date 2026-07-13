@@ -682,5 +682,6 @@
   "friendsSignInForHandle": "Connecte-toi pour revendiquer ton @identifiant.",
   "friendsSetOwnHandleFirst": "Définis d'abord ton propre @identifiant (Modifier le profil).",
   "paywallCheckoutUnavailable": "Le paiement s'active plus tard — la facturation du store n'est pas encore active dans cette version.",
-  "settingsManageUnavailable": "Gère ou annule dans les réglages Abonnements de ton appareil — le raccourci dans l'app s'active plus tard."
+  "settingsManageUnavailable": "Gère ou annule dans les réglages Abonnements de ton appareil — le raccourci dans l'app s'active plus tard.",
+  "friendsAdd": "Ajouter"
 }

@@ -2380,4 +2380,7 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get settingsManageUnavailable =>
       'Gère ou annule dans les réglages Abonnements de ton appareil — le raccourci dans l\'app s\'active plus tard.';
+
+  @override
+  String get friendsAdd => 'Ajouter';
 }

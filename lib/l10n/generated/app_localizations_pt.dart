@@ -2365,4 +2365,7 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get settingsManageUnavailable =>
       'Gerencie ou cancele nas configurações de Assinaturas do seu dispositivo — o atalho no app abre no lançamento.';
+
+  @override
+  String get friendsAdd => 'Adicionar';
 }

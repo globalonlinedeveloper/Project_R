@@ -2346,4 +2346,7 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get settingsManageUnavailable =>
       'আপনার ডিভাইসের Subscriptions সেটিংসে পরিচালনা বা বাতিল করুন — অ্যাপের ভেতরের শর্টকাট চালু হবে লঞ্চে।';
+
+  @override
+  String get friendsAdd => 'যোগ করুন';
 }

@@ -682,5 +682,6 @@
   "friendsSignInForHandle": "Melde dich an, um deinen @handle zu sichern.",
   "friendsSetOwnHandleFirst": "Lege zuerst deinen eigenen @handle fest (Profil bearbeiten).",
   "paywallCheckoutUnavailable": "Checkout folgt zum Launch — die Abrechnung ist in diesem Build noch nicht aktiv.",
-  "settingsManageUnavailable": "Verwalte oder kündige in den Abo-Einstellungen deines Geräts — die App-Verknüpfung folgt zum Launch."
+  "settingsManageUnavailable": "Verwalte oder kündige in den Abo-Einstellungen deines Geräts — die App-Verknüpfung folgt zum Launch.",
+  "friendsAdd": "Hinzufügen"
 }

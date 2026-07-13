@@ -2348,4 +2348,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get settingsManageUnavailable =>
       'Manage or cancel in your device\'s Subscriptions settings — the in-app shortcut opens at launch.';
+
+  @override
+  String get friendsAdd => 'Add';
 }

@@ -962,5 +962,6 @@
   "friendsSignInForHandle": "Sign in to claim your @handle.",
   "friendsSetOwnHandleFirst": "Set your own @handle first (Edit profile).",
   "paywallCheckoutUnavailable": "Checkout opens at launch — store billing isn't live in this build yet.",
-  "settingsManageUnavailable": "Manage or cancel in your device's Subscriptions settings — the in-app shortcut opens at launch."
+  "settingsManageUnavailable": "Manage or cancel in your device's Subscriptions settings — the in-app shortcut opens at launch.",
+  "friendsAdd": "Add"
 }

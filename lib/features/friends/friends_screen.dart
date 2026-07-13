@@ -185,7 +185,7 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
             GestureDetector(
               key: const ValueKey<String>('friend-add-send'),
               onTap: () => _add(_controller.text),
-              child: Text('Add',
+              child: Text(context.l10n.friendsAdd,
                   style: TextStyle(
                       fontFamily: RatelFont.display,
                       fontWeight: RatelType.extraBold,

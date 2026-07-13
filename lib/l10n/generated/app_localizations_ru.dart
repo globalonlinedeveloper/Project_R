@@ -2377,4 +2377,7 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get settingsManageUnavailable =>
       'Управляйте подпиской или отмените её в настройках подписок вашего устройства — быстрый переход появится при запуске.';
+
+  @override
+  String get friendsAdd => 'Добавить';
 }

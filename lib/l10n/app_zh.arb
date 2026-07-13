@@ -682,5 +682,6 @@
   "friendsSignInForHandle": "登录以认领你的 @用户名。",
   "friendsSetOwnHandleFirst": "请先设置你自己的 @用户名(编辑资料)。",
   "paywallCheckoutUnavailable": "结账功能将在正式上线时开放 — 此版本尚未接入应用内计费。",
-  "settingsManageUnavailable": "请在设备的“订阅”设置中管理或取消 — 应用内快捷入口将在正式上线时开放。"
+  "settingsManageUnavailable": "请在设备的“订阅”设置中管理或取消 — 应用内快捷入口将在正式上线时开放。",
+  "friendsAdd": "添加"
 }

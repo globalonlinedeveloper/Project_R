@@ -2281,4 +2281,7 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get settingsManageUnavailable =>
       '请在设备的“订阅”设置中管理或取消 — 应用内快捷入口将在正式上线时开放。';
+
+  @override
+  String get friendsAdd => '添加';
 }

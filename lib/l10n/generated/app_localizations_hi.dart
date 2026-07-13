@@ -2348,4 +2348,7 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get settingsManageUnavailable =>
       'अपने डिवाइस की सदस्यता सेटिंग्स में प्रबंधित करें या रद्द करें — इन-ऐप शॉर्टकट लॉन्च पर खुलेगा।';
+
+  @override
+  String get friendsAdd => 'जोड़ें';
 }

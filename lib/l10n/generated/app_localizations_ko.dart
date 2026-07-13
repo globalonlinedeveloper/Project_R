@@ -2299,4 +2299,7 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get settingsManageUnavailable =>
       '기기의 구독 설정에서 관리하거나 해지하세요 — 앱 내 바로가기는 출시 시 열려요.';
+
+  @override
+  String get friendsAdd => '추가';
 }

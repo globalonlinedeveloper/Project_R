@@ -682,5 +682,6 @@
   "friendsSignInForHandle": "Entre para reservar seu @handle.",
   "friendsSetOwnHandleFirst": "Defina primeiro o seu @handle (Editar perfil).",
   "paywallCheckoutUnavailable": "O checkout abre no lançamento — a cobrança da loja ainda não está ativa nesta versão.",
-  "settingsManageUnavailable": "Gerencie ou cancele nas configurações de Assinaturas do seu dispositivo — o atalho no app abre no lançamento."
+  "settingsManageUnavailable": "Gerencie ou cancele nas configurações de Assinaturas do seu dispositivo — o atalho no app abre no lançamento.",
+  "friendsAdd": "Adicionar"
 }

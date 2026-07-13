@@ -4217,6 +4217,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Manage or cancel in your device\'s Subscriptions settings — the in-app shortcut opens at launch.'**
   String get settingsManageUnavailable;
+
+  /// No description provided for @friendsAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get friendsAdd;
 }
 
 class _AppLocalizationsDelegate

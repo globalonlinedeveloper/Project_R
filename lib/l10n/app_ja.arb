@@ -682,5 +682,6 @@
   "friendsSignInForHandle": "サインインして@ハンドルを取得しましょう。",
   "friendsSetOwnHandleFirst": "まずご自身の@ハンドルを設定してください(プロフィール編集)。",
   "paywallCheckoutUnavailable": "お支払い機能はリリース時に有効になります — このビルドではストアの決済はまだ利用できません。",
-  "settingsManageUnavailable": "管理・解約はお使いの端末の「サブスクリプション」設定から行ってください — アプリ内のショートカットはリリース時に有効になります。"
+  "settingsManageUnavailable": "管理・解約はお使いの端末の「サブスクリプション」設定から行ってください — アプリ内のショートカットはリリース時に有効になります。",
+  "friendsAdd": "追加"
 }

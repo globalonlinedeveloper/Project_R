@@ -2299,4 +2299,7 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get settingsManageUnavailable =>
       '管理・解約はお使いの端末の「サブスクリプション」設定から行ってください — アプリ内のショートカットはリリース時に有効になります。';
+
+  @override
+  String get friendsAdd => '追加';
 }
