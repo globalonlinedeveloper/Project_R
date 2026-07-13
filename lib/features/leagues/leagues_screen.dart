@@ -360,7 +360,11 @@ class _StandingRow extends StatelessWidget {
           const SizedBox(width: RatelSpace.md),
           Expanded(
             child: Text(
-              you ? context.l10n.leaguesYou : m.displayName,
+              you
+                  ? context.l10n.leaguesYou
+                  : (m.displayName.trim().isEmpty
+                      ? context.l10n.profileLearner
+                      : m.displayName),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(

@@ -115,6 +115,47 @@ void main() {
   );
 
   test(
+    'cohort member with no display_name -> empty name (localized at render, '
+    'never a baked English "Learner")',
+    () async {
+      final FakeLeaguesStore store = FakeLeaguesStore(
+        cohort: <Map<String, Object?>>[
+          <String, Object?>{
+            'member_id': 'm-anon',
+            // no display_name key: the controller must NOT bake 'Learner'.
+            'avatar_emoji': '\u{1F9A1}',
+            'weekly_xp': 10,
+            'tier': 'bronze',
+            'is_you': false,
+          },
+          <String, Object?>{
+            'member_id': 'm-you',
+            'display_name': 'Badger',
+            'avatar_emoji': '\u{1F9A1}',
+            'weekly_xp': 5,
+            'tier': 'bronze',
+            'is_you': true,
+          },
+        ],
+      );
+      final ProviderContainer c = ProviderContainer(
+        overrides: <Override>[
+          clockProvider.overrideWithValue(() => monday),
+          identityProvider.overrideWithValue(FakeIdentity()),
+          leaguesStoreProvider.overrideWithValue(store),
+        ],
+      );
+      addTearDown(c.dispose);
+      c.read(leaguesSyncProvider);
+      await _settle();
+      final LeagueStatus status = c.read(leagueStatusProvider);
+      final LeagueStanding anon =
+          status.standings.firstWhere((LeagueStanding s) => s.member.id == 'm-anon');
+      expect(anon.member.displayName, ''); // render maps ''->profileLearner
+    },
+  );
+
+  test(
     'guest: the honest solo cohort is byte-identical (no persistence)',
     () async {
       // Even a populated cohort is never read for a guest (uid == null).

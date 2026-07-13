@@ -143,7 +143,7 @@ class LeaguesSyncController extends Notifier<LeagueSync> {
 
   static String _displayName(String raw) {
     final String t = raw.trim();
-    return t.isEmpty ? 'Badger' : t;
+    return t;
   }
 
   static String _weekKey(DateTime d) =>
@@ -171,7 +171,7 @@ class LeaguesSyncController extends Notifier<LeagueSync> {
 
   static LeagueMember _memberFrom(Map<String, Object?> r) => LeagueMember(
     id: (r['member_id'] ?? '').toString(),
-    displayName: (r['display_name'] as String?) ?? 'Learner',
+    displayName: (r['display_name'] as String?) ?? '',
     avatarEmoji: (r['avatar_emoji'] as String?) ?? '🦡',
     weeklyXp: (r['weekly_xp'] as num?)?.toInt() ?? 0,
     isYou: r['is_you'] == true,
