@@ -2042,6 +2042,29 @@ class AppLocalizationsHi extends AppLocalizations {
       'दूसरे शिक्षार्थी आपको आपके @handle से जोड़ते हैं (2–20 अक्षर, अंक या _)। इसे पाने के लिए आपका साइन इन होना ज़रूरी है।';
 
   @override
+  String get editProfileAvatar => 'Avatar';
+
+  @override
+  String get editProfileChangeAvatar => 'Change avatar';
+
+  @override
+  String get editProfileAvatarTitle => 'Choose your avatar';
+
+  @override
+  String get editProfileAvatarNote =>
+      'Pick an emoji badger buddy. Saved on this device.';
+
+  @override
+  String get editProfileBio => 'Bio';
+
+  @override
+  String get editProfileBioHint => 'A short line about you';
+
+  @override
+  String get editProfileBioNote =>
+      'A short note shown on your profile. Saved on this device.';
+
+  @override
   String get commonSave => 'सहेजें';
 
   @override

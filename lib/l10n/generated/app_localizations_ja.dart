@@ -1998,6 +1998,29 @@ class AppLocalizationsJa extends AppLocalizations {
       '他の学習者はあなたの @ハンドル(2〜20文字の英字・数字・_)で追加します。取得にはサインインが必要です。';
 
   @override
+  String get editProfileAvatar => 'Avatar';
+
+  @override
+  String get editProfileChangeAvatar => 'Change avatar';
+
+  @override
+  String get editProfileAvatarTitle => 'Choose your avatar';
+
+  @override
+  String get editProfileAvatarNote =>
+      'Pick an emoji badger buddy. Saved on this device.';
+
+  @override
+  String get editProfileBio => 'Bio';
+
+  @override
+  String get editProfileBioHint => 'A short line about you';
+
+  @override
+  String get editProfileBioNote =>
+      'A short note shown on your profile. Saved on this device.';
+
+  @override
   String get commonSave => '保存';
 
   @override

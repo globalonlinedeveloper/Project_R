@@ -2059,6 +2059,29 @@ class AppLocalizationsPt extends AppLocalizations {
       'Outros alunos te adicionam pelo seu @handle (2–20 letras, números ou _). Para reservá-lo, você precisa estar conectado.';
 
   @override
+  String get editProfileAvatar => 'Avatar';
+
+  @override
+  String get editProfileChangeAvatar => 'Change avatar';
+
+  @override
+  String get editProfileAvatarTitle => 'Choose your avatar';
+
+  @override
+  String get editProfileAvatarNote =>
+      'Pick an emoji badger buddy. Saved on this device.';
+
+  @override
+  String get editProfileBio => 'Bio';
+
+  @override
+  String get editProfileBioHint => 'A short line about you';
+
+  @override
+  String get editProfileBioNote =>
+      'A short note shown on your profile. Saved on this device.';
+
+  @override
   String get commonSave => 'Salvar';
 
   @override

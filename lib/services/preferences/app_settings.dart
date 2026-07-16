@@ -36,6 +36,8 @@ class AppSettings {
     this.reduceMotion = false,
     this.mutedNotifications = const <String>{},
     this.displayName = '',
+    this.avatarEmoji = '',
+    this.bio = '',
     this.worldTheme = WorldTheme.classic,
   });
 
@@ -75,6 +77,18 @@ class AppSettings {
   /// empty ⇒ fall back to "Learner"/"Guest" on the profile header.
   final String displayName;
 
+  /// The learner's chosen **emoji avatar** (Edit profile · §4.9 · design #60/#61).
+  /// The app is mascot/emoji-based — there is no photo backend, so the avatar is
+  /// an emoji persisted device-locally (honest; mirrors [displayName]). Empty ⇒
+  /// not customised: the Profile header then falls back to the equipped outfit
+  /// emoji (the free Classic 🦡), so buying/equipping an outfit still shows.
+  final String avatarEmoji;
+
+  /// The learner's short bio (Edit profile · §4.9 · design #60). Device-local;
+  /// there is no `bio` column on the server `profiles` table, so this stays on
+  /// the device (honest; mirrors [displayName]). Empty ⇒ nothing shown.
+  final String bio;
+
   /// The selected world theme (Classic / Space — R-WT3 persisted opt-in).
   final WorldTheme worldTheme;
 
@@ -89,6 +103,8 @@ class AppSettings {
     bool? reduceMotion,
     Set<String>? mutedNotifications,
     String? displayName,
+    String? avatarEmoji,
+    String? bio,
     WorldTheme? worldTheme,
   }) =>
       AppSettings(
@@ -102,6 +118,8 @@ class AppSettings {
         reduceMotion: reduceMotion ?? this.reduceMotion,
         mutedNotifications: mutedNotifications ?? this.mutedNotifications,
         displayName: displayName ?? this.displayName,
+        avatarEmoji: avatarEmoji ?? this.avatarEmoji,
+        bio: bio ?? this.bio,
         worldTheme: worldTheme ?? this.worldTheme,
       );
 
@@ -116,6 +134,8 @@ class AppSettings {
         'reduceMotion': reduceMotion,
         'mutedNotifications': (mutedNotifications.toList()..sort()).join(','),
         'displayName': displayName,
+        'avatarEmoji': avatarEmoji,
+        'bio': bio,
         'worldTheme': worldTheme.name,
       };
 
@@ -130,6 +150,8 @@ class AppSettings {
         reduceMotion: m['reduceMotion'] as bool? ?? false,
         mutedNotifications: _mutedFromCsv(m['mutedNotifications'] as String?),
         displayName: m['displayName'] as String? ?? '',
+        avatarEmoji: m['avatarEmoji'] as String? ?? '',
+        bio: m['bio'] as String? ?? '',
         worldTheme: _worldThemeFromName(m['worldTheme'] as String?),
       );
 
@@ -146,6 +168,8 @@ class AppSettings {
       other.reduceMotion == reduceMotion &&
       setEquals(other.mutedNotifications, mutedNotifications) &&
       other.displayName == displayName &&
+      other.avatarEmoji == avatarEmoji &&
+      other.bio == bio &&
       other.worldTheme == worldTheme;
 
   @override
@@ -153,7 +177,7 @@ class AppSettings {
       Object.hash(highContrast, sound, haptics, dailyGoal, themeMode,
           Object.hashAllUnordered(readNotifications), Object.hashAll(recentSearches),
           reduceMotion, Object.hashAllUnordered(mutedNotifications), displayName,
-          worldTheme);
+          avatarEmoji, bio, worldTheme);
 }
 
 /// Parse a persisted read-notifications CSV into a set; null/empty ⇒ none.

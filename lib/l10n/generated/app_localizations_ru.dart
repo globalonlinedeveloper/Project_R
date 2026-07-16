@@ -2072,6 +2072,29 @@ class AppLocalizationsRu extends AppLocalizations {
       'Другие учащиеся добавляют вас по @имени (2–20 букв, цифр или _). Чтобы закрепить его, нужно войти.';
 
   @override
+  String get editProfileAvatar => 'Avatar';
+
+  @override
+  String get editProfileChangeAvatar => 'Change avatar';
+
+  @override
+  String get editProfileAvatarTitle => 'Choose your avatar';
+
+  @override
+  String get editProfileAvatarNote =>
+      'Pick an emoji badger buddy. Saved on this device.';
+
+  @override
+  String get editProfileBio => 'Bio';
+
+  @override
+  String get editProfileBioHint => 'A short line about you';
+
+  @override
+  String get editProfileBioNote =>
+      'A short note shown on your profile. Saved on this device.';
+
+  @override
   String get commonSave => 'Сохранить';
 
   @override

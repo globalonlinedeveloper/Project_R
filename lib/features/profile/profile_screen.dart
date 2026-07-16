@@ -47,8 +47,19 @@ class ProfileScreen extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(RatelSpace.screen, RatelSpace.lg,
               RatelSpace.screen, RatelSpace.xl),
           children: <Widget>[
-            _header(context, identity, level, settings.displayName,
-                ref.watch(equippedOutfitProvider).emoji, courseCode),
+            _header(
+                context,
+                identity,
+                level,
+                settings.displayName,
+                // Prefer the learner's picked emoji avatar (Edit profile · §4.9);
+                // fall back to the equipped outfit emoji (Classic 🦡) when unset,
+                // so buying/equipping an outfit still drives the header.
+                settings.avatarEmoji.isNotEmpty
+                    ? settings.avatarEmoji
+                    : ref.watch(equippedOutfitProvider).emoji,
+                courseCode,
+                settings.bio),
             const SizedBox(height: RatelSpace.cardGap),
             _stats(context, snap, words),
             const SizedBox(height: RatelSpace.cardGap),
@@ -120,7 +131,7 @@ class ProfileScreen extends ConsumerWidget {
   }
 
   Widget _header(BuildContext context, Identity identity, String level,
-      String displayName, String avatarEmoji, String courseCode) {
+      String displayName, String avatarEmoji, String courseCode, String bio) {
     final bool authed = identity.isAuthenticated;
     final String name = displayName.trim().isNotEmpty
         ? displayName.trim()
@@ -169,6 +180,16 @@ class ProfileScreen extends ConsumerWidget {
                           label: '${ratelCourseFlagEmoji(courseCode)} ${ratelCourseLanguageName(context, courseCode)} · ${context.l10n.commonLevel(level)}',
                           tone: RatelChipTone.teal),
                     ),
+                    if (bio.trim().isNotEmpty) ...<Widget>[
+                      const SizedBox(height: RatelSpace.xs),
+                      Text(bio.trim(),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontFamily: RatelFont.body,
+                              fontSize: RatelType.small,
+                              color: context.palette.muted)),
+                    ],
                   ],
                 ),
               ),

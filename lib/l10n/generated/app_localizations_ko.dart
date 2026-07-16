@@ -1998,6 +1998,29 @@ class AppLocalizationsKo extends AppLocalizations {
       '다른 학습자가 @핸들로 당신을 추가해요 (2–20자, 글자·숫자 또는 _). 등록하려면 로그인이 필요해요.';
 
   @override
+  String get editProfileAvatar => 'Avatar';
+
+  @override
+  String get editProfileChangeAvatar => 'Change avatar';
+
+  @override
+  String get editProfileAvatarTitle => 'Choose your avatar';
+
+  @override
+  String get editProfileAvatarNote =>
+      'Pick an emoji badger buddy. Saved on this device.';
+
+  @override
+  String get editProfileBio => 'Bio';
+
+  @override
+  String get editProfileBioHint => 'A short line about you';
+
+  @override
+  String get editProfileBioNote =>
+      'A short note shown on your profile. Saved on this device.';
+
+  @override
   String get commonSave => '저장';
 
   @override

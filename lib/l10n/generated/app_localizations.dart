@@ -3660,6 +3660,48 @@ abstract class AppLocalizations {
   /// **'Other learners add you by your @handle (2–20 letters, numbers or _). Claiming it needs you to be signed in.'**
   String get editProfileHandleNote;
 
+  /// No description provided for @editProfileAvatar.
+  ///
+  /// In en, this message translates to:
+  /// **'Avatar'**
+  String get editProfileAvatar;
+
+  /// No description provided for @editProfileChangeAvatar.
+  ///
+  /// In en, this message translates to:
+  /// **'Change avatar'**
+  String get editProfileChangeAvatar;
+
+  /// No description provided for @editProfileAvatarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your avatar'**
+  String get editProfileAvatarTitle;
+
+  /// No description provided for @editProfileAvatarNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick an emoji badger buddy. Saved on this device.'**
+  String get editProfileAvatarNote;
+
+  /// No description provided for @editProfileBio.
+  ///
+  /// In en, this message translates to:
+  /// **'Bio'**
+  String get editProfileBio;
+
+  /// No description provided for @editProfileBioHint.
+  ///
+  /// In en, this message translates to:
+  /// **'A short line about you'**
+  String get editProfileBioHint;
+
+  /// No description provided for @editProfileBioNote.
+  ///
+  /// In en, this message translates to:
+  /// **'A short note shown on your profile. Saved on this device.'**
+  String get editProfileBioNote;
+
   /// No description provided for @commonSave.
   ///
   /// In en, this message translates to:

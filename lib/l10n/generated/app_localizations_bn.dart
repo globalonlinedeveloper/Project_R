@@ -2043,6 +2043,29 @@ class AppLocalizationsBn extends AppLocalizations {
       'অন্য শিক্ষার্থীরা আপনার @handle দিয়ে আপনাকে যোগ করে (২–২০টি অক্ষর, সংখ্যা বা _)। এটি দাবি করতে আপনাকে সাইন ইন করতে হবে।';
 
   @override
+  String get editProfileAvatar => 'Avatar';
+
+  @override
+  String get editProfileChangeAvatar => 'Change avatar';
+
+  @override
+  String get editProfileAvatarTitle => 'Choose your avatar';
+
+  @override
+  String get editProfileAvatarNote =>
+      'Pick an emoji badger buddy. Saved on this device.';
+
+  @override
+  String get editProfileBio => 'Bio';
+
+  @override
+  String get editProfileBioHint => 'A short line about you';
+
+  @override
+  String get editProfileBioNote =>
+      'A short note shown on your profile. Saved on this device.';
+
+  @override
   String get commonSave => 'সংরক্ষণ';
 
   @override

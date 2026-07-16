@@ -64,6 +64,16 @@ class AppSettingsController extends Notifier<AppSettings> {
   Future<void> setDisplayName(String value) =>
       _commit(state.copyWith(displayName: value.trim()));
 
+  /// The learner's emoji avatar (Edit profile · §4.9 · design #60/#61).
+  /// Device-local; empty ⇒ fall back to the equipped outfit emoji on the header.
+  Future<void> setAvatarEmoji(String value) =>
+      _commit(state.copyWith(avatarEmoji: value));
+
+  /// The learner's short bio (Edit profile · §4.9 · design #60). Device-local;
+  /// trimmed. Empty ⇒ nothing shown on the profile header.
+  Future<void> setBio(String value) =>
+      _commit(state.copyWith(bio: value.trim()));
+
   /// Marks notification [ids] as read (R-L11 inbox). Persisted device-locally
   /// so the unread badge survives a relaunch; a no-op when nothing new is added.
   Future<void> addReadNotifications(Iterable<String> ids) {

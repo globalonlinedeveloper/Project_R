@@ -2071,6 +2071,29 @@ class AppLocalizationsFr extends AppLocalizations {
       'Les autres apprenants t\'ajoutent par ton @identifiant (2–20 lettres, chiffres ou _). Pour le revendiquer, tu dois être connecté.';
 
   @override
+  String get editProfileAvatar => 'Avatar';
+
+  @override
+  String get editProfileChangeAvatar => 'Change avatar';
+
+  @override
+  String get editProfileAvatarTitle => 'Choose your avatar';
+
+  @override
+  String get editProfileAvatarNote =>
+      'Pick an emoji badger buddy. Saved on this device.';
+
+  @override
+  String get editProfileBio => 'Bio';
+
+  @override
+  String get editProfileBioHint => 'A short line about you';
+
+  @override
+  String get editProfileBioNote =>
+      'A short note shown on your profile. Saved on this device.';
+
+  @override
   String get commonSave => 'Enregistrer';
 
   @override
