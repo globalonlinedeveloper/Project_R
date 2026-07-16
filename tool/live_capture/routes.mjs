@@ -47,9 +47,9 @@ export const routes = [
   { n: 'x-login',        route: '/login',         slug: 'login',          label: 'Login',                    design: [] },
   { n: 'x-signup',       route: '/signup',        slug: 'signup',         label: 'Signup',                   design: [] },
   { n: 'x-search',       route: '/search',        slug: 'library-search', label: 'Library search',           design: [42] },
-  { n: 'x-stories',      route: '/stories',       slug: 'stories',        label: 'Stories list',             design: [], long: true, interact: true, cap: 4 },
-  { n: 'x-podcasts',     route: '/podcasts',      slug: 'podcasts',       label: 'Podcasts list',            design: [], long: true, interact: true, cap: 4 },
-  { n: 'x-watch',        route: '/watch',         slug: 'watch',          label: 'Watch list',               design: [], long: true, interact: true, cap: 4 },
+  { n: 'x-stories',      route: '/stories',       slug: 'stories',        label: 'Stories list',             design: [], long: true },
+  { n: 'x-podcasts',     route: '/podcasts',      slug: 'podcasts',       label: 'Podcasts list',            design: [], long: true },
+  { n: 'x-watch',        route: '/watch',         slug: 'watch',          label: 'Watch list',               design: [], long: true },
   { n: 'x-daily-quiz',   route: '/daily-quiz',    slug: 'daily-quiz',     label: 'Daily quiz / lesson runner', design: [] },
 
   // --- player/detail routes (need content args; capture whatever renders) ---

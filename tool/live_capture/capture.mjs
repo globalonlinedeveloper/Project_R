@@ -41,12 +41,15 @@ const DSF = parseInt(arg('dsf', '2'), 10);
 const INTERACT = arg('interact', '1') !== '0';
 const PER_SCREEN_CAP = parseInt(arg('max-buttons', '8'), 10);
 const VIEWPORT = { width: 390, height: 844 };
-const SETTLE_BOOT = 4000;
-const SETTLE_ROUTE = 2000;
+const SETTLE_BOOT = 3500;
+const SETTLE_ROUTE = 1500;
 const SETTLE_SCROLL = 900;
-const SETTLE_TAP = 1500;
+const SETTLE_TAP = 1200;
 const MAX_SCROLLS = 2;
-const NAV_TIMEOUT = 120000;
+const NAV_TIMEOUT = 45000;
+const START_MS = Date.now();
+const BUDGET_MS = parseInt(arg('budget-min', '28'), 10) * 60000; // stop interaction after this; base shots always run first
+const overBudget = () => Date.now() - START_MS > BUDGET_MS;
 
 // Actions we must never trigger while blindly walking buttons.
 const DENY = /(subscribe|\bbuy\b|\bbuy\s|purchase|checkout|pay\s?now|confirm\s?purchase|upgrade\s?now|delete\s+account|delete\s+my\s+account|\berase\b|sign\s?out|log\s?out|restore|continue with (apple|google|facebook))/i;
@@ -56,7 +59,11 @@ const log = (...a) => console.log('[capture]', ...a);
 const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 34) || 'x';
 
 async function waitForFlutter(page, settle) {
-  await page.waitForSelector('flt-glass-pane', { timeout: 90000 }).catch(() => {});
+  // Bounded: match whichever host element this Flutter build emits, never hang.
+  // (The 90s single-selector wait on flt-glass-pane timed out every nav when the
+  // element name differed -> the whole job blew past the 55m cap. flutter-view is
+  // created by the bootstrap; canvas appears once CanvasKit paints.)
+  await page.waitForSelector('flutter-view, flt-glass-pane, flt-scene-host, canvas', { state: 'attached', timeout: 20000 }).catch(() => {});
   await page.waitForTimeout(settle);
 }
 const hashPath = (page) =>
@@ -141,6 +148,7 @@ async function walkButtons(page, r, entry) {
   btns = btns.slice(0, r.cap || PER_SCREEN_CAP);
   entry.interaction = { semantics: true, buttons: btns.map((b) => b.label), shots: [] };
   for (const b of btns) {
+    if (overBudget()) { log('  [interact] budget reached — stopping button walk'); break; }
     await gotoRoute(page, r);
     await enableSemantics(page);
     const node = (await listInteractive(page)).find((n) => n.label.toLowerCase() === b.label.toLowerCase());
@@ -220,8 +228,12 @@ function writeIndex(out, manifest) {
   for (const r of routes) {
     const entry = await captureRoute(page, r);
     try {
-      if (INTERACT && r.sequence) await runSequence(page, r, entry);
-      if (INTERACT && r.interact) await walkButtons(page, r, entry);
+      if (INTERACT && !overBudget()) {
+        if (r.sequence) await runSequence(page, r, entry);
+        if (r.interact) await walkButtons(page, r, entry);
+      } else if (INTERACT && (r.interact || r.sequence)) {
+        log(`time budget (${BUDGET_MS / 60000}m) reached — base-only from ${r.route} onward`);
+      }
     } catch (e) { log(`interaction error on ${r.route}:`, e.message); }
     manifest.push(entry);
   }

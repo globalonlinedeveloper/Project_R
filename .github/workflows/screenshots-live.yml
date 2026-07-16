@@ -68,6 +68,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Serve build/web and capture all routes
+        timeout-minutes: 40
         working-directory: tool/live_capture
         run: |
           python3 -m http.server 8080 --directory "$GITHUB_WORKSPACE/build/web" >/tmp/http.log 2>&1 &
@@ -77,7 +78,7 @@ jobs:
             if curl -sf -o /dev/null "http://127.0.0.1:8080/index.html"; then echo "server up"; break; fi
             sleep 1
           done
-          node capture.mjs --base "http://127.0.0.1:8080" --out screenshots --dsf 2 --interact 1 --max-buttons 8
+          node capture.mjs --base "http://127.0.0.1:8080" --out screenshots --dsf 2 --interact 1 --max-buttons 8 --budget-min 28
           kill "$SERVER_PID" 2>/dev/null || true
 
       # ---- Optional stretch: rough design-vs-live diff (skips if design set absent) ----
