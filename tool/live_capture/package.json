@@ -1,0 +1,16 @@
+{
+  "name": "ratel-live-capture",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Design-vs-LIVE screenshot pipeline for the Ratel Flutter web app.",
+  "scripts": {
+    "capture": "node capture.mjs",
+    "diff": "node visual_diff.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.47.2",
+    "pixelmatch": "^5.3.0",
+    "pngjs": "^7.0.0"
+  }
+}

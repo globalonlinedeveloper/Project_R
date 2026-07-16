@@ -1,0 +1,106 @@
+name: screenshots-live
+
+# Design-vs-LIVE screenshot pipeline: builds the Flutter web app EXACTLY as
+# deploy-web.yml does (so the shots match learnwithratel.com), serves it locally,
+# walks every route with Playwright/Chromium at a 390x844 mobile viewport as a
+# guest, and uploads the screenshots (named to SCREEN_MAP.md) as an artifact.
+#
+# Does NOT deploy and does NOT touch main. Triggered manually, or by pushing the
+# capture branch. Degrades gracefully without secrets (a keyless build boots
+# straight to Home as a local guest — no Welcome gate).
+on:
+  workflow_dispatch:
+  push:
+    branches: [ ci/live-screenshots ]
+
+concurrency:
+  group: screenshots-live-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    name: Build web + capture every screen
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+
+      # ---- Build the web app (mirrors deploy-web.yml so shots == live) ----
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.1'
+          channel: stable
+          cache: true
+
+      - name: Resolve deps
+        run: flutter pub get
+
+      - name: Codegen (freezed/json parts are gitignored)
+        run: dart run build_runner build
+
+      - name: Build web (same flags as deploy-web; graceful without secrets)
+        run: |
+          flutter build web --release --base-href "/" --pwa-strategy=none \
+            --dart-define=RATEL_AUTH=true --dart-define=RATEL_ANON=true \
+            --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
+            --dart-define=SUPABASE_PUBLISHABLE_KEY=${{ secrets.SUPABASE_PUBLISHABLE_KEY }} \
+            --dart-define=RATEL_REMOTE_CONTENT=true \
+            --dart-define=RATEL_CONTENT_URL=https://pub-506169294d394678b41c2fcd4792375f.r2.dev/content \
+            --dart-define=RATEL_LIVE_AI=true
+
+      - name: Stamp build marker (parity with the live deploy)
+        run: echo "ratel ${{ github.sha }} | flutter 3.44.1 | web | captured $(date -u +%FT%TZ)" > build/web/build-info.txt
+
+      # ---- Capture ----
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install capture deps
+        working-directory: tool/live_capture
+        run: npm install --no-audit --no-fund
+
+      - name: Install Chromium (with OS deps)
+        working-directory: tool/live_capture
+        run: npx playwright install --with-deps chromium
+
+      - name: Serve build/web and capture all routes
+        working-directory: tool/live_capture
+        run: |
+          python3 -m http.server 8080 --directory "$GITHUB_WORKSPACE/build/web" >/tmp/http.log 2>&1 &
+          SERVER_PID=$!
+          # Wait for the static server to answer.
+          for i in $(seq 1 30); do
+            if curl -sf -o /dev/null "http://127.0.0.1:8080/index.html"; then echo "server up"; break; fi
+            sleep 1
+          done
+          node capture.mjs --base "http://127.0.0.1:8080" --out screenshots --dsf 2 --interact 1 --max-buttons 8
+          kill "$SERVER_PID" 2>/dev/null || true
+
+      # ---- Optional stretch: rough design-vs-live diff (skips if design set absent) ----
+      - name: Visual diff vs design_screens (optional; skips cleanly if absent)
+        working-directory: tool/live_capture
+        run: |
+          if [ -d design_screens ]; then
+            node visual_diff.mjs --shots screenshots --design design_screens --out screenshots/diff || true
+          else
+            echo "design_screens/ not present in the repo — skipping visual diff (see README)."
+          fi
+
+      - name: Job summary
+        if: always()
+        working-directory: tool/live_capture
+        run: |
+          if [ -f screenshots/INDEX.md ]; then cat screenshots/INDEX.md >> "$GITHUB_STEP_SUMMARY"; fi
+
+      - name: Upload screenshots artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ratel-live-screenshots
+          path: tool/live_capture/screenshots
+          if-no-files-found: warn
+          retention-days: 30
