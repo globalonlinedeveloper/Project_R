@@ -3324,6 +3324,108 @@ abstract class AppLocalizations {
   /// **'You'**
   String get liveYou;
 
+  /// No description provided for @liveTutorName.
+  ///
+  /// In en, this message translates to:
+  /// **'Ratel'**
+  String get liveTutorName;
+
+  /// No description provided for @liveTutorRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Ratel · Tutor'**
+  String get liveTutorRole;
+
+  /// No description provided for @liveHd.
+  ///
+  /// In en, this message translates to:
+  /// **'HD'**
+  String get liveHd;
+
+  /// No description provided for @liveSpeakingIndicator.
+  ///
+  /// In en, this message translates to:
+  /// **'speaking…'**
+  String get liveSpeakingIndicator;
+
+  /// No description provided for @liveIdleIndicator.
+  ///
+  /// In en, this message translates to:
+  /// **'ready'**
+  String get liveIdleIndicator;
+
+  /// No description provided for @liveGreeting.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi! I’m Ratel, your tutor. Ready to practice?'**
+  String get liveGreeting;
+
+  /// No description provided for @liveQuickReplyReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, let’s go!'**
+  String get liveQuickReplyReady;
+
+  /// No description provided for @liveQuickReplyNervous.
+  ///
+  /// In en, this message translates to:
+  /// **'A little nervous'**
+  String get liveQuickReplyNervous;
+
+  /// No description provided for @liveVideoOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get liveVideoOn;
+
+  /// No description provided for @liveVideoOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera off'**
+  String get liveVideoOff;
+
+  /// No description provided for @liveCaptionsOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Captions'**
+  String get liveCaptionsOn;
+
+  /// No description provided for @liveCaptionsOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Captions off'**
+  String get liveCaptionsOff;
+
+  /// No description provided for @liveEndCall.
+  ///
+  /// In en, this message translates to:
+  /// **'End call'**
+  String get liveEndCall;
+
+  /// No description provided for @liveCameraGated.
+  ///
+  /// In en, this message translates to:
+  /// **'Live camera isn’t part of this build — nothing is faked. When it turns on, your self-view goes here.'**
+  String get liveCameraGated;
+
+  /// No description provided for @liveCaptionsGated.
+  ///
+  /// In en, this message translates to:
+  /// **'Live captions appear here once the real voice engine is on — no transcript is invented.'**
+  String get liveCaptionsGated;
+
+  /// No description provided for @liveConnectPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'This is the call screen. The live voice engine isn’t connected in this build, so nothing you say is answered yet — no reply is ever simulated.'**
+  String get liveConnectPrompt;
+
+  /// No description provided for @liveGreetingNote.
+  ///
+  /// In en, this message translates to:
+  /// **'This is Ratel’s scripted opener — the greeting, not a live reply.'**
+  String get liveGreetingNote;
+
   /// No description provided for @liveStartFailed.
   ///
   /// In en, this message translates to:

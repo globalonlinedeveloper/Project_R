@@ -1819,6 +1819,61 @@ class AppLocalizationsJa extends AppLocalizations {
   String get liveYou => 'あなた';
 
   @override
+  String get liveTutorName => 'Ratel';
+
+  @override
+  String get liveTutorRole => 'Ratel · Tutor';
+
+  @override
+  String get liveHd => 'HD';
+
+  @override
+  String get liveSpeakingIndicator => 'speaking…';
+
+  @override
+  String get liveIdleIndicator => 'ready';
+
+  @override
+  String get liveGreeting => 'Hi! I’m Ratel, your tutor. Ready to practice?';
+
+  @override
+  String get liveQuickReplyReady => 'Yes, let’s go!';
+
+  @override
+  String get liveQuickReplyNervous => 'A little nervous';
+
+  @override
+  String get liveVideoOn => 'Camera';
+
+  @override
+  String get liveVideoOff => 'Camera off';
+
+  @override
+  String get liveCaptionsOn => 'Captions';
+
+  @override
+  String get liveCaptionsOff => 'Captions off';
+
+  @override
+  String get liveEndCall => 'End call';
+
+  @override
+  String get liveCameraGated =>
+      'Live camera isn’t part of this build — nothing is faked. When it turns on, your self-view goes here.';
+
+  @override
+  String get liveCaptionsGated =>
+      'Live captions appear here once the real voice engine is on — no transcript is invented.';
+
+  @override
+  String get liveConnectPrompt =>
+      'This is the call screen. The live voice engine isn’t connected in this build, so nothing you say is answered yet — no reply is ever simulated.';
+
+  @override
+  String get liveGreetingNote =>
+      'This is Ratel’s scripted opener — the greeting, not a live reply.';
+
+  @override
   String get liveStartFailed => 'ライブセッションを開始できませんでした — もう一度お試しください。';
 
   @override
