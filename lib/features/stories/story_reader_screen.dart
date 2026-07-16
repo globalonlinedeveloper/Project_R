@@ -38,11 +38,23 @@ class _StoryReaderScreenState extends ConsumerState<StoryReaderScreen> {
     super.dispose();
   }
 
-  CourseStory? _find(CourseSpine spine) {
+  /// Resolve the story to read. INC-7 graceful default (DESIGN_VS_LIVE §S):
+  ///
+  ///  * exact `passageId` match -> that authored story (the Stories LIST always
+  ///    threads an explicit `?passage=<id>`, so normal navigation is unchanged);
+  ///  * COLD nav (`passageId == null`, e.g. a bare `/story` deep-link) OR an
+  ///    explicit id that is not in the loaded spine -> the FIRST authored story
+  ///    (deterministic: authored spine order), so the surface opens a REAL story
+  ///    instead of a dead-end;
+  ///  * only when the spine authors NO stories at all does this return null, so
+  ///    the caller renders the honest [ContentUnavailableCard] -- the "no
+  ///    content" state stays reserved for a genuinely empty course.
+  CourseStory? _resolve(CourseSpine spine) {
+    if (spine.stories.isEmpty) return null;
     for (final CourseStory s in spine.stories) {
       if (s.id == widget.passageId) return s;
     }
-    return null;
+    return spine.stories.first;
   }
 
   Future<void> _readAloud(String text) async {
@@ -60,7 +72,7 @@ class _StoryReaderScreenState extends ConsumerState<StoryReaderScreen> {
   @override
   Widget build(BuildContext context) {
     final CourseSpine spine = ref.watch(courseSpineProvider);
-    final CourseStory? story = _find(spine);
+    final CourseStory? story = _resolve(spine);
     final bool canRead = ref.watch(speechTtsProvider).isAvailable;
 
     return Scaffold(

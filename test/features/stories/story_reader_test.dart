@@ -63,6 +63,13 @@ CourseSpine _spineWithStory() => const CourseSpine(
       ],
     );
 
+/// A course that authors NO stories: exercises the honest empty state, which
+/// (INC-7) is the ONLY case that still shows the ContentUnavailableCard.
+CourseSpine _spineNoStories() => const CourseSpine(
+      courseCode: 'en',
+      units: <CourseUnit>[],
+    );
+
 Future<void> _pump(WidgetTester tester, ProviderContainer c) async {
   tester.view.physicalSize = const Size(460, 2600);
   tester.view.devicePixelRatio = 1.0;
@@ -143,10 +150,13 @@ void main() {
     expect(find.text('✕ Not quite'), findsOneWidget);
   });
 
-  testWidgets('unknown passage shows an honest not-available message',
+  testWidgets('empty course shows an honest not-available message',
       (WidgetTester tester) async {
+    // INC-7: the unavailable card is reserved for a genuinely EMPTY course; an
+    // unknown id against a non-empty spine now falls back to a real story (see
+    // inc7_story_coldnav_test.dart), so this honest state uses an empty spine.
     final ProviderContainer c = ProviderContainer(overrides: <Override>[
-      courseSpineProvider.overrideWithValue(_spineWithStory()),
+      courseSpineProvider.overrideWithValue(_spineNoStories()),
     ]);
     addTearDown(c.dispose);
     await tester.pumpWidget(UncontrolledProviderScope(
