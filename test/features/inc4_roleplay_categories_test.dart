@@ -60,6 +60,18 @@ Widget _screen(CourseSpine spine) => ProviderScope(
       ),
     );
 
+/// Test-harness helper (INC-9.2 gate fix): the screen under test uses a
+/// lazy [ListView] body, so children below the default 800x600 test
+/// viewport are never built and resolve to findsNothing (the six named-category sections overflow the fold).
+/// Enlarging the test surface builds the whole list. The screen is
+/// UNCHANGED — a viewport-only harness fix; the single-item tests already
+/// prove the render path is correct.
+void _tallSurface(WidgetTester tester) {
+  tester.view.physicalSize = const Size(1200, 2400);
+  tester.view.devicePixelRatio = 1.0;
+  addTearDown(tester.view.reset);
+}
+
 void main() {
   group('categoryOf — deterministic derivation over real signal', () {
     test('a café-world scenario lands under EVERYDAY', () {
@@ -114,6 +126,7 @@ void main() {
 
   testWidgets('named-category headers render (localized) in fixed order; '
       'empty categories are hidden', (WidgetTester tester) async {
+    _tallSurface(tester);
     await tester.pumpWidget(_screen(_spine));
     await tester.pumpAndSettle();
 
@@ -131,6 +144,7 @@ void main() {
 
   testWidgets('empty category hidden: a spine with only a café scenario shows '
       'EVERYDAY but not HEALTH', (WidgetTester tester) async {
+    _tallSurface(tester);
     await tester.pumpWidget(_screen(CourseSpine(
         courseCode: 'en',
         units: const <CourseUnit>[],
@@ -146,6 +160,7 @@ void main() {
 
   testWidgets('search filters rows live (title/goal/world, case-insensitive)',
       (WidgetTester tester) async {
+    _tallSurface(tester);
     await tester.pumpWidget(_screen(_spine));
     await tester.pumpAndSettle();
 
@@ -167,6 +182,7 @@ void main() {
 
   testWidgets('search with no matches shows the honest no-matches line',
       (WidgetTester tester) async {
+    _tallSurface(tester);
     await tester.pumpWidget(_screen(_spine));
     await tester.pumpAndSettle();
     await tester.enterText(
@@ -179,6 +195,7 @@ void main() {
 
   testWidgets('per-scene medallions: a café scenario shows the ☕ medallion '
       '(not the fixed 🎭)', (WidgetTester tester) async {
+    _tallSurface(tester);
     await tester.pumpWidget(_screen(CourseSpine(
         courseCode: 'en',
         units: const <CourseUnit>[],
@@ -195,6 +212,7 @@ void main() {
 
   testWidgets('a doctor scenario shows the 🩺 medallion',
       (WidgetTester tester) async {
+    _tallSurface(tester);
     await tester.pumpWidget(_screen(CourseSpine(
         courseCode: 'en',
         units: const <CourseUnit>[],
@@ -208,6 +226,7 @@ void main() {
 
   testWidgets('honest empty state when the course authors no roleplays',
       (WidgetTester tester) async {
+    _tallSurface(tester);
     await tester
         .pumpWidget(_screen(const CourseSpine(courseCode: 'en', units: <CourseUnit>[])));
     await tester.pumpAndSettle();
@@ -220,6 +239,7 @@ void main() {
 
   testWidgets('preserved chrome: screen key, live-entry card, and row keys',
       (WidgetTester tester) async {
+    _tallSurface(tester);
     await tester.pumpWidget(_screen(_spine));
     await tester.pumpAndSettle();
     expect(
@@ -233,6 +253,7 @@ void main() {
   });
 
   testWidgets('category headers localize (German)', (WidgetTester tester) async {
+    _tallSurface(tester);
     await tester.pumpWidget(ProviderScope(
       overrides: <Override>[
         courseSpineProvider.overrideWithValue(_spine),

@@ -14,6 +14,18 @@ import 'package:ratel/services/preferences/app_settings.dart';
 import 'package:ratel/services/preferences/settings_store.dart';
 import 'package:ratel/services/social/friends_service.dart';
 
+/// Test-harness helper (INC-9.2 gate fix): the screen under test uses a
+/// lazy [ListView] body, so children below the default 800x600 test
+/// viewport are never built and resolve to findsNothing (the taller post-INC-6 edit form pushes Save off-screen).
+/// Enlarging the test surface builds the whole list. The screen is
+/// UNCHANGED — a viewport-only harness fix; the single-item tests already
+/// prove the render path is correct.
+void _tallSurface(WidgetTester tester) {
+  tester.view.physicalSize = const Size(1200, 2400);
+  tester.view.devicePixelRatio = 1.0;
+  addTearDown(tester.view.reset);
+}
+
 void main() {
   group('AppSettings avatar + bio', () {
     test('defaults are empty (back-compat: header falls back to the outfit)', () {
@@ -75,6 +87,7 @@ void main() {
 
   testWidgets('picking an avatar in the editor persists it on Save',
       (WidgetTester tester) async {
+    _tallSurface(tester);
     final ProviderContainer container = ProviderContainer();
     addTearDown(container.dispose);
     await tester.pumpWidget(UncontrolledProviderScope(
@@ -99,6 +112,7 @@ void main() {
 
   testWidgets('entering a bio + Save persists it',
       (WidgetTester tester) async {
+    _tallSurface(tester);
     final ProviderContainer container = ProviderContainer();
     addTearDown(container.dispose);
     await tester.pumpWidget(UncontrolledProviderScope(
@@ -116,6 +130,7 @@ void main() {
 
   testWidgets('the editor pre-fills the persisted avatar + bio',
       (WidgetTester tester) async {
+    _tallSurface(tester);
     final ProviderContainer container = ProviderContainer(overrides: <Override>[
       settingsStoreProvider.overrideWithValue(InMemorySettingsStore(
         const AppSettings(avatarEmoji: '🐼', bio: 'Panda'),
@@ -140,6 +155,7 @@ void main() {
 
   testWidgets('Profile header reflects the chosen avatar emoji',
       (WidgetTester tester) async {
+    _tallSurface(tester);
     final ProviderContainer container = ProviderContainer(overrides: <Override>[
       settingsStoreProvider.overrideWithValue(InMemorySettingsStore(
         const AppSettings(avatarEmoji: '🐼'),
@@ -159,6 +175,7 @@ void main() {
 
   testWidgets('claiming an @handle still routes through FriendsService.setHandle',
       (WidgetTester tester) async {
+    _tallSurface(tester);
     final _RecordingFriendsService svc = _RecordingFriendsService();
     final ProviderContainer container = ProviderContainer(overrides: <Override>[
       friendsServiceProvider.overrideWithValue(svc),

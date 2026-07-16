@@ -8,6 +8,18 @@ import 'package:ratel/features/settings/settings_controller.dart';
 import 'package:ratel/services/preferences/app_settings.dart';
 import 'package:ratel/services/social/friends_service.dart';
 
+/// Test-harness helper (INC-9.2 gate fix): the screen under test uses a
+/// lazy [ListView] body, so children below the default 800x600 test
+/// viewport are never built and resolve to findsNothing (the taller post-INC-6 edit form pushes Save off-screen).
+/// Enlarging the test surface builds the whole list. The screen is
+/// UNCHANGED — a viewport-only harness fix; the single-item tests already
+/// prove the render path is correct.
+void _tallSurface(WidgetTester tester) {
+  tester.view.physicalSize = const Size(1200, 2400);
+  tester.view.devicePixelRatio = 1.0;
+  addTearDown(tester.view.reset);
+}
+
 void main() {
   test('AppSettings.displayName round-trips through the map', () {
     final AppSettings s = const AppSettings().copyWith(displayName: 'Rafa');
@@ -26,6 +38,7 @@ void main() {
 
   testWidgets('Edit profile screen edits + saves the display name',
       (WidgetTester tester) async {
+    _tallSurface(tester);
     final ProviderContainer container = ProviderContainer();
     addTearDown(container.dispose);
     await tester.pumpWidget(UncontrolledProviderScope(
@@ -43,6 +56,7 @@ void main() {
 
   testWidgets('claiming an @handle routes it through FriendsService.setHandle',
       (WidgetTester tester) async {
+    _tallSurface(tester);
     final svc = _RecordingFriendsService();
     final ProviderContainer container = ProviderContainer(overrides: <Override>[
       friendsServiceProvider.overrideWithValue(svc),
