@@ -85,9 +85,36 @@ RoleplayCategory categoryOf(CourseScenario s) {
     return RoleplayCategory.health;
   }
 
-  // WORK & STUDY — office / work / colleague / school / college / class /
-  // interview / barista / hiring / study. Checked before food/social so a
-  // "barista"/"job interview" at a café resolves to work, not everyday/social.
+  // SOCIAL — a first-meeting / greeting / friend scene: friend / party / meet /
+  // classmate / neighbour / social / invite, plus explicit greeting signals
+  // (greet / introduce / get to know / make friends). Checked BEFORE WORK &
+  // STUDY so a "classmate" greeting ("school hallway — greet Ben and introduce
+  // yourself") reads SOCIAL rather than being pulled to WORK by the incidental
+  // "school". (An interview at a café has none of these signals, so the
+  // stronger barista/hiring cues below still resolve it to WORK & STUDY.)
+  if (has(<String>[
+    'friend',
+    'party',
+    'meet',
+    'neighbour',
+    'neighbor',
+    'social',
+    'invite',
+    'classmate',
+    'rapport',
+    'greet',
+    'introduce',
+    'get to know',
+    'make friends',
+  ])) {
+    return RoleplayCategory.social;
+  }
+
+  // WORK & STUDY — office / work / colleague / school / college / interview /
+  // barista / hiring / study. Checked after SOCIAL (so a first-meeting
+  // classmate scene stays SOCIAL) but before food/travel so a "barista"/"job
+  // interview" at a café resolves to work, not everyday. ('class' is
+  // intentionally NOT a keyword — it would spuriously match "classmate".)
   if (has(<String>[
     'office',
     'work',
@@ -96,7 +123,6 @@ RoleplayCategory categoryOf(CourseScenario s) {
     'school',
     'college',
     'university',
-    'class',
     'interview',
     'barista',
     'hiring',
@@ -127,21 +153,6 @@ RoleplayCategory categoryOf(CourseScenario s) {
     'abroad',
   ])) {
     return RoleplayCategory.travel;
-  }
-
-  // SOCIAL — friend / party / meet / neighbour / social / invite.
-  if (has(<String>[
-    'friend',
-    'party',
-    'meet',
-    'neighbour',
-    'neighbor',
-    'social',
-    'invite',
-    'classmate',
-    'rapport',
-  ])) {
-    return RoleplayCategory.social;
   }
 
   // EVERYDAY — café / restaurant / bakery / market / shop / food / order.

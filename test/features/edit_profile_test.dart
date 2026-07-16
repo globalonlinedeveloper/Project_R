@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ratel/core/core.dart';
 import 'package:ratel/features/profile/edit_profile_screen.dart';
 import 'package:ratel/features/settings/settings_controller.dart';
 import 'package:ratel/services/preferences/app_settings.dart';
@@ -37,7 +36,7 @@ void main() {
     expect(find.text('Edit profile'), findsWidgets);
     await tester.enterText(
         find.byKey(const ValueKey<String>('edit-display-name')), 'Rafa');
-    await tester.tap(find.byType(RatelButton));
+    await tester.tap(find.byKey(const ValueKey<String>('edit-save')));
     await tester.pumpAndSettle();
     expect(container.read(appSettingsControllerProvider).displayName, 'Rafa');
   });
@@ -58,7 +57,7 @@ void main() {
         find.byKey(const ValueKey<String>('edit-display-name')), 'Mia');
     await tester.enterText(
         find.byKey(const ValueKey<String>('edit-handle')), '@Mia');
-    await tester.tap(find.byType(RatelButton));
+    await tester.tap(find.byKey(const ValueKey<String>('edit-save')));
     await tester.pumpAndSettle();
     expect(svc.handles, <String>['@Mia']);
     expect(container.read(appSettingsControllerProvider).displayName, 'Mia');

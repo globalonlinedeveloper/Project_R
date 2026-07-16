@@ -7,7 +7,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ratel/core/core.dart';
 import 'package:ratel/features/profile/edit_profile_screen.dart';
 import 'package:ratel/features/profile/profile_screen.dart';
 import 'package:ratel/features/settings/settings_controller.dart';
@@ -93,7 +92,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // Save persists it locally.
-    await tester.tap(find.byType(RatelButton).last);
+    await tester.tap(find.byKey(const ValueKey<String>('edit-save')));
     await tester.pumpAndSettle();
     expect(container.read(appSettingsControllerProvider).avatarEmoji, '🦊');
   });
@@ -110,7 +109,7 @@ void main() {
 
     await tester.enterText(
         find.byKey(const ValueKey<String>('edit-bio')), 'Coffee & verbs');
-    await tester.tap(find.byType(RatelButton).last);
+    await tester.tap(find.byKey(const ValueKey<String>('edit-save')));
     await tester.pumpAndSettle();
     expect(container.read(appSettingsControllerProvider).bio, 'Coffee & verbs');
   });
@@ -172,7 +171,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.enterText(
         find.byKey(const ValueKey<String>('edit-handle')), '@Mia');
-    await tester.tap(find.byType(RatelButton).last);
+    await tester.tap(find.byKey(const ValueKey<String>('edit-save')));
     await tester.pumpAndSettle();
     expect(svc.handles, <String>['@Mia']);
   });

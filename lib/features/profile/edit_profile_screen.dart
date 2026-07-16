@@ -328,7 +328,11 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             ),
           ),
           const SizedBox(height: RatelSpace.lg),
-          RatelButton(label: context.l10n.commonSave, onPressed: _save),
+          RatelButton(
+            key: const ValueKey<String>('edit-save'),
+            label: context.l10n.commonSave,
+            onPressed: _save,
+          ),
         ],
       ),
     );
