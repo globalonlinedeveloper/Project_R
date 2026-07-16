@@ -559,7 +559,7 @@
     "R-J3": {
       "moscow": "Must",
       "phase": "Stage3",
-      "status": "Partial 🟨"
+      "status": "Build-ahead 🟦"
     },
     "R-J4": {
       "moscow": "Must",

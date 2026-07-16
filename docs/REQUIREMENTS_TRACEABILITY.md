@@ -14,12 +14,12 @@
 
 | Priority | Built | Build-ahead | Partial | Pending | Deferred | Removed | Spec/cross | Total |
 |---|---|---|---|---|---|---|---|---|
-| **Must** | 78 | 24 | 3 | 11 | 2 | 0 | 13 | 131 |
+| **Must** | 78 | 25 | 2 | 11 | 2 | 0 | 13 | 131 |
 | **Should** | 18 | 3 | 0 | 0 | 1 | 0 | 0 | 22 |
 | **Could** | 1 | 0 | 0 | 1 | 7 | 0 | 0 | 9 |
 | **Won't** | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 1 |
 | **Process** | 1 | 0 | 0 | 1 | 1 | 0 | 2 | 5 |
-| **All** | 98 | 27 | 3 | 13 | 11 | 1 | 15 | 168 |
+| **All** | 98 | 28 | 2 | 13 | 11 | 1 | 15 | 168 |
 
 _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not live) · Pending=Stage-3 not started · Deferred=post-launch wave · Removed=cut · Spec/cross=policy/cross-cutting._
 
@@ -135,11 +135,11 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 | R-G2 | theta ability model (global + per-skill) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `lesson_runner_screen.dart`, `progress_screen.dart`, `ability.dart`, `lesson_test.dart` +2 |
 | R-G3 | IRT calibration (how hard each item is) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `supabase_calibration_store.dart`, `calibration.dart`, `calibration_runner.dart`, `irt.dart` +5 |
 | R-G4 | CAT placement test | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `learner_controller.dart`, `onboarding_screen.dart`, `placement_quiz_screen.dart`, `cat.dart` +3 |
-| R-G5 | FSRS spaced-repetition scheduling | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `app_providers.dart`, `learner_controller.dart`, `practice_hub_screen.dart`, `saved_words_controller.dart` +4 |
+| R-G5 | FSRS spaced-repetition scheduling | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `app_providers.dart`, `learner_controller.dart`, `my_words_screen.dart`, `saved_words_controller.dart` +4 |
 | R-G6 | Learner-state entities (what gets stored) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `learner_controller.dart`, `progress_screen.dart`, `study_stats_controller.dart`, `xp_history_controller.dart` +16 |
 | R-G7 | Cold-start strategy (works from day one) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `learner_controller.dart`, `onboarding_screen.dart`, `placement_quiz_screen.dart`, `cold_start.dart` +3 |
 | R-G8 | Launch path-serving (how lessons are sequenced) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `path_serving.dart`, `path_serving_test.dart` |
-| R-G9 | Saved words - flashcards - graded review | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `lesson_runner_screen.dart`, `practice_hub_screen.dart`, `progress_screen.dart`, `saved_words_controller.dart` +5 |
+| R-G9 | Saved words - flashcards - graded review | Should | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `lesson_runner_screen.dart`, `my_words_screen.dart`, `practice_hub_screen.dart`, `progress_screen.dart` +6 |
 
 ## Part H — AI, tutor & conversation
 
@@ -160,8 +160,8 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 |----|-------------|--------|-------|--------|------|----------|
 | R-I1 | XP model (sources & amounts) | Should | Stage2 | Built ✅ | — | `learner_controller.dart`, `lesson_runner_screen.dart`, `progress_screen.dart`, `power_ups.dart` +2 |
 | R-I2 | Streak + streak-freeze + Society tiers | Should | Stage2 | Built ✅ | — | `learner_controller.dart`, `progress_screen.dart`, `shop_screen.dart`, `diamonds.dart` +6 |
-| R-I3 | Energy model (lesson cost, regen, caps) | Should | Stage2 | Built ✅ | — | `learner_controller.dart`, `energy.dart`, `power_ups.dart`, `energy_test.dart` +3 |
-| R-I4 | Gems soft-currency (earn / spend sinks) | Should | Stage2 | Built ✅ | — | `learner_controller.dart`, `outfits_controller.dart`, `shop_screen.dart`, `diamonds.dart` +8 |
+| R-I3 | Energy model (lesson cost, regen, caps) | Should | Stage2 | Built ✅ | — | `energy_screen.dart`, `learner_controller.dart`, `energy.dart`, `power_ups.dart` +4 |
+| R-I4 | Gems soft-currency (earn / spend sinks) | Should | Stage2 | Built ✅ | — | `diamonds_sheet.dart`, `learner_controller.dart`, `outfits_controller.dart`, `shop_screen.dart` +9 |
 | R-I5 | Rewarded-ads - energy / gems design | Should | Stage2 | Built ✅ | — | — |
 | R-I6 | Leagues / leaderboards (global, weekly reset) | Should | Stage2 | Built ✅ | — | `leagues_controller.dart`, `leagues_screen.dart`, `learner_controller.dart`, `data_access.dart` +10 |
 | R-I7 | Daily goal + chest + quests + achievements | Should | Stage2 | Built ✅ | — | `achievements_controller.dart`, `daily_goal.dart`, `onboarding_screen.dart`, `progress_screen.dart` +9 |
@@ -172,9 +172,9 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-J1 | Free vs Pro feature split (exact) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `adventure_player_screen.dart`, `adventures_screen.dart`, `paywall_screen.dart`, `live_roleplay_screen.dart` +5 |
+| R-J1 | Free vs Pro feature split (exact) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `adventure_player_screen.dart`, `adventures_screen.dart`, `paywall_screen.dart`, `live_roleplay_screen.dart` +6 |
 | R-J2 | Pro price point(s) + billing (regional/PPP, trial) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `l10n.dart`, `paywall_screen.dart`, `pricing.dart`, `paywall_screen_test.dart` |
-| R-J3 | AI access policy - Pro-only live AI, metered by credits | Must | Stage3 | Partial 🟨 | 🔒 owner/$$ | `live_roleplay_screen.dart`, `ai_tutor_screen.dart`, `play_receipt_verify.dart`, `user.schema.json` |
+| R-J3 | AI access policy - Pro-only live AI, metered by credits | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `live_roleplay_screen.dart`, `ai_tutor_screen.dart`, `play_receipt_verify.dart`, `user.schema.json` +1 |
 | R-J4 | Ad strategy + network/mediation | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-J5 | Voice minute caps (even Pro) | Must | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-J6 | Store-safe paywall / cancel (single CTA, easy cancel) | Must | Stage3 | Build-ahead 🟦 | 🔒 owner/$$ | `paywall_screen.dart`, `manage_subscription.dart`, `pricing.dart`, `pro_checkout.dart` +3 |
@@ -263,7 +263,7 @@ _Legend: Built=Stage1–2 complete · Build-ahead=Stage-3 logic done+tested (not
 
 | ID | Requirement | MoSCoW | Phase | Status | Gate | Evidence |
 |----|-------------|--------|-------|--------|------|----------|
-| R-O1 | Phase-2 deliverables (local content model - NO DB) | Process | Stage1 | Built ✅ | — | `friends_screen.dart`, `learner_controller.dart`, `practice_hub_screen.dart`, `progress_screen.dart` +21 |
+| R-O1 | Phase-2 deliverables (local content model - NO DB) | Process | Stage1 | Built ✅ | — | `friends_screen.dart`, `learner_controller.dart`, `my_words_screen.dart`, `progress_screen.dart` +21 |
 | R-O2 | Phase-3 deliverables (DB + runtime + payments - gated, MONEY) | Process | Stage3 | Pending 🔒 | 🔒 owner/$$ | — |
 | R-O3 | Post-launch waves (tier climb, write/live-roleplay, RTL re-add) | Process | Wave | Deferred ⏭ | 🔒 owner/$$ | — |
 | R-O4 | Risk register & mitigations | Process | Program | Spec/cross ▫ | — | — |
