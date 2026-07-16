@@ -1455,6 +1455,18 @@ class AppLocalizationsHi extends AppLocalizations {
   String get adventureDistrictDone => '✓ पूर्ण';
 
   @override
+  String get adventureDistrictCafe => 'Café & Food';
+
+  @override
+  String get adventureDistrictMarket => 'Market Square';
+
+  @override
+  String get adventureDistrictMove => 'On the Move';
+
+  @override
+  String get adventureDistrictFriends => 'Making Friends';
+
+  @override
   String get adventuresEmpty => 'इस कोर्स में अभी कोई एडवेंचर नहीं।';
 
   @override

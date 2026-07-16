@@ -1468,6 +1468,18 @@ class AppLocalizationsPt extends AppLocalizations {
   String get adventureDistrictDone => '✓ Concluído';
 
   @override
+  String get adventureDistrictCafe => 'Café & Food';
+
+  @override
+  String get adventureDistrictMarket => 'Market Square';
+
+  @override
+  String get adventureDistrictMove => 'On the Move';
+
+  @override
+  String get adventureDistrictFriends => 'Making Friends';
+
+  @override
   String get adventuresEmpty => 'Ainda não há aventuras neste curso.';
 
   @override

@@ -7,30 +7,46 @@ import 'package:ratel/services/adventures/prefs_adventure_progress_store.dart';
 
 // L-4 (design 4.12 districts + explored progress): the pure exploration
 // engine + the device-local persistence seam. Engine is clockless and
-// UI-free; districts group by CEFR band (the owner-confirmed honest mapping
-// over real authored content, S131).
+// UI-free; districts group by the owner's four NAMED districts in FIXED
+// order (Café & Food · Market Square · On the Move · Making Friends, S153),
+// with empty districts hidden. Derivation from real scenario text lives in
+// the feature layer; the engine receives an already-resolved kind per ref.
 
+// Two Café & Food refs (data order preserved), one Market Square, one On the
+// Move. Deliberately supplied out of district order to prove the engine emits
+// them in the FIXED kAdventureDistrictOrder regardless of input order.
 const List<AdventureRef> _refs = <AdventureRef>[
-  AdventureRef(id: 'b1x', band: 'B1'),
-  AdventureRef(id: 'a1x', band: 'A1'),
-  AdventureRef(id: 'a1y', band: 'A1'),
-  AdventureRef(id: 'a2x', band: 'A2'),
+  AdventureRef(id: 'mv', kind: AdventureDistrictKind.move),
+  AdventureRef(id: 'cf1', kind: AdventureDistrictKind.cafe),
+  AdventureRef(id: 'cf2', kind: AdventureDistrictKind.cafe),
+  AdventureRef(id: 'mk', kind: AdventureDistrictKind.market),
 ];
 
 void main() {
   const AdventureExplorationEngine engine = AdventureExplorationEngine();
 
   group('AdventureExplorationEngine.districts', () {
-    test('groups by band, bands sorted, data order within a band', () {
+    test('groups by named district in FIXED order, data order within one', () {
       final List<AdventureDistrict> d = engine.districts(_refs, <String>{});
-      expect(d.map((AdventureDistrict x) => x.band), <String>['A1', 'A2', 'B1']);
-      expect(d.first.refs.map((AdventureRef r) => r.id), <String>['a1x', 'a1y']);
+      // Emitted in kAdventureDistrictOrder (cafe, market, move) — NOT input
+      // order (mv, cf1, cf2, mk); empty "friends" district is hidden.
+      expect(
+          d.map((AdventureDistrict x) => x.kind),
+          <AdventureDistrictKind>[
+            AdventureDistrictKind.cafe,
+            AdventureDistrictKind.market,
+            AdventureDistrictKind.move,
+          ]);
+      expect(d.map((AdventureDistrict x) => x.id),
+          <String>['cafe', 'market', 'move']);
+      expect(
+          d.first.refs.map((AdventureRef r) => r.id), <String>['cf1', 'cf2']);
       expect(d.first.total, 2);
     });
 
     test('explored counts + allDone + the design current-district walk', () {
       final List<AdventureDistrict> d =
-          engine.districts(_refs, <String>{'a1x', 'a1y'});
+          engine.districts(_refs, <String>{'cf1', 'cf2'});
       expect(d[0].doneCount, 2);
       expect(d[0].allDone, isTrue);
       expect(d[0].isCurrent, isFalse); // done districts are never current
@@ -40,7 +56,7 @@ void main() {
 
     test('partially explored first district stays current', () {
       final List<AdventureDistrict> d =
-          engine.districts(_refs, <String>{'a1y'});
+          engine.districts(_refs, <String>{'cf1'});
       expect(d[0].doneCount, 1);
       expect(d[0].allDone, isFalse);
       expect(d[0].isCurrent, isTrue);
@@ -49,7 +65,7 @@ void main() {
 
     test('everything explored: no current district, all pills', () {
       final List<AdventureDistrict> d =
-          engine.districts(_refs, <String>{'a1x', 'a1y', 'a2x', 'b1x'});
+          engine.districts(_refs, <String>{'cf1', 'cf2', 'mk', 'mv'});
       expect(d.every((AdventureDistrict x) => x.allDone), isTrue);
       expect(d.any((AdventureDistrict x) => x.isCurrent), isFalse);
     });
@@ -60,8 +76,8 @@ void main() {
   });
 
   test('isNewlyExplored is the once-per-adventure reward crossing', () {
-    expect(engine.isNewlyExplored(<String>{}, 'a1x'), isTrue);
-    expect(engine.isNewlyExplored(<String>{'a1x'}, 'a1x'), isFalse);
+    expect(engine.isNewlyExplored(<String>{}, 'cf1'), isTrue);
+    expect(engine.isNewlyExplored(<String>{'cf1'}, 'cf1'), isFalse);
   });
 
   group('stores', () {

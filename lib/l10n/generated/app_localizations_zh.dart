@@ -1417,6 +1417,18 @@ class AppLocalizationsZh extends AppLocalizations {
   String get adventureDistrictDone => '✓ 完成';
 
   @override
+  String get adventureDistrictCafe => 'Café & Food';
+
+  @override
+  String get adventureDistrictMarket => 'Market Square';
+
+  @override
+  String get adventureDistrictMove => 'On the Move';
+
+  @override
+  String get adventureDistrictFriends => 'Making Friends';
+
+  @override
   String get adventuresEmpty => '这个课程还没有冒险内容。';
 
   @override

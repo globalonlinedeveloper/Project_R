@@ -11,28 +11,40 @@ import 'package:ratel/services/preferences/app_settings.dart';
 import 'package:ratel/services/preferences/settings_store.dart';
 import 'package:ratel/l10n/generated/app_localizations.dart';
 
-// L-4 (design 4.12, B-10): the Adventures screen renders CEFR-band DISTRICT
-// cards — gradient header with `n/m explored`, current-district mascot,
-// ✓ Done pill, per-scene ✓/▶ explored states — over the device-local
-// explored set. en chrome byte-pinned; ar RTL + narrow gauntlet.
+// L-4 (design 4.12, B-10): the Adventures screen renders the owner's four
+// NAMED DISTRICT cards (Café & Food / Market Square / On the Move / Making
+// Friends, S153) — derived deterministically from real scenario text —
+// with the gradient header `n/m explored`, current-district mascot, ✓ Done
+// pill and per-scene ✓/▶ explored states over the device-local explored
+// set. en chrome byte-pinned; de fallback + narrow gauntlet + motion.
 
-CourseScenario _adv(String id, String band, String title) => CourseScenario(
+CourseScenario _adv(String id, String band, String title,
+        {String? world, String? goal}) =>
+    CourseScenario(
       id: id,
       kind: 'adventure',
       title: title,
       cefr: band,
+      world: world,
+      goal: goal,
       scenes: const <CourseScene>[
         CourseScene(sceneId: 's1', speaker: 'narrator', line: 'Line.'),
       ],
     );
 
+// Two café-world scenarios derive into Café & Food (data order cf1, cf2);
+// the airport scenario into On the Move. Market Square + Making Friends author
+// nothing here, so those districts stay hidden (honest, content-gated).
 CourseSpine _spine() => CourseSpine(
       courseCode: 'en',
       units: const <CourseUnit>[],
       adventures: <CourseScenario>[
-        _adv('a1x', 'A1', 'Order a coffee'),
-        _adv('a1y', 'A1', 'Pay the bill'),
-        _adv('b1x', 'B1', 'At the airport'),
+        _adv('cf1', 'A1', 'Order a coffee',
+            world: 'a small café in town', goal: 'Order a coffee and relax.'),
+        _adv('cf2', 'A1', 'Pay the bill',
+            world: 'a cosy café', goal: 'Ask for the bill and pay.'),
+        _adv('mv1', 'B1', 'At the airport',
+            world: 'a busy airport terminal', goal: 'Find your gate in time.'),
       ],
     );
 
@@ -80,51 +92,52 @@ void main() {
     final ProviderContainer c = _c();
     addTearDown(c.dispose);
     await _pump(tester, c);
-    expect(find.byKey(const ValueKey<String>('adventure-district-A1')),
+    expect(find.byKey(const ValueKey<String>('adventure-district-cafe')),
         findsOneWidget);
-    expect(find.byKey(const ValueKey<String>('adventure-district-B1')),
+    expect(find.byKey(const ValueKey<String>('adventure-district-move')),
         findsOneWidget);
-    expect(find.text('A1 · Beginner'), findsOneWidget);
-    expect(find.text('B1 · Intermediate'), findsOneWidget);
+    expect(find.text('Café & Food'), findsOneWidget);
+    expect(find.text('On the Move'), findsOneWidget);
     expect(find.text('0/2 explored'), findsOneWidget); // en byte-pin
     expect(find.text('0/1 explored'), findsOneWidget);
-    // Fresh set: A1 is the current district (design mascot walk), B1 is not.
-    expect(find.byKey(const ValueKey<String>('adventure-district-current-A1')),
+    // Fresh set: Café & Food is the current district (mascot walk); On the
+    // Move is not (first not-all-done district wins the mascot).
+    expect(find.byKey(const ValueKey<String>('adventure-district-current-cafe')),
         findsOneWidget);
-    expect(find.byKey(const ValueKey<String>('adventure-district-current-B1')),
+    expect(find.byKey(const ValueKey<String>('adventure-district-current-move')),
         findsNothing);
     expect(find.text('✓ Done'), findsNothing);
     // Every scene row present with the open ▶ status.
-    expect(find.byKey(const ValueKey<String>('adventure-row-a1x')),
+    expect(find.byKey(const ValueKey<String>('adventure-row-cf1')),
         findsOneWidget);
     expect(
         find.byKey(
-            const ValueKey<String>('adventure-row-status-a1x-open')),
+            const ValueKey<String>('adventure-row-status-cf1-open')),
         findsOneWidget);
   });
 
   testWidgets(
       'explored rows flip to ✓, progress counts, Done pill + current walk',
       (WidgetTester tester) async {
-    final ProviderContainer c = _c(explored: <String>{'a1x', 'a1y'});
+    final ProviderContainer c = _c(explored: <String>{'cf1', 'cf2'});
     addTearDown(c.dispose);
     await _pump(tester, c);
     expect(find.text('2/2 explored'), findsOneWidget);
-    expect(find.byKey(const ValueKey<String>('adventure-district-done-A1')),
+    expect(find.byKey(const ValueKey<String>('adventure-district-done-cafe')),
         findsOneWidget);
     expect(find.text('✓ Done'), findsOneWidget); // en byte-pin
-    // A1 complete: the mascot moves to B1 (first not-all-done).
-    expect(find.byKey(const ValueKey<String>('adventure-district-current-A1')),
+    // Café & Food complete: the mascot moves to On the Move (next open).
+    expect(find.byKey(const ValueKey<String>('adventure-district-current-cafe')),
         findsNothing);
-    expect(find.byKey(const ValueKey<String>('adventure-district-current-B1')),
+    expect(find.byKey(const ValueKey<String>('adventure-district-current-move')),
         findsOneWidget);
     expect(
         find.byKey(
-            const ValueKey<String>('adventure-row-status-a1x-done')),
+            const ValueKey<String>('adventure-row-status-cf1-done')),
         findsOneWidget);
     expect(
         find.byKey(
-            const ValueKey<String>('adventure-row-status-b1x-open')),
+            const ValueKey<String>('adventure-row-status-mv1-open')),
         findsOneWidget);
   });
 
@@ -134,12 +147,12 @@ void main() {
     addTearDown(c.dispose);
     await _pump(tester, c);
     expect(find.text('0/2 explored'), findsOneWidget);
-    c.read(adventureProgressControllerProvider.notifier).markExplored('a1x');
+    c.read(adventureProgressControllerProvider.notifier).markExplored('cf1');
     await tester.pumpAndSettle();
     expect(find.text('1/2 explored'), findsOneWidget);
     expect(
         find.byKey(
-            const ValueKey<String>('adventure-row-status-a1x-done')),
+            const ValueKey<String>('adventure-row-status-cf1-done')),
         findsOneWidget);
   });
 
@@ -149,27 +162,29 @@ void main() {
     addTearDown(c.dispose);
     await _pump(tester, c);
     await tester.longPress(
-        find.byKey(const ValueKey<String>('adventure-row-a1x')));
+        find.byKey(const ValueKey<String>('adventure-row-cf1')));
     await tester.pumpAndSettle();
     expect(find.byKey(const ValueKey<String>('adventure-preview-sheet')),
         findsOneWidget);
     expect(find.text('🗺️ ADVENTURE · A1'), findsOneWidget);
   });
 
-  testWidgets('de renders translated district chrome',
+  testWidgets('de renders translated progress/pill chrome (names fallback)',
       (WidgetTester tester) async {
-    final ProviderContainer c = _c(explored: <String>{'a1x', 'a1y'});
+    final ProviderContainer c = _c(explored: <String>{'cf1', 'cf2'});
     addTearDown(c.dispose);
     await _pump(tester, c, locale: const Locale('de'));
     expect(find.text('2/2 erkundet'), findsOneWidget);
     expect(find.text('✓ Fertig'), findsOneWidget);
-    expect(find.text('A1 · Anfänger'), findsOneWidget);
+    // The named-district labels are English-fallback in DE (per directive) —
+    // they still resolve through l10n (not hard-coded), rendering in English.
+    expect(find.text('Café & Food'), findsOneWidget);
   });
 
   testWidgets('narrow gauntlet @360 and @320: district cards never overflow',
       (WidgetTester tester) async {
     for (final double w in <double>[360, 320]) {
-      final ProviderContainer c = _c(explored: <String>{'a1x'});
+      final ProviderContainer c = _c(explored: <String>{'cf1'});
       await _pump(tester, c, size: Size(w, 2600));
       c.dispose();
     }
@@ -204,7 +219,7 @@ void main() {
     expect(
         find.descendant(
             of: find.byKey(
-                const ValueKey<String>('adventure-district-current-A1')),
+                const ValueKey<String>('adventure-district-current-cafe')),
             matching: find.byType(AnimatedBuilder)),
         findsNothing);
     expect(
@@ -241,14 +256,14 @@ void main() {
     await tester.pump();
     final Finder bob = find.descendant(
         of: find
-            .byKey(const ValueKey<String>('adventure-district-current-A1')),
+            .byKey(const ValueKey<String>('adventure-district-current-cafe')),
         matching: find.byType(AnimatedBuilder));
     expect(bob, findsOneWidget);
     // Mid-arc (600ms of the 2400ms period) the translate is visibly nonzero.
     await tester.pump(const Duration(milliseconds: 600));
     final Transform t = tester.widget<Transform>(find.descendant(
         of: find
-            .byKey(const ValueKey<String>('adventure-district-current-A1')),
+            .byKey(const ValueKey<String>('adventure-district-current-cafe')),
         matching: find.byType(Transform)));
     expect(t.transform.getTranslation().y, lessThan(-1.0));
   });

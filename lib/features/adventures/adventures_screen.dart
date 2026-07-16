@@ -10,12 +10,17 @@ import 'package:ratel/features/adventures/adventure_progress_controller.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 
 /// Adventures (🗺️, INF-8) -- the FREE branching-dialogue library, rendered as
-/// the design 4.12 DISTRICT cards (L-4, screen-review B-10): each CEFR band is
-/// a district (the owner-confirmed honest grouping over real authored content,
-/// S131 -- the mock's named districts were sample data) with the design card
+/// the design 4.12 DISTRICT cards (L-4, screen-review B-10): the owner's four
+/// NAMED districts (Café & Food / Market Square / On the Move / Making Friends,
+/// S153 -- supersedes the old S131 "CEFR-band / sample-data" note now that
+/// fresh screenshots #29/#30 show the named places) with the design card
 /// grammar: gradient tinted header, `n/m explored` progress, ✓ Done pill,
 /// current-district mascot, and per-scene ✓/▶ explored states off the
-/// device-local [AdventureProgressController]. Rows open the branching
+/// device-local [AdventureProgressController]. Adventure content has NO district
+/// field -- only `world` free-text -- so the district (and each scene's
+/// medallion) is DERIVED deterministically from the real authored signal by
+/// [districtOf] / [_medallionOf], the honest derive-don't-fabricate pattern
+/// INC-4 used for roleplay categories. Rows open the branching
 /// [AdventurePlayerScreen]. Pure authored content (choose-your-path, no
 /// wrong answers) -- NO live AI, no fabricated conversation. A course with none
 /// yet shows an HONEST empty state. [R-D10 - R-B3 - R-J1]
@@ -38,7 +43,7 @@ class AdventuresScreen extends ConsumerWidget {
         const AdventureExplorationEngine().districts(
       <AdventureRef>[
         for (final CourseScenario s in items)
-          AdventureRef(id: s.id, band: s.cefr),
+          AdventureRef(id: s.id, kind: districtOf(s)),
       ],
       explored,
     );
@@ -139,24 +144,21 @@ class AdventuresScreen extends ConsumerWidget {
     );
   }
 
-  /// One district card (design 4.12): gradient band header (emoji · band
-  /// name · `n/m explored`) + the design's current-district mascot / ✓ Done
-  /// pill, over the district's scene tiles. Tints for the first four bands
-  /// are the design's own district pairs; C1/C2 derive from the design accent
-  /// set with the same darken treatment (noted S131). The current-district
-  /// mascot bobs (design rbob 2.4s) via [_BobbingMascot], static under the
-  /// reduce-motion double-floor.
+  /// One district card (design 4.12): gradient header (district emoji · the
+  /// owner's NAMED district name · `n/m explored`) + the design's current-
+  /// district mascot / ✓ Done pill, over the district's scene tiles. Each of
+  /// the four districts (Café & Food ☕ / Market Square 🛒 / On the Move ✈️ /
+  /// Making Friends 🎉) carries the design's own tint pair, keyed by the stable
+  /// district id (S153). The current-district mascot bobs (design rbob 2.4s)
+  /// via [_BobbingMascot], static under the reduce-motion double-floor.
   Widget _districtCard(BuildContext context, AdventureDistrict d,
       Map<String, CourseScenario> byId, Set<String> explored,
       {required bool reduceMotion}) {
-    final _DistrictStyle style = _kDistrictStyles[d.band] ??
-        const _DistrictStyle(
-            '🗺️', RatelColors.blue, RatelColors.districtMoveDark, null);
-    final String name = style.englishName == null
-        ? d.band
-        : '${d.band} · ${ratelCefrLevelDisplayName(context, style.englishName!)}';
+    final _DistrictStyle style = _kDistrictStyles[d.kind] ??
+        _kDistrictStyles[AdventureDistrictKind.cafe]!;
+    final String name = _districtName(context, d.kind);
     return Container(
-      key: ValueKey<String>('adventure-district-${d.band}'),
+      key: ValueKey<String>('adventure-district-${d.id}'),
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: context.palette.white,
@@ -194,7 +196,7 @@ class AdventuresScreen extends ConsumerWidget {
                           context.l10n.adventureDistrictProgress(
                               d.doneCount, d.total),
                           key: ValueKey<String>(
-                              'adventure-district-progress-${d.band}'),
+                              'adventure-district-progress-${d.id}'),
                           style: TextStyle(
                               fontFamily: RatelFont.body,
                               fontSize: RatelType.caption,
@@ -207,7 +209,7 @@ class AdventuresScreen extends ConsumerWidget {
                 if (d.isCurrent)
                   KeyedSubtree(
                     key: ValueKey<String>(
-                        'adventure-district-current-${d.band}'),
+                        'adventure-district-current-${d.id}'),
                     child: _BobbingMascot(
                         size: 28,
                         period: const Duration(milliseconds: 2400),
@@ -215,7 +217,7 @@ class AdventuresScreen extends ConsumerWidget {
                   ),
                 if (d.allDone)
                   Container(
-                    key: ValueKey<String>('adventure-district-done-${d.band}'),
+                    key: ValueKey<String>('adventure-district-done-${d.id}'),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
@@ -347,15 +349,18 @@ class AdventuresScreen extends ConsumerWidget {
     );
   }
 
-  /// One scene tile (design 4.12 row): 42px icon box · title/sub · trailing
-  /// status circle — explored = white ✓ on green + tinted border/bg, else ▶
-  /// in the district tint. Keeps the M-3 long-press preview + the stable
-  /// `adventure-row-{id}` key.
+  /// One scene tile (design 4.12 row): 42px medallion box · title/sub ·
+  /// trailing status circle — explored = white ✓ on green + tinted border/bg,
+  /// else ▶ in the district tint. The medallion emoji + tint are DERIVED per
+  /// scene from its real authored text by [_medallionOf] (design #29/#30 varied
+  /// per-scene icons, C-A6) — replacing the old single fixed 🗺️. Keeps the M-3
+  /// long-press preview + the stable `adventure-row-{id}` key.
   Widget _sceneTile(BuildContext context, CourseScenario s, Color tint,
       {required bool explored}) {
     final String subtitle = s.goal == null || s.goal!.isEmpty
         ? (s.world ?? context.l10n.adventuresFallbackWorld)
         : s.goal!;
+    final ({String emoji, Color tint}) medallion = _medallionOf(s);
     return Semantics(
       button: true,
       child: GestureDetector(
@@ -383,10 +388,11 @@ class AdventuresScreen extends ConsumerWidget {
                 height: 42,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: context.palette.white,
+                  color: medallion.tint.withValues(alpha: 0.14),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Text('🗺️', style: TextStyle(fontSize: 23)),
+                child:
+                    Text(medallion.emoji, style: const TextStyle(fontSize: 23)),
               ),
               const SizedBox(width: RatelSpace.md),
               Expanded(
@@ -466,33 +472,175 @@ class AdventuresScreen extends ConsumerWidget {
 }
 
 
-/// Per-band district chrome (design 4.12). The first four pairs are the
-/// design mock's own district tints byte-exact (Café/Market/Move/Friends);
-/// C1/C2 derive from the design accent set (red · deep navy) with the same
-/// darken treatment. [englishName] feeds [ratelCefrLevelDisplayName] so the
-/// header localizes; an unknown band falls back to the band code + 🗺️.
+/// Localized header name for a NAMED district (labels come from ARB — the
+/// district name is l10n-driven, never a hard-coded literal). [C-A1]
+String _districtName(BuildContext context, AdventureDistrictKind kind) {
+  switch (kind) {
+    case AdventureDistrictKind.cafe:
+      return context.l10n.adventureDistrictCafe;
+    case AdventureDistrictKind.market:
+      return context.l10n.adventureDistrictMarket;
+    case AdventureDistrictKind.move:
+      return context.l10n.adventureDistrictMove;
+    case AdventureDistrictKind.friends:
+      return context.l10n.adventureDistrictFriends;
+  }
+}
+
+/// Pure, deterministic derivation of a scenario's NAMED district from its real
+/// authored text (world + title + goal, lower-cased). Adventure content has no
+/// district field, so this is an ORDER-SENSITIVE keyword map (first family that
+/// matches wins), NOT a fabricated field or re-authored content — the honest
+/// derive-don't-fabricate pattern INC-4 used for roleplay categories. Anything
+/// unmatched falls back to [AdventureDistrictKind.cafe] (we keep to the four
+/// owner-locked districts and never invent a fifth). [C-A1 · S153 · R-B3]
+///
+/// Order rationale: **On the Move** is checked before **Café & Food** so a
+/// "café at the airport / bus stop café" resolves by the stronger travel
+/// signal, while a plain "small café in town" falls through. **Making Friends**
+/// is checked ahead of the café default so a neighbourly/greeting scene ("help
+/// your neighbour find her lost cat", "your first morning at school") lands
+/// socially rather than defaulting.
+AdventureDistrictKind districtOf(CourseScenario s) {
+  final String hay =
+      '${s.world ?? ''} ${s.title} ${s.goal ?? ''}'.toLowerCase();
+
+  bool has(List<String> keys) {
+    for (final String k in keys) {
+      if (hay.contains(k)) return true;
+    }
+    return false;
+  }
+
+  // On the Move — airport / station / bus / taxi / train / street / city /
+  // hotel / trip / travel / directions / platform / apartment / move.
+  if (has(<String>[
+    'airport',
+    'station',
+    'bus',
+    'taxi',
+    'train',
+    'street',
+    'city',
+    'hotel',
+    'trip',
+    'travel',
+    'directions',
+    'platform',
+    'flight',
+    'apartment',
+    'moving',
+    'weekend trip',
+  ])) {
+    return AdventureDistrictKind.move;
+  }
+
+  // Market Square — market / shop / store / buy / price / grocery / stall /
+  // vendor.
+  if (has(<String>[
+    'market',
+    'shop',
+    'store',
+    'buy',
+    'price',
+    'grocery',
+    'stall',
+    'vendor',
+  ])) {
+    return AdventureDistrictKind.market;
+  }
+
+  // Making Friends — friend / party / meet / introduce / neighbour /
+  // classmate / greet / hello / invite / social / school.
+  if (has(<String>[
+    'friend',
+    'party',
+    'meet',
+    'introduce',
+    'neighbour',
+    'neighbor',
+    'classmate',
+    'greet',
+    'hello',
+    'invite',
+    'social',
+    'school',
+  ])) {
+    return AdventureDistrictKind.friends;
+  }
+
+  // Café & Food — café / coffee / bakery / restaurant / food / order / bill /
+  // meal / menu / drink. Also the DEFAULT for anything unmatched.
+  return AdventureDistrictKind.cafe;
+}
+
+/// Per-scene medallion (emoji + tint) derived deterministically from the same
+/// real signal, replacing the single fixed 🗺️ scene icon (design #29/#30 varied
+/// per-scene icons, C-A6). Tints are [RatelColors] tokens — no raw hex in
+/// features (token_lint). Default keeps 🗺️ so an unmatched scene still reads as
+/// an adventure. [C-A6]
+({String emoji, Color tint}) _medallionOf(CourseScenario s) {
+  final String hay =
+      '${s.world ?? ''} ${s.title} ${s.goal ?? ''}'.toLowerCase();
+
+  bool has(List<String> keys) {
+    for (final String k in keys) {
+      if (hay.contains(k)) return true;
+    }
+    return false;
+  }
+
+  if (has(<String>['receipt', 'bill', 'invoice'])) {
+    return (emoji: '🧾', tint: RatelColors.districtCafe);
+  }
+  if (has(<String>['plane', 'airport', 'flight'])) {
+    return (emoji: '✈️', tint: RatelColors.blue);
+  }
+  if (has(<String>['compass', 'directions', 'map', 'way', 'lost'])) {
+    return (emoji: '🧭', tint: RatelColors.blue);
+  }
+  if (has(<String>['hotel', 'apartment', 'room'])) {
+    return (emoji: '🏨', tint: RatelColors.blue);
+  }
+  if (has(<String>['money', 'pay', 'price', 'cash', 'bill'])) {
+    return (emoji: '💰', tint: RatelColors.green);
+  }
+  if (has(<String>['fruit', 'apple', 'food', 'meal', 'grocery', 'market'])) {
+    return (emoji: '🍎', tint: RatelColors.green);
+  }
+  if (has(<String>['friend', 'greet', 'hello', 'meet', 'introduce',
+      'neighbour', 'neighbor', 'party'])) {
+    return (emoji: '👋', tint: RatelColors.purple);
+  }
+  if (has(<String>['café', 'cafe', 'coffee', 'bakery', 'restaurant', 'drink',
+      'menu', 'order'])) {
+    return (emoji: '☕', tint: RatelColors.districtCafe);
+  }
+  return (emoji: '🗺️', tint: RatelColors.blue);
+}
+
+/// Per-district header chrome (design 4.12). Each of the owner's four NAMED
+/// districts carries the design mock's own tint pair, keyed by the stable
+/// [AdventureDistrictKind] (S153 — supersedes the old A1…C2 band keying). The
+/// header NAME is resolved separately via [_districtName] (l10n-driven).
 class _DistrictStyle {
-  const _DistrictStyle(this.emoji, this.tint, this.tint2, this.englishName);
+  const _DistrictStyle(this.emoji, this.tint, this.tint2);
 
   final String emoji;
   final Color tint;
   final Color tint2;
-  final String? englishName;
 }
 
-const Map<String, _DistrictStyle> _kDistrictStyles = <String, _DistrictStyle>{
-  'A1': _DistrictStyle('☕', RatelColors.districtCafe,
-      RatelColors.districtCafeDark, 'Beginner'),
-  'A2': _DistrictStyle('🛒', RatelColors.green,
-      RatelColors.districtMarketDark, 'Elementary'),
-  'B1': _DistrictStyle('✈️', RatelColors.blue,
-      RatelColors.districtMoveDark, 'Intermediate'),
-  'B2': _DistrictStyle('🎉', RatelColors.purple,
-      RatelColors.districtFriendsDark, 'Upper intermediate'),
-  'C1': _DistrictStyle('🧭', RatelColors.districtRed,
-      RatelColors.districtRedDark, 'Advanced'),
-  'C2': _DistrictStyle('🏛️', RatelColors.districtNavy,
-      RatelColors.districtNavyDark, 'Proficient'),
+const Map<AdventureDistrictKind, _DistrictStyle> _kDistrictStyles =
+    <AdventureDistrictKind, _DistrictStyle>{
+  AdventureDistrictKind.cafe: _DistrictStyle(
+      '☕', RatelColors.districtCafe, RatelColors.districtCafeDark),
+  AdventureDistrictKind.market: _DistrictStyle(
+      '🛒', RatelColors.green, RatelColors.districtMarketDark),
+  AdventureDistrictKind.move: _DistrictStyle(
+      '✈️', RatelColors.blue, RatelColors.districtMoveDark),
+  AdventureDistrictKind.friends: _DistrictStyle(
+      '🎉', RatelColors.purple, RatelColors.districtFriendsDark),
 };
 
 

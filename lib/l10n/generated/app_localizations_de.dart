@@ -2579,4 +2579,16 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get roleplaySearchHint => 'Search scenes…';
+
+  @override
+  String get adventureDistrictCafe => 'Café & Food';
+
+  @override
+  String get adventureDistrictMarket => 'Market Square';
+
+  @override
+  String get adventureDistrictMove => 'On the Move';
+
+  @override
+  String get adventureDistrictFriends => 'Making Friends';
 }

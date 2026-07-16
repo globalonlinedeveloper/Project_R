@@ -1425,6 +1425,18 @@ class AppLocalizationsJa extends AppLocalizations {
   String get adventureDistrictDone => '✓ 完了';
 
   @override
+  String get adventureDistrictCafe => 'Café & Food';
+
+  @override
+  String get adventureDistrictMarket => 'Market Square';
+
+  @override
+  String get adventureDistrictMove => 'On the Move';
+
+  @override
+  String get adventureDistrictFriends => 'Making Friends';
+
+  @override
   String get adventuresEmpty => 'このコースにはまだアドベンチャーがありません。';
 
   @override

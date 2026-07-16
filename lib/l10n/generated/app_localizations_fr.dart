@@ -1476,6 +1476,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get adventureDistrictDone => '✓ Terminé';
 
   @override
+  String get adventureDistrictCafe => 'Café & Food';
+
+  @override
+  String get adventureDistrictMarket => 'Market Square';
+
+  @override
+  String get adventureDistrictMove => 'On the Move';
+
+  @override
+  String get adventureDistrictFriends => 'Making Friends';
+
+  @override
   String get adventuresEmpty => 'Pas encore d\'aventures dans ce cours.';
 
   @override

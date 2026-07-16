@@ -1426,6 +1426,18 @@ class AppLocalizationsKo extends AppLocalizations {
   String get adventureDistrictDone => '✓ 완료';
 
   @override
+  String get adventureDistrictCafe => 'Café & Food';
+
+  @override
+  String get adventureDistrictMarket => 'Market Square';
+
+  @override
+  String get adventureDistrictMove => 'On the Move';
+
+  @override
+  String get adventureDistrictFriends => 'Making Friends';
+
+  @override
   String get adventuresEmpty => '이 코스에는 아직 어드벤처가 없어요.';
 
   @override

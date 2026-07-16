@@ -2604,6 +2604,30 @@ abstract class AppLocalizations {
   /// **'✓ Done'**
   String get adventureDistrictDone;
 
+  /// No description provided for @adventureDistrictCafe.
+  ///
+  /// In en, this message translates to:
+  /// **'Café & Food'**
+  String get adventureDistrictCafe;
+
+  /// No description provided for @adventureDistrictMarket.
+  ///
+  /// In en, this message translates to:
+  /// **'Market Square'**
+  String get adventureDistrictMarket;
+
+  /// No description provided for @adventureDistrictMove.
+  ///
+  /// In en, this message translates to:
+  /// **'On the Move'**
+  String get adventureDistrictMove;
+
+  /// No description provided for @adventureDistrictFriends.
+  ///
+  /// In en, this message translates to:
+  /// **'Making Friends'**
+  String get adventureDistrictFriends;
+
   /// No description provided for @adventuresEmpty.
   ///
   /// In en, this message translates to:

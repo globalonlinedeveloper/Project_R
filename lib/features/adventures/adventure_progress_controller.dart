@@ -9,7 +9,12 @@ export 'package:ratel/services/adventures/adventure_progress_store.dart'
         InMemoryAdventureProgressStore,
         adventureProgressStoreProvider;
 export 'package:ratel/services/adventures/exploration.dart'
-    show AdventureRef, AdventureDistrict, AdventureExplorationEngine;
+    show
+        AdventureRef,
+        AdventureDistrict,
+        AdventureDistrictKind,
+        AdventureExplorationEngine,
+        kAdventureDistrictOrder;
 
 /// Bridges the pure [AdventureExplorationEngine] to the device-local explored
 /// store (L-4 — design §4.12 districts + explored progress). Holds the set of
