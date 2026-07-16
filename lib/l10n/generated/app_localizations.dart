@@ -4367,6 +4367,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add'**
   String get friendsAdd;
+
+  /// No description provided for @practiceSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Always free · never costs energy'**
+  String get practiceSubtitle;
+
+  /// No description provided for @practiceSkillStrength.
+  ///
+  /// In en, this message translates to:
+  /// **'Skill strength'**
+  String get practiceSkillStrength;
+
+  /// No description provided for @practiceSkillVocabulary.
+  ///
+  /// In en, this message translates to:
+  /// **'Vocabulary'**
+  String get practiceSkillVocabulary;
+
+  /// No description provided for @practiceSkillListening.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening'**
+  String get practiceSkillListening;
+
+  /// No description provided for @practiceSkillGrammar.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar'**
+  String get practiceSkillGrammar;
+
+  /// No description provided for @practiceSkillSpeaking.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaking'**
+  String get practiceSkillSpeaking;
+
+  /// No description provided for @practiceSkillNoData.
+  ///
+  /// In en, this message translates to:
+  /// **'Per-skill strength builds as you practice — no score is shown until the engine has your real signal. Nothing here is invented.'**
+  String get practiceSkillNoData;
+
+  /// No description provided for @practiceStatWordsLearned.
+  ///
+  /// In en, this message translates to:
+  /// **'Words learned'**
+  String get practiceStatWordsLearned;
+
+  /// No description provided for @practiceStatThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This week XP'**
+  String get practiceStatThisWeek;
+
+  /// No description provided for @practiceStatAccuracy.
+  ///
+  /// In en, this message translates to:
+  /// **'Accuracy'**
+  String get practiceStatAccuracy;
+
+  /// No description provided for @practiceStatEmptyValue.
+  ///
+  /// In en, this message translates to:
+  /// **'—'**
+  String get practiceStatEmptyValue;
+
+  /// No description provided for @practiceDrillMistakesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mistakes review'**
+  String get practiceDrillMistakesTitle;
+
+  /// No description provided for @practiceDrillMistakesSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Redo the questions you got wrong'**
+  String get practiceDrillMistakesSub;
+
+  /// No description provided for @practiceDrillWeakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weak words'**
+  String get practiceDrillWeakTitle;
+
+  /// No description provided for @practiceDrillWeakSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Strengthen fading memories'**
+  String get practiceDrillWeakSub;
+
+  /// No description provided for @practiceDrillListeningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening drill'**
+  String get practiceDrillListeningTitle;
+
+  /// No description provided for @practiceDrillListeningSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Train your ear'**
+  String get practiceDrillListeningSub;
+
+  /// No description provided for @practiceDrillSpeakingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaking drill'**
+  String get practiceDrillSpeakingTitle;
+
+  /// No description provided for @practiceDrillSpeakingSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Shadow native audio'**
+  String get practiceDrillSpeakingSub;
+
+  /// No description provided for @practiceDrillRoleplayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Roleplay drill'**
+  String get practiceDrillRoleplayTitle;
+
+  /// No description provided for @practiceDrillRoleplaySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Scripted conversations · always free'**
+  String get practiceDrillRoleplaySub;
+
+  /// No description provided for @practiceDrillMyWordsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Words'**
+  String get practiceDrillMyWordsTitle;
+
+  /// No description provided for @practiceDrillMyWordsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved words · search, relearn & listen'**
+  String get practiceDrillMyWordsSub;
+
+  /// No description provided for @practiceDrillWritingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Guided writing'**
+  String get practiceDrillWritingTitle;
+
+  /// No description provided for @practiceDrillWritingSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Build sentences · rule-checked, free'**
+  String get practiceDrillWritingSub;
+
+  /// No description provided for @practiceSmartReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart review'**
+  String get practiceSmartReviewTitle;
+
+  /// No description provided for @practiceSmartReviewSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Adaptive mix of everything you\'re forgetting'**
+  String get practiceSmartReviewSub;
+
+  /// No description provided for @practiceDrillEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to review yet'**
+  String get practiceDrillEmptyTitle;
+
+  /// No description provided for @practiceDrillEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This drill draws on your real practice history. As you complete lessons and reviews, {drill} fills up here — nothing is pre-filled or faked.'**
+  String practiceDrillEmptyBody(Object drill);
+
+  /// No description provided for @practiceDrillComingNote.
+  ///
+  /// In en, this message translates to:
+  /// **'The dedicated {drill} exercise plugs in at go-live. Until then this stays an honest empty state — it never shows a made-up exercise.'**
+  String practiceDrillComingNote(Object drill);
+
+  /// No description provided for @practiceSmartReviewEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Your adaptive queue is empty — complete a lesson or save a word and the Smart review mix will draw from your real due items.'**
+  String get practiceSmartReviewEmpty;
+
+  /// No description provided for @practiceBackToHub.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Practice'**
+  String get practiceBackToHub;
 }
 
 class _AppLocalizationsDelegate

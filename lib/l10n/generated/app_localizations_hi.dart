@@ -2434,4 +2434,108 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get friendsAdd => 'जोड़ें';
+
+  @override
+  String get practiceSubtitle => 'Always free · never costs energy';
+
+  @override
+  String get practiceSkillStrength => 'Skill strength';
+
+  @override
+  String get practiceSkillVocabulary => 'Vocabulary';
+
+  @override
+  String get practiceSkillListening => 'Listening';
+
+  @override
+  String get practiceSkillGrammar => 'Grammar';
+
+  @override
+  String get practiceSkillSpeaking => 'Speaking';
+
+  @override
+  String get practiceSkillNoData =>
+      'Per-skill strength builds as you practice — no score is shown until the engine has your real signal. Nothing here is invented.';
+
+  @override
+  String get practiceStatWordsLearned => 'Words learned';
+
+  @override
+  String get practiceStatThisWeek => 'This week XP';
+
+  @override
+  String get practiceStatAccuracy => 'Accuracy';
+
+  @override
+  String get practiceStatEmptyValue => '—';
+
+  @override
+  String get practiceDrillMistakesTitle => 'Mistakes review';
+
+  @override
+  String get practiceDrillMistakesSub => 'Redo the questions you got wrong';
+
+  @override
+  String get practiceDrillWeakTitle => 'Weak words';
+
+  @override
+  String get practiceDrillWeakSub => 'Strengthen fading memories';
+
+  @override
+  String get practiceDrillListeningTitle => 'Listening drill';
+
+  @override
+  String get practiceDrillListeningSub => 'Train your ear';
+
+  @override
+  String get practiceDrillSpeakingTitle => 'Speaking drill';
+
+  @override
+  String get practiceDrillSpeakingSub => 'Shadow native audio';
+
+  @override
+  String get practiceDrillRoleplayTitle => 'Roleplay drill';
+
+  @override
+  String get practiceDrillRoleplaySub => 'Scripted conversations · always free';
+
+  @override
+  String get practiceDrillMyWordsTitle => 'My Words';
+
+  @override
+  String get practiceDrillMyWordsSub =>
+      'Saved words · search, relearn & listen';
+
+  @override
+  String get practiceDrillWritingTitle => 'Guided writing';
+
+  @override
+  String get practiceDrillWritingSub => 'Build sentences · rule-checked, free';
+
+  @override
+  String get practiceSmartReviewTitle => 'Smart review';
+
+  @override
+  String get practiceSmartReviewSub =>
+      'Adaptive mix of everything you\'re forgetting';
+
+  @override
+  String get practiceDrillEmptyTitle => 'Nothing to review yet';
+
+  @override
+  String practiceDrillEmptyBody(Object drill) {
+    return 'This drill draws on your real practice history. As you complete lessons and reviews, $drill fills up here — nothing is pre-filled or faked.';
+  }
+
+  @override
+  String practiceDrillComingNote(Object drill) {
+    return 'The dedicated $drill exercise plugs in at go-live. Until then this stays an honest empty state — it never shows a made-up exercise.';
+  }
+
+  @override
+  String get practiceSmartReviewEmpty =>
+      'Your adaptive queue is empty — complete a lesson or save a word and the Smart review mix will draw from your real due items.';
+
+  @override
+  String get practiceBackToHub => 'Back to Practice';
 }

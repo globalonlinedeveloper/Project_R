@@ -30,6 +30,8 @@ import 'package:ratel/features/watch/watch_player_screen.dart';
 import 'package:ratel/features/onboarding/onboarding_screen.dart';
 import 'package:ratel/features/onboarding/placement_quiz_screen.dart';
 import 'package:ratel/features/practice/practice_hub_screen.dart';
+import 'package:ratel/features/practice/my_words_screen.dart';
+import 'package:ratel/features/practice/practice_drill_leaf_screen.dart';
 import 'package:ratel/features/profile/edit_profile_screen.dart';
 import 'package:ratel/features/profile/profile_screen.dart';
 import 'package:ratel/features/progress/progress_screen.dart';
@@ -248,6 +250,27 @@ GoRouter buildRouter({
         path: '/practice',
         builder: (BuildContext context, GoRouterState state) =>
             const PracticeHubScreen(),
+      ),
+      GoRoute(
+        path: '/my-words',
+        builder: (BuildContext context, GoRouterState state) =>
+            const MyWordsScreen(),
+      ),
+      GoRoute(
+        path: '/practice-drill',
+        builder: (BuildContext context, GoRouterState state) {
+          final Object? extra = state.extra;
+          final PracticeDrill drill = switch (extra) {
+            'mistakes' => PracticeDrill.mistakes,
+            'weak' => PracticeDrill.weak,
+            'listening' => PracticeDrill.listening,
+            'speaking' => PracticeDrill.speaking,
+            'writing' => PracticeDrill.writing,
+            'smart' => PracticeDrill.smart,
+            _ => PracticeDrill.mistakes,
+          };
+          return PracticeDrillLeafScreen(drill: drill);
+        },
       ),
       GoRoute(
         path: '/welcome',

@@ -3,12 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/app/ratel_app.dart';
-import 'package:ratel/features/practice/practice_hub_screen.dart';
+import 'package:ratel/features/practice/my_words_screen.dart';
 import 'package:ratel/services/learning/fsrs.dart' show FsrsRating;
 
-// Practice hub (§4.2) — the saved-words flashcard review wired to the REAL
-// FSRS-6 scheduler + the per-course dedup intake. No mockup numbers, no faked
-// scheduling. [R-G5 FSRS due-scheduling · R-G9 saved-words → flashcards]
+// Practice — the saved-words flashcard review, DEMOTED in INC-3 from the
+// `/practice` root (now the skill-strength hub) to the "My Words" leaf
+// (`/my-words`). The review stays wired to the REAL FSRS-6 scheduler + the
+// per-course dedup intake. No mockup numbers, no faked scheduling.
+// [R-G5 FSRS due-scheduling · R-G9 saved-words → flashcards]
 
 /// A pinned wall clock so FSRS due-scheduling is deterministic in tests.
 final DateTime _t0 = DateTime(2026, 6, 29, 12, 0, 0);
@@ -17,8 +19,8 @@ ProviderContainer _container() => ProviderContainer(
       overrides: <Override>[clockProvider.overrideWithValue(() => _t0)],
     );
 
-/// Pump the Practice hub alone on a TALL surface so the whole lazy ListView is
-/// laid out (no below-the-fold finder/tap misses — S37/S39 lazy-list gotcha).
+/// Pump the My Words review alone on a TALL surface so the whole lazy ListView
+/// is laid out (no below-the-fold finder/tap misses — S37/S39 lazy-list gotcha).
 Future<void> _pumpTall(WidgetTester tester, ProviderContainer c) async {
   tester.view.physicalSize = const Size(440, 2200);
   tester.view.devicePixelRatio = 1.0;
@@ -26,14 +28,14 @@ Future<void> _pumpTall(WidgetTester tester, ProviderContainer c) async {
   addTearDown(tester.view.resetDevicePixelRatio);
   await tester.pumpWidget(UncontrolledProviderScope(
     container: c,
-    child: const MaterialApp(home: PracticeHubScreen()),
+    child: const MaterialApp(home: MyWordsScreen()),
   ));
   await tester.pump();
 }
 
 void main() {
   testWidgets(
-      'Library → Practice hub opens the REAL screen (route promoted, not a stub)',
+      'Library → Practice hub opens the REAL hub screen (route promoted, not a stub)',
       (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(child: RatelApp()));
     await tester.pumpAndSettle();
@@ -51,12 +53,14 @@ void main() {
     expect(find.text('Coming soon'), findsNothing);
   });
 
-  testWidgets('empty state is honest — no saved words, no fabricated numbers',
+  testWidgets('My Words empty state is honest — no saved words, no fabrication',
       (WidgetTester tester) async {
     final ProviderContainer c = _container();
     addTearDown(c.dispose);
     await _pumpTall(tester, c);
 
+    expect(find.byKey(const ValueKey<String>('screen-my-words')),
+        findsOneWidget);
     expect(find.text('No saved words yet'), findsOneWidget);
     expect(find.text('Start a lesson'), findsOneWidget);
     // Never the mockup's saved-word stats.
@@ -64,7 +68,7 @@ void main() {
     expect(find.text('Review 1 word'), findsNothing);
   });
 
-  testWidgets('saved words surface a REAL due queue and flashcard review',
+  testWidgets('My Words surfaces a REAL due queue and flashcard review',
       (WidgetTester tester) async {
     final ProviderContainer c = _container();
     addTearDown(c.dispose);

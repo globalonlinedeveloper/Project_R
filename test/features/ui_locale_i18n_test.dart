@@ -14,6 +14,7 @@ import 'package:ratel/features/onboarding/onboarding_screen.dart';
 import 'package:ratel/features/profile/profile_screen.dart';
 import 'package:ratel/features/quests/quests_screen.dart';
 import 'package:ratel/features/practice/practice_hub_screen.dart';
+import 'package:ratel/features/practice/my_words_screen.dart';
 import 'package:ratel/features/progress/progress_screen.dart';
 import 'package:ratel/features/tutor/ai_tutor_screen.dart';
 import 'package:ratel/features/auth/welcome_screen.dart';
@@ -539,7 +540,7 @@ void main() {
     expect(de.commonDowMon, 'Mo');
   });
 
-  testWidgets('Practice hub in German: empty state localized',
+  testWidgets('Practice hub in German: title localized (INC-3 hub)',
       (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(
       child: MaterialApp(
@@ -550,7 +551,25 @@ void main() {
       ),
     ));
     await tester.pumpAndSettle();
+    // The rebuilt hub: German title + the SKILL STRENGTH panel present.
     expect(find.text('Üben'), findsOneWidget);
+    expect(find.byKey(const ValueKey<String>('practice-skill-strength')),
+        findsOneWidget);
+    // The new INC-3 keys fall back to English (untranslated by directive).
+    expect(find.text('Always free · never costs energy'), findsOneWidget);
+  });
+
+  testWidgets('My Words in German: empty state localized (demoted leaf)',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const ProviderScope(
+      child: MaterialApp(
+        locale: Locale('de'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: MyWordsScreen(),
+      ),
+    ));
+    await tester.pumpAndSettle();
     expect(find.text('Noch keine gespeicherten Wörter'), findsOneWidget);
     expect(find.text('No saved words yet'), findsNothing);
   });
