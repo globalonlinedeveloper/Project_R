@@ -1053,6 +1053,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get progressTitle => '진행 상황';
 
   @override
+  String get progressYourLevel => 'YOUR LEVEL';
+
+  @override
   String get progressShareMilestone => '이정표 공유';
 
   @override

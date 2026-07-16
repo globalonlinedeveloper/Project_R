@@ -255,3 +255,27 @@ class _BellButton extends StatelessWidget {
     );
   }
 }
+
+/// The top-bar language flag for a course, DERIVED from the active course code
+/// (the batch locale, e.g. 'es'). Single source of truth so the Home, Leagues
+/// and Quests top bars always agree (D-L8/Q7): before this, Home derived the
+/// flag while Leagues/Quests hard-coded EN, so a non-EN course showed the wrong
+/// flag on those two tabs. An unmapped/empty code falls back to the 🦡 mascot
+/// (matching Home's original behaviour — a country flag per course is a
+/// separate polish item, A-H2).
+String courseFlagEmoji(String code) {
+  switch (code) {
+    case 'en':
+      return '🇬🇧';
+    case 'ja':
+      return '🇯🇵';
+    case 'ta':
+      return '🇮🇳';
+    default:
+      return '🦡';
+  }
+}
+
+/// The top-bar language code label for a course (the uppercased course code).
+/// Paired with [courseFlagEmoji] so the flag pill is fully course-derived.
+String courseLangCode(String code) => code.toUpperCase();

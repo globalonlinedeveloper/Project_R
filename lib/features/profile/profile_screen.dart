@@ -30,7 +30,8 @@ class ProfileScreen extends ConsumerWidget {
     final Identity identity = ref.watch(identityProvider);
     final AppSettings settings = ref.watch(appSettingsControllerProvider);
     final String level = snap.level.name.toUpperCase();
-    final String courseCode = ref.watch(courseSpineProvider).courseCode;
+    final CourseSpine spine = ref.watch(courseSpineProvider);
+    final String courseCode = spine.courseCode;
     final List<AchievementProgress> achievements =
         ref.watch(achievementsProvider);
     final int unlockedAch =
@@ -51,7 +52,7 @@ class ProfileScreen extends ConsumerWidget {
             const SizedBox(height: RatelSpace.cardGap),
             _stats(context, snap, words),
             const SizedBox(height: RatelSpace.cardGap),
-            _progressBanner(context, level, snap, settings),
+            _progressBanner(context, level, snap, settings, spine.lessonCount),
             const SizedBox(height: RatelSpace.lg),
             Text(context.l10n.profileAchievements,
                 style: TextStyle(
@@ -250,9 +251,15 @@ class ProfileScreen extends ConsumerWidget {
       );
 
   Widget _progressBanner(BuildContext context, String level,
-      LearnerSnapshot snap, AppSettings settings) {
+      LearnerSnapshot snap, AppSettings settings, int totalLessons) {
     final int goal = settings.dailyGoal <= 0 ? 1 : settings.dailyGoal;
-    final double ringVal = (snap.xpToday / goal).clamp(0.0, 1.0);
+    // D-P4: the banner ring shows COURSE COMPLETION (lessons done / total
+    // authored lessons), matching the design's N/160 — not today's XP. Both
+    // numbers are real learner state (never faked); the ring is empty until a
+    // course spine is loaded (totalLessons == 0).
+    final double ringVal = totalLessons <= 0
+        ? 0.0
+        : (snap.lessonsCompleted / totalLessons).clamp(0.0, 1.0);
     return RatelCard(
       gradient: const LinearGradient(
         colors: <Color>[RatelColors.blue, RatelColors.navy],
@@ -296,7 +303,7 @@ class ProfileScreen extends ConsumerWidget {
             size: 64,
             stroke: 8,
             color: RatelColors.onColor,
-            center: Text('${snap.xpToday}/$goal',
+            center: Text('${snap.lessonsCompleted}/$totalLessons',
                 style: const TextStyle(
                     fontFamily: RatelFont.display,
                     fontWeight: RatelType.extraBold,

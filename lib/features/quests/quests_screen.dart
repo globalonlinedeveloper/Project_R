@@ -7,6 +7,7 @@ import 'package:ratel/core/core.dart';
 import 'package:ratel/features/notifications/notifications_controller.dart';
 import 'package:ratel/features/quests/quests_controller.dart';
 import 'package:ratel/features/home/economy_glyph.dart';
+import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/services/quests/quests.dart';
 
 /// Pure, clockless helper (design §4.4, finding D-2): time until the DAILY
@@ -48,6 +49,7 @@ class QuestsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final LearnerSnapshot snap = ref.watch(learnerControllerProvider);
     final int unread = ref.watch(unreadNotificationsCountProvider);
+    final CourseSpine spine = ref.watch(courseSpineProvider);
     final DailyGoalStatus goalStatus = ref.watch(dailyGoalProvider);
     final int goal = goalStatus.goal;
     final double goalVal = goalStatus.fraction;
@@ -67,8 +69,8 @@ class QuestsScreen extends ConsumerWidget {
             // R-L11 inbox surface: the top-bar bell + unread badge open the
             // in-app notifications feed (a real, learner-derived count).
             RatelTopBar(
-                flagEmoji: '🇬🇧',
-                langCode: 'EN',
+                flagEmoji: courseFlagEmoji(spine.courseCode),
+                langCode: courseLangCode(spine.courseCode),
                 streak: snap.streakDays,
                 energy: snap.energy,
                 diamonds: formatCount(snap.diamonds),

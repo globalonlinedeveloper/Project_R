@@ -1083,6 +1083,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get progressTitle => 'Progresso';
 
   @override
+  String get progressYourLevel => 'YOUR LEVEL';
+
+  @override
   String get progressShareMilestone => 'Compartilhar marco';
 
   @override

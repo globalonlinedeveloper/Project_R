@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/content/models/enums.dart' show CefrLevel;
 import 'package:ratel/core/core.dart';
+import 'package:ratel/features/learning_path/course_spine.dart';
 
 /// Progress dashboard (📊) — design spec §4.13, reached from the Profile
 /// "View progress →" banner (`/progress`). Built HONESTLY from the REAL learner
@@ -40,6 +41,7 @@ class ProgressScreen extends ConsumerWidget {
     final int reviewed = ref.watch(reviewedItemCountProvider);
 
     final String level = snap.level.name.toUpperCase();
+    final CourseSpine spine = ref.watch(courseSpineProvider);
     final int goal = goalStatus.goal;
     final double ringVal = goalStatus.fraction;
 
@@ -70,7 +72,8 @@ class ProgressScreen extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(
               RatelSpace.screen, RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
           children: <Widget>[
-            _hero(context, level, snap, goal, ringVal, goalStatus.met),
+            _hero(context, level, snap, goal, ringVal, goalStatus.met,
+                spine.courseCode, spine.lessonCount),
             const SizedBox(height: RatelSpace.cardGap),
             _stats(context, snap, words, goal, level),
             const SizedBox(height: RatelSpace.cardGap),
@@ -125,7 +128,13 @@ class ProgressScreen extends ConsumerWidget {
   }
 
   Widget _hero(BuildContext context, String level, LearnerSnapshot snap,
-      int goal, double ringVal, bool met) {
+      int goal, double ringVal, bool met, String courseCode, int totalLessons) {
+    // D-R1: the hero ring shows COURSE COMPLETION (lessons done / total
+    // authored lessons) matching the design's N/160 — not today's XP. Real
+    // learner state only; empty until a course spine loads (totalLessons == 0).
+    final double completionVal = totalLessons <= 0
+        ? 0.0
+        : (snap.lessonsCompleted / totalLessons).clamp(0.0, 1.0);
     return RatelCard(
       gradient: const LinearGradient(
         colors: <Color>[RatelColors.blue, RatelColors.navy],
@@ -141,6 +150,18 @@ class ProgressScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    // D-R1: "SPANISH · YOUR LEVEL" eyebrow — the active course
+                    // language (derived, localized) above the CEFR level.
+                    Text(
+                        '${ratelCourseLanguageName(context, courseCode).toUpperCase()} · ${context.l10n.progressYourLevel}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontFamily: RatelFont.display,
+                            fontWeight: RatelType.extraBold,
+                            fontSize: RatelType.caption,
+                            color: RatelColors.onColor)),
+                    const SizedBox(height: 2),
                     Text(
                         '${context.l10n.commonLevel(level)} · ${ratelCefrLevelDisplayName(context, _levelName(snap.level))}',
                         maxLines: 1,
@@ -172,11 +193,11 @@ class ProgressScreen extends ConsumerWidget {
               ),
               const SizedBox(width: RatelSpace.md),
               RatelProgressRing(
-                value: ringVal,
+                value: completionVal,
                 size: 76,
                 stroke: 9,
                 color: RatelColors.onColor,
-                center: Text('${snap.xpToday}/$goal',
+                center: Text('${snap.lessonsCompleted}/$totalLessons',
                     style: const TextStyle(
                         fontFamily: RatelFont.display,
                         fontWeight: RatelType.extraBold,

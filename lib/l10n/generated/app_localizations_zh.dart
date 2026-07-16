@@ -1047,6 +1047,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get progressTitle => '进度';
 
   @override
+  String get progressYourLevel => 'YOUR LEVEL';
+
+  @override
   String get progressShareMilestone => '分享里程碑';
 
   @override

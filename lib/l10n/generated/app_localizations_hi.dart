@@ -1071,6 +1071,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get progressTitle => 'प्रगति';
 
   @override
+  String get progressYourLevel => 'YOUR LEVEL';
+
+  @override
   String get progressShareMilestone => 'उपलब्धि साझा करें';
 
   @override

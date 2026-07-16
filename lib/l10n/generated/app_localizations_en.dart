@@ -118,7 +118,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get libraryAiTutor => 'AI Tutor';
 
   @override
-  String get libraryAiTutorSub => 'Talk, chat & roleplay — writing feedback';
+  String get libraryAiTutorSub => 'Talk · Chat · Roleplay — live with Ratel';
 
   @override
   String get libraryRoleplay => 'Roleplay';
@@ -1071,6 +1071,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get progressTitle => 'Progress';
+
+  @override
+  String get progressYourLevel => 'YOUR LEVEL';
 
   @override
   String get progressShareMilestone => 'Share milestone';

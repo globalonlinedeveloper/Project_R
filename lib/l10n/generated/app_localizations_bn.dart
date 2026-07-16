@@ -1071,6 +1071,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get progressTitle => 'অগ্রগতি';
 
   @override
+  String get progressYourLevel => 'YOUR LEVEL';
+
+  @override
   String get progressShareMilestone => 'মাইলফলক শেয়ার করুন';
 
   @override

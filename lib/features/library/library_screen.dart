@@ -63,10 +63,9 @@ class LibraryScreen extends ConsumerWidget {
                   // AI Tutor — the app-level Pro gate lives here (real entitlement).
                   _featureCard(
                     context,
-                    gradient: const LinearGradient(
-                        colors: <Color>[RatelColors.teal, RatelColors.tealDark],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight),
+                    // L-3: design ships the AI-Tutor card as a flat navy panel
+                    // (#15324a == RatelColors.navy), not the teal gradient.
+                    color: RatelColors.navy,
                     emoji: '🦡',
                     title: context.l10n.libraryAiTutor,
                     subtitle: context.l10n.libraryAiTutorSub,
@@ -346,7 +345,8 @@ class LibraryScreen extends ConsumerWidget {
 
   Widget _featureCard(
     BuildContext context, {
-    required Gradient gradient,
+    Gradient? gradient,
+    Color? color,
     required String emoji,
     required String title,
     required String subtitle,
@@ -355,6 +355,7 @@ class LibraryScreen extends ConsumerWidget {
   }) =>
       RatelCard(
         gradient: gradient,
+        color: color,
         onTap: () => context.push(route),
         child: Row(
           children: <Widget>[

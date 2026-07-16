@@ -1052,6 +1052,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get progressTitle => '進捗';
 
   @override
+  String get progressYourLevel => 'YOUR LEVEL';
+
+  @override
   String get progressShareMilestone => 'マイルストーンを共有';
 
   @override

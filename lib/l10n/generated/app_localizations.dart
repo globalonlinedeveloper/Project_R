@@ -297,7 +297,7 @@ abstract class AppLocalizations {
   /// No description provided for @libraryAiTutorSub.
   ///
   /// In en, this message translates to:
-  /// **'Talk, chat & roleplay — writing feedback'**
+  /// **'Talk · Chat · Roleplay — live with Ratel'**
   String get libraryAiTutorSub;
 
   /// No description provided for @libraryRoleplay.
@@ -1955,6 +1955,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Progress'**
   String get progressTitle;
+
+  /// No description provided for @progressYourLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'YOUR LEVEL'**
+  String get progressYourLevel;
 
   /// No description provided for @progressShareMilestone.
   ///

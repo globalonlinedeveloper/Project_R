@@ -1090,6 +1090,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get progressTitle => 'Прогресс';
 
   @override
+  String get progressYourLevel => 'YOUR LEVEL';
+
+  @override
   String get progressShareMilestone => 'Поделиться вехой';
 
   @override

@@ -6,6 +6,7 @@ import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/leagues/leagues_controller.dart';
 import 'package:ratel/features/home/economy_glyph.dart';
+import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/features/notifications/notifications_controller.dart';
 import 'package:ratel/services/leagues/leagues.dart';
 
@@ -24,6 +25,7 @@ class LeaguesScreen extends ConsumerWidget {
     final LearnerSnapshot snap = ref.watch(learnerControllerProvider);
     final LeagueStatus status = ref.watch(leagueStatusProvider);
     final int unread = ref.watch(unreadNotificationsCountProvider);
+    final CourseSpine spine = ref.watch(courseSpineProvider);
     final RatelPalette p = context.palette;
 
     return Container(
@@ -37,8 +39,8 @@ class LeaguesScreen extends ConsumerWidget {
             // R-L11 inbox surface: the top-bar bell + unread badge open the
             // in-app notifications feed (a real, learner-derived count).
             RatelTopBar(
-              flagEmoji: '🇬🇧',
-              langCode: 'EN',
+              flagEmoji: courseFlagEmoji(spine.courseCode),
+              langCode: courseLangCode(spine.courseCode),
               streak: snap.streakDays,
               energy: snap.energy,
               diamonds: formatCount(snap.diamonds),

@@ -1091,6 +1091,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get progressTitle => 'Progression';
 
   @override
+  String get progressYourLevel => 'YOUR LEVEL';
+
+  @override
   String get progressShareMilestone => 'Partager le jalon';
 
   @override

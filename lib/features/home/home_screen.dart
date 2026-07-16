@@ -114,8 +114,8 @@ class HomeScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 RatelTopBar(
-                    flagEmoji: _flagFor(spine.courseCode),
-                    langCode: _langFor(spine.courseCode),
+                    flagEmoji: courseFlagEmoji(spine.courseCode),
+                    langCode: courseLangCode(spine.courseCode),
                     streak: snap.streakDays,
                     energyLabel: formatEnergy(snap.energy,
                         unlimited: ref.watch(isProProvider)),
@@ -540,21 +540,6 @@ class HomeScreen extends ConsumerWidget {
       ),
     );
   }
-
-  static String _flagFor(String code) {
-    switch (code) {
-      case 'en':
-        return '🇬🇧';
-      case 'ja':
-        return '🇯🇵';
-      case 'ta':
-        return '🇮🇳';
-      default:
-        return '🦡';
-    }
-  }
-
-  static String _langFor(String code) => code.toUpperCase();
 }
 
 /// One lesson node on the path (authored content + REAL position).
