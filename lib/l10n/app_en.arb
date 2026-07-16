@@ -1109,6 +1109,14 @@
   "chatSendBlocked": "The AI tutor isn't connected yet — no reply is simulated. Live chat turns on in a later step.",
   "homeStreakChipTip": "View your streak",
   "homeEnergyChipTip": "View your energy",
+  "diamondsSheetTitle": "DIAMONDS",
+  "diamondsSheetCount": "{count} diamonds",
+  "diamondsSheetBody": "Spend on streak freezes, energy refills and outfits in the Shop.",
+  "diamondsSheetEarn": "You earn diamonds by finishing lessons (+{lesson} each) and meeting your daily goal (+{goal}). Everything in the Shop spends real diamonds — nothing here is faked.",
+  "diamondsOpenShop": "Open Shop",
+  "diamondsClose": "Close",
   "@energyCountLabel": {"placeholders": {"current": {"type": "int"}, "max": {"type": "int"}}},
-  "@coursesSwitchedTo": {"placeholders": {"language": {"type": "String"}}}
+  "@coursesSwitchedTo": {"placeholders": {"language": {"type": "String"}}},
+  "@diamondsSheetCount": {"placeholders": {"count": {"type": "int"}}},
+  "@diamondsSheetEarn": {"placeholders": {"lesson": {"type": "int"}, "goal": {"type": "int"}}}
 }

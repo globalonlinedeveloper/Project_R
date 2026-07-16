@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/leagues/leagues_controller.dart';
+import 'package:ratel/features/home/diamonds_sheet.dart';
 import 'package:ratel/features/home/economy_glyph.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/features/notifications/notifications_controller.dart';
@@ -46,6 +47,7 @@ class LeaguesScreen extends ConsumerWidget {
               diamonds: formatCount(snap.diamonds),
               streakFreeze: snap.streakFreezes > 0 ? snap.streakFreezes : null,
               unreadNotifications: unread,
+              onDiamondsTap: () => showDiamondsSheet(context, snap.diamonds),
               onNotificationsTap: () => context.push('/notifications'),
             ),
             Expanded(
@@ -358,7 +360,7 @@ class _StandingRow extends StatelessWidget {
             ),
           ),
           const SizedBox(width: RatelSpace.sm),
-          Text(m.avatarEmoji, style: const TextStyle(fontSize: 24)),
+          _medallion(context, m.avatarEmoji, standing.rank, you),
           const SizedBox(width: RatelSpace.md),
           Expanded(
             child: Text(
@@ -389,6 +391,35 @@ class _StandingRow extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  /// The design's colored avatar MEDALLION (D-L5, design #31/#32): the
+  /// learner's avatar emoji centred in a soft-tinted circle wrapped by a
+  /// colored ring. The ring tint is DERIVED from real standing state — the
+  /// signed-in learner ("you") reads teal (matching the You-row highlight),
+  /// the podium ranks read the league tier-badge gold/silver/bronze tokens,
+  /// and everyone else reads a stable teal accent. Tokens only (no raw hex).
+  Widget _medallion(BuildContext context, String emoji, int rank, bool you) {
+    final Color ring = you
+        ? RatelColors.teal
+        : switch (rank) {
+            1 => RatelColors.tierGold,
+            2 => RatelColors.tierSilver,
+            3 => RatelColors.tierBronze,
+            _ => RatelColors.teal,
+          };
+    return Container(
+      key: const ValueKey<String>('league-medallion'),
+      width: 36,
+      height: 36,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: ring.withValues(alpha: 0.16),
+        shape: BoxShape.circle,
+        border: Border.all(color: ring, width: 2),
+      ),
+      child: Text(emoji, style: const TextStyle(fontSize: 20)),
     );
   }
 }

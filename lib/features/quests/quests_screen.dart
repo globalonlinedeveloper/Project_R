@@ -6,6 +6,7 @@ import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/notifications/notifications_controller.dart';
 import 'package:ratel/features/quests/quests_controller.dart';
+import 'package:ratel/features/home/diamonds_sheet.dart';
 import 'package:ratel/features/home/economy_glyph.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/services/quests/quests.dart';
@@ -76,6 +77,7 @@ class QuestsScreen extends ConsumerWidget {
                 diamonds: formatCount(snap.diamonds),
                 streakFreeze: snap.streakFreezes > 0 ? snap.streakFreezes : null,
                 unreadNotifications: unread,
+                onDiamondsTap: () => showDiamondsSheet(context, snap.diamonds),
                 onNotificationsTap: () => context.push('/notifications')),
             Expanded(
               child: ListView(
@@ -277,7 +279,7 @@ class _QuestTile extends StatelessWidget {
     return RatelCard(
       child: Row(
         children: <Widget>[
-          Text(q.emoji, style: const TextStyle(fontSize: 22)),
+          _iconTile(context, q.emoji),
           const SizedBox(width: RatelSpace.md),
           Expanded(
             child: Column(
@@ -313,6 +315,24 @@ class _QuestTile extends StatelessWidget {
           ],
         ],
       ),
+    );
+  }
+
+  /// The design's soft rounded-square icon TILE (D-Q6, design #34): the quest's
+  /// emoji centred on a tinted rounded square — the square counterpart of the
+  /// circular RatelListRow medallion. A stable teal accent tint (tokens only,
+  /// no raw hex), matching the other list medallions across the app.
+  Widget _iconTile(BuildContext context, String emoji) {
+    return Container(
+      key: const ValueKey<String>('quest-icon-tile'),
+      width: 40,
+      height: 40,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: RatelColors.teal.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(RatelRadius.chip),
+      ),
+      child: Text(emoji, style: const TextStyle(fontSize: 22)),
     );
   }
 }

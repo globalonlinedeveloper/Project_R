@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
+import 'package:ratel/features/home/diamonds_sheet.dart';
 import 'package:ratel/features/home/economy_glyph.dart';
 import 'package:ratel/features/home/galaxy_path.dart';
 import 'package:ratel/features/home/learning_path_view.dart';
@@ -125,6 +126,8 @@ class HomeScreen extends ConsumerWidget {
                     unreadNotifications: unread,
                     onStreakTap: () => context.push('/streak'),
                     onEnergyTap: () => context.push('/energy'),
+                    onDiamondsTap: () =>
+                        showDiamondsSheet(context, snap.diamonds),
                     onNotificationsTap: () => context.push('/notifications')),
                 if (galaxy) _unitBanner(context, current),
                 Expanded(
@@ -189,6 +192,7 @@ class HomeScreen extends ConsumerWidget {
                 unreadNotifications: unread,
                 onStreakTap: () => context.push('/streak'),
                 onEnergyTap: () => context.push('/energy'),
+                onDiamondsTap: () => showDiamondsSheet(context, diamonds),
                 onNotificationsTap: () => context.push('/notifications')),
             Expanded(
               child: Center(

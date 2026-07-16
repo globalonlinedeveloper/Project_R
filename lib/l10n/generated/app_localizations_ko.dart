@@ -2704,4 +2704,27 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get homeEnergyChipTip => 'View your energy';
+
+  @override
+  String get diamondsSheetTitle => 'DIAMONDS';
+
+  @override
+  String diamondsSheetCount(int count) {
+    return '$count diamonds';
+  }
+
+  @override
+  String get diamondsSheetBody =>
+      'Spend on streak freezes, energy refills and outfits in the Shop.';
+
+  @override
+  String diamondsSheetEarn(int lesson, int goal) {
+    return 'You earn diamonds by finishing lessons (+$lesson each) and meeting your daily goal (+$goal). Everything in the Shop spends real diamonds — nothing here is faked.';
+  }
+
+  @override
+  String get diamondsOpenShop => 'Open Shop';
+
+  @override
+  String get diamondsClose => 'Close';
 }

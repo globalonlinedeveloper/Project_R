@@ -25,6 +25,7 @@ class RatelTopBar extends StatelessWidget {
     this.streakFreeze,
     this.onStreakTap,
     this.onEnergyTap,
+    this.onDiamondsTap,
     this.onNotificationsTap,
     this.unreadNotifications = 0,
     this.onThemeTap,
@@ -56,6 +57,12 @@ class RatelTopBar extends StatelessWidget {
 
   /// Opens the Energy screen from the ⚡ chip (null → chip is not tappable).
   final VoidCallback? onEnergyTap;
+
+  /// Opens the Diamonds surface from the 💎 chip (null → chip is not tappable).
+  /// The chip stays honest: it only surfaces the REAL earned-💎 wallet
+  /// ([diamonds]) plus how they are earned/spent — never a faked balance,
+  /// price or storefront (A-H4 · design #13).
+  final VoidCallback? onDiamondsTap;
 
   /// 🔔 opens the in-app notifications inbox (null hides the bell button).
   final VoidCallback? onNotificationsTap;
@@ -110,7 +117,10 @@ class RatelTopBar extends StatelessWidget {
                             value: '$energy',
                             onTap: onEnergyTap),
                       if (diamonds != null)
-                        _Stat(emoji: '💎', value: diamonds!),
+                        _Stat(
+                            emoji: '💎',
+                            value: diamonds!,
+                            onTap: onDiamondsTap),
                       if (onThemeTap != null)
                         GestureDetector(
                           behavior: HitTestBehavior.opaque,

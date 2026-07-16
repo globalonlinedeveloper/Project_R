@@ -4949,6 +4949,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View your energy'**
   String get homeEnergyChipTip;
+
+  /// No description provided for @diamondsSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'DIAMONDS'**
+  String get diamondsSheetTitle;
+
+  /// No description provided for @diamondsSheetCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} diamonds'**
+  String diamondsSheetCount(int count);
+
+  /// No description provided for @diamondsSheetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Spend on streak freezes, energy refills and outfits in the Shop.'**
+  String get diamondsSheetBody;
+
+  /// No description provided for @diamondsSheetEarn.
+  ///
+  /// In en, this message translates to:
+  /// **'You earn diamonds by finishing lessons (+{lesson} each) and meeting your daily goal (+{goal}). Everything in the Shop spends real diamonds — nothing here is faked.'**
+  String diamondsSheetEarn(int lesson, int goal);
+
+  /// No description provided for @diamondsOpenShop.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Shop'**
+  String get diamondsOpenShop;
+
+  /// No description provided for @diamondsClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get diamondsClose;
 }
 
 class _AppLocalizationsDelegate
