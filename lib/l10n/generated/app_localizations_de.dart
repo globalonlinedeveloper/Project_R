@@ -2561,4 +2561,22 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get practiceBackToHub => 'Back to Practice';
+
+  @override
+  String get roleplayCatEveryday => 'Everyday';
+
+  @override
+  String get roleplayCatTravel => 'Travel';
+
+  @override
+  String get roleplayCatWorkStudy => 'Work & Study';
+
+  @override
+  String get roleplayCatSocial => 'Social';
+
+  @override
+  String get roleplayCatHealth => 'Health';
+
+  @override
+  String get roleplaySearchHint => 'Search scenes…';
 }

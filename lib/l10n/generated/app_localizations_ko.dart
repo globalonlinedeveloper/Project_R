@@ -1741,6 +1741,24 @@ class AppLocalizationsKo extends AppLocalizations {
   String get roleplayEmpty => '이 코스에는 아직 롤플레이가 없어요.';
 
   @override
+  String get roleplayCatEveryday => 'Everyday';
+
+  @override
+  String get roleplayCatTravel => 'Travel';
+
+  @override
+  String get roleplayCatWorkStudy => 'Work & Study';
+
+  @override
+  String get roleplayCatSocial => 'Social';
+
+  @override
+  String get roleplayCatHealth => 'Health';
+
+  @override
+  String get roleplaySearchHint => 'Search scenes…';
+
+  @override
   String get roleplayYourReply => '내 답변:';
 
   @override

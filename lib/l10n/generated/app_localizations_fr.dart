@@ -1803,6 +1803,24 @@ class AppLocalizationsFr extends AppLocalizations {
   String get roleplayEmpty => 'Pas encore de jeux de rôle dans ce cours.';
 
   @override
+  String get roleplayCatEveryday => 'Everyday';
+
+  @override
+  String get roleplayCatTravel => 'Travel';
+
+  @override
+  String get roleplayCatWorkStudy => 'Work & Study';
+
+  @override
+  String get roleplayCatSocial => 'Social';
+
+  @override
+  String get roleplayCatHealth => 'Health';
+
+  @override
+  String get roleplaySearchHint => 'Search scenes…';
+
+  @override
   String get roleplayYourReply => 'Ta réponse :';
 
   @override

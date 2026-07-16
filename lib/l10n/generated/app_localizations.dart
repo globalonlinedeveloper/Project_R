@@ -3174,6 +3174,42 @@ abstract class AppLocalizations {
   /// **'No roleplays in this course yet.'**
   String get roleplayEmpty;
 
+  /// No description provided for @roleplayCatEveryday.
+  ///
+  /// In en, this message translates to:
+  /// **'Everyday'**
+  String get roleplayCatEveryday;
+
+  /// No description provided for @roleplayCatTravel.
+  ///
+  /// In en, this message translates to:
+  /// **'Travel'**
+  String get roleplayCatTravel;
+
+  /// No description provided for @roleplayCatWorkStudy.
+  ///
+  /// In en, this message translates to:
+  /// **'Work & Study'**
+  String get roleplayCatWorkStudy;
+
+  /// No description provided for @roleplayCatSocial.
+  ///
+  /// In en, this message translates to:
+  /// **'Social'**
+  String get roleplayCatSocial;
+
+  /// No description provided for @roleplayCatHealth.
+  ///
+  /// In en, this message translates to:
+  /// **'Health'**
+  String get roleplayCatHealth;
+
+  /// No description provided for @roleplaySearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search scenes…'**
+  String get roleplaySearchHint;
+
   /// No description provided for @roleplayYourReply.
   ///
   /// In en, this message translates to:
