@@ -2590,4 +2590,167 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get practiceBackToHub => 'Back to Practice';
+
+  @override
+  String get streakTitle => 'Streak';
+
+  @override
+  String get streakDayLabel => 'DAY STREAK';
+
+  @override
+  String get streakFreezesLabel => 'Streak freezes';
+
+  @override
+  String get streakFreezesTileSub =>
+      'A freeze covers one missed day so your run survives.';
+
+  @override
+  String get streakDeadlineTitle => 'Keep it going today';
+
+  @override
+  String get streakDeadlineBody =>
+      'Meet your daily goal before midnight to extend your streak.';
+
+  @override
+  String get streakTodayDone => 'Today\'s goal is met — your streak is safe.';
+
+  @override
+  String get streakZeroTitle => 'Start your streak today';
+
+  @override
+  String get streakZeroBody =>
+      'Finish a lesson to light the flame. Every consecutive day you meet your goal adds one.';
+
+  @override
+  String get streakSocietyTitle => 'Streak Society';
+
+  @override
+  String get streakSocietySub => 'Friend streaks · societies · perks';
+
+  @override
+  String get streakSocietyHonest =>
+      'Streak Society is not built yet — there is no friends-streak backend, so nothing here is faked. It arrives with real social features, like Leagues.';
+
+  @override
+  String get streakHonestNote =>
+      'Your day count and freezes are your real numbers. RATEL does not show a day-by-day calendar here because it does not yet keep a per-day activity log — nothing is invented.';
+
+  @override
+  String get energyTitle => 'Energy';
+
+  @override
+  String energyCountLabel(int current, int max) {
+    return '$current of $max energy';
+  }
+
+  @override
+  String get energyUnlimitedLabel => 'Unlimited energy';
+
+  @override
+  String get energyLessonCost => 'Each lesson costs 1 ⚡';
+
+  @override
+  String get energyNeverBlocksTitle => 'Energy never blocks learning';
+
+  @override
+  String get energyNeverBlocksBody =>
+      'You can always keep learning, even at 0 ⚡. Energy is a gentle pace signal — it never locks a lesson, and practice is always free.';
+
+  @override
+  String get energyRegenNote =>
+      'Energy refills on its own over time toward the cap. Exact refill timing isn\'t finalised, so RATEL doesn\'t show a countdown it can\'t guarantee.';
+
+  @override
+  String get energyProTitle => 'You have unlimited energy';
+
+  @override
+  String get energyProBody =>
+      'RATEL PRO removes the counter entirely — it always reads ∞.';
+
+  @override
+  String get energyPracticeFree => 'Practice for free';
+
+  @override
+  String get energyGoProUnlimited => 'Go PRO · unlimited energy';
+
+  @override
+  String get energyHonestNote =>
+      'This is your real current energy. RATEL doesn\'t show a refill price or timer here because those numbers aren\'t finalised — it won\'t commit to a figure it can\'t back.';
+
+  @override
+  String get coursesTitle => 'Courses';
+
+  @override
+  String get coursesLearningHeader => 'LEARNING';
+
+  @override
+  String get coursesActive => 'Active';
+
+  @override
+  String get coursesSwitch => 'Switch';
+
+  @override
+  String get coursesSharedProgress =>
+      'Your streak & XP are shared across courses — switching never loses progress.';
+
+  @override
+  String get coursesAddHeader => 'ADD A COURSE';
+
+  @override
+  String get coursesAddHonest =>
+      'More languages are on the way. RATEL only lists courses it actually ships, so there\'s no fake catalog or \"50+ courses\" count here yet.';
+
+  @override
+  String get coursesDisplayHeader => 'DISPLAY';
+
+  @override
+  String get coursesMenuLanguage => 'Menu language';
+
+  @override
+  String get coursesMenuLanguageSub =>
+      'Set the app\'s interface language in Settings';
+
+  @override
+  String coursesSwitchedTo(String language) {
+    return 'Switched to $language';
+  }
+
+  @override
+  String get chatTitle => 'Ratel · Tutor';
+
+  @override
+  String get chatSubtitle => 'Chat with Ratel';
+
+  @override
+  String get chatIntroBubble =>
+      'Hi! I\'m Ratel. Ask me anything, or paste a sentence and I\'ll give you feedback.';
+
+  @override
+  String get chatQuickHowSay => 'How do you say…?';
+
+  @override
+  String get chatQuickCorrect => 'Correct my sentence';
+
+  @override
+  String get chatQuickTalk => 'Let\'s chat';
+
+  @override
+  String get chatComposerHint => 'Type your message…';
+
+  @override
+  String get chatOfflineTitle => 'The tutor chat isn\'t connected yet';
+
+  @override
+  String get chatOfflineBody =>
+      'Live AI chat is a moderated RATEL PRO feature that turns on in a later step. Until then, no reply is ever simulated — the composer stays here so the layout is ready, but Ratel won\'t send a made-up answer.';
+
+  @override
+  String get chatSendBlocked =>
+      'The AI tutor isn\'t connected yet — no reply is simulated. Live chat turns on in a later step.';
+
+  @override
+  String get homeStreakChipTip => 'View your streak';
+
+  @override
+  String get homeEnergyChipTip => 'View your energy';
 }

@@ -41,6 +41,10 @@ import 'package:ratel/features/notifications/notifications_screen.dart';
 import 'package:ratel/features/paywall/paywall_screen.dart';
 import 'package:ratel/features/shop/shop_screen.dart';
 import 'package:ratel/features/tutor/ai_tutor_screen.dart';
+import 'package:ratel/features/chat/chat_screen.dart';
+import 'package:ratel/features/courses/courses_screen.dart';
+import 'package:ratel/features/energy/energy_screen.dart';
+import 'package:ratel/features/streak/streak_screen.dart';
 import 'package:ratel/features/themes/themes_screen.dart';
 
 /// A not-yet-built destination rendered as an honest [ComingSoonScreen]. The
@@ -166,6 +170,26 @@ GoRouter buildRouter({
         path: '/tutor',
         builder: (BuildContext context, GoRouterState state) =>
             const AiTutorScreen(),
+      ),
+      GoRoute(
+        path: '/streak',
+        builder: (BuildContext context, GoRouterState state) =>
+            const StreakScreen(),
+      ),
+      GoRoute(
+        path: '/energy',
+        builder: (BuildContext context, GoRouterState state) =>
+            const EnergyScreen(),
+      ),
+      GoRoute(
+        path: '/courses',
+        builder: (BuildContext context, GoRouterState state) =>
+            const CoursesScreen(),
+      ),
+      GoRoute(
+        path: '/chat',
+        builder: (BuildContext context, GoRouterState state) =>
+            const ChatScreen(),
       ),
       GoRoute(
         path: '/adventures',

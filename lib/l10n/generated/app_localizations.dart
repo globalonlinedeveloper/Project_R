@@ -4661,6 +4661,294 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Back to Practice'**
   String get practiceBackToHub;
+
+  /// No description provided for @streakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak'**
+  String get streakTitle;
+
+  /// No description provided for @streakDayLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'DAY STREAK'**
+  String get streakDayLabel;
+
+  /// No description provided for @streakFreezesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak freezes'**
+  String get streakFreezesLabel;
+
+  /// No description provided for @streakFreezesTileSub.
+  ///
+  /// In en, this message translates to:
+  /// **'A freeze covers one missed day so your run survives.'**
+  String get streakFreezesTileSub;
+
+  /// No description provided for @streakDeadlineTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep it going today'**
+  String get streakDeadlineTitle;
+
+  /// No description provided for @streakDeadlineBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Meet your daily goal before midnight to extend your streak.'**
+  String get streakDeadlineBody;
+
+  /// No description provided for @streakTodayDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s goal is met — your streak is safe.'**
+  String get streakTodayDone;
+
+  /// No description provided for @streakZeroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start your streak today'**
+  String get streakZeroTitle;
+
+  /// No description provided for @streakZeroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish a lesson to light the flame. Every consecutive day you meet your goal adds one.'**
+  String get streakZeroBody;
+
+  /// No description provided for @streakSocietyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak Society'**
+  String get streakSocietyTitle;
+
+  /// No description provided for @streakSocietySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Friend streaks · societies · perks'**
+  String get streakSocietySub;
+
+  /// No description provided for @streakSocietyHonest.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak Society is not built yet — there is no friends-streak backend, so nothing here is faked. It arrives with real social features, like Leagues.'**
+  String get streakSocietyHonest;
+
+  /// No description provided for @streakHonestNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Your day count and freezes are your real numbers. RATEL does not show a day-by-day calendar here because it does not yet keep a per-day activity log — nothing is invented.'**
+  String get streakHonestNote;
+
+  /// No description provided for @energyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Energy'**
+  String get energyTitle;
+
+  /// No description provided for @energyCountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{current} of {max} energy'**
+  String energyCountLabel(int current, int max);
+
+  /// No description provided for @energyUnlimitedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited energy'**
+  String get energyUnlimitedLabel;
+
+  /// No description provided for @energyLessonCost.
+  ///
+  /// In en, this message translates to:
+  /// **'Each lesson costs 1 ⚡'**
+  String get energyLessonCost;
+
+  /// No description provided for @energyNeverBlocksTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Energy never blocks learning'**
+  String get energyNeverBlocksTitle;
+
+  /// No description provided for @energyNeverBlocksBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You can always keep learning, even at 0 ⚡. Energy is a gentle pace signal — it never locks a lesson, and practice is always free.'**
+  String get energyNeverBlocksBody;
+
+  /// No description provided for @energyRegenNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Energy refills on its own over time toward the cap. Exact refill timing isn\'t finalised, so RATEL doesn\'t show a countdown it can\'t guarantee.'**
+  String get energyRegenNote;
+
+  /// No description provided for @energyProTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You have unlimited energy'**
+  String get energyProTitle;
+
+  /// No description provided for @energyProBody.
+  ///
+  /// In en, this message translates to:
+  /// **'RATEL PRO removes the counter entirely — it always reads ∞.'**
+  String get energyProBody;
+
+  /// No description provided for @energyPracticeFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice for free'**
+  String get energyPracticeFree;
+
+  /// No description provided for @energyGoProUnlimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Go PRO · unlimited energy'**
+  String get energyGoProUnlimited;
+
+  /// No description provided for @energyHonestNote.
+  ///
+  /// In en, this message translates to:
+  /// **'This is your real current energy. RATEL doesn\'t show a refill price or timer here because those numbers aren\'t finalised — it won\'t commit to a figure it can\'t back.'**
+  String get energyHonestNote;
+
+  /// No description provided for @coursesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Courses'**
+  String get coursesTitle;
+
+  /// No description provided for @coursesLearningHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'LEARNING'**
+  String get coursesLearningHeader;
+
+  /// No description provided for @coursesActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get coursesActive;
+
+  /// No description provided for @coursesSwitch.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch'**
+  String get coursesSwitch;
+
+  /// No description provided for @coursesSharedProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Your streak & XP are shared across courses — switching never loses progress.'**
+  String get coursesSharedProgress;
+
+  /// No description provided for @coursesAddHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'ADD A COURSE'**
+  String get coursesAddHeader;
+
+  /// No description provided for @coursesAddHonest.
+  ///
+  /// In en, this message translates to:
+  /// **'More languages are on the way. RATEL only lists courses it actually ships, so there\'s no fake catalog or \"50+ courses\" count here yet.'**
+  String get coursesAddHonest;
+
+  /// No description provided for @coursesDisplayHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'DISPLAY'**
+  String get coursesDisplayHeader;
+
+  /// No description provided for @coursesMenuLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu language'**
+  String get coursesMenuLanguage;
+
+  /// No description provided for @coursesMenuLanguageSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Set the app\'s interface language in Settings'**
+  String get coursesMenuLanguageSub;
+
+  /// No description provided for @coursesSwitchedTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Switched to {language}'**
+  String coursesSwitchedTo(String language);
+
+  /// No description provided for @chatTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ratel · Tutor'**
+  String get chatTitle;
+
+  /// No description provided for @chatSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat with Ratel'**
+  String get chatSubtitle;
+
+  /// No description provided for @chatIntroBubble.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi! I\'m Ratel. Ask me anything, or paste a sentence and I\'ll give you feedback.'**
+  String get chatIntroBubble;
+
+  /// No description provided for @chatQuickHowSay.
+  ///
+  /// In en, this message translates to:
+  /// **'How do you say…?'**
+  String get chatQuickHowSay;
+
+  /// No description provided for @chatQuickCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct my sentence'**
+  String get chatQuickCorrect;
+
+  /// No description provided for @chatQuickTalk.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s chat'**
+  String get chatQuickTalk;
+
+  /// No description provided for @chatComposerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your message…'**
+  String get chatComposerHint;
+
+  /// No description provided for @chatOfflineTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The tutor chat isn\'t connected yet'**
+  String get chatOfflineTitle;
+
+  /// No description provided for @chatOfflineBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Live AI chat is a moderated RATEL PRO feature that turns on in a later step. Until then, no reply is ever simulated — the composer stays here so the layout is ready, but Ratel won\'t send a made-up answer.'**
+  String get chatOfflineBody;
+
+  /// No description provided for @chatSendBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'The AI tutor isn\'t connected yet — no reply is simulated. Live chat turns on in a later step.'**
+  String get chatSendBlocked;
+
+  /// No description provided for @homeStreakChipTip.
+  ///
+  /// In en, this message translates to:
+  /// **'View your streak'**
+  String get homeStreakChipTip;
+
+  /// No description provided for @homeEnergyChipTip.
+  ///
+  /// In en, this message translates to:
+  /// **'View your energy'**
+  String get homeEnergyChipTip;
 }
 
 class _AppLocalizationsDelegate

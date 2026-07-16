@@ -123,6 +123,8 @@ class HomeScreen extends ConsumerWidget {
                     streakFreeze:
                         snap.streakFreezes > 0 ? snap.streakFreezes : null,
                     unreadNotifications: unread,
+                    onStreakTap: () => context.push('/streak'),
+                    onEnergyTap: () => context.push('/energy'),
                     onNotificationsTap: () => context.push('/notifications')),
                 if (galaxy) _unitBanner(context, current),
                 Expanded(
@@ -185,6 +187,8 @@ class HomeScreen extends ConsumerWidget {
                 diamonds: formatCount(diamonds),
                 streakFreeze: streakFreezes > 0 ? streakFreezes : null,
                 unreadNotifications: unread,
+                onStreakTap: () => context.push('/streak'),
+                onEnergyTap: () => context.push('/energy'),
                 onNotificationsTap: () => context.push('/notifications')),
             Expanded(
               child: Center(

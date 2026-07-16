@@ -173,7 +173,10 @@ class SettingsScreen extends ConsumerWidget {
                   leadingColor: RatelColors.green,
                   title: context.l10n.settingsCourse,
                   subtitle: _courseLabel(context, course.current),
-                  onTap: () => _pickCourse(context, course),
+                  // A-C1: the Course row now opens the dedicated Courses
+                  // screen (real switch + shared-progress note) instead of
+                  // the inline picker sheet.
+                  onTap: () => context.push('/courses'),
                 ),
               // L-2: app-shell (chrome) language — separate concept from the
               // Course (target language) row above; device-local override.
@@ -504,51 +507,6 @@ class SettingsScreen extends ConsumerWidget {
                   onTap: () {
                     c.setThemeMode(t.mode);
                     Navigator.of(sheetContext).pop();
-                  },
-                ),
-                const SizedBox(height: RatelSpace.xs),
-              ],
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  /// Course picker (INF-3) — mirrors the theme sheet. Choices come from the
-  /// asset manifest via [CourseSwitchScope] (a new language = content rows +
-  /// one asset; the picker grows itself). Selecting persists the code and
-  /// remounts the app onto that course instantly (restart-free).
-  void _pickCourse(BuildContext context, CourseSwitchScope course) {
-    showModalBottomSheet<void>(
-      context: context,
-      backgroundColor: context.palette.white,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(RatelRadius.featureLg),
-        ),
-      ),
-      builder: (BuildContext sheetContext) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(RatelSpace.lg),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: RatelSpace.sm,
-                  bottom: RatelSpace.sm,
-                ),
-                child: RatelSectionHeader(label: context.l10n.settingsCourse),
-              ),
-              for (final String code in course.available) ...<Widget>[
-                RatelListRow(
-                  leadingEmoji: code == course.current ? '✅' : '🌍',
-                  title: _courseLabel(context, code),
-                  onTap: () {
-                    Navigator.of(sheetContext).pop();
-                    unawaited(course.switchCourse(code));
                   },
                 ),
                 const SizedBox(height: RatelSpace.xs),

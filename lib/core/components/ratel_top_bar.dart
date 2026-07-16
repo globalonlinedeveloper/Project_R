@@ -23,6 +23,8 @@ class RatelTopBar extends StatelessWidget {
     this.energyLabel,
     this.diamonds,
     this.streakFreeze,
+    this.onStreakTap,
+    this.onEnergyTap,
     this.onNotificationsTap,
     this.unreadNotifications = 0,
     this.onThemeTap,
@@ -48,6 +50,12 @@ class RatelTopBar extends StatelessWidget {
 
   /// 💪 streak-freeze count (null hides — no engine yet).
   final int? streakFreeze;
+
+  /// Opens the Streak screen from the 🔥 chip (null → chip is not tappable).
+  final VoidCallback? onStreakTap;
+
+  /// Opens the Energy screen from the ⚡ chip (null → chip is not tappable).
+  final VoidCallback? onEnergyTap;
 
   /// 🔔 opens the in-app notifications inbox (null hides the bell button).
   final VoidCallback? onNotificationsTap;
@@ -86,11 +94,21 @@ class RatelTopBar extends StatelessWidget {
                     children: <Widget>[
                       if (streakFreeze != null)
                         _Stat(emoji: '💪', value: '$streakFreeze'),
-                      if (streak != null) _Stat(emoji: '🔥', value: '$streak'),
+                      if (streak != null)
+                        _Stat(
+                            emoji: '🔥',
+                            value: '$streak',
+                            onTap: onStreakTap),
                       if (energyLabel != null)
-                        _Stat(emoji: '⚡', value: energyLabel!)
+                        _Stat(
+                            emoji: '⚡',
+                            value: energyLabel!,
+                            onTap: onEnergyTap)
                       else if (energy != null)
-                        _Stat(emoji: '⚡', value: '$energy'),
+                        _Stat(
+                            emoji: '⚡',
+                            value: '$energy',
+                            onTap: onEnergyTap),
                       if (diamonds != null)
                         _Stat(emoji: '💎', value: diamonds!),
                       if (onThemeTap != null)
@@ -171,14 +189,15 @@ class _FlagPill extends StatelessWidget {
 }
 
 class _Stat extends StatelessWidget {
-  const _Stat({required this.emoji, required this.value});
+  const _Stat({required this.emoji, required this.value, this.onTap});
 
   final String emoji;
   final String value;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    final Widget content = Padding(
       padding: const EdgeInsets.only(left: RatelSpace.md),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -196,6 +215,12 @@ class _Stat extends StatelessWidget {
           ),
         ],
       ),
+    );
+    if (onTap == null) return content;
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: onTap,
+      child: content,
     );
   }
 }

@@ -44,4 +44,8 @@ class RatelIcons {
   /// `arrow_drop_down` (U+E5C5).
   static const IconData arrowDropDown =
       IconData(0xe5c5, fontFamily: fontFamily);
+
+  /// Send / submit affordance — the chat composer send button.
+  /// Material `send` (U+E163).
+  static const IconData send = IconData(0xe163, fontFamily: fontFamily);
 }

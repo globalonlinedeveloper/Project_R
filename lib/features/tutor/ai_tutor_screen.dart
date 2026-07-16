@@ -133,6 +133,10 @@ class AiTutorScreen extends ConsumerWidget {
               subtitle: context.l10n.tutorChatSub,
               isPro: isPro,
               relayReady: relayReady,
+              // C-C1: the Chat scaffold is an honest, fail-closed screen
+              // (no simulated replies) and is reachable regardless of PRO/
+              // relay state — it explains on-screen why chat isn't live yet.
+              onStart: () => context.push('/chat'),
             ),
             const SizedBox(height: RatelSpace.cardGap),
             _modeCard(
