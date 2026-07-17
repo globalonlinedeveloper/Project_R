@@ -252,8 +252,10 @@ const Map<String, ThemeWorld> kThemeWorlds = <String, ThemeWorld>{
 ///  - Storm glider / Glider → 🪂 (paraglider); Magma board → 🏄 (board rider)
 ///  - Aurora skiff / Glass boat / Catamaran → ⛵ (sailboat)
 ///  - Rover → 🛻, Star cruiser → 🚀 (nearest craft)
-///  - Zipline → 🧗 (aerial line / rope traveller); Storm chaser → 🌩️ (weather,
-///    thematic not literal); Caravan → 🐪 (a desert camel caravan)
+///  - Zipline → 🧗 (aerial line / rope traveller). All wheeled/craft
+///    vehicles are now literal: Storm chaser → 🛻 (chase truck); Caravan → 🚐
+///    (motor caravan). (Formerly 🌩️/🐪 thematic stand-ins — swapped for the
+///    literal vehicles per owner follow-up.)
 ///
 /// Galaxy (`Star pod`) is intentionally ABSENT: the Space Home keeps its bespoke
 /// [PodTraveller] (a painted space pod), which already IS the world's Star-pod
@@ -285,9 +287,9 @@ const Map<String, String> kWorldVehicleGlyphs = <String, String>{
   'lavender': '🛵', // Vespa
   'bamboo': '🛺', // Rickshaw
   'lagoon': '🛶', // Kayak
-  'thunder': '🌩️', // Storm chaser (approx: weather, thematic)
+  'thunder': '🛻', // Storm chaser (chase truck)
   'nebula': '🚀', // Star cruiser (approx: rocket)
-  'sandstorm': '🐪', // Caravan (approx: camel caravan)
+  'sandstorm': '🚐', // Caravan (motor caravan)
   'cherrynight': '🏮', // Paper lantern
 };
 

@@ -138,4 +138,39 @@ void main() {
     expect(find.byKey(const ValueKey<String>('home-vehicle-galaxy')),
         findsNothing);
   });
+
+  // FU-1 (INC-10 follow-up): the two formerly non-literal traveller glyphs were
+  // swapped for LITERAL vehicles — Storm chaser 🌩️→🛻 (chase truck), Caravan
+  // 🐪→🚐 (motor caravan) — so every mapped world now shows a real vehicle.
+  testWidgets(
+      'Thunderhead Home renders the literal chase-truck glyph 🛻 '
+      '(keyed home-vehicle-thunder), not the former weather emoji', (
+      WidgetTester tester) async {
+    await tester.pumpWidget(_app(world: WorldTheme.thunder));
+    await tester.pumpAndSettle();
+
+    expect(find.text('START'), findsOneWidget);
+    final String g = worldVehicleGlyph('thunder')!;
+    expect(g, '🛻'); // literal vehicle (was '🌩️')
+    expect(g, isNot('🌩️')); // guards against regressing to the thematic glyph
+    expect(find.byKey(const ValueKey<String>('home-vehicle-thunder')),
+        findsOneWidget);
+    expect(find.text(g), findsOneWidget);
+  });
+
+  testWidgets(
+      'Sandstorm Home renders the literal motor-caravan glyph 🚐 '
+      '(keyed home-vehicle-sandstorm), not the former camel emoji', (
+      WidgetTester tester) async {
+    await tester.pumpWidget(_app(world: WorldTheme.sandstorm));
+    await tester.pumpAndSettle();
+
+    expect(find.text('START'), findsOneWidget);
+    final String g = worldVehicleGlyph('sandstorm')!;
+    expect(g, '🚐'); // literal vehicle (was '🐪')
+    expect(g, isNot('🐪')); // guards against regressing to the thematic glyph
+    expect(find.byKey(const ValueKey<String>('home-vehicle-sandstorm')),
+        findsOneWidget);
+    expect(find.text(g), findsOneWidget);
+  });
 }
