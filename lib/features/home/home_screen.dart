@@ -390,13 +390,20 @@ class HomeScreen extends ConsumerWidget {
     // R-WT7 (G3): animate the pod only when the reduce-motion HARD FLOOR allows
     // it — MediaQuery.disableAnimations folds the OS setting + the in-app toggle.
     final bool motion = !MediaQuery.of(context).disableAnimations;
+    // R-WT4 parity with Classic (path_node_state.resolveState): the last lesson
+    // of a unit is a checkpoint, and a COMPLETED checkpoint earns the gold
+    // trophy. The active node (even on a checkpoint lesson) stays actionable
+    // (▶) and a locked checkpoint is just locked (🔒) — only done &&
+    // checkpoint golds, matching `isCp: n.isCp && st !== 'lock'`.
+    final bool isCheckpoint = n.inUnit == n.lessonCount - 1;
+    final bool goldCheckpoint = done && isCheckpoint;
     final String glyph = done
-        ? '✓'
+        ? (isCheckpoint ? '🏆' : '✓')
         : isActive
             ? '▶'
             : '🔒';
     final Widget planet = GalaxyPlanet(
-      color: galaxyPlanetColor(n.globalIndex),
+      color: goldCheckpoint ? RatelColors.amber : galaxyPlanetColor(n.globalIndex),
       size: size,
       glyph: glyph,
       lit: done || isActive,

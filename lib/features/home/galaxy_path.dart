@@ -186,7 +186,7 @@ class GalaxyPlanet extends StatelessWidget {
   /// Planet body diameter.
   final double size;
 
-  /// State glyph (✓ done · ▶ active · 🔒 locked).
+  /// State glyph (🏆 done-checkpoint · ✓ done · ▶ active · 🔒 locked).
   final String glyph;
 
   /// Lit (done/active) → full colour + ring; locked → dim.
