@@ -84,4 +84,18 @@ void main() {
     // Lands on the S54 in-app inbox — honest empty state, never faked.
     expect(find.text('No notifications yet'), findsOneWidget);
   });
+
+  testWidgets('tapping the top-bar language pill opens the REAL Courses '
+      'picker (regression: onLanguageTap was unwired \u21d2 the pill was dead)',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(_appWith(_testSpine));
+    await tester.pumpAndSettle();
+    // The pill shows the active course code (es \u2192 'ES').
+    expect(find.text('ES'), findsOneWidget);
+    await tester.tap(find.text('ES'));
+    await tester.pumpAndSettle();
+    // Lands on the dedicated Courses screen (same destination Settings uses).
+    expect(
+        find.byKey(const ValueKey<String>('screen-courses')), findsOneWidget);
+  });
 }

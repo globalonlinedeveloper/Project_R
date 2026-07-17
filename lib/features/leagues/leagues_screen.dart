@@ -48,6 +48,7 @@ class LeaguesScreen extends ConsumerWidget {
             RatelTopBar(
               flagEmoji: courseFlagEmoji(spine.courseCode),
               langCode: courseLangCode(spine.courseCode),
+              onLanguageTap: () => context.push('/courses'),
               streak: snap.streakDays,
               energy: snap.energy,
               diamonds: formatCount(snap.diamonds),

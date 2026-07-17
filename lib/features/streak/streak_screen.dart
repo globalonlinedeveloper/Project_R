@@ -100,7 +100,8 @@ class StreakScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: RatelSpace.lg),
-            const Text('🔥', style: TextStyle(fontSize: 64)),
+            const Text('🔥',
+                textAlign: TextAlign.center, style: TextStyle(fontSize: 64)),
             const SizedBox(height: RatelSpace.sm),
             Text(
               '$days',

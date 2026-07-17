@@ -46,8 +46,9 @@ class LibraryScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             RatelTopBar(
-                flagEmoji: '🇬🇧',
-                langCode: 'EN',
+                flagEmoji: courseFlagEmoji(spine.courseCode),
+                langCode: courseLangCode(spine.courseCode),
+                onLanguageTap: () => context.push('/courses'),
                 streak: snap.streakDays,
                 energy: snap.energy,
                 unreadNotifications: unread,

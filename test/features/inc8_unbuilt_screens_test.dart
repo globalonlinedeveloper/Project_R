@@ -135,6 +135,18 @@ void main() {
       expect(find.text('0'), findsWidgets);
       expect(find.text('Start your streak today'), findsWidgets);
     });
+
+    testWidgets('the hero flame is CENTERED (regression: it was left-aligned '
+        'under the stretch column while the count/label re-centered)',
+        (WidgetTester tester) async {
+      await _pump(tester, const StreakScreen(),
+          snapshot: _snap(streakDays: 0, streakFreezes: 0));
+      // Two 🔥 exist (hero + Streak-Society card); the hero is the 64px one.
+      final Finder heroFlame = find.byWidgetPredicate((Widget w) =>
+          w is Text && w.data == '🔥' && w.style?.fontSize == 64);
+      expect(heroFlame, findsOneWidget);
+      expect(tester.widget<Text>(heroFlame).textAlign, TextAlign.center);
+    });
   });
 
   // ---------------------------------------------------------------- ENERGY ---

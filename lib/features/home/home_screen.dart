@@ -136,6 +136,7 @@ class HomeScreen extends ConsumerWidget {
                 RatelTopBar(
                     flagEmoji: courseFlagEmoji(spine.courseCode),
                     langCode: courseLangCode(spine.courseCode),
+                    onLanguageTap: () => context.push('/courses'),
                     streak: snap.streakDays,
                     energyLabel: formatEnergy(snap.energy,
                         unlimited: ref.watch(isProProvider)),
@@ -208,6 +209,7 @@ class HomeScreen extends ConsumerWidget {
             RatelTopBar(
                 flagEmoji: '🦡',
                 langCode: '',
+                onLanguageTap: () => context.push('/courses'),
                 streak: streak,
                 energyLabel: formatEnergy(energy, unlimited: isPro),
                 diamonds: formatCount(diamonds),
