@@ -32,6 +32,10 @@ class StreakScreen extends ConsumerWidget {
     final int days = snap.streakDays;
     final int freezes = snap.streakFreezes;
     final bool hasStreak = days > 0;
+    // REAL "goal met today" signal (dailyGoalProvider.met == xpToday >= goal):
+    // when a streak is live and today's goal is already met, the deadline card
+    // reads "your streak is safe" instead of the generic before-midnight note.
+    final bool goalMetToday = ref.watch(dailyGoalProvider).met;
 
     return Scaffold(
       backgroundColor: context.palette.cream,
@@ -50,7 +54,7 @@ class StreakScreen extends ConsumerWidget {
                 children: <Widget>[
                   _freezeTile(context, freezes),
                   const SizedBox(height: RatelSpace.md),
-                  _deadlineCard(context, hasStreak),
+                  _deadlineCard(context, hasStreak, goalMetToday),
                   const SizedBox(height: RatelSpace.md),
                   _societyCard(context),
                   const SizedBox(height: RatelSpace.lg),
@@ -197,7 +201,26 @@ class StreakScreen extends ConsumerWidget {
     );
   }
 
-  Widget _deadlineCard(BuildContext context, bool hasStreak) {
+  /// Amber 🛡️ card, three honest states:
+  ///  * no streak yet        -> start-your-streak title + body;
+  ///  * streak live, goal met -> the shipped [streakTodayDone] safe line
+  ///    (a complete sentence, so no body is shown);
+  ///  * streak live, not met  -> generic before-midnight deadline note.
+  Widget _deadlineCard(
+      BuildContext context, bool hasStreak, bool goalMetToday) {
+    final bool safeToday = hasStreak && goalMetToday;
+    final String title;
+    final String? body; // null -> self-contained title, no second line.
+    if (safeToday) {
+      title = context.l10n.streakTodayDone;
+      body = null;
+    } else if (hasStreak) {
+      title = context.l10n.streakDeadlineTitle;
+      body = context.l10n.streakDeadlineBody;
+    } else {
+      title = context.l10n.streakZeroTitle;
+      body = context.l10n.streakZeroBody;
+    }
     return Container(
       padding: const EdgeInsets.all(RatelSpace.cardPad),
       decoration: BoxDecoration(
@@ -214,9 +237,7 @@ class StreakScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  hasStreak
-                      ? context.l10n.streakDeadlineTitle
-                      : context.l10n.streakZeroTitle,
+                  title,
                   style: TextStyle(
                     fontFamily: RatelFont.display,
                     fontWeight: RatelType.extraBold,
@@ -224,18 +245,18 @@ class StreakScreen extends ConsumerWidget {
                     color: context.palette.ink,
                   ),
                 ),
-                const SizedBox(height: 2),
-                Text(
-                  hasStreak
-                      ? context.l10n.streakDeadlineBody
-                      : context.l10n.streakZeroBody,
-                  style: TextStyle(
-                    fontFamily: RatelFont.body,
-                    fontSize: RatelType.small,
-                    height: 1.3,
-                    color: context.palette.muted,
+                if (body != null) ...<Widget>[
+                  const SizedBox(height: 2),
+                  Text(
+                    body,
+                    style: TextStyle(
+                      fontFamily: RatelFont.body,
+                      fontSize: RatelType.small,
+                      height: 1.3,
+                      color: context.palette.muted,
+                    ),
                   ),
-                ),
+                ],
               ],
             ),
           ),
