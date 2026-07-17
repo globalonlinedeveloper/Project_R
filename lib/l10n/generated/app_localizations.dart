@@ -4759,7 +4759,7 @@ abstract class AppLocalizations {
   /// No description provided for @streakHonestNote.
   ///
   /// In en, this message translates to:
-  /// **'Your day count and freezes are your real numbers. RATEL does not show a day-by-day calendar here because it does not yet keep a per-day activity log — nothing is invented.'**
+  /// **'Your day count and freezes are your real numbers. Active days are days you earned XP — nothing is invented.'**
   String get streakHonestNote;
 
   /// No description provided for @energyTitle.

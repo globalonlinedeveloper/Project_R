@@ -2645,7 +2645,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get streakHonestNote =>
-      'Your day count and freezes are your real numbers. RATEL does not show a day-by-day calendar here because it does not yet keep a per-day activity log — nothing is invented.';
+      'Your day count and freezes are your real numbers. Active days are days you earned XP — nothing is invented.';
 
   @override
   String get energyTitle => 'Energy';

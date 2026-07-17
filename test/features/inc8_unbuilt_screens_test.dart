@@ -116,12 +116,14 @@ void main() {
       expect(find.text('Streak freezes'), findsOneWidget);
     });
 
-    testWidgets('shows the HONEST no-calendar note and honest Streak Society',
+    testWidgets('shows the HONEST active-days note and honest Streak Society',
         (WidgetTester tester) async {
       await _pump(tester, const StreakScreen());
-      // Honest note: no fabricated day-by-day calendar.
+      // Honest note (INC-STK-WEEKGRID): the week grid now renders REAL activity
+      // from xp_history, so the note explains what "active" means instead of the
+      // retired "no per-day activity log" disclaimer.
       expect(
-          find.textContaining('does not show a day-by-day calendar'),
+          find.textContaining('Active days are days you earned XP'),
           findsOneWidget);
       // Streak Society is an honest not-built note (no fake leaderboard/social).
       expect(find.text('Streak Society'), findsOneWidget);

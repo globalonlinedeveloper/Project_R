@@ -13,8 +13,10 @@ import 'package:ratel/core/core.dart';
 /// from the real streak engine (`services/learning/streak.dart`). What the
 /// design shows but has NO real backing store is deliberately NOT faked:
 ///
-///  * the M–S week grid (✓/flame/empty) needs a per-day activity log that
-///    does not exist → omitted, with an on-screen note explaining why;
+///  * the M–S week grid renders REAL activity from `xp_history`
+///    (`last7DaysXpProvider`): a day is "active" when the learner earned XP
+///    that day (`DayXp.xp > 0`) — honest zeros for inactive days, no
+///    fabricated flame / goal-met per day;
 ///  * "14 Longest streak" needs a longest-streak column that is not on the
 ///    snapshot → omitted rather than invented;
 ///  * "5h 12m left today" implies a precise deadline countdown → replaced by
@@ -36,6 +38,12 @@ class StreakScreen extends ConsumerWidget {
     // when a streak is live and today's goal is already met, the deadline card
     // reads "your streak is safe" instead of the generic before-midnight note.
     final bool goalMetToday = ref.watch(dailyGoalProvider).met;
+    // REAL 7-day activity, oldest -> newest, zero-filled for inactive days
+    // (services/progress/xp_history.dart). "Active" = earned XP that day.
+    final List<DayXp> week = ref.watch(last7DaysXpProvider);
+    final DateTime nowLocal = ref.watch(clockProvider)();
+    final DateTime today =
+        DateTime(nowLocal.year, nowLocal.month, nowLocal.day);
 
     return Scaffold(
       backgroundColor: context.palette.cream,
@@ -53,6 +61,8 @@ class StreakScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   _freezeTile(context, freezes),
+                  const SizedBox(height: RatelSpace.md),
+                  _weekGrid(context, week, today),
                   const SizedBox(height: RatelSpace.md),
                   _deadlineCard(context, hasStreak, goalMetToday),
                   const SizedBox(height: RatelSpace.md),
@@ -146,6 +156,73 @@ class StreakScreen extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+
+  static String _dowLabel(BuildContext context, int weekday) =>
+      switch (weekday) {
+        DateTime.monday => context.l10n.commonDowMon,
+        DateTime.tuesday => context.l10n.commonDowTue,
+        DateTime.wednesday => context.l10n.commonDowWed,
+        DateTime.thursday => context.l10n.commonDowThu,
+        DateTime.friday => context.l10n.commonDowFri,
+        DateTime.saturday => context.l10n.commonDowSat,
+        _ => context.l10n.commonDowSun,
+      };
+
+  /// A real 7-day activity grid (D1) — reads the same honest [DayXp] series the
+  /// Progress chart uses (`last7DaysXpProvider`), oldest -> newest, zero-filled.
+  /// An "active" day is one the learner earned XP (`DayXp.xp > 0`): filled teal.
+  /// Inactive days show a faint `cream3` dot (honest zero, never a gap). The
+  /// last cell is marked as today only when its date is genuinely the clock's
+  /// today. No per-day flame / goal-met is fabricated.
+  Widget _weekGrid(BuildContext context, List<DayXp> week, DateTime today) {
+    return RatelCard(
+      color: context.palette.white,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          for (final DayXp d in week)
+            Expanded(child: _weekCell(context, d, today)),
+        ],
+      ),
+    );
+  }
+
+  Widget _weekCell(BuildContext context, DayXp d, DateTime today) {
+    final bool active = d.xp > 0;
+    final bool isToday = d.date == today;
+    const double dot = 28;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Container(
+          key: ValueKey<String>('streak-day-'
+              '${d.date.year.toString().padLeft(4, '0')}-'
+              '${d.date.month.toString().padLeft(2, '0')}-'
+              '${d.date.day.toString().padLeft(2, '0')}'
+              '-${active ? 'active' : 'empty'}${isToday ? '-today' : ''}'),
+          width: dot,
+          height: dot,
+          decoration: BoxDecoration(
+            color: active ? RatelColors.teal : context.palette.cream3,
+            shape: BoxShape.circle,
+            border: isToday
+                ? Border.all(color: RatelColors.teal, width: 2)
+                : null,
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          _dowLabel(context, d.date.weekday),
+          maxLines: 1,
+          style: TextStyle(
+            fontFamily: RatelFont.body,
+            fontSize: RatelType.small,
+            color: context.palette.muted,
+          ),
+        ),
+      ],
     );
   }
 
