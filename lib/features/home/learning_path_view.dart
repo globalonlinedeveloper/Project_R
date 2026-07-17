@@ -73,6 +73,8 @@ class LearningPathView extends StatelessWidget {
     this.reduceMotion = false,
     this.stageWidth = 390,
     this.travellerSize = 58,
+    this.vehicleGlyph,
+    this.worldId,
     this.onGuide,
     this.onNodeTap,
     this.scrollController,
@@ -115,8 +117,17 @@ class LearningPathView extends StatelessWidget {
   /// The design stage width (nodes' x are relative to this).
   final double stageWidth;
 
-  /// Rendered badger width.
+  /// Rendered traveller width.
   final double travellerSize;
+
+  /// E2 (INC-10): the active world's vehicle emoji (from `worldVehicleGlyph`),
+  /// rendered AS the path traveller in place of the badger. Null → badger
+  /// (backward-compatible default; galaxy uses its own PodTraveller elsewhere).
+  final String? vehicleGlyph;
+
+  /// The active world id, threaded to the traveller only to key its vehicle
+  /// node (`home-vehicle-<worldId>`).
+  final String? worldId;
 
   /// Guide-chip tap on the banner.
   final VoidCallback? onGuide;
@@ -242,6 +253,8 @@ class LearningPathView extends StatelessWidget {
               child: PathTraveller(
                 size: travellerSize,
                 reduceMotion: reduceMotion,
+                vehicleGlyph: vehicleGlyph,
+                worldId: worldId,
               ),
             ),
           ),

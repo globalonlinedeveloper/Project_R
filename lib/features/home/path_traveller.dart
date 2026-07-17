@@ -13,22 +13,41 @@ import 'package:ratel/core/core.dart';
 ///
 /// The whole column bobs with the design's `rbob` (translateY 0 -> -7px -> 0,
 /// period 2.4s). Pure: no providers, no navigation. Motion is gated by
-/// [reduceMotion] — when true NO controller is created and the badger rests at
-/// y = 0 (fully static).
+/// [reduceMotion] — when true NO controller is created and the traveller rests
+/// at y = 0 (fully static).
+///
+/// E2 (INC-10): when [vehicleGlyph] is supplied (the active world's vehicle
+/// emoji from `kWorldVehicleGlyphs`) it is rendered AS the traveller in place of
+/// the badger — so Ocean shows a submarine, Forest a leaf glider, etc. The
+/// glyph node is keyed `home-vehicle-<worldId>` for targeting. When
+/// [vehicleGlyph] is null the historic honey-badger `CustomPaint` is drawn
+/// (galaxy keeps its own [PodTraveller] elsewhere). Either way the same
+/// reduce-motion-gated bob + START pill wrap it.
 class PathTraveller extends StatefulWidget {
   const PathTraveller({
     super.key,
     required this.size,
     this.reduceMotion = false,
+    this.vehicleGlyph,
+    this.worldId,
   });
 
-  /// Rendered width of the badger art in logical px (design: 58). Height is
+  /// Rendered width of the traveller art in logical px (design: 58). Height is
   /// derived from the 64:56 design aspect ratio.
   final double size;
 
-  /// Hard reduce-motion floor. When true, no ticker is created and the badger
-  /// is static.
+  /// Hard reduce-motion floor. When true, no ticker is created and the
+  /// traveller is static.
   final bool reduceMotion;
+
+  /// The active world's vehicle emoji (e.g. `🤿` for Ocean's Submarine). When
+  /// non-null it replaces the badger as the traveller; when null the badger is
+  /// painted. Sourced from `worldVehicleGlyph(world.id)`.
+  final String? vehicleGlyph;
+
+  /// The active world id, used only to key the rendered vehicle node
+  /// (`home-vehicle-<worldId>`) so tests can assert the per-world traveller.
+  final String? worldId;
 
   @override
   State<PathTraveller> createState() => _PathTravellerState();
@@ -74,30 +93,50 @@ class _PathTravellerState extends State<PathTraveller>
     final w = widget.size;
     final h = w * (56.0 / 64.0); // design viewBox aspect
 
-    // Badger artwork palette, sourced from tokens (no raw hex in this file).
-    // The mascot is an illustration; where the design's intrinsic art colour
-    // has no semantic token we derive it from the nearest neutral token:
-    //  - dark fur/ears/pupils/nose  <- RatelColors.ink (#1B1D1F ~ design #1C1C1C)
-    //  - cream face                 <- context.palette.cream3 (warm off-white)
-    //  - eye white / shadow tint    <- RatelColors.onColor (white) w/ opacity
-    final palette = context.palette;
-    final colors = _BadgerColors(
-      shadow: RatelColors.ink.withValues(alpha: 0.18),
-      ear: RatelColors.ink,
-      headDark: RatelColors.ink,
-      face: palette.cream3,
-      eyeWhite: RatelColors.onColor,
-      pupil: RatelColors.ink,
-      nose: RatelColors.ink,
-    );
-
-    Widget badger = CustomPaint(
-      size: Size(w, h),
-      painter: _BadgerPainter(colors),
-    );
+    // E2: the traveller is either the active world's VEHICLE glyph (when one is
+    // supplied) or the historic honey-badger. The glyph node is keyed so tests
+    // can assert the per-world vehicle; it occupies the same w x h footprint so
+    // node placement is unchanged.
+    Widget traveller;
+    if (widget.vehicleGlyph != null) {
+      traveller = SizedBox(
+        key: ValueKey<String>('home-vehicle-${widget.worldId ?? 'x'}'),
+        width: w,
+        height: h,
+        child: Center(
+          child: Text(
+            widget.vehicleGlyph!,
+            textAlign: TextAlign.center,
+            // Emoji are a self-coloured glyph; the fontSize alone drives size.
+            style: TextStyle(fontSize: h * 0.86, height: 1.0),
+          ),
+        ),
+      );
+    } else {
+      // Badger artwork palette, sourced from tokens (no raw hex in this file).
+      // The mascot is an illustration; where the design's intrinsic art colour
+      // has no semantic token we derive it from the nearest neutral token:
+      //  - dark fur/ears/pupils/nose  <- RatelColors.ink (#1B1D1F ~ design #1C1C1C)
+      //  - cream face                 <- context.palette.cream3 (warm off-white)
+      //  - eye white / shadow tint    <- RatelColors.onColor (white) w/ opacity
+      final palette = context.palette;
+      final colors = _BadgerColors(
+        shadow: RatelColors.ink.withValues(alpha: 0.18),
+        ear: RatelColors.ink,
+        headDark: RatelColors.ink,
+        face: palette.cream3,
+        eyeWhite: RatelColors.onColor,
+        pupil: RatelColors.ink,
+        nose: RatelColors.ink,
+      );
+      traveller = CustomPaint(
+        size: Size(w, h),
+        painter: _BadgerPainter(colors),
+      );
+    }
 
     if (_controller != null) {
-      badger = AnimatedBuilder(
+      traveller = AnimatedBuilder(
         animation: _controller!,
         builder: (context, child) {
           // 0/100% -> 0, 50% -> -7px, ease-in-out.
@@ -107,15 +146,15 @@ class _PathTravellerState extends State<PathTraveller>
           final dy = -7.0 * t;
           return Transform.translate(offset: Offset(0, dy), child: child);
         },
-        child: badger,
+        child: traveller,
       );
     }
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        badger,
-        // margin-top:-2px in the design (bubble nudged up under the badger).
+        traveller,
+        // margin-top:-2px in the design (bubble nudged up under the traveller).
         Transform.translate(
           offset: const Offset(0, -2),
           child: _StartBubble(),

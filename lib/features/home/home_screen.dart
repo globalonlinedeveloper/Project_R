@@ -87,8 +87,15 @@ class HomeScreen extends ConsumerWidget {
     // scaffold translucent so it shows through; Home must not re-cover it with
     // an OPAQUE `cream` fill. Daylight (backdrop `none`) keeps its solid cream.
     // Derived exactly as in `ratel_app.dart` (activeWorldProvider + registry).
+    final ThemeWorld world = ref.watch(activeWorldProvider);
     final bool hasBackdrop =
-        kBackdropPainters.containsKey(ref.watch(activeWorldProvider).backdrop);
+        kBackdropPainters.containsKey(world.backdrop);
+    // E2 (INC-10): the active world's vehicle glyph replaces the hard-coded
+    // badger as the Classic-path traveller (Ocean → submarine, Forest → leaf
+    // glider, …). Galaxy (Space) is excluded here — its ListView path keeps the
+    // bespoke PodTraveller, which already IS the Star-pod vehicle. A null glyph
+    // (only galaxy) makes LearningPathView fall back to the badger.
+    final String? vehicleGlyph = worldVehicleGlyph(world.id);
 
     if (spine.isEmpty) {
       return _emptyState(context, snap.streakDays, snap.diamonds,
@@ -161,6 +168,8 @@ class HomeScreen extends ConsumerWidget {
                           bannerKicker: current.section,
                           bannerUnitTitle: current.unit,
                           reduceMotion: reduceMotion,
+                          vehicleGlyph: vehicleGlyph,
+                          worldId: world.id,
                           onGuide: () => _onGuide(context, current),
                           onNodeTap: (PathNodeData pd) {
                             if (pd.state != PathNodeState.locked) {

@@ -230,3 +230,68 @@ const Map<String, ThemeWorld> kThemeWorlds = <String, ThemeWorld>{
     ),
   ),
 };
+
+/// Per-world traveller-vehicle GLYPH, keyed by the world id in [kThemeWorlds].
+///
+/// E2 (INC-10): every themed Home previously rendered the SAME hard-coded
+/// honey-badger as the path "traveller", ignoring each world's authored
+/// `vehicle:` string (shown only as a label in the themes picker). There is no
+/// per-vehicle art in the design or `assets/` (the design ships the vehicle as
+/// a label only), so — rather than hand-paint 31 sprites — each world's vehicle
+/// is rendered as a single fitting emoji glyph in place of the badger. This map
+/// is the ONE source of truth, derived directly from the real `vehicle:` names
+/// in [kThemeWorlds] above (kept adjacent so the two never drift).
+///
+/// Where a vehicle has a clean standard emoji it is used verbatim (Scooter 🛵,
+/// Balloon 🎈, Bicycle 🚲, Snow sled 🛷, Cable car 🚠, Kayak 🛶, Paper lantern
+/// 🏮, Rickshaw 🛺, Kite 🪁). Where no exact emoji exists the closest sensible
+/// glyph is chosen — these APPROXIMATIONS are flagged in the progress doc:
+///  - Submarine / Bathysphere → 🤿 (diving; no submarine emoji exists)
+///  - Leaf glider → 🍃, Leaf-cart → 🍂 (foliage; no cart/leaf-craft emoji)
+///  - Hover-bike → 🏍️, Dune buggy / Safari jeep → 🚙 (nearest ground vehicle)
+///  - Storm glider / Glider → 🪂 (paraglider); Magma board → 🏄 (board rider)
+///  - Aurora skiff / Glass boat / Catamaran → ⛵ (sailboat)
+///  - Rover → 🛻, Star cruiser → 🚀 (nearest craft)
+///  - Zipline → 🧗 (aerial line / rope traveller); Storm chaser → 🌩️ (weather,
+///    thematic not literal); Caravan → 🐪 (a desert camel caravan)
+///
+/// Galaxy (`Star pod`) is intentionally ABSENT: the Space Home keeps its bespoke
+/// [PodTraveller] (a painted space pod), which already IS the world's Star-pod
+/// vehicle — so it is left untouched rather than flattened to a glyph.
+const Map<String, String> kWorldVehicleGlyphs = <String, String>{
+  'light': '🛵', // Scooter
+  'savanna': '🚙', // Safari jeep (approx: SUV)
+  'ocean': '🤿', // Submarine (approx: diving)
+  'forest': '🍃', // Leaf glider (approx: leaf)
+  'candy': '🎈', // Balloon
+  'neon': '🏍️', // Hover-bike (approx: motorcycle)
+  'storm': '🪂', // Storm glider (approx: paraglider)
+  'snow': '🛷', // Snow sled
+  'sakura': '🪁', // Petal kite
+  'autumn': '🍂', // Leaf-cart (approx: leaves)
+  'aurora': '⛵', // Aurora skiff (approx: sailboat)
+  'volcano': '🏄', // Magma board (approx: board rider)
+  'sunset': '🪂', // Glider (approx: paraglider)
+  'desert': '🚙', // Dune buggy (approx: SUV)
+  'reef': '⛵', // Glass boat (approx: sailboat)
+  'meadow': '🚲', // Bicycle
+  'dawn': '🎈', // Sky balloon
+  'beach': '⛵', // Catamaran (approx: sailboat)
+  'mars': '🛻', // Rover (approx: pickup)
+  'jungle': '🧗', // Zipline (approx: aerial line / rope)
+  'cyberrain': '🏍️', // Hover-bike (approx: motorcycle)
+  'abyss': '🤿', // Bathysphere (approx: diving)
+  'alpine': '🚠', // Cable car
+  'lavender': '🛵', // Vespa
+  'bamboo': '🛺', // Rickshaw
+  'lagoon': '🛶', // Kayak
+  'thunder': '🌩️', // Storm chaser (approx: weather, thematic)
+  'nebula': '🚀', // Star cruiser (approx: rocket)
+  'sandstorm': '🐪', // Caravan (approx: camel caravan)
+  'cherrynight': '🏮', // Paper lantern
+};
+
+/// The traveller glyph for the world [id], or `null` when the world has no glyph
+/// mapping (only `galaxy`, which keeps its bespoke [PodTraveller]). A `null`
+/// result tells the path to fall back to the historic honey-badger traveller.
+String? worldVehicleGlyph(String id) => kWorldVehicleGlyphs[id];
