@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/common/content_unavailable_card.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
+import 'package:ratel/features/library/last_read_controller.dart';
 import 'package:ratel/services/tts_relay/tts_relay.dart';
 
 /// Read & Listen — the un-gated reading surface for a graded story (content
@@ -31,6 +32,11 @@ class StoryReaderScreen extends ConsumerStatefulWidget {
 
 class _StoryReaderScreenState extends ConsumerState<StoryReaderScreen> {
   AudioHandle? _handle;
+
+  /// Guards the resume-pointer write to fire at most ONCE per mount
+  /// (s163 INC-C2) — recording is a side effect of opening, not of
+  /// every rebuild.
+  bool _recorded = false;
 
   @override
   void dispose() {
@@ -74,6 +80,28 @@ class _StoryReaderScreenState extends ConsumerState<StoryReaderScreen> {
     final CourseSpine spine = ref.watch(courseSpineProvider);
     final CourseStory? story = _resolve(spine);
     final bool canRead = ref.watch(speechTtsProvider).isAvailable;
+
+    // s163 INC-C2 — record the device-local resume pointer ONCE per mount,
+    // and ONLY for a REAL resolved story (never the ContentUnavailableCard
+    // path). Post-frame so it never mutates a provider mid-build. We store no
+    // progress %/offset — reopen-to-story is the honest scope.
+    if (story != null && !_recorded) {
+      _recorded = true;
+      final CourseStory opened = story;
+      final String courseCode = spine.courseCode;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        ref.read(lastReadControllerProvider.notifier).record(
+              LastReadRef(
+                courseCode: courseCode,
+                passageId: opened.id,
+                title: opened.title,
+                cefr: opened.cefr,
+                kind: 'story',
+              ),
+            );
+      });
+    }
 
     return Scaffold(
       backgroundColor: context.palette.cream,

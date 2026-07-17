@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
+import 'package:ratel/features/library/last_read_controller.dart';
 import 'package:ratel/features/notifications/notifications_controller.dart';
 
 /// Library tab (📚) — design spec §4.2 + owner-bundle `scraps/b-lib.png`
@@ -15,8 +16,13 @@ import 'package:ratel/features/notifications/notifications_controller.dart';
 /// (anti-goal §E — never fake): CourseStory has no AUTHORED duration, so the
 /// mock's "· N min" is rendered as a COMPUTED "· ~N min" READING-TIME ESTIMATE
 /// (from the resolved sentence count — the '~' marks it an estimate, not an
-/// authored fact; CEFR-only when a story has no sentences); no resume engine ⇒
-/// the mock's CONTINUE card is OMITTED;
+/// authored fact; CEFR-only when a story has no sentences). The mock's
+/// CONTINUE card (s163 INC-C3) is now REAL: it appears as the FIRST item under
+/// READ & LISTEN, but ONLY once the learner has actually opened a story on this
+/// device (`lastReadControllerProvider`) AND that story still resolves in the
+/// current spine — nothing is shown otherwise (honest empty state), and no
+/// progress %/time-left is ever fabricated (a resume pointer is not a claim
+/// about completion);
 /// `CourseStory` carries no per-item Pro tier ⇒ the mock's per-podcast PRO badge
 /// is OMITTED (the app-level Pro gate stays on AI Tutor). A course that authors
 /// no media shows each section's honest "all …" browse entry, never a
@@ -34,6 +40,17 @@ class LibraryScreen extends ConsumerWidget {
     final int unread = ref.watch(unreadNotificationsCountProvider);
     final bool isPro = ref.watch(isProProvider);
     final CourseSpine spine = ref.watch(courseSpineProvider);
+    // s163 INC-C3 — the device-local resume pointer. Resolved against the LIVE
+    // spine below (spine wins on display); a pointer that no longer resolves is
+    // pruned post-frame via clearIfStale, so a course switch/content pull never
+    // leaves a dead CONTINUE card.
+    final LastReadRef? lastRead = ref.watch(lastReadControllerProvider);
+    final CourseStory? resumeStory = _resolveResume(lastRead, spine);
+    if (lastRead != null && resumeStory == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ref.read(lastReadControllerProvider.notifier).clearIfStale(spine);
+      });
+    }
     // E3 (INC-10): reveal the app-wide animated WorldBackdrop behind this tab for
     // every backdrop world — mirrors Home's E1 fix. Derived exactly as ratel_app.dart;
     // Daylight (backdrop `none`) keeps its solid cream. The translucent scaffold
@@ -117,6 +134,12 @@ class LibraryScreen extends ConsumerWidget {
                   const SizedBox(height: RatelSpace.lg),
                   RatelSectionHeader(label: context.l10n.librarySectionReadListen),
                   const SizedBox(height: RatelSpace.md),
+                  // s163 INC-C3 CONTINUE — the FIRST item under READ & LISTEN when a
+                  // real resume pointer resolves in the current spine (else omitted).
+                  if (resumeStory != null) ...<Widget>[
+                    _continueCard(context, lastRead!, resumeStory),
+                    const SizedBox(height: RatelSpace.md),
+                  ],
                   // B-3 dense inline rows from the REAL authored course. The
                   // Featured card is stories.first, so Graded stories skips it.
                   ..._mediaSection(
@@ -165,6 +188,93 @@ class LibraryScreen extends ConsumerWidget {
       ),
     );
   }
+
+  /// s163 INC-C3 — resolve the resume pointer to the LIVE spine story it points
+  /// at (spine wins on display: title/level always come from the current spine,
+  /// never the stored copy). Returns null when there is no pointer, the pointer
+  /// belongs to a different course, or its id no longer exists in the spine —
+  /// each case means NO CONTINUE card (honest, no dead pointer). Stories-first
+  /// scope for v1; the pointer supports podcasts/watch for a follow-up.
+  CourseStory? _resolveResume(LastReadRef? ref, CourseSpine spine) {
+    if (ref == null || ref.courseCode != spine.courseCode) return null;
+    final List<CourseStory> pool = ref.kind == 'podcast'
+        ? spine.podcasts
+        : ref.kind == 'watch'
+            ? spine.watch
+            : spine.stories;
+    for (final CourseStory s in pool) {
+      if (s.id == ref.passageId) return s;
+    }
+    return null;
+  }
+
+  /// The route that reopens a resume pointer of [kind] (mirrors the row routes
+  /// used elsewhere on this screen). Stories-first; podcast/watch are wired for
+  /// a follow-up that also records those kinds.
+  static String _routeForKind(String kind) {
+    switch (kind) {
+      case 'podcast':
+        return '/podcast';
+      case 'watch':
+        return '/watch-play';
+      default:
+        return '/story';
+    }
+  }
+
+  // s163 INC-C3 CONTINUE card — the design's resume slot: a "CONTINUE" eyebrow +
+  // the LIVE story title + level (· ~N min only when it has sentences, same rule
+  // as the Featured/row subtitles) + an orange ▶. Tap reopens the story. It is
+  // an HONEST resume pointer (the device recorded that the user opened this
+  // story) — never a progress %, never a "N min left".
+  Widget _continueCard(
+          BuildContext context, LastReadRef ref, CourseStory story) =>
+      RatelCard(
+        key: const ValueKey<String>('lib-continue'),
+        color: context.palette.white,
+        onTap: () => context.push(
+            '${_routeForKind(ref.kind)}?passage=${Uri.encodeComponent(story.id)}'),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(context.l10n.lessonContinue.toUpperCase(),
+                      style: const TextStyle(
+                          fontFamily: RatelFont.body,
+                          fontWeight: RatelType.extraBold,
+                          fontSize: RatelType.caption,
+                          letterSpacing: 1.3,
+                          color: RatelColors.amber)),
+                  const SizedBox(height: RatelSpace.xs),
+                  Text(story.title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontFamily: RatelFont.display,
+                          fontWeight: RatelType.extraBold,
+                          fontSize: RatelType.cardTitle,
+                          color: context.palette.ink)),
+                  const SizedBox(height: RatelSpace.xs),
+                  Text(
+                      story.sentences.isNotEmpty
+                          ? '${context.l10n.commonLevel(story.cefr)} · '
+                              '${context.l10n.libraryEstMinutes(story.estMinutes)}'
+                          : context.l10n.commonLevel(story.cefr),
+                      style: TextStyle(
+                          fontFamily: RatelFont.body,
+                          fontSize: RatelType.small,
+                          color: context.palette.muted)),
+                ],
+              ),
+            ),
+            const SizedBox(width: RatelSpace.md),
+            const Text('▶',
+                style: TextStyle(fontSize: 22, color: RatelColors.amber)),
+          ],
+        ),
+      );
 
   Widget _searchBar(BuildContext context) => GestureDetector(
         onTap: () => context.push('/search'),

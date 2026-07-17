@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/features/library/library_screen.dart';
+import 'package:ratel/features/library/last_read_controller.dart';
+import 'package:ratel/services/library/last_read_store.dart';
 
 /// UXA S115-L5 — Library §4.2 dense-rebuild conformance (owner-bundle b-lib.png):
 ///  B-1 Featured Story card from the REAL first authored story.
@@ -10,8 +12,9 @@ import 'package:ratel/features/library/library_screen.dart';
 ///  B-6 Adventures "NEW · EXPLORE" eyebrow + "Start exploring →" CTA.
 ///  Honest deltas (§E): the mock's "· N min" is a COMPUTED "· ~N min" reading-
 ///  time ESTIMATE from the sentence count (CEFR-only when a story has none —
-///  never "~0 min"), no Continue card (no resume engine), no per-podcast PRO
-///  badge (no per-item tier).
+///  never "~0 min"), the s163 CONTINUE card shown ONLY for a real+resolvable
+///  last-read pointer (empty state ⇒ none), no per-podcast PRO badge (no
+///  per-item tier).
 /// Plus a layout gauntlet at 460 & 800 px (session-craft §11).
 
 CourseStory _story(String id, String title, String cefr,
@@ -63,7 +66,7 @@ CourseSpine _spine() => CourseSpine(
     );
 
 Future<void> _pump(WidgetTester tester, double width,
-    {CourseSpine? spine}) async {
+    {CourseSpine? spine, LastReadRef? lastRead}) async {
   tester.view.physicalSize = Size(width, 4000);
   tester.view.devicePixelRatio = 1.0;
   addTearDown(tester.view.resetPhysicalSize);
@@ -71,6 +74,8 @@ Future<void> _pump(WidgetTester tester, double width,
   await tester.pumpWidget(ProviderScope(
     overrides: <Override>[
       if (spine != null) courseSpineProvider.overrideWithValue(spine),
+      lastReadStoreProvider
+          .overrideWithValue(InMemoryLastReadStore(lastRead)),
     ],
     child: const MaterialApp(home: LibraryScreen()),
   ));
@@ -170,11 +175,48 @@ void main() {
       expect(find.text('Start exploring →'), findsOneWidget);
     });
 
-    testWidgets('honest: no Continue/resume card (no resume engine, §E)',
+    // s163 INC-C3 — the honest CONTINUE contract (this replaces the old
+    // "no resume engine" omission): NOTHING is shown until the learner has
+    // actually opened a story on this device AND it still resolves in the
+    // current spine; a stale/foreign pointer is dropped (clearIfStale). We
+    // never fabricate a progress %/time-left.
+    testWidgets('honest: no CONTINUE card in the empty state (nothing opened yet)',
         (WidgetTester tester) async {
-      await _pump(tester, 460, spine: _spine());
-      expect(find.text('Continue'), findsNothing);
-      expect(find.textContaining('Resume'), findsNothing);
+      await _pump(tester, 460, spine: _spine()); // no last-read seeded
+      expect(find.byKey(const ValueKey<String>('lib-continue')), findsNothing);
+      expect(find.text('CONTINUE'), findsNothing);
+    });
+
+    testWidgets('INC-C3: a recorded + resolvable last-read shows the CONTINUE card',
+        (WidgetTester tester) async {
+      await _pump(tester, 460,
+          spine: _spine(),
+          lastRead: const LastReadRef(
+              courseCode: 'es',
+              passageId: 's2',
+              title: 'La receta',
+              cefr: 'A2'));
+      expect(
+          find.byKey(const ValueKey<String>('lib-continue')), findsOneWidget);
+      expect(find.text('CONTINUE'), findsOneWidget);
+      // Spine wins on display: the LIVE story title/level render on the card.
+      expect(
+          find.descendant(
+              of: find.byKey(const ValueKey<String>('lib-continue')),
+              matching: find.text('La receta')),
+          findsOneWidget);
+    });
+
+    testWidgets('INC-C3: a stale last-read (id not in spine) shows NO card',
+        (WidgetTester tester) async {
+      await _pump(tester, 460,
+          spine: _spine(),
+          lastRead: const LastReadRef(
+              courseCode: 'es',
+              passageId: 'not-in-spine',
+              title: 'Gone',
+              cefr: 'A2'));
+      expect(find.byKey(const ValueKey<String>('lib-continue')), findsNothing);
     });
 
     for (final double w in <double>[460, 800]) {

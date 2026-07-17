@@ -6,6 +6,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:ratel/services/data_access/supabase_user_state_stores.dart';
 import 'package:ratel/services/adventures/adventure_progress_store.dart';
 import 'package:ratel/services/adventures/prefs_adventure_progress_store.dart';
+import 'package:ratel/services/library/last_read_store.dart';
+import 'package:ratel/services/library/prefs_last_read_store.dart';
 import 'package:ratel/services/notifications/earned_stamps_store.dart';
 import 'package:ratel/services/notifications/prefs_earned_stamps_store.dart';
 import 'package:ratel/services/preferences/prefs_settings_store.dart';
@@ -118,6 +120,10 @@ Future<void> main() async {
       // future owner-gated migration).
       final ImmersionModeStore immersionMode =
           PrefsImmersionModeStore(prefs);
+      // s163 INC-C1 last-read CONTINUE pointer: device-local only (same
+      // fixed-column posture — a synced user_last_read table is a future
+      // owner-gated migration, INC-C4).
+      final LastReadStore lastRead = PrefsLastReadStore(prefs);
       if (supabaseConfigured()) {
         try {
           final SupabaseClient client = Supabase.instance.client;
@@ -163,6 +169,7 @@ Future<void> main() async {
       overrides.add(uiLocaleStoreProvider.overrideWithValue(uiLocale));
       overrides.add(
           immersionModeStoreProvider.overrideWithValue(immersionMode));
+      overrides.add(lastReadStoreProvider.overrideWithValue(lastRead));
     } catch (_) {
       // keep the in-memory settings default
     }

@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/features/stories/story_reader_screen.dart';
+import 'package:ratel/features/library/last_read_controller.dart';
 import 'package:ratel/services/tts_relay/tts_relay.dart';
 
 // INF-6: the un-gated Read&Listen reader renders a story's resolved sentences,
@@ -166,5 +167,45 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Content unavailable'), findsOneWidget);
     expect(find.text('Go back'), findsOneWidget);
+  });
+
+  // s163 INC-C2 — opening a REAL resolved story records the device-local
+  // last-read pointer (once, post-frame); the empty-course/unavailable path
+  // records NOTHING (honest — nothing was actually opened).
+  testWidgets('opening a real story records a LastReadRef', (WidgetTester tester) async {
+    final InMemoryLastReadStore store = InMemoryLastReadStore();
+    final ProviderContainer c = ProviderContainer(overrides: <Override>[
+      courseSpineProvider.overrideWithValue(_spineWithStory()),
+      lastReadStoreProvider.overrideWithValue(store),
+    ]);
+    addTearDown(c.dispose);
+    await _pump(tester, c);
+    // The post-frame record has fired.
+    expect(c.read(lastReadControllerProvider), isNotNull);
+    final LastReadRef ref = c.read(lastReadControllerProvider)!;
+    expect(ref.passageId, 'p1');
+    expect(ref.title, 'Her First Day');
+    expect(ref.cefr, 'A1');
+    expect(ref.kind, 'story');
+    expect(ref.courseCode, 'en');
+    expect(store.current, isNotNull); // persisted best-effort
+  });
+
+  testWidgets('opening an EMPTY course records nothing (honest)',
+      (WidgetTester tester) async {
+    final InMemoryLastReadStore store = InMemoryLastReadStore();
+    final ProviderContainer c = ProviderContainer(overrides: <Override>[
+      courseSpineProvider.overrideWithValue(_spineNoStories()),
+      lastReadStoreProvider.overrideWithValue(store),
+    ]);
+    addTearDown(c.dispose);
+    await tester.pumpWidget(UncontrolledProviderScope(
+      container: c,
+      child: const MaterialApp(home: StoryReaderScreen(passageId: 'nope')),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.text('Content unavailable'), findsOneWidget);
+    expect(c.read(lastReadControllerProvider), isNull);
+    expect(store.current, isNull);
   });
 }
