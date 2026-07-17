@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../theme/theme.dart';
+import 'ratel_scrim.dart';
 
 /// Horizontal progress pill (design spec §3) — the lesson header bar / course
 /// progress track. [value] is clamped to 0..1.
@@ -23,17 +24,22 @@ class RatelProgressBar extends StatelessWidget {
     final double v = value.clamp(0.0, 1.0);
     return ClipRRect(
       borderRadius: BorderRadius.circular(RatelRadius.pill),
-      child: Container(
-        height: height,
-        color: context.palette.cream3,
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: FractionallySizedBox(
-            widthFactor: v,
-            child: Container(
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.circular(RatelRadius.pill),
+      // Empty track (`cream3`) is near-transparent on backdrop worlds; back it
+      // with the shared chrome scrim so the track reads at full contrast.
+      child: RatelScrim(
+        active: context.palette.cream3.a < 1.0,
+        child: Container(
+          height: height,
+          color: context.palette.cream3,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: FractionallySizedBox(
+              widthFactor: v,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(RatelRadius.pill),
+                ),
               ),
             ),
           ),
@@ -72,6 +78,8 @@ class RatelProgressRing extends StatelessWidget {
           stroke: stroke,
           color: color,
           track: context.palette.border,
+          scrim: context.palette.scrim,
+          scrimActive: context.palette.border.a < 1.0,
         ),
         child: center == null
             ? null
@@ -92,12 +100,16 @@ class _RingPainter extends CustomPainter {
     required this.stroke,
     required this.color,
     required this.track,
+    required this.scrim,
+    required this.scrimActive,
   });
 
   final double value;
   final double stroke;
   final Color color;
   final Color track;
+  final Color scrim;
+  final bool scrimActive;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -108,6 +120,12 @@ class _RingPainter extends CustomPainter {
       ..strokeWidth = stroke
       ..strokeCap = StrokeCap.round;
 
+    // Shared chrome scrim floor: the `border` track is near-transparent on
+    // backdrop worlds, so lay the scrim under the ring first — the empty ring
+    // then reads at full contrast. No-op on opaque worlds.
+    if (scrimActive) {
+      canvas.drawCircle(c, r, base..color = scrim);
+    }
     canvas.drawCircle(c, r, base..color = track);
     if (value > 0) {
       canvas.drawArc(
@@ -125,5 +143,7 @@ class _RingPainter extends CustomPainter {
       old.value != value ||
       old.color != color ||
       old.stroke != stroke ||
-      old.track != track;
+      old.track != track ||
+      old.scrim != scrim ||
+      old.scrimActive != scrimActive;
 }

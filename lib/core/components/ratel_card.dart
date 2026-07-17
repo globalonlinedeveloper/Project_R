@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/theme.dart';
+import 'ratel_scrim.dart';
 
 /// Surface card (design spec §3).
 ///
@@ -30,10 +31,12 @@ class RatelCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Widget content = Container(
+    final Color fill =
+        _feature ? (color ?? RatelColors.teal) : context.palette.white;
+    final Widget container = Container(
       padding: padding,
       decoration: BoxDecoration(
-        color: _feature ? (color ?? RatelColors.teal) : context.palette.white,
+        color: fill,
         gradient: gradient,
         borderRadius: BorderRadius.circular(radius),
         border: _feature ? null : Border.all(color: context.palette.border),
@@ -48,6 +51,14 @@ class RatelCard extends StatelessWidget {
               ],
       ),
       child: child,
+    );
+    // Shared chrome scrim: back a TRANSLUCENT plain surface (backdrop worlds)
+    // so muted card content reads at full contrast over the animated field.
+    // No-op on opaque (Daylight) surfaces and on feature cards (own solid fill).
+    final Widget content = RatelScrim(
+      active: !_feature && fill.a < 1.0,
+      radius: radius,
+      child: container,
     );
     if (onTap == null) return content;
     return Semantics(
