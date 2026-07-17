@@ -169,8 +169,8 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byKey(const ValueKey<String>('screen-progress')), findsOneWidget);
-    // D-R1 eyebrow: the active course language only (CEFR hidden, S161 INC-P2).
-    expect(find.text('SPANISH'), findsOneWidget);
+    // D-R1 title: the active course language, no CEFR band (S161 INC-P2).
+    expect(find.text('Spanish'), findsOneWidget);
     // D-R1 ring: course completion "3/4", not the daily-XP ring.
     expect(find.text('3/4'), findsWidgets);
   });

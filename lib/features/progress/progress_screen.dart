@@ -150,20 +150,9 @@ class ProgressScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    // D-R1: "SPANISH · YOUR LEVEL" eyebrow — the active course
-                    // language (derived, localized) above the CEFR level.
+                    // D-R1 (S161 INC-P2): course-language title, no CEFR band.
                     Text(
-                        ratelCourseLanguageName(context, courseCode).toUpperCase(),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            fontFamily: RatelFont.display,
-                            fontWeight: RatelType.extraBold,
-                            fontSize: RatelType.caption,
-                            color: RatelColors.onColor)),
-                    const SizedBox(height: 2),
-                    Text(
-                        context.l10n.progressTitle,
+                        ratelCourseLanguageName(context, courseCode),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(

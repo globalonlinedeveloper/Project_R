@@ -586,7 +586,7 @@ void main() {
     ));
     await tester.pumpAndSettle();
     expect(find.text('Fortschritt'), findsOneWidget);
-    expect(find.text('Niveau A1 · Anfänger'), findsOneWidget);
+    expect(find.text('Niveau A1 · Anfänger'), findsNothing);
     expect(find.text('Gespeicherte Wörter'), findsOneWidget);
   });
 
