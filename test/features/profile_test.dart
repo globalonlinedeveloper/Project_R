@@ -18,9 +18,9 @@ void main() {
     expect(find.byKey(const ValueKey<String>('tab-profile')), findsOneWidget);
     // Honest identity: a fresh install is a guest, NOT the mockup's "Alex Rivera".
     expect(find.text('Guest'), findsOneWidget);
-    // Real cold-start CEFR level pill — now "🇪🇸 Spanish · Level A1" (E-2), so the
-    // real level lives inside the pill text rather than as a bare "A1" chip.
-    expect(find.textContaining('A1'), findsWidgets);
+    // CEFR is HIDDEN (Duolingo lock, S161 INC-P1): the profile chip shows only
+    // the course language (e.g. "🇪🇸 Spanish"), never a "Level A1" CEFR band.
+    expect(find.textContaining('Level A'), findsNothing);
     // Real engine-derived stat labels.
     expect(find.text('Day streak'), findsOneWidget);
     expect(find.text('Saved words'), findsOneWidget);

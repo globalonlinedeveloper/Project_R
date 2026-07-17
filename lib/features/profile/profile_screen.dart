@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ratel/app/app_providers.dart';
-import 'package:ratel/content/models/enums.dart' show CefrLevel;
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 import 'package:ratel/features/achievements/achievements_controller.dart';
@@ -29,7 +28,6 @@ class ProfileScreen extends ConsumerWidget {
     final int words = ref.watch(savedWordsControllerProvider).count;
     final Identity identity = ref.watch(identityProvider);
     final AppSettings settings = ref.watch(appSettingsControllerProvider);
-    final String level = snap.level.name.toUpperCase();
     final CourseSpine spine = ref.watch(courseSpineProvider);
     final String courseCode = spine.courseCode;
     final List<AchievementProgress> achievements =
@@ -56,7 +54,6 @@ class ProfileScreen extends ConsumerWidget {
             _header(
                 context,
                 identity,
-                level,
                 settings.displayName,
                 // Prefer the learner's picked emoji avatar (Edit profile · §4.9);
                 // fall back to the equipped outfit emoji (Classic 🦡) when unset,
@@ -69,7 +66,7 @@ class ProfileScreen extends ConsumerWidget {
             const SizedBox(height: RatelSpace.cardGap),
             _stats(context, snap, words),
             const SizedBox(height: RatelSpace.cardGap),
-            _progressBanner(context, level, snap, settings, spine.lessonCount),
+            _progressBanner(context, snap, settings, spine.lessonCount),
             const SizedBox(height: RatelSpace.lg),
             Text(context.l10n.profileAchievements,
                 style: TextStyle(
@@ -136,7 +133,7 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  Widget _header(BuildContext context, Identity identity, String level,
+  Widget _header(BuildContext context, Identity identity,
       String displayName, String avatarEmoji, String courseCode, String bio) {
     final bool authed = identity.isAuthenticated;
     final String name = displayName.trim().isNotEmpty
@@ -183,7 +180,7 @@ class ProfileScreen extends ConsumerWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: RatelChip(
-                          label: '${ratelCourseFlagEmoji(courseCode)} ${ratelCourseLanguageName(context, courseCode)} · ${context.l10n.commonLevel(level)}',
+                          label: '${ratelCourseFlagEmoji(courseCode)} ${ratelCourseLanguageName(context, courseCode)}',
                           tone: RatelChipTone.teal),
                     ),
                     if (bio.trim().isNotEmpty) ...<Widget>[
@@ -277,7 +274,7 @@ class ProfileScreen extends ConsumerWidget {
         ),
       );
 
-  Widget _progressBanner(BuildContext context, String level,
+  Widget _progressBanner(BuildContext context,
       LearnerSnapshot snap, AppSettings settings, int totalLessons) {
     final int goal = settings.dailyGoal <= 0 ? 1 : settings.dailyGoal;
     // D-P4: the banner ring shows COURSE COMPLETION (lessons done / total
@@ -300,7 +297,7 @@ class ProfileScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('${context.l10n.commonLevel(level)} · ${ratelCefrLevelDisplayName(context, _levelName(snap.level))}',
+                Text(context.l10n.progressTitle,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -418,20 +415,4 @@ class ProfileScreen extends ConsumerWidget {
         ],
       );
 
-  String _levelName(CefrLevel l) {
-    switch (l) {
-      case CefrLevel.a1:
-        return 'Beginner';
-      case CefrLevel.a2:
-        return 'Elementary';
-      case CefrLevel.b1:
-        return 'Intermediate';
-      case CefrLevel.b2:
-        return 'Upper intermediate';
-      case CefrLevel.c1:
-        return 'Advanced';
-      case CefrLevel.c2:
-        return 'Proficient';
-    }
-  }
 }

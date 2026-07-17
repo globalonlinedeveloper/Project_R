@@ -30,12 +30,11 @@ Future<void> _toProfile(WidgetTester tester) async {
 }
 
 void main() {
-  testWidgets('E-2 · Profile header shows the honest level pill',
+  testWidgets('E-2 · Profile header HIDES the CEFR level (Duolingo lock)',
       (WidgetTester tester) async {
     _sizeTall(tester, 500);
     await _toProfile(tester);
-    expect(find.textContaining('· Level A1'), findsOneWidget);
-    expect(find.textContaining('Level A1'), findsWidgets);
+    expect(find.textContaining('Level A'), findsNothing);
   });
 
   testWidgets('E-4 · menu order Friends,Shop,Notifications,Settings; no ACCOUNT',
