@@ -80,10 +80,20 @@ class HomeScreen extends ConsumerWidget {
     final int unread = ref.watch(unreadNotificationsCountProvider);
     // R-WT4 (S66 · G2): re-skin the path as a galaxy when Space is active.
     final bool galaxy = ref.watch(worldThemeProvider) == WorldTheme.space;
+    // E1 (INC-10): reveal the app-wide animated WorldBackdrop behind the
+    // Home path for EVERY backdrop world — not just Space. RatelApp wraps the
+    // app in `WorldBackdrop` whenever the active world has a registered
+    // painter (`kBackdropPainters`), and `RatelTheme.world()` makes the
+    // scaffold translucent so it shows through; Home must not re-cover it with
+    // an OPAQUE `cream` fill. Daylight (backdrop `none`) keeps its solid cream.
+    // Derived exactly as in `ratel_app.dart` (activeWorldProvider + registry).
+    final bool hasBackdrop =
+        kBackdropPainters.containsKey(ref.watch(activeWorldProvider).backdrop);
 
     if (spine.isEmpty) {
       return _emptyState(context, snap.streakDays, snap.diamonds,
-          snap.streakFreezes, unread, snap.energy, ref.watch(isProProvider));
+          snap.streakFreezes, unread, snap.energy, ref.watch(isProProvider),
+          hasBackdrop);
     }
 
     final List<_Node> nodes = _flatten(context, spine);
@@ -106,7 +116,9 @@ class HomeScreen extends ConsumerWidget {
 
     return Container(
       key: const ValueKey<String>('tab-home'),
-      color: context.palette.cream,
+      // E1: transparent for backdrop worlds so the app-wide WorldBackdrop
+      // shows through (Daylight keeps its solid cream).
+      color: hasBackdrop ? Colors.transparent : context.palette.cream,
       child: SafeArea(
         bottom: false,
         child: Stack(
@@ -173,10 +185,12 @@ class HomeScreen extends ConsumerWidget {
   }
 
   Widget _emptyState(BuildContext context, int streak, int diamonds,
-      int streakFreezes, int unread, int energy, bool isPro) {
+      int streakFreezes, int unread, int energy, bool isPro,
+      bool hasBackdrop) {
     return Container(
       key: const ValueKey<String>('tab-home'),
-      color: context.palette.cream,
+      // E1: same reveal for the honest empty state.
+      color: hasBackdrop ? Colors.transparent : context.palette.cream,
       child: SafeArea(
         bottom: false,
         child: Column(
