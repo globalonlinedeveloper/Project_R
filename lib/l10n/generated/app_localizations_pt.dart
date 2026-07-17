@@ -437,6 +437,15 @@ class AppLocalizationsPt extends AppLocalizations {
       'As missões acompanham seu progresso diário real. Baús de recompensa, missões com amigos e ranking semanal precisam de economia de backend — decisão do proprietário (§6). Nenhuma recompensa falsa é exibida.';
 
   @override
+  String get questsRewardPending => 'Rewards soon';
+
+  @override
+  String get questsFriendQuest => 'Friend quest';
+
+  @override
+  String get questsFriendQuestSoon => 'Friend quests need a social backend — coming soon. No fake partners are shown.';
+
+  @override
   String get questsStartRefresh => 'Começar a atualização diária';
 
   @override

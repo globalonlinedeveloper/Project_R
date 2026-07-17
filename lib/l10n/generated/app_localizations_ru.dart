@@ -437,6 +437,15 @@ class AppLocalizationsRu extends AppLocalizations {
       'Задания отслеживают ваш реальный ежедневный прогресс. Сундуки наград, задания с друзьями и недельный рейтинг требуют серверной экономики — решение владельца (§6). Фальшивые награды не показываются.';
 
   @override
+  String get questsRewardPending => 'Rewards soon';
+
+  @override
+  String get questsFriendQuest => 'Friend quest';
+
+  @override
+  String get questsFriendQuestSoon => 'Friend quests need a social backend — coming soon. No fake partners are shown.';
+
+  @override
   String get questsStartRefresh => 'Начать ежедневное обновление';
 
   @override

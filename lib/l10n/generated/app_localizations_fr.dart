@@ -438,6 +438,15 @@ class AppLocalizationsFr extends AppLocalizations {
       'Les quêtes suivent ta vraie progression quotidienne. Coffres de récompense, quêtes entre amis et classement hebdomadaire nécessitent une économie backend — décision du propriétaire (§6). Aucune fausse récompense n\'est affichée.';
 
   @override
+  String get questsRewardPending => 'Rewards soon';
+
+  @override
+  String get questsFriendQuest => 'Friend quest';
+
+  @override
+  String get questsFriendQuestSoon => 'Friend quests need a social backend — coming soon. No fake partners are shown.';
+
+  @override
   String get questsStartRefresh => 'Lancer le rafraîchissement quotidien';
 
   @override

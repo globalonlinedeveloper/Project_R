@@ -428,6 +428,15 @@ class AppLocalizationsZh extends AppLocalizations {
       '任务追踪你真实的每日进度。奖励宝箱、好友任务和每周排行榜需要后端经济系统 — 由所有者决定(§6)。不展示虚假奖励。';
 
   @override
+  String get questsRewardPending => 'Rewards soon';
+
+  @override
+  String get questsFriendQuest => 'Friend quest';
+
+  @override
+  String get questsFriendQuestSoon => 'Friend quests need a social backend — coming soon. No fake partners are shown.';
+
+  @override
   String get questsStartRefresh => '开始每日刷新';
 
   @override

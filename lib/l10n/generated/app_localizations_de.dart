@@ -435,6 +435,15 @@ class AppLocalizationsDe extends AppLocalizations {
       'Quests verfolgen deinen echten Tagesfortschritt. Belohnungstruhen, Freundes-Quests und eine Wochen-Rangliste brauchen eine Backend-Ökonomie — Entscheidung des Eigentümers (§6). Keine falschen Belohnungen.';
 
   @override
+  String get questsRewardPending => 'Rewards soon';
+
+  @override
+  String get questsFriendQuest => 'Friend quest';
+
+  @override
+  String get questsFriendQuestSoon => 'Friend quests need a social backend — coming soon. No fake partners are shown.';
+
+  @override
   String get questsStartRefresh => 'Tägliche Auffrischung starten';
 
   @override

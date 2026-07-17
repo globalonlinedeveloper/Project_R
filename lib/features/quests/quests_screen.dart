@@ -221,6 +221,30 @@ class QuestsScreen extends ConsumerWidget {
                       ],
                     ),
                   ),
+                  const SizedBox(height: RatelSpace.lg),
+                  // INC-QST1: FRIEND QUEST section. The design's social/friend
+                  // quest needs a social backend the app doesn't have, so we
+                  // close the IA gap HONESTLY — a header + one MUTED coming-soon
+                  // card. NO partner name, NO progress bar, nothing fabricated.
+                  // Mirrors the honesty info-note card's styling above.
+                  RatelSectionHeader(label: context.l10n.questsFriendQuest),
+                  const SizedBox(height: RatelSpace.sm),
+                  RatelCard(
+                    color: context.palette.cream2,
+                    child: Row(
+                      children: <Widget>[
+                        const Text('🦋', style: TextStyle(fontSize: 22)),
+                        const SizedBox(width: RatelSpace.md),
+                        Expanded(
+                            child: Text(
+                                context.l10n.questsFriendQuestSoon,
+                                style: TextStyle(
+                                    fontFamily: RatelFont.body,
+                                    fontSize: RatelType.small,
+                                    color: context.palette.muted))),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -316,10 +340,37 @@ class _QuestTile extends StatelessWidget {
               ],
             ),
           ),
-          if (done) ...<Widget>[
-            const SizedBox(width: RatelSpace.sm),
-            const Text('✅', style: TextStyle(fontSize: 18)),
-          ],
+          const SizedBox(width: RatelSpace.sm),
+          // INC-QST1: honest trailing slot. Done quests keep the ✅. Not-done
+          // quests show a MUTED "🎁 Rewards soon" disclosure — NOT a fake
+          // reward chip: it carries NO diamond count and NO 💎, because reward
+          // chests need a backend economy the app doesn't have (§6). A narrow
+          // fixed width + Flexible label keeps the long-locale copy from
+          // overflowing the tile Row at 360px.
+          if (done)
+            const Text('✅', style: TextStyle(fontSize: 18))
+          else
+            SizedBox(
+              key: const ValueKey<String>('quest-reward-slot'),
+              width: 64,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Text('🎁', style: TextStyle(fontSize: 16)),
+                  const SizedBox(height: 2),
+                  Flexible(
+                    child: Text(
+                      context.l10n.questsRewardPending,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: RatelFont.body,
+                          fontSize: RatelType.caption,
+                          color: context.palette.muted),
+                    ),
+                  ),
+                ],
+              ),
+            ),
         ],
       ),
     );

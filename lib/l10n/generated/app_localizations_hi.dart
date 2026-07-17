@@ -432,6 +432,15 @@ class AppLocalizationsHi extends AppLocalizations {
       'क्वेस्ट आपकी असली दैनिक प्रगति दिखाते हैं। रिवॉर्ड चेस्ट, फ्रेंड क्वेस्ट और साप्ताहिक लीडरबोर्ड के लिए बैकएंड इकॉनमी चाहिए — मालिक का निर्णय (§6)। कोई नकली इनाम नहीं दिखाया जाता।';
 
   @override
+  String get questsRewardPending => 'Rewards soon';
+
+  @override
+  String get questsFriendQuest => 'Friend quest';
+
+  @override
+  String get questsFriendQuestSoon => 'Friend quests need a social backend — coming soon. No fake partners are shown.';
+
+  @override
   String get questsStartRefresh => 'दैनिक रिफ़्रेश शुरू करें';
 
   @override

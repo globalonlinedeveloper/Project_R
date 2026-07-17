@@ -876,6 +876,24 @@ abstract class AppLocalizations {
   /// **'Quests track your real daily progress. Reward chests, friend quests and a weekly leaderboard need a backend economy — an owner decision (§6). No fake rewards are shown.'**
   String get questsInfoNote;
 
+  /// No description provided for @questsRewardPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Rewards soon'**
+  String get questsRewardPending;
+
+  /// No description provided for @questsFriendQuest.
+  ///
+  /// In en, this message translates to:
+  /// **'Friend quest'**
+  String get questsFriendQuest;
+
+  /// No description provided for @questsFriendQuestSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Friend quests need a social backend — coming soon. No fake partners are shown.'**
+  String get questsFriendQuestSoon;
+
   /// No description provided for @questsStartRefresh.
   ///
   /// In en, this message translates to:

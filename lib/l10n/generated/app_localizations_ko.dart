@@ -429,6 +429,15 @@ class AppLocalizationsKo extends AppLocalizations {
       '퀘스트는 실제 일일 진행 상황을 추적해요. 보상 상자, 친구 퀘스트, 주간 리더보드에는 백엔드 경제가 필요해요 — 소유자의 결정(§6). 가짜 보상은 표시하지 않아요.';
 
   @override
+  String get questsRewardPending => 'Rewards soon';
+
+  @override
+  String get questsFriendQuest => 'Friend quest';
+
+  @override
+  String get questsFriendQuestSoon => 'Friend quests need a social backend — coming soon. No fake partners are shown.';
+
+  @override
   String get questsStartRefresh => '데일리 리프레시 시작';
 
   @override
