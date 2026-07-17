@@ -1097,6 +1097,8 @@
   "coursesMenuLanguage": "Menu language",
   "coursesMenuLanguageSub": "Set the app's interface language in Settings",
   "coursesSwitchedTo": "Switched to {language}",
+  "coursesXpTotal": "⚡ {xp} XP",
+  "coursesSearchHint": "Search languages",
   "chatTitle": "Ratel · Tutor",
   "chatSubtitle": "Chat with Ratel",
   "chatIntroBubble": "Hi! I'm Ratel. Ask me anything, or paste a sentence and I'll give you feedback.",
@@ -1117,6 +1119,8 @@
   "diamondsClose": "Close",
   "@energyCountLabel": {"placeholders": {"current": {"type": "int"}, "max": {"type": "int"}}},
   "@coursesSwitchedTo": {"placeholders": {"language": {"type": "String"}}},
+  "@coursesXpTotal": {"description": "Current course XP total shown on the LEARNING row. Only the current course has real XP today (single global learner state).", "placeholders": {"xp": {"type": "int"}}},
+  "@coursesSearchHint": {"description": "Placeholder in the ADD A COURSE search field that filters the shipped courses by name or code."},
   "@diamondsSheetCount": {"placeholders": {"count": {"type": "int"}}},
   "@diamondsSheetEarn": {"placeholders": {"lesson": {"type": "int"}, "goal": {"type": "int"}}}
 }

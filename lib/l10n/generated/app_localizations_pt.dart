@@ -2734,6 +2734,14 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
+  String coursesXpTotal(int xp) {
+    return '⚡ $xp XP';
+  }
+
+  @override
+  String get coursesSearchHint => 'Search languages';
+
+  @override
   String get chatTitle => 'Ratel · Tutor';
 
   @override

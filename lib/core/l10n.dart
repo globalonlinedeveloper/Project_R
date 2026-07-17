@@ -41,16 +41,35 @@ String ratelLanguageDisplayName(BuildContext context, String englishName) =>
 /// Flag emoji for the active COURSE (the target language being taught),
 /// mirroring the Home top-bar. Locale-independent (emoji) so it lives in
 /// code; unknown course codes fall back to the badger.
+///
+/// Covers all 12 shipped course codes (INC-12). MUST stay in sync with
+/// [courseFlagEmoji] in `lib/core/components/ratel_top_bar.dart` — the same
+/// code→flag table (that copy uses literal emoji; this one uses `\u{}`
+/// escapes). Kept as two copies so neither library imports the other.
 String ratelCourseFlagEmoji(String courseCode) => switch (courseCode) {
-  'en' => '\u{1F1EC}\u{1F1E7}',
-  'ja' => '\u{1F1EF}\u{1F1F5}',
-  'ta' => '\u{1F1EE}\u{1F1F3}',
+  'bn' => '\u{1F1E7}\u{1F1E9}', // 🇧🇩 Bangladesh
+  'de' => '\u{1F1E9}\u{1F1EA}', // 🇩🇪 Germany
+  'en' => '\u{1F1EC}\u{1F1E7}', // 🇬🇧 United Kingdom
+  'es' => '\u{1F1EA}\u{1F1F8}', // 🇪🇸 Spain
+  'fr' => '\u{1F1EB}\u{1F1F7}', // 🇫🇷 France
+  'hi' => '\u{1F1EE}\u{1F1F3}', // 🇮🇳 India
+  'ja' => '\u{1F1EF}\u{1F1F5}', // 🇯🇵 Japan
+  'ko' => '\u{1F1F0}\u{1F1F7}', // 🇰🇷 South Korea
+  'pt' => '\u{1F1F5}\u{1F1F9}', // 🇵🇹 Portugal (matches kUiLanguageFlag), not 🇧🇷
+  'ru' => '\u{1F1F7}\u{1F1FA}', // 🇷🇺 Russia
+  'ta' => '\u{1F1EE}\u{1F1F3}', // 🇮🇳 Tamil written in India (+ LK/SG)
+  'zh' => '\u{1F1E8}\u{1F1F3}', // 🇨🇳 China
   _ => '\u{1F9A1}',
 };
 
 /// Localized display name for the active COURSE (target language). Course code
 /// in, localized language name out; unknown codes pass the upper-cased code
 /// through so future courses degrade honestly.
+///
+/// Covers all 12 shipped course codes (INC-12). en/es/fr/ja/de/ko/ta have a
+/// localized `langName*` ARB key (byte-identical to before). bn/hi/pt/ru/zh use
+/// their ENDONYM (locale-independent by design → no ARB key, zero l10n drift,
+/// same source as [kUiLanguageEndonyms]).
 String ratelCourseLanguageName(BuildContext context, String courseCode) =>
     switch (courseCode) {
       'en' => context.l10n.langNameEnglish,
@@ -59,6 +78,13 @@ String ratelCourseLanguageName(BuildContext context, String courseCode) =>
       'ja' => context.l10n.langNameJapanese,
       'de' => context.l10n.langNameGerman,
       'ko' => context.l10n.langNameKorean,
+      'ta' => context.l10n.langNameTamil,
+      // Endonyms (no localized ARB key needed — locale-independent):
+      'bn' => '\u{09AC}\u{09BE}\u{0982}\u{09B2}\u{09BE}', // বাংলা
+      'hi' => '\u{0939}\u{093F}\u{0928}\u{094D}\u{0926}\u{0940}', // हिन्दी
+      'pt' => 'Portugu\u{00EA}s', // Português
+      'ru' => '\u{0420}\u{0443}\u{0441}\u{0441}\u{043A}\u{0438}\u{0439}', // Русский
+      'zh' => '\u{4E2D}\u{6587}', // 中文
       _ => courseCode.toUpperCase(),
     };
 

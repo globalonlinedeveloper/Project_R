@@ -295,17 +295,38 @@ class _BellButton extends StatelessWidget {
 /// (the batch locale, e.g. 'es'). Single source of truth so the Home, Leagues
 /// and Quests top bars always agree (D-L8/Q7): before this, Home derived the
 /// flag while Leagues/Quests hard-coded EN, so a non-EN course showed the wrong
-/// flag on those two tabs. An unmapped/empty code falls back to the 🦡 mascot
-/// (matching Home's original behaviour — a country flag per course is a
-/// separate polish item, A-H2).
+/// flag on those two tabs. An unmapped/empty code falls back to the 🦡 mascot.
+///
+/// Covers all 12 shipped course codes (A-H2 · INC-12). MUST stay in sync with
+/// [ratelCourseFlagEmoji] in `lib/core/l10n.dart` (a mirror map that uses
+/// `\u{}` escapes) — they are the same code→flag table, kept as two copies so
+/// neither library has to import the other.
 String courseFlagEmoji(String code) {
   switch (code) {
+    case 'bn':
+      return '🇧🇩';
+    case 'de':
+      return '🇩🇪';
     case 'en':
       return '🇬🇧';
+    case 'es':
+      return '🇪🇸';
+    case 'fr':
+      return '🇫🇷';
+    case 'hi':
+      return '🇮🇳';
     case 'ja':
       return '🇯🇵';
+    case 'ko':
+      return '🇰🇷';
+    case 'pt':
+      return '🇵🇹'; // Portugal flag (matches kUiLanguageFlag pt→PT), not 🇧🇷
+    case 'ru':
+      return '🇷🇺';
     case 'ta':
-      return '🇮🇳';
+      return '🇮🇳'; // Tamil is written in India (+ Sri Lanka/Singapore); IN flag
+    case 'zh':
+      return '🇨🇳';
     default:
       return '🦡';
   }

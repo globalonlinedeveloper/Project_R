@@ -4878,6 +4878,18 @@ abstract class AppLocalizations {
   /// **'Switched to {language}'**
   String coursesSwitchedTo(String language);
 
+  /// Current course XP total shown on the LEARNING row. Only the current course has real XP today (single global learner state).
+  ///
+  /// In en, this message translates to:
+  /// **'⚡ {xp} XP'**
+  String coursesXpTotal(int xp);
+
+  /// Placeholder in the ADD A COURSE search field that filters the shipped courses by name or code.
+  ///
+  /// In en, this message translates to:
+  /// **'Search languages'**
+  String get coursesSearchHint;
+
   /// No description provided for @chatTitle.
   ///
   /// In en, this message translates to:
