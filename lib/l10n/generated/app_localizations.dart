@@ -372,6 +372,12 @@ abstract class AppLocalizations {
   /// **'Level {cefr}'**
   String commonLevel(String cefr);
 
+  /// No description provided for @libraryEstMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'~{n} min'**
+  String libraryEstMinutes(int n);
+
   /// No description provided for @libraryReadNow.
   ///
   /// In en, this message translates to:

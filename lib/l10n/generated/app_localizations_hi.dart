@@ -423,6 +423,11 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
+  String libraryEstMinutes(int n) {
+    return '~$n min';
+  }
+
+  @override
   String questsDailyQuests(int done, int total) {
     return 'दैनिक क्वेस्ट · $done/$total';
   }

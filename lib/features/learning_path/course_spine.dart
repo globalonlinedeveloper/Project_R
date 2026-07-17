@@ -180,6 +180,17 @@ class CourseStory {
   final List<CourseExercise> checkExercises;
 
   int get checkCount => checkExercises.length;
+
+  /// Display-only READING-TIME ESTIMATE (not authored): ~N minutes derived
+  /// from the resolved sentence count (~4 sentences/min), clamped to >=1.
+  /// Zero when there are no sentences. Rendered with a '~' at the call site
+  /// so it never reads as an authored duration (anti-goal §E) — it is a
+  /// computed estimate, not authored content.
+  int get estMinutes {
+    if (sentences.isEmpty) return 0;
+    final int n = (sentences.length / 4).ceil();
+    return n < 1 ? 1 : n;
+  }
 }
 
 /// The whole authored course, projected for the path UI.

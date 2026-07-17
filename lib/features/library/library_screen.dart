@@ -12,8 +12,11 @@ import 'package:ratel/features/notifications/notifications_controller.dart';
 /// the inline Graded-Stories / Podcasts / Watch rows read the authored course
 /// (`courseSpineProvider`), the PRO badge is the real billing entitlement
 /// (`isProProvider`), and every row opens its real reader/player. HONEST DELTAS
-/// (anti-goal §E — never fake): no per-passage duration ⇒ the mock's "· N min"
-/// is OMITTED; no resume engine ⇒ the mock's CONTINUE card is OMITTED;
+/// (anti-goal §E — never fake): CourseStory has no AUTHORED duration, so the
+/// mock's "· N min" is rendered as a COMPUTED "· ~N min" READING-TIME ESTIMATE
+/// (from the resolved sentence count — the '~' marks it an estimate, not an
+/// authored fact; CEFR-only when a story has no sentences); no resume engine ⇒
+/// the mock's CONTINUE card is OMITTED;
 /// `CourseStory` carries no per-item Pro tier ⇒ the mock's per-podcast PRO badge
 /// is OMITTED (the app-level Pro gate stays on AI Tutor). A course that authors
 /// no media shows each section's honest "all …" browse entry, never a
@@ -192,7 +195,9 @@ class LibraryScreen extends ConsumerWidget {
       );
 
   // B-1 Featured Story — real title + CEFR + "Read now" (opens the real reader).
-  // No "· N min": CourseStory carries no duration, so it stays omitted (§E).
+  // The level line appends a COMPUTED "· ~N min" reading-time estimate (from the
+  // story's sentence count) when it has sentences — the '~' marks it an estimate,
+  // not an authored duration (§E); CEFR-only when the story has no sentences.
   Widget _featuredStory(BuildContext context, CourseStory story) => RatelCard(
         gradient: const LinearGradient(
             colors: <Color>[RatelColors.green, RatelColors.teal],
@@ -223,7 +228,11 @@ class LibraryScreen extends ConsumerWidget {
                           fontSize: RatelType.cardTitle,
                           color: RatelColors.onColor)),
                   const SizedBox(height: RatelSpace.xs),
-                  Text(context.l10n.commonLevel(story.cefr),
+                  Text(
+                      story.sentences.isNotEmpty
+                          ? '${context.l10n.commonLevel(story.cefr)} · '
+                              '${context.l10n.libraryEstMinutes(story.estMinutes)}'
+                          : context.l10n.commonLevel(story.cefr),
                       style: const TextStyle(
                           fontFamily: RatelFont.body,
                           fontSize: RatelType.small,
@@ -333,7 +342,9 @@ class LibraryScreen extends ConsumerWidget {
           leadingEmoji: emoji,
           leadingColor: color,
           title: s.title,
-          subtitle: '$kindLabel · ${s.cefr}',
+          subtitle: s.sentences.isNotEmpty
+              ? '$kindLabel · ${s.cefr} · ${context.l10n.libraryEstMinutes(s.estMinutes)}'
+              : '$kindLabel · ${s.cefr}',
           trailing: play
               ? Text('▶', style: TextStyle(fontSize: 18, color: color))
               : null,
