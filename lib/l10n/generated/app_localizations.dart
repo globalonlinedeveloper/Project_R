@@ -4872,6 +4872,24 @@ abstract class AppLocalizations {
   /// **'Set the app\'s interface language in Settings'**
   String get coursesMenuLanguageSub;
 
+  /// DISPLAY toggle title (second row, below Menu language): turns on immersion mode, which sets the whole app interface to the language of the current course.
+  ///
+  /// In en, this message translates to:
+  /// **'Immersion mode'**
+  String get coursesImmersionMode;
+
+  /// Subtitle under the immersion toggle explaining what immersion does.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn with the app interface in the language you\'re studying.'**
+  String get coursesImmersionSub;
+
+  /// Honest reason shown under the DISABLED immersion toggle when the current course target has no translated app interface (e.g. Spanish, Tamil). {language} is the target language name.
+  ///
+  /// In en, this message translates to:
+  /// **'Immersion isn\'t available for {language} yet — the app interface isn\'t translated into it.'**
+  String coursesImmersionUnsupported(String language);
+
   /// No description provided for @coursesSwitchedTo.
   ///
   /// In en, this message translates to:

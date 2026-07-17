@@ -2729,6 +2729,18 @@ class AppLocalizationsPt extends AppLocalizations {
       'Set the app\'s interface language in Settings';
 
   @override
+  String get coursesImmersionMode => 'Immersion mode';
+
+  @override
+  String get coursesImmersionSub =>
+      'Learn with the app interface in the language you\'re studying.';
+
+  @override
+  String coursesImmersionUnsupported(String language) {
+    return 'Immersion isn\'t available for $language yet — the app interface isn\'t translated into it.';
+  }
+
+  @override
   String coursesSwitchedTo(String language) {
     return 'Switched to $language';
   }

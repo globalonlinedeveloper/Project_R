@@ -1096,6 +1096,9 @@
   "coursesDisplayHeader": "DISPLAY",
   "coursesMenuLanguage": "Menu language",
   "coursesMenuLanguageSub": "Set the app's interface language in Settings",
+  "coursesImmersionMode": "Immersion mode",
+  "coursesImmersionSub": "Learn with the app interface in the language you're studying.",
+  "coursesImmersionUnsupported": "Immersion isn't available for {language} yet — the app interface isn't translated into it.",
   "coursesSwitchedTo": "Switched to {language}",
   "coursesXpTotal": "⚡ {xp} XP",
   "coursesSearchHint": "Search languages",
@@ -1121,6 +1124,9 @@
   "@coursesSwitchedTo": {"placeholders": {"language": {"type": "String"}}},
   "@coursesXpTotal": {"description": "Current course XP total shown on the LEARNING row. Only the current course has real XP today (single global learner state).", "placeholders": {"xp": {"type": "int"}}},
   "@coursesSearchHint": {"description": "Placeholder in the ADD A COURSE search field that filters the shipped courses by name or code."},
+  "@coursesImmersionMode": {"description": "DISPLAY toggle title (second row, below Menu language): turns on immersion mode, which sets the whole app interface to the language of the current course."},
+  "@coursesImmersionSub": {"description": "Subtitle under the immersion toggle explaining what immersion does."},
+  "@coursesImmersionUnsupported": {"description": "Honest reason shown under the DISABLED immersion toggle when the current course target has no translated app interface (e.g. Spanish, Tamil). {language} is the target language name.", "placeholders": {"language": {"type": "String"}}},
   "@diamondsSheetCount": {"placeholders": {"count": {"type": "int"}}},
   "@diamondsSheetEarn": {"placeholders": {"lesson": {"type": "int"}, "goal": {"type": "int"}}}
 }

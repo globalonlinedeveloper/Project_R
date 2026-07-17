@@ -10,7 +10,9 @@ import 'package:ratel/services/notifications/earned_stamps_store.dart';
 import 'package:ratel/services/notifications/prefs_earned_stamps_store.dart';
 import 'package:ratel/services/preferences/prefs_settings_store.dart';
 import 'package:ratel/services/preferences/prefs_ui_locale_store.dart';
+import 'package:ratel/services/preferences/prefs_immersion_mode_store.dart';
 import 'package:ratel/services/preferences/ui_locale_store.dart';
+import 'package:ratel/services/preferences/immersion_mode_store.dart';
 import 'package:ratel/services/preferences/settings_store.dart';
 import 'package:ratel/services/progress/prefs_xp_history_store.dart';
 import 'package:ratel/services/progress/xp_history_store.dart';
@@ -111,6 +113,11 @@ Future<void> main() async {
       // user_settings row is fixed-column — a cross-device column is an
       // owner-gated migration, S126 precedent).
       final UiLocaleStore uiLocale = PrefsUiLocaleStore(prefs);
+      // INC-14 immersion flag: device-local only (same fixed-column
+      // posture as the UI-locale override above — a synced column is a
+      // future owner-gated migration).
+      final ImmersionModeStore immersionMode =
+          PrefsImmersionModeStore(prefs);
       if (supabaseConfigured()) {
         try {
           final SupabaseClient client = Supabase.instance.client;
@@ -154,6 +161,8 @@ Future<void> main() async {
       overrides.add(adventureProgressStoreProvider
           .overrideWithValue(adventureProgress));
       overrides.add(uiLocaleStoreProvider.overrideWithValue(uiLocale));
+      overrides.add(
+          immersionModeStoreProvider.overrideWithValue(immersionMode));
     } catch (_) {
       // keep the in-memory settings default
     }

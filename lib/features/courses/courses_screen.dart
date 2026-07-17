@@ -10,6 +10,7 @@ import 'package:ratel/app/course_switch.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/learner/learner_controller.dart';
 import 'package:ratel/services/preferences/ui_locale.dart';
+import 'package:ratel/services/preferences/immersion_mode.dart';
 
 /// Courses screen (🌍) — design #7/#8 / lane A-C (`/courses`).
 ///
@@ -43,8 +44,15 @@ import 'package:ratel/services/preferences/ui_locale.dart';
 ///    here (INC-13) — the row shows the current menu language and taps open an
 ///    in-place picker over [kUiLanguageEndonyms] that drives
 ///    `uiLocaleControllerProvider.setLocale` (the SAME restart-free control
-///    Settings uses; `MaterialApp.locale`). No `/settings` deep-link. Immersion
-///    mode (below this control) is INC-14, not built here.
+///    Settings uses; `MaterialApp.locale`). No `/settings` deep-link.
+///  * Immersion (DISPLAY, below the menu-language row): a REAL toggle
+///    (INC-14). When the CURRENT course target is one of the 10 translated
+///    chrome locales ([kUiLanguageEndonyms]), turning it ON sets the app
+///    interface to that language (`setLocale(Locale(courseCode))`) and
+///    persists the flag; OFF returns to the device / menu language
+///    (`setLocale(null)`). For an UNTRANSLATED target (es · ta — shipped as
+///    COURSES but with no chrome ARB) the toggle is shown DISABLED with an
+///    honest reason, never faked.
 ///
 /// Reached from Settings (the Course row) and any future Home entry.
 class CoursesScreen extends ConsumerStatefulWidget {
@@ -162,6 +170,7 @@ class _CoursesScreenState extends ConsumerState<CoursesScreen> {
               subtitle: _menuLanguageLabel(context),
               onTap: () => _pickMenuLanguage(context),
             ),
+            if (course != null) _immersionRow(context, course),
           ],
         ),
       ),
@@ -468,5 +477,63 @@ class _CoursesScreenState extends ConsumerState<CoursesScreen> {
         ),
       ),
     );
+  }
+
+  // ── DISPLAY · immersion toggle (INC-14, honest partial) ─────────────────────
+  // A REAL toggle below the menu-language row. Immersion = "learn with the app
+  // interface in the language you're studying": ON sets the app-shell chrome to
+  // the CURRENT course's target language, OFF returns to the device / menu
+  // language. It reuses the SAME restart-free control INC-13 uses
+  // (`UiLocaleController.setLocale`, wired to `MaterialApp.locale`) — immersion
+  // and the menu-language row deliberately share `uiLocale`.
+  //
+  // HONESTY: immersion only works for a target that HAS a translated chrome ARB
+  // — i.e. a course code in [kUiLanguageEndonyms] (the 10 real UI languages).
+  // The 12 shipped COURSES include es (Spanish) and ta (Tamil), which have NO
+  // translated interface, so for those the toggle is shown DISABLED with a
+  // specific honest reason. It is NEVER enabled/faked for an untranslated
+  // target.
+
+  /// The current course target can be immersed IFF the app is actually
+  /// translated into it — i.e. its code is one of the 10 chrome ARB locales.
+  bool _supportsImmersion(String courseCode) =>
+      kUiLanguageEndonyms.containsKey(courseCode);
+
+  /// The DISPLAY immersion row. Enabled + interactive for a translated target;
+  /// disabled + muted with an honest reason for an untranslated one (es · ta).
+  Widget _immersionRow(BuildContext context, CourseSwitchScope course) {
+    final String code = course.current;
+    final bool supported = _supportsImmersion(code);
+    // Immersion can only genuinely be ON for a supported target; for an
+    // unsupported one the flag is meaningless, so render it OFF.
+    final bool on = supported && ref.watch(immersionModeProvider);
+
+    return RatelListRow(
+      key: const ValueKey<String>('courses-immersion'),
+      leadingEmoji: '\u{1F30A}', // 🌊 immersion
+      title: context.l10n.coursesImmersionMode,
+      subtitle: supported
+          ? context.l10n.coursesImmersionSub
+          : context.l10n.coursesImmersionUnsupported(
+              ratelCourseLanguageName(context, code)),
+      trailing: RatelToggle(
+        value: on,
+        // null onChanged ⇒ the toggle is non-interactive and visually muted:
+        // the HONEST disabled surface for an untranslated target.
+        onChanged: supported
+            ? (bool next) => _setImmersion(code, next)
+            : null,
+      ),
+    );
+  }
+
+  /// Applies an immersion toggle: flips the SHARED app-shell locale through the
+  /// real [UiLocaleController] (target language on / device on off) and persists
+  /// the immersion flag. Manual action — no reactive per-build enforcement.
+  void _setImmersion(String courseCode, bool enabled) {
+    ref
+        .read(uiLocaleControllerProvider.notifier)
+        .setLocale(enabled ? Locale(courseCode) : null);
+    ref.read(immersionModeProvider.notifier).setEnabled(enabled);
   }
 }
