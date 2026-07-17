@@ -46,6 +46,7 @@ class LearnerSnapshot {
     this.xpToday = 0,
     this.xpWeekEarned = 0,
     this.streakDays = 0,
+    this.longestStreak = 0,
     this.diamonds = 0,
     this.streakFreezes = 0,
     this.energy = EnergyModel.cap,
@@ -67,6 +68,14 @@ class LearnerSnapshot {
   /// leaderboard, never a fabricated cohort.
   final int xpWeekEarned;
   final int streakDays;
+
+  /// The learner's longest goal-met run to date (REAL, GLOBAL, monotonic —
+  /// never decreases when the current run lapses). Persisted on the
+  /// canonical `__global__` `user_course` row (`longest_streak`); a legacy
+  /// row without it back-fills to `max(0, current)` on first hydrate — the
+  /// current run only, never an invented past peak. Zero for a learner who
+  /// has never met a daily goal (the tile then shows the muted zero-state).
+  final int longestStreak;
 
   /// 💎 earned diamonds (REAL — R-I4 earn side; spend sinks stay §6, see
   /// `DiamondsModel`). Durable: rehydrated from + written through to
@@ -94,13 +103,15 @@ class LearnerSnapshot {
       other.xpToday == xpToday &&
       other.xpWeekEarned == xpWeekEarned &&
       other.streakDays == streakDays &&
+      other.longestStreak == longestStreak &&
       other.diamonds == diamonds &&
       other.streakFreezes == streakFreezes &&
       other.energy == energy;
 
   @override
   int get hashCode => Object.hash(theta, level, lessonsCompleted, xpTotal,
-      xpToday, xpWeekEarned, streakDays, diamonds, streakFreezes, energy);
+      xpToday, xpWeekEarned, streakDays, longestStreak, diamonds, streakFreezes,
+      energy);
 }
 
 /// Bridges the learning engines (`learner_state` + `cold_start` + `streak`) to
@@ -168,6 +179,13 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   int _xpToday = 0;
   int _xpWeek = 0;
   int _streak = 0;
+
+  /// Longest goal-met run to date (R-I2, GLOBAL) — MONOTONIC: bumped to
+  /// `max(_longestStreak, streakDays)` on every advance and NEVER decreased
+  /// when the current run lapses. Durable via the canonical `__global__`
+  /// row (`longest_streak`); a legacy row without the column hydrates as
+  /// `max(0, current)` — the current run only, never a reconstructed peak.
+  int _longestStreak = 0;
 
   /// 💎 earned diamonds balance (R-I4 earn side; durable via `user_course`).
   int _diamonds = 0;
@@ -261,6 +279,13 @@ class LearnerController extends Notifier<LearnerSnapshot> {
         ? _energy
         : _energyModel.regenerated(
             energy: _energy, elapsed: nowTs.difference(_energyAnchor!));
+    final int currentStreak = _streakModel.current(
+        streak: _streak, lastMet: _lastGoalMetDate, today: today);
+    // MONOTONIC longest: the persisted peak, floored at the still-visible
+    // current run so the tile is never below the flame count on screen. It
+    // does NOT drop when the current run lapses (that is the whole point).
+    final int longestStreak =
+        currentStreak > _longestStreak ? currentStreak : _longestStreak;
     return LearnerSnapshot(
       theta: course.thetaGlobal,
       level: level,
@@ -268,8 +293,8 @@ class LearnerController extends Notifier<LearnerSnapshot> {
       xpTotal: _xpTotal,
       xpToday: xpToday,
       xpWeekEarned: xpWeek,
-      streakDays: _streakModel.current(
-          streak: _streak, lastMet: _lastGoalMetDate, today: today),
+      streakDays: currentStreak,
+      longestStreak: longestStreak,
       diamonds: _diamonds,
       streakFreezes: _streakFreezes,
       energy: energy,
@@ -430,6 +455,9 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     if (_lastGoalMetDate == today) return; // already rewarded today
     _streak = _streakModel.afterGoalMet(
         streak: _streak, lastMet: _lastGoalMetDate, today: today);
+    // Monotonic longest-streak (R-I2): the persisted max only ever grows,
+    // so a later lapse to 0 never erases the recorded peak.
+    if (_streak > _longestStreak) _longestStreak = _streak;
     _diamonds = _diamondsModel
         .award(balance: _diamonds, event: DiamondEvent.dailyGoalMet);
     _lastGoalMetDate = today;
@@ -718,7 +746,8 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _placementTheta = null;
     _restoredTheta = null;
     _restoredPerSkill = const <String, double>{};
-    _lessons = _xpTotal = _xpToday = _streak = _diamonds = _streakFreezes = 0;
+    _lessons =
+        _xpTotal = _xpToday = _streak = _longestStreak = _diamonds = _streakFreezes = 0;
     _xpWeek = 0;
     _energy = EnergyModel.cap;
     _energyAnchor = null;
@@ -911,6 +940,12 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     if (diamonds is num) _diamonds = diamonds.toInt();
     final Object? freezes = row['streak_freezes'];
     if (freezes is num) _streakFreezes = freezes.toInt();
+    // Longest run: a stored value wins; a legacy row without the column
+    // (null/absent) keeps max(0, current) — never invents a past peak.
+    final Object? longest = row['longest_streak'];
+    _longestStreak = longest is num
+        ? (longest.toInt() > _streak ? longest.toInt() : _streak)
+        : (_streak > 0 ? _streak : 0);
   }
 
   /// The CURRENT course's `user_course` row: the PER-COURSE fields only
@@ -947,6 +982,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
         'streak_last_active': _fmtDate(_lastGoalMetDate),
         'diamonds': _diamonds,
         'streak_freezes': _streakFreezes,
+        'longest_streak': _longestStreak,
       };
 
   /// `YYYY-MM-DD` for a date-only value (the PG `date` column shape), or null.

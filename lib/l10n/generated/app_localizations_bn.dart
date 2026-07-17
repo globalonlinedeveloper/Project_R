@@ -2613,6 +2613,12 @@ class AppLocalizationsBn extends AppLocalizations {
   String get streakFreezesLabel => 'Streak freezes';
 
   @override
+  String get streakLongestLabel => 'Longest streak';
+
+  @override
+  String get streakLongestNone => 'No streak yet';
+
+  @override
   String get streakFreezesTileSub =>
       'A freeze covers one missed day so your run survives.';
 

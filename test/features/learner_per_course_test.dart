@@ -223,6 +223,10 @@ void main() {
           (r as Map)['target_locale'] == '__global__') as Map<Object?, Object?>;
       expect(globalRow.containsKey('streak_days'), isTrue);
       expect(globalRow.containsKey('diamonds'), isTrue);
+      // INC-STK-LONGEST: the monotonic longest streak rides the same
+      // __global__ row (so the live upsert's column set includes it).
+      expect(globalRow.containsKey('longest_streak'), isTrue);
+      expect(globalRow['longest_streak'], 1);
       expect(globalRow.containsKey('xp_total'), isFalse);
       // A non-'en' current course does NOT touch the legacy 'en' row (honest
       // transition: pre-existing XP stays where it was, never fabricated here).

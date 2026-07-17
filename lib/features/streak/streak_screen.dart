@@ -17,8 +17,10 @@ import 'package:ratel/core/core.dart';
 ///    (`last7DaysXpProvider`): a day is "active" when the learner earned XP
 ///    that day (`DayXp.xp > 0`) — honest zeros for inactive days, no
 ///    fabricated flame / goal-met per day;
-///  * "14 Longest streak" needs a longest-streak column that is not on the
-///    snapshot → omitted rather than invented;
+///  * "Longest streak" reads the REAL persisted max (`snap.longestStreak`,
+///    monotonic on the `__global__` `user_course` row) beside the freeze
+///    tile as a 2-up stat; a learner who has never met a goal (0) sees the
+///    honest muted zero-state, never a fabricated "14";
 ///  * "5h 12m left today" implies a precise deadline countdown → replaced by
 ///    an honest generic "meet your goal before midnight" note (no fake timer);
 ///  * "Streak Society" (friend streaks / societies / perks) has no social
@@ -33,6 +35,7 @@ class StreakScreen extends ConsumerWidget {
     final LearnerSnapshot snap = ref.watch(learnerControllerProvider);
     final int days = snap.streakDays;
     final int freezes = snap.streakFreezes;
+    final int longest = snap.longestStreak;
     final bool hasStreak = days > 0;
     // REAL "goal met today" signal (dailyGoalProvider.met == xpToday >= goal):
     // when a streak is live and today's goal is already met, the deadline card
@@ -60,7 +63,7 @@ class StreakScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  _freezeTile(context, freezes),
+                  _statTiles(context, longest, freezes),
                   const SizedBox(height: RatelSpace.md),
                   _weekGrid(context, week, today),
                   const SizedBox(height: RatelSpace.md),
@@ -226,57 +229,100 @@ class StreakScreen extends ConsumerWidget {
     );
   }
 
-  Widget _freezeTile(BuildContext context, int freezes) {
-    return RatelCard(
-      color: context.palette.white,
+  /// The 2-up stat row (design #11): the REAL persisted longest streak beside
+  /// the REAL freeze count. Both cells share [_statTile] and sit in an
+  /// [IntrinsicHeight] so they stay equal-height at any width; a narrow screen
+  /// wraps the label text rather than overflowing.
+  Widget _statTiles(BuildContext context, int longest, int freezes) {
+    return IntrinsicHeight(
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          const Text('❄️', style: TextStyle(fontSize: 28)),
+          Expanded(
+            child: _statTile(
+              context,
+              key: 'streak-longest-tile',
+              emoji: '🏆',
+              // Honest zero-state: never a fabricated peak. Below 1 the tile
+              // shows a muted "No streak yet" instead of a big "0".
+              value: longest > 0 ? '$longest' : null,
+              valueLabel: context.l10n.streakLongestLabel,
+              emptyLabel: context.l10n.streakLongestNone,
+            ),
+          ),
           const SizedBox(width: RatelSpace.md),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Text(
-                      '$freezes',
-                      style: TextStyle(
-                        fontFamily: RatelFont.display,
-                        fontWeight: RatelType.extraBold,
-                        fontSize: RatelType.cardTitle,
-                        color: context.palette.ink,
-                      ),
-                    ),
-                    const SizedBox(width: RatelSpace.sm),
-                    Text(
-                      context.l10n.streakFreezesLabel,
-                      style: TextStyle(
-                        fontFamily: RatelFont.body,
-                        fontWeight: RatelType.semiBold,
-                        fontSize: RatelType.body,
-                        color: context.palette.ink,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  context.l10n.streakFreezesTileSub,
-                  style: TextStyle(
-                    fontFamily: RatelFont.body,
-                    fontSize: RatelType.small,
-                    height: 1.3,
-                    color: context.palette.muted,
-                  ),
-                ),
-              ],
+            child: _statTile(
+              context,
+              key: 'streak-freezes-tile',
+              emoji: '❄️',
+              value: '$freezes',
+              valueLabel: context.l10n.streakFreezesLabel,
+              emptyLabel: context.l10n.streakFreezesLabel,
             ),
           ),
         ],
       ),
     );
   }
+
+  /// A compact white stat cell: emoji, a big REAL number + its label, or — when
+  /// [value] is null (an honest empty state) — a single muted [emptyLabel] and
+  /// no fabricated number.
+  Widget _statTile(
+    BuildContext context, {
+    required String key,
+    required String emoji,
+    required String? value,
+    required String valueLabel,
+    required String emptyLabel,
+  }) {
+    final bool hasValue = value != null;
+    return RatelCard(
+      key: ValueKey<String>(key),
+      color: context.palette.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(emoji, style: const TextStyle(fontSize: 28)),
+          const SizedBox(height: RatelSpace.sm),
+          if (hasValue) ...<Widget>[
+            Text(
+              value,
+              style: TextStyle(
+                fontFamily: RatelFont.display,
+                fontWeight: RatelType.extraBold,
+                fontSize: RatelType.cardTitle,
+                color: context.palette.ink,
+              ),
+            ),
+            Text(
+              valueLabel,
+              style: TextStyle(
+                fontFamily: RatelFont.body,
+                fontWeight: RatelType.semiBold,
+                fontSize: RatelType.small,
+                height: 1.3,
+                color: context.palette.muted,
+              ),
+            ),
+          ] else
+            Text(
+              emptyLabel,
+              style: TextStyle(
+                fontFamily: RatelFont.body,
+                fontWeight: RatelType.semiBold,
+                fontSize: RatelType.body,
+                height: 1.3,
+                color: context.palette.muted,
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
 
   /// Amber 🛡️ card, three honest states:
   ///  * no streak yet        -> start-your-streak title + body;

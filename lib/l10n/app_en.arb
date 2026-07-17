@@ -1075,6 +1075,8 @@
   "streakTitle": "Streak",
   "streakDayLabel": "DAY STREAK",
   "streakFreezesLabel": "Streak freezes",
+  "streakLongestLabel": "Longest streak",
+  "streakLongestNone": "No streak yet",
   "streakFreezesTileSub": "A freeze covers one missed day so your run survives.",
   "streakDeadlineTitle": "Keep it going today",
   "streakDeadlineBody": "Meet your daily goal before midnight to extend your streak.",

@@ -67,6 +67,7 @@ void main() {
         'streak_last_active': '2026-07-17',
         'diamonds': 20,
         'streak_freezes': 2,
+        'longest_streak': 9, // INC-STK-LONGEST: part of the __global__ shape
       };
       final batches = SupabaseLearnerStateStore.upsertBatches(
         <Map<String, Object?>>[courseRow, globalRow],

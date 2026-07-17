@@ -4702,6 +4702,18 @@ abstract class AppLocalizations {
   /// **'Streak freezes'**
   String get streakFreezesLabel;
 
+  /// No description provided for @streakLongestLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Longest streak'**
+  String get streakLongestLabel;
+
+  /// No description provided for @streakLongestNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No streak yet'**
+  String get streakLongestNone;
+
   /// No description provided for @streakFreezesTileSub.
   ///
   /// In en, this message translates to:

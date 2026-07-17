@@ -236,4 +236,113 @@ void main() {
       expect(c2.read(learnerControllerProvider).streakDays, 2);
     });
   });
+  group('LearnerController longest streak (INC-STK-LONGEST)', () {
+    test('a sequence of goal-met days RAISES longestStreak monotonically',
+        () async {
+      DateTime clock = DateTime(2026, 6, 29, 9);
+      final _RecordingStore store = _RecordingStore();
+      final ProviderContainer c = _container(() => clock,
+          goal: 20, identity: FakeIdentity(), store: store);
+      addTearDown(c.dispose);
+      final LearnerController n = c.read(learnerControllerProvider.notifier);
+
+      // Never met a goal → 0 (honest muted zero-state on the tile).
+      expect(c.read(learnerControllerProvider).longestStreak, 0);
+
+      n.recordLessonComplete(xp: 20); // day 1 → current 1, longest 1
+      expect(c.read(learnerControllerProvider).longestStreak, 1);
+      clock = DateTime(2026, 6, 30, 9);
+      n.recordLessonComplete(xp: 20); // day 2 → current 2, longest 2
+      clock = DateTime(2026, 7, 1, 9);
+      n.recordLessonComplete(xp: 20); // day 3 → current 3, longest 3
+      expect(c.read(learnerControllerProvider).streakDays, 3);
+      expect(c.read(learnerControllerProvider).longestStreak, 3);
+      await _settle();
+
+      // The persisted __global__ row carries the max under longest_streak.
+      final List<Object?> courses = store.saves.last['courses']! as List<Object?>;
+      final Map<Object?, Object?> row = courses.firstWhere((Object? r) =>
+          (r as Map)['target_locale'] == '__global__') as Map<Object?, Object?>;
+      expect(row['longest_streak'], 3);
+    });
+
+    test('longestStreak does NOT decrease when the current run lapses to 0', () {
+      DateTime clock = DateTime(2026, 6, 29, 9);
+      final ProviderContainer c = _container(() => clock, goal: 20);
+      addTearDown(c.dispose);
+      final LearnerController n = c.read(learnerControllerProvider.notifier);
+
+      n.recordLessonComplete(xp: 20); // day 1 → 1
+      clock = DateTime(2026, 6, 30, 9);
+      n.recordLessonComplete(xp: 20); // day 2 → 2
+      clock = DateTime(2026, 7, 1, 9);
+      n.recordLessonComplete(xp: 20); // day 3 → longest 3
+      expect(c.read(learnerControllerProvider).longestStreak, 3);
+
+      // Skip a day → the current run lapses to 0 on the next display…
+      clock = DateTime(2026, 7, 3, 9);
+      n.refreshDay(); // app-resume hook, no new XP
+      expect(c.read(learnerControllerProvider).streakDays, 0);
+      // …but the recorded peak is untouched (monotonic).
+      expect(c.read(learnerControllerProvider).longestStreak, 3);
+
+      // A brand-new run that never beats 3 leaves the peak at 3.
+      n.recordLessonComplete(xp: 20); // new run day 1 → current 1
+      expect(c.read(learnerControllerProvider).streakDays, 1);
+      expect(c.read(learnerControllerProvider).longestStreak, 3);
+    });
+
+    test('legacy __global__ row WITHOUT longest_streak hydrates as '
+        'max(0, current) — no invented history', () async {
+      DateTime clock = DateTime(2026, 7, 17, 9);
+      // A pre-migration row: streak alive at 5, but no longest_streak column.
+      final _RecordingStore seeded = _RecordingStore(<String, Object?>{
+        'courses': <Object?>[
+          <String, Object?>{
+            'target_locale': '__global__',
+            'streak_days': 5,
+            'streak_last_active': '2026-07-17', // gap 0 → run alive
+            'diamonds': 10,
+            'streak_freezes': 1,
+          },
+        ],
+        'items': <Object?>[],
+      });
+      final ProviderContainer c = _container(() => clock,
+          goal: 20, identity: FakeIdentity(), store: seeded);
+      addTearDown(c.dispose);
+      c.read(learnerControllerProvider); // trigger hydrate
+      await _settle();
+
+      // Longest back-fills to the CURRENT run (5), never a fabricated peak.
+      expect(c.read(learnerControllerProvider).streakDays, 5);
+      expect(c.read(learnerControllerProvider).longestStreak, 5);
+    });
+
+    test('a stored longest_streak greater than the current run is preserved '
+        'on hydrate', () async {
+      DateTime clock = DateTime(2026, 7, 17, 9);
+      final _RecordingStore seeded = _RecordingStore(<String, Object?>{
+        'courses': <Object?>[
+          <String, Object?>{
+            'target_locale': '__global__',
+            'streak_days': 2,
+            'streak_last_active': '2026-07-17',
+            'longest_streak': 12,
+            'diamonds': 0,
+            'streak_freezes': 0,
+          },
+        ],
+        'items': <Object?>[],
+      });
+      final ProviderContainer c = _container(() => clock,
+          goal: 20, identity: FakeIdentity(), store: seeded);
+      addTearDown(c.dispose);
+      c.read(learnerControllerProvider);
+      await _settle();
+
+      expect(c.read(learnerControllerProvider).streakDays, 2);
+      expect(c.read(learnerControllerProvider).longestStreak, 12);
+    });
+  });
 }

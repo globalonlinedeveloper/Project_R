@@ -32,6 +32,7 @@ CREATE TABLE "user_course" (
     streak_last_active date,
     diamonds integer,
     streak_freezes integer,
+    longest_streak integer,
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
     PRIMARY KEY (user_course_id),
