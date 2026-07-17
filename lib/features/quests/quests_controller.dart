@@ -2,6 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/services/quests/quests.dart';
+import 'package:ratel/features/friends/friends_controller.dart';
+import 'package:ratel/services/social/friends.dart';
 
 /// Bridges the REAL learner state + the chosen daily goal to the pure
 /// [QuestsEngine] (design spec §4.4 [R-I7]). Recomputes whenever the learner's
@@ -23,3 +25,48 @@ final questsProvider = Provider<List<QuestProgress>>((ref) {
 /// Count of genuinely-completed quests (for the section header).
 final completedQuestsCountProvider = Provider<int>((ref) =>
     ref.watch(questsProvider).where((QuestProgress p) => p.done).length);
+
+/// INC-QF1 view-model for an HONEST competitive friend-quest: the real friend
+/// just ahead of the learner in this week's league. Every field comes from a
+/// real [FriendRecord] (published `weekly_xp`); nothing is fabricated.
+class FriendQuestView {
+  const FriendQuestView({
+    required this.handle,
+    required this.displayName,
+    required this.avatarEmoji,
+    required this.myWeeklyXp,
+    required this.friendWeeklyXp,
+  });
+
+  final String handle;
+  final String displayName;
+  final String avatarEmoji;
+  final int myWeeklyXp;
+  final int friendWeeklyXp;
+
+  /// XP the learner needs to out-earn the rival this week (always > 0 — the
+  /// rival is drawn from `whoPassedMeProvider`, i.e. strictly ahead).
+  int get gap => (friendWeeklyXp - myWeeklyXp) < 0 ? 0 : friendWeeklyXp - myWeeklyXp;
+}
+
+/// INC-QF1: a real "out-earn @friend this week" quest built ONLY from live data
+/// — the friend just ahead of the learner (real `weekly_xp` via
+/// `publish_weekly_xp`). Returns null when there is no rival ahead (or no
+/// friends / the friends backend is off, the shipped default) so the screen
+/// keeps the honest coming-soon card. NEVER invents a partner.
+final friendQuestProvider = Provider<FriendQuestView?>((ref) {
+  final List<FriendRecord> ahead = ref.watch(whoPassedMeProvider);
+  if (ahead.isEmpty) return null;
+  // whoPassedMe is sorted by weekly XP desc, so the closest rival to out-earn
+  // first is the one with the SMALLEST weekly XP still above me = the last.
+  final FriendRecord rival = ahead.last;
+  final String handle = rival.handle.trim();
+  if (handle.isEmpty) return null; // no real handle -> nothing honest to show
+  return FriendQuestView(
+    handle: handle,
+    displayName: rival.displayName,
+    avatarEmoji: rival.avatarEmoji,
+    myWeeklyXp: ref.watch(learnerControllerProvider).xpWeekEarned,
+    friendWeeklyXp: rival.weeklyXp,
+  );
+});

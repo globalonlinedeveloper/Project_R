@@ -57,6 +57,7 @@ class QuestsScreen extends ConsumerWidget {
     final int remaining =
         (goal - snap.xpToday) < 0 ? 0 : (goal - snap.xpToday);
     final List<QuestProgress> quests = ref.watch(questsProvider);
+    final FriendQuestView? friendQuest = ref.watch(friendQuestProvider);
     final int questsDone =
         quests.where((QuestProgress p) => p.done).length;
     // E3 (INC-10): reveal the app-wide animated WorldBackdrop behind this tab for
@@ -229,22 +230,49 @@ class QuestsScreen extends ConsumerWidget {
                   // Mirrors the honesty info-note card's styling above.
                   RatelSectionHeader(label: context.l10n.questsFriendQuest),
                   const SizedBox(height: RatelSpace.sm),
-                  RatelCard(
-                    color: context.palette.cream2,
-                    child: Row(
-                      children: <Widget>[
-                        const Text('🦋', style: TextStyle(fontSize: 22)),
-                        const SizedBox(width: RatelSpace.md),
-                        Expanded(
-                            child: Text(
-                                context.l10n.questsFriendQuestSoon,
-                                style: TextStyle(
-                                    fontFamily: RatelFont.body,
-                                    fontSize: RatelType.small,
-                                    color: context.palette.muted))),
-                      ],
+                  // INC-QF1: a REAL competitive friend-quest when the learner
+                  // has a friend ahead in this week's league (real weekly_xp);
+                  // otherwise the honest coming-soon card. Never a fake partner.
+                  if (friendQuest == null)
+                    RatelCard(
+                      color: context.palette.cream2,
+                      child: Row(
+                        children: <Widget>[
+                          const Text('🦋', style: TextStyle(fontSize: 22)),
+                          const SizedBox(width: RatelSpace.md),
+                          Expanded(
+                              child: Text(
+                                  context.l10n.questsFriendQuestSoon,
+                                  style: TextStyle(
+                                      fontFamily: RatelFont.body,
+                                      fontSize: RatelType.small,
+                                      color: context.palette.muted))),
+                        ],
+                      ),
+                    )
+                  else
+                    RatelCard(
+                      key: const ValueKey('friend-quest-tile'),
+                      color: context.palette.cream2,
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                              friendQuest.avatarEmoji.isEmpty
+                                  ? '🏅'
+                                  : friendQuest.avatarEmoji,
+                              style: const TextStyle(fontSize: 22)),
+                          const SizedBox(width: RatelSpace.md),
+                          Expanded(
+                              child: Text(
+                                  context.l10n.questsFriendQuestOutearn(
+                                      friendQuest.handle, friendQuest.gap),
+                                  style: TextStyle(
+                                      fontFamily: RatelFont.body,
+                                      fontSize: RatelType.small,
+                                      color: context.palette.ink))),
+                        ],
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),

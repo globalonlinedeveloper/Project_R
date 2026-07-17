@@ -900,6 +900,12 @@ abstract class AppLocalizations {
   /// **'Friend quests need a social backend — coming soon. No fake partners are shown.'**
   String get questsFriendQuestSoon;
 
+  /// No description provided for @questsFriendQuestOutearn.
+  ///
+  /// In en, this message translates to:
+  /// **'Out-earn @{handle} · {gap} XP to catch up this week'**
+  String questsFriendQuestOutearn(String handle, int gap);
+
   /// No description provided for @questsStartRefresh.
   ///
   /// In en, this message translates to:

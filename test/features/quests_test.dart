@@ -4,6 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/quests/quests_controller.dart';
 import 'package:ratel/features/quests/quests_screen.dart';
+import 'package:ratel/features/friends/friends_controller.dart';
+import 'package:ratel/services/social/friends.dart';
 import 'package:ratel/services/quests/quests.dart';
 
 Future<void> _pump(WidgetTester tester, {List<Override> overrides = const <Override>[]}) async {
@@ -123,6 +125,66 @@ void main() {
     // No fabricated partner name / progress leaks in.
     expect(find.textContaining('Mia'), findsNothing);
     expect(find.textContaining('Alex'), findsNothing);
+  });
+
+  // INC-QF1: when the learner has a REAL friend ahead in this week's league,
+  // the FRIEND QUEST section shows a real "out-earn @handle" tile (real handle +
+  // real XP gap) and the coming-soon fallback is replaced. Nothing fabricated —
+  // the view-model is built only from a real FriendRecord.
+  testWidgets('INC-QF1 a real rival ahead shows the out-earn tile; coming-soon replaced',
+      (WidgetTester tester) async {
+    await _pump(tester, overrides: <Override>[
+      friendQuestProvider.overrideWithValue(const FriendQuestView(
+        handle: 'mia',
+        displayName: 'Mia',
+        avatarEmoji: '🦊',
+        myWeeklyXp: 120,
+        friendWeeklyXp: 200,
+      )),
+    ]);
+    expect(find.byKey(const ValueKey('friend-quest-tile')), findsOneWidget);
+    expect(find.text('Out-earn @mia · 80 XP to catch up this week'),
+        findsOneWidget);
+    // The real tile REPLACES the honest coming-soon card (not shown alongside).
+    expect(find.textContaining('coming soon'), findsNothing);
+  });
+
+  group('INC-QF1 friendQuest logic', () {
+    test('FriendQuestView.gap = friend - me, floored at 0', () {
+      expect(
+          const FriendQuestView(handle: 'm', displayName: 'M', avatarEmoji: 'x',
+              myWeeklyXp: 120, friendWeeklyXp: 200).gap,
+          80);
+      expect(
+          const FriendQuestView(handle: 'm', displayName: 'M', avatarEmoji: 'x',
+              myWeeklyXp: 200, friendWeeklyXp: 120).gap,
+          0); // never negative
+    });
+
+    test('provider picks the CLOSEST rival ahead (last of whoPassedMe)', () {
+      final ProviderContainer c = ProviderContainer(overrides: <Override>[
+        whoPassedMeProvider.overrideWithValue(const <FriendRecord>[
+          FriendRecord(userId: 'u1', handle: 'ana', displayName: 'Ana',
+              status: FriendStatus.friends, avatarEmoji: '🐼', weeklyXp: 300),
+          FriendRecord(userId: 'u2', handle: 'mia', displayName: 'Mia',
+              status: FriendStatus.friends, avatarEmoji: '🦊', weeklyXp: 200),
+        ]),
+      ]);
+      addTearDown(c.dispose);
+      final FriendQuestView? fq = c.read(friendQuestProvider);
+      expect(fq, isNotNull);
+      expect(fq!.handle, 'mia'); // smallest lead still ahead = closest to catch
+      expect(fq.friendWeeklyXp, 200);
+      expect(fq.gap, fq.friendWeeklyXp - fq.myWeeklyXp); // consistent, real
+    });
+
+    test('provider is null with no rival ahead -> honest coming-soon', () {
+      final ProviderContainer c = ProviderContainer(overrides: <Override>[
+        whoPassedMeProvider.overrideWithValue(const <FriendRecord>[]),
+      ]);
+      addTearDown(c.dispose);
+      expect(c.read(friendQuestProvider), isNull);
+    });
   });
 
   // INC-QST1: a DONE quest shows ✅ in its trailing slot and does NOT render the

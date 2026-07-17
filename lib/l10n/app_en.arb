@@ -250,6 +250,8 @@
   "questsRewardPending": "Rewards soon",
   "questsFriendQuest": "Friend quest",
   "questsFriendQuestSoon": "Friend quests need a social backend — coming soon. No fake partners are shown.",
+  "questsFriendQuestOutearn": "Out-earn @{handle} · {gap} XP to catch up this week",
+  "@questsFriendQuestOutearn": {"placeholders": {"handle": {"type": "String"}, "gap": {"type": "int"}}},
   "questsStartRefresh": "Start the daily refresh",
   "questsStart": "Start",
   "questsPractisedToday": "Practised today — streak safe",

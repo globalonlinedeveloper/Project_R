@@ -446,6 +446,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get questsFriendQuestSoon => 'Friend quests need a social backend — coming soon. No fake partners are shown.';
 
   @override
+  String questsFriendQuestOutearn(String handle, int gap) {
+    return 'Out-earn @$handle · $gap XP to catch up this week';
+  }
+
+  @override
   String get questsStartRefresh => 'Start the daily refresh';
 
   @override
