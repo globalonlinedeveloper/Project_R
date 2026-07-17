@@ -2013,10 +2013,8 @@ abstract class AppLocalizations {
   /// No description provided for @progressShareText.
   ///
   /// In en, this message translates to:
-  /// **'🦡 RATEL · Level {level} ({levelName})\n🔥 {streak}-day streak · ⚡ {xp} XP · 📘 {lessons} lessons\nLearning at learnwithratel.com'**
+  /// **'🦡 RATEL\n🔥 {streak}-day streak · ⚡ {xp} XP · 📘 {lessons} lessons\nLearning at learnwithratel.com'**
   String progressShareText(
-    String level,
-    String levelName,
     int streak,
     int xp,
     int lessons,

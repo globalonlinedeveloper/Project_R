@@ -309,7 +309,7 @@
   "progressLast7Days": "Últimos 7 dias",
   "progressAccuracyRetention": "Precisão e retenção",
   "progressHonestyNote": "Tudo aqui é estado real registrado — nível, habilidade, palavras salvas, XP, lições, ofensiva, seu histórico de 7 dias, precisão e tempo de estudo começam do zero e crescem com o aprendizado. Retenção é a recordação prevista desta sessão (o agendador entre sessões é trabalho de lançamento); nada é inventado.",
-  "progressShareText": "🦡 RATEL · Nível {level} ({levelName})\n🔥 Ofensiva de {streak} dias · ⚡ {xp} XP · 📘 {lessons} lições\nAprendendo em learnwithratel.com",
+  "progressShareText": "🦡 RATEL\n🔥 Ofensiva de {streak} dias · ⚡ {xp} XP · 📘 {lessons} lições\nAprendendo em learnwithratel.com",
   "progressShareCopied": "Marco copiado para a área de transferência — compartilhe onde quiser!",
   "progressAbilityLine": "Habilidade θ {theta} · estimativa real",
   "progressStatSavedWords": "Palavras salvas",

@@ -1084,13 +1084,11 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String progressShareText(
-    String level,
-    String levelName,
     int streak,
     int xp,
     int lessons,
   ) {
-    return '🦡 RATEL · 레벨 $level($levelName)\n🔥 $streak일 스트릭 · ⚡ $xp XP · 📘 레슨 $lessons개\nlearnwithratel.com에서 학습 중';
+    return '🦡 RATEL\n🔥 $streak일 스트릭 · ⚡ $xp XP · 📘 레슨 $lessons개\nlearnwithratel.com에서 학습 중';
   }
 
   @override

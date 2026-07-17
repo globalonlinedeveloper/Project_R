@@ -523,8 +523,8 @@ void main() {
         'predicted 1-day recall · 3 items this session');
     expect(en.progressAbilityLine('0.00'), 'Ability θ 0.00 · real estimate');
     expect(
-        en.progressShareText('A1', 'Beginner', 3, 120, 4),
-        '🦡 RATEL · Level A1 (Beginner)\n'
+        en.progressShareText(3, 120, 4),
+        '🦡 RATEL\n'
         '🔥 3-day streak · ⚡ 120 XP · 📘 4 lessons\n'
         'Learning at learnwithratel.com');
     expect(en.commonDowMon, 'Mo');

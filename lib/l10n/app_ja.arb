@@ -309,7 +309,7 @@
   "progressLast7Days": "過去7日間",
   "progressAccuracyRetention": "正答率と記憶保持",
   "progressHonestyNote": "ここにあるものはすべて実際に記録された状態です — レベル・能力・保存した単語・XP・レッスン・連続記録・7日間の履歴・正答率・学習時間はゼロから始まり、学ぶほど増えます。記憶保持はこのセッションの予測想起です(セッションをまたぐスケジューラはリリース時の作業)。作り物はありません。",
-  "progressShareText": "🦡 RATEL · レベル{level}({levelName})\n🔥 {streak}日連続 · ⚡ {xp} XP · 📘 レッスン{lessons}回\nlearnwithratel.comで学習中",
+  "progressShareText": "🦡 RATEL\n🔥 {streak}日連続 · ⚡ {xp} XP · 📘 レッスン{lessons}回\nlearnwithratel.comで学習中",
   "progressShareCopied": "マイルストーンをクリップボードにコピーしました — どこでも共有できます!",
   "progressAbilityLine": "能力 θ {theta} · 実際の推定",
   "progressStatSavedWords": "保存した単語",

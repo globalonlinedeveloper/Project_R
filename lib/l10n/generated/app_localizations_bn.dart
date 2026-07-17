@@ -1102,13 +1102,11 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String progressShareText(
-    String level,
-    String levelName,
     int streak,
     int xp,
     int lessons,
   ) {
-    return '🦡 RATEL · স্তর $level ($levelName)\n🔥 $streak দিনের স্ট্রিক · ⚡ $xp XP · 📘 $lessonsটি পাঠ\nlearnwithratel.com-এ শিখছি';
+    return '🦡 RATEL\n🔥 $streak দিনের স্ট্রিক · ⚡ $xp XP · 📘 $lessonsটি পাঠ\nlearnwithratel.com-এ শিখছি';
   }
 
   @override

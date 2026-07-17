@@ -1078,13 +1078,11 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String progressShareText(
-    String level,
-    String levelName,
     int streak,
     int xp,
     int lessons,
   ) {
-    return '🦡 RATEL · 等级 $level（$levelName）\n🔥 连胜 $streak 天 · ⚡ $xp XP · 📘 $lessons 节课\n在 learnwithratel.com 学习中';
+    return '🦡 RATEL\n🔥 连胜 $streak 天 · ⚡ $xp XP · 📘 $lessons 节课\n在 learnwithratel.com 学习中';
   }
 
   @override

@@ -311,7 +311,7 @@
   "progressLast7Days": "Letzte 7 Tage",
   "progressAccuracyRetention": "Genauigkeit & Merkfähigkeit",
   "progressHonestyNote": "Alles hier ist ein realer, aufgezeichneter Status — Level, Fähigkeit, gespeicherte Wörter, XP, Lektionen, Streak, deine 7-Tage-Historie, Genauigkeit und Lernzeit beginnen alle bei null und wachsen, während du lernst. Die Merkfähigkeit ist die vorhergesagte Erinnerung dieser Sitzung (der dauerhafte sitzungsübergreifende Planer ist Live-Verkabelung); nichts ist erfunden.",
-  "progressShareText": "🦡 RATEL · Level {level} ({levelName})\n🔥 {streak} Tage Streak · ⚡ {xp} XP · 📘 {lessons} Lektionen\nLernen auf learnwithratel.com",
+  "progressShareText": "🦡 RATEL\n🔥 {streak} Tage Streak · ⚡ {xp} XP · 📘 {lessons} Lektionen\nLernen auf learnwithratel.com",
   "progressShareCopied": "Meilenstein in die Zwischenablage kopiert — teile ihn überall!",
   "progressAbilityLine": "Können θ {theta} · echte Schätzung",
   "progressStatSavedWords": "Gespeicherte Wörter",

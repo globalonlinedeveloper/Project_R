@@ -309,7 +309,7 @@
   "progressLast7Days": "最近 7 天",
   "progressAccuracyRetention": "准确率与记忆保持",
   "progressHonestyNote": "这里的一切都是真实记录的状态 — 等级、能力、收藏的单词、XP、课程、连胜、7 天历史、准确率和学习时间都从零开始，随学习增长。记忆保持是本次会话的预测回忆（跨会话调度器属于上线工作）；没有任何虚构。",
-  "progressShareText": "🦡 RATEL · 等级 {level}（{levelName}）\n🔥 连胜 {streak} 天 · ⚡ {xp} XP · 📘 {lessons} 节课\n在 learnwithratel.com 学习中",
+  "progressShareText": "🦡 RATEL\n🔥 连胜 {streak} 天 · ⚡ {xp} XP · 📘 {lessons} 节课\n在 learnwithratel.com 学习中",
   "progressShareCopied": "里程碑已复制到剪贴板 — 随处分享！",
   "progressAbilityLine": "能力 θ {theta} · 真实估计",
   "progressStatSavedWords": "收藏单词",

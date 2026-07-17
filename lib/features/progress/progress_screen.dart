@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ratel/app/app_providers.dart';
-import 'package:ratel/content/models/enums.dart' show CefrLevel;
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
 
@@ -40,7 +39,6 @@ class ProgressScreen extends ConsumerWidget {
     final double? retention = ref.watch(retentionEstimateProvider);
     final int reviewed = ref.watch(reviewedItemCountProvider);
 
-    final String level = snap.level.name.toUpperCase();
     final CourseSpine spine = ref.watch(courseSpineProvider);
     final int goal = goalStatus.goal;
     final double ringVal = goalStatus.fraction;
@@ -81,7 +79,7 @@ class ProgressScreen extends ConsumerWidget {
               label: context.l10n.progressShareMilestone,
               variant: RatelButtonVariant.secondary,
               leading: const Text('📤', style: TextStyle(fontSize: 18)),
-              onPressed: () => _shareMilestone(context, snap, level),
+              onPressed: () => _shareMilestone(context, snap),
             ),
             const SizedBox(height: RatelSpace.lg),
             RatelSectionHeader(label: context.l10n.progressLast7Days),
@@ -112,13 +110,9 @@ class ProgressScreen extends ConsumerWidget {
   /// Copy a REAL level/XP/streak milestone card to the clipboard (D1 "Share
   /// milestone"). No `share_plus` dependency — a clipboard copy works on every
   /// platform incl. web, and is honest about what it does (the SnackBar says so).
-  void _shareMilestone(BuildContext context, LearnerSnapshot snap, String level) {
+  void _shareMilestone(BuildContext context, LearnerSnapshot snap) {
     final String text = context.l10n.progressShareText(
-        level,
-        ratelCefrLevelDisplayName(context, _levelName(snap.level)),
-        snap.streakDays,
-        snap.xpTotal,
-        snap.lessonsCompleted);
+        snap.streakDays, snap.xpTotal, snap.lessonsCompleted);
     Clipboard.setData(ClipboardData(text: text));
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -368,23 +362,6 @@ class ProgressScreen extends ConsumerWidget {
     return rem == 0
         ? context.l10n.commonDurHours(h)
         : context.l10n.commonDurHoursMinutes(h, rem);
-  }
-
-  String _levelName(CefrLevel l) {
-    switch (l) {
-      case CefrLevel.a1:
-        return 'Beginner';
-      case CefrLevel.a2:
-        return 'Elementary';
-      case CefrLevel.b1:
-        return 'Intermediate';
-      case CefrLevel.b2:
-        return 'Upper intermediate';
-      case CefrLevel.c1:
-        return 'Advanced';
-      case CefrLevel.c2:
-        return 'Proficient';
-    }
   }
 }
 

@@ -309,7 +309,7 @@
   "progressLast7Days": "पिछले 7 दिन",
   "progressAccuracyRetention": "सटीकता और स्मरण",
   "progressHonestyNote": "यहाँ सब कुछ वास्तविक दर्ज स्थिति है — स्तर, क्षमता, सहेजे शब्द, XP, पाठ, स्ट्रीक, 7-दिन का इतिहास, सटीकता और अध्ययन समय शून्य से शुरू होकर सीखने के साथ बढ़ते हैं। स्मरण इस सत्र का अनुमानित रिकॉल है (सत्रों के बीच का शेड्यूलर गो-लाइव कार्य है); कुछ भी गढ़ा नहीं गया।",
-  "progressShareText": "🦡 RATEL · स्तर {level} ({levelName})\n🔥 {streak} दिन की स्ट्रीक · ⚡ {xp} XP · 📘 {lessons} पाठ\nlearnwithratel.com पर सीख रहे हैं",
+  "progressShareText": "🦡 RATEL\n🔥 {streak} दिन की स्ट्रीक · ⚡ {xp} XP · 📘 {lessons} पाठ\nlearnwithratel.com पर सीख रहे हैं",
   "progressShareCopied": "उपलब्धि क्लिपबोर्ड पर कॉपी हुई — कहीं भी साझा करें!",
   "progressAbilityLine": "क्षमता θ {theta} · वास्तविक अनुमान",
   "progressStatSavedWords": "सहेजे शब्द",

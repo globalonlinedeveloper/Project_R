@@ -309,7 +309,7 @@
   "progressLast7Days": "Последние 7 дней",
   "progressAccuracyRetention": "Точность и удержание",
   "progressHonestyNote": "Всё здесь — реальное записанное состояние: уровень, способность, сохранённые слова, XP, уроки, серия, история за 7 дней, точность и время занятий начинаются с нуля и растут по мере обучения. Удержание — прогноз воспоминания этой сессии (межсессионный планировщик — работа к запуску); ничего не выдумано.",
-  "progressShareText": "🦡 RATEL · Уровень {level} ({levelName})\n🔥 Серия {streak} дн. · ⚡ {xp} XP · 📘 {lessons} уроков\nУчусь на learnwithratel.com",
+  "progressShareText": "🦡 RATEL\n🔥 Серия {streak} дн. · ⚡ {xp} XP · 📘 {lessons} уроков\nУчусь на learnwithratel.com",
   "progressShareCopied": "Веха скопирована в буфер обмена — делитесь где угодно!",
   "progressAbilityLine": "Способность θ {theta} · реальная оценка",
   "progressStatSavedWords": "Сохранённые слова",
