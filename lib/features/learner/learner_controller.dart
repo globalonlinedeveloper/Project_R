@@ -115,18 +115,34 @@ class LearnerSnapshot {
 /// load + save no-ops, so the flag-off behaviour is byte-identical to the
 /// in-memory build.
 class LearnerController extends Notifier<LearnerSnapshot> {
-  /// The active course (single-course foundation; multi-course lands with the
-  /// course picker). Matches the Supabase `user_course` key shape.
-  static const String courseId = 'en';
+  /// Legacy single-course `target_locale`. Pre-INC-15 EVERY user's progress
+  /// (xp / lessons / streak / diamonds / θ) lived in this one row regardless of
+  /// the course they picked. It is still the honest home of that historical XP
+  /// (never retro-attributed to another course) AND the migration FALLBACK for
+  /// the global fields — see [_globalRowLocale].
+  static const String legacyLocale = 'en';
 
-  /// The `target_locale` the active [courseId] maps onto in `user_course`
-  /// (the upsert conflict key is `(user_id, target_locale)`).
-  static const String targetLocale = 'en';
+  /// The `target_locale` of the canonical GLOBAL row (INC-15). Owner decision:
+  /// streak + diamonds are account-level, not per-course, so they live in ONE
+  /// row under this sentinel. `target_locale` is plain `text` server-side (no
+  /// CHECK), so the sentinel is DB-legal, and the `(user_id, target_locale)`
+  /// upsert key gives every user exactly one such row. NOTE this is the
+  /// `target_locale` sentinel — a DIFFERENT `__global__` from [thetaGlobalKey],
+  /// which is a KEY inside a row's `theta_per_skill` map. They never mix: this
+  /// selects a ROW, that selects a θ within a row.
+  static const String _globalRowLocale = '__global__';
 
   /// Reserved `theta_per_skill` key carrying the GLOBAL θ (the surfaced
   /// ability). Real skill ids are content-id shaped (start with a lowercase
   /// letter), so this underscored sentinel can never collide with one.
   static const String thetaGlobalKey = '__global__';
+
+  /// The live course code (`target_locale`) the app is mounted on — the spine
+  /// for per-course state (xp / lessons / θ). Read from [currentCourseCodeProvider]
+  /// (default `'en'`), so a guest / flag-off / bare-container boot keys the
+  /// legacy `'en'` row exactly as before; a real course switch remounts the
+  /// scope and this re-reads for free.
+  String get _courseCode => ref.read(currentCourseCodeProvider);
 
   final LearnerStateModel _engine = const LearnerStateModel();
   final ColdStartModel _cold = const ColdStartModel();
@@ -206,7 +222,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
 
   LearnerSnapshot _derive() {
     final UserCourse course =
-        _engine.deriveCourse(courseId, _log, initial: _coldStart);
+        _engine.deriveCourse(_courseCode, _log, initial: _coldStart);
     final CefrLevel level = _cold.bandFor(course.thetaGlobal) ?? CefrLevel.a1;
     final DateTime today = _today();
     // Honest day-boundary display: today's XP is zero once the day has rolled
@@ -245,7 +261,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     // Durable answer spine (R-G6): fire-and-forget append to the sink seam —
     // a no-op for guests/keyless boots, the own-row `review_log` INSERT when
     // the backend is wired. Never blocks or throws into grading.
-    ref.read(reviewLogSinkProvider).append(targetLocale, entry);
+    ref.read(reviewLogSinkProvider).append(_courseCode, entry);
     state = _derive();
     _persist();
     _stampMilestones(snapBefore);
@@ -655,10 +671,15 @@ class LearnerController extends Notifier<LearnerSnapshot> {
 
   // ── Durable persistence (R-O1 / R-M3) ────────────────────────────────────
 
-  /// Rehydrate xp / lessons / streak (+ last goal-met day) / diamonds / θ from
-  /// the learner's `user_course` row. No-op for a guest (`uid == null`) or when
-  /// already hydrated, so the flag-off path is byte-identical and a load
-  /// failure never breaks boot.
+  /// Rehydrate the learner from their `user_course` rows (INC-15, per-course).
+  /// PER-COURSE fields (xp / lessons / θ) come from the CURRENT course's row
+  /// ([_courseCode]); GLOBAL fields (streak + last goal-met day / diamonds /
+  /// freezes) come from the canonical [_globalRowLocale] row, FALLING BACK to
+  /// the legacy `'en'` row when no `__global__` row exists yet (so existing
+  /// users never lose their streak/diamonds — the fallback then writes forward
+  /// on the next persist). No-op for a guest (`uid == null`) or when already
+  /// hydrated, so the flag-off path is byte-identical and a load failure never
+  /// breaks boot.
   Future<void> _hydrate() async {
     if (_hydrated) return;
     final String? uid = ref.read(identityProvider).uid;
@@ -670,34 +691,44 @@ class LearnerController extends Notifier<LearnerSnapshot> {
       if (_disposed) return;
       final Object? courses = data['courses'];
       if (courses is List) {
+        Map<Object?, Object?>? currentRow;
+        Map<Object?, Object?>? globalRow;
+        Map<Object?, Object?>? legacyRow;
         for (final Object? row in courses) {
-          if (row is Map && row['target_locale'] == targetLocale) {
-            _applyCourseRow(row);
-            break;
-          }
+          if (row is! Map) continue;
+          final Object? loc = row['target_locale'];
+          if (loc == _courseCode) currentRow = row;
+          if (loc == _globalRowLocale) globalRow = row;
+          if (loc == legacyLocale) legacyRow = row;
         }
+        // Per-course fields: the current course's own row (never another
+        // course's, and never the __global__ row).
+        if (currentRow != null) _applyCourseRow(currentRow);
+        // Global fields: the canonical __global__ row, else the legacy 'en'
+        // row (migration fallback — keeps existing users' streak/diamonds).
+        final Map<Object?, Object?>? globalSource = globalRow ?? legacyRow;
+        if (globalSource != null) _applyGlobalRow(globalSource);
       }
       final bool spent = _coverMissedDays(_today());
       state = _derive();
+      // Persist if a freeze was spent OR the global fields were migrated off
+      // the legacy row (write the __global__ row forward, idempotently).
       if (spent) _persist();
     } catch (_) {
       // never break boot on a load failure — keep the honest cold-start
     }
   }
 
+  /// Apply the PER-COURSE fields (xp / lessons / θ) of a `user_course` [row].
+  /// The row's `theta_per_skill` carries the surfaced (global) θ under
+  /// [thetaGlobalKey] alongside the real per-skill θ — this θ is per-course
+  /// (it lives in each course row), never confused with the account-level
+  /// GLOBAL row selected by [_globalRowLocale].
   void _applyCourseRow(Map<Object?, Object?> row) {
     final Object? xp = row['xp_total'];
     if (xp is num) _xpTotal = xp.toInt();
     final Object? lessons = row['lessons_completed'];
     if (lessons is num) _lessons = lessons.toInt();
-    final Object? streak = row['streak_days'];
-    if (streak is num) _streak = streak.toInt();
-    final Object? lastActive = row['streak_last_active'];
-    if (lastActive is String) _lastGoalMetDate = _parseDate(lastActive);
-    final Object? diamonds = row['diamonds'];
-    if (diamonds is num) _diamonds = diamonds.toInt();
-    final Object? freezes = row['streak_freezes'];
-    if (freezes is num) _streakFreezes = freezes.toInt();
     final Object? theta = row['theta_per_skill'];
     if (theta is Map) {
       final Map<String, double> perSkill = <String, double>{};
@@ -716,27 +747,56 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     }
   }
 
-  /// The `user_course` seam row for the current state (the global θ rides in
-  /// `theta_per_skill` under [thetaGlobalKey]; the store stamps `user_id`).
-  Map<String, Object?> courseRow() {
+  /// Apply the GLOBAL (account-level) fields — streak + last goal-met day,
+  /// diamonds, freezes — from a [row] (the `__global__` row, or the legacy
+  /// `'en'` row on first-run fallback). Never reads xp/lessons/θ (those are
+  /// per-course).
+  void _applyGlobalRow(Map<Object?, Object?> row) {
+    final Object? streak = row['streak_days'];
+    if (streak is num) _streak = streak.toInt();
+    final Object? lastActive = row['streak_last_active'];
+    if (lastActive is String) _lastGoalMetDate = _parseDate(lastActive);
+    final Object? diamonds = row['diamonds'];
+    if (diamonds is num) _diamonds = diamonds.toInt();
+    final Object? freezes = row['streak_freezes'];
+    if (freezes is num) _streakFreezes = freezes.toInt();
+  }
+
+  /// The CURRENT course's `user_course` row: the PER-COURSE fields only
+  /// (xp / lessons / θ, keyed on [_courseCode]). The surfaced global θ rides in
+  /// `theta_per_skill` under [thetaGlobalKey]; the store stamps `user_id` and
+  /// upserts on `(user_id, target_locale)`. Does NOT carry streak/diamonds —
+  /// those are written to [_globalRow]. (Legacy `'en'` rows keep whatever
+  /// streak/diamonds columns they already had, frozen; hydrate reads global
+  /// fields from `__global__` once it exists.)
+  Map<String, Object?> _courseRow() {
     final UserCourse course =
-        _engine.deriveCourse(courseId, _log, initial: _coldStart);
+        _engine.deriveCourse(_courseCode, _log, initial: _coldStart);
     final Map<String, Object?> theta = <String, Object?>{
       for (final MapEntry<String, double> e in course.thetaPerSkill.entries)
         e.key: e.value,
       thetaGlobalKey: course.thetaGlobal,
     };
     return <String, Object?>{
-      'target_locale': targetLocale,
+      'target_locale': _courseCode,
       'xp_total': _xpTotal,
       'lessons_completed': _lessons,
-      'streak_days': _streak,
-      'streak_last_active': _fmtDate(_lastGoalMetDate),
-      'diamonds': _diamonds,
-      'streak_freezes': _streakFreezes,
       'theta_per_skill': theta,
     };
   }
+
+  /// The canonical GLOBAL `user_course` row ([_globalRowLocale]): the
+  /// account-level fields only (streak + last goal-met day / diamonds /
+  /// freezes). Upserts on `(user_id, target_locale='__global__')`, so a
+  /// learner has exactly one of these regardless of how many courses they
+  /// study — streak/diamonds stay shared across courses.
+  Map<String, Object?> _globalRow() => <String, Object?>{
+        'target_locale': _globalRowLocale,
+        'streak_days': _streak,
+        'streak_last_active': _fmtDate(_lastGoalMetDate),
+        'diamonds': _diamonds,
+        'streak_freezes': _streakFreezes,
+      };
 
   /// `YYYY-MM-DD` for a date-only value (the PG `date` column shape), or null.
   static String? _fmtDate(DateTime? d) => d == null
@@ -774,8 +834,13 @@ class LearnerController extends Notifier<LearnerSnapshot> {
         if (uid == null) return;
         final LearnerStateStore store = ref.read(learnerStateStoreProvider);
         try {
+          // INC-15: upsert BOTH rows in one save — the current course's
+          // per-course row (xp/lessons/θ) AND the canonical __global__ row
+          // (streak/diamonds). The store upserts each on
+          // (user_id, target_locale), so neither clobbers the other and other
+          // courses' rows are left untouched.
           await store.save(uid, <String, Object?>{
-            'courses': <Object?>[courseRow()],
+            'courses': <Object?>[_courseRow(), _globalRow()],
           });
         } catch (_) {
           // best-effort: a save failure must never break the session

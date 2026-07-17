@@ -130,8 +130,10 @@ void main() {
       addTearDown(c.dispose);
       c.read(learnerControllerProvider.notifier).recordLessonComplete(xp: 20);
       await _settle();
-      final Map<Object?, Object?> row =
-          (store.saves.last['courses']! as List<Object?>).single
+      // INC-15: diamonds are a GLOBAL field → the __global__ row.
+      final Map<Object?, Object?> row = (store.saves.last['courses']!
+              as List<Object?>)
+          .firstWhere((Object? r) => (r as Map)['target_locale'] == '__global__')
               as Map<Object?, Object?>;
       expect(row['diamonds'], 6);
     });

@@ -54,16 +54,47 @@ class SupabaseLearnerStateStore implements LearnerStateStore {
     final List<Map<String, Object?>> courses =
         rowsFor(state[coursesKey], userId);
     final List<Map<String, Object?>> items = rowsFor(state[itemsKey], userId);
-    if (courses.isNotEmpty) {
-      await _db
-          .from(courseTable)
-          .upsert(courses, onConflict: 'user_id,target_locale', defaultToNull: false);
+    // Upsert each HOMOGENEOUS batch on its own. A bulk upsert of rows with
+    // DIFFERENT column sets fails on PostgREST: postgrest-dart sends the union
+    // of keys as `columns`, so any NOT-NULL column a given row omits is written
+    // as NULL -> 23502. INC-15 saves a per-course row (xp/lessons/theta)
+    // alongside the canonical `__global__` row (streak/diamonds) in one save,
+    // and their column sets are disjoint; batching by column set keeps every
+    // upsert valid. Homogeneous input (e.g. item rows) yields ONE batch, so
+    // those saves are unchanged.
+    for (final List<Map<String, Object?>> batch in upsertBatches(courses)) {
+      await _db.from(courseTable).upsert(
+            batch,
+            onConflict: 'user_id,target_locale',
+            defaultToNull: false,
+          );
     }
-    if (items.isNotEmpty) {
-      await _db
-          .from(itemTable)
-          .upsert(items, onConflict: 'user_id,item_id', defaultToNull: false);
+    for (final List<Map<String, Object?>> batch in upsertBatches(items)) {
+      await _db.from(itemTable).upsert(
+            batch,
+            onConflict: 'user_id,item_id',
+            defaultToNull: false,
+          );
     }
+  }
+
+  /// Split [rows] into batches that each share an IDENTICAL column set, so a
+  /// bulk `upsert` never mixes columns. (PostgREST bulk-inserts the union of
+  /// keys as `columns` and sets any NOT-NULL column a row omits to NULL ->
+  /// error 23502; heterogeneous rows must therefore be upserted in separate,
+  /// homogeneous batches.) Preserves first-seen order; a homogeneous input
+  /// returns a single batch, and an empty input returns no batches.
+  static List<List<Map<String, Object?>>> upsertBatches(
+    List<Map<String, Object?>> rows,
+  ) {
+    final Map<String, List<Map<String, Object?>>> byShape =
+        <String, List<Map<String, Object?>>>{};
+    for (final Map<String, Object?> row in rows) {
+      final List<String> keys = row.keys.toList()..sort();
+      final String shape = keys.join(',');
+      byShape.putIfAbsent(shape, () => <Map<String, Object?>>[]).add(row);
+    }
+    return byShape.values.toList();
   }
 
   /// Coerce an opaque seam value into a list of row-maps, stamping the owning

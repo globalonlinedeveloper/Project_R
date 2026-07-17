@@ -153,8 +153,11 @@ void main() {
       expect(c.read(learnerControllerProvider).diamonds, 30);
       await _settle();
 
-      final Map<Object?, Object?> row =
-          (store.saves.last['courses']! as List<Object?>).first! as Map<Object?, Object?>;
+      // INC-15: freezes + diamonds are GLOBAL fields → the __global__ row.
+      final Map<Object?, Object?> row = (store.saves.last['courses']!
+              as List<Object?>)
+          .firstWhere((Object? r) => (r as Map)['target_locale'] == '__global__')
+              as Map<Object?, Object?>;
       expect(row['streak_freezes'], 2);
       expect(row['diamonds'], 30);
     });
@@ -198,8 +201,11 @@ void main() {
       expect(c.read(learnerControllerProvider).streakDays, 5); // survived
       expect(c.read(learnerControllerProvider).streakFreezes, 1); // one spent
       await _settle();
-      final Map<Object?, Object?> row =
-          (store.saves.last['courses']! as List<Object?>).first! as Map<Object?, Object?>;
+      // INC-15: freezes are a GLOBAL field → the __global__ row.
+      final Map<Object?, Object?> row = (store.saves.last['courses']!
+              as List<Object?>)
+          .firstWhere((Object? r) => (r as Map)['target_locale'] == '__global__')
+              as Map<Object?, Object?>;
       expect(row['streak_freezes'], 1);
     });
 

@@ -79,15 +79,26 @@ void main() {
 
       expect(store.lastUserId, 'uid-test');
       expect(store.saves, isNotEmpty);
+      // INC-15: a mutation upserts BOTH rows — the current course's per-course
+      // row (xp/lessons/θ) AND the canonical __global__ row (streak/diamonds).
       final List<Object?> courses =
           store.saves.last['courses']! as List<Object?>;
-      final Map<Object?, Object?> row = courses.single as Map<Object?, Object?>;
-      expect(row['target_locale'], 'en');
-      expect(row['xp_total'], 20);
-      expect(row['lessons_completed'], 1);
+      final Map<Object?, Object?> courseRow = courses.firstWhere((Object? r) =>
+          (r as Map)['target_locale'] == 'en') as Map<Object?, Object?>;
+      // Per-course fields live on the course row; global fields do NOT.
+      expect(courseRow['xp_total'], 20);
+      expect(courseRow['lessons_completed'], 1);
+      expect(courseRow.containsKey('streak_days'), isFalse);
       final Map<Object?, Object?> theta =
-          row['theta_per_skill']! as Map<Object?, Object?>;
+          courseRow['theta_per_skill']! as Map<Object?, Object?>;
       expect(theta.containsKey('__global__'), isTrue);
+      // The __global__ row carries the account-level fields (streak/diamonds),
+      // not xp/lessons.
+      final Map<Object?, Object?> globalRow = courses.firstWhere((Object? r) =>
+          (r as Map)['target_locale'] == '__global__') as Map<Object?, Object?>;
+      expect(globalRow.containsKey('streak_days'), isTrue);
+      expect(globalRow.containsKey('diamonds'), isTrue);
+      expect(globalRow.containsKey('xp_total'), isFalse);
     });
 
     test('guest (uid == null) never persists, in-memory behaviour identical',

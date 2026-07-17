@@ -15,6 +15,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:ratel/app/content_wiring.dart';
 import 'package:ratel/app/ratel_app.dart';
+import 'package:ratel/services/data_access/data_access.dart'
+    show currentCourseCodeProvider;
 
 /// Read-only view of the course selection + the switch action, visible to
 /// every screen (it wraps the app ABOVE the router).
@@ -114,7 +116,15 @@ class _RatelCourseRootState extends State<RatelCourseRoot> {
       switchCourse: _switch,
       child: ProviderScope(
         key: _scopeKey,
-        overrides: <Override>[...widget.baseOverrides, ..._content],
+        overrides: <Override>[
+          // INC-15: carry the live course code INTO the scope so the
+          // LearnerController keys per-course state (xp/lessons/theta) on
+          // the selected course; the scope remounts on switch (fresh key),
+          // so this re-reads for free.
+          currentCourseCodeProvider.overrideWithValue(_course),
+          ...widget.baseOverrides,
+          ..._content,
+        ],
         child: widget.childOverride ?? const RatelApp(),
       ),
     );

@@ -112,7 +112,8 @@ class SavedWordsState {
 /// the durable memory state + due date are what persist. The engine stays
 /// clockless; this layer owns the injected [clockProvider].
 class SavedWordsController extends Notifier<SavedWordsState> {
-  /// The active course (matches [LearnerController.courseId]).
+  /// The active course (the saved-words namespace; matches the learner's
+  /// legacy `'en'` course key).
   static const String courseId = 'en';
 
   /// `user_item_state.item_id` prefix namespacing saved-word cards apart from

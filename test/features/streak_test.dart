@@ -208,15 +208,19 @@ void main() {
           goal: 20, identity: FakeIdentity(), store: store);
       c1.read(learnerControllerProvider.notifier).recordLessonComplete(xp: 20);
       await _settle();
-      final Map<Object?, Object?> row =
-          (store.saves.last['courses']! as List<Object?>).single
-              as Map<Object?, Object?>;
+      // INC-15: streak is a GLOBAL field → it lands on the __global__ row, not
+      // the per-course row.
+      final List<Object?> savedCourses =
+          store.saves.last['courses']! as List<Object?>;
+      final Map<Object?, Object?> row = savedCourses.firstWhere((Object? r) =>
+          (r as Map)['target_locale'] == '__global__') as Map<Object?, Object?>;
       expect(row['streak_days'], 1);
       expect(row['streak_last_active'], '2026-06-29');
       c1.dispose();
 
-      // A fresh controller next day rehydrates from that row; the run is still
-      // alive (met yesterday) and meeting the goal again continues it to 2.
+      // A fresh controller next day rehydrates the global streak from that
+      // __global__ row; the run is still alive (met yesterday) and meeting the
+      // goal again continues it to 2.
       clock = DateTime(2026, 6, 30, 9);
       final _RecordingStore seeded = _RecordingStore(<String, Object?>{
         'courses': <Object?>[row],

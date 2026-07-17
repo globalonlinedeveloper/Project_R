@@ -22,6 +22,17 @@ class InMemoryLearnerStateStore implements LearnerStateStore {
 final learnerStateStoreProvider =
     Provider<LearnerStateStore>((ref) => InMemoryLearnerStateStore());
 
+/// The course code (`target_locale`) the app is currently mounted on — the
+/// live spine for per-course learner state (INC-15). Defaults to `'en'` so a
+/// guest, a flag-off boot, or a bare test [ProviderContainer] behaves exactly
+/// as the single-course build did. [RatelCourseRoot] overrides it inside its
+/// remounting [ProviderScope] with the selected course, so switching course
+/// re-boots the scope and the [LearnerController] re-reads this for free —
+/// hydrating / persisting that course's own `user_course` row. The GLOBAL
+/// fields (streak / diamonds) are NOT keyed by this; they live in a canonical
+/// `__global__` row (see [LearnerController]).
+final currentCourseCodeProvider = Provider<String>((ref) => 'en');
+
 /// Debounce window that coalesces a burst of learner mutations into ONE durable
 /// write-through (R-O1 persistence). Trailing-edge: the save captures the latest
 /// state. Tests override it to [Duration.zero] for a deterministic flush.
