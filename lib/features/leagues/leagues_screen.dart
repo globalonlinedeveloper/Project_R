@@ -28,10 +28,16 @@ class LeaguesScreen extends ConsumerWidget {
     final int unread = ref.watch(unreadNotificationsCountProvider);
     final CourseSpine spine = ref.watch(courseSpineProvider);
     final RatelPalette p = context.palette;
+    // E3 (INC-10): reveal the app-wide animated WorldBackdrop behind this tab for
+    // every backdrop world — mirrors Home's E1 fix. Derived exactly as ratel_app.dart;
+    // Daylight (backdrop `none`) keeps its solid cream. The translucent scaffold
+    // (theme.dart, 80% tint) is the readability floor, so no scrim is needed.
+    final bool hasBackdrop =
+        kBackdropPainters.containsKey(ref.watch(activeWorldProvider).backdrop);
 
     return Container(
       key: const ValueKey<String>('tab-leagues'),
-      color: p.cream,
+      color: hasBackdrop ? Colors.transparent : p.cream,
       child: SafeArea(
         bottom: false,
         child: Column(

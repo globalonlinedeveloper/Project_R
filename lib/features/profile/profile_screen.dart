@@ -37,10 +37,16 @@ class ProfileScreen extends ConsumerWidget {
     final int unlockedAch =
         achievements.where((AchievementProgress p) => p.unlocked).length;
     final int unreadNotifs = ref.watch(unreadNotificationsCountProvider);
+    // E3 (INC-10): reveal the app-wide animated WorldBackdrop behind this tab for
+    // every backdrop world — mirrors Home's E1 fix. Derived exactly as ratel_app.dart;
+    // Daylight (backdrop `none`) keeps its solid cream. The translucent scaffold
+    // (theme.dart, 80% tint) is the readability floor, so no scrim is needed.
+    final bool hasBackdrop =
+        kBackdropPainters.containsKey(ref.watch(activeWorldProvider).backdrop);
 
     return Container(
       key: const ValueKey<String>('tab-profile'),
-      color: context.palette.cream,
+      color: hasBackdrop ? Colors.transparent : context.palette.cream,
       child: SafeArea(
         bottom: false,
         child: ListView(
