@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/app/navigation_focus.dart';
+import 'package:ratel/features/shop/outfits_controller.dart';
 import 'package:ratel/services/data_access/data_access.dart'
     show LeaguesStore, leaguesStoreProvider, kLeagueMembershipKey;
 import 'package:ratel/services/identity/identity.dart';
@@ -24,11 +25,17 @@ const LeaguesEngine _engine = LeaguesEngine();
 /// (and unless) a signed-in cross-user cohort read replaces it.
 final leagueCohortProvider = Provider<List<LeagueMember>>((ref) {
   final LearnerSnapshot snap = ref.watch(learnerControllerProvider);
+  final settings = ref.watch(appSettingsControllerProvider);
   return <LeagueMember>[
     LeagueMember(
       id: 'you',
       displayName: 'You',
-      avatarEmoji: '🦡',
+      // Own avatar resolved exactly as Profile does (§4.9): the learner's picked
+      // emoji, else the equipped outfit's emoji (Classic 🦡). Only ever the
+      // learner's OWN row — other members are untouched.
+      avatarEmoji: settings.avatarEmoji.isNotEmpty
+          ? settings.avatarEmoji
+          : ref.watch(equippedOutfitProvider).emoji,
       weeklyXp: snap.xpWeekEarned,
       isYou: true,
     ),
@@ -101,9 +108,13 @@ class LeaguesSyncController extends Notifier<LeagueSync> {
     final DateTime now = ref.read(clockProvider)();
     final String week = _weekKey(LeagueWeek.startOf(now));
     final LearnerSnapshot snap = ref.read(learnerControllerProvider);
-    final String name = _displayName(
-      ref.read(appSettingsControllerProvider).displayName,
-    );
+    final settings = ref.read(appSettingsControllerProvider);
+    final String name = _displayName(settings.displayName);
+    // Persist the learner's OWN real avatar (same resolution as Profile/§4.9) so
+    // the own row other members read back matches — not the hardcoded badger.
+    final String avatarEmoji = settings.avatarEmoji.isNotEmpty
+        ? settings.avatarEmoji
+        : ref.read(equippedOutfitProvider).emoji;
 
     // Recover the persisted tier (set by the weekly close) for this week; a brand
     // -new member defaults to the entry tier.
@@ -120,7 +131,7 @@ class LeaguesSyncController extends Notifier<LeagueSync> {
           'tier': tier.name,
           'weekly_xp': snap.xpWeekEarned,
           'display_name': name,
-          'avatar_emoji': '🦡',
+          'avatar_emoji': avatarEmoji,
         },
       ],
     });

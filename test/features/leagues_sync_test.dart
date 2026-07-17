@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/features/leagues/leagues_controller.dart';
+import 'package:ratel/features/shop/outfits_controller.dart';
 import 'package:ratel/services/data_access/data_access.dart';
 import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/leagues/leagues.dart';
@@ -287,6 +288,45 @@ void main() {
       true,
     ); // never a fabricated cohort
     expect(store.saves, isEmpty); // a guest persists nothing, even on refresh
+  });
+
+  // INC-LG1: the solo "You" row shows the learner's REAL chosen avatar, resolved
+  // exactly as Profile does (settings.avatarEmoji, else the equipped outfit emoji),
+  // instead of the hardcoded 🦡. Honesty-safe: only the learner's OWN row.
+  group('INC-LG1 own avatar in leagueCohortProvider', () {
+    LeagueMember you(ProviderContainer c) => c
+        .read(leagueCohortProvider)
+        .firstWhere((LeagueMember m) => m.isYou);
+
+    test('picked avatar emoji drives the "You" row', () async {
+      final ProviderContainer c = ProviderContainer();
+      addTearDown(c.dispose);
+      await c
+          .read(appSettingsControllerProvider.notifier)
+          .setAvatarEmoji('🦊');
+      expect(you(c).avatarEmoji, '🦊'); // the learner's own chosen emoji
+    });
+
+    test(
+      'empty avatar emoji falls back to the equipped outfit emoji (not 🦡)',
+      () async {
+        // avatarEmoji stays '' (AppSettings default) so the fallback branch runs;
+        // override the equipped outfit to Wizard 🧙 so the asserted value can ONLY
+        // come from equippedOutfitProvider — never the old hardcoded badger.
+        final ProviderContainer c = ProviderContainer(
+          overrides: <Override>[
+            equippedOutfitProvider
+                .overrideWithValue(OutfitCatalogue.byId('wizard')),
+          ],
+        );
+        addTearDown(c.dispose);
+        expect(
+          c.read(appSettingsControllerProvider).avatarEmoji,
+          '',
+        ); // precondition: empty -> fallback path
+        expect(you(c).avatarEmoji, '🧙'); // equipped outfit emoji, via fallback
+      },
+    );
   });
 }
 
