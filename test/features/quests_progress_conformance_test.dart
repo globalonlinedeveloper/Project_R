@@ -82,19 +82,18 @@ void main() {
   });
 
   group('Progress §4.13 conformance', () {
-    testWidgets('D-11 hero surfaces the full CEFR ladder A1…C2',
+    testWidgets('CEFR ladder is HIDDEN (Duolingo lock, S161 INC-P2)',
         (WidgetTester t) async {
       final ProviderContainer c = ProviderContainer();
       addTearDown(c.dispose);
       await _pumpProgress(t, const Size(460, 1600), c);
-      // A2…C2 are unique to the ladder (the stat card shows only the current level).
-      expect(find.text('A2'), findsOneWidget);
-      expect(find.text('B1'), findsOneWidget);
-      expect(find.text('B2'), findsOneWidget);
-      expect(find.text('C1'), findsOneWidget);
-      expect(find.text('C2'), findsOneWidget);
-      // Cold-start current level A1 appears in BOTH the ladder and the stat card.
-      expect(find.text('A1'), findsWidgets);
+      // The A1-C2 CEFR ladder + the CEFR-level stat card were removed; no CEFR
+      // band is shown anywhere on the dashboard (Duolingo lock).
+      expect(find.text('B1'), findsNothing);
+      expect(find.text('B2'), findsNothing);
+      expect(find.text('C1'), findsNothing);
+      expect(find.text('C2'), findsNothing);
+      expect(find.textContaining('CEFR'), findsNothing);
     });
 
     testWidgets('layout gauntlet @430/460/800 — no overflow',

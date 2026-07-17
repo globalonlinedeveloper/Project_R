@@ -40,8 +40,9 @@ void main() {
     expect(
         find.byKey(const ValueKey<String>('screen-progress')), findsOneWidget);
     expect(find.text('Coming soon'), findsNothing);
-    // The hero surfaces the REAL cold-start level (A1 · Beginner, not "A2").
-    expect(find.text('Level A1 · Beginner'), findsOneWidget);
+    // CEFR is HIDDEN (Duolingo lock, S161 INC-P2): the hero shows no CEFR band;
+    // it headlines the course under the "Progress" title.
+    expect(find.textContaining('Level A'), findsNothing);
   });
 
   testWidgets(
@@ -51,11 +52,11 @@ void main() {
     addTearDown(c.dispose);
     await _pumpTall(tester, c);
 
-    // Real cold-start CEFR level (A1 · Beginner), not the mockup's "A2".
-    expect(find.text('Level A1 · Beginner'), findsOneWidget);
+    // CEFR is HIDDEN (S161 INC-P2): no CEFR band, no CEFR-level stat card.
+    expect(find.textContaining('Level A'), findsNothing);
     expect(find.text('Saved words'), findsOneWidget);
     expect(find.text('Total XP'), findsOneWidget);
-    expect(find.text('CEFR level'), findsOneWidget);
+    expect(find.text('CEFR level'), findsNothing);
     expect(find.textContaining('Ability θ'), findsOneWidget);
     // Honest empty states for the no-engine stats — NEVER the mockup numbers.
     // D1: the 7-day chart frame shows but reads honestly empty (no XP yet).

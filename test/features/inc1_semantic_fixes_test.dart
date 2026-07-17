@@ -149,7 +149,7 @@ void main() {
     expect(find.text('2/4'), findsWidgets);
   });
 
-  testWidgets('Progress hero ring shows completion + the "SPANISH · YOUR LEVEL" eyebrow',
+  testWidgets('Progress hero ring shows completion + the "SPANISH" eyebrow (CEFR hidden)',
       (WidgetTester tester) async {
     await tester.pumpWidget(_appWith(_esSpine));
     await tester.pumpAndSettle();
@@ -169,8 +169,8 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byKey(const ValueKey<String>('screen-progress')), findsOneWidget);
-    // D-R1 eyebrow: the active course language + "YOUR LEVEL".
-    expect(find.text('SPANISH · YOUR LEVEL'), findsOneWidget);
+    // D-R1 eyebrow: the active course language only (CEFR hidden, S161 INC-P2).
+    expect(find.text('SPANISH'), findsOneWidget);
     // D-R1 ring: course completion "3/4", not the daily-XP ring.
     expect(find.text('3/4'), findsWidgets);
   });

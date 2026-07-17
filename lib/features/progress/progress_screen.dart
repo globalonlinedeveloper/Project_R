@@ -72,10 +72,10 @@ class ProgressScreen extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(
               RatelSpace.screen, RatelSpace.lg, RatelSpace.screen, RatelSpace.xl),
           children: <Widget>[
-            _hero(context, level, snap, goal, ringVal, goalStatus.met,
+            _hero(context, snap, goal, ringVal, goalStatus.met,
                 spine.courseCode, spine.lessonCount),
             const SizedBox(height: RatelSpace.cardGap),
-            _stats(context, snap, words, goal, level),
+            _stats(context, snap, words, goal),
             const SizedBox(height: RatelSpace.cardGap),
             RatelButton(
               label: context.l10n.progressShareMilestone,
@@ -127,7 +127,7 @@ class ProgressScreen extends ConsumerWidget {
     );
   }
 
-  Widget _hero(BuildContext context, String level, LearnerSnapshot snap,
+  Widget _hero(BuildContext context, LearnerSnapshot snap,
       int goal, double ringVal, bool met, String courseCode, int totalLessons) {
     // D-R1: the hero ring shows COURSE COMPLETION (lessons done / total
     // authored lessons) matching the design's N/160 — not today's XP. Real
@@ -153,7 +153,7 @@ class ProgressScreen extends ConsumerWidget {
                     // D-R1: "SPANISH · YOUR LEVEL" eyebrow — the active course
                     // language (derived, localized) above the CEFR level.
                     Text(
-                        '${ratelCourseLanguageName(context, courseCode).toUpperCase()} · ${context.l10n.progressYourLevel}',
+                        ratelCourseLanguageName(context, courseCode).toUpperCase(),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -163,7 +163,7 @@ class ProgressScreen extends ConsumerWidget {
                             color: RatelColors.onColor)),
                     const SizedBox(height: 2),
                     Text(
-                        '${context.l10n.commonLevel(level)} · ${ratelCefrLevelDisplayName(context, _levelName(snap.level))}',
+                        context.l10n.progressTitle,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -206,49 +206,13 @@ class ProgressScreen extends ConsumerWidget {
               ),
             ],
           ),
-          const SizedBox(height: RatelSpace.md),
-          // D-11: CEFR ladder strip (A1…C2) — highlights the learner's REAL
-          // current level; an honest position on the scale, no invented data.
-          _cefrLadder(snap.level),
         ],
       ),
     );
   }
 
-  /// D-11: horizontal CEFR ladder (A1 A2 B1 B2 C1 C2). The learner's current
-  /// level is filled bright; the rest are dimmed. Theme tokens only (onColor
-  /// with alpha over the blue hero gradient) — token_lint stays green.
-  Widget _cefrLadder(CefrLevel current) {
-    final List<Widget> pills = <Widget>[];
-    for (int i = 0; i < CefrLevel.values.length; i++) {
-      final CefrLevel l = CefrLevel.values[i];
-      final bool active = l == current;
-      pills.add(Expanded(
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 6),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: active
-                ? RatelColors.onColor
-                : RatelColors.onColor.withValues(alpha: 0.18),
-            borderRadius: BorderRadius.circular(RatelRadius.chip),
-          ),
-          child: Text(l.name.toUpperCase(),
-              style: TextStyle(
-                  fontFamily: RatelFont.display,
-                  fontWeight: active ? RatelType.extraBold : RatelType.semiBold,
-                  fontSize: RatelType.caption,
-                  color: active ? RatelColors.navy : RatelColors.onColor)),
-        ),
-      ));
-      if (i != CefrLevel.values.length - 1) {
-        pills.add(const SizedBox(width: 6));
-      }
-    }
-    return Row(children: pills);
-  }
 
-  Widget _stats(BuildContext context, LearnerSnapshot snap, int words, int goal, String level) {
+  Widget _stats(BuildContext context, LearnerSnapshot snap, int words, int goal) {
     return Column(
       children: <Widget>[
         Row(
@@ -276,9 +240,6 @@ class ProgressScreen extends ConsumerWidget {
             Expanded(
                 child: _statCard(context, '🎯', '${snap.xpToday}/$goal',
                     context.l10n.progressStatTodaysXp)),
-            const SizedBox(width: RatelSpace.cardGap),
-            Expanded(child: _statCard(context, '📈', level,
-                    context.l10n.progressStatCefrLevel)),
           ],
         ),
       ],
