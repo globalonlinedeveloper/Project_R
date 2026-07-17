@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:country_flags/country_flags.dart';
+
 import 'package:ratel/app/course_switch.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/learner/learner_controller.dart';
+import 'package:ratel/services/preferences/ui_locale.dart';
 
 /// Courses screen (🌍) — design #7/#8 / lane A-C (`/courses`).
 ///
@@ -36,8 +39,12 @@ import 'package:ratel/features/learner/learner_controller.dart';
 ///    becomes true only at INC-15).
 ///  * "ADD A COURSE" is NOT a live 52-language catalog: RATEL only ships the
 ///    bundled courses, so an honest note stands in for a fake catalog / count.
-///  * Menu language / Immersion mode: the interface-language control lives in
-///    Settings (real); this screen links there rather than duplicating it.
+///  * Menu language (DISPLAY): the REAL app-shell language control lives INLINE
+///    here (INC-13) — the row shows the current menu language and taps open an
+///    in-place picker over [kUiLanguageEndonyms] that drives
+///    `uiLocaleControllerProvider.setLocale` (the SAME restart-free control
+///    Settings uses; `MaterialApp.locale`). No `/settings` deep-link. Immersion
+///    mode (below this control) is INC-14, not built here.
 ///
 /// Reached from Settings (the Course row) and any future Home entry.
 class CoursesScreen extends ConsumerStatefulWidget {
@@ -149,10 +156,11 @@ class _CoursesScreenState extends ConsumerState<CoursesScreen> {
                   label: context.l10n.coursesDisplayHeader),
             ),
             RatelListRow(
+              key: const ValueKey<String>('courses-menu-language'),
               leadingEmoji: '🗣️',
               title: context.l10n.coursesMenuLanguage,
-              subtitle: context.l10n.coursesMenuLanguageSub,
-              onTap: () => context.push('/settings'),
+              subtitle: _menuLanguageLabel(context),
+              onTap: () => _pickMenuLanguage(context),
             ),
           ],
         ),
@@ -334,6 +342,130 @@ class _CoursesScreenState extends ConsumerState<CoursesScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  // ── DISPLAY · inline menu-language control (INC-13) ─────────────────────────
+  // The REAL app-shell language lives here now: the row shows the current menu
+  // language and tapping opens an in-place picker over [kUiLanguageEndonyms]
+  // that calls `uiLocaleControllerProvider.setLocale` — the SAME restart-free
+  // control Settings uses (drives `MaterialApp.locale`). NO `/settings` hop.
+  //
+  // Presentation is a short duplicate of the Settings app-language sheet
+  // (`settings_screen.dart` `_pickAppLanguage`): an SVG country flag + an
+  // English-name·country subtitle, endonym as the primary label, a leading
+  // "system default" row (null override). Duplicated — not a shared helper —
+  // because the Settings picker is a set of private/static members on a
+  // `ConsumerWidget` with a DIFFERENT section header (`settingsAppLanguage` vs
+  // `coursesMenuLanguage`); a ~60-line copy keeps Settings byte-identical and
+  // is lower-risk than parameterising a shared builder (INC-13 directive).
+
+  /// The row's shown current menu language: the endonym of the active override,
+  /// or Settings' own "System default" label when following the device (null).
+  String _menuLanguageLabel(BuildContext context) {
+    final Locale? l = ref.watch(uiLocaleControllerProvider);
+    return l == null
+        ? context.l10n.settingsAppLanguageSystem
+        : (kUiLanguageEndonyms[l.languageCode] ?? l.languageCode);
+  }
+
+  Widget? _menuLangFlag(String code) {
+    final ({String country, String english, String countryName})? m =
+        kUiLanguageFlag[code];
+    if (m == null) return null;
+    return CountryFlag.fromCountryCode(
+      m.country,
+      width: 34,
+      height: 26,
+      shape: const RoundedRectangle(4),
+    );
+  }
+
+  String? _menuLangSubtitle(String code) {
+    final ({String country, String english, String countryName})? m =
+        kUiLanguageFlag[code];
+    return m == null ? null : '${m.english} · ${m.countryName}';
+  }
+
+  Widget _menuLangSelectedMark(bool selected) => selected
+      ? const Text(
+          '✓',
+          style: TextStyle(
+            fontFamily: RatelFont.display,
+            fontSize: 20,
+            fontWeight: RatelType.extraBold,
+            color: RatelColors.teal,
+          ),
+        )
+      : const SizedBox.shrink();
+
+  /// Opens the in-place menu-language picker (a modal bottom sheet on THIS
+  /// screen — never a navigation). Each row calls the real
+  /// [UiLocaleController.setLocale], flipping `MaterialApp.locale` restart-free.
+  void _pickMenuLanguage(BuildContext context) {
+    final UiLocaleController controller =
+        ref.read(uiLocaleControllerProvider.notifier);
+    final String? current = ref.read(uiLocaleControllerProvider)?.languageCode;
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: context.palette.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(RatelRadius.featureLg),
+        ),
+      ),
+      builder: (BuildContext sheetContext) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(RatelSpace.lg),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: RatelSpace.sm,
+                  bottom: RatelSpace.sm,
+                ),
+                child: RatelSectionHeader(
+                  label: context.l10n.coursesMenuLanguage,
+                ),
+              ),
+              Flexible(
+                child: ListView(
+                  key: const ValueKey<String>('courses-menu-language-sheet'),
+                  shrinkWrap: true,
+                  children: <Widget>[
+                    RatelListRow(
+                      leadingEmoji: '\u{1F310}',
+                      title: context.l10n.settingsAppLanguageSystem,
+                      trailing: _menuLangSelectedMark(current == null),
+                      onTap: () {
+                        controller.setLocale(null);
+                        Navigator.of(sheetContext).pop();
+                      },
+                    ),
+                    const SizedBox(height: RatelSpace.xs),
+                    for (final MapEntry<String, String> e
+                        in kUiLanguageEndonyms.entries) ...<Widget>[
+                      RatelListRow(
+                        leading: _menuLangFlag(e.key),
+                        title: e.value,
+                        subtitle: _menuLangSubtitle(e.key),
+                        trailing: _menuLangSelectedMark(e.key == current),
+                        onTap: () {
+                          controller.setLocale(Locale(e.key));
+                          Navigator.of(sheetContext).pop();
+                        },
+                      ),
+                      const SizedBox(height: RatelSpace.xs),
+                    ],
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
