@@ -4,6 +4,17 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ratel/services/data_access/data_access.dart';
 import 'package:ratel/services/data_access/supabase_leagues_store.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+/// A fake client whose every call throws — proves [SupabaseLeaguesStore.readCohort]
+/// fails SAFE (honest solo) rather than propagating a Postgrest error.
+class _ThrowingClient implements SupabaseClient {
+  @override
+  dynamic noSuchMethod(Invocation invocation) => throw PostgrestException(
+        message: 'function public.read_league_cohort() does not exist',
+        code: '42883',
+      );
+}
 
 void main() {
   group('SupabaseLeaguesStore.rowsFor (own-row stamping)', () {
@@ -56,6 +67,27 @@ void main() {
         ],
       });
       expect(await store.readCohort('uid-1'), isEmpty);
+    });
+  });
+
+  group('SupabaseLeaguesStore.readCohort (fail-safe cross-user read)', () {
+    test('a thrown PostgrestException degrades to the honest solo cohort ([])',
+        () async {
+      final SupabaseLeaguesStore store = SupabaseLeaguesStore(_ThrowingClient());
+      // The RPC blows up (missing fn / offline) -> NOT a throw, an empty cohort.
+      expect(await store.readCohort('uid-1'), isEmpty);
+    });
+
+    test('cohortRowsFrom maps definer rows and coerces a non-list to empty', () {
+      final List<Map<String, Object?>> rows =
+          SupabaseLeaguesStore.cohortRowsFrom(<Object?>[
+        <String, Object?>{'member_id': 'm1', 'weekly_xp': 40, 'is_you': true},
+        'not-a-map', // skipped
+      ]);
+      expect(rows.length, 1);
+      expect(rows.single['member_id'], 'm1');
+      expect(rows.single['is_you'], true);
+      expect(SupabaseLeaguesStore.cohortRowsFrom('nope'), isEmpty);
     });
   });
 }

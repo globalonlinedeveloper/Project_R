@@ -63,7 +63,25 @@ class SupabaseLeaguesStore implements LeaguesStore {
   /// accepted for seam symmetry; the definer derives the caller from `auth.uid()`.
   @override
   Future<List<Map<String, Object?>>> readCohort(String userId) async {
-    final Object? res = await _db.rpc(readCohortFn);
+    // Fail SAFE to the honest solo baseline. If the `read_league_cohort`
+    // SECURITY DEFINER is momentarily unreachable (offline / transient
+    // Postgrest error) — or absent on a not-yet-migrated project — degrade to
+    // an EMPTY cohort instead of throwing and aborting the whole sync (S163
+    // INC-LG-A; mirrors SupabaseFriendsService's PostgrestException handling).
+    // A thrown read must never surface partial or fabricated standings.
+    try {
+      final Object? res = await _db.rpc(readCohortFn);
+      return cohortRowsFrom(res);
+    } on PostgrestException {
+      return const <Map<String, Object?>>[];
+    } catch (_) {
+      return const <Map<String, Object?>>[];
+    }
+  }
+
+  /// Map the definer's result rows into seam row-maps. A non-List result yields
+  /// an EMPTY cohort — the honest solo baseline, never a fabricated member.
+  static List<Map<String, Object?>> cohortRowsFrom(Object? res) {
     if (res is! List) return const <Map<String, Object?>>[];
     return res
         .whereType<Map<dynamic, dynamic>>()
