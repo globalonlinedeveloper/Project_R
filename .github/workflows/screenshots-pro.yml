@@ -1,0 +1,94 @@
+name: screenshots-pro
+
+# PRO-themed capture (INC-10 E1/E2 verification): builds the web app EXACTLY as
+# deploy-web does (real Supabase backend via secrets), serves it locally, logs in
+# as the PRO test user, applies each world theme, and screenshots Home so the
+# per-world animated backdrop (E1) and per-world vehicle (E2) can be checked
+# against the design. Does NOT deploy and does NOT touch main.
+#
+# Credentials come from repo secrets RATEL_PRO_EMAIL / RATEL_PRO_PASSWORD (set
+# out-of-band; never committed). GitHub masks them in logs.
+on:
+  workflow_dispatch:
+  push:
+    branches: [ ci/pro-screenshots ]
+
+concurrency:
+  group: screenshots-pro-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    name: Build web + PRO-themed capture
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.1'
+          channel: stable
+          cache: true
+
+      - name: Resolve deps
+        run: flutter pub get
+
+      - name: Codegen (freezed/json parts are gitignored)
+        run: dart run build_runner build
+
+      - name: Build web (same flags as deploy-web; real backend so login works)
+        run: |
+          flutter build web --release --base-href "/" --pwa-strategy=none \
+            --dart-define=RATEL_AUTH=true --dart-define=RATEL_ANON=true \
+            --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
+            --dart-define=SUPABASE_PUBLISHABLE_KEY=${{ secrets.SUPABASE_PUBLISHABLE_KEY }} \
+            --dart-define=RATEL_REMOTE_CONTENT=true \
+            --dart-define=RATEL_CONTENT_URL=https://pub-506169294d394678b41c2fcd4792375f.r2.dev/content \
+            --dart-define=RATEL_LIVE_AI=true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install capture deps
+        working-directory: tool/live_capture
+        run: npm install --no-audit --no-fund
+
+      - name: Install Chromium (with OS deps)
+        working-directory: tool/live_capture
+        run: npx playwright install --with-deps chromium
+
+      - name: Serve build/web and run PRO capture
+        timeout-minutes: 25
+        working-directory: tool/live_capture
+        env:
+          RATEL_PRO_EMAIL: ${{ secrets.RATEL_PRO_EMAIL }}
+          RATEL_PRO_PASSWORD: ${{ secrets.RATEL_PRO_PASSWORD }}
+        run: |
+          python3 -m http.server 8080 --directory "$GITHUB_WORKSPACE/build/web" >/tmp/http.log 2>&1 &
+          SERVER_PID=$!
+          for i in $(seq 1 30); do
+            if curl -sf -o /dev/null "http://127.0.0.1:8080/index.html"; then echo "server up"; break; fi
+            sleep 1
+          done
+          node capture_pro.mjs --base "http://127.0.0.1:8080" --out screenshots-pro --dsf 2
+          kill "$SERVER_PID" 2>/dev/null || true
+
+      - name: Job summary
+        if: always()
+        working-directory: tool/live_capture
+        run: |
+          if [ -f screenshots-pro/PRO_CAPTURE_REPORT.md ]; then cat screenshots-pro/PRO_CAPTURE_REPORT.md >> "$GITHUB_STEP_SUMMARY"; fi
+
+      - name: Upload PRO screenshots artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ratel-pro-screenshots
+          path: tool/live_capture/screenshots-pro
+          if-no-files-found: warn
+          retention-days: 30

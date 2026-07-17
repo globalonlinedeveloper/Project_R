@@ -1,0 +1,13 @@
+{
+  "name": "ratel-pro-capture",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "PRO-themed capture for INC-10 E1/E2 verification (Ratel Flutter web app).",
+  "scripts": {
+    "capture": "node capture_pro.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.47.2"
+  }
+}
