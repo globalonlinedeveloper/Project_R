@@ -10,6 +10,7 @@ import 'package:country_flags/country_flags.dart';
 import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/app/course_switch.dart';
 import 'package:ratel/core/core.dart';
+import 'package:ratel/services/auth/auth.dart';
 import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/billing/billing.dart';
 import 'package:ratel/services/preferences/app_settings.dart';
@@ -224,6 +225,7 @@ class SettingsScreen extends ConsumerWidget {
                     _openUrl(context, 'https://learnwithratel.com/help'),
               ),
               RatelListRow(
+                key: const ValueKey<String>('settings-account-row'),
                 leadingEmoji: identity.isAuthenticated ? '🚪' : '✨',
                 leadingColor: RatelColors.coral,
                 title: identity.isAuthenticated
@@ -232,7 +234,9 @@ class SettingsScreen extends ConsumerWidget {
                 subtitle: identity.isAuthenticated
                     ? null
                     : context.l10n.settingsGuestSub,
-                onTap: () => context.push('/onboarding'),
+                onTap: () => identity.isAuthenticated
+                    ? _confirmLogOut(context, ref)
+                    : context.push('/onboarding'),
               ),
             ],
           ),
@@ -297,6 +301,53 @@ class SettingsScreen extends ConsumerWidget {
     subtitle: subtitle,
     trailing: RatelToggle(value: value, onChanged: onChanged),
   );
+
+  Future<void> _confirmLogOut(BuildContext context, WidgetRef ref) async {
+    final bool? ok = await showModalBottomSheet<bool>(
+      context: context,
+      backgroundColor: context.palette.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(RatelRadius.featureLg),
+        ),
+      ),
+      builder: (BuildContext sheetContext) => SafeArea(
+        child: Padding(
+          key: const ValueKey<String>('settings-logout-sheet'),
+          padding: const EdgeInsets.all(RatelSpace.lg),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: RatelSpace.sm,
+                  bottom: RatelSpace.sm,
+                ),
+                child: RatelSectionHeader(label: context.l10n.settingsLogOut),
+              ),
+              RatelButton(
+                key: const ValueKey<String>('settings-logout-confirm'),
+                label: context.l10n.settingsLogOut,
+                variant: RatelButtonVariant.danger,
+                onPressed: () => Navigator.of(sheetContext).pop(true),
+              ),
+              const SizedBox(height: RatelSpace.sm),
+              RatelButton(
+                key: const ValueKey<String>('settings-logout-cancel'),
+                label: context.l10n.commonCancel,
+                variant: RatelButtonVariant.secondary,
+                onPressed: () => Navigator.of(sheetContext).pop(false),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+    if (ok != true) return;
+    await ref.read(authServiceProvider).signOut();
+    if (context.mounted) context.go('/onboarding');
+  }
 
   void _pickGoal(BuildContext context, AppSettingsController c, int current) {
     showModalBottomSheet<void>(
