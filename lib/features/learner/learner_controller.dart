@@ -12,6 +12,8 @@ import 'package:ratel/services/leagues/leagues.dart' show LeagueWeek;
 import 'package:ratel/services/learning/learning.dart';
 import 'package:ratel/services/notifications/notifications.dart'
     show NotificationStats;
+import 'package:ratel/services/quests/quests.dart';
+import 'package:ratel/services/quests/quest_claims_store.dart';
 import 'package:ratel/services/social/friends.dart' show FriendActivityType;
 import 'package:ratel/services/social/friends_service.dart';
 
@@ -148,6 +150,7 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   final ColdStartModel _cold = const ColdStartModel();
   final StreakModel _streakModel = const StreakModel();
   final DiamondsModel _diamondsModel = const DiamondsModel();
+  final QuestsEngine _questsEngine = const QuestsEngine();
   final StreakFreezeModel _freezeModel = const StreakFreezeModel();
   final List<ReviewLogEntry> _log = <ReviewLogEntry>[];
   final Fsrs _fsrs = const Fsrs();
@@ -185,6 +188,27 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   DateTime? _xpTodayDate;
   DateTime? _xpWeekStart;
   DateTime? _lastGoalMetDate;
+
+  /// Quest 💎 idempotency — DEVICE-LOCAL DURABLE (INC-QR1). The set of quest
+  /// ids whose 💎 have already been credited today; a quest is credited only on
+  /// a genuine incomplete→done transition, and at most once per CALENDAR DAY
+  /// per device. The set is persisted through [questClaimsStoreProvider] and
+  /// RELOADED on the first quest evaluation of a session: if the stored day is
+  /// today, the persisted ids seed the set — so a quest paid earlier today does
+  /// NOT re-pay after a relaunch, even once [xpToday] resets to 0 and the quest
+  /// re-completes (the restart double-credit path is closed). On the FIRST
+  /// evaluation the set is ALSO pre-seeded with every quest already done at that
+  /// moment WITHOUT crediting it, so a boot-done quest with no durable proof it
+  /// was paid still never over-pays. Reset (and re-persisted empty) for a new
+  /// day in [_rollDay]. A synced cross-device ledger is deferred to INC-QR2.
+  /// `null` ⇒ not yet initialised this session (load + pre-seed pending).
+  Set<String>? _questsClaimedToday;
+  DateTime? _questsClaimedDate;
+
+  /// Whether the persisted claimed-set has been loaded from
+  /// [questClaimsStoreProvider] this session (a one-shot, so a same-day reload
+  /// never clobbers ids credited in-memory since the load).
+  bool _questClaimsLoaded = false;
 
   /// Session-local Double-XP boost expiry (E1 · R-I4). null ⇒ no boost; not
   /// persisted (gone on relaunch, like energy/xpToday) — the 💎 debit IS durable.
@@ -281,6 +305,10 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _rollWeek(today);
     _coverMissedDays(today);
     _spendEnergyForLesson();
+    // Quest metrics as they stood BEFORE this lesson (post day-roll), for the
+    // conservative in-session quest-completion detection (INC-QR1).
+    final int xpTodayBefore = _xpToday;
+    final int streakBeforeQuest = state.streakDays;
     final int gained = isDoubleXpActive ? xp * PowerUpPrices.doubleXpMultiplier : xp;
     _lessons += 1;
     _xpTotal += gained;
@@ -293,6 +321,14 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     // (R-G6 / R-L14). Honest — only real earned XP, never fabricated.
     ref.read(xpHistoryControllerProvider.notifier).recordToday(gained);
     state = _derive();
+    // INC-QR1: credit REAL 💎 for any quest genuinely completed this session,
+    // then re-derive so the surfaced balance reflects the fresh credit.
+    if (_maybeAwardQuestRewards(
+      _questStats(xpToday: xpTodayBefore, streakDays: streakBeforeQuest),
+      _questStats(xpToday: state.xpToday, streakDays: state.streakDays),
+    )) {
+      state = _derive();
+    }
     _persist();
     _stampMilestones(snapBefore);
     _maybeEmitStreak(streakBefore, state.streakDays);
@@ -314,6 +350,8 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _rollDay(today);
     _rollWeek(today);
     _coverMissedDays(today);
+    final int xpTodayBefore = _xpToday;
+    final int streakBeforeQuest = state.streakDays;
     final int gained =
         isDoubleXpActive ? xp * PowerUpPrices.doubleXpMultiplier : xp;
     _xpTotal += gained;
@@ -325,6 +363,14 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     // Real earned XP into the device-local 7-day history (R-G6 / R-L14).
     ref.read(xpHistoryControllerProvider.notifier).recordToday(gained);
     state = _derive();
+    // INC-QR1: credit REAL 💎 for any quest genuinely completed this session,
+    // then re-derive so the surfaced balance reflects the fresh credit.
+    if (_maybeAwardQuestRewards(
+      _questStats(xpToday: xpTodayBefore, streakDays: streakBeforeQuest),
+      _questStats(xpToday: state.xpToday, streakDays: state.streakDays),
+    )) {
+      state = _derive();
+    }
     _persist();
     _stampMilestones(snapBefore);
     _maybeEmitStreak(streakBefore, state.streakDays);
@@ -336,6 +382,18 @@ class LearnerController extends Notifier<LearnerSnapshot> {
   /// session that crosses local midnight (a relaunch already starts it at zero).
   void _rollDay(DateTime today) {
     if (_xpTodayDate != null && _xpTodayDate != today) _xpToday = 0;
+    // A new day re-opens every quest, so its 💎 can be earned again — clear the
+    // claimed-set (INC-QR1) AND persist the empty new-day state so the durable
+    // store no longer carries yesterday's ids. Guarded on a real date change so
+    // a same-day re-entry keeps today's already-credited quests idempotent and
+    // never churns the store. `_questClaimsLoaded` is reset so the fresh day
+    // re-loads (finds the just-written empty set) on its next evaluation.
+    if (_questsClaimedDate != null && _questsClaimedDate != today) {
+      _questsClaimedToday = null;
+      _questClaimsLoaded = false;
+      _questsClaimedDate = today;
+      _saveQuestClaims(today, const <String>{});
+    }
     _xpTodayDate = today;
   }
 
@@ -375,6 +433,96 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _diamonds = _diamondsModel
         .award(balance: _diamonds, event: DiamondEvent.dailyGoalMet);
     _lastGoalMetDate = today;
+  }
+
+  /// Build the pure [QuestStats] the quest board is measured against — the
+  /// SAME real metrics `questsProvider` feeds the engine (goal floored at 1 to
+  /// match `dailyGoalProvider`). Used to detect genuine in-session quest
+  /// completions for the 💎 reward (INC-QR1).
+  QuestStats _questStats({required int xpToday, required int streakDays}) {
+    final int rawGoal = ref.read(appSettingsControllerProvider).dailyGoal;
+    return QuestStats(
+      xpToday: xpToday,
+      streakDays: streakDays,
+      dailyGoal: rawGoal <= 0 ? 1 : rawGoal,
+    );
+  }
+
+  /// Credit the REAL 💎 for any daily quest that GENUINELY crossed
+  /// incomplete→done during this session (INC-QR1 · R-I7 · R-I4). Called AFTER
+  /// `state = _derive()` from the earn paths, so it reads the same real metrics
+  /// the quest board shows. The engine stays pure — all wiring is here.
+  ///
+  /// Idempotency is the conservative, session-local claimed-set
+  /// ([_questsClaimedToday]): a quest pays at most once per day, and only on an
+  /// in-session transition. [statsBefore] are the metrics as they stood BEFORE
+  /// this action; [statsNow] after it. On the FIRST evaluation of a session the
+  /// set is PRE-SEEDED from the quests already done in [statsBefore] WITHOUT
+  /// crediting them — a quest already complete at app start never pays (no
+  /// durable proof it wasn't already paid; no restart double-credit). Awards
+  /// therefore fire only for quests that were NOT done before and ARE done now.
+  /// Returns whether any 💎 were credited (so the caller can persist).
+  bool _maybeAwardQuestRewards(QuestStats statsBefore, QuestStats statsNow) {
+    final DateTime today = _today();
+    _questsClaimedDate = today;
+    // Initialise the claimed-set once per session as the UNION of two sources:
+    //  (a) the DURABLE persisted ids for today (authoritative across restart —
+    //      a quest paid earlier today stays claimed even after xpToday resets
+    //      and it re-completes), and
+    //  (b) the boot-done pre-seed — quests already done in [statsBefore] at this
+    //      first evaluation, credited to nobody (conservative: no durable proof
+    //      they were unpaid, so they never over-pay this session).
+    _questsClaimedToday ??= <String>{
+      ..._loadPersistedClaimIds(today),
+      for (final QuestProgress p in _questsEngine.evaluate(statsBefore))
+        if (p.done) p.quest.id,
+    };
+    bool credited = false;
+    for (final QuestProgress p in _questsEngine.evaluate(statsNow)) {
+      if (!p.done) continue;
+      if (_questsClaimedToday!.contains(p.quest.id)) continue;
+      _diamonds = _diamondsModel.awardQuest(
+          balance: _diamonds, rewardDiamonds: p.quest.rewardDiamonds);
+      _questsClaimedToday!.add(p.quest.id);
+      credited = true;
+    }
+    // Persist the (possibly grown) claimed-set for today so it survives a
+    // relaunch. Best-effort: only when something was actually credited.
+    if (credited) _saveQuestClaims(today, _questsClaimedToday!);
+    return credited;
+  }
+
+  /// The DURABLE quest-ids already credited on [today], from
+  /// [questClaimsStoreProvider] — loaded at most ONCE per session (guarded by
+  /// [_questClaimsLoaded]) so a later reload never clobbers ids credited
+  /// in-memory since. A stored day != today is STALE (a new day re-opens every
+  /// quest) ⇒ the empty set. Best-effort: any read failure yields empty, never
+  /// throws into the earn path.
+  Set<String> _loadPersistedClaimIds(DateTime today) {
+    if (_questClaimsLoaded) return const <String>{};
+    _questClaimsLoaded = true;
+    try {
+      final QuestClaims stored = ref.read(questClaimsStoreProvider).load();
+      if (stored.day == today) return stored.ids;
+    } catch (_) {
+      // never break the earn path on a load failure — start the day empty
+    }
+    return const <String>{};
+  }
+
+  /// Persist the claimed-set [ids] stamped with [day] through
+  /// [questClaimsStoreProvider] (INC-QR1 durable idempotency). Fire-and-forget
+  /// + best-effort — the in-memory credit already happened; a write failure
+  /// only means the durable guard misses this once, never breaks the earn path.
+  void _saveQuestClaims(DateTime day, Set<String> ids) {
+    try {
+      ref.read(questClaimsStoreProvider).save(
+            QuestClaims(day: day, ids: Set<String>.of(ids)),
+          );
+    } catch (_) {
+      // best-effort: a failed persist is tolerated (worst case: one extra
+      // credit path re-opens, exactly the pre-INC-QR1 behaviour)
+    }
   }
 
   /// Spend one held streak-freeze per missed day to keep a lapsing run alive
@@ -578,6 +726,9 @@ class LearnerController extends Notifier<LearnerSnapshot> {
     _xpWeekStart = null;
     _lastGoalMetDate = null;
     _xpBoostUntil = null;
+    _questsClaimedToday = null;
+    _questsClaimedDate = null;
+    _questClaimsLoaded = false;
     state = _derive();
   }
 

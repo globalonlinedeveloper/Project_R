@@ -100,9 +100,12 @@ void main() {
         findsOneWidget);
     expect(find.text('Continue'), findsOneWidget);
 
-    // Real engine state moved: +15 XP, +5 diamonds, explored persisted.
+    // Real engine state moved: +15 XP, +5 adventure diamonds, explored
+    // persisted. The +15 XP also crosses the streak_keeper daily quest (any XP)
+    // once → +3 quest 💎 (INC-QR1), so the wallet reads 8. The dialog copy
+    // above still surfaces the ADVENTURE's own +5 💎 reward.
     expect(c.read(learnerControllerProvider).xpToday, 15);
-    expect(c.read(learnerControllerProvider).diamonds, 5);
+    expect(c.read(learnerControllerProvider).diamonds, 8); // 5 adventure + 3 quest
     expect(c.read(adventureProgressControllerProvider), <String>{'adv1'});
 
     // Continue dismisses; the honest ending card is beneath.
@@ -130,7 +133,9 @@ void main() {
     expect(find.byKey(const ValueKey<String>('adventure-complete-dialog')),
         findsNothing);
     expect(c.read(learnerControllerProvider).xpToday, 15); // still one award
-    expect(c.read(learnerControllerProvider).diamonds, 5);
+    // Replay re-earns no XP, so no adventure reward AND no re-completed quest:
+    // the wallet stays at 8 (5 adventure + 3 streak_keeper quest, INC-QR1).
+    expect(c.read(learnerControllerProvider).diamonds, 8);
   });
 
   testWidgets('pre-explored adventure (earlier visit): no dialog, no award',

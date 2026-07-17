@@ -53,4 +53,16 @@ void main() {
         r.every((QuestProgress p) => p.fraction >= 0 && p.fraction <= 1),
         isTrue);
   });
+
+  // INC-QR1: every quest carries an honest, non-negative reward const — the
+  // REAL 💎 the learner earns the first time it is completed. Pure data on the
+  // Quest (the engine stays clockless); the flat amount is 3 for every quest.
+  test('every quest has a non-negative rewardDiamonds const (flat 3)', () {
+    expect(QuestsEngine.catalogue, isNotEmpty);
+    for (final Quest q in QuestsEngine.catalogue) {
+      expect(q.rewardDiamonds, greaterThanOrEqualTo(0),
+          reason: 'quest ${q.id} reward must be non-negative');
+      expect(q.rewardDiamonds, 3, reason: 'INC-QR1 resolved: 3💎 flat per quest');
+    }
+  });
 }

@@ -50,6 +50,7 @@ class Quest {
     required this.description,
     required this.metric,
     this.goalMultiple = 1,
+    this.rewardDiamonds = 3,
   });
 
   final String id;
@@ -60,6 +61,14 @@ class Quest {
 
   /// For [QuestMetric.xpToday] the target is `goalMultiple * dailyGoal`.
   final int goalMultiple;
+
+  /// The 💎 the learner genuinely earns the first time this quest is completed
+  /// on a given day (R-I4, INC-QR1). A pure, honest constant — the SAME small
+  /// flat amount for every quest, mirroring the auditable [DiamondsModel]
+  /// reward constants. It is a real, deterministic reward the learner WILL
+  /// receive, never a fabricated balance; the engine stays clockless and holds
+  /// no wallet — the [LearnerController] owns the credit + its idempotency.
+  final int rewardDiamonds;
 }
 
 /// One evaluated quest: the learner's current value vs the target.

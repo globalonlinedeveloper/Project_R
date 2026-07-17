@@ -56,31 +56,34 @@ void main() {
 
       // Full energy → nothing to refill yet.
       expect(n.canBuyEnergyRefill, isFalse);
-      // A sub-goal lesson spends 1 ⚡ (+1 💎), no goal-met bonus.
+      // A sub-goal lesson spends 1 ⚡ and pays +1 💎 lesson + 3 💎 streak_keeper
+      // (INC-QR1: any XP completes streak_keeper); no goal-met bonus (goal 20).
       n.recordLessonComplete(xp: 10);
       expect(c.read(learnerControllerProvider).energy, 4);
-      expect(c.read(learnerControllerProvider).diamonds, 31);
+      expect(c.read(learnerControllerProvider).diamonds, 34); // 30 + 1 + 3
       expect(n.canBuyEnergyRefill, isTrue);
 
       n.buyEnergyRefill();
       expect(c.read(learnerControllerProvider).energy, 5); // refilled
-      expect(c.read(learnerControllerProvider).diamonds, 26); // 31 - 5
+      expect(c.read(learnerControllerProvider).diamonds, 29); // 34 - 5
       expect(n.canBuyEnergyRefill, isFalse); // full again
     });
 
     test('gated when the wallet cannot afford it', () async {
-      final _Store store = _Store(_seed(<String, Object?>{'diamonds': 2}));
+      final _Store store = _Store(_seed(<String, Object?>{'diamonds': 0}));
       final ProviderContainer c =
           _c(() => DateTime(2026, 6, 1, 9), identity: FakeIdentity(), store: store);
       addTearDown(c.dispose);
       final LearnerController n = c.read(learnerControllerProvider.notifier);
       await _settle();
-      n.recordLessonComplete(xp: 10); // energy 4, diamonds 3
+      // +1 lesson +3 streak_keeper (INC-QR1) = 4 💎 — still under the 5 💎 refill
+      // price, so the purchase stays gated (the intent of this test).
+      n.recordLessonComplete(xp: 10); // energy 4, diamonds 0 + 1 + 3 = 4
       expect(c.read(learnerControllerProvider).energy, 4);
-      expect(n.canBuyEnergyRefill, isFalse); // 3 < 5
+      expect(n.canBuyEnergyRefill, isFalse); // 4 < 5
       n.buyEnergyRefill(); // no-op
       expect(c.read(learnerControllerProvider).energy, 4);
-      expect(c.read(learnerControllerProvider).diamonds, 3);
+      expect(c.read(learnerControllerProvider).diamonds, 4);
     });
   });
 
@@ -140,7 +143,8 @@ void main() {
       expect(c.read(learnerControllerProvider).diamonds, 15); // 30 - 15
       n.recordLessonComplete(xp: 10);
       expect(c.read(learnerControllerProvider).xpTotal, 20); // 10 × 2
-      expect(c.read(learnerControllerProvider).diamonds, 16); // 15 + 1 lesson
+      // 15 + 1 lesson + 3 streak_keeper quest (INC-QR1; goal 100 not met) = 19.
+      expect(c.read(learnerControllerProvider).diamonds, 19);
       expect(n.canBuyDoubleXp, isFalse); // already active
     });
 

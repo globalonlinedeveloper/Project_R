@@ -62,46 +62,50 @@ void main() {
     ];
     await _pump(tester,
         overrides: <Override>[questsProvider.overrideWithValue(quests)]);
+    // INC-QR1: the DONE power_session shows the EARNED chip ✅ +3💎 (real const);
+    // the not-done streak_keeper shows its PENDING +3💎 reward. So exactly one
+    // ✅ (earned), one earned-chip key, and two "+3💎" (1 earned + 1 pending).
     expect(find.text('✅'), findsOneWidget);
+    expect(find.byKey(const ValueKey<String>('quest-reward-earned')),
+        findsOneWidget);
+    expect(find.text('+3💎'), findsNWidgets(2));
+    expect(find.byKey(const ValueKey<String>('quest-reward-slot')),
+        findsOneWidget); // the single not-done quest's pending slot
     expect(find.textContaining('DAILY QUESTS · 1/2'), findsOneWidget);
     expect(find.textContaining('40/40 XP today'), findsOneWidget);
   });
 
-  // INC-QST1: the honest reward placeholder. A NOT-done quest shows a muted
-  // "🎁 Rewards soon" disclosure in its trailing slot — it must carry NO
-  // diamond count and NO 💎, because reward chests need a backend economy the
-  // app doesn't have (§6). This proves the reward is disclosed, never faked.
-  testWidgets('reward slot renders for each not-done quest with NO digit/💎',
+  // INC-QR1: the reward slot is now HONEST-REAL, not a placeholder. The 💎
+  // wallet credits a genuine amount the first time a quest is completed
+  // (`LearnerController._maybeAwardQuestRewards`), so a NOT-done quest discloses
+  // the real PENDING reward `🎁 +3💎` (the deterministic `Quest.rewardDiamonds`
+  // const the learner WILL earn) under a small "reward" label — clearly a
+  // reward to earn, never the wallet balance and never a fabricated figure.
+  testWidgets('not-done reward slot shows the REAL pending +3💎 reward',
       (WidgetTester tester) async {
     await _pump(tester);
     // Fresh state = 3 open quests, all not-done → 3 reward slots.
     final Finder slots = find.byKey(const ValueKey<String>('quest-reward-slot'));
     expect(slots, findsNWidgets(3));
-    // The muted disclosure copy is present.
-    expect(find.text('Rewards soon'), findsNWidgets(3));
-    // No slot contains any digit (would imply a fake diamond/chest count)…
+    // The REAL pending reward amount (+3💎) shows in every slot; there is NO
+    // localized label (the 🎁 glyph marks it as a reward), so no ARB key.
+    expect(find.text('+3💎'), findsNWidgets(3));
+    // The old muted placeholder copy is gone now that the reward is real.
+    expect(find.text('Rewards soon'), findsNothing);
+    expect(find.text('reward'), findsNothing);
+    // The 🎁 glyph precedes the pending amount in each slot.
     expect(
-        find.descendant(
-            of: slots.first, matching: find.textContaining(RegExp(r'\d'))),
-        findsNothing);
-    // …and none contains a 💎 glyph anywhere in the screen's reward slots.
-    for (int i = 0; i < 3; i++) {
-      expect(
-          find.descendant(
-              of: slots.at(i), matching: find.textContaining('💎')),
-          findsNothing);
-    }
-    // Belt-and-braces: read every Text in the first slot's subtree and assert
-    // it is exactly the disclosure glyph or copy — nothing numeric/diamond.
-    final Iterable<Text> texts = tester
-        .widgetList<Text>(find.descendant(of: slots.first, matching: find.byType(Text)));
+        find.descendant(of: slots.first, matching: find.text('🎁')),
+        findsOneWidget);
+    // The ONLY digit shown is the real reward const (3) — no fabricated count.
+    final Iterable<Text> texts = tester.widgetList<Text>(
+        find.descendant(of: slots.first, matching: find.byType(Text)));
     for (final Text t in texts) {
       final String s = t.data ?? '';
-      expect(s.contains('💎'), isFalse, reason: 'reward slot must not show 💎');
-      expect(RegExp(r'\d').hasMatch(s), isFalse,
-          reason: 'reward slot must not show a digit (no fake count)');
-      expect(<String>['🎁', 'Rewards soon'].contains(s), isTrue,
-          reason: 'unexpected reward-slot text: "$s"');
+      final Iterable<String> digits =
+          RegExp(r'\d').allMatches(s).map((Match m) => m.group(0)!);
+      expect(digits.every((String d) => d == '3'), isTrue,
+          reason: 'reward slot digit must be the real 3💎 const, not "$s"');
     }
   });
 
@@ -139,9 +143,14 @@ void main() {
     ];
     await _pump(tester,
         overrides: <Override>[questsProvider.overrideWithValue(quests)]);
-    // The single quest is done → ✅ present, and NO reward slot exists.
+    // The single quest is done → the EARNED chip ✅ +3💎 shows, and the
+    // not-done PENDING reward slot does NOT (that slot is for open quests only).
     expect(find.text('✅'), findsOneWidget);
+    expect(find.text('+3💎'), findsOneWidget); // real earned reward const
+    expect(find.byKey(const ValueKey<String>('quest-reward-earned')),
+        findsOneWidget);
     expect(find.byKey(const ValueKey<String>('quest-reward-slot')), findsNothing);
+    expect(find.text('reward'), findsNothing); // the pending label is absent
     expect(find.text('Rewards soon'), findsNothing);
   });
 

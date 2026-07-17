@@ -341,35 +341,34 @@ class _QuestTile extends StatelessWidget {
             ),
           ),
           const SizedBox(width: RatelSpace.sm),
-          // INC-QST1: honest trailing slot. Done quests keep the ✅. Not-done
-          // quests show a MUTED "🎁 Rewards soon" disclosure — NOT a fake
-          // reward chip: it carries NO diamond count and NO 💎, because reward
-          // chests need a backend economy the app doesn't have (§6). A narrow
-          // fixed width + Flexible label keeps the long-locale copy from
-          // overflowing the tile Row at 360px.
+          // INC-QR1: honest trailing REWARD slot, now that the 💎 wallet credits
+          // a real amount when a quest is genuinely completed
+          // (`LearnerController._maybeAwardQuestRewards`). The digit is the
+          // quest's own deterministic `rewardDiamonds` const — a REAL amount the
+          // learner earns, never a fabricated balance. A DONE quest shows the
+          // EARNED chip `✅ +N💎`; a not-done quest shows the honest PENDING
+          // reward `🎁 +N💎` under a small "reward" label, so it reads clearly as
+          // a reward-to-earn (not the wallet total). A narrow fixed width keeps
+          // the chip from overflowing the tile Row at 360px.
           if (done)
-            const Text('✅', style: TextStyle(fontSize: 18))
+            _RewardChip(
+                key: const ValueKey<String>('quest-reward-earned'),
+                emoji: '✅',
+                amount: q.rewardDiamonds,
+                color: RatelColors.green)
           else
+            // A not-done quest discloses the REAL pending reward `🎁 +3💎` — the
+            // deterministic `Quest.rewardDiamonds` const the learner WILL earn
+            // the first time it is completed (INC-QR1). The 🎁 gift glyph marks
+            // it clearly as a reward-to-earn (never the wallet balance), and it
+            // needs no localized copy, so no ARB key / no de clobber. The muted
+            // ink keeps it a disclosure, not a claim.
             SizedBox(
               key: const ValueKey<String>('quest-reward-slot'),
-              width: 64,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const Text('🎁', style: TextStyle(fontSize: 16)),
-                  const SizedBox(height: 2),
-                  Flexible(
-                    child: Text(
-                      context.l10n.questsRewardPending,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: RatelFont.body,
-                          fontSize: RatelType.caption,
-                          color: context.palette.muted),
-                    ),
-                  ),
-                ],
-              ),
+              child: _RewardChip(
+                  emoji: '🎁',
+                  amount: q.rewardDiamonds,
+                  color: context.palette.muted),
             ),
         ],
       ),
@@ -391,6 +390,41 @@ class _QuestTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(RatelRadius.chip),
       ),
       child: Text(emoji, style: const TextStyle(fontSize: 22)),
+    );
+  }
+}
+
+/// A tiny honest reward chip: a leading glyph (`✅` earned / `🎁` pending) then
+/// the REAL `+N💎` the quest pays (INC-QR1). The amount is the quest's own
+/// deterministic `rewardDiamonds` const — a real earned/earnable reward, never
+/// a fabricated wallet balance. Kept compact so it fits the quest tile's narrow
+/// trailing slot at 360px without overflow.
+class _RewardChip extends StatelessWidget {
+  const _RewardChip({
+    required this.emoji,
+    required this.amount,
+    required this.color,
+    super.key,
+  });
+
+  final String emoji;
+  final int amount;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Text(emoji, style: const TextStyle(fontSize: 16)),
+        const SizedBox(width: 3),
+        Text('+$amount💎',
+            style: TextStyle(
+                fontFamily: RatelFont.display,
+                fontWeight: RatelType.semiBold,
+                fontSize: RatelType.small,
+                color: color)),
+      ],
     );
   }
 }

@@ -50,10 +50,28 @@ class DiamondsModel {
         DiamondEvent.adventureExplored => adventureReward,
       };
 
+  /// 💎 credited the first time a daily quest is genuinely completed on a given
+  /// day (R-I7 / R-I4, INC-QR1). The amount is the quest's own
+  /// [Quest.rewardDiamonds] (a small flat const, currently 3 for every quest);
+  /// it is passed in so the per-quest curve stays owner-set in one place while
+  /// the credit primitive — clamping a real earned amount onto the wallet —
+  /// lives here with the other reward maths. Idempotency (a quest pays at most
+  /// once per day) is the [LearnerController]'s conservative session-local
+  /// claimed-set, not this pure model's concern.
+  int questReward(int rewardDiamonds) => rewardDiamonds < 0 ? 0 : rewardDiamonds;
+
   /// The wallet balance after [event] is credited to [balance]. A negative
   /// input is treated as empty — the wallet never drops below zero.
   int award({required int balance, required DiamondEvent event}) =>
       (balance < 0 ? 0 : balance) + reward(event);
+
+  /// The wallet balance after crediting a genuinely-completed quest's
+  /// [rewardDiamonds] (INC-QR1). A negative balance is treated as empty and a
+  /// negative reward as zero — the wallet never drops below zero. The caller
+  /// ([LearnerController]) gates this on a real incomplete→done transition and
+  /// a per-day claimed-set so no quest pays twice.
+  int awardQuest({required int balance, required int rewardDiamonds}) =>
+      (balance < 0 ? 0 : balance) + questReward(rewardDiamonds);
 
   /// Whether [balance] can cover a spend of [amount] 💎 (a non-negative price).
   bool canSpend({required int balance, required int amount}) =>

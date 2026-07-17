@@ -8,6 +8,8 @@ import 'package:ratel/services/adventures/adventure_progress_store.dart';
 import 'package:ratel/services/adventures/prefs_adventure_progress_store.dart';
 import 'package:ratel/services/library/last_read_store.dart';
 import 'package:ratel/services/library/prefs_last_read_store.dart';
+import 'package:ratel/services/quests/quest_claims_store.dart';
+import 'package:ratel/services/quests/prefs_quest_claims_store.dart';
 import 'package:ratel/services/notifications/earned_stamps_store.dart';
 import 'package:ratel/services/notifications/prefs_earned_stamps_store.dart';
 import 'package:ratel/services/preferences/prefs_settings_store.dart';
@@ -124,6 +126,11 @@ Future<void> main() async {
       // fixed-column posture — a synced user_last_read table is a future
       // owner-gated migration, INC-C4).
       final LastReadStore lastRead = PrefsLastReadStore(prefs);
+      // INC-QR1 quest-reward claims: device-local DURABLE idempotency (same
+      // fixed-column posture — a synced ledger is a future owner-gated
+      // migration, INC-QR2). Survives relaunch so a paid quest never re-pays
+      // once xpToday resets and it re-completes.
+      final QuestClaimsStore questClaims = PrefsQuestClaimsStore(prefs);
       if (supabaseConfigured()) {
         try {
           final SupabaseClient client = Supabase.instance.client;
@@ -170,6 +177,7 @@ Future<void> main() async {
       overrides.add(
           immersionModeStoreProvider.overrideWithValue(immersionMode));
       overrides.add(lastReadStoreProvider.overrideWithValue(lastRead));
+      overrides.add(questClaimsStoreProvider.overrideWithValue(questClaims));
     } catch (_) {
       // keep the in-memory settings default
     }
