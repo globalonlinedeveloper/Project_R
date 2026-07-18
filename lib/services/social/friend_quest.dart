@@ -8,6 +8,10 @@ class FriendQuest {
     required this.id,
     required this.creatorId,
     required this.partnerId,
+    this.creatorHandle = '',
+    this.creatorName = '',
+    this.partnerHandle = '',
+    this.partnerName = '',
     required this.goalLessons,
     required this.status,
     required this.creatorProgress,
@@ -20,6 +24,10 @@ class FriendQuest {
   final String id;
   final String creatorId;
   final String partnerId;
+  final String creatorHandle;
+  final String creatorName;
+  final String partnerHandle;
+  final String partnerName;
   final int goalLessons;
 
   /// pending | active | completed | declined | cancelled (server text; an
@@ -49,6 +57,14 @@ class FriendQuest {
   /// The OTHER member's uid relative to [myUid] (the friend, from my seat).
   String otherId(String myUid) => myUid == creatorId ? partnerId : creatorId;
 
+  /// The friend's @handle from my seat (empty ⇒ unknown, never fabricated).
+  String otherHandle(String myUid) =>
+      myUid == creatorId ? partnerHandle : creatorHandle;
+
+  /// The friend's display name from my seat.
+  String otherName(String myUid) =>
+      myUid == creatorId ? partnerName : creatorName;
+
   /// My own contribution relative to [myUid].
   int myProgress(String myUid) =>
       myUid == creatorId ? creatorProgress : partnerProgress;
@@ -60,6 +76,10 @@ class FriendQuest {
     id: _s(j['friend_quest_id']),
     creatorId: _s(j['creator_id']),
     partnerId: _s(j['partner_id']),
+    creatorHandle: _s(j['creator_handle']),
+    creatorName: _s(j['creator_name']),
+    partnerHandle: _s(j['partner_handle']),
+    partnerName: _s(j['partner_name']),
     goalLessons: _i(j['goal_lessons']),
     status: _s(j['status']).isEmpty ? 'pending' : _s(j['status']),
     creatorProgress: _i(j['creator_progress']),

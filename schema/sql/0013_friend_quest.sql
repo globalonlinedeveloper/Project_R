@@ -24,7 +24,7 @@ RETURNS integer LANGUAGE sql STABLE SECURITY DEFINER SET search_path = '' AS $fn
   SELECT COALESCE(SUM(lessons_completed), 0)::integer FROM public.user_course WHERE user_id = p_uid;
 $fn$;
 
--- client-facing json for a quest row incl. LIVE server-derived progress
+-- client-facing json for a quest row incl. LIVE server-derived progress + member handles (name the partner)
 CREATE OR REPLACE FUNCTION public._fq_json(q public.friend_quest)
 RETURNS jsonb LANGUAGE plpgsql STABLE SECURITY DEFINER SET search_path = '' AS $fn$
 DECLARE
@@ -32,9 +32,13 @@ DECLARE
   v_pp integer := CASE WHEN q.partner_baseline IS NULL THEN 0
                        ELSE GREATEST(public._fq_lessons(q.partner_id) - q.partner_baseline, 0) END;
   v_combined integer := v_cp + v_pp;
+  v_ch text; v_cn text; v_ph text; v_pn text;
 BEGIN
+  SELECT handle, display_name INTO v_ch, v_cn FROM public.profiles WHERE id = q.creator_id;
+  SELECT handle, display_name INTO v_ph, v_pn FROM public.profiles WHERE id = q.partner_id;
   RETURN jsonb_build_object(
     'friend_quest_id', q.friend_quest_id, 'creator_id', q.creator_id, 'partner_id', q.partner_id,
+    'creator_handle', v_ch, 'creator_name', v_cn, 'partner_handle', v_ph, 'partner_name', v_pn,
     'goal_lessons', q.goal_lessons, 'status', q.status,
     'creator_progress', v_cp, 'partner_progress', v_pp,
     'combined_progress', LEAST(v_combined, q.goal_lessons), 'done', (v_combined >= q.goal_lessons),

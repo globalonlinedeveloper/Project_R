@@ -10,6 +10,10 @@ void main() {
           'friend_quest_id': 'q1',
           'creator_id': 'uA',
           'partner_id': 'uB',
+          'creator_handle': 'alice',
+          'partner_handle': 'bob',
+          'creator_name': 'Alice',
+          'partner_name': 'Bob',
           'goal_lessons': 12,
           'status': status,
           'creator_progress': 3,
@@ -38,6 +42,9 @@ void main() {
       final FriendQuest q = FriendQuest.fromJson(row());
       expect(q.otherId('uA'), 'uB');
       expect(q.otherId('uB'), 'uA');
+      expect(q.otherHandle('uA'), 'bob');
+      expect(q.otherHandle('uB'), 'alice');
+      expect(q.otherName('uA'), 'Bob');
       expect(q.myProgress('uA'), 3);
       expect(q.myProgress('uB'), 4);
     });

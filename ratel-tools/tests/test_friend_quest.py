@@ -92,6 +92,7 @@ def test_create_is_pending_with_zero_progress(h):
     assert q['creator_progress'] == 0 and q['partner_progress'] == 0   # prior lessons don't count
     assert q['done'] is False
     assert str(q['creator_id']) == a and str(q['partner_id']) == b
+    assert q['partner_handle'] == 'bob' and q['creator_handle'] == 'alice'  # names the partner
 
 
 def test_create_unauth_self_unknown_and_duplicate(h):
