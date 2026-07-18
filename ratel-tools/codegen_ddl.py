@@ -27,7 +27,8 @@ OUT = ROOT / "schema" / "sql" / "0001_schema.sql"
 # Deterministic table order; "user" first so child FKs resolve.
 USER_TABLES = ["user", "user_course", "user_item_state", "user_phoneme_state",
                "placement_session", "review_log", "credit_ledger",
-               "friendship", "friend_activity", "league_cohort", "league_member"]
+               "friendship", "friend_activity", "league_cohort", "league_member",
+               "friend_quest"]
 
 PK = {
     "user": ["user_id"],
@@ -41,6 +42,7 @@ PK = {
     "friend_activity": ["friend_activity_id"],
     "league_cohort": ["league_cohort_id"],
     "league_member": ["league_member_id"],
+    "friend_quest": ["friend_quest_id"],
 }
 PARTITION_BY = {"review_log": "reviewed_at"}
 PARTITIONS = {  # concrete monthly partitions (what pg_partman would automate)
@@ -74,6 +76,8 @@ FK_USER = ["user_course", "user_item_state", "user_phoneme_state",
 # re-formed on the next read) — never a cascade delete of a learner's standing.
 FK_EXTRA = {
     "league_member": [("cohort_id", "league_cohort", "league_cohort_id", "SET NULL")],
+    "friend_quest": [("creator_id", "user", "user_id", "CASCADE"),
+                     ("partner_id", "user", "user_id", "CASCADE")],
 }
 
 

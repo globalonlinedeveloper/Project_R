@@ -189,3 +189,19 @@ CREATE TABLE "league_member" (
 );
 
 CREATE INDEX ON "league_member" (cohort_id, week_start);
+
+CREATE TABLE "friend_quest" (
+    friend_quest_id uuid NOT NULL,
+    creator_id uuid NOT NULL,
+    partner_id uuid NOT NULL,
+    goal_lessons integer NOT NULL,
+    creator_baseline integer NOT NULL,
+    partner_baseline integer,
+    status text NOT NULL,
+    created_at timestamptz NOT NULL,
+    updated_at timestamptz NOT NULL,
+    completed_at timestamptz,
+    PRIMARY KEY (friend_quest_id),
+    FOREIGN KEY (creator_id) REFERENCES "user" (user_id) ON DELETE CASCADE,
+    FOREIGN KEY (partner_id) REFERENCES "user" (user_id) ON DELETE CASCADE
+);

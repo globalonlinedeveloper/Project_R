@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ratel.dev/schema/tables/friend_quest.json",
+  "title": "FriendQuest (R-I9 / R-L8) — a co-op quest shared by TWO friends: finish `goal_lessons` lessons TOGETHER. Shared, both-member-readable state (unlike own-row friendship). Progress is SERVER-DERIVED from each member's durable user_course.lessons_completed counter (baseline snapshot at create/accept) so neither client can inflate it.",
+  "type": "object",
+  "required": [
+    "friend_quest_id",
+    "creator_id",
+    "partner_id",
+    "goal_lessons",
+    "creator_baseline",
+    "status",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "friend_quest_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/uuid"
+    },
+    "creator_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/user_id",
+      "description": "The learner who created (and invited to) the quest. FK -> user."
+    },
+    "partner_id": {
+      "$ref": "https://ratel.dev/schema/common.json#/$defs/user_id",
+      "description": "The invited friend. FK -> user. Set at creation from the resolved @handle."
+    },
+    "goal_lessons": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Combined lessons the pair must finish together (design default 12)."
+    },
+    "creator_baseline": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Snapshot of the creator's SUM(user_course.lessons_completed) at creation; progress counts only lessons finished AFTER this."
+    },
+    "partner_baseline": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Snapshot of the partner's SUM(user_course.lessons_completed) at ACCEPT time. NULL while status='pending' (partner has not accepted)."
+    },
+    "status": {
+      "type": "string",
+      "description": "pending|active|completed|declined|cancelled (stored as text; engine maps unknown -> pending for forward-compat)."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When combined progress first reached goal_lessons (NULL until then)."
+    }
+  },
+  "additionalProperties": false
+}
