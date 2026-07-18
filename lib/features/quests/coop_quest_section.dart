@@ -194,7 +194,7 @@ class CoopQuestSection extends ConsumerWidget {
                 fontFamily: RatelFont.display,
                 fontWeight: RatelType.extraBold,
                 fontSize: RatelType.small,
-                color: filled ? Colors.white : context.palette.ink),
+                color: filled ? RatelColors.white : context.palette.ink),
           ),
         ),
       );
