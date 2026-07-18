@@ -54,6 +54,20 @@ const String kSupabasePublishableKey = String.fromEnvironment(
 /// (Welcome gate / returning guest) — no longer unconditionally at launch.
 const bool kEnableAnonSession = bool.fromEnvironment('RATEL_ANON');
 
+/// COMPLIANCE KILL-SWITCH [R-M2] — gates the entire friend-based SOCIAL surface
+/// (the Profile->Friends entry, the FRIEND QUEST section, and the cross-user
+/// friends + co-op RPC wiring below). DEFAULT ON: friends ships live, but a
+/// single `--dart-define=RATEL_FRIENDS=false` rebuild disables it FAST for
+/// compliance (age-gate / privacy, Thread 5) with NO code change. Read in UI via
+/// [friendsEnabledProvider] (test-overridable); gates the client RPC seams here.
+const bool kEnableFriends =
+    bool.fromEnvironment('RATEL_FRIENDS', defaultValue: true);
+
+/// UI-facing, test-overridable view of [kEnableFriends]: compile-time consts
+/// can't be flipped in a widget test, but this provider can. Re-exported from
+/// `app_providers.dart` so feature screens read it without importing wiring.
+final friendsEnabledProvider = Provider<bool>((ref) => kEnableFriends);
+
 /// Opt-in (build-dark until go-live): route the AI tutor / adventures through
 /// the SERVER-SIDE `ai-relay` edge function (which holds the model key). Go-
 /// live: (1) the function is deployed — set its `GEMINI_API_KEY` secret; (2)
@@ -214,22 +228,28 @@ Future<bool> fetchIsPro(SupabaseClient client) async {
   }
 }
 
-List<Override> backendOverridesForClient(SupabaseClient client) => <Override>[
+List<Override> backendOverridesForClient(
+  SupabaseClient client, {
+  bool friendsEnabled = kEnableFriends,
+}) => <Override>[
   learnerStateStoreProvider.overrideWithValue(
     SupabaseLearnerStateStore.fromClient(client),
   ),
-  friendsStoreProvider.overrideWithValue(
-    SupabaseFriendsStore.fromClient(client),
-  ),
+  if (friendsEnabled)
+    friendsStoreProvider.overrideWithValue(
+      SupabaseFriendsStore.fromClient(client),
+    ),
   leaguesStoreProvider.overrideWithValue(
     SupabaseLeaguesStore.fromClient(client),
   ),
-  friendsServiceProvider.overrideWithValue(
-    SupabaseFriendsService.fromClient(client),
-  ),
-  friendQuestServiceProvider.overrideWithValue(
-    SupabaseFriendQuestService.fromClient(client),
-  ),
+  if (friendsEnabled)
+    friendsServiceProvider.overrideWithValue(
+      SupabaseFriendsService.fromClient(client),
+    ),
+  if (friendsEnabled)
+    friendQuestServiceProvider.overrideWithValue(
+      SupabaseFriendQuestService.fromClient(client),
+    ),
   identityProvider.overrideWithValue(SupabaseIdentity.fromClient(client)),
   reviewLogSinkProvider.overrideWithValue(
     SupabaseReviewLogSink.fromClient(client),

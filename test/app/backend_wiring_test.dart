@@ -9,6 +9,7 @@ import 'package:ratel/services/data_access/supabase_friends_store.dart';
 import 'package:ratel/services/data_access/supabase_leagues_store.dart';
 import 'package:ratel/services/data_access/supabase_friends_service.dart';
 import 'package:ratel/services/social/friends_service.dart';
+import 'package:ratel/services/social/friend_quest_service.dart';
 import 'package:ratel/services/data_access/supabase_learner_state_store.dart';
 import 'package:ratel/services/tts_relay/tts_relay.dart';
 
@@ -72,6 +73,32 @@ void main() {
       expect(container.read(friendsServiceProvider),
           isA<SupabaseFriendsService>());
       // Regression: wiring friends must not drop the existing learner-state seam.
+      expect(container.read(learnerStateStoreProvider),
+          isA<SupabaseLearnerStateStore>());
+    });
+
+    test(
+        'RATEL_FRIENDS kill-switch (friendsEnabled:false) darkens ONLY the '
+        'friends + co-op seams; leagues + learner-state stay wired', () {
+      final client = SupabaseClient(
+        'https://stub.supabase.co',
+        'sb_publishable_stub_key',
+      );
+      addTearDown(() async => client.dispose());
+      final container = ProviderContainer(
+        overrides: backendOverridesForClient(client, friendsEnabled: false),
+      );
+      addTearDown(container.dispose);
+      // Friends + co-op fall back to the honest no-network defaults: no RPCs
+      // are ever routed to another account when the surface is killed.
+      expect(container.read(friendsStoreProvider), isA<InMemoryFriendsStore>());
+      expect(container.read(friendsServiceProvider),
+          isA<UnavailableFriendsService>());
+      expect(container.read(friendQuestServiceProvider),
+          isA<UnavailableFriendQuestService>());
+      // Scope guard: leagues + learner-state are NOT part of the friends
+      // kill-switch and stay Supabase-wired.
+      expect(container.read(leaguesStoreProvider), isA<SupabaseLeaguesStore>());
       expect(container.read(learnerStateStoreProvider),
           isA<SupabaseLearnerStateStore>());
     });

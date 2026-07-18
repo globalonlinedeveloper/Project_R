@@ -14,6 +14,7 @@ export 'package:ratel/features/learner/daily_goal.dart';
 export 'package:ratel/features/progress/xp_history_controller.dart';
 export 'package:ratel/features/progress/study_stats_controller.dart';
 export 'package:ratel/services/data_access/data_access.dart' show clockProvider;
+export 'package:ratel/app/backend_wiring.dart' show friendsEnabledProvider;
 
 /// Current Pro entitlement (design spec §4 PRO gating) — wraps the existing
 /// billing `entitlementsProvider` (free tier by default; server-computed at

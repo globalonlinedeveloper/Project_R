@@ -7,6 +7,7 @@ import 'package:ratel/features/quests/quests_screen.dart';
 import 'package:ratel/features/friends/friends_controller.dart';
 import 'package:ratel/services/social/friends.dart';
 import 'package:ratel/services/quests/quests.dart';
+import 'package:ratel/app/backend_wiring.dart' show friendsEnabledProvider;
 
 Future<void> _pump(WidgetTester tester, {List<Override> overrides = const <Override>[]}) async {
   tester.view.physicalSize = const Size(440, 2200);
@@ -147,6 +148,30 @@ void main() {
         findsOneWidget);
     // The real tile REPLACES the honest coming-soon card (not shown alongside).
     expect(find.textContaining('coming soon'), findsNothing);
+  });
+
+  // INC-FRIENDS-FLAG: the RATEL_FRIENDS compliance kill-switch. With it OFF,
+  // the ENTIRE friend-based FRIEND QUEST section is gone — header, coming-soon
+  // card, AND any real rival tile (kill-switch wins over live friend data) —
+  // while the rest of the Quests screen renders unchanged.
+  testWidgets('RATEL_FRIENDS off hides the whole FRIEND QUEST section',
+      (WidgetTester tester) async {
+    await _pump(tester, overrides: <Override>[
+      friendsEnabledProvider.overrideWithValue(false),
+      // A REAL rival is present, yet must NOT surface when friends are killed.
+      friendQuestProvider.overrideWithValue(const FriendQuestView(
+        handle: 'mia',
+        displayName: 'Mia',
+        avatarEmoji: '🦊',
+        myWeeklyXp: 120,
+        friendWeeklyXp: 200,
+      )),
+    ]);
+    expect(find.text('FRIEND QUEST'), findsNothing);
+    expect(find.byKey(const ValueKey('friend-quest-tile')), findsNothing);
+    expect(find.textContaining('coming soon'), findsNothing);
+    // Kill-switch is SCOPED: the daily quests screen itself still renders.
+    expect(find.byKey(const ValueKey<String>('tab-quests')), findsOneWidget);
   });
 
   group('INC-QF1 friendQuest logic', () {

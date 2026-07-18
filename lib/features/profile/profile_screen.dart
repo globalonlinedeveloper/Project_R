@@ -85,12 +85,14 @@ class ProfileScreen extends ConsumerWidget {
             const SizedBox(height: RatelSpace.sm),
             _achievementsGrid(context, achievements),
             const SizedBox(height: RatelSpace.lg),
-            RatelListRow(
-                leadingEmoji: '👥',
-                leadingColor: RatelColors.purple,
-                title: context.l10n.profileFriends,
-                onTap: () => context.push('/friends')),
-            const SizedBox(height: RatelSpace.sm),
+            if (ref.watch(friendsEnabledProvider)) ...<Widget>[
+              RatelListRow(
+                  leadingEmoji: '👥',
+                  leadingColor: RatelColors.purple,
+                  title: context.l10n.profileFriends,
+                  onTap: () => context.push('/friends')),
+              const SizedBox(height: RatelSpace.sm),
+            ],
             RatelListRow(
                 leadingEmoji: '💎',
                 leadingColor: RatelColors.amber,

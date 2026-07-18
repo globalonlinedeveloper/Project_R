@@ -222,6 +222,7 @@ class QuestsScreen extends ConsumerWidget {
                       ],
                     ),
                   ),
+                  if (ref.watch(friendsEnabledProvider)) ...<Widget>[
                   const SizedBox(height: RatelSpace.lg),
                   // INC-QST1: FRIEND QUEST section. The design's social/friend
                   // quest needs a social backend the app doesn't have, so we
@@ -273,6 +274,7 @@ class QuestsScreen extends ConsumerWidget {
                         ],
                       ),
                     ),
+                  ],
                 ],
               ),
             ),
