@@ -27,8 +27,10 @@ import 'package:ratel/services/data_access/supabase_calibration_store.dart';
 import 'package:ratel/services/learning/calibration_runner.dart'
     show calibrationStoreProvider;
 import 'package:ratel/services/data_access/supabase_friends_service.dart';
+import 'package:ratel/services/data_access/supabase_friend_quest_service.dart';
 import 'package:ratel/services/identity/identity.dart';
 import 'package:ratel/services/social/friends_service.dart';
+import 'package:ratel/services/social/friend_quest_service.dart';
 import 'package:ratel/services/identity/supabase_identity.dart';
 import 'package:ratel/services/live_session/live_session.dart';
 import 'package:ratel/services/billing/billing.dart';
@@ -224,6 +226,9 @@ List<Override> backendOverridesForClient(SupabaseClient client) => <Override>[
   ),
   friendsServiceProvider.overrideWithValue(
     SupabaseFriendsService.fromClient(client),
+  ),
+  friendQuestServiceProvider.overrideWithValue(
+    SupabaseFriendQuestService.fromClient(client),
   ),
   identityProvider.overrideWithValue(SupabaseIdentity.fromClient(client)),
   reviewLogSinkProvider.overrideWithValue(
