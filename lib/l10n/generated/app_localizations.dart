@@ -372,12 +372,6 @@ abstract class AppLocalizations {
   /// **'Level {cefr}'**
   String commonLevel(String cefr);
 
-  /// No description provided for @libraryEstMinutes.
-  ///
-  /// In en, this message translates to:
-  /// **'~{n} min'**
-  String libraryEstMinutes(int n);
-
   /// No description provided for @libraryReadNow.
   ///
   /// In en, this message translates to:
@@ -437,6 +431,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All videos'**
   String get libraryAllVideos;
+
+  /// No description provided for @libraryEstMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'~{n} min'**
+  String libraryEstMinutes(int n);
 
   /// No description provided for @lessonTypeWhatYouHear.
   ///
@@ -905,6 +905,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Out-earn @{handle} · {gap} XP to catch up this week'**
   String questsFriendQuestOutearn(String handle, int gap);
+
+  /// No description provided for @questsCoopProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Co-op with @{handle} · {done} of {goal} lessons together'**
+  String questsCoopProgress(String handle, int done, int goal);
+
+  /// No description provided for @questsCoopInvited.
+  ///
+  /// In en, this message translates to:
+  /// **'@{handle} invited you to a co-op quest'**
+  String questsCoopInvited(String handle);
+
+  /// No description provided for @questsCoopAccept.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept'**
+  String get questsCoopAccept;
+
+  /// No description provided for @questsCoopDecline.
+  ///
+  /// In en, this message translates to:
+  /// **'Decline'**
+  String get questsCoopDecline;
+
+  /// No description provided for @questsCoopWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for @{handle} to accept'**
+  String questsCoopWaiting(String handle);
+
+  /// No description provided for @questsCoopStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a co-op quest'**
+  String get questsCoopStart;
+
+  /// No description provided for @questsCoopStartHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish 12 lessons together with a friend'**
+  String get questsCoopStartHint;
+
+  /// No description provided for @questsCoopInviteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite a friend'**
+  String get questsCoopInviteTitle;
+
+  /// No description provided for @questsCoopInviteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'friend\'s @handle'**
+  String get questsCoopInviteHint;
+
+  /// No description provided for @questsCoopInviteSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get questsCoopInviteSend;
+
+  /// No description provided for @questsCoopInviteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t start the quest. Check the @handle and try again.'**
+  String get questsCoopInviteError;
 
   /// No description provided for @questsStartRefresh.
   ///
@@ -2020,11 +2086,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'🦡 RATEL\n🔥 {streak}-day streak · ⚡ {xp} XP · 📘 {lessons} lessons\nLearning at learnwithratel.com'**
-  String progressShareText(
-    int streak,
-    int xp,
-    int lessons,
-  );
+  String progressShareText(int streak, int xp, int lessons);
 
   /// No description provided for @progressShareCopied.
   ///

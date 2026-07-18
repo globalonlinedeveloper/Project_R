@@ -187,6 +187,11 @@ class AppLocalizationsKo extends AppLocalizations {
   String get libraryAllVideos => '모든 동영상';
 
   @override
+  String libraryEstMinutes(int n) {
+    return '~$n min';
+  }
+
+  @override
   String get lessonTypeWhatYouHear => '들리는 대로 입력하세요';
 
   @override
@@ -420,11 +425,6 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String libraryEstMinutes(int n) {
-    return '~$n min';
-  }
-
-  @override
   String questsDailyQuests(int done, int total) {
     return '일일 퀘스트 · $done/$total';
   }
@@ -440,12 +440,53 @@ class AppLocalizationsKo extends AppLocalizations {
   String get questsFriendQuest => 'Friend quest';
 
   @override
-  String get questsFriendQuestSoon => 'Friend quests need a social backend — coming soon. No fake partners are shown.';
+  String get questsFriendQuestSoon =>
+      'Friend quests need a social backend — coming soon. No fake partners are shown.';
 
   @override
   String questsFriendQuestOutearn(String handle, int gap) {
     return 'Out-earn @$handle · $gap XP to catch up this week';
   }
+
+  @override
+  String questsCoopProgress(String handle, int done, int goal) {
+    return 'Co-op with @$handle · $done of $goal lessons together';
+  }
+
+  @override
+  String questsCoopInvited(String handle) {
+    return '@$handle invited you to a co-op quest';
+  }
+
+  @override
+  String get questsCoopAccept => 'Accept';
+
+  @override
+  String get questsCoopDecline => 'Decline';
+
+  @override
+  String questsCoopWaiting(String handle) {
+    return 'Waiting for @$handle to accept';
+  }
+
+  @override
+  String get questsCoopStart => 'Start a co-op quest';
+
+  @override
+  String get questsCoopStartHint => 'Finish 12 lessons together with a friend';
+
+  @override
+  String get questsCoopInviteTitle => 'Invite a friend';
+
+  @override
+  String get questsCoopInviteHint => 'friend\'s @handle';
+
+  @override
+  String get questsCoopInviteSend => 'Send';
+
+  @override
+  String get questsCoopInviteError =>
+      'Couldn\'t start the quest. Check the @handle and try again.';
 
   @override
   String get questsStartRefresh => '데일리 리프레시 시작';
@@ -1088,11 +1129,7 @@ class AppLocalizationsKo extends AppLocalizations {
       '여기 있는 모든 것은 실제 기록된 상태예요 — 레벨, 능력, 저장한 단어, XP, 레슨, 스트릭, 7일 기록, 정확도, 학습 시간이 0에서 시작해 배울수록 늘어나요. 기억 유지는 이번 세션의 예측 회상이에요(세션 간 스케줄러는 출시 작업). 꾸며낸 것은 없어요.';
 
   @override
-  String progressShareText(
-    int streak,
-    int xp,
-    int lessons,
-  ) {
+  String progressShareText(int streak, int xp, int lessons) {
     return '🦡 RATEL\n🔥 $streak일 스트릭 · ⚡ $xp XP · 📘 레슨 $lessons개\nlearnwithratel.com에서 학습 중';
   }
 
@@ -2607,7 +2644,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get streakHonestNote =>
-      'Your day count and freezes are your real numbers. RATEL does not show a day-by-day calendar here because it does not yet keep a per-day activity log — nothing is invented.';
+      'Your day count and freezes are your real numbers. Active days are days you earned XP — nothing is invented.';
 
   @override
   String get energyTitle => 'Energy';

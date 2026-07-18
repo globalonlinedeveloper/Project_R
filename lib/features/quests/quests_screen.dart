@@ -6,6 +6,7 @@ import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/core/core.dart';
 import 'package:ratel/features/notifications/notifications_controller.dart';
 import 'package:ratel/features/quests/quests_controller.dart';
+import 'package:ratel/features/quests/coop_quest_section.dart';
 import 'package:ratel/features/home/diamonds_sheet.dart';
 import 'package:ratel/features/home/economy_glyph.dart';
 import 'package:ratel/features/learning_path/course_spine.dart';
@@ -231,6 +232,10 @@ class QuestsScreen extends ConsumerWidget {
                   // Mirrors the honesty info-note card's styling above.
                   RatelSectionHeader(label: context.l10n.questsFriendQuest),
                   const SizedBox(height: RatelSpace.sm),
+                  // INC-QF2: the co-op friend-quest surface (invite / live
+                  // progress / accept-decline). Honest SizedBox.shrink when the
+                  // backend is unavailable or there is nothing live to show.
+                  const CoopQuestSection(),
                   // INC-QF1: a REAL competitive friend-quest when the learner
                   // has a friend ahead in this week's league (real weekly_xp);
                   // otherwise the honest coming-soon card. Never a fake partner.

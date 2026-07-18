@@ -30,7 +30,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get settingsSectionLearning => 'Lernen';
 
   @override
-  String get settingsSectionSubscription => 'Abo';
+  String get settingsSectionSubscription => 'Abonnement';
 
   @override
   String get settingsSectionAccessibility => 'Barrierefreiheit';
@@ -39,7 +39,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get settingsSectionNotifications => 'Benachrichtigungen';
 
   @override
-  String get settingsSectionAppearanceAccount => 'Aussehen & Konto';
+  String get settingsSectionAppearanceAccount => 'Design & Konto';
 
   @override
   String get settingsAppLanguage => 'App-Sprache';
@@ -52,7 +52,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get homeCourseLoadingBody =>
-      'Lektionen erscheinen hier, sobald die Kursinhalte geladen sind.';
+      'Lektionen werden hier angezeigt, sobald deine Kursinhalte geladen sind.';
 
   @override
   String get homeGuideChip => 'Guide';
@@ -76,7 +76,7 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get homeUnitGuideHeader => 'EINHEITEN-GUIDE';
+  String get homeUnitGuideHeader => 'EINHEIT-GUIDE';
 
   @override
   String get commonDone => 'Fertig';
@@ -119,7 +119,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get libraryAiTutorSub =>
-      'Sprechen, chatten & Rollenspiel — Schreib-Feedback';
+      'Sprechen, chatten & Rollenspiele — Schreib-Feedback';
 
   @override
   String get libraryRoleplay => 'Rollenspiel';
@@ -135,7 +135,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get libraryPracticeHubSub =>
-      'Fehler, schwache Wörter & Drills · KOSTENLOS';
+      'Fehler, schwierige Wörter & Übungen · KOSTENLOS';
 
   @override
   String get librarySectionReadListen => 'Lesen & Hören';
@@ -147,13 +147,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get libraryPodcasts => 'Podcasts';
 
   @override
-  String get libraryWatch => 'Ansehen';
+  String get libraryWatch => 'Anschauen';
 
   @override
   String get librarySearchHint => 'Lektionen, Wörter, Geschichten suchen…';
 
   @override
-  String get libraryFeaturedStory => 'EMPFOHLEN · GESCHICHTE';
+  String get libraryFeaturedStory => 'HIGHLIGHT · GESCHICHTE';
 
   @override
   String commonLevel(String cefr) {
@@ -191,22 +191,27 @@ class AppLocalizationsDe extends AppLocalizations {
   String get libraryAllVideos => 'Alle Videos';
 
   @override
-  String get lessonTypeWhatYouHear => 'Tippe, was du hörst';
+  String libraryEstMinutes(int n) {
+    return '~$n min';
+  }
 
   @override
-  String get lessonTapWhatYouHear => 'Wähle, was du hörst';
+  String get lessonTypeWhatYouHear => 'Schreibe, was du hörst';
+
+  @override
+  String get lessonTapWhatYouHear => 'Tippe an, was du hörst';
 
   @override
   String get lessonTranslateSentence => 'Übersetze diesen Satz';
 
   @override
-  String get lessonExplainThis => '💡 Erklär das';
+  String get lessonExplainThis => '💡 Erkläre das';
 
   @override
-  String get lessonMatchPairs => 'Ordne die Paare zu';
+  String get lessonMatchPairs => 'Finde die Paare';
 
   @override
-  String get lessonTypeAnswerHint => 'Deine Antwort…';
+  String get lessonTypeAnswerHint => 'Gib deine Antwort ein…';
 
   @override
   String get lessonWriteAnswerHint => 'Schreibe deine Antwort…';
@@ -235,7 +240,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get lessonCompleteKicker => 'LEKTION ABGESCHLOSSEN';
 
   @override
-  String get lessonCompleteTitle => 'Lektion geschafft!';
+  String get lessonCompleteTitle => 'Lektion abgeschlossen!';
 
   @override
   String lessonCompleteSummary(int correct, int graded, String level) {
@@ -256,19 +261,19 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get onboardingWelcomeBody =>
-      'Lerne eine Sprache ohne Angst — in kleinen Häppchen, mit Spaß und kostenlos. Bereit loszulegen?';
+      'Lerne eine Sprache ohne Angst — in kleinen Portionen, mit Spaß und kostenlos. Bereit loszulegen?';
 
   @override
   String get onboardingHaveAccount => 'Ich habe schon ein Konto';
 
   @override
-  String get onboardingTryWithoutAccount => 'Ohne Konto ausprobieren →';
+  String get onboardingTryWithoutAccount => 'Ohne Konto testen →';
 
   @override
   String get onboardingGetStarted => 'Los geht\'s';
 
   @override
-  String get onboardingStartLearning => 'Mit dem Lernen anfangen';
+  String get onboardingStartLearning => 'Jetzt lernen';
 
   @override
   String get onboardingLanguageTitle => 'Was möchtest du lernen?';
@@ -287,20 +292,21 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String onboardingPlacementBody(String language) {
-    return 'Neu in $language oder kannst du schon etwas?';
+    return 'Ganz neu bei $language oder kennst du schon etwas?';
   }
 
   @override
-  String get onboardingBrandNew => 'Ich fange ganz neu an';
+  String get onboardingBrandNew => 'Ich bin ganz neu';
 
   @override
-  String get onboardingBrandNewSub => 'Ganz von vorn beginnen';
+  String get onboardingBrandNewSub => 'Ganz von vorne anfangen';
 
   @override
   String get onboardingPlacementTest => 'Einstufungstest machen';
 
   @override
-  String get onboardingPlacementTestSub => '~3 Min · spring zu deinem Niveau';
+  String get onboardingPlacementTestSub =>
+      '~3 Min. · springe direkt zu deinem Level';
 
   @override
   String onboardingXpPerDay(int xp) {
@@ -314,7 +320,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get reasonCulture => 'Kultur';
 
   @override
-  String get reasonCareer => 'Karriere';
+  String get reasonCareer => 'Beruf';
 
   @override
   String get reasonFamilyFriends => 'Familie & Freunde';
@@ -323,7 +329,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get reasonBrainTraining => 'Gehirntraining';
 
   @override
-  String get reasonJustForFun => 'Nur zum Spaß';
+  String get reasonJustForFun => 'Einfach so zum Spaß';
 
   @override
   String get goalCasual => 'Locker';
@@ -379,7 +385,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get profileNotifications => 'Benachrichtigungen';
 
   @override
-  String get profileSeeOnboarding => 'Onboarding ansehen ↗';
+  String get profileSeeOnboarding => 'Onboarding-Ablauf ansehen ↗';
 
   @override
   String get profileNotSignedIn => 'Nicht angemeldet';
@@ -389,11 +395,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get profileSaveProgress =>
-      'Sichere deinen Fortschritt auf allen Geräten';
+      'Speichere deinen Fortschritt geräteübergreifend';
 
   @override
   String profileTodaysGoal(int today, int goal) {
-    return 'Tagesziel · $today/$goal XP';
+    return 'Heutiges Ziel · $today/$goal XP';
   }
 
   @override
@@ -404,18 +410,18 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String questsResetsIn(int h, int m) {
-    return 'Zurücksetzung in ${h}h ${m}min';
+    return 'Wird in ${h}h ${m}m zurückgesetzt';
   }
 
   @override
-  String get questsDailyRefresh => 'Tägliche Auffrischung';
+  String get questsDailyRefresh => 'Tägliche Aktualisierung';
 
   @override
-  String get questsFreshMix => 'Ein frischer 5-Fragen-Mix';
+  String get questsFreshMix => 'Ein frischer Mix aus 5 Fragen';
 
   @override
   String get questsServedFromQueue =>
-      'Aus deiner echten Wiederholungs-Warteschlange — bringt echtes XP.';
+      'Stammt aus deiner echten Warteschlange — bringt echte XP.';
 
   @override
   String get questsGoalReached => 'Tagesziel erreicht! 🎉';
@@ -426,18 +432,13 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String libraryEstMinutes(int n) {
-    return '~$n min';
-  }
-
-  @override
   String questsDailyQuests(int done, int total) {
     return 'Tägliche Quests · $done/$total';
   }
 
   @override
   String get questsInfoNote =>
-      'Quests verfolgen deinen echten Tagesfortschritt. Belohnungstruhen, Freundes-Quests und eine Wochen-Rangliste brauchen eine Backend-Ökonomie — Entscheidung des Eigentümers (§6). Keine falschen Belohnungen.';
+      'Quests verfolgen deinen echten täglichen Fortschritt. Belohnungstruhen, Freundes-Quests und eine wöchentliche Rangliste erfordern eine Backend-Ökonomie — eine Entscheidung des Eigentümers (§6). Es werden keine falschen Belohnungen angezeigt.';
 
   @override
   String get questsRewardPending => 'Rewards soon';
@@ -446,7 +447,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get questsFriendQuest => 'Friend quest';
 
   @override
-  String get questsFriendQuestSoon => 'Friend quests need a social backend — coming soon. No fake partners are shown.';
+  String get questsFriendQuestSoon =>
+      'Friend quests need a social backend — coming soon. No fake partners are shown.';
 
   @override
   String questsFriendQuestOutearn(String handle, int gap) {
@@ -454,16 +456,56 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get questsStartRefresh => 'Tägliche Auffrischung starten';
+  String questsCoopProgress(String handle, int done, int goal) {
+    return 'Co-op with @$handle · $done of $goal lessons together';
+  }
+
+  @override
+  String questsCoopInvited(String handle) {
+    return '@$handle invited you to a co-op quest';
+  }
+
+  @override
+  String get questsCoopAccept => 'Accept';
+
+  @override
+  String get questsCoopDecline => 'Decline';
+
+  @override
+  String questsCoopWaiting(String handle) {
+    return 'Waiting for @$handle to accept';
+  }
+
+  @override
+  String get questsCoopStart => 'Start a co-op quest';
+
+  @override
+  String get questsCoopStartHint => 'Finish 12 lessons together with a friend';
+
+  @override
+  String get questsCoopInviteTitle => 'Invite a friend';
+
+  @override
+  String get questsCoopInviteHint => 'friend\'s @handle';
+
+  @override
+  String get questsCoopInviteSend => 'Send';
+
+  @override
+  String get questsCoopInviteError =>
+      'Couldn\'t start the quest. Check the @handle and try again.';
+
+  @override
+  String get questsStartRefresh => 'Tägliche Aktualisierung starten';
 
   @override
   String get questsStart => 'Start';
 
   @override
-  String get questsPractisedToday => 'Heute geübt — Serie sicher';
+  String get questsPractisedToday => 'Heute geübt — Streak gesichert';
 
   @override
-  String get questsEarnAnyXp => 'Verdiene heute beliebiges XP';
+  String get questsEarnAnyXp => 'Verdiene heute beliebige XP';
 
   @override
   String questsXpToday(int current, int target) {
@@ -506,7 +548,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String leaguesPromoteRelegate(int top, int bottom) {
-    return 'Die Top $top steigen auf · die letzten $bottom steigen ab, wenn die Woche endet.';
+    return 'Die besten $top steigen auf · die letzten $bottom steigen ab, wenn die Woche endet.';
   }
 
   @override
@@ -523,25 +565,25 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get notifEmptyBody =>
-      'Schließe Lektionen ab, baue eine Serie auf und steige auf — deine Meilensteine erscheinen hier, sobald du sie wirklich erreichst.';
+      'Schließe Lektionen ab, baue einen Streak auf und steige im Level auf — deine Meilensteine erscheinen hier, sobald du sie dir wirklich verdient hast.';
 
   @override
   String get notifPushNote =>
-      'Das sind In-App-Meilensteine, angezeigt in dem Moment, in dem du sie erreichst. Push-Benachrichtigungen und Erinnerungen sind Eigentümer-Entscheidung und noch nicht aktiviert — nichts hier ist gefälscht.';
+      'Dies sind In-App-Meilensteine, die in dem Moment erscheinen, in dem du sie verdienst. Push-Benachrichtigungen und Erinnerungen sind eine Entscheidung des Eigentümers und noch nicht aktiviert — hier wird nichts vorgetäuscht.';
 
   @override
   String get shopPowerUps => 'Power-ups';
 
   @override
-  String get shopStreakFreeze => 'Serien-Schutz';
+  String get shopStreakFreeze => 'Streak-Freeze';
 
   @override
   String get shopStreakFreezeDesc =>
-      'Schützt deine Serie an einem verpassten Tag. Wird automatisch verbraucht, wenn du dein Tagesziel verfehlst.';
+      'Schützt deinen Streak für einen verpassten Tag. Wird automatisch verbraucht, wenn du dein Tagesziel verfehlst.';
 
   @override
   String shopOwned(int have, int max) {
-    return 'Im Besitz: $have/$max';
+    return 'Im Besitz $have/$max';
   }
 
   @override
@@ -553,73 +595,75 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get shopFreezeAdded => 'Serien-Schutz hinzugefügt 💪';
+  String get shopFreezeAdded => 'Streak-Freeze hinzugefügt 💪';
 
   @override
   String shopFreezeAtCap(int max) {
-    return 'Du hast bereits die maximale Anzahl ($max).';
+    return 'Du hast bereits die maximale Anzahl an Freezes ($max).';
   }
 
   @override
   String shopNotEnoughEarnCost(int cost) {
-    return 'Nicht genug 💎 — verdiene $cost durch Lektionen.';
+    return 'Nicht genug 💎 — verdiene $cost, indem du Lektionen abschließt.';
   }
 
   @override
   String get shopNotEnoughEarnMore =>
-      'Nicht genug 💎 — verdiene mehr durch Lektionen.';
+      'Nicht genug 💎 — verdiene mehr, indem du Lektionen abschließt.';
 
   @override
   String get shopEnergyRefill => 'Energie-Auffüllung';
 
   @override
   String get shopEnergyRefillDesc =>
-      'Fülle deine Energie sofort wieder auf. Energie ist nur Anzeige — Lektionen blockieren nie.';
+      'Fülle deine Energie sofort wieder komplett auf. Energie dient nur der Anzeige — Lektionen werden nie blockiert.';
 
   @override
-  String get shopAlreadyFull => 'Schon voll';
+  String get shopAlreadyFull => 'Bereits voll';
 
   @override
   String get shopEnergyRefilled => 'Energie aufgefüllt ⚡';
 
   @override
-  String get shopEnergyAlreadyFull => 'Deine Energie ist schon voll.';
+  String get shopEnergyAlreadyFull => 'Deine Energie ist bereits voll.';
 
   @override
-  String get shopStreakRepair => 'Serien-Reparatur';
+  String get shopStreakRepair => 'Streak-Reparatur';
 
   @override
   String get shopStreakRepairDesc =>
-      'Serie verloren? Stelle die alte Länge wieder her und mach weiter.';
+      'Streak verloren? Stelle ihn auf seine vorherige Länge wieder her und setze deinen Lauf fort.';
 
   @override
-  String get shopStreakLapsed => 'Serie gerissen';
+  String get shopStreakLapsed => 'Streak abgelaufen';
 
   @override
   String shopStreakDays(int days) {
-    return '🔥 $days-Tage-Serie';
+    return '🔥 $days-Tage-Streak';
   }
 
   @override
   String shopRepairFor(int cost) {
-    return 'Für $cost 💎 reparieren';
+    return 'Reparieren für $cost 💎';
   }
 
   @override
-  String get shopStreakRestored => 'Serie wiederhergestellt 🔥';
+  String get shopStreakRestored => 'Streak wiederhergestellt 🔥';
 
   @override
-  String get shopStreakSafe => 'Deine Serie ist sicher — nichts zu reparieren.';
+  String get shopStreakSafe =>
+      'Dein Streak ist sicher — im Moment gibt es nichts zu reparieren.';
 
   @override
-  String get shopDoubleXp => 'Doppeltes XP';
+  String get shopDoubleXp => 'Doppelte XP';
 
   @override
-  String get shopDoubleXpDesc => '15 Minuten lang 2× XP aus jeder Lektion.';
+  String get shopDoubleXpDesc =>
+      'Verdiene 15 Minuten lang 2× XP für jede Lektion.';
 
   @override
   String shopActiveLeft(int minutes) {
-    return 'Aktiv · noch $minutes Min';
+    return 'Aktiv · ${minutes}m verbleibend';
   }
 
   @override
@@ -629,10 +673,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get shopActive => 'Aktiv';
 
   @override
-  String get shopDoubleXpActive => 'Doppeltes XP aktiv ✨';
+  String get shopDoubleXpActive => 'Doppelte XP aktiv ✨';
 
   @override
-  String get shopBoostRunning => 'Dein Boost läuft — XP wird verdoppelt.';
+  String get shopBoostRunning => 'Dein Boost läuft — XP werden verdoppelt.';
 
   @override
   String get shopBadgerOutfits => 'Dachs-Outfits';
@@ -645,7 +689,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String paywallGoPro(String price) {
-    return 'Pro werden — $price/Monat';
+    return 'Hole dir Pro — $price/Mo.';
   }
 
   @override
@@ -653,7 +697,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get paywallHero =>
-      'Live-KI-Tutoring, werbefrei und Offline-Lektionen.';
+      'Live-KI-Nachhilfe, werbefrei und Offline-Lektionen.';
 
   @override
   String get paywallAnnual => 'Jährlich';
@@ -662,60 +706,61 @@ class AppLocalizationsDe extends AppLocalizations {
   String get paywallMonthly => 'Monatlich';
 
   @override
-  String get paywallTrialHow => 'So funktioniert die 7-Tage-Testphase';
+  String get paywallTrialHow =>
+      'Wie die 7-tägige kostenlose Testversion funktioniert';
 
   @override
   String get paywallTrialToday => 'Heute';
 
   @override
   String get paywallTrialTodayDesc =>
-      'Voller Pro-Zugang wird freigeschaltet. Keine Kosten.';
+      'Vollständiger Pro-Zugang freigeschaltet. Keine Kosten.';
 
   @override
   String get paywallTrialDay5 => 'Tag 5';
 
   @override
   String get paywallTrialDay5Desc =>
-      'Wir erinnern dich vor Ablauf der Testphase.';
+      'Wir erinnern dich, bevor die Testphase endet.';
 
   @override
   String get paywallTrialDay7 => 'Tag 7';
 
   @override
   String paywallTrialDay7Desc(String price) {
-    return '$price/Jahr beginnt, sofern du nicht kündigst.';
+    return '$price/Jahr beginnt, es sei denn, du kündigst.';
   }
 
   @override
   String get paywallFeatureLiveAi =>
-      'Live-KI: Stimme, Tutor-Chat & Schreib-Feedback';
+      'Live-KI: Sprache, Tutor-Chat & Schreib-Feedback';
 
   @override
-  String get paywallFeatureNoAds => 'Keine Werbung, nirgends';
+  String get paywallFeatureNoAds => 'Keine Werbung, nirgendwo';
 
   @override
   String get paywallFeatureOffline => 'Offline-Lektionen & Audio';
 
   @override
-  String get paywallFeaturePronunciation => 'KI-Tipps zur Aussprache';
+  String get paywallFeaturePronunciation => 'KI-Tipps fürs Aussprache-Coaching';
 
   @override
   String get paywallEverythingFree =>
-      'Alles andere — Audio, Wiederholung, Ligen, Rollenspiel und Aussprache auf dem Gerät — bleibt für alle kostenlos.';
+      'Alles andere — Audio, Wiederholungen, Ligen, Rollenspiele und Aussprache auf dem Gerät — bleibt für alle kostenlos.';
 
   @override
-  String get paywallYouArePro => 'Du hast RATEL PRO';
+  String get paywallYouArePro => 'Du nutzt RATEL PRO';
 
   @override
   String get paywallThanks =>
-      'Danke, dass du Ratel unterstützt. Verwalte oder kündige jederzeit unter Einstellungen → Abo verwalten.';
+      'Danke für deine Unterstützung von Ratel. Du kannst dein Abo jederzeit unter Einstellungen → Abo verwalten verwalten oder kündigen.';
 
   @override
   String get paywallManage => 'Abo verwalten';
 
   @override
   String paywallFinePrint(String regions) {
-    return 'Jederzeit in den Einstellungen kündbar. Preise gelten für $regions; deinen lokalen Preis legt dein App-Store fest.';
+    return 'Jederzeit in den Einstellungen kündbar. Die angezeigten Preise gelten für $regions; dein lokaler Preis wird von deinem App Store festgelegt.';
   }
 
   @override
@@ -734,23 +779,23 @@ class AppLocalizationsDe extends AppLocalizations {
   String get questDescPowerSession => 'Verdiene das Doppelte deines Tagesziels';
 
   @override
-  String get questTitleOnFire => 'In Fahrt';
+  String get questTitleOnFire => 'On fire';
 
   @override
   String get questDescOnFire => 'Verdiene das Dreifache deines Tagesziels';
 
   @override
-  String get questTitleStreakKeeper => 'Serienhüter';
+  String get questTitleStreakKeeper => 'Streak-Retter';
 
   @override
-  String get questDescStreakKeeper => 'Übe heute, um deine Serie zu halten';
+  String get questDescStreakKeeper => 'Übe heute, um deinen Streak zu behalten';
 
   @override
   String get notifTitleLessons1 => 'Erste Lektion abgeschlossen';
 
   @override
   String get notifBodyLessons1 =>
-      'Du hast deine erste Lektion beendet — großartiger Start!';
+      'Du hast deine erste Lektion beendet – ein toller Start!';
 
   @override
   String get notifTitleLessons5 => '5 Lektionen geschafft';
@@ -764,24 +809,24 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get notifBodyLessons10 =>
-      'Zehn Lektionen — du baust eine echte Gewohnheit auf.';
+      'Zehn Lektionen geschafft – du baust eine echte Gewohnheit auf.';
 
   @override
   String get notifTitleLessons25 => '25 Lektionen geschafft';
 
   @override
   String get notifBodyLessons25 =>
-      'Fünfundzwanzig Lektionen abgeschlossen. Beeindruckender Einsatz!';
+      'Fünfundzwanzig Lektionen abgeschlossen. Beeindruckende Hingabe!';
 
   @override
   String get notifTitleLessons50 => '50 Lektionen geschafft';
 
   @override
   String get notifBodyLessons50 =>
-      'Fünfzig Lektionen — du bist auf einem guten Weg.';
+      'Fünfzig Lektionen – du bist auf einem sehr guten Weg.';
 
   @override
-  String get notifTitleStreak3 => '3-Tage-Serie!';
+  String get notifTitleStreak3 => '3-Tage-Streak!';
 
   @override
   String get notifBodyStreak3 => 'Drei Tage in Folge. Beständigkeit ist alles.';
@@ -794,14 +839,14 @@ class AppLocalizationsDe extends AppLocalizations {
       'Eine ganze Woche tägliches Üben. Hervorragend!';
 
   @override
-  String get notifTitleStreak14 => '14-Tage-Serie!';
+  String get notifTitleStreak14 => '14-Tage-Streak!';
 
   @override
   String get notifBodyStreak14 =>
-      'Zwei Wochen am Stück — du bist nicht zu stoppen.';
+      'Zwei Wochen am Stück – du bist unaufhaltsam.';
 
   @override
-  String get notifTitleStreak30 => '30-Tage-Serie!';
+  String get notifTitleStreak30 => '30-Tage-Streak!';
 
   @override
   String get notifBodyStreak30 =>
@@ -811,14 +856,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get notifTitleXp100 => '100 XP verdient';
 
   @override
-  String get notifBodyXp100 => 'Deine ersten hundert XP — der Schwung wächst.';
+  String get notifBodyXp100 => 'Deine ersten hundert XP – du kommst in Fahrt.';
 
   @override
   String get notifTitleXp500 => '500 XP verdient';
 
   @override
-  String get notifBodyXp500 =>
-      'Fünfhundert XP. Du legst dich richtig ins Zeug.';
+  String get notifBodyXp500 => 'Fünfhundert XP. Du hängst dich richtig rein.';
 
   @override
   String get notifTitleXp1000 => '1.000 XP verdient';
@@ -831,38 +875,40 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get notifBodyXp2500 =>
-      'Zweitausendfünfhundert XP — ernsthafter Fortschritt.';
+      'Zweitausendfünfhundert XP – ernsthafter Fortschritt.';
 
   @override
-  String get notifTitleLevel1 => 'Niveau A2 erreicht';
+  String get notifTitleLevel1 => 'Level A2 erreicht';
 
   @override
-  String get notifBodyLevel1 => 'Dein Können wuchs von A1 auf A2. Weiter so!';
+  String get notifBodyLevel1 =>
+      'Deine Fähigkeiten haben sich von A1 auf A2 verbessert. Weiter so!';
 
   @override
-  String get notifTitleLevel2 => 'Niveau B1 erreicht';
+  String get notifTitleLevel2 => 'Level B1 erreicht';
 
   @override
   String get notifBodyLevel2 => 'Du bist jetzt auf mittlerem Niveau (B1).';
 
   @override
-  String get notifTitleLevel3 => 'Niveau B2 erreicht';
+  String get notifTitleLevel3 => 'Level B2 erreicht';
 
   @override
-  String get notifBodyLevel3 => 'Obere Mittelstufe (B2) erreicht. Brillant.';
+  String get notifBodyLevel3 =>
+      'Gehobenes Mittelstufenniveau (B2) erreicht. Brillant.';
 
   @override
-  String get notifTitleLevel4 => 'Niveau C1 erreicht';
+  String get notifTitleLevel4 => 'Level C1 erreicht';
 
   @override
   String get notifBodyLevel4 =>
-      'Fortgeschritten (C1) — dein Englisch ist stark.';
+      'Fortgeschritten (C1) – dein Englisch ist stark.';
 
   @override
-  String get notifTitleLevel5 => 'Niveau C2 erreicht';
+  String get notifTitleLevel5 => 'Level C2 erreicht';
 
   @override
-  String get notifBodyLevel5 => 'Meisterschaft (C2) — die Spitze der Skala!';
+  String get notifBodyLevel5 => 'Meisterschaft (C2) – die Spitze der Skala!';
 
   @override
   String get achTitleFirstSteps => 'Erste Schritte';
@@ -874,13 +920,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get achTitleWildfire => 'Lauffeuer';
 
   @override
-  String get achTitlePointMaker => 'Punktemacher';
+  String get achTitlePointMaker => 'Punktesammler';
 
   @override
   String get achTitleCollector => 'Sammler';
 
   @override
-  String get achTitleRisingStar => 'Aufsteigender Stern';
+  String get achTitleRisingStar => 'Aufgehender Stern';
 
   @override
   String get leagueTierBronze => 'Bronze';
@@ -922,13 +968,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get cefrNameIntermediate => 'Mittelstufe';
 
   @override
-  String get cefrNameUpperIntermediate => 'Obere Mittelstufe';
+  String get cefrNameUpperIntermediate => 'Gehobene Mittelstufe';
 
   @override
   String get cefrNameAdvanced => 'Fortgeschritten';
 
   @override
-  String get cefrNameProficient => 'Exzellent';
+  String get cefrNameProficient => 'Meisterschaft';
 
   @override
   String leaguesTierLeague(String tier) {
@@ -937,7 +983,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String leaguesYoureIn(String tier) {
-    return 'Du bist in $tier · die Top 7 steigen jede Woche auf';
+    return 'Du bist in $tier · die besten 7 steigen jede Woche auf';
   }
 
   @override
@@ -953,7 +999,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get profileRealStateNote =>
-      'Niveau, XP, Lektionen, Serie und gespeicherte Wörter sind echter Engine-Zustand — sie starten bei null auf einem neuen Konto.';
+      'Level, XP, Lektionen, Streak und gespeicherte Wörter sind der echte Engine-Status – sie beginnen bei einem neuen Konto bei null.';
 
   @override
   String get practiceTitle => 'Üben';
@@ -985,20 +1031,21 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String practiceDueForReview(int count) {
-    return '$count fällig zur verteilten Wiederholung';
+    return '$count fällig für verteilte Wiederholung';
   }
 
   @override
-  String get practiceAllUpToDate => 'Alle Wiederholungen aktuell';
+  String get practiceAllUpToDate =>
+      'Alle Wiederholungen sind auf dem neuesten Stand';
 
   @override
   String practiceCaughtUp(String tail) {
-    return 'Alles erledigt — gerade ist nichts fällig$tail.';
+    return 'Alles erledigt – im Moment ist nichts fällig$tail.';
   }
 
   @override
   String practiceNextTail(String when) {
-    return ' · nächste $when';
+    return ' · als Nächstes $when';
   }
 
   @override
@@ -1020,17 +1067,17 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get practiceScheduleNote =>
-      'Wiederholungen plant die echte FSRS-6-Engine für verteilte Wiederholung. Termine gelten für diese Sitzung; das Speichern über Neustarts hinweg ist ein Go-live-Schritt — nichts hier ist erfunden.';
+      'Wiederholungen werden von der echten FSRS-6 Spaced-Repetition-Engine geplant. Fälligkeitsdaten bleiben für diese Sitzung erhalten; sie über Neustarts hinweg zu speichern, ist ein Go-Live-Schritt – hier ist nichts erfunden.';
 
   @override
   String get practiceNoSavedWords => 'Noch keine gespeicherten Wörter';
 
   @override
   String get practiceSaveWordHint =>
-      'Speichere ein Wort während einer Lektion und es landet hier als Karteikarte. Die Wiederholungen plant dann die echte FSRS-Engine — nichts ist vorausgefüllt.';
+      'Speichere ein Wort, während du eine Lektion übst, und es landet hier als Karteikarte. Wiederholungen werden dann von der echten FSRS-Spaced-Repetition-Engine geplant – nichts ist vorausgefüllt.';
 
   @override
-  String get practiceStartLesson => 'Eine Lektion starten';
+  String get practiceStartLesson => 'Lektion starten';
 
   @override
   String practiceWordOf(int n, int total) {
@@ -1038,11 +1085,11 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get practiceShowAnswer => 'Antwort zeigen';
+  String get practiceShowAnswer => 'Antwort anzeigen';
 
   @override
   String get practiceRecallHint =>
-      'Rufe die Bedeutung ab und bewerte dann, wie gut du dich erinnert hast.';
+      'Erinnere dich an die Bedeutung und bewerte dann, wie gut du dich erinnert hast.';
 
   @override
   String get practiceGradeAgain => 'Nochmal';
@@ -1058,7 +1105,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get practiceFsrsGradeNote =>
-      'FSRS-6 plant die nächste Wiederholung nach deiner Bewertung';
+      'FSRS-6 plant die nächste Wiederholung basierend auf deiner Bewertung';
 
   @override
   String get practiceReviewComplete => 'Wiederholung abgeschlossen';
@@ -1068,8 +1115,9 @@ class AppLocalizationsDe extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Du hast $count Wörter wiederholt. FSRS hat sie neu eingeplant.',
-      one: 'Du hast 1 Wort wiederholt. FSRS hat es neu eingeplant.',
+      other:
+          'Du hast $count Wörter wiederholt. Sie werden von FSRS neu geplant.',
+      one: 'Du hast 1 Wort wiederholt. Es wird von FSRS neu geplant.',
     );
     return '$_temp0';
   }
@@ -1087,12 +1135,12 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String practiceRelInHours(int hours) {
-    return 'in $hours Std.';
+    return 'in $hours h';
   }
 
   @override
   String practiceRelInMinutes(int minutes) {
-    return 'in $minutes Min.';
+    return 'in $minutes m';
   }
 
   @override
@@ -1103,6 +1151,824 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get progressYourLevel => 'YOUR LEVEL';
+
+  @override
+  String get progressShareMilestone => 'Meilenstein teilen';
+
+  @override
+  String get progressLast7Days => 'Letzte 7 Tage';
+
+  @override
+  String get progressAccuracyRetention => 'Genauigkeit & Merkfähigkeit';
+
+  @override
+  String get progressHonestyNote =>
+      'Alles hier ist ein realer, aufgezeichneter Status — Level, Fähigkeit, gespeicherte Wörter, XP, Lektionen, Streak, deine 7-Tage-Historie, Genauigkeit und Lernzeit beginnen alle bei null und wachsen, während du lernst. Die Merkfähigkeit ist die vorhergesagte Erinnerung dieser Sitzung (der dauerhafte sitzungsübergreifende Planer ist Live-Verkabelung); nichts ist erfunden.';
+
+  @override
+  String progressShareText(int streak, int xp, int lessons) {
+    return '🦡 RATEL\n🔥 $streak Tage Streak · ⚡ $xp XP · 📘 $lessons Lektionen\nLernen auf learnwithratel.com';
+  }
+
+  @override
+  String get progressShareCopied =>
+      'Meilenstein in die Zwischenablage kopiert — teile ihn überall!';
+
+  @override
+  String progressAbilityLine(String theta) {
+    return 'Können θ $theta · echte Schätzung';
+  }
+
+  @override
+  String get progressStatSavedWords => 'Gespeicherte Wörter';
+
+  @override
+  String get progressStatLessons => 'Lektionen';
+
+  @override
+  String get progressStatDayStreak => 'Tage-Streak';
+
+  @override
+  String get progressStatTotalXp => 'Gesamt-XP';
+
+  @override
+  String get progressStatTodaysXp => 'Heutige XP';
+
+  @override
+  String get progressStatCefrLevel => 'GER-Niveau';
+
+  @override
+  String get progressAccuracy => 'Genauigkeit';
+
+  @override
+  String get progressStudyTime => 'Lernzeit';
+
+  @override
+  String get progressRetention => 'Merkfähigkeit';
+
+  @override
+  String get progressNoData => 'Noch keine Daten';
+
+  @override
+  String get progressAccuracyEmpty =>
+      'Beantworte bewertete Übungen, um zu beginnen';
+
+  @override
+  String progressAccuracyDetail(int correct, int total) {
+    return '$correct von $total richtig';
+  }
+
+  @override
+  String get progressTimeEmpty => 'Hier summiert sich die Zeit in Lektionen';
+
+  @override
+  String get progressTimeDetail => 'über alle deine Lektionen hinweg';
+
+  @override
+  String get progressRetentionEmpty =>
+      'Wiederhole Einträge, um die vorhergesagte Erinnerung zu sehen';
+
+  @override
+  String progressRetentionDetail(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'vorhergesagte 1-Tages-Erinnerung · $count Elemente in dieser Sitzung',
+      one: 'vorhergesagte 1-Tages-Erinnerung · 1 Element in dieser Sitzung',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String progressWeekTotal(int xp) {
+    return '$xp XP · letzte 7 Tage';
+  }
+
+  @override
+  String get progressNoXpYet => 'Noch keine XP aufgezeichnet';
+
+  @override
+  String get progressChartEmptyNote =>
+      'Schließe eine Lektion ab, um deine 7-Tage-Historie zu starten — inaktive Tage bleiben bei null, nichts ist erfunden.';
+
+  @override
+  String get commonDowMon => 'Mo';
+
+  @override
+  String get commonDowTue => 'Di';
+
+  @override
+  String get commonDowWed => 'Mi';
+
+  @override
+  String get commonDowThu => 'Do';
+
+  @override
+  String get commonDowFri => 'Fr';
+
+  @override
+  String get commonDowSat => 'Sa';
+
+  @override
+  String get commonDowSun => 'So';
+
+  @override
+  String get searchTitle => 'Suche';
+
+  @override
+  String get searchHint => 'Suche Lektionen, Wörter, Geschichten …';
+
+  @override
+  String get searchRecent => 'Zuletzt gesucht';
+
+  @override
+  String get searchClear => 'Löschen';
+
+  @override
+  String get searchJumpTo => 'Springe zu';
+
+  @override
+  String get searchTagPage => 'Seite';
+
+  @override
+  String get searchTagWord => 'Wort';
+
+  @override
+  String get searchSubtitleSavedWord => 'Gespeichertes Wort';
+
+  @override
+  String searchLessonSubtitle(String unit) {
+    return '$unit · Lektion';
+  }
+
+  @override
+  String searchNoMatches(String query) {
+    return 'Keine Treffer für „$query“';
+  }
+
+  @override
+  String get searchEmptyNote =>
+      'Durchsucht Titel, Tags und Lektionsinhalte deines Kurses, gespeicherte Wörter und Seiten. Ein Server-Inhaltsindex und Trends sind die verbleibenden R-L12 Fast-Follows — nichts hier ist vorgetäuscht.';
+
+  @override
+  String get searchNoMatchNote =>
+      'Durchsucht deine veröffentlichten Kurs-Lektionen, gespeicherten Wörter und App-Seiten (Titel + Tags). Geschichten/Podcasts und Volltext sind die R-L12 Fast-Follows — niemals vorgetäuscht.';
+
+  @override
+  String get searchFooterNote =>
+      'Titel + Tags zum Start. Volltext, Geschichten/Podcasts und Multi-Kurs-Umfang sind die R-L12 Fast-Follows — niemals vorgetäuscht.';
+
+  @override
+  String get searchDestPracticeHub => 'Übungszentrum';
+
+  @override
+  String get searchDestPracticeHubSub => 'Fehler, schwache Wörter & Übungen';
+
+  @override
+  String get searchDestAiTutor => 'KI-Tutor';
+
+  @override
+  String get searchDestAiTutorSub => 'Sprechen, Chat & Rollenspiel';
+
+  @override
+  String get searchDestAdventures => 'Abenteuer';
+
+  @override
+  String get searchDestAdventuresSub => 'Echte Unterhaltungen — kostenlos';
+
+  @override
+  String get searchDestLeagues => 'Ligen';
+
+  @override
+  String get searchDestLeaguesSub => 'Deine wöchentliche Liga';
+
+  @override
+  String get searchDestQuests => 'Quests';
+
+  @override
+  String get searchDestQuestsSub => 'Tagesziele & Quests';
+
+  @override
+  String get searchDestProgress => 'Fortschritt';
+
+  @override
+  String get searchDestProgressSub => 'Deine Statistiken & dein Streak';
+
+  @override
+  String get searchDestProfile => 'Profil';
+
+  @override
+  String get searchDestProfileSub => 'Dein Profil';
+
+  @override
+  String get searchDestSettings => 'Einstellungen';
+
+  @override
+  String get searchDestSettingsSub => 'Konto & Präferenzen';
+
+  @override
+  String get searchDestShop => 'Shop';
+
+  @override
+  String get searchDestShopSub => 'Gib deine Diamanten aus';
+
+  @override
+  String get searchDestNotifications => 'Benachrichtigungen';
+
+  @override
+  String get searchDestNotificationsSub => 'Dein Meilenstein-Posteingang';
+
+  @override
+  String get themesTitle => 'Themen';
+
+  @override
+  String get themesSubtitle =>
+      'Gestaltet die gesamte App neu — tippen für eine Live-Vorschau';
+
+  @override
+  String themesVehicle(String vehicle) {
+    return 'Fahrzeug · $vehicle';
+  }
+
+  @override
+  String get tutorHeader => 'Übe ein echtes Gespräch';
+
+  @override
+  String get tutorHeaderSub =>
+      'Wähle eine Szene und chatte mit Ratel — keine falschen Antworten, einfach nur Übung.';
+
+  @override
+  String get tutorTalkTitle => 'Mit Ratel sprechen';
+
+  @override
+  String get tutorTalkSub => 'Live-Sprach- & Video-Sprechübungen';
+
+  @override
+  String get tutorChatTitle => 'Chatte mit Ratel';
+
+  @override
+  String get tutorChatSub => 'KI-Chat · Schreib-Feedback';
+
+  @override
+  String get tutorRoleplayTitle => 'Rollenspiel-Szenen';
+
+  @override
+  String get tutorRoleplayGuided => 'Geführte Rollenspiel-Unterhaltungen';
+
+  @override
+  String tutorScenesCount(int count) {
+    return '$count Szenen';
+  }
+
+  @override
+  String get tutorUnlockPro => 'RATEL PRO freischalten';
+
+  @override
+  String get tutorRelayNote =>
+      'Live-KI-Nachhilfe läuft über ein moderiertes, kostenüberwachtes Relay und ist eine RATEL PRO Funktion. Antworten werden niemals simuliert — ein Modus startet erst, wenn sowohl PRO als auch das Relay aktiv sind.';
+
+  @override
+  String get tutorStatusReadyPro =>
+      'PRO aktiv und der Live-Tutor ist verbunden — wähle einen Modus, um zu beginnen.';
+
+  @override
+  String get tutorStatusReadyFree =>
+      'Der Live-Tutor ist verbunden. Live-Nachhilfe ist eine RATEL PRO Funktion.';
+
+  @override
+  String get tutorStatusOffline =>
+      'Der moderierte Live-Tutor ist in diesem Build noch nicht verbunden — Live-Nachhilfe wird in einem späteren Schritt aktiviert. Nichts weiter unten ist simuliert.';
+
+  @override
+  String get tutorAnnounceNeedsPro =>
+      'RATEL PRO schaltet Live-KI-Nachhilfe frei.';
+
+  @override
+  String get tutorAnnounceNeedsRelay =>
+      'KI-Nachhilfe verbindet sich, sobald das moderierte Relay aktiviert ist.';
+
+  @override
+  String get tutorAnnounceStarting => 'Deine Sitzung wird gestartet …';
+
+  @override
+  String get adventuresTitle => 'Abenteuer';
+
+  @override
+  String get adventuresFreeChip => 'KOSTENLOS';
+
+  @override
+  String get adventuresHeaderSub => 'Erkunde eine Welt · rede dich hindurch';
+
+  @override
+  String get adventuresHeroTitle => 'Wähle einen Ort und tauche ein';
+
+  @override
+  String get adventuresHeroSub =>
+      'Jede Szene ist eine echte Unterhaltung — keine falschen Antworten und es ist immer kostenlos.';
+
+  @override
+  String get adventuresFallbackWorld => 'Abenteuer';
+
+  @override
+  String adventureSheetKicker(String cefr) {
+    return '🗺️ ABENTEUER · $cefr';
+  }
+
+  @override
+  String adventureScenesCount(int count) {
+    return '$count Szenen';
+  }
+
+  @override
+  String adventureChoicePoints(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Entscheidungspunkte',
+      one: '$count Entscheidungspunkt',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get adventureOpeningScene => 'ERÖFFNUNGSSZENE';
+
+  @override
+  String get adventureStart => 'Abenteuer starten';
+
+  @override
+  String get adventurePlayerFallbackTitle => 'Abenteuer';
+
+  @override
+  String get adventureTheEnd => '🏁 Das Ende';
+
+  @override
+  String get adventureStartOver => 'Neu starten';
+
+  @override
+  String get adventureDone => 'Fertig';
+
+  @override
+  String get adventureCompleteKicker => 'ABENTEUER ABGESCHLOSSEN';
+
+  @override
+  String adventureCompleteTitle(String title) {
+    return '$title ✓';
+  }
+
+  @override
+  String get adventureCompleteBody =>
+      'Gut gemacht! +15 XP · +5 💎 verdient — erkunde die nächste Szene, wann immer du möchtest.';
+
+  @override
+  String adventureDistrictProgress(int done, int total) {
+    return '$done/$total erkundet';
+  }
+
+  @override
+  String get adventureDistrictDone => '✓ Fertig';
+
+  @override
+  String get adventureDistrictCafe => 'Café & Food';
+
+  @override
+  String get adventureDistrictMarket => 'Market Square';
+
+  @override
+  String get adventureDistrictMove => 'On the Move';
+
+  @override
+  String get adventureDistrictFriends => 'Making Friends';
+
+  @override
+  String get adventuresEmpty => 'Noch keine Abenteuer in diesem Kurs.';
+
+  @override
+  String get authWelcomeTitle => 'Willkommen bei Ratel';
+
+  @override
+  String get authWelcomeSubtitle =>
+      'Lektionen, Geschichten, Podcasts und mehr —\nwähle, wie du anfangen möchtest.';
+
+  @override
+  String get authCreateFreeAccount => 'Kostenloses Konto erstellen';
+
+  @override
+  String get authAlreadyHaveAccount => 'Ich habe schon ein Konto';
+
+  @override
+  String get authSettingUp => 'Wird eingerichtet …';
+
+  @override
+  String get authContinueAsGuest => 'Als Gast fortfahren';
+
+  @override
+  String get authGuestNote =>
+      'Der Gastfortschritt bleibt auf diesem Gerät — erstelle jederzeit in den Einstellungen ein kostenloses Konto, um ihn überall zu behalten.';
+
+  @override
+  String get authEnterYourEmail => 'Gib deine E-Mail-Adresse ein';
+
+  @override
+  String get authEnterValidEmail => 'Gib eine gültige E-Mail-Adresse ein';
+
+  @override
+  String get authEnterYourPassword => 'Gib dein Passwort ein';
+
+  @override
+  String get authCouldNotSignIn =>
+      'Anmeldung fehlgeschlagen. Bitte versuche es erneut.';
+
+  @override
+  String get authSomethingWentWrong =>
+      'Etwas ist schiefgelaufen. Bitte versuche es erneut.';
+
+  @override
+  String get authSocialComingSoon =>
+      'Social Sign-in (Google / Apple) kommt bald.';
+
+  @override
+  String get authResetTitle => 'Setze dein Passwort zurück';
+
+  @override
+  String get authWelcomeBack => 'Willkommen zurück!';
+
+  @override
+  String get authResetSubtitle =>
+      'Gib deine E-Mail-Adresse ein und wir senden dir einen Link zum Zurücksetzen.';
+
+  @override
+  String get authPickUpWhereYouLeft =>
+      'Mache dort weiter, wo du aufgehört hast';
+
+  @override
+  String get authEmailHint => 'E-Mail';
+
+  @override
+  String get authPasswordHint => 'Passwort';
+
+  @override
+  String get authForgotPassword => 'Passwort vergessen?';
+
+  @override
+  String get authSendResetLink => 'Link zum Zurücksetzen senden';
+
+  @override
+  String get authLogIn => 'Anmelden';
+
+  @override
+  String get authBackToLogIn => 'Zurück zur Anmeldung';
+
+  @override
+  String get authNewToRatel => 'Neu bei Ratel? ';
+
+  @override
+  String get authSignUp => 'Registrieren';
+
+  @override
+  String get authCheckYourInbox => 'Überprüfe deinen Posteingang';
+
+  @override
+  String authResetSent(String email) {
+    return 'Wir haben einen Link zum Zurücksetzen des Passworts an $email gesendet. Öffne ihn, um ein neues Passwort zu wählen.';
+  }
+
+  @override
+  String get authCreatePassword => 'Passwort erstellen';
+
+  @override
+  String get authAtLeast8Chars => 'Mindestens 8 Zeichen';
+
+  @override
+  String get authCreateYourAccount => 'Erstelle dein Konto';
+
+  @override
+  String get authSignupSubtitle =>
+      'Für immer kostenlos · lerne Englisch aus 10 Sprachen';
+
+  @override
+  String get authPassword8Hint => 'Passwort (8+ Zeichen)';
+
+  @override
+  String get authCreateAccount => 'Konto erstellen';
+
+  @override
+  String get authAlreadyAccountLead => 'Hast du bereits ein Konto? ';
+
+  @override
+  String get authSignIn => 'Anmelden';
+
+  @override
+  String get authConfirmEmail => 'Bestätige deine E-Mail-Adresse';
+
+  @override
+  String authConfirmSent(String email) {
+    return 'Wir haben einen Bestätigungslink an $email gesendet. Tippe darauf, um dein Konto zu aktivieren, und komme dann zurück, um dich anzumelden.';
+  }
+
+  @override
+  String get authContinueGoogle => 'Weiter mit Google';
+
+  @override
+  String get authContinueApple => 'Weiter mit Apple';
+
+  @override
+  String get authOr => 'oder';
+
+  @override
+  String get authUnavailableNote =>
+      'Konten sind in dieser Version noch nicht verfügbar — du kannst als Gast weiterlernen. Die Anmeldung wird aktiviert, sobald das Backend konfiguriert ist.';
+
+  @override
+  String get liveMute => 'Stummschalten';
+
+  @override
+  String get liveUnmute => 'Stummschaltung aufheben';
+
+  @override
+  String commonDurSeconds(int s) {
+    return '${s}s';
+  }
+
+  @override
+  String commonDurMinutes(int m) {
+    return '${m}m';
+  }
+
+  @override
+  String commonDurHours(int h) {
+    return '${h}h';
+  }
+
+  @override
+  String commonDurHoursMinutes(int h, int m) {
+    return '${h}h ${m}m';
+  }
+
+  @override
+  String practiceGradeInterval(String label, int days) {
+    return '$label · $days T.';
+  }
+
+  @override
+  String settingsGoalPerDay(int goal) {
+    return '$goal XP pro Tag';
+  }
+
+  @override
+  String settingsGoalReachedSub(int goal) {
+    return '$goal XP pro Tag · ✓ heute erreicht';
+  }
+
+  @override
+  String get settingsSoundEffects => 'Soundeffekte';
+
+  @override
+  String get settingsHaptics => 'Haptik';
+
+  @override
+  String get settingsProActive => 'RATEL PRO aktiv';
+
+  @override
+  String get settingsFreePlan => 'Kostenloser Plan';
+
+  @override
+  String get settingsReduceMotion => 'Bewegung reduzieren';
+
+  @override
+  String get settingsReduceMotionSub =>
+      'Hauptschalter — schaltet alle Animationen aus';
+
+  @override
+  String get settingsHighContrast => 'Hoher Kontrast';
+
+  @override
+  String get settingsNotifPush => 'Push-Benachrichtigungen';
+
+  @override
+  String get settingsNotifStreak => 'Streak-Erinnerungen';
+
+  @override
+  String get settingsNotifLeague => 'Liga-Updates';
+
+  @override
+  String get settingsNotifFriend => 'Freundesaktivitäten';
+
+  @override
+  String get settingsNotifFootnote =>
+      'Deine Auswahl ist jetzt gespeichert — die Zustellung wird aktiviert, sobald Push-Benachrichtigungen veröffentlicht werden.';
+
+  @override
+  String get settingsCourse => 'Kurs';
+
+  @override
+  String get settingsTheme => 'Design';
+
+  @override
+  String get settingsWorld => 'Welt';
+
+  @override
+  String get settingsEditProfile => 'Profil bearbeiten';
+
+  @override
+  String get settingsPrivacy => 'Datenschutz & Daten';
+
+  @override
+  String get settingsHelp => 'Hilfe & Support';
+
+  @override
+  String get settingsLogOut => 'Abmelden';
+
+  @override
+  String get settingsGuestSub =>
+      'Du lernst als Gast — registriere dich, um deinen Fortschritt zu speichern';
+
+  @override
+  String settingsCouldNotOpen(String url) {
+    return 'Konnte $url nicht öffnen';
+  }
+
+  @override
+  String get settingsThemeSystem => 'Geräteeinstellung';
+
+  @override
+  String get settingsThemeLight => 'Hell';
+
+  @override
+  String get settingsThemeDark => 'Dunkel';
+
+  @override
+  String get mediaReadAloud => 'Laut vorlesen';
+
+  @override
+  String get mediaTranscript => 'Transkript';
+
+  @override
+  String get mediaCheckUnderstanding => 'Verständnis prüfen';
+
+  @override
+  String mediaChecksCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Verständnisfragen',
+      one: '$count Verständnisfrage',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get mediaLoading => 'Laden…';
+
+  @override
+  String get mediaPause => 'Pause';
+
+  @override
+  String get storiesTitle => 'Geschichten';
+
+  @override
+  String get storiesSub =>
+      'Lesen & Hören — abgestufte Geschichten mit Vorlesefunktion im Browser.';
+
+  @override
+  String get storiesEmpty => 'Noch keine Geschichten in diesem Kurs.';
+
+  @override
+  String get storyFallbackTitle => 'Geschichte';
+
+  @override
+  String get podcastsSub =>
+      'Hören — abgestufte Podcasts mit echtem Audio und einem Transkript.';
+
+  @override
+  String get podcastsEmpty => 'Noch keine Podcasts in diesem Kurs.';
+
+  @override
+  String get podcastFallbackTitle => 'Podcast';
+
+  @override
+  String get podcastPlayEpisode => 'Episode abspielen';
+
+  @override
+  String get watchSub =>
+      'Ansehen -- kurze Clips mit Transkript und Verständnisfragen.';
+
+  @override
+  String get watchEmpty => 'Noch keine Video-Lektionen in diesem Kurs.';
+
+  @override
+  String get watchWebOnly => 'Video wird in der Web-App abgespielt';
+
+  @override
+  String get libraryAdventuresSub =>
+      'Erkunde eine lebendige Welt und sprich dich durch reale Szenen.';
+
+  @override
+  String get roleplaySub =>
+      'Übe echte Unterhaltungen -- wähle die richtige Antwort, erhalte sofortiges Feedback.';
+
+  @override
+  String get roleplayEmpty => 'Noch keine Rollenspiele in diesem Kurs.';
+
+  @override
+  String get roleplayCatEveryday => 'Everyday';
+
+  @override
+  String get roleplayCatTravel => 'Travel';
+
+  @override
+  String get roleplayCatWorkStudy => 'Work & Study';
+
+  @override
+  String get roleplayCatSocial => 'Social';
+
+  @override
+  String get roleplayCatHealth => 'Health';
+
+  @override
+  String get roleplaySearchHint => 'Search scenes…';
+
+  @override
+  String get roleplayYourReply => 'Deine Antwort:';
+
+  @override
+  String get roleplaySceneComplete => '🎉 Szene abgeschlossen!';
+
+  @override
+  String get roleplayBack => 'Zurück zu Rollenspielen';
+
+  @override
+  String get liveRoleplayTitle => 'Live-Rollenspiel';
+
+  @override
+  String get liveRoleplayCardSub => 'Sprich dich aus mit Ratel — echte Stimme';
+
+  @override
+  String get liveIntro =>
+      'Sprich dich aus mit Ratel — Live-Sprachrollenspiel. Wähle eine Szene oder führe einfach ein Gespräch.';
+
+  @override
+  String get liveFreeConversation => 'Freies Gespräch';
+
+  @override
+  String get liveFreeConversationSub => 'Kein Skript — einfach reden';
+
+  @override
+  String get liveRoleplayScene => 'Spiele eine Szene';
+
+  @override
+  String get liveReconnecting => 'Verbindung wird wiederhergestellt…';
+
+  @override
+  String get liveConnectionLost =>
+      'Verbindung unterbrochen — die Live-Sitzung wurde abgebrochen.';
+
+  @override
+  String get liveReconnect => 'Neu verbinden';
+
+  @override
+  String get liveConnecting => 'Verbinde…';
+
+  @override
+  String get liveStartTalking => 'Beginne zu sprechen';
+
+  @override
+  String get liveSceneEndedNote =>
+      'Szene beendet. Starte jederzeit neu — deine Live-Minuten sind budgetiert, niemals still.';
+
+  @override
+  String get liveStartAgain => 'Neu starten';
+
+  @override
+  String get liveProGate =>
+      'Live-Sprachrollenspiele sind ein RATEL PRO-Feature — echte Gespräche, Live-Feedback, kostengeschützte Minuten.';
+
+  @override
+  String get liveUnlockPro => 'RATEL PRO freischalten';
+
+  @override
+  String get liveNotEnabled =>
+      'Live-Sprache ist in dieser Version noch nicht aktiviert — sie wird in einem späteren Schritt freigeschaltet. Nichts hier wird simuliert.';
+
+  @override
+  String get livePhaseIdle =>
+      'Bereit, wenn du es bist — es ist ein echter Live-Anruf.';
+
+  @override
+  String get livePhaseListening => 'Hört zu — du bist dran.';
+
+  @override
+  String get livePhaseSpeaking => 'Ratel spricht — misch dich jederzeit ein.';
+
+  @override
+  String get livePhaseClosed => 'Szene beendet.';
+
+  @override
+  String get liveEndScene => 'Szene beenden';
+
+  @override
+  String get liveYou => 'Du';
 
   @override
   String get liveTutorName => 'Ratel';
@@ -1160,802 +2026,12 @@ class AppLocalizationsDe extends AppLocalizations {
       'This is Ratel’s scripted opener — the greeting, not a live reply.';
 
   @override
-  String get progressShareMilestone => 'Meilenstein teilen';
-
-  @override
-  String get progressLast7Days => 'Letzte 7 Tage';
-
-  @override
-  String get progressAccuracyRetention => 'Genauigkeit & Behalten';
-
-  @override
-  String get progressHonestyNote =>
-      'Alles hier ist echter aufgezeichneter Zustand — Niveau, Können, gespeicherte Wörter, XP, Lektionen, Serie, deine 7-Tage-Historie, Genauigkeit und Lernzeit starten bei null und wachsen beim Lernen. Behalten ist der vorhergesagte Abruf dieser Sitzung (der sitzungsübergreifende Planer ist Go-live-Arbeit); nichts ist erfunden.';
-
-  @override
-  String progressShareText(
-    int streak,
-    int xp,
-    int lessons,
-  ) {
-    return '🦡 RATEL\n🔥 $streak-Tage-Serie · ⚡ $xp XP · 📘 $lessons Lektionen\nLernt auf learnwithratel.com';
-  }
-
-  @override
-  String get progressShareCopied =>
-      'Meilenstein in die Zwischenablage kopiert — teile ihn überall!';
-
-  @override
-  String progressAbilityLine(String theta) {
-    return 'Können θ $theta · echte Schätzung';
-  }
-
-  @override
-  String get progressStatSavedWords => 'Gespeicherte Wörter';
-
-  @override
-  String get progressStatLessons => 'Lektionen';
-
-  @override
-  String get progressStatDayStreak => 'Serientage';
-
-  @override
-  String get progressStatTotalXp => 'Gesamt-XP';
-
-  @override
-  String get progressStatTodaysXp => 'Heutiges XP';
-
-  @override
-  String get progressStatCefrLevel => 'CEFR-Niveau';
-
-  @override
-  String get progressAccuracy => 'Genauigkeit';
-
-  @override
-  String get progressStudyTime => 'Lernzeit';
-
-  @override
-  String get progressRetention => 'Behalten';
-
-  @override
-  String get progressNoData => 'Noch keine Daten';
-
-  @override
-  String get progressAccuracyEmpty =>
-      'Beantworte bewertete Übungen, um zu starten';
-
-  @override
-  String progressAccuracyDetail(int correct, int total) {
-    return '$correct von $total richtig';
-  }
-
-  @override
-  String get progressTimeEmpty => 'Lektionszeit summiert sich hier';
-
-  @override
-  String get progressTimeDetail => 'über alle deine Lektionen';
-
-  @override
-  String get progressRetentionEmpty =>
-      'Wiederhole Einträge, um den vorhergesagten Abruf zu sehen';
-
-  @override
-  String progressRetentionDetail(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: 'vorhergesagter 1-Tages-Abruf · $count Einträge in dieser Sitzung',
-      one: 'vorhergesagter 1-Tages-Abruf · 1 Eintrag in dieser Sitzung',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String progressWeekTotal(int xp) {
-    return '$xp XP · letzte 7 Tage';
-  }
-
-  @override
-  String get progressNoXpYet => 'Noch kein XP erfasst';
-
-  @override
-  String get progressChartEmptyNote =>
-      'Beende eine Lektion, um deine 7-Tage-Historie zu starten — inaktive Tage bleiben bei null, nichts ist erfunden.';
-
-  @override
-  String get commonDowMon => 'Mo';
-
-  @override
-  String get commonDowTue => 'Di';
-
-  @override
-  String get commonDowWed => 'Mi';
-
-  @override
-  String get commonDowThu => 'Do';
-
-  @override
-  String get commonDowFri => 'Fr';
-
-  @override
-  String get commonDowSat => 'Sa';
-
-  @override
-  String get commonDowSun => 'So';
-
-  @override
-  String get searchTitle => 'Suche';
-
-  @override
-  String get searchHint => 'Lektionen, Wörter, Geschichten suchen…';
-
-  @override
-  String get searchRecent => 'Zuletzt';
-
-  @override
-  String get searchClear => 'Löschen';
-
-  @override
-  String get searchJumpTo => 'Springe zu';
-
-  @override
-  String get searchTagPage => 'Seite';
-
-  @override
-  String get searchTagWord => 'Wort';
-
-  @override
-  String get searchSubtitleSavedWord => 'Gespeichertes Wort';
-
-  @override
-  String searchLessonSubtitle(String unit) {
-    return '$unit · Lektion';
-  }
-
-  @override
-  String searchNoMatches(String query) {
-    return 'Keine Treffer für „$query“';
-  }
-
-  @override
-  String get searchEmptyNote =>
-      'Durchsucht Titel, Tags und Lektionsinhalte deines Kurses, gespeicherte Wörter und Seiten. Server-Inhaltsindex und Trends sind der nächste R-L12-Schritt — nichts hier ist vorgetäuscht.';
-
-  @override
-  String get searchNoMatchNote =>
-      'Durchsucht deine veröffentlichten Lektionen, gespeicherte Wörter und App-Seiten (Titel + Tags). Geschichten/Podcasts und Volltext sind der nächste R-L12-Schritt — nie vorgetäuscht.';
-
-  @override
-  String get searchFooterNote =>
-      'Zum Start Titel + Tags. Volltext, Geschichten/Podcasts und Mehrkurs-Suche sind der nächste R-L12-Schritt — nie vorgetäuscht.';
-
-  @override
-  String get searchDestPracticeHub => 'Übungszentrum';
-
-  @override
-  String get searchDestPracticeHubSub => 'Fehler, schwache Wörter & Drills';
-
-  @override
-  String get searchDestAiTutor => 'KI-Tutor';
-
-  @override
-  String get searchDestAiTutorSub => 'Sprechen, chatten & Rollenspiel';
-
-  @override
-  String get searchDestAdventures => 'Abenteuer';
-
-  @override
-  String get searchDestAdventuresSub => 'Echte Gespräche — kostenlos';
-
-  @override
-  String get searchDestLeagues => 'Ligen';
-
-  @override
-  String get searchDestLeaguesSub => 'Deine Wochenliga';
-
-  @override
-  String get searchDestQuests => 'Quests';
-
-  @override
-  String get searchDestQuestsSub => 'Tagesziele & Quests';
-
-  @override
-  String get searchDestProgress => 'Fortschritt';
-
-  @override
-  String get searchDestProgressSub => 'Deine Statistiken & Serie';
-
-  @override
-  String get searchDestProfile => 'Profil';
-
-  @override
-  String get searchDestProfileSub => 'Dein Profil';
-
-  @override
-  String get searchDestSettings => 'Einstellungen';
-
-  @override
-  String get searchDestSettingsSub => 'Konto & Präferenzen';
-
-  @override
-  String get searchDestShop => 'Shop';
-
-  @override
-  String get searchDestShopSub => 'Gib deine Diamanten aus';
-
-  @override
-  String get searchDestNotifications => 'Benachrichtigungen';
-
-  @override
-  String get searchDestNotificationsSub => 'Dein Meilenstein-Posteingang';
-
-  @override
-  String get themesTitle => 'Themen';
-
-  @override
-  String get themesSubtitle =>
-      'Gestaltet die ganze App um — tippe für Live-Vorschau';
-
-  @override
-  String themesVehicle(String vehicle) {
-    return 'Fahrzeug · $vehicle';
-  }
-
-  @override
-  String get tutorHeader => 'Übe ein echtes Gespräch';
-
-  @override
-  String get tutorHeaderSub =>
-      'Wähle eine Szene und chatte mit Ratel — keine falschen Antworten, nur Übung.';
-
-  @override
-  String get tutorTalkTitle => 'Mit Ratel sprechen';
-
-  @override
-  String get tutorTalkSub => 'Live-Sprechtraining mit Stimme & Video';
-
-  @override
-  String get tutorChatTitle => 'Mit Ratel chatten';
-
-  @override
-  String get tutorChatSub => 'KI-Chat · Schreibfeedback';
-
-  @override
-  String get tutorRoleplayTitle => 'Rollenspiel-Szenen';
-
-  @override
-  String get tutorRoleplayGuided => 'Geführte Rollenspiel-Gespräche';
-
-  @override
-  String tutorScenesCount(int count) {
-    return '$count Szenen';
-  }
-
-  @override
-  String get tutorUnlockPro => 'RATEL PRO freischalten';
-
-  @override
-  String get tutorRelayNote =>
-      'Live-KI-Tutoring läuft über ein moderiertes, kostenkontrolliertes Relay und ist eine RATEL-PRO-Funktion. Antworten werden nie simuliert — ein Modus startet erst, wenn PRO und Relay aktiv sind.';
-
-  @override
-  String get tutorStatusReadyPro =>
-      'PRO aktiv und Live-Tutor verbunden — wähle einen Modus zum Start.';
-
-  @override
-  String get tutorStatusReadyFree =>
-      'Der Live-Tutor ist verbunden. Live-Tutoring ist eine RATEL-PRO-Funktion.';
-
-  @override
-  String get tutorStatusOffline =>
-      'Der moderierte Live-Tutor ist in diesem Build noch nicht verbunden — Live-Tutoring folgt in einem späteren Schritt. Nichts unten ist simuliert.';
-
-  @override
-  String get tutorAnnounceNeedsPro =>
-      'RATEL PRO schaltet Live-KI-Tutoring frei.';
-
-  @override
-  String get tutorAnnounceNeedsRelay =>
-      'KI-Tutoring verbindet sich, sobald das moderierte Relay aktiviert ist.';
-
-  @override
-  String get tutorAnnounceStarting => 'Deine Sitzung startet…';
-
-  @override
-  String get adventuresTitle => 'Abenteuer';
-
-  @override
-  String get adventuresFreeChip => 'GRATIS';
-
-  @override
-  String get adventuresHeaderSub => 'Erkunde eine Welt · sprich dich durch';
-
-  @override
-  String get adventuresHeroTitle => 'Such dir einen Ort aus und leg los';
-
-  @override
-  String get adventuresHeroSub =>
-      'Jede Szene ist ein echtes Gespräch — keine falschen Antworten, und immer kostenlos.';
-
-  @override
-  String get adventuresFallbackWorld => 'Abenteuer';
-
-  @override
-  String adventureSheetKicker(String cefr) {
-    return '🗺️ ABENTEUER · $cefr';
-  }
-
-  @override
-  String adventureScenesCount(int count) {
-    return '$count Szenen';
-  }
-
-  @override
-  String adventureChoicePoints(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count Entscheidungspunkte',
-      one: '$count Entscheidungspunkt',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String get adventureOpeningScene => 'ERSTE SZENE';
-
-  @override
-  String get adventureStart => 'Abenteuer starten';
-
-  @override
-  String get adventurePlayerFallbackTitle => 'Abenteuer';
-
-  @override
-  String get adventureTheEnd => '🏁 Ende';
-
-  @override
-  String get adventureStartOver => 'Neu starten';
-
-  @override
-  String get adventureDone => 'Fertig';
-
-  @override
-  String get adventureCompleteKicker => 'ABENTEUER ABGESCHLOSSEN';
-
-  @override
-  String adventureCompleteTitle(String title) {
-    return '$title ✓';
-  }
-
-  @override
-  String get adventureCompleteBody =>
-      'Gut gemacht! +15 XP · +5 💎 verdient — erkunde die nächste Szene, wann immer du willst.';
-
-  @override
-  String adventureDistrictProgress(int done, int total) {
-    return '$done/$total erkundet';
-  }
-
-  @override
-  String get adventureDistrictDone => '✓ Fertig';
-
-  @override
-  String get adventuresEmpty => 'In diesem Kurs gibt es noch keine Abenteuer.';
-
-  @override
-  String get authWelcomeTitle => 'Willkommen bei Ratel';
-
-  @override
-  String get authWelcomeSubtitle =>
-      'Lektionen, Geschichten, Podcasts und mehr —\nwähle, wie du starten willst.';
-
-  @override
-  String get authCreateFreeAccount => 'Kostenloses Konto erstellen';
-
-  @override
-  String get authAlreadyHaveAccount => 'Ich habe schon ein Konto';
-
-  @override
-  String get authSettingUp => 'Wird eingerichtet…';
-
-  @override
-  String get authContinueAsGuest => 'Als Gast fortfahren';
-
-  @override
-  String get authGuestNote =>
-      'Gast-Fortschritt bleibt auf diesem Gerät — erstelle jederzeit in den Einstellungen ein kostenloses Konto, um ihn überall zu behalten.';
-
-  @override
-  String get authEnterYourEmail => 'Gib deine E-Mail ein';
-
-  @override
-  String get authEnterValidEmail => 'Gib eine gültige E-Mail ein';
-
-  @override
-  String get authEnterYourPassword => 'Gib dein Passwort ein';
-
-  @override
-  String get authCouldNotSignIn =>
-      'Anmeldung fehlgeschlagen. Bitte versuch es erneut.';
-
-  @override
-  String get authSomethingWentWrong =>
-      'Etwas ist schiefgelaufen. Bitte versuch es erneut.';
-
-  @override
-  String get authSocialComingSoon => 'Anmeldung mit Google / Apple kommt bald.';
-
-  @override
-  String get authResetTitle => 'Passwort zurücksetzen';
-
-  @override
-  String get authWelcomeBack => 'Willkommen zurück!';
-
-  @override
-  String get authResetSubtitle =>
-      'Gib deine E-Mail ein und wir senden einen Reset-Link.';
-
-  @override
-  String get authPickUpWhereYouLeft => 'Mach da weiter, wo du aufgehört hast';
-
-  @override
-  String get authEmailHint => 'E-Mail';
-
-  @override
-  String get authPasswordHint => 'Passwort';
-
-  @override
-  String get authForgotPassword => 'Passwort vergessen?';
-
-  @override
-  String get authSendResetLink => 'Reset-Link senden';
-
-  @override
-  String get authLogIn => 'Anmelden';
-
-  @override
-  String get authBackToLogIn => 'Zurück zur Anmeldung';
-
-  @override
-  String get authNewToRatel => 'Neu bei Ratel? ';
-
-  @override
-  String get authSignUp => 'Registrieren';
-
-  @override
-  String get authCheckYourInbox => 'Sieh in dein Postfach';
-
-  @override
-  String authResetSent(String email) {
-    return 'Wir haben einen Passwort-Reset-Link an $email gesendet. Öffne ihn, um ein neues Passwort zu wählen.';
-  }
-
-  @override
-  String get authCreatePassword => 'Erstelle ein Passwort';
-
-  @override
-  String get authAtLeast8Chars => 'Mindestens 8 Zeichen';
-
-  @override
-  String get authCreateYourAccount => 'Erstelle dein Konto';
-
-  @override
-  String get authSignupSubtitle =>
-      'Für immer kostenlos · lerne Englisch aus 10 Sprachen';
-
-  @override
-  String get authPassword8Hint => 'Passwort (8+ Zeichen)';
-
-  @override
-  String get authCreateAccount => 'Konto erstellen';
-
-  @override
-  String get authAlreadyAccountLead => 'Schon ein Konto? ';
-
-  @override
-  String get authSignIn => 'Anmelden';
-
-  @override
-  String get authConfirmEmail => 'Bestätige deine E-Mail';
-
-  @override
-  String authConfirmSent(String email) {
-    return 'Wir haben einen Bestätigungslink an $email gesendet. Tippe darauf, um dein Konto zu aktivieren, und melde dich dann an.';
-  }
-
-  @override
-  String get authContinueGoogle => 'Weiter mit Google';
-
-  @override
-  String get authContinueApple => 'Weiter mit Apple';
-
-  @override
-  String get authOr => 'oder';
-
-  @override
-  String get authUnavailableNote =>
-      'Konten sind in diesem Build noch nicht verfügbar — du kannst als Gast weiterlernen. Die Anmeldung wird aktiviert, sobald das Backend konfiguriert ist.';
-
-  @override
-  String get liveMute => 'Stumm';
-
-  @override
-  String get liveUnmute => 'Ton an';
-
-  @override
-  String commonDurSeconds(int s) {
-    return '$s s';
-  }
-
-  @override
-  String commonDurMinutes(int m) {
-    return '$m Min.';
-  }
-
-  @override
-  String commonDurHours(int h) {
-    return '$h Std.';
-  }
-
-  @override
-  String commonDurHoursMinutes(int h, int m) {
-    return '$h Std. $m Min.';
-  }
-
-  @override
-  String practiceGradeInterval(String label, int days) {
-    return '$label · $days T.';
-  }
-
-  @override
-  String settingsGoalPerDay(int goal) {
-    return '$goal XP pro Tag';
-  }
-
-  @override
-  String settingsGoalReachedSub(int goal) {
-    return '$goal XP pro Tag · ✓ heute erreicht';
-  }
-
-  @override
-  String get settingsSoundEffects => 'Soundeffekte';
-
-  @override
-  String get settingsHaptics => 'Haptik';
-
-  @override
-  String get settingsProActive => 'RATEL PRO aktiv';
-
-  @override
-  String get settingsFreePlan => 'Kostenloser Plan';
-
-  @override
-  String get settingsReduceMotion => 'Bewegung reduzieren';
-
-  @override
-  String get settingsReduceMotionSub =>
-      'Hauptschalter — schaltet jede Animation aus';
-
-  @override
-  String get settingsHighContrast => 'Hoher Kontrast';
-
-  @override
-  String get settingsNotifPush => 'Push-Benachrichtigungen';
-
-  @override
-  String get settingsNotifStreak => 'Serien-Erinnerungen';
-
-  @override
-  String get settingsNotifLeague => 'Liga-Updates';
-
-  @override
-  String get settingsNotifFriend => 'Freundes-Aktivität';
-
-  @override
-  String get settingsNotifFootnote =>
-      'Deine Einstellungen sind jetzt gespeichert — die Zustellung wird aktiviert, sobald Push-Benachrichtigungen verfügbar sind.';
-
-  @override
-  String get settingsCourse => 'Kurs';
-
-  @override
-  String get settingsTheme => 'Thema';
-
-  @override
-  String get settingsWorld => 'Welt';
-
-  @override
-  String get settingsEditProfile => 'Profil bearbeiten';
-
-  @override
-  String get settingsPrivacy => 'Datenschutz & Daten';
-
-  @override
-  String get settingsHelp => 'Hilfe & Support';
-
-  @override
-  String get settingsLogOut => 'Abmelden';
-
-  @override
-  String get settingsGuestSub =>
-      'Du lernst als Gast — registriere dich, um deinen Fortschritt zu sichern';
-
-  @override
-  String settingsCouldNotOpen(String url) {
-    return '$url konnte nicht geöffnet werden';
-  }
-
-  @override
-  String get settingsThemeSystem => 'Wie Gerät';
-
-  @override
-  String get settingsThemeLight => 'Hell';
-
-  @override
-  String get settingsThemeDark => 'Dunkel';
-
-  @override
-  String get mediaReadAloud => 'Vorlesen';
-
-  @override
-  String get mediaTranscript => 'Transkript';
-
-  @override
-  String get mediaCheckUnderstanding => 'Verständnis prüfen';
-
-  @override
-  String mediaChecksCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count Verständnisfragen',
-      one: '$count Verständnisfrage',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String get mediaLoading => 'Wird geladen…';
-
-  @override
-  String get mediaPause => 'Pause';
-
-  @override
-  String get storiesTitle => 'Geschichten';
-
-  @override
-  String get storiesSub =>
-      'Lesen & hören — abgestufte Geschichten mit Browser-Vorlesefunktion.';
-
-  @override
-  String get storiesEmpty => 'In diesem Kurs gibt es noch keine Geschichten.';
-
-  @override
-  String get storyFallbackTitle => 'Geschichte';
-
-  @override
-  String get podcastsSub =>
-      'Hören — abgestufte Podcasts mit echtem Audio und Transkript.';
-
-  @override
-  String get podcastsEmpty => 'In diesem Kurs gibt es noch keine Podcasts.';
-
-  @override
-  String get podcastFallbackTitle => 'Podcast';
-
-  @override
-  String get podcastPlayEpisode => 'Folge abspielen';
-
-  @override
-  String get watchSub =>
-      'Ansehen — kurze Clips mit Transkript und Verständnisfragen.';
-
-  @override
-  String get watchEmpty =>
-      'In diesem Kurs gibt es noch keine Ansehen-Lektionen.';
-
-  @override
-  String get watchWebOnly => 'Video läuft in der Web-App';
-
-  @override
-  String get libraryAdventuresSub =>
-      'Erkunde eine lebendige Welt und sprich dich durch echte Szenen.';
-
-  @override
-  String get roleplaySub =>
-      'Übe echte Gespräche — wähle die richtige Antwort, erhalte sofort Feedback.';
-
-  @override
-  String get roleplayEmpty => 'In diesem Kurs gibt es noch keine Rollenspiele.';
-
-  @override
-  String get roleplayYourReply => 'Deine Antwort:';
-
-  @override
-  String get roleplaySceneComplete => '🎉 Szene abgeschlossen!';
-
-  @override
-  String get roleplayBack => 'Zurück zu den Rollenspielen';
-
-  @override
-  String get liveRoleplayTitle => 'Live-Rollenspiel';
-
-  @override
-  String get liveRoleplayCardSub => 'Sprich es mit Ratel durch — echte Stimme';
-
-  @override
-  String get liveIntro =>
-      'Sprich es mit Ratel durch — Live-Sprach-Rollenspiel. Wähle eine Szene oder unterhalte dich einfach.';
-
-  @override
-  String get liveFreeConversation => 'Freies Gespräch';
-
-  @override
-  String get liveFreeConversationSub => 'Kein Skript — einfach reden';
-
-  @override
-  String get liveRoleplayScene => 'Eine Szene spielen';
-
-  @override
-  String get liveReconnecting => 'Verbindung wird wiederhergestellt…';
-
-  @override
-  String get liveConnectionLost =>
-      'Verbindung verloren — die Live-Sitzung wurde getrennt.';
-
-  @override
-  String get liveReconnect => 'Neu verbinden';
-
-  @override
-  String get liveConnecting => 'Verbindung wird hergestellt…';
-
-  @override
-  String get liveStartTalking => 'Losreden';
-
-  @override
-  String get liveSceneEndedNote =>
-      'Szene beendet. Starte neu, wann immer du willst — deine Live-Minuten sind eingeplant, nie ungenutzt.';
-
-  @override
-  String get liveStartAgain => 'Neu starten';
-
-  @override
-  String get liveProGate =>
-      'Live-Sprach-Rollenspiel ist eine RATEL-PRO-Funktion — echtes Gespräch, Live-Feedback, kostengeschützte Minuten.';
-
-  @override
-  String get liveUnlockPro => 'RATEL PRO freischalten';
-
-  @override
-  String get liveNotEnabled =>
-      'Live-Stimme ist in diesem Build noch nicht aktiviert — sie folgt in einem späteren Schritt. Nichts hier ist simuliert.';
-
-  @override
-  String get livePhaseIdle =>
-      'Bereit, wenn du es bist — es ist ein echter Live-Anruf.';
-
-  @override
-  String get livePhaseListening => 'Hört zu — du bist dran.';
-
-  @override
-  String get livePhaseSpeaking => 'Ratel spricht — steig jederzeit ein.';
-
-  @override
-  String get livePhaseClosed => 'Szene beendet.';
-
-  @override
-  String get liveEndScene => 'Szene beenden';
-
-  @override
-  String get liveYou => 'Du';
-
-  @override
   String get liveStartFailed =>
-      'Die Live-Sitzung konnte nicht gestartet werden — versuch es erneut.';
+      'Die Live-Sitzung konnte nicht gestartet werden — versuche es erneut.';
 
   @override
   String get friendsHandleInvalid =>
-      'Gib einen Handle wie @mia ein (2–20 Buchstaben, Zahlen, _).';
+      'Gib ein Handle wie @mia ein (2–20 Buchstaben, Zahlen, _).';
 
   @override
   String friendsAlreadyConnected(String handle) {
@@ -1972,17 +2048,17 @@ class AppLocalizationsDe extends AppLocalizations {
   String get friendsPending => 'Ausstehend';
 
   @override
-  String get friendsActivity => 'Freundes-Aktivität';
+  String get friendsActivity => 'Freundesaktivität';
 
   @override
   String get friendsFootnote =>
-      'Dein soziales Netzwerk ist echt und privat für dich. Freundschaftsanfragen werden zugestellt und „hat dich überholt“ erscheint, sobald das dauerhafte nutzerübergreifende Netzwerk aktiv ist — derselbe Go-live-Schritt wie bei jedem anderen dauerhaften Zähler. Nichts hier ist gefälscht.';
+      'Dein Social Graph ist echt und für dich privat. Freundschaftsanfragen werden zugestellt und \"hat dich überholt\" wird angezeigt, sobald der dauerhafte benutzerübergreifende Graph live geht — derselbe Live-Gang wie bei jedem anderen dauerhaften Zähler. Nichts hier ist vorgetäuscht.';
 
   @override
   String get friendsAddHint => 'Füge einen Freund per @handle hinzu…';
 
   @override
-  String get friendsAccept => 'Annehmen';
+  String get friendsAccept => 'Akzeptieren';
 
   @override
   String friendsXpThisWeek(String handle, String xp) {
@@ -2009,10 +2085,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get friendsEmptyBody =>
-      'Füge jemanden per @handle hinzu, um Fortschritte zu teilen.';
+      'Füge jemanden über sein @handle hinzu, um Fortschritte zu teilen.';
 
   @override
-  String get profileLearner => 'Lernende:r';
+  String get profileLearner => 'Lernender';
 
   @override
   String get profileGuest => 'Gast';
@@ -2026,28 +2102,51 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get editProfileSignInForHandle =>
-      'Name gespeichert. Melde dich an, um deinen @handle zu sichern.';
+      'Name gespeichert. Melde dich an, um dein @handle zu beanspruchen.';
 
   @override
   String get editProfileHandleFailed =>
-      'Dieser @handle konnte nicht festgelegt werden.';
+      'Dieses @handle konnte nicht festgelegt werden.';
 
   @override
   String get editProfileDisplayName => 'Anzeigename';
 
   @override
-  String get editProfileNameHint => 'Wie sollen wir dich ansprechen?';
+  String get editProfileNameHint => 'Wie sollen wir dich nennen?';
 
   @override
   String get editProfileNameNote =>
-      'Wird in deinem Profil angezeigt. Auf diesem Gerät gespeichert — synchronisiert mit deinem Konto, wenn du dich anmeldest.';
+      'Wird in deinem Profil angezeigt. Auf diesem Gerät gespeichert — es wird mit deinem Konto synchronisiert, wenn du dich anmeldest.';
 
   @override
   String get editProfileHandle => 'Dein @handle';
 
   @override
   String get editProfileHandleNote =>
-      'Andere Lernende fügen dich per @handle hinzu (2–20 Buchstaben, Zahlen oder _). Zum Sichern musst du angemeldet sein.';
+      'Andere Lernende fügen dich über dein @handle hinzu (2–20 Buchstaben, Zahlen oder _). Um es zu beanspruchen, musst du angemeldet sein.';
+
+  @override
+  String get editProfileAvatar => 'Avatar';
+
+  @override
+  String get editProfileChangeAvatar => 'Change avatar';
+
+  @override
+  String get editProfileAvatarTitle => 'Choose your avatar';
+
+  @override
+  String get editProfileAvatarNote =>
+      'Pick an emoji badger buddy. Saved on this device.';
+
+  @override
+  String get editProfileBio => 'Bio';
+
+  @override
+  String get editProfileBioHint => 'A short line about you';
+
+  @override
+  String get editProfileBioNote =>
+      'A short note shown on your profile. Saved on this device.';
 
   @override
   String get commonSave => 'Speichern';
@@ -2065,14 +2164,14 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String feedDayStreak(int count) {
-    return '$count-Tage-Serie';
+    return '$count-Tage-Streak';
   }
 
   @override
   String get feedPassedYou => 'hat dich in deiner Liga überholt';
 
   @override
-  String get leaguesSoloCaption => 'diese Woche · Einzelgruppe';
+  String get leaguesSoloCaption => 'diese Woche · Solo-Gruppe';
 
   @override
   String leaguesXpToRank(int xp, int rank) {
@@ -2084,7 +2183,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get leaguesSoloNote =>
-      'Du bist diese Woche die/der einzige Lernende in deiner Gruppe. Echte Rivalen kommen dazu, während Ratel wächst — keine Bots, keine falschen Ranglisten. Sammle weiter XP, um bereit zu sein, wenn die Woche neu startet.';
+      'Du bist diese Woche der einzige Lernende in deiner Gruppe. Echte Rivalen kommen hinzu, während Ratel wächst — keine Bots, keine gefälschten Bestenlisten. Verdiene weiter XP, um bereit zum Aufsteigen zu sein, wenn die Woche zurückgesetzt wird.';
 
   @override
   String questsGoalLine(int today, int goal) {
@@ -2124,7 +2223,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get worldLabelForest => 'Wald';
 
   @override
-  String get worldVehicleForest => 'Blättergleiter';
+  String get worldVehicleForest => 'Blattgleiter';
 
   @override
   String get worldLabelCandy => 'Süßigkeiten';
@@ -2133,10 +2232,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get worldVehicleCandy => 'Ballon';
 
   @override
-  String get worldLabelNeon => 'Neon-Stadt';
+  String get worldLabelNeon => 'Neonstadt';
 
   @override
-  String get worldVehicleNeon => 'Schwebe-Bike';
+  String get worldVehicleNeon => 'Hoverbike';
 
   @override
   String get worldLabelStorm => 'Regensturm';
@@ -2154,7 +2253,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get worldLabelSakura => 'Kirschblüte';
 
   @override
-  String get worldVehicleSakura => 'Blütendrache';
+  String get worldVehicleSakura => 'Blütendrachen';
 
   @override
   String get worldLabelAutumn => 'Herbst';
@@ -2172,7 +2271,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get worldLabelVolcano => 'Vulkan';
 
   @override
-  String get worldVehicleVolcano => 'Magmabrett';
+  String get worldVehicleVolcano => 'Magmaboard';
 
   @override
   String get worldLabelSunset => 'Sonnenuntergang';
@@ -2190,7 +2289,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get worldLabelReef => 'Korallenriff';
 
   @override
-  String get worldVehicleReef => 'Glasboot';
+  String get worldVehicleReef => 'Glasbodenboot';
 
   @override
   String get worldLabelMeadow => 'Wiese';
@@ -2202,10 +2301,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get worldLabelDawn => 'Morgengrauen';
 
   @override
-  String get worldVehicleDawn => 'Himmelsballon';
+  String get worldVehicleDawn => 'Heißluftballon';
 
   @override
-  String get worldLabelBeach => 'Tropenstrand';
+  String get worldLabelBeach => 'Tropischer Strand';
 
   @override
   String get worldVehicleBeach => 'Katamaran';
@@ -2220,22 +2319,22 @@ class AppLocalizationsDe extends AppLocalizations {
   String get worldLabelJungle => 'Regenwald';
 
   @override
-  String get worldVehicleJungle => 'Seilrutsche';
+  String get worldVehicleJungle => 'Zipline';
 
   @override
   String get worldLabelCyberrain => 'Cyber-Regen';
 
   @override
-  String get worldVehicleCyberrain => 'Schwebe-Bike';
+  String get worldVehicleCyberrain => 'Hoverbike';
 
   @override
   String get worldLabelAbyss => 'Tiefsee';
 
   @override
-  String get worldVehicleAbyss => 'Tauchkugel';
+  String get worldVehicleAbyss => 'Bathysphäre';
 
   @override
-  String get worldLabelAlpine => 'Alpen';
+  String get worldLabelAlpine => 'Alpin';
 
   @override
   String get worldVehicleAlpine => 'Seilbahn';
@@ -2265,7 +2364,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get worldVehicleThunder => 'Sturmjäger';
 
   @override
-  String get worldLabelNebula => 'Nebel';
+  String get worldLabelNebula => 'Sternennebel';
 
   @override
   String get worldVehicleNebula => 'Sternenkreuzer';
@@ -2277,7 +2376,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get worldVehicleSandstorm => 'Karawane';
 
   @override
-  String get worldLabelCherrynight => 'Kirschnacht';
+  String get worldLabelCherrynight => 'Kirschblütennacht';
 
   @override
   String get worldVehicleCherrynight => 'Papierlaterne';
@@ -2287,11 +2386,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get shopDiamondsNote =>
-      'Ein Aufladen mit echtem Geld für 💎 kommt bald. Diamanten verdienst du, indem du Lektionen abschließt und dein Tagesziel erreichst, und jedes Power-up hier gibt sie wirklich aus — nichts ist gefälscht.';
+      'Eine Echtgeld-💎-Aufladung kommt bald. Diamanten verdienst du, indem du Lektionen abschließt und dein Tagesziel erreichst, und jedes Power-up hier kostet echte Diamanten — nichts ist gefälscht.';
 
   @override
   String get shopProBannerSub =>
-      'Live-KI, werbefrei, offline · 7 Tage gratis testen';
+      'Live-KI, keine Werbung, offline · 7 Tage kostenlos testen';
 
   @override
   String get shopYourDiamonds => 'Deine Diamanten';
@@ -2327,7 +2426,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String paywallAnnualLine(String annual, String perMonth) {
-    return '$annual/Jahr  ·  $perMonth/Monat  ·  7 Tage gratis';
+    return '$annual/Jahr  ·  $perMonth/Monat  ·  7 Tage kostenlos';
   }
 
   @override
@@ -2344,21 +2443,21 @@ class AppLocalizationsDe extends AppLocalizations {
   String get paywallIncluded => 'Was in Pro enthalten ist';
 
   @override
-  String get paywallTerms => 'AGB';
+  String get paywallTerms => 'Nutzungsbedingungen';
 
   @override
   String get paywallPrivacy => 'Datenschutz';
 
   @override
   String get paywallNothingToRestore =>
-      'Nichts wiederherzustellen — die Abrechnung ist in diesem Build noch nicht aktiv.';
+      'Nichts zum Wiederherstellen — die Abrechnung ist in diesem Build noch nicht aktiv.';
 
   @override
   String get contentUnavailableTitle => 'Inhalt nicht verfügbar';
 
   @override
   String contentUnavailableBody(String noun) {
-    return 'Diese/r $noun ist gerade nicht verfügbar. Falls du offline bist, prüfe deine Verbindung und versuch es erneut.';
+    return 'Dieser Inhalt ($noun) ist im Moment nicht verfügbar. Wenn du offline bist, überprüfe deine Verbindung und versuche es erneut.';
   }
 
   @override
@@ -2377,7 +2476,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get contentNounRoleplay => 'Rollenspiel';
 
   @override
-  String get commonGoBack => 'Zurück';
+  String get commonGoBack => 'Zurückgehen';
 
   @override
   String get placementTitle => 'Einstufungstest';
@@ -2392,11 +2491,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String placementResultBody(int count, String level) {
-    return 'Basierend auf $count Fragen haben wir dich bei $level eingestuft. Du kannst das später jederzeit anpassen.';
+    return 'Basierend auf $count Fragen haben wir dich auf $level eingestuft. Du kannst das später jederzeit anpassen.';
   }
 
   @override
-  String get lessonTypedNote => 'Tippe deine Antwort in der Zielsprache.';
+  String get lessonTypedNote => 'Tippe deine Antwort in der Zielsprache ein.';
 
   @override
   String lessonHintMinWords(int count) {
@@ -2405,11 +2504,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String lessonHintUseWords(String words) {
-    return 'benutze: $words';
+    return 'verwende: $words';
   }
 
   @override
-  String get lessonHintEndPunct => 'ende mit . ! oder ?';
+  String get lessonHintEndPunct => 'beende mit . ! oder ?';
 
   @override
   String get lessonPlayAudio => 'Audio abspielen';
@@ -2418,14 +2517,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String get lessonPlaySlowly => 'Langsam abspielen';
 
   @override
-  String get lessonAudioUnavailable => 'Audio nicht verfügbar — lies den Text.';
+  String get lessonAudioUnavailable =>
+      'Audio nicht verfügbar — lies die Aufgabenstellung.';
 
   @override
   String get lessonPlaybackSpeed => 'Wiedergabegeschwindigkeit';
 
   @override
   String get authAccountsUnavailable =>
-      'Konten sind in diesem Build noch nicht verfügbar — lerne einfach als Gast weiter.';
+      'Konten sind in diesem Build noch nicht verfügbar — lerne als Gast weiter.';
 
   @override
   String get liveNotEnabledShort =>
@@ -2436,7 +2536,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'Mikrofon nicht verfügbar — erlaube den Mikrofonzugriff, um mit dem Tutor zu sprechen.';
 
   @override
-  String get liveUnavailable => 'Live-KI ist gerade nicht verfügbar.';
+  String get liveUnavailable => 'Live-KI ist im Moment nicht verfügbar.';
 
   @override
   String get liveNeedsPro => 'Live-KI ist Teil von RATEL PRO.';
@@ -2447,30 +2547,30 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get commonNetworkError =>
-      'Server nicht erreichbar. Versuch es erneut.';
+      'Server konnte nicht erreicht werden. Versuche es erneut.';
 
   @override
-  String get friendsHandleTaken => 'Dieser @handle ist schon vergeben.';
+  String get friendsHandleTaken => 'Dieses @handle ist bereits vergeben.';
 
   @override
   String get friendsHandleFormat =>
-      'Verwende 2–20 Buchstaben, Zahlen oder _ für deinen Handle.';
+      'Verwende 2–20 Buchstaben, Zahlen oder _ für dein @handle.';
 
   @override
   String get friendsSignInForHandle =>
-      'Melde dich an, um deinen @handle zu sichern.';
+      'Melde dich an, um dir dein @handle zu sichern.';
 
   @override
   String get friendsSetOwnHandleFirst =>
-      'Lege zuerst deinen eigenen @handle fest (Profil bearbeiten).';
+      'Lege zuerst dein eigenes @handle fest (Profil bearbeiten).';
 
   @override
   String get paywallCheckoutUnavailable =>
-      'Checkout folgt zum Launch — die Abrechnung ist in diesem Build noch nicht aktiv.';
+      'Die Kasse öffnet beim Start — die Store-Abrechnung ist in diesem Build noch nicht aktiv.';
 
   @override
   String get settingsManageUnavailable =>
-      'Verwalte oder kündige in den Abo-Einstellungen deines Geräts — die App-Verknüpfung folgt zum Launch.';
+      'Verwalte oder kündige in den Abonnement-Einstellungen deines Geräts — die In-App-Verknüpfung öffnet sich beim Start.';
 
   @override
   String get friendsAdd => 'Hinzufügen';
@@ -2580,59 +2680,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get practiceBackToHub => 'Back to Practice';
 
   @override
-  String get roleplayCatEveryday => 'Everyday';
-
-  @override
-  String get roleplayCatTravel => 'Travel';
-
-  @override
-  String get roleplayCatWorkStudy => 'Work & Study';
-
-  @override
-  String get roleplayCatSocial => 'Social';
-
-  @override
-  String get roleplayCatHealth => 'Health';
-
-  @override
-  String get roleplaySearchHint => 'Search scenes…';
-
-  @override
-  String get adventureDistrictCafe => 'Café & Food';
-
-  @override
-  String get adventureDistrictMarket => 'Market Square';
-
-  @override
-  String get adventureDistrictMove => 'On the Move';
-
-  @override
-  String get adventureDistrictFriends => 'Making Friends';
-
-  @override
-  String get editProfileAvatar => 'Avatar';
-
-  @override
-  String get editProfileChangeAvatar => 'Change avatar';
-
-  @override
-  String get editProfileAvatarTitle => 'Choose your avatar';
-
-  @override
-  String get editProfileAvatarNote =>
-      'Pick an emoji badger buddy. Saved on this device.';
-
-  @override
-  String get editProfileBio => 'Bio';
-
-  @override
-  String get editProfileBioHint => 'A short line about you';
-
-  @override
-  String get editProfileBioNote =>
-      'A short note shown on your profile. Saved on this device.';
-
-  @override
   String get streakTitle => 'Streak';
 
   @override
@@ -2680,7 +2727,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get streakHonestNote =>
-      'Your day count and freezes are your real numbers. RATEL does not show a day-by-day calendar here because it does not yet keep a per-day activity log — nothing is invented.';
+      'Your day count and freezes are your real numbers. Active days are days you earned XP — nothing is invented.';
 
   @override
   String get energyTitle => 'Energy';

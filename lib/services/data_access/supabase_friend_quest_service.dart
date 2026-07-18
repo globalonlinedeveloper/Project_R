@@ -86,4 +86,7 @@ class SupabaseFriendQuestService implements FriendQuestService {
       return null;
     }
   }
+
+  @override
+  bool get isAvailable => true;
 }

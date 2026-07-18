@@ -4,6 +4,9 @@ import 'package:ratel/app/app_providers.dart';
 import 'package:ratel/services/quests/quests.dart';
 import 'package:ratel/features/friends/friends_controller.dart';
 import 'package:ratel/services/social/friends.dart';
+import 'package:ratel/services/social/friend_quest.dart';
+import 'package:ratel/services/social/friend_quest_service.dart';
+import 'package:ratel/services/identity/identity.dart';
 
 /// Bridges the REAL learner state + the chosen daily goal to the pure
 /// [QuestsEngine] (design spec §4.4 [R-I7]). Recomputes whenever the learner's
@@ -70,3 +73,44 @@ final friendQuestProvider = Provider<FriendQuestView?>((ref) {
     friendWeeklyXp: rival.weeklyXp,
   );
 });
+
+
+/// INC-QF2: the signed-in user's stable id (`auth.uid()`), or null for a guest.
+/// The co-op tile needs it to resolve the partner + my own contribution from a
+/// seat-relative [FriendQuest].
+final currentUidProvider =
+    Provider<String?>((ref) => ref.watch(identityProvider).uid);
+
+/// INC-QF2: whether a real co-op friend-quest backend is wired. Honest false
+/// for guests / friends-off ⇒ the co-op surface stays hidden (never fabricated).
+final coopServiceAvailableProvider =
+    Provider<bool>((ref) => ref.watch(friendQuestServiceProvider).isAvailable);
+
+/// INC-QF2: the caller's co-op friend-quests (pending / active / completed),
+/// live from the SECURITY DEFINER RPCs. FutureProvider so the tile stays silent
+/// while loading and degrades to the honest coming-soon on error. Progress is
+/// SERVER-derived — this client only displays it.
+final coopFriendQuestsProvider = FutureProvider<List<FriendQuest>>(
+    (ref) async => ref.watch(friendQuestServiceProvider).list());
+
+/// INC-QF2: pick the ONE co-op quest to surface for [myUid] from [all] — an
+/// ACTIVE quest first, else an INCOMING invite (I am the partner), else an
+/// OUTGOING invite (I created it), else null. Pure + testable; completed quests
+/// are intentionally NOT surfaced here (the live tile shows live quests only).
+FriendQuest? pickCoopQuest(List<FriendQuest> all, String myUid) {
+  FriendQuest? active;
+  FriendQuest? incoming;
+  FriendQuest? outgoing;
+  for (final FriendQuest q in all) {
+    if (q.isActive) {
+      active ??= q;
+    } else if (q.isPending) {
+      if (q.partnerId == myUid) {
+        incoming ??= q;
+      } else if (q.creatorId == myUid) {
+        outgoing ??= q;
+      }
+    }
+  }
+  return active ?? incoming ?? outgoing;
+}
